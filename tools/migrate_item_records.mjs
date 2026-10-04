@@ -1,23 +1,68 @@
 // Offline, explicit-file migration. Inputs are never overwritten.
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
+import { accessSync, constants, cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync,
+    readFileSync, realpathSync, renameSync, writeFileSync } from 'node:fs';
 import { basename, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:net';
 import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
-import { migrationPaths } from './tests/cloth_canonical.mjs';
+import { migrationPaths as clothPaths } from './tests/cloth_canonical.mjs';
+import { migrationPaths as bootsPaths, baseline as bootsBaseline } from './tests/boots_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const fields = { backpack: 'my_depot', shop: 'dbase', legacy_bags: 'save_dbase' };
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const inside = (base, file) => { const path = relative(base, file); return path && !isAbsolute(path) && path !== '..' && !path.startsWith('..' + sep); };
 
-export async function migrateClothRecords(manifestPath, driver, output) {
+export function discoverBackup(backupRoot) {
+    const input = realpathSync(backupRoot);
+    const files = [];
+    const visit = (directory, kind) => {
+        const info = lstatSync(directory);
+        if (info.isSymbolicLink() || !info.isDirectory()) throw new Error('Expected an ordinary backup directory: ' + directory);
+        for (const name of readdirSync(directory).sort()) {
+            const path = join(directory, name), stat = lstatSync(path);
+            if (stat.isSymbolicLink()) throw new Error('Incomplete backup scope: link at ' + path);
+            if (stat.isDirectory()) visit(path, kind);
+            else if (name.endsWith('.o')) {
+                if (!stat.isFile()) throw new Error('Expected a regular record: ' + path);
+                accessSync(path, constants.R_OK);
+                files.push({ file: relative(input, path).split(sep).join('/'), kind });
+            }
+        }
+    };
+    // No default root, no traversal of other data, no record body reads here.
+    visit(join(input, 'user'), 'backpack');
+    visit(join(input, 'shop'), 'shop');
+    files.sort((a, b) => a.file < b.file ? -1 : a.file > b.file ? 1 : 0);
+    return { input, manifest: { files } };
+}
+
+export function writeBackupManifest(backupRoot, target) {
+    const { input, manifest } = discoverBackup(backupRoot);
+    target = resolve(target);
+    if (realpathSync(dirname(target)) !== input)
+        throw new Error('Save the manifest directly in the backup root; entries are relative to that directory');
+    writeFileSync(target, JSON.stringify(manifest, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+    return { mode: 'manifest', status: 'paths_only', input_mode: 'backup_root', input,
+        manifest: target, discovered_files: manifest.files.length, checked_files: 0 };
+}
+
+export async function migrateItemRecords(manifestPath, driver, output) {
     manifestPath = realpathSync(manifestPath);
     const input = dirname(manifestPath);
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-    if (!Array.isArray(manifest.files) || !manifest.files.length) throw new Error('manifest.files must list backup records');
+    return convertRecords(manifest, input, driver, output, 'manifest');
+}
+
+export async function migrateBackupRecords(backupRoot, driver, output) {
+    const { input, manifest } = discoverBackup(backupRoot);
+    return convertRecords(manifest, input, driver, output, 'backup_root');
+}
+
+async function convertRecords(manifest, input, driver, output, inputMode) {
+    if (!manifest || !Array.isArray(manifest.files)) throw new Error('manifest.files must list backup records');
     if (output) {
         output = resolve(output);
         output = join(realpathSync(dirname(output)), basename(output));
@@ -26,12 +71,13 @@ export async function migrateClothRecords(manifestPath, driver, output) {
     }
     const seen = new Set();
     const files = manifest.files.map(entry => {
-        if (!Object.hasOwn(fields, entry.kind) || typeof entry.file !== 'string' || !entry.file.endsWith('.o'))
+        if (!entry || !Object.hasOwn(fields, entry.kind) || typeof entry.file !== 'string' || !entry.file.endsWith('.o'))
             throw new Error('Each entry needs kind=backpack/shop/legacy_bags and a relative .o file');
         if (isAbsolute(entry.file) || entry.file.includes('\\') || entry.file.split('/').includes('..'))
             throw new Error('Use relative forward-slash paths within the backup directory');
         const path = realpathSync(resolve(input, entry.file));
         if (!inside(input, path) || seen.has(path)) throw new Error('Outside backup tree or duplicate file: ' + entry.file);
+        if (!lstatSync(path).isFile()) throw new Error('Expected a regular record: ' + entry.file);
         seen.add(path);
         if (entry.kind === 'legacy_bags' && (!Array.isArray(entry.bag_objects) || !entry.bag_objects.length ||
             entry.bag_objects.some(key => typeof key !== 'string' || !key.startsWith('/'))))
@@ -44,9 +90,9 @@ export async function migrateClothRecords(manifestPath, driver, output) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = migrationPaths();
+    const paths = { ...clothPaths(), ...bootsPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
-    const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-migration-'));
+    const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
     mkdirSync(join(sandbox, 'include'));
     for (const file of ['cloth_records.lpc', 'cloth_master.lpc'])
@@ -61,7 +107,7 @@ export async function migrateClothRecords(manifestPath, driver, output) {
     const port = socket.address().port;
     await new Promise(done => socket.close(done));
     writeFileSync(join(sandbox, 'driver.cfg'), [
-        'name : Offline Cloth Migration', 'mud ip : 127.0.0.1', 'port number : ' + port,
+        'name : Offline Item Migration', 'mud ip : 127.0.0.1', 'port number : ' + port,
         'mudlib directory : ' + sandbox.replaceAll('\\', '/'), 'log directory : /log',
         'debug log file : debug.log', 'master file : /cloth_master', 'simulated efun file : /sefun',
         'include directories : /include', 'global include file : <globals.h>',
@@ -85,7 +131,9 @@ export async function migrateClothRecords(manifestPath, driver, output) {
     }
     const results = JSON.parse(readFileSync(join(sandbox, 'result.json'), 'utf8'));
     if (results.length !== files.length) throw new Error('Incomplete conversion result');
-    const report = { mode: output ? 'copy' : 'preview', baseline: baseline.baseline, sandbox, files: [] };
+    const report = { mode: output ? 'copy' : 'preview', status: 'checked',
+        input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o'] : 'listed_files_only',
+        baseline: baseline.baseline, boots_baseline: bootsBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')
@@ -101,20 +149,29 @@ export async function migrateClothRecords(manifestPath, driver, output) {
             before_sha256: hash(file.bytes), after_sha256: hash(bytes) });
         return bytes;
     });
+    report.checked_files = files.length;
+    report.affected_files = report.files.filter(file => file.changes > 0).length;
+    report.changes = report.files.reduce((count, file) => count + file.changes, 0);
+    report.conclusion = !files.length ? 'empty_scope' : report.changes ? 'changes_required' : 'no_changes_in_checked_scope';
     // Detect input changes before publishing any output. Backups are byte-exact.
     for (const file of files)
         if (hash(readFileSync(file.path)) !== hash(file.bytes)) throw new Error('Input changed during conversion');
     if (output) {
-        mkdirSync(output, { mode: 0o700 });
+        // Publish only the complete copy. An I/O failure leaves a non-published staging directory.
+        const staging = mkdtempSync(join(dirname(output), '.item-migration-'));
+        mkdirSync(join(staging, 'backup'), { mode: 0o700 });
+        mkdirSync(join(staging, 'converted'), { mode: 0o700 });
         for (let i = 0; i < files.length; i++) {
             for (const [directory, bytes] of [['backup', files[i].bytes], ['converted', converted[i]]]) {
-                const path = join(output, directory, files[i].entry.file);
+                const path = join(staging, directory, files[i].entry.file);
                 mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
                 writeFileSync(path, bytes, { flag: 'wx', mode: 0o600 });
             }
         }
-        writeFileSync(join(output, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
-        writeFileSync(join(output, 'report.json'), JSON.stringify(report, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+        writeFileSync(join(staging, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+        writeFileSync(join(staging, 'report.json'), JSON.stringify(report, null, 2) + '\n', { flag: 'wx', mode: 0o600 });
+        if (existsSync(output)) throw new Error('Output appeared during conversion; not overwritten');
+        renameSync(staging, output);
     }
     return report;
 }
@@ -122,18 +179,31 @@ export async function migrateClothRecords(manifestPath, driver, output) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
     const args = process.argv.slice(2);
     if (!args.length || args.includes('--help')) {
-        console.log('node tools/migrate_cloth_records.mjs --manifest <backup/manifest.json> [--driver bin/driver.exe] [--output <new-directory>]');
-        console.log('默认只预览。显式 --output 才产生 backup/ 与 converted/，从不覆盖输入或操作正式服。');
+        console.log('node tools/migrate_item_records.mjs (--backup-root <backup> | --manifest <backup/manifest.json>) [--driver bin/driver.exe] [--output <new-directory>]');
+        console.log('node tools/migrate_item_records.mjs --backup-root <backup> --write-manifest <backup/manifest.json>');
+        console.log('备份根目录须含 user/ 和 shop/；不扫描其他目录。默认预览，显式 --output 才产生全新副本。');
+        console.log('--write-manifest 仅枚举路径，清单须放备份根目录：不读正文、不启动驱动，不代表内容检查。');
+        console.log('checked_files/affected_files/changes 分别表示检查数、受影响文件数、路径字段变更数。');
+        console.log('manifest 只覆盖所列文件；empty_scope 是空范围，不代表全库无影响。输入永不覆盖。');
     } else {
         const options = new Map();
         for (let i = 0; i < args.length; i += 2) {
-            if (!['--manifest', '--driver', '--output'].includes(args[i]) ||
+            if (!['--manifest', '--backup-root', '--write-manifest', '--driver', '--output'].includes(args[i]) ||
                 !args[i + 1] || args[i + 1].startsWith('--') || options.has(args[i]))
                 throw new Error('Unknown, duplicate, or missing option; use --help');
             options.set(args[i], args[i + 1]);
         }
-        if (!options.has('--manifest')) throw new Error('--manifest is required');
-        console.log(JSON.stringify(await migrateClothRecords(options.get('--manifest'),
-            options.get('--driver') || join(root, 'bin/driver.exe'), options.get('--output')), null, 2));
+        if (options.has('--manifest') === options.has('--backup-root')) throw new Error('Choose --manifest OR --backup-root');
+        let report;
+        if (options.has('--write-manifest')) {
+            if (!options.has('--backup-root') || options.has('--output') || options.has('--driver'))
+                throw new Error('--write-manifest requires --backup-root and cannot convert or run a driver');
+            report = writeBackupManifest(options.get('--backup-root'), options.get('--write-manifest'));
+        } else {
+            const convert = options.has('--backup-root') ? migrateBackupRecords : migrateItemRecords;
+            report = await convert(options.get('--backup-root') || options.get('--manifest'),
+                options.get('--driver') || join(root, 'bin/driver.exe'), options.get('--output'));
+        }
+        console.log(JSON.stringify(report, null, 2));
     }
 }

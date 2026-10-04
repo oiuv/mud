@@ -40,5 +40,5 @@ void create() {
     carry_object(__DIR__ "obj/necklace")->wear();
     carry_object(__DIR__ "obj/changjian")->wield();
     carry_object("/d/items/cloth/fenhong_choushan")->wear();
-    carry_object(__DIR__ "obj/flower_shoe")->wear();
+    carry_object("/d/items/boots/xiuhua_xiaoxie")->wear();
 }

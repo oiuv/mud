@@ -38,6 +38,7 @@ room = load_object("/u/mudren/workroom/-2,3,1");
 | 处理程序 | key 含义与职责 |
 | --- | --- |
 | `d/items/cloth.lpc` | 登记的服装品种键；校验定义、创建独立实例 |
+| `d/items/boots.lpc` | 登记的鞋靴品种键；继承 BOOTS，独立于 CLOTH 行为 |
 | `d/illusion/world.lpc` | `世界~X~Y~实例`；保留世界、坐标和玩家归属校验 |
 | `u/mudren/maze.c`、`workroom.c` | 严格解析两/三个有符号整数；两参数仍缺省 `z=0`，拒绝尾随文本 |
 | `inherit/room/vrm.c` → `CORE_VRM` | 继承框架新接口，支持 `entry`、`exit`、`x-y`；黑森林和个人迷宫无须另写转发 |
@@ -53,6 +54,7 @@ node mudcore/tests/run.mjs bin/driver.exe
 node tools/tests/test_illusion_world.mjs bin/driver.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --bench
+node tools/tests/test_boots_objects.mjs bin/driver.exe --all
 ```
 
 均在临时目录验证；幻境回归需 `ai/.venv`，仅连接本机假 AI 服务，不调用真实模型。夹具验证通用协议和实际业务代码，不能替代正式服部署后的巡检。

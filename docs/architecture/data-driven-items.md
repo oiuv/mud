@@ -1,6 +1,8 @@
-# 数据化物品：普通 CLOTH 服装
+# 数据化物品：普通服装与鞋靴
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
+
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，保持独立父类，详见[鞋靴维护说明](data-driven-boots.md)。两类共用以下离线迁移与部署流程，不合并运行期行为。
 
 ## 创建与维护
 
@@ -22,7 +24,7 @@
 
 ## 存储边界
 
-背包仅额外放行本表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
+背包仅额外放行 CLOTH 与 BOOTS 两张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -36,12 +38,18 @@
 
 ## 离线转换与部署
 
-工具：`tools/migrate_cloth_records.mjs`。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径，不改写历史；`canonical_ids.json` 记录语义命名，`cloth_canonical.mjs` 形成多对一分组及 **404 个原实体/第一版虚拟入口到规范路径**的离线映射。运行游戏只读 `cloth_data.h`，不加载这些迁移资料。可运行 `node tools/tests/cloth_canonical.mjs` 查看完整映射，不写文件。
+工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径，不改写历史；`canonical_ids.json` 记录语义命名，`cloth_canonical.mjs` 形成 **404 条 CLOTH 历史路径**映射。`tools/tests/boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴原文与哈希，`boots_inventory.mjs` 提供另 **19 条 BOOTS 映射**。运行游戏只读各自数据表，不加载迁移资料。
 
-工具不加载玩家对象，不连接正式游戏，不自动搜索存档；只读取清单列出的备份 `.o` 文件。当前游戏使用未压缩 UTF-8 存档，其他格式须先在备份副本中按相应流程还原。
+工具不加载玩家对象、不连接正式游戏，不猜测正式 `data/`。管理员必须给出备份根目录或清单；当前游戏使用未压缩 UTF-8 存档，其他格式须先在备份副本中按相应流程还原。
 
 1. 安排维护，正常保存并停止游戏，备份代码与相关存档。不要用 `updateall` 代替切换：内存中的旧实例、临时订单和默认对象也需要重建。
-2. 在受保护的备份目录建立 `manifest.json`，列全本次备份中的玩家及店铺存档。路径相对清单目录，使用 `/`；没有目标字段的记录保持原样。
+2. 备份根目录直接包含 `user/` 与 `shop/`。推荐通过 `--backup-root` 自动发现两目录内全部普通 `.o` 文件；不读取其他目录、不跟随链接。缺目录、不可读或链接导致范围不完整时失败。也可先保存清单以人工审阅，无需枚举账号：
+
+```powershell
+node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items --write-manifest C:/mud-backup/items/manifest.json
+```
+
+`--write-manifest` 仅枚举路径，不读取存档正文或启动驱动；不能同时指定 `--driver`/`--output`，且不覆盖已有清单。清单放备份根目录，路径相对此目录并使用 `/`。仍可手工提供原有格式的部分清单，没有目标字段的记录保持原样：
 
 ```json
 {
@@ -57,11 +65,15 @@
 3. 先预览，再输出转换副本。`--output` 的父目录必须存在，目标目录必须全新且不在输入目录内；输入永不覆盖。
 
 ```powershell
-node tools/migrate_cloth_records.mjs --manifest C:/mud-backup/cloth/manifest.json
-node tools/migrate_cloth_records.mjs --manifest C:/mud-backup/cloth/manifest.json --output C:/mud-backup/cloth-converted
+node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items
+node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items --output C:/mud-backup/items-converted
+# 手工清单与 --backup-root 互斥；仅检查所列文件，不表示全备份覆盖。
+node tools/migrate_item_records.mjs --manifest C:/mud-backup/items/manifest.json
 ```
 
 Linux 或其他驱动位置使用 `--driver <driver路径>`。未指定 `--output` 仅预览；指定后产生原字节 `backup/`、新文件 `converted/`、清单和包含前后 SHA-256 的 `report.json`。只有完整成功报告的输出才可部署。
+
+报告包含 `input_mode`、`input`、`coverage`、`checked_files`、`affected_files` 和总 `changes`；逐文件保留变更数与哈希。`no_changes_in_checked_scope` 只说明已检查范围没有需要转换的路径；`empty_scope` 明确表示没有记录，不能声称全服无影响。`paths_only` 仅表示生成清单，尚未检查内容。副本只在全部成功后发布；I/O 失败留下的 `.item-migration-*` 暂存目录不能用于上线。
 
 支持原实体路径、第一版虚拟路径和规范路径混合输入，旧路径直接转到最终规范路径。商店同品同价合并数量；价格冲突或无法安全合计库存时，报告原因和清单文件，整批不发布输出。管理员先在备份副本上核对冲突并明确价格，再重新预览，不由脚本选取任一价格。报告中的 `changes` 是迁移的路径字段/映射键数，不是物品件数；合并后的品种键数减少属正常，仍须核对总件数。
 
@@ -80,9 +92,15 @@ node tools/tests/audit_cloth_migration.mjs
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --bench
+node tools/tests/boots_inventory.mjs
+node tools/tests/audit_boots_migration.mjs
+node tools/tests/compile_boots_callers.mjs bin/lpcc.exe
+node tools/tests/test_boots_objects.mjs bin/driver.exe --all
+node tools/tests/test_boots_objects.mjs bin/driver.exe --bench
+node --test tools/tests/test_item_records.mjs
 ```
 
-需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535` 的 Git 历史。基线审计逐个核对旧源码；调用审计比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
+需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb` 的 Git 历史。基线审计逐个核对旧源码；调用审计比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
 

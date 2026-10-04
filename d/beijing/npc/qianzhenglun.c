@@ -99,7 +99,10 @@ int do_yao(string arg) {
     }
 
     my_count[arg] += 1;
-    obj = new(__DIR__ "obj/" + arg);
+    if (arg == "feet")
+        obj = new("/d/items/boots/zhanxue");
+    else
+        obj = new(__DIR__ "obj/" + arg);
     obj->set("no_sell", "这不是镇远镖局里的东西么？我可不敢收购。");
     obj->set("value", 50);
     command("say 这位" + RANK_D->query_respect(me) + "，" +

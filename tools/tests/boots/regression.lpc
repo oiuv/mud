@@ -1,0 +1,104 @@
+// Reuse assertions and actual transaction tests; BOOTS never inherits CLOTH in game.
+inherit "/tests/cloth_regression";
+
+void run() {
+    mixed *pair;
+    mixed *nested;
+    object provider, blueprint, old_blueprint, before, after, second, actor, item;
+    mixed err;
+    mapping definition, state;
+    string path;
+    int old_wear, new_wear;
+
+    provider = load_object("/d/items/boots");
+    check(!provider->query("name") && master()->setup_count(provider) == 0, "inert provider");
+    foreach (pair in json_decode(read_file("/tests/cases.json"))) {
+        path = pair[1];
+        old_blueprint = load_object(pair[0]);
+        blueprint = load_object(path);
+        before = new(pair[0]);
+        after = new(path);
+        second = new(path);
+        compare(old_blueprint, blueprint, path + " blueprint");
+        compare(before, after, path + " clone");
+        compare(after, second, path + " reconstruction");
+        check(!clonep(blueprint) && virtualp(blueprint) && clonep(after) && virtualp(after) &&
+            base_name(after) == path && after->query_default_object() == blueprint,
+            "final identities/default object");
+        check(master()->setup_count(blueprint) == 1 && master()->setup_count(after) == 1,
+            "setup exactly once after final identity");
+        after->virtual_start();
+        check(master()->setup_count(after) == 1, "virtual_start idempotent");
+        state = copy(second->query("armor_prop"));
+        after->set("armor_prop/armor", 9999);
+        check(save_variable(state) == save_variable(second->query("armor_prop")) &&
+            save_variable(state) == save_variable(blueprint->query("armor_prop")), "mapping isolation");
+        after->set("armor_prop", copy(state));
+        after->set("long", "鞋面上沾着些许泥点。\n");
+        check(second->long() == blueprint->long(), "description override isolated");
+        after->delete("long");
+        check(after->long() == blueprint->long(), "description falls back to blueprint");
+        check(!function_exists("do_tear", after) && after->query("armor_type") == "boots",
+            "foot slot and no clothing tear ability");
+        actor = new("/tests/actor"); actor->move(this_object(), 1);
+        before->move(actor); second->move(actor);
+        old_wear = "/cmds/std/wear"->do_wear(actor, before);
+        if (old_wear) before->unequip();
+        new_wear = "/cmds/std/wear"->do_wear(actor, second);
+        check(old_wear == new_wear && new_wear == 1, "female wear parity");
+        if (new_wear) second->unequip();
+        actor->set("gender", "男性");
+        old_wear = "/cmds/std/wear"->do_wear(actor, before);
+        if (old_wear) before->unequip();
+        new_wear = "/cmds/std/wear"->do_wear(actor, second);
+        check(old_wear == new_wear, "male wear restrictions");
+        if (new_wear) second->unequip();
+        check(before->washed(10) == second->washed(10), "wash duration by original material");
+        check(before->query_temp("no_wear") == second->query_temp("no_wear"), "wet restriction");
+        check(!"/cmds/std/wear"->do_wear(actor, second), "wet boots cannot be worn");
+        before->dry_cloth(); second->dry_cloth();
+        check(!second->query_temp("no_wear"), "dry boots usable again");
+        before->move(this_object(), 1); second->move(this_object(), 1);
+        item = new(path);
+        actor->store_item(actor, item, 1);
+        check(!item && actor->depot_records()["item0"]["file"] == path, "registered boots stored");
+        actor->run_command("take 1 1");
+        check(
+            sizeof(all_inventory(actor)) == 1 && !sizeof(actor->depot_records()),
+            "stored boots rebuilt"
+        );
+        foreach (item in all_inventory(actor)) destruct(item);
+        destruct(actor); destruct(before); destruct(after); destruct(second);
+        check_business(pair);
+        check_refusals(pair[0]); check_refusals(pair[1]);
+    }
+    definition = provider->query_definition("caoxie");
+    definition["ids"][0] = "mutated";
+    check(provider->query_definition("caoxie")["ids"][0] != "mutated", "definition copy isolated");
+    err = catch(item = new("/d/items/boots/not_a_variety"));
+    check(!item && !find_object("/d/items/boots/not_a_variety"), "invalid variety rejected");
+    err = catch(new("/d/items/boots", "caoxie"));
+    check(!!err, "direct parameter clone rejected");
+    check(!provider->valid_variety_path("/d/items/boots/caoxie/extra") &&
+        !provider->valid_variety_path("/d/items/cloth/buyi"), "exact family registry");
+    blueprint = load_object("/d/items/boots/caoxie");
+    blueprint->set("fixture_array", ({ ([ "value": 1 ]) }));
+    after = new("/d/items/boots/caoxie"); second = new("/d/items/boots/caoxie");
+    nested = after->query("fixture_array");
+    nested[0]["value"] = 2;
+    check(second->query("fixture_array")[0]["value"] == 1 &&
+        blueprint->query("fixture_array")[0]["value"] == 1, "nested array defaults isolated");
+    blueprint->delete("fixture_array"); destruct(after); destruct(second);
+    check("/d/items/boots/shaolin_sengxie"->query("shaolin") == 1 &&
+        !"/d/items/boots/qingbu_sengxie"->query("shaolin"), "real sect distinction retained");
+    actor = new("/tests/actor");
+    foreach (path in ({ "/d/items/cloth/buyi", "/d/items/boots/caoxie", "/clone/cloth/qingyi" })) {
+        item = new(path);
+        actor->store_item(actor, item, 1);
+        check(!item, "cloth/boots/physical storage coexist");
+    }
+    check(sizeof(actor->depot_records()) == 3, "separate families keep distinct records");
+    destruct(actor);
+    "/tests/boots_business"->run();
+    master()->finish();
+}

@@ -1,7 +1,6 @@
 // dizangwang
 
 #include <ansi.h>
-#define QILIN_XUE    "/d/death/obj/qilinxue"
 
 inherit NPC;
 
@@ -81,8 +80,8 @@ mixed ask_xue() {
     if (!me->query("hell_quest/锁阳丹"))
         return "麒麟靴是我的宝物，你打听它干什么？";
 
-    ob = find_object(QILIN_XUE);
-    if (!ob) ob = load_object(QILIN_XUE);
+    ob = find_object("/d/items/boots/qilinxue");
+    if (!ob) ob = load_object("/d/items/boots/qilinxue");
     owner = environment(ob);
     while (owner) {
         if (owner->is_character() || !environment(owner))

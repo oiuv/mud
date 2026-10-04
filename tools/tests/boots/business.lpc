@@ -1,0 +1,142 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+void run() {
+    object room, actor, qian, dao, dizang, other, item, converter;
+    mapping data, result, restored, paths;
+    string path;
+    mixed *pair;
+    int stock;
+
+    room = new("/tests/room");
+    actor = new("/tests/actor"); actor->move(room, 1);
+    dizang = new("/d/death/npc/dizangwang");
+    actor->select_npc(dizang, "ask_xue");
+    actor->run_command("testnpc xue");
+    check(!sizeof(all_inventory(dizang)), "qilin loan requires quest condition");
+    actor->set("hell_quest/锁阳丹", 1);
+    actor->run_command("testnpc xue");
+    item = find_object("/d/items/boots/qilinxue");
+    check(objectp(item) && !clonep(item) && environment(item) == dizang,
+        "qilin loan locates and moves the shared virtual blueprint");
+    // Transfer is a fixture; ask_xue itself is unmodified, give command is outside this test.
+    item->move(actor, 1); actor->run_command("testnpc xue");
+    check(environment(item) == actor, "qilin already held by requester");
+    other = new("/tests/actor"); item->move(other, 1);
+    actor->run_command("testnpc xue");
+    check(environment(item) == other, "qilin already held by another character");
+    item->move(room, 1); actor->run_command("testnpc xue");
+    check(environment(item) == room, "qilin loan does not steal from another location");
+    destruct(item); destruct(other); destruct(dizang);
+    qian = new("/d/beijing/npc/qianzhenglun");
+    actor->select_npc(qian, "do_yao");
+    actor->run_command("testnpc feet");
+    check(!sizeof(all_inventory(actor)) && qian->issued("feet") == 0, "qian rejects wrong sect");
+    actor->set("family/family_name", "八卦门");
+    actor->run_command("testnpc nonsense");
+    check(!sizeof(all_inventory(actor)), "qian rejects unknown request");
+    actor->run_command("testnpc feet");
+    item = present("feet", actor);
+    check(objectp(item) && base_name(item) == "/d/items/boots/zhanxue" &&
+        item->query("value") == 50 && stringp(item->query("no_sell")) &&
+        actor->query_temp("mark/zhenyuan_armor") == 1 && qian->issued("feet") == 1,
+        "qian feet keyword, quota and instance overrides");
+    check("/d/items/boots/zhanxue"->query("value") == 0 &&
+        !"/d/items/boots/zhanxue"->query("no_sell"), "领取覆盖不污染蓝图");
+    destruct(item);
+    actor->set_temp("mark/zhenyuan_armor", 3);
+    actor->run_command("testnpc feet");
+    check(!sizeof(all_inventory(actor)) && qian->issued("feet") == 1, "personal armor quota");
+    actor->delete_temp("mark/zhenyuan_armor");
+    actor->run_command("testnpc feet");
+    foreach (item in all_inventory(actor)) destruct(item);
+    actor->run_command("testnpc feet");
+    check(!sizeof(all_inventory(actor)) && qian->issued("feet") == 2, "qian stock quota");
+    actor->run_command("testnpc helmet");
+    item = present("helmet", actor);
+    check(
+        objectp(item) && base_name(item) == "/d/beijing/npc/obj/helmet",
+        "other qian branch unchanged"
+    );
+    foreach (item in all_inventory(actor)) destruct(item);
+
+    dao = new("/kungfu/class/shaolin/dao-xiang"); dao->set("huju_count", 2);
+    actor->select_npc(dao, "ask_me_1");
+    actor->run_command("testnpc sengxie");
+    check(!sizeof(all_inventory(actor)) && dao->query("huju_count") == 2, "dao rejects wrong sect");
+    actor->set("family/family_name", "少林派");
+    actor->run_command("testnpc sengxie");
+    item = present("seng xie", actor);
+    check(objectp(item) && base_name(item) == "/d/items/boots/shaolin_sengxie" &&
+        item->query("shaolin") == 1 && dao->query("huju_count") == 1, "dao request and quota");
+    // The original guard uses the requested key. Do not add a new alias to change it.
+    stock = dao->query("huju_count");
+    actor->run_command("testnpc seng xie");
+    check(dao->query("huju_count") == stock, "existing present(name) guard");
+    foreach (item in all_inventory(actor)) destruct(item);
+    actor->run_command("testnpc huwan");
+    item = present("hu wan", actor);
+    check(sizeof(all_inventory(actor)) == 1 &&
+        base_name(all_inventory(actor)[0]) == "/d/shaolin/obj/huwan", "other dao branch unchanged");
+    foreach (item in all_inventory(actor)) destruct(item);
+    actor->run_command("testnpc sengxie");
+    check(!sizeof(all_inventory(actor)), "dao empty stock");
+    destruct(dao); destruct(qian);
+
+    foreach (path in ({ "/tests/unknown/key", "/tests/unique", "/tests/noclone" })) {
+        item = new(path);
+        actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && !sizeof(actor->depot_records()),
+            "unknown/unique/no-clone refusal " + path
+        );
+        destruct(item);
+    }
+    foreach (path in ({
+        "/d/lanzhou/npc/obj/shoes",
+        "/d/lanzhou/obj/shoes",
+        "/d/village/npc/obj/shoes"
+    })) {
+        item = new(path);
+        check(master()->setup_count(item) == 0 && item->query("material") == "cloth" &&
+            item->query("armor_type") == "boots", "excluded hemp initializer unchanged");
+        destruct(item);
+    }
+    item = new("/d/city/npc/cloth/shoes");
+    check(
+        !function_exists("washed", item) && !function_exists("do_tear", item),
+        "excluded EQUIP behavior"
+    );
+    destruct(item);
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    paths["/d/changan/npc/obj/cloth"] = "/d/items/cloth/buyi";
+    converter = load_object("/tests/cloth_records");
+    foreach (pair in json_decode(read_file("/tests/cases.json"))) {
+        data = ([ "item0": ([ "file": pair[0], "amount": 2, "id": "old shoes", "name": "旧鞋" ]),
+            "item1": ([
+                "file": "/d/changan/npc/obj/cloth",
+                "amount": 3,
+                "id": "cloth",
+                "name": "布衣"
+            ]) ]);
+        result = converter->convert(save_variable(data), "backpack", paths, ({}));
+        restored = restore_variable(result["value"]);
+        check(result["changes"] == 2 && restored["item0"]["amount"] == 2 &&
+            restored["item1"]["amount"] == 3 && restored["item0"]["name"] == "旧鞋", "mixed records preserved");
+        write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+        actor->load_backup("/data/restored");
+        actor->run_command("take 1 2"); actor->run_command("take 1 3");
+        check(
+            sizeof(all_inventory(actor)) == 5 && !sizeof(actor->depot_records()),
+            "mixed saved quantities rebuilt"
+        );
+        foreach (item in all_inventory(actor)) {
+            check(
+                member_array(base_name(item), ({ pair[1], "/d/items/cloth/buyi" })) >= 0,
+                "restored canonical identity"
+            );
+            destruct(item);
+        }
+    }
+    destruct(actor); destruct(room);
+}

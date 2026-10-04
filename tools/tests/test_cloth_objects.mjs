@@ -4,12 +4,17 @@ import { join, dirname, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { root, original } from './cloth_inventory.mjs';
-import { canonicalBaseline, canonicalGroups, migrationPaths } from './cloth_canonical.mjs';
+import { root, original as clothOriginal } from './cloth_inventory.mjs';
+import * as clothMetadata from './cloth_canonical.mjs';
+import * as bootsMetadata from './boots_inventory.mjs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
-import { migrateClothRecords } from '../migrate_cloth_records.mjs';
+import { migrateItemRecords } from '../migrate_item_records.mjs';
 
+const boots = process.argv.includes('--boots');
+const { canonicalGroups, migrationPaths } = boots ? bootsMetadata : clothMetadata;
+const original = boots ? bootsMetadata.original : clothOriginal;
+const canonicalBaseline = boots ? bootsMetadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -19,7 +24,52 @@ for (const dir of ['include', 'feature', 'inherit', 'mudcore/include', 'mudcore/
 for (const dir of ['tests', 'log', 'data', 'adm/daemons', 'd/items'])
     mkdirSync(join(sandbox, dir), { recursive: true });
 for (const file of ['adm/daemons/virtuald.c', 'adm/daemons/moneyd.c', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'clone/misc/bandage.c', 'clone/misc/cloth.c', 'clone/cloth/qingyi.c', 'cmds/std/wear.c']) copy(file);
+for (const file of ['d/items/boots.lpc', 'd/items/boots_data.h']) copy(file);
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
+if (boots) {
+    cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
+    cpSync(join(root, 'tools/tests/boots/regression.lpc'), join(sandbox, 'tests/regression.lpc'));
+    // Count actual BOOTS::setup calls only in the disposable copy, without adding item fields.
+    const parent = join(sandbox, 'inherit/armor/boots.c');
+    if (!process.argv.includes('--bench'))
+        writeFileSync(parent, readFileSync(parent, 'utf8').replace('void setup() {',
+            'void setup() {\n    master()->record_setup(this_object());'));
+    const master = join(sandbox, 'tests/master.lpc');
+    writeFileSync(master, readFileSync(master, 'utf8').replaceAll('CLOTH', 'BOOTS') +
+        '\nprivate mapping setup_counts = ([]);\nvoid record_setup(object ob) { setup_counts[ob]++; }\nint setup_count(object ob) { return setup_counts[ob]; }\n');
+    const bench = join(sandbox, 'tests/benchmark.lpc');
+    writeFileSync(bench, readFileSync(bench, 'utf8').replaceAll('CLOTH', 'BOOTS'));
+    cpSync(join(root, 'tools/tests/boots/business.lpc'), join(sandbox, 'tests/boots_business.lpc'));
+    const method = (file, signature) => {
+        const source = readFileSync(join(root, file), 'utf8'), start = source.indexOf(signature);
+        if (start < 0) throw new Error('Missing business function: ' + file);
+        return source.slice(start, source.indexOf('\n}', start) + 2);
+    };
+    const qianFile = 'd/beijing/npc/qianzhenglun.c';
+    mkdirSync(dirname(join(sandbox, qianFile)), { recursive: true });
+    writeFileSync(join(sandbox, qianFile), '#include <ansi.h>\ninherit ITEM;\nint total = 2;\nmapping my_count = ([]);\n'
+        + 'int issued(string key) { return my_count[key]; }\n' + method(qianFile, 'int do_yao(string arg) {'));
+    const daoFile = 'kungfu/class/shaolin/dao-xiang.c';
+    mkdirSync(dirname(join(sandbox, daoFile)), { recursive: true });
+    writeFileSync(join(sandbox, daoFile), 'inherit ITEM;\n' + method(daoFile, 'string ask_me_1(string name) {'));
+    const dizangFile = 'd/death/npc/dizangwang.c';
+    mkdirSync(dirname(join(sandbox, dizangFile)), { recursive: true });
+    writeFileSync(join(sandbox, dizangFile), 'inherit ITEM;\n'
+        + 'void create() { set_max_encumbrance(100000); }\n' + method(dizangFile, 'mixed ask_xue() {'));
+    writeFileSync(join(sandbox, 'adm/daemons/rankd.c'), 'string query_respect(object who) { return "这位朋友"; }\n');
+    const actorFile = join(sandbox, 'tests/actor.lpc');
+    writeFileSync(actorFile, readFileSync(actorFile, 'utf8').replace('void create() {',
+        'private object selected_npc;\nprivate string selected_method;\n'
+        + 'void select_npc(object npc, string method) { selected_npc = npc; selected_method = method; }\n'
+        + 'int call_npc(string arg) { call_other(selected_npc, selected_method, arg); return 1; }\nvoid create() {')
+        .replace('enable_commands();', 'enable_commands();\n    add_action("call_npc", "testnpc");'));
+    for (const file of ['d/beijing/npc/obj/helmet.c', 'd/shaolin/obj/huwan.c', 'd/city/npc/cloth/shoes.c',
+        'd/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c']) copy(file);
+    for (const [file, extra] of [['unknown', ''], ['unique', 'inherit F_UNIQUE;'], ['noclone', 'inherit F_NOCLONE;']])
+        writeFileSync(join(sandbox, 'tests', file + '.c'), '#include <armor.h>\ninherit BOOTS;\n' + extra
+            + '\nvoid create() { set_name("旧鞋", ({ "test shoes" })); set("unit", "双"); setup(); }\n'
+            + 'object create_virtual_object(string key) { return new("/tests/' + file + '"); }\n');
+}
 cpSync(join(root, 'tools/tests/cloth_migration/cloth_records.lpc'), join(sandbox, 'tests/cloth_records.lpc'));
 cpSync(join(sandbox, 'tests/shopd.lpc'), join(sandbox, 'adm/daemons/shopd.lpc'));
 cpSync(join(root, 'mudcore/system/kernel/simul_efun/json.c'), join(sandbox, 'tests/json.c'));
@@ -49,7 +99,8 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 }
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
-const rows = canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') || sample.has(row.key));
+const rows = canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
+    (boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
 for (const row of rows) {
     const path = row.old_path.slice(1) + '.c';
     const source = original(path);
@@ -91,7 +142,7 @@ if (process.argv.includes('--bench')) {
             writeFileSync(join(sandbox, 'tests/benchmark.json'), JSON.stringify({ version, round }));
             const result = await runDriver();
             writeFileSync(join(sandbox, `benchmark-${round}-${version}.txt`), result.output);
-            const line = result.output.split('\n').find(line => line.startsWith('CLOTH BENCH '));
+            const line = result.output.split('\n').find(line => line.startsWith((boots ? 'BOOTS' : 'CLOTH') + ' BENCH '));
             if (result.code !== 0 || !line) throw new Error('Benchmark failed: ' + sandbox);
             const measurement = JSON.parse(line.slice('CLOTH BENCH '.length));
             measurements.push(measurement);
@@ -99,14 +150,15 @@ if (process.argv.includes('--bench')) {
         }
     }
     writeFileSync(join(sandbox, 'benchmark.json'), JSON.stringify(measurements, null, 2) + '\n');
-    console.log('CLOTH BENCH PASS: old/new are independent driver processes; memory_info is not OS RSS');
+    console.log((boots ? 'BOOTS' : 'CLOTH') + ' BENCH PASS: old/new are independent driver processes; memory_info is not OS RSS');
     process.exit(0);
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
-if (result.code !== 0 || !result.output.includes('CLOTH PASS'))
+console.log(result.output.split('\n').filter(line => /BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+if (result.code !== 0 || !result.output.includes((boots ? 'BOOTS' : 'CLOTH') + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
+if (boots) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },
@@ -114,11 +166,11 @@ const manifest = { files: [
 ] };
 const manifestPath = join(sandbox, 'data/migration/manifest.json');
 writeFileSync(manifestPath, JSON.stringify(manifest));
-const preview = await migrateClothRecords(manifestPath, driver);
+const preview = await migrateItemRecords(manifestPath, driver);
 assert.equal(preview.mode, 'preview');
 assert.deepEqual(preview.files.map(file => file.changes), [1, 2, 1, 4, 2]);
 const output = join(sandbox, 'conversion');
-const migrated = await migrateClothRecords(manifestPath, driver, output);
+const migrated = await migrateItemRecords(manifestPath, driver, output);
 assert.deepEqual(migrated.files, preview.files);
 for (const entry of manifest.files) {
     const original = readFileSync(join(sandbox, 'data/migration', entry.file));
@@ -128,14 +180,14 @@ for (const entry of manifest.files) {
 }
 // A second conversion is a no-op; restoring backup/ is a byte-exact rollback.
 writeFileSync(join(output, 'converted/manifest.json'), JSON.stringify(manifest));
-const again = await migrateClothRecords(join(output, 'converted/manifest.json'), driver);
+const again = await migrateItemRecords(join(output, 'converted/manifest.json'), driver);
 assert.deepEqual(again.files.map(file => file.changes), [0, 0, 0, 0, 0]);
 assert.ok(again.files.every(file => file.before_sha256 === file.after_sha256));
-await assert.rejects(migrateClothRecords(manifestPath, driver, output), /new directory/);
+await assert.rejects(migrateItemRecords(manifestPath, driver, output), /new directory/);
 const conflictPath = join(sandbox, 'data/migration/conflict-manifest.json');
 writeFileSync(conflictPath, JSON.stringify({ files: [...manifest.files, { file: 'conflict-shop.o', kind: 'shop' }] }));
 const conflictBytes = readFileSync(join(sandbox, 'data/migration/conflict-shop.o'));
-await assert.rejects(migrateClothRecords(conflictPath, driver, join(sandbox, 'conflict-output')),
+await assert.rejects(migrateItemRecords(conflictPath, driver, join(sandbox, 'conflict-output')),
     /Shop price conflict: conflict-shop\.o/);
 assert.equal(existsSync(join(sandbox, 'conflict-output')), false, 'Failed batch publishes no output');
 assert.deepEqual(readFileSync(join(sandbox, 'data/migration/conflict-shop.o')), conflictBytes);

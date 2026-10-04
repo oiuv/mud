@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import { original, root, references, readBaseline } from './cloth_inventory.mjs';
 import { canonicalBaseline, canonicalGroups, renderDefinitions } from './cloth_canonical.mjs';
+import { readBaseline as bootsBaseline, original as beforeBoots, expectedCaller, dynamicCallers } from './boots_inventory.mjs';
 
 const baseline = canonicalBaseline();
 const files = new Map();
@@ -28,6 +29,11 @@ for (const [file, hits] of files) {
         assert.ok(offset >= 0, file + ' dynamic iron vest branch');
         expected = expected.slice(0, offset) + 'new("/d/items/cloth/tie_beixin_sengmen")' +
             expected.slice(offset + expression.length);
+    }
+    if (bootsBaseline().hits.some(h => h.file === file) || dynamicCallers.includes(file)) {
+        assert.deepEqual(semanticTokens(beforeBoots(file)), semanticTokens(expected),
+            'CLOTH historical caller baseline changed: ' + file);
+        expected = expectedCaller(file);
     }
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);

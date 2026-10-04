@@ -1,0 +1,912 @@
+{
+  "baseline": "09e371bb",
+  "varieties": [
+    {
+      "old_path": "/d/beijing/npc/obj/feet",
+      "key": "beijing_npc_obj_feet",
+      "source_hash": "86cfd8d89462515f5250b141ba7f274b2714cc87e2f6c30cbcb5450a58c2db34",
+      "name": [
+        "\"战靴\"",
+        "({ \"zhan xue\", \"xue\", \"feet\", \"zhanxue\", \"boots\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"一双皮靴，上等牛皮制成。靴子虽很结实，但颇轻战斗时穿非常方便适用。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "zhanxue",
+      "new_path": "/d/items/boots/zhanxue",
+      "source": "#include <armor.h>\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"战靴\", ({ \"zhan xue\", \"xue\", \"feet\", \"zhanxue\", \"boots\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"一双皮靴，上等牛皮制成。靴子虽很结实，但颇轻战斗时穿非常方便适用。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/caoxie",
+      "key": "city_npc_obj_caoxie",
+      "source_hash": "f87aa0ba572305c23777b08a391046cbb10e17634b01857ba7c3015fe34ecd4b",
+      "name": [
+        "\"草鞋\"",
+        "({ \"sandals\", \"cao xie\", \"xie\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"wood\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双草编的草鞋，用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "2"
+        ]
+      ],
+      "after_branch": [],
+      "id": "caoxie",
+      "new_path": "/d/items/boots/caoxie",
+      "source": "// caoxie.c 草鞋\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"草鞋\", ({ \"sandals\", \"cao xie\", \"xie\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"wood\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双草编的草鞋，用以保护足部。\\n\");\n        set(\"value\", 100);\n        set(\"armor_prop/dodge\", 2);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/caoxie",
+      "key": "city_obj_caoxie",
+      "source_hash": "f87aa0ba572305c23777b08a391046cbb10e17634b01857ba7c3015fe34ecd4b",
+      "name": [
+        "\"草鞋\"",
+        "({ \"sandals\", \"cao xie\", \"xie\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"wood\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双草编的草鞋，用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "2"
+        ]
+      ],
+      "after_branch": [],
+      "id": "caoxie",
+      "new_path": "/d/items/boots/caoxie",
+      "source": "// caoxie.c 草鞋\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"草鞋\", ({ \"sandals\", \"cao xie\", \"xie\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"wood\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双草编的草鞋，用以保护足部。\\n\");\n        set(\"value\", 100);\n        set(\"armor_prop/dodge\", 2);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/caoxie",
+      "key": "jingzhou_obj_caoxie",
+      "source_hash": "f87aa0ba572305c23777b08a391046cbb10e17634b01857ba7c3015fe34ecd4b",
+      "name": [
+        "\"草鞋\"",
+        "({ \"sandals\", \"cao xie\", \"xie\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"wood\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双草编的草鞋，用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "2"
+        ]
+      ],
+      "after_branch": [],
+      "id": "caoxie",
+      "new_path": "/d/items/boots/caoxie",
+      "source": "// caoxie.c 草鞋\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"草鞋\", ({ \"sandals\", \"cao xie\", \"xie\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"wood\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双草编的草鞋，用以保护足部。\\n\");\n        set(\"value\", 100);\n        set(\"armor_prop/dodge\", 2);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/flower_shoe",
+      "key": "city_npc_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/flower_shoe",
+      "key": "city_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/dali/npc/obj/shoes",
+      "key": "dali_npc_obj_shoes",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/fuzhou/npc/flower_shoe",
+      "key": "fuzhou_npc_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/fuzhou/obj/flower_shoe",
+      "key": "fuzhou_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/flower_shoe",
+      "key": "jingzhou_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhou/obj/flower_shoe",
+      "key": "quanzhou_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/yanziwu/npc/obj/flower_shoe",
+      "key": "yanziwu_npc_obj_flower_shoe",
+      "source_hash": "9804d2742bddc0d2593be5e92ca6ecec3f2d92e23661b3a1d9a344fd4497f395",
+      "name": [
+        "\"绣花小鞋\"",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie",
+      "source": "// shoe.c\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"绣花小鞋\", ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"value\", 300);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/pixue",
+      "key": "city_npc_obj_pixue",
+      "source_hash": "1444a3e37af58f96046b5514a554f92893d0a2bea042c4197fe79541f20879a9",
+      "name": [
+        "\"皮靴\"",
+        "({ \"boots\", \"pi xue\", \"xue\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "8"
+        ]
+      ],
+      "after_branch": [],
+      "id": "pixue",
+      "new_path": "/d/items/boots/pixue",
+      "source": "// boots.c 皮靴\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"皮靴\", ({ \"boots\", \"pi xue\", \"xue\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\");\n        set(\"value\", 1000);\n        set(\"armor_prop/dodge\", 8);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/pixue",
+      "key": "city_obj_pixue",
+      "source_hash": "1444a3e37af58f96046b5514a554f92893d0a2bea042c4197fe79541f20879a9",
+      "name": [
+        "\"皮靴\"",
+        "({ \"boots\", \"pi xue\", \"xue\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "8"
+        ]
+      ],
+      "after_branch": [],
+      "id": "pixue",
+      "new_path": "/d/items/boots/pixue",
+      "source": "// boots.c 皮靴\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"皮靴\", ({ \"boots\", \"pi xue\", \"xue\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\");\n        set(\"value\", 1000);\n        set(\"armor_prop/dodge\", 8);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/pixue",
+      "key": "jingzhou_obj_pixue",
+      "source_hash": "1444a3e37af58f96046b5514a554f92893d0a2bea042c4197fe79541f20879a9",
+      "name": [
+        "\"皮靴\"",
+        "({ \"boots\", \"pi xue\", \"xue\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "8"
+        ]
+      ],
+      "after_branch": [],
+      "id": "pixue",
+      "new_path": "/d/items/boots/pixue",
+      "source": "// boots.c 皮靴\n\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(\"皮靴\", ({ \"boots\", \"pi xue\", \"xue\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双用上好牛皮作的皮靴，据说由上海进口。用以保护足部。\\n\");\n        set(\"value\", 1000);\n        set(\"armor_prop/dodge\", 8);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/qilinxue",
+      "key": "death_obj_qilinxue",
+      "source_hash": "dd1118c56aa1d8bb5c845c9039855e60383292eb08a880c4b75d9c75c0a4165f",
+      "name": [
+        "HIR \"麒麟靴\" NOR",
+        "({ \"qilin xue\", \"xue\", \"boots\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "HIR \"这是一双用上麒麟皮作的皮靴，据说可以赴汤蹈火。用以保护足部。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "80"
+        ]
+      ],
+      "after_branch": [],
+      "id": "qilinxue",
+      "new_path": "/d/items/boots/qilinxue",
+      "source": "// boots.c 麒麟靴\n\n#include <armor.h>\n#include <ansi.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(HIR \"麒麟靴\" NOR, ({ \"qilin xue\", \"xue\", \"boots\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"双\");\n        set(\"long\", HIR \"这是一双用上麒麟皮作的皮靴，据说可以赴汤蹈火。用以保护足部。\\n\" NOR);\n        set(\"value\", 100000);\n        set(\"armor_prop/dodge\", 80);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/npc/obj/female-shoe",
+      "key": "hengyang_npc_obj_female-shoe",
+      "source_hash": "e6b8cb55dfcdcee65bb990dbc87fd159ecdf6d09fa8e63a5d6cdbe16181ff9ea",
+      "name": [
+        "HIM \"绣花小鞋\" NOR",
+        "({ \"flower shoes\", \"shoes\" })"
+      ],
+      "weight": "900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"一双女人穿的缝制得很精美的绣花鞋。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jingzhi_xiuhua_xiaoxie",
+      "new_path": "/d/items/boots/jingzhi_xiuhua_xiaoxie",
+      "source": "#include <armor.h>\n#include <ansi.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(HIM \"绣花小鞋\" NOR, ({ \"flower shoes\", \"shoes\" }));\n    set_weight(900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"cloth\");\n        set(\"unit\", \"双\");\n        set(\"long\", \"一双女人穿的缝制得很精美的绣花鞋。\\n\");\n        set(\"value\", 0);\n        set(\"armor_prop/armor\", 1);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/sengxie",
+      "key": "mingjiao_obj_sengxie",
+      "source_hash": "baf05f8569e802c34d2a06dde9cc2d8139dc212209b0c063bd727c94498c4820",
+      "name": [
+        "HIC \"僧鞋\" NOR",
+        "({ \"seng xie\", \"xie\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"一双青布僧鞋\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"boots\""
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "qingbu_sengxie",
+      "new_path": "/d/items/boots/qingbu_sengxie",
+      "source": "#include <ansi.h>\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(HIC \"僧鞋\" NOR, ({ \"seng xie\", \"xie\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"一双青布僧鞋\");\n        set(\"value\", 6000);\n        set(\"material\", \"boots\");\n        set(\"armor_prop/dodge\", 5);\n        //        set(\"shaolin\",1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/sengxie",
+      "key": "shaolin_obj_sengxie",
+      "source_hash": "9594c2f6741ad02ebb80f1b53c149f8cf9bc74ef75f78b920891d0e98142fdff",
+      "name": [
+        "HIC \"僧鞋\" NOR",
+        "({ \"seng xie\", \"xie\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"一双青布僧鞋\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"boots\""
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "5"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_sengxie",
+      "new_path": "/d/items/boots/shaolin_sengxie",
+      "source": "#include <ansi.h>\n#include <armor.h>\n\ninherit BOOTS;\n\nvoid create() {\n    set_name(HIC \"僧鞋\" NOR, ({ \"seng xie\", \"xie\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"一双青布僧鞋\");\n        set(\"value\", 6000);\n        set(\"material\", \"boots\");\n        set(\"armor_prop/dodge\", 5);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/beijing/npc/hu.c",
+      "line": 24,
+      "start": 585,
+      "end": 610,
+      "expression": "\"/d/city/obj/flower_shoe\"",
+      "old_path": "/d/city/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/city/npc/wei.c",
+      "line": 42,
+      "start": 1020,
+      "end": 1045,
+      "expression": "\"/d/city/obj/flower_shoe\"",
+      "old_path": "/d/city/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 27,
+      "start": 726,
+      "end": 746,
+      "expression": "__DIR__ \"obj/caoxie\"",
+      "old_path": "/d/city/npc/obj/caoxie",
+      "new_path": "/d/items/boots/caoxie"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 28,
+      "start": 756,
+      "end": 775,
+      "expression": "__DIR__ \"obj/pixue\"",
+      "old_path": "/d/city/npc/obj/pixue",
+      "new_path": "/d/items/boots/pixue"
+    },
+    {
+      "file": "d/city/npc/yuhuan.c",
+      "line": 43,
+      "start": 1075,
+      "end": 1100,
+      "expression": "__DIR__ \"obj/flower_shoe\"",
+      "old_path": "/d/city/npc/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/dali/npc/xueboss.c",
+      "line": 19,
+      "start": 390,
+      "end": 409,
+      "expression": "__DIR__ \"obj/shoes\"",
+      "old_path": "/d/dali/npc/obj/shoes",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/death/npc/dizangwang.c",
+      "line": 84,
+      "start": 1839,
+      "end": 1848,
+      "expression": "QILIN_XUE",
+      "old_path": "/d/death/obj/qilinxue",
+      "new_path": "/d/items/boots/qilinxue"
+    },
+    {
+      "file": "d/death/npc/dizangwang.c",
+      "line": 85,
+      "start": 1881,
+      "end": 1890,
+      "expression": "QILIN_XUE",
+      "old_path": "/d/death/obj/qilinxue",
+      "new_path": "/d/items/boots/qilinxue"
+    },
+    {
+      "file": "d/fuzhou/npc/chen.c",
+      "line": 23,
+      "start": 524,
+      "end": 551,
+      "expression": "\"/d/fuzhou/obj/flower_shoe\"",
+      "old_path": "/d/fuzhou/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 52,
+      "start": 1454,
+      "end": 1487,
+      "expression": "\"/d/hengyang/npc/obj/female-shoe\"",
+      "old_path": "/d/hengyang/npc/obj/female-shoe",
+      "new_path": "/d/items/boots/jingzhi_xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 26,
+      "start": 716,
+      "end": 740,
+      "expression": "\"/d/city/npc/obj/caoxie\"",
+      "old_path": "/d/city/npc/obj/caoxie",
+      "new_path": "/d/items/boots/caoxie"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 27,
+      "start": 750,
+      "end": 773,
+      "expression": "\"/d/city/npc/obj/pixue\"",
+      "old_path": "/d/city/npc/obj/pixue",
+      "new_path": "/d/items/boots/pixue"
+    },
+    {
+      "file": "d/quanzhou/npc/chen.c",
+      "line": 28,
+      "start": 608,
+      "end": 637,
+      "expression": "\"/d/quanzhou/obj/flower_shoe\"",
+      "old_path": "/d/quanzhou/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 32,
+      "start": 796,
+      "end": 820,
+      "expression": "\"/d/city/npc/obj/caoxie\"",
+      "old_path": "/d/city/npc/obj/caoxie",
+      "new_path": "/d/items/boots/caoxie"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 33,
+      "start": 830,
+      "end": 853,
+      "expression": "\"/d/city/npc/obj/pixue\"",
+      "old_path": "/d/city/npc/obj/pixue",
+      "new_path": "/d/items/boots/pixue"
+    },
+    {
+      "file": "d/yanziwu/npc/abi.c",
+      "line": 40,
+      "start": 1083,
+      "end": 1108,
+      "expression": "__DIR__ \"obj/flower_shoe\"",
+      "old_path": "/d/yanziwu/npc/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    },
+    {
+      "file": "d/yanziwu/npc/azhu.c",
+      "line": 50,
+      "start": 1203,
+      "end": 1228,
+      "expression": "__DIR__ \"obj/flower_shoe\"",
+      "old_path": "/d/yanziwu/npc/obj/flower_shoe",
+      "new_path": "/d/items/boots/xiuhua_xiaoxie"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "line": 102,
+      "expression": "obj = new(__DIR__ \"obj/\" + arg);"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 76,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 90,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 96,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ]
+}

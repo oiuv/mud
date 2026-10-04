@@ -21,7 +21,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/cloth/pi_beixin_guizhong",
         "/d/quanzhou/obj/xiuhua",
-        "/d/city/obj/flower_shoe",
+        "/d/items/boots/xiuhua_xiaoxie",
         "/d/items/cloth/fenhong_choushan",
     }));
 

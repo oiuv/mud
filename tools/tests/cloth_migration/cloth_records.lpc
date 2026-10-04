@@ -63,8 +63,12 @@ mapping convert(string serialized, string kind, mapping paths, string *bag_objec
 
     changes = 0;
     data = restore_variable(serialized);
-    if (data && !mapp(data)) error("Expected a saved mapping.\n");
-    if (!data) return ([ "value": serialized, "changes": 0 ]);
+    // restore_variable may return zero for malformed input, not just saved 0.
+    if (!mapp(data)) {
+        if (!intp(data) || data != 0 || trim(serialized) != "0")
+            error("Expected a saved mapping or explicit zero.\n");
+        return ([ "value": serialized, "changes": 0 ]);
+    }
     switch (kind) {
         case "backpack":
             convert_items(data, paths);
