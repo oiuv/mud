@@ -24,5 +24,5 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object("/d/beijing/npc/obj/guanfu5")->wear();
+    carry_object("/d/items/cloth/jintuan_guanfu")->wear();
 }

@@ -33,7 +33,7 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/cloth3")->wear();
+    carry_object("/d/items/cloth/yunchang")->wear();
 }
 
 mixed ask_me() {

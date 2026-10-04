@@ -94,7 +94,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/heimuya/npc/obj/jinpao")->wear();
+    carry_object("/d/items/cloth/riyue_jinpao")->wear();
     set_temp("handing", carry_object("/d/heimuya/npc/obj/shenzhen"));
 }
 

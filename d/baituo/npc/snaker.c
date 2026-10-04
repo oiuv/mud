@@ -43,7 +43,7 @@ void create() {
         "/d/baituo/obj/fen",
     }));
     setup();
-    carry_object("/d/baituo/obj/baipao")->wear();
+    carry_object("/d/items/cloth/baise_changpao")->wear();
 }
 
 void init() {

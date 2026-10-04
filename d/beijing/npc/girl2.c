@@ -14,6 +14,6 @@ void create() {
     set("attitude", "peaceful");
 
     setup();
-    carry_object("/d/beijing/npc/obj/nvcloth")->wear();
+    carry_object("/d/items/cloth/duanqun")->wear();
     add_money("silver", 2);
 }

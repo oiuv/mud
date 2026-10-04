@@ -27,6 +27,9 @@ cpSync(join(root, 'adm/daemons/virtuald.c'), join(sandbox, 'adm/daemons/virtuald
 for (const file of ['adm/daemons/commandd.c', 'cmds/adm/illusion.lpc', 'cmds/adm/updateall.c', 'cmds/test/illusion_world.lpc', 'cmds/test/illusion_content.lpc', 'cmds/std/go.c'])
     cpSync(join(root, file), join(sandbox, file));
 cpSync(join(root, 'u/mudren/maze.c'), join(sandbox, 'u/mudren/maze.c'));
+cpSync(join(root, 'u/mudren/workroom.c'), join(sandbox, 'u/mudren/workroom.c'));
+cpSync(join(root, 'inherit/room/vrm.c'), join(sandbox, 'inherit/room/vrm.c'));
+cpSync(join(root, 'mudcore/inherit/vrm.c'), join(sandbox, 'tests/core_vrm.c'));
 cpSync(join(root, 'mudcore/include/ansi.h'), join(sandbox, 'include/ansi.h'));
 cpSync(join(root, 'mudcore/include/type.h'), join(sandbox, 'include/type.h'));
 for (const [name, body] of Object.entries({ 'legacy.c': '', 'prefer.c': '', 'prefer.lpc': '', 'iw.alias': 'illusion_world.lpc', 'old.alias': 'legacy.c', 'invalid.alias': 'does-not-exist' }))
@@ -65,8 +68,11 @@ writeFileSync(join(sandbox, 'tests/gmcp_user.lpc'),
     readFileSync(join(sandbox, 'tests/gmcp_user.lpc'), 'utf8') + '\n' + gmcpSource.slice(gmcpStart), 'utf8');
 for (const header of ['config.h', 'dbase.h', 'command.h']) writeFileSync(join(sandbox, 'include', header), '// test header\n', 'utf8');
 // A deliberate temporary collision tests driver priority; do not duplicate source stems in the LIB.
-writeFileSync(join(sandbox, 'tests/numeric.c'), 'inherit "/tests/room_stub";\nvarargs void create(int x, int y, int z) { setArea("test", x, y, z); set("preferred", "c"); }\n', 'utf8');
+writeFileSync(join(sandbox, 'tests/numeric.c'), readFileSync(join(sandbox, 'tests/numeric.lpc'), 'utf8')
+    .replace('set("preferred", "lpc")', 'set("preferred", "c")'), 'utf8');
 cpSync(join(sandbox, 'tests/numeric.c'), join(sandbox, 'tests/legacy_numeric.c'));
+writeFileSync(join(sandbox, 'tests/legacy_provider.lpc'),
+    'varargs void create(int x, int y, int z) {}\nobject query_maze_room(string key) { return new("/tests/room_stub"); }\n', 'utf8');
 // Compile the exact edited entrance function without emulating the whole NPC/combat stack.
 const zixuSource = readFileSync(join(root, 'adm/daemons/task/npc/zixu.c'), 'utf8');
 writeFileSync(join(sandbox, 'tests/zixu_entrance.lpc'), '#include <ansi.h>\n#define MAZE "/u/mudren/maze"\n' +
@@ -87,6 +93,7 @@ const backendPort = JSON.parse(readFileSync(join(sandbox, 'world-ready.json'), '
 writeFileSync(join(sandbox, 'include/globals.h'), [
     '#define AI_SERVER_PORT ' + backendPort, '#define AI_NPC_D "/tests/npc"',
     '#define ROOM "/tests/room_stub"', '#define NPC_D "/tests/npc"',
+    '#define CORE_VRM "/tests/core_vrm"',
     '#define CLASS_D(name) "/tests"',
     '#define ROOT_UID "Root"', '#define SIMUL_EFUN_OB "/tests/sefun"',
     '#define LOOK_CMD "/tests/room_stub"', '#define VOID_OB "/tests/room_stub"',

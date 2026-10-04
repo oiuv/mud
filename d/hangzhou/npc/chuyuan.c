@@ -27,7 +27,7 @@ void create() {
     map_skill("dodge", "shaolin-shenfa");
 
     setup();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 
     add_money("coin", 10);

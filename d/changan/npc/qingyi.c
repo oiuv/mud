@@ -18,5 +18,5 @@ LONG);
     set("combat_exp", 10);
     set("attitude", "friendly");
     setup();
-    carry_object(__DIR__ "obj/skirt")->wear();
+    carry_object("/d/items/cloth/qingsha_changqun")->wear();
 }

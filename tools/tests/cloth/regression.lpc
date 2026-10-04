@@ -1,0 +1,363 @@
+inherit ITEM;
+
+private mixed *pending_cases;
+private int next_case;
+
+void create() {
+    set_name("测试场所", ({ "test room" }));
+    set_max_encumbrance(1000000);
+}
+
+void check(int ok, string label) { master()->check(ok, label); }
+
+void compare(object before, object after, string label) {
+    mapping properties;
+    string key, alias, expected_short, expected_long;
+
+    check(before->name() == after->name(), label + " name");
+    expected_short = before->short();
+    if (!stringp(before->query("short")))
+        expected_short = replace_string(expected_short, "(" + before->query("id") + ")",
+            "(" + after->query("id") + ")");
+    expected_long = before->long();
+    if (!stringp(before->query("long")))
+        expected_long = replace_string(expected_long, before->short(), expected_short);
+    check(expected_short == after->short(), label + " short with canonical input ID");
+    check(expected_long == after->long(), label + " long");
+    check(before->query_weight() == after->query_weight(), label + " weight");
+    check(getuid(before) == getuid(after), label + " UID");
+    check(geteuid(before) == geteuid(after), label + " EUID");
+    properties = before->query_entire_dbase() + after->query_entire_dbase();
+    foreach (key in keys(properties)) {
+        if (key == "id")
+            check(after->id(before->query("id")), label + " former primary input remains usable");
+        else
+            check(save_variable(before->query(key, 1)) == save_variable(after->query(key, 1)),
+                label + " property " + key);
+    }
+    foreach (alias in before->parse_command_id_list())
+        check(after->id(alias), label + " historical alias " + alias);
+}
+
+void check_canonical_definitions() {
+    mapping group, definition;
+    object program, blueprint, first, second;
+    string old_path;
+    string *ids;
+
+    program = load_object("/d/items/cloth");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        blueprint = load_object(group["path"]);
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(blueprint->query("id") == group["ids"][0] &&
+            save_variable(blueprint->parse_command_id_list()) == save_variable(ids),
+            "canonical aliases and primary ID exactly match reviewed definition");
+        foreach (old_path in group["historical"])
+            check(!program->valid_variety_path(old_path), "no intermediate runtime aliases");
+    }
+    first = new("/d/items/cloth/buyi");
+    second = new("/d/items/cloth/buyi");
+    check(first != second && first->query_default_object() == second->query_default_object(),
+        "merged clothes share one blueprint, not one instance");
+    first->set("owner", "fixture");
+    first->set("armor_prop/armor", 99);
+    check(!second->query("owner") && second->query("armor_prop/armor") == 1,
+        "merged clothes retain independent instance properties");
+    definition = program->query_definition("buyi");
+    definition["ids"][0] = "fixture";
+    check(member_array("fixture", program->query_definition("buyi")["ids"]) == -1,
+        "definition copies cannot mutate registry");
+    check(load_object("/d/items/cloth/buyi") != load_object("/d/items/cloth/buyi_qingxing") &&
+        load_object("/d/items/cloth/buyi")->query_weight() !=
+        load_object("/d/items/cloth/buyi_qingxing")->query_weight(), "real weight differences remain distinct");
+    check(!"/d/items/cloth/tie_beixin"->query("shaolin") &&
+        "/d/items/cloth/tie_beixin_sengmen"->query("shaolin") == 1,
+        "real gameplay flag differences remain distinct");
+    destruct(first); destruct(second);
+}
+
+mapping trade_result(string path, int price) {
+    object actor, vendor, ob, bought;
+    mapping result;
+    int before, paid;
+    string id;
+
+    actor = new("/tests/actor");
+    actor->move(this_object(), 1);
+    vendor = new("/tests/vendor");
+    vendor->move(this_object(), 1);
+    actor->select_vendor(vendor);
+    vendor->set("vendor_goods", ([ path: price ]));
+    id = path->query("id");
+    check(vendor->is_vendor_good(id) == path, "dealer blueprint lookup " + path);
+    MONEY_D->pay_player(actor, 999999);
+    before = actor->cash_value();
+    actor->run_command("testbuy " + id);
+    foreach (ob in all_inventory(actor))
+        if (base_name(ob) == path) bought = ob;
+    check(objectp(bought), "dealer delivers variety " + path);
+    paid = before - actor->cash_value();
+    check(paid == (price ? price : path->query("value")), "dealer charges correct price");
+    vendor->set("vendor_goods", ([]));
+    before = actor->cash_value();
+    actor->run_command("testsell " + id);
+    result = ([ "paid": paid, "credit": actor->cash_value() - before,
+        "sold": environment(bought) == vendor ]);
+    foreach (ob in all_inventory(actor)) destruct(ob);
+    foreach (ob in all_inventory(vendor)) destruct(ob);
+    destruct(actor); destruct(vendor);
+    return result;
+}
+
+mapping player_shop_result(string path) {
+    object actor, waiter, room, stock, restored, ob;
+    mapping result;
+    string id;
+    int money;
+
+    room = new("/tests/player_shop");
+    actor = new("/tests/actor"); actor->move(room, 1);
+    waiter = new("/tests/vendor"); waiter->move(room, 1);
+    stock = actor->carry_object(path);
+    id = stock->query("id");
+    "/tests/shop_transactions"->do_stock(waiter, actor, id + " value 321");
+    if (stock) {
+        check(!!stock->query("no_sell"), "player shop retains existing sale restriction");
+        destruct(stock); destruct(waiter); destruct(actor); destruct(room);
+        return ([ "blocked": 1 ]);
+    }
+    check(room->query("vendor_goods")[path] == 321 &&
+        room->query("vendor_goods_num")[path] == 1, "player shop stocks canonical variety");
+    restored = new("/tests/player_shop");
+    check(restored->restore() && restored->query("vendor_goods_num")[path] == 1,
+        "actual player shop save/restore retains inventory path");
+    destruct(restored);
+    "/tests/shop_transactions"->do_unstock(waiter, actor, id);
+    stock = present(id, actor);
+    check(objectp(stock) && base_name(stock) == path && !room->query("all_vendor_goods"),
+        "player shop unstock reconstructs original variety");
+    "/tests/shop_transactions"->do_stock(waiter, actor, id + " value 321");
+    MONEY_D->pay_player(actor, 9999);
+    money = actor->cash_value();
+    "/tests/shop_transactions"->do_buy(waiter, actor, id);
+    stock = present(id, actor);
+    check(objectp(stock) && base_name(stock) == path && money - actor->cash_value() == 321 &&
+        room->query("balance") == 317 && !room->query("all_vendor_goods") &&
+        !sizeof(room->query("vendor_goods_num")), "player shop purchase, commission and stock");
+    result = ([ "cost": money - actor->cash_value(), "income": room->query("balance"),
+        "remaining": room->query("all_vendor_goods") ]);
+    foreach (ob in all_inventory(actor)) destruct(ob);
+    destruct(waiter); destruct(actor); destruct(room);
+    return result;
+}
+
+void check_business(mixed *pair) {
+    object actor, room, item, untouched;
+    object *items;
+
+    compare(load_object(pair[0]), load_object(pair[1]), "business blueprints");
+    check(save_variable(trade_result(pair[0], 0)) ==
+        save_variable(trade_result(pair[1], 0)), "default buy/sell parity");
+    check(save_variable(trade_result(pair[0], 321)) ==
+        save_variable(trade_result(pair[1], 321)), "explicit price buy/sell parity");
+    check(save_variable(player_shop_result(pair[0])) == save_variable(player_shop_result(pair[1])),
+        "player shop transaction parity");
+    actor = new("/tests/actor");
+    item = actor->carry_object(pair[1]);
+    check(base_name(item) == pair[1] && environment(item) == actor, "actual NPC carry_object");
+    destruct(item);
+    room = new("/tests/room");
+    room->set("objects", ([ pair[1]: 2 ]));
+    room->reset();
+    items = all_inventory(room);
+    check(sizeof(items) == 2 && base_name(items[0]) == pair[1] &&
+        base_name(items[1]) == pair[1], "actual room refresh creates exact stock");
+    untouched = items[0];
+    destruct(items[1]);
+    room->reset();
+    items = all_inventory(room);
+    check(sizeof(items) == 2 && member_array(untouched, items) >= 0,
+        "room replaces only destroyed instance");
+    untouched->move(actor, 1);
+    room->reset();
+    check(sizeof(all_inventory(room)) == 1, "room does not duplicate a carried item");
+    foreach (item in all_inventory(room)) destruct(item);
+    destruct(untouched); destruct(room); destruct(actor);
+}
+
+void check_refusals(string path) {
+    object actor, item, child;
+    string reason;
+
+    actor = new("/tests/actor");
+    foreach (reason in ({ "no_store", "no_put", "worn", "wet", "temporary", "contents" })) {
+        item = new(path);
+        switch (reason) {
+            case "no_store": case "no_put": item->set(reason, 1); break;
+            case "worn": item->set("equipped", "worn"); break;
+            case "wet": item->washed(10); break;
+            case "temporary": item->set_temp("fixture", 1); break;
+            case "contents":
+                child = new("/clone/misc/cloth");
+                item->set_max_encumbrance(100000);
+                check(child->move(item, 1) == 1, "container refusal fixture holds its child");
+                break;
+        }
+        actor->store_item(actor, item, 1);
+        check(objectp(item) && !sizeof(actor->depot_records()), "store refusal " + reason);
+        if (child) destruct(child);
+        if (item) { item->delete("equipped"); destruct(item); }
+    }
+    item = load_object(path);
+    actor->store_item(actor, item, 1);
+    check(objectp(item) && !sizeof(actor->depot_records()), "blueprint cannot be stored");
+    check(!item->query_autoload(), "ordinary clothes do not gain autoload");
+    destruct(actor);
+}
+
+void run_chunk() {
+    mixed *cases;
+    mixed *pair;
+    mixed err;
+    object old_blueprint, blueprint, before, after, other, rebuilt, program, actor, item;
+    mapping armor, records;
+    int old_wear, new_wear, inventory_count, tear;
+    int original_armor;
+    string expected_long;
+
+    program = load_object("/d/items/cloth");
+    check(!program->query("name") && !environment(program), "inert shared program");
+    cases = pending_cases[next_case..min(({ next_case + 19, sizeof(pending_cases) - 1 }))];
+    foreach (pair in cases) {
+        old_blueprint = load_object(pair[0]);
+        blueprint = load_object(pair[1]);
+        check(!clonep(blueprint) && base_name(blueprint) == pair[1], "virtual blueprint identity");
+        before = new(pair[0]);
+        after = new(pair[1]);
+        // Both blueprints must have served an instance: set_default_object marks
+        // them no_clean_up. A merged blueprint may already be warm from another source.
+        compare(old_blueprint, blueprint, pair[1] + " blueprint");
+        check(clonep(after) && base_name(after) == pair[1], "virtual clone identity");
+        check(after->query_default_object() == blueprint, "variety default object");
+        compare(before, after, pair[1] + " clone");
+        rebuilt = new(base_name(after));
+        compare(after, rebuilt, pair[1] + " reconstruction");
+        expected_long = after->long();
+        check(
+            undefinedp(after->query_entire_dbase()["long"]),
+            "fixed description comes from blueprint"
+        );
+        after->set("long", "衣襟上新添了一道墨痕。\n");
+        check(after->long() == "衣襟上新添了一道墨痕。\n" + after->extra_long() && rebuilt->long() == expected_long &&
+            blueprint->long() == expected_long, "instance description override remains isolated");
+        after->delete("long");
+        check(
+            after->long() == expected_long,
+            "deleting description override restores blueprint default"
+        );
+        actor = new("/tests/actor");
+        actor->move(this_object(), 1);
+        check(before->move(actor) == 1 && rebuilt->move(actor) == 1, "actor carries clothes");
+        old_wear = "/cmds/std/wear"->do_wear(actor, before);
+        check(before->unequip() == 1, "old item unequip");
+        new_wear = "/cmds/std/wear"->do_wear(actor, rebuilt);
+        check(old_wear == new_wear && new_wear == 1, "female wear parity");
+        rebuilt->unequip();
+        actor->set("gender", "男性");
+        old_wear = "/cmds/std/wear"->do_wear(actor, before);
+        if (old_wear) before->unequip();
+        new_wear = "/cmds/std/wear"->do_wear(actor, rebuilt);
+        check(old_wear == new_wear, "male wear restriction parity");
+        if (new_wear) rebuilt->unequip();
+        item = new(pair[1]);
+        actor->store_item(actor, item, 1);
+        records = actor->depot_records();
+        check(!item && records["item0"]["file"] == pair[1] &&
+            records["item0"]["amount"] == 1, "virtual item stored in unchanged record shape");
+        item = new(pair[1]);
+        item->set("no_store", 1);
+        actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && actor->depot_records()["item0"]["amount"] == 1,
+            "no_store preserved"
+        );
+        destruct(item);
+        inventory_count = sizeof(all_inventory(actor));
+        check(actor->run_command("take 1 1") > 0, "take command dispatched");
+        check(sizeof(all_inventory(actor)) == inventory_count + 1 &&
+            !sizeof(actor->depot_records()), "stored variety retrieved");
+        foreach (item in all_inventory(actor))
+            if (item != before && item != rebuilt)
+                destruct(item);
+        before->move(this_object(), 1);
+        rebuilt->move(this_object(), 1);
+        item = new(pair[1]);
+        item->move(actor);
+        actor->select_cloth(item);
+        for (tear = 0; tear < 5; tear++)
+            actor->run_command("testtear " + item->query("id"));
+        check(item->query("teared_count") == (item->query("material") == "cloth" ? 4 : 0),
+            "cloth tears four times; other materials refuse");
+        check(sizeof(all_inventory(actor)) == (item->query("material") == "cloth" ? 5 : 1),
+            sprintf("tear produces the expected bandages: %s %O", pair[1], all_inventory(actor)));
+        foreach (item in all_inventory(actor)) destruct(item);
+        destruct(actor);
+        other = new(pair[1]);
+        original_armor = other->query("armor_prop/armor");
+        armor = after->query("armor_prop");
+        armor["armor"] = 9876;
+        check(other->query("armor_prop/armor") == original_armor &&
+            blueprint->query("armor_prop/armor") == original_armor, "nested state isolation");
+        check(before->move(this_object(), 1) == 1, "old item movement");
+        check(other->move(this_object(), 1) == 1, "virtual item movement");
+        check(before->washed(10) == other->washed(10), "wash duration");
+        check(before->query_temp("no_wear") == other->query_temp("no_wear"), "wet restriction");
+        before->dry_cloth(); other->dry_cloth();
+        check(!other->query_temp("no_wear"), "dry restriction cleared");
+        destruct(before); destruct(after); destruct(other); destruct(rebuilt);
+        check_business(pair);
+        check_refusals(pair[0]);
+        check_refusals(pair[1]);
+    }
+    next_case += sizeof(cases);
+    if (next_case < sizeof(pending_cases)) {
+        // Let real dealer cleanup callbacks run between batches, as in the game.
+        call_out("run_chunk", 1);
+        return;
+    }
+    after = 0;
+    err = catch(after = new("/d/items/cloth/not_a_variety"));
+    check(!after && !find_object("/d/items/cloth/not_a_variety"), "unknown variety rejected");
+    err = catch(after = new("/d/items/cloth/beijing_npc_obj_cloth"));
+    check(
+        !after && !find_object("/d/items/cloth/beijing_npc_obj_cloth"),
+        "removed variety cannot be created"
+    );
+    err = catch(new("/d/items/cloth", "baise_changpao"));
+    check(!!err, "direct parameter construction rejected");
+    check(!program->valid_variety_path("/tests/vendor") &&
+        !program->valid_variety_path("/d/items/cloth/not_a_variety") &&
+        !program->valid_variety_path("/d/items/cloth/baise_changpao/extra"),
+        "registry accepts only exact registered varieties");
+    actor = new("/tests/actor");
+    item = new("/tests/vendor");
+    actor->store_item(actor, item, 1);
+    check(objectp(item) && !sizeof(actor->depot_records()), "no blanket .lpc storage admission");
+    destruct(item);
+    item = new("/clone/cloth/qingyi");
+    check(!function_exists("do_tear", item) && !function_exists("washed", item) &&
+        item->query("armor_prop/dodge") == 6, "unmigrated EQUIP keeps its behavior");
+    actor->store_item(actor, item, 1);
+    check(!item && actor->depot_records()["item0"]["file"] == "/clone/cloth/qingyi",
+        "existing physical .c storage remains available");
+    destruct(actor);
+    check_canonical_definitions();
+    "/tests/migration"->run(pending_cases);
+    master()->finish();
+}
+
+void run() {
+    pending_cases = json_decode(read_file("/tests/cases.json"));
+    next_case = 0;
+    run_chunk();
+}

@@ -94,7 +94,7 @@ void create() {
     set_temp("apply/unarmed_damage", 100);
     set_temp("apply/armor", 200);
 
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 void attempt_apprentice(object ob) {

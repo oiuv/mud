@@ -65,6 +65,6 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/xueshan/obj/y-jiasha")->wear();
+    carry_object("/d/items/cloth/huangse_jiasha")->wear();
     carry_object("/clone/weapon/jiedao")->wield();
 }

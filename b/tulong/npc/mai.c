@@ -25,7 +25,7 @@ LONG);
     set_skill("force", 300);
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth6")->wear();
+    carry_object("/d/items/cloth/duanda_jinzhuang")->wear();
 }
 
 int accept_fight(object who) {

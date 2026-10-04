@@ -14,6 +14,6 @@ void create() {
     set("shen_type", 1);
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 20);
 }

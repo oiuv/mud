@@ -8,12 +8,17 @@
 
 ### Requirement: Selected varieties retain their gameplay properties
 
-获准迁移的品种 SHALL 保持名称、颜色、别名、描述、数值、材质、使用效果及限制。原文件路径 SHALL 允许替换，不作为玩法等价的必要条件。
+获准迁移的品种 SHALL 保持实际名称、颜色、描述、数值、材质、使用效果及限制。等价物品的历史输入别名 SHALL 允许去重合并，并保持原输入可用；原文件路径、旧商品 ID 和无实际影响的源码写法 SHALL 允许替换，不作为玩法等价的必要条件。兼容目标是功能和已有数据，MUST NOT 以兼容为由保留历史代码冗余。
 
 #### Scenario: Similar clothes have different attributes
 
 - **WHEN** 相似名称的衣服迁移到共用类
-- **THEN** 各自重量、护甲、性别限制、穿脱文案及未设置属性仍与原物品一致
+- **THEN** 各自重量、护甲、性别限制、穿脱文案及实际默认值语义保持不变，有真实差异的物品仍分别定义
+
+#### Scenario: Equivalent clothes differ only in historical spelling
+
+- **WHEN** 衣物只存在历史输入别名、设置顺序或显式零值等写法差异，且已核实这些差异不改变实际功能或有效数据
+- **THEN** 统一为一个规范品种，原输入别名仍可使用，不以源码、别名数组或内部 mapping 必须逐字相同阻止归并
 
 ### Requirement: Families follow shared behavior
 

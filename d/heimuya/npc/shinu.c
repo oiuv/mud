@@ -14,6 +14,6 @@ void create() {
     set("int", 21);
     set("attitude", "friendly");
     setup();
-    carry_object("/d/heimuya/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("coin", 20);
 }

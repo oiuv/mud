@@ -20,6 +20,6 @@ void create() {
         "茶博士摇头晃脑的说着书。\n",
     }));
     setup();
-    carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 2);
 }

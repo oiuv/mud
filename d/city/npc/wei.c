@@ -41,7 +41,7 @@ void create() {
     }));
     carry_object("/d/city/obj/flower_shoe")->wear();
 
-    carry_object("/d/city/obj/pink_cloth")->wear();
+    carry_object("/d/items/cloth/fenhong_choushan")->wear();
 }
 
 void init() {

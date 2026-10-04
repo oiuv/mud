@@ -56,7 +56,7 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/quanzhen/npc/obj/grayrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao_qingxing")->wear();
 
 }
 

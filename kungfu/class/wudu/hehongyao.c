@@ -99,7 +99,7 @@ LONG);
     setup();
 
     carry_object("/d/wudu/npc/obj/jiandao")->wield();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/d/wudu/obj/wuxing");
 
     add_money("gold", 2);

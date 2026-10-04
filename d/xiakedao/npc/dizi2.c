@@ -38,7 +38,7 @@ void create() {
     create_family("侠客岛", 0, "弟子");
 
     setup();
-    carry_object(__DIR__ "obj/ycloth")->wear();
+    carry_object("/d/items/cloth/huangshan")->wear();
 }
 
 void init() {

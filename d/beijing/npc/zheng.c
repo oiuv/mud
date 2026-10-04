@@ -27,5 +27,5 @@ void create() {
     set_skill("parry", 100);
 
     setup();
-    carry_object(__DIR__ "obj/goldcloth1")->wear();
+    carry_object("/d/items/cloth/yuci_huangmagua")->wear();
 }

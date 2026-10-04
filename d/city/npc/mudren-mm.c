@@ -11,7 +11,7 @@ void create() {
     set("age", 21);
     set("per", 30);
     setup();
-    carry_object("/d/city/npc/obj/qunzi")->wear();
+    carry_object("/d/items/cloth/lianyiqun")->wear();
 }
 
 void init() {

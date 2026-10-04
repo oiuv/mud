@@ -16,8 +16,8 @@ void create() {
     set("vendor_goods", ({
         "/d/jingzhou/obj/changjian",
         "/d/jingzhou/obj/gangdao",
-        "/d/jingzhou/obj/armor",
-        "/d/jingzhou/obj/beixin",
+        "/d/items/cloth/tiejia_qingxing",
+        "/d/items/cloth/pi_beixin",
     }));
 
 

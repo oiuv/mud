@@ -17,10 +17,10 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         __DIR__ "obj/shoes",
-        __DIR__ "obj/doupeng",
-        __DIR__ "obj/guazi",
-        __DIR__ "obj/kenao",
-        __DIR__ "obj/qun",
+        "/d/items/cloth/lvse_doupeng",
+        "/d/items/cloth/duijin_guazi",
+        "/d/items/cloth/zhaiken_ao",
+        "/d/items/cloth/baisha_xiangbianqun",
     }));
     setup();
     carry_object("/clone/cloth/cloth")->wear();

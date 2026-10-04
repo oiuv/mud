@@ -81,7 +81,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 mixed ask_for_zhou() {

@@ -80,7 +80,7 @@ LONG);
     setup();
 
     carry_object("/d/beijing/npc/obj/fuchen")->wield();
-    carry_object("/d/quanzhen/npc/obj/grayrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao_qingxing")->wear();
 }
 
 void attempt_apprentice(object ob) {

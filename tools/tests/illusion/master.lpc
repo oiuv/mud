@@ -32,6 +32,8 @@ void error_handler(mapping details, int caught) {
 void run() {
     mixed err;
 
+    err = catch(load_object("/tests/virtual")->run());
+    if (err) check(0, err);
     err = catch(load_object("/tests/reload")->run());
     if (err) check(0, err);
     err = catch(load_object("/tests/foundation")->run());

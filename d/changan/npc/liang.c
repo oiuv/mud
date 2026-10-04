@@ -18,6 +18,6 @@ void create() {
     set_skill("unarmed", 40);
     set_skill("dodge", 40);
     setup();
-    carry_object(__DIR__ "obj/choupao")->wear();
+    carry_object("/d/items/cloth/choupao")->wear();
     add_money("silver", 1);
 }

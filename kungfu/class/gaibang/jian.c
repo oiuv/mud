@@ -87,7 +87,7 @@ LONG);
 
     setup();
     carry_object("/clone/weapon/gangzhang")->wield();
-    carry_object("/d/gaibang/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/po_buyi")->wear();
 }
 
 void attempt_apprentice(object ob) {

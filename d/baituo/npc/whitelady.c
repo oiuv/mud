@@ -29,5 +29,5 @@ void create() {
     set_temp("apply/armor", 7);
 
     setup();
-    carry_object("/d/baituo/obj/baipao")->wear();
+    carry_object("/d/items/cloth/baise_changpao")->wear();
 }

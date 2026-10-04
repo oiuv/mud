@@ -110,7 +110,7 @@ void create() {
     }));
 
     setup();
-    carry_object(__DIR__ "obj/cloth4")->wear();
+    carry_object("/d/items/cloth/guiwang_pao")->wear();
 }
 
 void init() {

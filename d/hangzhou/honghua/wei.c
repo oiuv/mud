@@ -52,6 +52,6 @@ void create() {
     set("env/wimpy", 20);
 
     setup();
-    carry_object("/d/wudang/obj/bluecloth")->wear();
+    carry_object("/d/items/cloth/qingbu_changshan")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

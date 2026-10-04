@@ -80,7 +80,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/city/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/d/city/npc/obj/gangdao")->wield();
 }
 

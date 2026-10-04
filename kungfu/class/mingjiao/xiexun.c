@@ -83,7 +83,7 @@ void create() {
             "id": "yin tianzheng" ]),
     }));
     setup();
-    carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/items/cloth/huoyan_baibu_changpao")->wear();
 }
 /*
 int accept_object(object who, object ob)

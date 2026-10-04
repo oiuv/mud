@@ -16,5 +16,5 @@ void create() {
     set("max_force", 300);
 
     setup();
-    carry_object(__DIR__ "obj/zichoush")->wear();
+    carry_object("/d/items/cloth/zi_choushan")->wear();
 }

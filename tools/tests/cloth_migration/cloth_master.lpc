@@ -1,0 +1,48 @@
+// Disposable driver for explicitly selected backups; excluded from updateall.
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Backbone"; }
+string creator_file(string file) { return "Root"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+void log_error(string file, string text) { debug_message(text); }
+
+void run() {
+    mapping request, entry, result;
+    mixed *results;
+    mixed err;
+    string reason;
+
+    request = json_decode(read_file("/request.json"));
+    results = ({});
+    foreach (entry in request["entries"]) {
+        err = catch(result = "/cloth_records"->convert(entry["value"], entry["kind"],
+            request["paths"], entry["bag_objects"]));
+        if (err) {
+            // Do not dump private serialized records into driver logs.
+            reason = strsrch(
+                err,
+                "Shop price conflict"
+            ) >= 0 ? "Shop price conflict" : strsrch(
+                err,
+                "Shop stock conflict"
+            ) >= 0 ? "Shop stock conflict" : "Invalid record";
+            write_file(
+                "/failure.json",
+                json_encode(([ "entry": sizeof(results), "reason": reason ])),
+                1
+            );
+            debug_message("CLOTH MIGRATION FAILED at entry " + sizeof(results));
+            shutdown(1);
+            return;
+        }
+        results += ({ result });
+    }
+    write_file("/result.json", json_encode(results), 1);
+    debug_message("CLOTH MIGRATION PASS");
+    shutdown(0);
+}
+
+void error_handler(mapping details, int caught) {
+    if (!caught) { debug_message("CLOTH MIGRATION FAILED"); shutdown(1); }
+}
+string *epilog(int flag) { call_out("run", 0); return ({}); }

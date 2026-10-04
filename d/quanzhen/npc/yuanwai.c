@@ -15,6 +15,6 @@ void create() {
     set_temp("apply/defense", 42);
 
     setup();
-    carry_object(__DIR__ "obj/jinduan")->wear();
+    carry_object("/d/items/cloth/jinduan")->wear();
     add_money("silver", 50);
 }

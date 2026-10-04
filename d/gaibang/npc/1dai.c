@@ -54,5 +54,5 @@ void create() {
     if (random(3) > 1)
         carry_object(__DIR__ "obj/staff")->wield();
 
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/po_buyi")->wear();
 }

@@ -36,5 +36,5 @@ void create() {
 
     setup();
     add_money("silver", 20);
-    carry_object(__DIR__ "obj/xuan-cloth")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha")->wear();
 }

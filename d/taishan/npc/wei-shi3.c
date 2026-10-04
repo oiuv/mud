@@ -40,7 +40,7 @@ void create() {
     setup();
 
     carry_object("/d/city/obj/changjian")->wield();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
 }
 
 void init() {

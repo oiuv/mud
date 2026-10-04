@@ -17,5 +17,5 @@ void create() {
     set("int", 15);
     set("attitude", "friendly");
     setup();
-    carry_object(__DIR__ "obj/tduanqun")->wear();
+    carry_object("/d/items/cloth/taiyi_duanqun")->wear();
 }

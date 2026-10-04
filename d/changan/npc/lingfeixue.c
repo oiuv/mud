@@ -41,7 +41,7 @@ void create() {
         "凌飞雪对你说道：这位客官，你来我们群玉楼就算对了，您想要什么样的姑娘都有。\n",
     }));
 
-    carry_object(__DIR__ "obj/skirt")->wear();
+    carry_object("/d/items/cloth/qingsha_changqun")->wear();
 }
 
 void init() {

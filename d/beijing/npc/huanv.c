@@ -24,7 +24,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/beijing/npc/obj/nvcloth")->wear();
+    carry_object("/d/items/cloth/duanqun")->wear();
     add_money("coin", 100);
 }
 

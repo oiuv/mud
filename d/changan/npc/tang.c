@@ -14,5 +14,5 @@ void create() {
 
     setup();
     add_money("coin", 10);
-    carry_object(__DIR__ "obj/jinzhuang")->wear();
+    carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
 }

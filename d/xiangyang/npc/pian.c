@@ -32,7 +32,7 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/gangjian")->wield();
-    carry_object("/d/city/npc/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
 }
 
 void init() {

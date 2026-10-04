@@ -55,5 +55,5 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth5")->wear();
+    carry_object("/d/items/cloth/cubu_yi")->wear();
 }

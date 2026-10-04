@@ -40,7 +40,7 @@ void create() {
 
     set("title", "五毒教教众");
     setup();
-    carry_object(__DIR__ "obj/cloth1")->wear();
+    carry_object("/d/items/cloth/qingbu_changshan_lanse")->wear();
     carry_object(__DIR__ "obj/blade2")->wield();
 
 }

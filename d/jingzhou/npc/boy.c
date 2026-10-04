@@ -20,5 +20,5 @@ void create() {
     set("attitude", "peaceful");
 
     setup();
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

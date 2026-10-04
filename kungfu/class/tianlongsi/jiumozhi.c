@@ -89,7 +89,7 @@ LONG
 
     setup();
 
-    carry_object("/d/xueshan/obj/r-jiasha")->wear();
+    carry_object("/d/items/cloth/hongse_jiasha")->wear();
     carry_object("/d/xueshan/obj/sengmao")->wear();
 
     add_money("silver", 50);

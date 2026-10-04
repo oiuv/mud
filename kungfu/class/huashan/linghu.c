@@ -81,7 +81,7 @@ void create() {
 
     set("music_book", 1);
     setup();
-    carry_object("/d/heimuya/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     // carry_object("/d/heimuya/npc/obj/card2"); // todo 文件不存在
 }

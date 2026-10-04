@@ -19,14 +19,14 @@ void create() {
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/city/obj/beixin",
+        "/d/items/cloth/pi_beixin_guizhong",
         "/d/quanzhou/obj/xiuhua",
         "/d/city/obj/flower_shoe",
-        "/d/city/obj/pink_cloth",
+        "/d/items/cloth/fenhong_choushan",
     }));
 
     setup();
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 void init() {

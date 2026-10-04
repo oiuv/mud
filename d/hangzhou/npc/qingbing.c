@@ -25,6 +25,6 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/changqiang")->wield();
-    carry_object("/d/city/obj/junfu")->wear();
+    carry_object("/d/items/cloth/junfu")->wear();
     add_money("silver", 10);
 }

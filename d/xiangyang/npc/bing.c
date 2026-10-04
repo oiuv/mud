@@ -37,7 +37,7 @@ void create() {
     }));
     setup();
     carry_object("/clone/weapon/gangdao")->wield();
-    carry_object("/d/city/npc/obj/junfu")->wear();
+    carry_object("/d/items/cloth/junfu")->wear();
 }
 
 void init() {

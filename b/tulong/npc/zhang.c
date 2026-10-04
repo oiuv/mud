@@ -73,7 +73,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/wudang/obj/whiterobe")->wear();
+    carry_object("/d/items/cloth/baise_daopao")->wear();
 }
 
 int accept_fight(object who) {

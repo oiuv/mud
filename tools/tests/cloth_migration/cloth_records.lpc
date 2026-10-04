@@ -1,0 +1,88 @@
+// Offline conversion only. Kept under tests/ so updateall never loads it.
+private int changes;
+
+private void convert_items(mapping records, mapping paths) {
+    string key, old_path;
+    mapping item;
+    int index;
+
+    foreach (key, item in records) {
+        if (sscanf(key, "item%d", index) != 1 || key != "item" + index ||
+            !mapp(item) || !stringp(item["file"]) || !intp(item["amount"]))
+            error("Unrecognized depot record; no output was published.\n");
+        old_path = item["file"];
+        if (!undefinedp(paths[old_path])) {
+            item["file"] = paths[old_path];
+            changes++;
+        }
+    }
+}
+
+private void convert_shop(mapping data, mapping paths) {
+    string old_path, new_path;
+    mapping prices, stock, merged_prices, merged_stock, stock_sources;
+    mixed price, quantity, previous;
+
+    prices = data["vendor_goods"];
+    stock = data["vendor_goods_num"];
+    if ((prices && !mapp(prices)) || (stock && !mapp(stock)))
+        error("Expected shop goods mapping.\n");
+    merged_prices = ([]);
+    merged_stock = ([]);
+    stock_sources = ([]);
+    foreach (old_path, price in mapp(prices) ? prices : ([])) {
+        new_path = undefinedp(paths[old_path]) ? old_path : paths[old_path];
+        if (!undefinedp(merged_prices[new_path]) &&
+            save_variable(merged_prices[new_path]) != save_variable(price))
+            error("Shop price conflict; resolve prices before migration.\n");
+        merged_prices[new_path] = price;
+        if (new_path != old_path) changes++;
+    }
+    foreach (old_path, quantity in mapp(stock) ? stock : ([])) {
+        new_path = undefinedp(paths[old_path]) ? old_path : paths[old_path];
+        if (!undefinedp(merged_stock[new_path])) {
+            previous = merged_stock[new_path];
+            if (!mapp(prices) || undefinedp(prices[old_path]) ||
+                undefinedp(prices[stock_sources[new_path]]) || !intp(quantity) ||
+                !intp(previous) || quantity < 0 || previous < 0 || previous + quantity < previous)
+                error("Shop stock conflict; cannot safely combine quantities.\n");
+            merged_stock[new_path] += quantity;
+        } else {
+            merged_stock[new_path] = quantity;
+            stock_sources[new_path] = old_path;
+        }
+        if (new_path != old_path) changes++;
+    }
+    if (mapp(prices)) data["vendor_goods"] = merged_prices;
+    if (mapp(stock)) data["vendor_goods_num"] = merged_stock;
+}
+
+mapping convert(string serialized, string kind, mapping paths, string *bag_objects) {
+    mixed data;
+    string bag;
+
+    changes = 0;
+    data = restore_variable(serialized);
+    if (data && !mapp(data)) error("Expected a saved mapping.\n");
+    if (!data) return ([ "value": serialized, "changes": 0 ]);
+    switch (kind) {
+        case "backpack":
+            convert_items(data, paths);
+            break;
+        case "shop":
+            convert_shop(data, paths);
+            break;
+        case "legacy_bags":
+            if (!arrayp(bag_objects) || !sizeof(bag_objects))
+                error("Legacy bags require explicit object keys.\n");
+            foreach (bag in bag_objects) {
+                if (undefinedp(data[bag])) error("Selected legacy bag does not exist.\n");
+                if (!mapp(data[bag])) error("Expected legacy bag records.\n");
+                convert_items(data[bag], paths);
+            }
+            break;
+        default:
+            error("Unknown record kind.\n");
+    }
+    return ([ "value": changes ? save_variable(data) : serialized, "changes": changes ]);
+}

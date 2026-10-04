@@ -64,5 +64,5 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/xueshan/obj/y-jiasha")->wear();
+    carry_object("/d/items/cloth/huangse_jiasha")->wear();
 }

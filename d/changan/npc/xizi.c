@@ -12,7 +12,7 @@ void create() {
     set("attitude", "heroism");
     set_skill("dodge", 80);
     setup();
-    carry_object(__DIR__ "obj/changpao")->wear();
+    carry_object("/d/items/cloth/changpao")->wear();
     add_money("silver", 2);
 }
 

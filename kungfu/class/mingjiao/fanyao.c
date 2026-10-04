@@ -80,7 +80,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/items/cloth/huoyan_baibu_changpao")->wear();
     carry_object("/clone/weapon/gangjian")->wield();
 }
 

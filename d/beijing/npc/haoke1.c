@@ -29,5 +29,5 @@ void create() {
 
     setup();
     carry_object("/d/beijing/npc/obj/blade2")->wield();
-    carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

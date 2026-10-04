@@ -12,5 +12,5 @@ void create() {
     set_skill("dodge", 30);
 
     setup();
-    carry_object("/d/city/npc/obj/yayifu")->wear();
+    carry_object("/d/items/cloth/baimian_yayifu")->wear();
 }

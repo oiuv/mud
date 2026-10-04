@@ -119,14 +119,14 @@ void run() {
     room = "/adm/daemons/virtuald"->compile_object("/tests/numeric/1,2");
     CHECK(
         room->query("position")[0] == 1 && room->query("position")[1] == 2,
-        "legacy two-number route works"
+        "coordinate provider accepts two numbers"
     );
     room = "/adm/daemons/virtuald"->compile_object("/tests/numeric/1,2,3");
-    CHECK(room->query("position")[2] == 3, "legacy three-number route works");
+    CHECK(room->query("position")[2] == 3, "coordinate provider accepts three numbers");
     CHECK(room->query("preferred") == "lpc", "extensionless template follows driver lpc priority");
     room = "/adm/daemons/virtuald"->compile_object("/tests/legacy_numeric/-1,2,3");
     CHECK(room->query("preferred") == "c" && room->query("position")[0] == -1,
-        "c-only legacy virtual template preserved");
+        "c-only coordinate provider preserved");
     CHECK(
         !"/adm/daemons/virtuald"->compile_object("/tests/absent/name"),
         "missing virtual template returns zero"

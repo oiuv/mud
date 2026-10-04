@@ -58,5 +58,5 @@ LONG);
 
     create_family("灵鹫宫", 0, "主人");
     setup();
-    carry_object("/d/lingjiu/obj/changpao")->wear();
+    carry_object("/d/items/cloth/zhenshen_changpao")->wear();
 }

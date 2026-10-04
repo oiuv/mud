@@ -83,7 +83,7 @@ void create() {
         }
     }
 
-    carry_object("/d/beijing/npc/obj/guanfu3")->wear();
+    carry_object("/d/items/cloth/erpin_shiweizhuang")->wear();
     add_money("silver", 20);
 }
 

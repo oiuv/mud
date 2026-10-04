@@ -29,6 +29,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object("/d/city/npc/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

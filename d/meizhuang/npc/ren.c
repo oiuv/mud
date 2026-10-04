@@ -63,7 +63,7 @@ void create() {
         "黑木令": "要拿黑木令？老夫想先看看你的剑法！\n",
     ]));
     setup();
-    carry_object("/d/wudang/obj/bluecloth")->wear();
+    carry_object("/d/items/cloth/qingbu_changshan")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }
 

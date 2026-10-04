@@ -1,0 +1,2 @@
+// Membership is an external fixture; dealer and currency calculations are real.
+int is_owner(string id) { return 0; }

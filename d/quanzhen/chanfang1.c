@@ -14,7 +14,7 @@ LONG);
     set("objects", ([
         __DIR__ "npc/obj/gangjian": random(3),
         __DIR__ "npc/obj/gangdao": random(2),
-        __DIR__ "npc/obj/tiejia": random(2),
+        "/d/items/cloth/tiejia_zhongfang": random(2),
     ]));
 
     setup();

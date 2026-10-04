@@ -20,7 +20,7 @@ void create() {
         "舍利子": (: ask_me() :),
     ]));
     setup();
-    carry_object("/d/xueshan/obj/c-jiasha")->wear();
+    carry_object("/d/items/cloth/qingse_jiasha")->wear();
 }
 
 void init() {

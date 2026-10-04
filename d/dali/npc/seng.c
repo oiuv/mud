@@ -31,6 +31,6 @@ void create() {
     set_skill("parry", 50);
 
     setup();
-    carry_object("/d/shaolin/obj/cheng-cloth")->wear();
+    carry_object("/d/items/cloth/jinbian_heibu_jiasha")->wear();
     add_money("silver", 50);
 }

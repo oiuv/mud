@@ -29,8 +29,8 @@ void create() {
         "多隆喝道：他奶奶的，你连我都敢惹？\n",
     }));
     setup();
-    carry_object("/d/beijing/npc/obj/guanfu2")->wear();
-    carry_object("/d/beijing/npc/obj/goldcloth1")->wear();
+    carry_object("/d/items/cloth/yipin_shiweizhuang")->wear();
+    carry_object("/d/items/cloth/yuci_huangmagua")->wear();
 }
 
 void init() {

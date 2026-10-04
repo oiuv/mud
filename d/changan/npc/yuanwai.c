@@ -27,7 +27,7 @@ void create() {
     set_skill("force", 50);
 
     setup();
-    carry_object(__DIR__ "obj/choupao")->wear();
+    carry_object("/d/items/cloth/choupao")->wear();
 }
 void check_daughter(object me);
 

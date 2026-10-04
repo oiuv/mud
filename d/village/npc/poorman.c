@@ -22,5 +22,5 @@ void create() {
         "穷汉伸手捉住了身上的虱子，骂道：老子身上没几两肉，全叫你们给咬了。 \n",
         (: random_move :)
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

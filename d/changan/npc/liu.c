@@ -15,7 +15,7 @@ void create() {
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        __DIR__ "obj/beixin",
+        "/d/items/cloth/pi_beixin_guizhong",
         __DIR__ "obj/shield",
         __DIR__ "obj/muqin",
         "/d/xiyu/obj/fire",
@@ -30,7 +30,7 @@ void create() {
     }));
 
     setup();
-    carry_object(__DIR__ "obj/changpao")->wear();
+    carry_object("/d/items/cloth/changpao")->wear();
 }
 void init() {
     add_action("do_list", "list");

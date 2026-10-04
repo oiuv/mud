@@ -25,5 +25,5 @@ void create() {
     setup();
     add_money("silver", 5);
 
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

@@ -35,5 +35,5 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/cynrobe")->wear();
+    carry_object("/d/items/cloth/qingse_daopao_buzhi")->wear();
 }

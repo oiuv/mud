@@ -17,5 +17,5 @@ void create() {
         "哼！你们这些小贱人，活该！",
     }));
     setup();
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

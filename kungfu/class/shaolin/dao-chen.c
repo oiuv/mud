@@ -71,7 +71,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/shaolin/obj/dao-cloth")->wear();
+    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
 }
 
 string ask_me(string name) {

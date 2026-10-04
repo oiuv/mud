@@ -150,7 +150,7 @@ LONG);
             ob2->move(this_object());
             ob2->wear();
         } else {
-            ob2 = new("/d/xueshan/obj/p-jiasha");
+            ob2 = new("/d/items/cloth/zise_jiasha");
             ob2->move(this_object());
             ob2->wear();
         }

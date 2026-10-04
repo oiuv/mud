@@ -22,6 +22,6 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 10);
 }

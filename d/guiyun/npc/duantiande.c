@@ -16,5 +16,5 @@ void create() {
     setup();
 
     add_money("silver", 50);
-    carry_object("/d/city/npc/obj/junfu")->wear();
+    carry_object("/d/items/cloth/junfu")->wear();
 }

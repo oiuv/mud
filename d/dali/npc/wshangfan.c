@@ -16,6 +16,6 @@ void create() {
     set("int", 22);
     set("attitude", "friendly");
     setup();
-    carry_object(__DIR__ "obj/wdahui")->wear();
+    carry_object("/d/items/cloth/wuyi_dahui")->wear();
     add_money("coin", 100);
 }

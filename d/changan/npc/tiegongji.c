@@ -25,7 +25,7 @@ void create() {
     set_skill("dodge", 60);
 
     setup();
-    carry_object(__DIR__ "obj/choupao")->wear();
+    carry_object("/d/items/cloth/choupao")->wear();
     add_money("silver", 1);
 }
 

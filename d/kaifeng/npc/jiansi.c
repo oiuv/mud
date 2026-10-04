@@ -38,5 +38,5 @@ void create() {
 
     setup();
     carry_object("/d/shaolin/obj/jiedao")->wield();
-    carry_object(__DIR__ "obj/cheng-cloth")->wear();
+    carry_object("/d/items/cloth/jinbian_heibu_jiasha")->wear();
 }

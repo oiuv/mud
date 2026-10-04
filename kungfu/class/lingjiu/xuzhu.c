@@ -119,7 +119,7 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/lingjiu/obj/changpao")->wear();
+    carry_object("/d/items/cloth/zhenshen_changpao")->wear();
     add_money("silver", 50);
 }
 

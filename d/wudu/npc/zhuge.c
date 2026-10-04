@@ -33,7 +33,7 @@ void create() {
         "桃花峪": (: ask_me :),
         "诸葛行军散": (: ask_me :),
     ]));
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 mixed ask_me() {

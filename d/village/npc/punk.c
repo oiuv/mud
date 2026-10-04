@@ -38,7 +38,7 @@ void create() {
         "流氓嘴角露出一丝邪笑，说道：翠花这娘儿们真够劲儿，真她奶\n"
         "奶的够~~劲~~儿!\n",
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 int ask_me() {

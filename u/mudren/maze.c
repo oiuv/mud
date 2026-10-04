@@ -2,6 +2,17 @@
 
 inherit "/inherit/room/illusion_base";
 
+object create_virtual_object(string key) {
+    int x, y, z;
+
+    if (!sizeof(regexp(({ key }), "^[+-]?[0-9]+,[+-]?[0-9]+(,[+-]?[0-9]+)?$")))
+        return 0;
+    if (sscanf(key, "%d,%d,%d", x, y, z) == 3)
+        return new(base_name(this_object()), x, y, z);
+    if (sscanf(key, "%d,%d", x, y) == 2)
+        return new(base_name(this_object()), x, y);
+    return 0;
+}
 
 varargs void create(int x, int y, int z) {
     set("short", "心魔幻境");

@@ -29,7 +29,7 @@ void create() {
         "江湖威望": (: ask_weiwang :),
     ]));
     setup();
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }
 
 int ask_weiwang() {

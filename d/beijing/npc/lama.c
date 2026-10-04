@@ -33,7 +33,7 @@ void create() {
     setup();
 
     carry_object("/d/beijing/npc/obj/blade1")->wield();
-    carry_object("/d/beijing/npc/obj/jiasha")->wear();
+    carry_object("/d/items/cloth/hongse_jiasha_buzhi")->wear();
 }
 
 void init() {

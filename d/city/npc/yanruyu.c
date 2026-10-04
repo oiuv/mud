@@ -58,7 +58,7 @@ void create() {
         "颜如玉说道：云想衣裳花想容，春风指槛露华浓，若非群玉山头见，会向瑶台月下逢。\n",
     }));
 
-    carry_object("/d/changan/npc/obj/skirt")->wear();
+    carry_object("/d/items/cloth/qingsha_changqun")->wear();
 }
 
 void init() {

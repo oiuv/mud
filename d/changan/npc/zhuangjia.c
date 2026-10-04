@@ -37,7 +37,7 @@ void create() {
     set("combat_exp", 300000);
 
     setup();
-    carry_object(__DIR__ "obj/choupao")->wear();
+    carry_object("/d/items/cloth/choupao")->wear();
 }
 
 void init() {

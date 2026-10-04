@@ -61,7 +61,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/beijing/npc/obj/hupi")->wear();
+    carry_object("/d/items/cloth/baihu_piqiu")->wear();
 }
 
 void kill_ob(object ob) {

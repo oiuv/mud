@@ -15,10 +15,10 @@ void create() {
     set_temp("apply/damage", 30);
 
     set("vendor_goods", ({
-        "/d/guanwai/npc/obj/piqiu",
+        "/d/items/cloth/piqiu",
     }));
     setup();
-    carry_object("/d/guanwai/npc/obj/piqiu")->wear();
+    carry_object("/d/items/cloth/piqiu")->wear();
 }
 
 void init() {

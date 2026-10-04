@@ -36,5 +36,5 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/city/obj/cloth.c")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

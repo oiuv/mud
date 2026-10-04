@@ -25,7 +25,7 @@ void create() {
     set_skill("force", 70);
 
     setup();
-    carry_object(__DIR__ "obj/sengpao")->wear();
+    carry_object("/d/items/cloth/sengpao")->wear();
 }
 
 int accept_fight(object me) {

@@ -1,0 +1,38 @@
+// Equal-load measurements in a fresh driver process for each version/run.
+void load_blueprints(mixed *cases, int version) {
+    mixed *pair;
+
+    foreach (pair in cases) load_object(pair[version]);
+}
+
+void populate(object *objects, mixed *cases, int version) {
+    int i;
+
+    for (i = 0; i < sizeof(objects); i++)
+        objects[i] = new(cases[i % sizeof(cases)][version]);
+}
+
+void run() {
+    mapping config, result, varieties;
+    mixed *cases, pair;
+    object *objects;
+    object ob;
+    int before, loaded, created, compile_us, clone_us;
+
+    config = json_decode(read_file("/tests/benchmark.json"));
+    cases = json_decode(read_file("/tests/cases.json"));
+    objects = allocate(sizeof(cases) * 20);
+    before = memory_info();
+    compile_us = time_expression (load_blueprints(cases, config["version"]));
+    loaded = memory_info();
+    clone_us = time_expression (populate(objects, cases, config["version"]));
+    created = memory_info();
+    varieties = ([]);
+    foreach (pair in cases) varieties[pair[config["version"]]] = 1;
+    result = ([ "version": config["version"], "round": config["round"],
+        "source_definitions": sizeof(cases), "varieties": sizeof(varieties), "clones": sizeof(objects),
+        "cold_load_us": compile_us, "warm_clone_us": clone_us,
+        "blueprints_bytes": loaded - before, "clones_bytes": created - loaded ]);
+    foreach (ob in objects) destruct(ob);
+    debug_message("CLOTH BENCH " + json_encode(result));
+}

@@ -1,0 +1,20 @@
+private string key;
+private int creates, starts;
+private string final_path, final_uid;
+
+void create(string value) {
+    key = value;
+    creates++;
+}
+
+void virtual_start() {
+    starts++;
+    final_path = base_name(this_object());
+    final_uid = getuid();
+}
+
+string query_key() { return key; }
+int query_creates() { return creates; }
+int query_starts() { return starts; }
+string query_final_path() { return final_path; }
+string query_final_uid() { return final_uid; }

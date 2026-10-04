@@ -1,0 +1,74 @@
+#define DAEMON "/adm/daemons/virtuald"
+#define CHECK(ok, label) call_other("/tests/master", "check", (ok), (label))
+
+void run() {
+    object provider, ob, other;
+    string key, path;
+    mixed err;
+
+    provider = load_object("/tests/virtual_provider");
+    foreach (key in ({ "7", "1,2", "1,2,3", "cloth" })) {
+        path = "/tests/virtual_provider/" + key;
+        ob = load_object(path);
+        CHECK(virtualp(ob) && !clonep(ob), "virtual blueprint identity");
+        CHECK(ob->query_key() == key, "key is opaque, including numbers and commas");
+        CHECK(ob->query_creates() == 1 && ob->query_starts() == 1,
+            "blueprint initializes once");
+        CHECK(ob->query_final_path() == path && ob->query_final_uid() == getuid(ob),
+            "driver names and sets uid before virtual_start");
+        CHECK(load_object(path) == ob, "blueprint lookup reuses named object");
+        other = new(path);
+        CHECK(clonep(other) && virtualp(other) && other != ob, "fresh virtual clone");
+        CHECK(other->query_key() == key && other->query_creates() == 1 &&
+            other->query_starts() == 1, "clone initialization is not repeated");
+        destruct(other);
+        other = new(base_name(ob));
+        CHECK(other->query_key() == key, "recreate by base_name");
+        destruct(other);
+    }
+    foreach (key in ({ "reject", "9,9" })) {
+        CHECK(!DAEMON->compile_object("/tests/virtual_provider/" + key), "explicit refusal");
+        ob = 0;
+        err = catch(ob = load_object("/tests/virtual_provider/" + key));
+        CHECK(!objectp(ob) && !find_object("/tests/virtual_provider/" + key),
+            "refusal leaves no named object");
+    }
+    foreach (key in ({ "throw", "bad", "self", "existing" })) {
+        err = catch(DAEMON->compile_object("/tests/virtual_provider/" + key));
+        CHECK(stringp(err), "invalid provider result or exception is visible to caller");
+    }
+    CHECK(!provider->query_legacy_calls(), "new callback never falls back to old method");
+    foreach (path in ({ "", "/", "/name", "/tests/virtual_provider/", "/missing/key",
+        "/tests/room_stub/key", "/tests/legacy_provider/entry",
+        "/tests/legacy_provider/1,2", "/tests/legacy_provider/1,2,3" }))
+        CHECK(!DAEMON->compile_object(path), "no implicit legacy routing: " + path);
+    ob = DAEMON->compile_object("tests/virtual_provider/raw");
+    CHECK(ob->query_key() == "raw", "relative path normalizes without changing key");
+    destruct(ob);
+
+    foreach (path in ({ "/u/mudren/maze", "/u/mudren/workroom", "/tests/numeric" })) {
+        ob = load_object(path + "/-2,3");
+        CHECK(ob->query("position")[0] == -2 && ob->query("position")[1] == 3 &&
+            ob->query("position")[2] == 0, "provider handles negative 2D, default z=0");
+        other = new(path + "/-2,3,4");
+        CHECK(other->query("position")[0] == -2 && other->query("position")[2] == 4,
+            "provider handles 3D coordinate");
+        destruct(other);
+        CHECK(!DAEMON->compile_object(path + "/1,2,3junk"), "invalid coordinate rejected");
+    }
+    provider = load_object("/tests/virtual_maze");
+    CHECK(function_exists("create_virtual_object", provider) == CORE_VRM,
+        "LIB maze inherits new callback from framework");
+    ob = load_object("/tests/virtual_maze/entry");
+    CHECK(ob->query("exits/north") == ROOM &&
+        strsrch(ob->query("exits/south"), "/tests/virtual_maze/") == 0,
+        "maze entry keeps external and internal exits");
+    ob = load_object("/tests/virtual_maze/exit");
+    CHECK(ob->query("exits/south") == ROOM, "maze exit unchanged");
+    ob = load_object("/tests/virtual_maze/1-1");
+    CHECK(ob->query("zone")["x"] == 1 && ob->query("zone")["y"] == 1,
+        "maze coordinate identity unchanged");
+    other = provider->query_maze_room("1-1");
+    CHECK(other->query("short") == ob->query("short"), "framework legacy alias still works");
+    destruct(other);
+}

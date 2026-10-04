@@ -55,7 +55,7 @@ LONG);
     set_temp("apply/armor", 150);
 
     carry_object("/clone/weapon/green_sword")->wield();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
 }
 
 void init() {

@@ -11,6 +11,7 @@ string name() { return "test actor"; }
 int valid_leave(object actor, string direction) { return 1; }
 void setArea(string name, int x, int y, int z) { data["position"] = ({ x, y, z }); }
 void removeRandomExit() {}
+void addExit(string direction, string destination) { data["exits"][direction] = destination; }
 void setup() { data["setup_count"]++; }
 int is_character() { return 1; }
 int query_max_encumbrance() { return 1000000; }

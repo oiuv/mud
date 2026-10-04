@@ -1,0 +1,8 @@
+// Real dealer behavior; the test actor dispatches commands as this_player().
+inherit ITEM;
+inherit F_DEALER;
+
+void create() {
+    set_name("试衣掌柜", ({ "test vendor" }));
+    set_max_encumbrance(10000000);
+}

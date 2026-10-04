@@ -24,7 +24,7 @@ void create() {
         set("count", 1);
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/d/quanzhen/npc/obj/stick")->wield();
 }
 

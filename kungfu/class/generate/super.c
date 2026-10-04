@@ -91,7 +91,7 @@ private void from_jiuyin() {
     set("class", "taoist");
 
     carry_object("/clone/weapon/changbian")->wield();
-    carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao")->wear();
 }
 
 private void from_jiuyang() {

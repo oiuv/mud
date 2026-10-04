@@ -225,7 +225,8 @@ int store_item(object me, object ob, int amount) {
         return 0;
     }
 
-    if (file_size(base_name(ob) + ".c") < 0)
+    if (file_size(base_name(ob) + ".c") < 0 &&
+        !"/d/items/cloth"->valid_variety_path(base_name(ob)))
         return 1;
 
     if (ob->is_money()) {

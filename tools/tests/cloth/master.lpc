@@ -1,0 +1,52 @@
+int checks, failures;
+
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Backbone"; }
+string creator_file(string file) {
+    if (strsrch(file, "d/") == 0 || strsrch(file, "/d/") == 0)
+        return "Domain";
+    return "Root";
+}
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) { return uid == getuid(ob); }
+int valid_override(string file, string name, string main_file) {
+    return (file == "/tests/sefun" && name == "destruct") || (strsrch(file, "/mudcore/") == 0 &&
+        member_array(name, ({ "function_exists", "set_light", "replace_program" })) >= 0);
+}
+void log_error(string file, string text) { debug_message(text); }
+mixed compile_object(string file) { return "/adm/daemons/virtuald"->compile_object(file); }
+
+void check(int ok, string label) {
+    checks++;
+    if (!ok) {
+        failures++;
+        debug_message("FAIL: " + label);
+    }
+}
+
+void finish() {
+    debug_message(sprintf("CLOTH CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "CLOTH FAIL" : "CLOTH PASS");
+    shutdown(failures ? 1 : 0);
+}
+
+void run() {
+    mixed err;
+
+    if (file_size("/tests/benchmark.json") > 0) {
+        err = catch(load_object("/tests/benchmark")->run());
+        if (err) check(0, err);
+        finish();
+    } else {
+        err = catch(load_object("/tests/regression")->run());
+        if (err) { check(0, err); finish(); }
+    }
+}
+void error_handler(mapping details, int caught) {
+    if (!caught) {
+        debug_message("FAIL: " + details["error"]);
+        shutdown(1);
+    }
+}
+string *epilog(int flag) { call_out("run", 0); return ({}); }

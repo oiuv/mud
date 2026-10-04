@@ -1,6 +1,6 @@
 #define WORLD_D "/adm/daemons/illusion_world_d"
 
-object query_maze_room(string suffix) {
+object create_virtual_object(string suffix) {
     mapping identity;
     object actor;
 

@@ -129,7 +129,7 @@ private void from_wudang() {
     set("class", "taoist");
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao")->wear();
 }
 
 private void from_shaolin() {
@@ -1043,7 +1043,7 @@ private void from_wudang1() {
     set("class", "taoist");
 
     //carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao")->wear();
 }
 //少林日月鞭
 private void from_shaolin1() {

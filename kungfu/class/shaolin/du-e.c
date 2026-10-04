@@ -137,7 +137,7 @@ LONG);
             set_temp("handing", ob2);
         }
     }
-    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha_huangse")->wear();
 }
 
 mixed ask_me() {

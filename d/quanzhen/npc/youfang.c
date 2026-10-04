@@ -45,7 +45,7 @@ void create() {
     map_skill("parry", "haotian-zhang");
     create_family("全真教", 4, "弟子");
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 
     setup();
 

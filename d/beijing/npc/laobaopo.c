@@ -23,7 +23,7 @@ void create() {
     set("attitude", "friendly");
 
     setup();
-    carry_object("/d/beijing/npc/obj/nvcloth")->wear();
+    carry_object("/d/items/cloth/duanqun")->wear();
 }
 
 void init() {

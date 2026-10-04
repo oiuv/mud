@@ -74,7 +74,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/xueshan/obj/y-jiasha")->wear();
+    carry_object("/d/items/cloth/huangse_jiasha")->wear();
     carry_object("/d/xueshan/obj/sengmao")->wear();
 }
 

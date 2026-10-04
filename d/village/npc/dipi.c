@@ -24,5 +24,5 @@ void create() {
         "地痞迷迷糊糊的喊道：哥俩儿好啊，五魁手啊~~~~~~",
         "地痞靠在墙角，发出了阵阵的鼾声。",
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

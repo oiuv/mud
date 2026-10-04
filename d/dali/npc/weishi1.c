@@ -27,5 +27,5 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/gangdao")->wield();
-    carry_object(__DIR__ "obj/junfu")->wear();
+    carry_object("/d/items/cloth/huangyi_junfu")->wear();
 }

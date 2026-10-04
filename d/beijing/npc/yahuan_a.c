@@ -16,6 +16,6 @@ void create() {
     set_skill("unarmed", 10);
 
     setup();
-    carry_object("/d/beijing/npc/obj/nvcloth")->wear();
+    carry_object("/d/items/cloth/duanqun")->wear();
     add_money("silver", 3);
 }

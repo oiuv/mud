@@ -22,7 +22,7 @@ void create() {
     set_skill("staff", 10);
 
     setup();
-    carry_object(__DIR__ "obj/xuan-cloth")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha")->wear();
     carry_object(__DIR__ "obj/chuihuo")->wield();
     add_money("coin", 50);
 }

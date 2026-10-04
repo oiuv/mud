@@ -9,7 +9,7 @@ LONG);
         "out": __DIR__ "sroad8",
     ]));
     set("objects", ([
-        __DIR__ "obj/dachang": 1,
+        "/d/items/cloth/yuchang": 1,
     ]));
     setup();
     replace_program(ROOM);

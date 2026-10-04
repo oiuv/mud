@@ -25,7 +25,7 @@ void create() {
         CYN "小桂子说道：公公，再服一剂药，好不好？\n" NOR,
         CYN "小桂子道: 再服半剂，多半不打紧。\n" NOR,
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/d/city/obj/yaofen");
     add_money("silver", 10);
 }

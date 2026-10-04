@@ -45,5 +45,5 @@ void create() {
     prepare_skill("strike", "qianye-shou");
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth1")->wear();
+    carry_object("/d/items/cloth/qingbu_changshan_lanse")->wear();
 }

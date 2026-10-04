@@ -20,6 +20,6 @@ void create() {
     set_skill("parry", 20 + random(40));
 
     setup();
-    carry_object(__DIR__ "obj/changpao")->wear();
+    carry_object("/d/items/cloth/changpao")->wear();
     setup();
 }

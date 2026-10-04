@@ -50,7 +50,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/baituo/obj/baipao")->wear();
+    carry_object("/d/items/cloth/baise_changpao")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
     add_money("silver", 40);
 }

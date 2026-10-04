@@ -1,0 +1,130 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+void run(mixed *cases) {
+    mapping paths, records, item, result, restored, shop, bags, collision, mixed_shop, mixed_records;
+    mixed *pair;
+    mixed err;
+    object actor, cloth, converter;
+    string old_path, new_path, selected, old_buyi, intermediate_buyi, canonical_buyi, serialized;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    converter = load_object("/tests/cloth_records");
+    foreach (pair in cases) {
+        old_path = pair[0]; new_path = pair[1];
+        item = ([ "name": old_path->name(), "id": old_path->query("id"),
+            "file": old_path, "amount": 2 ]);
+        records = ([ "item0": item ]);
+        result = converter->convert(save_variable(records), "backpack", paths, ({}));
+        restored = restore_variable(result["value"]);
+        check(result["changes"] == 1 && restored["item0"]["file"] == new_path &&
+            restored["item0"]["amount"] == 2 && restored["item0"]["name"] == item["name"] &&
+            restored["item0"]["id"] == item["id"], "migration preserves record fields");
+        write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+        actor = new("/tests/actor");
+        actor->load_backup("/data/restored");
+        actor->run_command("take 1 2");
+        check(sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
+            "actual old save restores and retrieves full quantity");
+        foreach (cloth in all_inventory(actor)) {
+            check(base_name(cloth) == new_path, "restored item has canonical identity");
+            destruct(cloth);
+        }
+        destruct(actor);
+        check(converter->convert(result["value"], "backpack", paths, ({}))["changes"] == 0,
+            "record migration is idempotent");
+    }
+    old_path = cases[0][0]; new_path = cases[0][1];
+    records = ([ "item0": ([ "name": "旧衣", "id": "cloth", "file": old_path, "amount": 3 ]) ]);
+    shop = ([ "vendor_goods": ([ old_path: 321, "/clone/misc/cloth": 12 ]),
+        "vendor_goods_num": ([ old_path: 7, "/clone/misc/cloth": 9 ]),
+        "all_vendor_goods": 16, "long": "保留原样 " + old_path ]);
+    result = converter->convert(save_variable(shop), "shop", paths, ({}));
+    restored = restore_variable(result["value"]);
+    check(result["changes"] == 2 && restored["vendor_goods"][new_path] == 321 &&
+        restored["vendor_goods_num"][new_path] == 7 && restored["all_vendor_goods"] == 16 &&
+        restored["long"] == shop["long"] && restored["vendor_goods"]["/clone/misc/cloth"] == 12,
+        "shop keys change without prices, stock, totals or prose changes");
+    collision = copy(shop);
+    collision["vendor_goods"][new_path] = 1;
+    err = catch(converter->convert(save_variable(collision), "shop", paths, ({})));
+    check(!!err && strsrch(err, "Shop price conflict") >= 0,
+        "different prices for the same canonical item reject explicitly");
+    selected = "/test/legacy_bag";
+    bags = ([ selected: records, "/test/other_object": copy(records) ]);
+    result = converter->convert(save_variable(bags), "legacy_bags", paths, ({ selected }));
+    restored = restore_variable(result["value"]);
+    check(result["changes"] == 1 && restored[selected]["item0"]["file"] == new_path &&
+        restored["/test/other_object"]["item0"]["file"] == old_path,
+        "only administrator-selected legacy bag entries change");
+    err = catch(converter->convert(save_variable(bags), "legacy_bags", paths, ({})));
+    check(!!err, "legacy bag conversion needs explicit selection");
+    old_buyi = "/d/beijing/npc/obj/cloth";
+    intermediate_buyi = "/d/items/cloth/changan_npc_obj_linen";
+    canonical_buyi = "/d/items/cloth/buyi";
+    check(paths[old_buyi] == canonical_buyi && paths[intermediate_buyi] == canonical_buyi,
+        "both historical generations resolve directly to canonical identity");
+    mixed_shop = ([ "vendor_goods": ([
+        old_buyi: 321,
+        intermediate_buyi: 321,
+        canonical_buyi: 321
+    ]),
+        "vendor_goods_num": ([ old_buyi: 3, intermediate_buyi: 4, canonical_buyi: 5 ]),
+        "all_vendor_goods": 12, "balance": 9000 ]);
+    serialized = save_variable(mixed_shop);
+    result = converter->convert(serialized, "shop", paths, ({}));
+    restored = restore_variable(result["value"]);
+    check(result["changes"] == 4 && sizeof(restored["vendor_goods"]) == 1 &&
+        sizeof(restored["vendor_goods_num"]) == 1 && restored["vendor_goods"][canonical_buyi] == 321 &&
+        restored["vendor_goods_num"][canonical_buyi] == 12 && restored["all_vendor_goods"] == 12 &&
+        restored["balance"] == 9000, "same-price three-generation stock merges without loss");
+    check(save_variable(mixed_shop) == serialized, "conversion leaves input object unchanged");
+    check(converter->convert(result["value"], "shop", paths, ({}))["changes"] == 0,
+        "merged shop conversion is idempotent");
+    actor = new("/tests/player_shop");
+    actor->set("vendor_goods", restored["vendor_goods"]);
+    actor->set("vendor_goods_num", restored["vendor_goods_num"]);
+    actor->set("all_vendor_goods", restored["all_vendor_goods"]);
+    actor->save();
+    destruct(actor);
+    actor = new("/tests/player_shop");
+    check(actor->restore() && actor->query("vendor_goods_num")[canonical_buyi] == 12,
+        "merged inventory persists through actual shop save/restore");
+    destruct(actor);
+    collision = copy(mixed_shop);
+    collision["vendor_goods"][intermediate_buyi] = 999;
+    err = catch(converter->convert(save_variable(collision), "shop", paths, ({})));
+    check(!!err && strsrch(err, "Shop price conflict") >= 0,
+        "mixed-generation price conflict cannot silently overwrite either price");
+    mixed_records = ([
+        "item0": ([ "name": "祖传布衣", "id": "cloth", "file": old_buyi, "amount": 3, "mark": "甲" ]),
+        "item1": ([
+            "name": "另存布衣",
+            "id": "linen",
+            "file": intermediate_buyi,
+            "amount": 4,
+            "mark": "乙"
+        ]),
+        "item2": ([ "name": "新布衣", "id": "cloth", "file": canonical_buyi, "amount": 5 ])
+    ]);
+    result = converter->convert(save_variable(mixed_records), "backpack", paths, ({}));
+    restored = restore_variable(result["value"]);
+    check(result["changes"] == 2 && sizeof(restored) == 3 &&
+        restored["item0"]["file"] == canonical_buyi && restored["item1"]["file"] == canonical_buyi &&
+        restored["item2"]["file"] == canonical_buyi && restored["item0"]["amount"] == 3 &&
+        restored["item1"]["amount"] == 4 && restored["item2"]["amount"] == 5 &&
+        restored["item1"]["id"] == "linen" && restored["item0"]["mark"] == "甲" &&
+        restored["item1"]["mark"] == "乙", "item record identities merge without merging instance fields");
+    // Full save-file fixtures for the Node preview/backup/output integration test.
+    mkdir("/data/migration");
+    write_file("/data/migration/backpack.o", "# synthetic backup\nmy_depot " +
+        save_variable(records) + "\ndbase " + save_variable(([ "long": old_path ])) + "\n", 1);
+    write_file("/data/migration/shop.o", "dbase " + save_variable(shop) + "\n", 1);
+    write_file("/data/migration/dbased.o", "save_dbase " + save_variable(bags) + "\n", 1);
+    write_file("/data/migration/mixed-shop.o", "dbase " + save_variable(mixed_shop) + "\n", 1);
+    write_file(
+        "/data/migration/mixed-backpack.o",
+        "my_depot " + save_variable(mixed_records) + "\n",
+        1
+    );
+    write_file("/data/migration/conflict-shop.o", "dbase " + save_variable(collision) + "\n", 1);
+}

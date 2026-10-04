@@ -20,7 +20,7 @@ void create() {
     set("combat_exp", 3000);
     set("shen_type", 1);
     setup();
-    carry_object("/d/city/obj/pink_cloth")->wear();
+    carry_object("/d/items/cloth/fenhong_choushan")->wear();
 
 }
 

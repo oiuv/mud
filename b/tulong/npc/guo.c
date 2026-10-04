@@ -53,7 +53,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/beijing/npc/obj/cloth6")->wear();
+    carry_object("/d/items/cloth/duanda_jinzhuang")->wear();
 }
 
 void init() {

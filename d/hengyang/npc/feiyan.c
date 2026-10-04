@@ -50,7 +50,7 @@ LONG);
 
     setup();
     carry_object("/d/hengyang/npc/obj/female-shoe")->wear();
-    carry_object("/d/hengyang/npc/obj/female1")->wear();
+    carry_object("/d/items/cloth/hulv_changqun")->wear();
 
 }
 

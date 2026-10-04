@@ -51,7 +51,7 @@ void create() {
     setup();
 
     carry_object(__DIR__ "obj/sword5")->wield();
-    carry_object(__DIR__ "obj/cloth3")->wear();
+    carry_object("/d/items/cloth/magua")->wear();
     add_money("silver", 50);
 }
 

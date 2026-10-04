@@ -112,7 +112,7 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/wudu/npc/obj/jinyi")->wear();
+    carry_object("/d/items/cloth/jinyi")->wear();
 }
 
 void attempt_apprentice(object ob) {

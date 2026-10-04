@@ -42,7 +42,7 @@ void create() {
     ]));
     setup();
     carry_object("/d/beijing/npc/obj/fuchen")->wield();
-    carry_object("/d/beijing/npc/obj/cloth4")->wear();
+    carry_object("/d/items/cloth/baise_changshan")->wear();
     add_money("silver", 2);
 }
 

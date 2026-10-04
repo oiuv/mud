@@ -20,6 +20,6 @@ void create() {
     set_skill("dodge", 100);
 
     setup();
-    carry_object(__DIR__ "obj/jinzhuang")->wear();
+    carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
     add_money("coin", 20);
 }

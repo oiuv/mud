@@ -31,5 +31,5 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/fenshuici")->wield();
-    carry_object(__DIR__ "obj/shuikao")->wear();
+    carry_object("/d/items/cloth/yexing_shuikao")->wear();
 }

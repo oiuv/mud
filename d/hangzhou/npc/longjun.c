@@ -37,7 +37,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
     set_temp("handing", carry_object("/clone/weapon/jili"));
 
     add_money("coin", 10);

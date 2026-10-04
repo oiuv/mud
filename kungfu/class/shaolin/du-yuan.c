@@ -95,7 +95,7 @@ void create() {
             ob->move(this_object());
             ob->wear();
         } else {
-            ob = new("/d/shaolin/obj/xuan-cloth");
+            ob = new("/d/items/cloth/hufa_jiasha_huangse");
             ob->move(this_object());
             ob->wear();
         }

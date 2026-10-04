@@ -67,7 +67,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/dali/npc/obj/magcloth")->wear();
+    carry_object("/d/items/cloth/zipao_zhongxing")->wear();
     carry_object("/d/dali/npc/obj/tiedi")->wield();
     add_money("silver", 20);
 }

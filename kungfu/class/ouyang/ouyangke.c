@@ -82,7 +82,7 @@ void create() {
     set_temp("shenshe_count", 5);
 
     setup();
-    carry_object("/d/baituo/obj/baipao")->wear();
+    carry_object("/d/items/cloth/baise_changpao")->wear();
     add_money("silver", 10);
 }
 

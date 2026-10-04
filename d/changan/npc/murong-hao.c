@@ -32,7 +32,7 @@ void create() {
     }));
 
     setup();
-    carry_object(__DIR__ "obj/jinzhuang")->wear();
+    carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
     carry_object(__DIR__ "obj/changjian")->wield();
 }
 

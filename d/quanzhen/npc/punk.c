@@ -27,6 +27,6 @@ void create() {
 
         CYN "流氓嘴角露出一丝邪笑，说道：翠花这娘们真她奶奶的够劲儿！\n" NOR,
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 5);
 }

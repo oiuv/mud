@@ -15,6 +15,6 @@ void create() {
     set("attitude", "friendly");
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("coin", 50);
 }

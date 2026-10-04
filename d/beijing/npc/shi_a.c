@@ -24,7 +24,7 @@ void create() {
 
     setup();
     carry_object("/d/beijing/npc/obj/blade1")->wield();
-    carry_object("/d/beijing/npc/obj/guanfu6")->wear();
+    carry_object("/d/items/cloth/bingfu")->wear();
 }
 
 void unconcious() {

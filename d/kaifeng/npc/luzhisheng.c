@@ -51,6 +51,6 @@ void create() {
     }));
     setup();
 
-    carry_object(__DIR__ "obj/dao-cloth")->wear();
+    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
     add_money("silver", 50);
 }

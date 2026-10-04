@@ -16,6 +16,6 @@ void create() {
     set_skill("unarmed", 20);
     set("chat_chance", 1);
     setup();
-    carry_object("/d/beijing/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 1);
 }

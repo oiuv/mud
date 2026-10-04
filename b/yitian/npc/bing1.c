@@ -22,7 +22,7 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/spear")->wield();
-    carry_object("/d/beijing/npc/obj/guanfu6")->wear();
+    carry_object("/d/items/cloth/bingfu")->wear();
 }
 void init() {
     object ob;

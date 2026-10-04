@@ -40,5 +40,5 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/jueqing/npc/obj/lvshan")->wear();
+    carry_object("/d/items/cloth/lvshan")->wear();
 }

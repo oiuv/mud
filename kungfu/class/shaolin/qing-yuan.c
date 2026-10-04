@@ -54,7 +54,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/shaolin/obj/qing-cloth")->wear();
+    carry_object("/d/items/cloth/baibu_heibian_jiasha")->wear();
 }
 
 void init() {

@@ -30,5 +30,5 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object("/d/beijing/npc/obj/goldcloth2")->wear();
+    carry_object("/d/items/cloth/xiangbian_huangmagua")->wear();
 }

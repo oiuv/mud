@@ -1,0 +1,22 @@
+private int legacy_calls;
+
+mixed create_virtual_object(string key) {
+    if (key == "reject" || key == "9,9")
+        return 0;
+    if (key == "throw")
+        error("Expected provider failure.\n");
+    if (key == "bad")
+        return 42;
+    if (key == "self")
+        return this_object();
+    if (key == "existing")
+        return load_object("/tests/virtual_provider/7");
+    return new("/tests/virtual_result", key);
+}
+
+object query_maze_room(string key) {
+    legacy_calls++;
+    return new("/tests/virtual_result", key);
+}
+
+int query_legacy_calls() { return legacy_calls; }

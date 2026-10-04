@@ -36,6 +36,6 @@ void create() {
     set("env/wimpy", 40);
 
     setup();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
     carry_object("/clone/weapon/changqiang")->wield();
 }

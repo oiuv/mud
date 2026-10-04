@@ -25,7 +25,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/changan/npc/obj/choupao")->wear();
+    carry_object("/d/items/cloth/choupao")->wear();
     add_money("silver", 50);
 }
 

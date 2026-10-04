@@ -23,5 +23,5 @@ void create() {
     ]));
     setup();
     add_money("silver", 30);
-    carry_object(__DIR__ "obj/qcloth")->wear();
+    carry_object("/d/items/cloth/hasake_aoqun")->wear();
 }

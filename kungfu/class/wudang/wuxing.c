@@ -28,7 +28,7 @@ void create() {
     create_family("武当派", 3, "弟子");
     setup();
     carry_object("/clone/weapon/changjian");
-    carry_object("/d/wudang/obj/wuxingfu")->wear();
+    carry_object("/d/items/cloth/wuxing_fu")->wear();
 }
 
 void unconcious() {

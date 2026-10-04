@@ -26,7 +26,7 @@ void create() {
     set_skill("parry", 40);
     set("combat_exp", 100000);
     setup();
-    carry_object(__DIR__ "obj/jinzhuang")->wear();
+    carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
 }
 
 int recognize_apprentice(object ob) {

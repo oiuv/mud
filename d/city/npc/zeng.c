@@ -63,8 +63,8 @@ void create() {
     ]));
 
     setup();
-    carry_object(__DIR__ "cloth/feature");
-    carry_object(__DIR__ "cloth/feature")->wear();
+    carry_object("/d/items/cloth/kongque_yuyi");
+    carry_object("/d/items/cloth/kongque_yuyi")->wear();
 }
 
 void init() {

@@ -27,5 +27,5 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/ttoujin")->wear();
-    carry_object(__DIR__ "obj/xiaoao")->wear();
+    carry_object("/d/items/cloth/yuanling_xiaoao")->wear();
 }

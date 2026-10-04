@@ -43,6 +43,6 @@ void create() {
     create_family("武当派", 4, "弟子");
 
     setup();
-    carry_object("/d/wudang/obj/greenrobe")->wear();
+    carry_object("/d/items/cloth/qingse_daopao_louhua")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

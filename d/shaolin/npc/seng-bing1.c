@@ -52,7 +52,7 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/jiedao")->wield();
-    carry_object("/d/shaolin/obj/cloth")->wear();
+    carry_object("/d/items/cloth/qingbu_sengyi")->wear();
 }
 
 

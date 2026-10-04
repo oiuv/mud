@@ -25,5 +25,5 @@ void create() {
     set_temp("apply/armor", 60);
 
     setup();
-    carry_object(__DIR__ "obj/jinyi")->wear();
+    carry_object("/d/items/cloth/jinyi")->wear();
 }

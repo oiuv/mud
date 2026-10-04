@@ -147,7 +147,7 @@ void create() {
     create_family("阴司", 0, "总管");
 
     setup();
-    carry_object(__DIR__ "obj/cloth2")->wear();
+    carry_object("/d/items/cloth/yanluo_pao")->wear();
 }
 
 mixed ask_quest() {

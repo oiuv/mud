@@ -19,6 +19,6 @@ void create() {
     set_skill("parry", 50);
 
     setup();
-    carry_object(__DIR__ "obj/changpao")->wear();
+    carry_object("/d/items/cloth/changpao")->wear();
     add_money("coin", 50);
 }

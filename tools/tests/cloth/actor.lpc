@@ -1,0 +1,41 @@
+inherit ITEM;
+inherit F_USER_STORAGE;
+
+private object selected_cloth;
+private object selected_vendor;
+
+#include "carry_object.c"
+
+int is_character() { return 1; }
+void start_busy(int seconds) {}
+void receive_message(string kind, string text) {}
+
+void create() {
+    set_name("试衣人", ({ "tester" }));
+    set("gender", "女性");
+    set("storage_bag", 1);
+    set_max_encumbrance(10000000);
+    enable_commands();
+    add_action("do_take", "take");
+    add_action("tear_selected", "testtear");
+    add_action("buy_selected", "testbuy");
+    add_action("sell_selected", "testsell");
+}
+
+void select_cloth(object cloth) { selected_cloth = cloth; }
+// Avoid command fall-through to other same-id garments in the test room.
+int tear_selected(string arg) { return selected_cloth->do_tear(arg); }
+void select_vendor(object vendor) { selected_vendor = vendor; }
+int buy_selected(string arg) { return selected_vendor->do_buy(arg); }
+int sell_selected(string arg) { return selected_vendor->do_sell(arg); }
+int cash_value() {
+    object ob;
+    int total;
+
+    foreach (ob in all_inventory())
+        if (ob->query("money_id")) total += ob->query("base_value") * ob->query_amount();
+    return total;
+}
+mapping depot_records() { save_depot(); return copy(my_depot); }
+void load_backup(string file) { restore_object(file, 1); restore_depot(); }
+int run_command(string line) { return command(line); }

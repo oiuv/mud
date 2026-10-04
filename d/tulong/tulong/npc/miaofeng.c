@@ -88,5 +88,5 @@ LONG);
             ob->wield();
         }
     }
-    carry_object(__DIR__ "obj/bosi")->wear();
+    carry_object("/d/items/cloth/bosi_mingjiao_jiaofu_zise_shuoming")->wear();
 }

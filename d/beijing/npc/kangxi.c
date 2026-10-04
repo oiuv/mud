@@ -36,7 +36,7 @@ void create() {
         "reward": (: ask_reward :),
     ]));
     setup();
-    carry_object("/d/beijing/npc/obj/longpao")->wear();
+    carry_object("/d/items/cloth/longpao")->wear();
 }
 
 void init() {

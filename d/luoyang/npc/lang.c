@@ -72,7 +72,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/mingjiao/obj/baipao")->wear();
+    carry_object("/d/items/cloth/huoyan_baibu_changpao")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     if (random(4) == 1)
         set_temp("jinzhong", carry_object("/clone/lonely/book/zhaobook"));

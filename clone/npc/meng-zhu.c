@@ -54,12 +54,12 @@ void create() {
         set_skill("parry", 100);
 
         set("weapon", "/d/shaolin/obj/changjian");
-        set("armor", "/d/city/obj/cloth");
+        set("armor", "/d/items/cloth/buyi");
 
         setup();
 
         carry_object("/d/shaolin/obj/changjian")->wield();
-        carry_object("/d/city/obj/cloth")->wear();
+        carry_object("/d/items/cloth/buyi")->wear();
     } else {
         set("id", "mengzhu");
         set_name(query("name"), ({ query("id") }));

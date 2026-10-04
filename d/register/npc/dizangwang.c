@@ -15,7 +15,7 @@ void create() {
     set("shen_type", 0);
     set("per", 18);
     setup();
-    carry_object("/d/death/npc/obj/cloth2")->wear();
+    carry_object("/d/items/cloth/yanluo_pao")->wear();
     create_family(HIR "冥府地藏王殿前" NOR, 1, "幽冥之主");
 }
 

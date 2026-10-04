@@ -22,7 +22,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth3")->wear();
+    carry_object("/d/items/cloth/magua")->wear();
     carry_object("/d/beijing/npc/obj/hammer")->wield();
     add_money("coin", 200);
 }

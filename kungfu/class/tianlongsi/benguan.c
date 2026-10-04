@@ -50,7 +50,7 @@ void create() {
     prepare_skill("finger", "sun-finger");
     create_family("大理段家", 15, "高僧");
     setup();
-    carry_object("/d/xueshan/obj/b-jiasha")->wear();
+    carry_object("/d/items/cloth/heise_jiasha")->wear();
 }
 
 #include "ben.h"

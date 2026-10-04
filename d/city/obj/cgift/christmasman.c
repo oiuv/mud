@@ -61,7 +61,7 @@ void create() {
     set("attitude", "friendly");
     setup();
 
-    carry_object(__DIR__ "ccloth")->wear();
+    carry_object("/d/items/cloth/hongse_changpao")->wear();
 
     add_money("silver", 3);
 }

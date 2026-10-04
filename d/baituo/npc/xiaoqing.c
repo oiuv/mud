@@ -41,5 +41,5 @@ void create() {
     ]));
 
     setup();
-    carry_object("/d/baituo/obj/qingpao")->wear();
+    carry_object("/d/items/cloth/qingse_sipao")->wear();
 }

@@ -121,7 +121,7 @@ LONG);
             ob->wield();
         }
     }
-    carry_object("/d/quanzhen/npc/obj/greenrobe")->wear();
+    carry_object("/d/items/cloth/qingse_daopao_sizhi")->wear();
 }
 
 void attempt_apprentice(object me) {

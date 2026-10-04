@@ -1,0 +1,9 @@
+inherit "/inherit/room/shop";
+
+void create() {
+    set("short", "试衣铺");
+    set("shop_type", 1);
+    set("owner", "offline_owner");
+}
+
+string query_save_file() { return "/data/test_shop"; }

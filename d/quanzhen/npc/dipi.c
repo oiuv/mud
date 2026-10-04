@@ -22,6 +22,6 @@ void create() {
         CYN "地痞迷迷糊糊的喊道：哥俩儿好啊，五魁手啊！\n" NOR,
         CYN "地痞靠在墙角，发出了阵阵的鼾声。\n" NOR,
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 8);
 }

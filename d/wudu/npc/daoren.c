@@ -51,7 +51,7 @@ void create() {
         "配方": (: ask_me :),
         "毒药配方": (: ask_me :),
     ]));
-    carry_object("/d/wudang/obj/greenrobe")->wear();
+    carry_object("/d/items/cloth/qingse_daopao_louhua")->wear();
 }
 
 int ask_me() {

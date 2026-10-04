@@ -26,5 +26,5 @@ void create() {
     set_temp("apply/armor", 80);
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

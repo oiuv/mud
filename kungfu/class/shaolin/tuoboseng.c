@@ -48,7 +48,7 @@ void create() {
     map_skill("parry", "jingang-quan");
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 
     setup();
 

@@ -30,5 +30,5 @@ void create() {
     set("jiali", 50);
 
     setup();
-    carry_object(__DIR__ "obj/changpao")->wear();
+    carry_object("/d/items/cloth/gebu_changpao")->wear();
 }

@@ -84,7 +84,7 @@ void create() {
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/gaibang/npc/obj/cloth")->wear();
+    carry_object("/d/items/cloth/po_buyi")->wear();
     carry_object("/clone/weapon/gangdao")->wield();
 }
 

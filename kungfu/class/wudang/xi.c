@@ -89,7 +89,7 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/blade")->wield();
-    carry_object("/d/wudang/obj/whiterobe")->wear();
+    carry_object("/d/items/cloth/baise_daopao")->wear();
 }
 
 void attempt_apprentice(object ob) {

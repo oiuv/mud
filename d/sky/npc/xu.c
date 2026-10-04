@@ -56,7 +56,7 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/cloth1")->wear();
+    carry_object("/d/items/cloth/baise_changshan")->wear();
     carry_object(__DIR__ "obj/hands")->wear();
     carry_object("/d/sky/obj/yishu");
     carry_object("/d/sky/obj/sheli");

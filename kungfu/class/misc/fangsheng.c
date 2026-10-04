@@ -62,5 +62,5 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/shaolin/obj/xuan-cloth")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha_huangse")->wear();
 }

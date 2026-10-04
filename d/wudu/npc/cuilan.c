@@ -23,7 +23,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("coin", 150);
     set("inquiry", ([
         "爹爹": "我爹爹上五毒山采药去了，着么晚了，也该回家了。\n",

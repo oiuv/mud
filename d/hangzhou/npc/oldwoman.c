@@ -33,6 +33,6 @@ void create() {
         "老大娘叹了口气，说道：这是个什麽世道啊。\n",
         "老大娘呆呆的望着鸡笼，发起愣来了。\n",
     }));
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("coin", 100);
 }

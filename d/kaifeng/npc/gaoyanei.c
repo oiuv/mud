@@ -22,7 +22,7 @@ void create() {
     set_temp("apply/armor", 80);
 
     setup();
-    carry_object("/d/beijing/npc/obj/guanfu4")->wear();
+    carry_object("/d/items/cloth/guanfu")->wear();
 }
 
 int accept_fight(object me) {

@@ -28,5 +28,5 @@ void create() {
     set_temp("apply/defense", 15);
     set("attitude", "peaceful");
     setup();
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

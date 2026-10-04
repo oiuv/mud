@@ -15,7 +15,7 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/city/npc/obj/mabudai",
-        "/d/city/npc/obj/beixin",
+        "/d/items/cloth/pi_beixin_guizhong",
         "/d/city/npc/obj/toukui",
         "/d/city/npc/obj/cycle",
         "/d/city/npc/obj/surcoat",

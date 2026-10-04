@@ -79,7 +79,7 @@ LONG);
 
     setup();
     carry_object(__DIR__ "obj/cuiyu")->wear();
-    carry_object(__DIR__ "obj/huangshan")->wear();
+    carry_object("/d/items/cloth/huangshan_houshi")->wear();
     carry_object(__DIR__ "obj/shortsword")->wield();
 }
 

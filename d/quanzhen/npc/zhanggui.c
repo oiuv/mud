@@ -22,7 +22,7 @@ void create() {
     }));
 
     setup();
-    carry_object(__DIR__ "obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
     add_money("silver", 20);
 }
 

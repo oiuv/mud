@@ -28,7 +28,7 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__ "obj/wdahui")->wear();
+    carry_object("/d/items/cloth/wuyi_dahui")->wear();
 }
 
 void init() {

@@ -49,6 +49,6 @@ void create() {
     prepare_skill("strike", "wuluo-zhang");
 
     setup();
-    carry_object(__DIR__ "obj/whitecloth1")->wear();
+    carry_object("/d/items/cloth/bai_choushan")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

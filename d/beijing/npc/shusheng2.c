@@ -17,6 +17,6 @@ void create() {
     set_skill("unarmed", 20);
 
     setup();
-    carry_object("/d/beijing/npc/obj/cloth2")->wear();
+    carry_object("/d/items/cloth/huibai_changshan")->wear();
     add_money("coin", 200);
 }

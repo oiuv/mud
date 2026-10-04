@@ -47,7 +47,7 @@ void create() {
     set_temp("apply/damage", 80 + random(80));
 
     setup();
-    carry_object("/d/tulong/tulong/npc/obj/jiaofu")->wear();
+    carry_object("/d/items/cloth/tianying_jiaofu")->wear();
     carry_object("/d/tulong/tulong/npc/obj/hammer")->wield();
 }
 

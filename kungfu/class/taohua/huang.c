@@ -187,7 +187,7 @@ void create() {
             set_temp("handing", carry_object("/d/taohua/obj/huaban"));
         }
     }
-    carry_object("/d/taohua/obj/bupao")->wear();
+    carry_object("/d/items/cloth/qing_bupao")->wear();
 }
 
 void attempt_apprentice(object ob) {

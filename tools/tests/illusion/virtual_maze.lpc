@@ -1,0 +1,18 @@
+// Exercise the actual LIB wrapper, including its replace_program inheritance.
+inherit "/inherit/room/vrm";
+
+void create() {
+    set_maze_long(5);
+    set_inherit_room(ROOM);
+    set_entry_dir("north");
+    set_link_entry_dir("north");
+    set_link_exit_dir("south");
+    set_link_entry_room(ROOM);
+    set_link_exit_room(ROOM);
+    set_entry_short("迷林入口");
+    set_entry_desc("树影婆娑。\n");
+    set_exit_short("迷林出口");
+    set_exit_desc("林外天光渐明。\n");
+    set_maze_room_short("迷林");
+    set_maze_room_desc("草木深深。\n");
+}

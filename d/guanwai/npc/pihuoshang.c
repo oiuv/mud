@@ -17,14 +17,14 @@ void create() {
     set_temp("apply/damage", 30);
 
     set("vendor_goods", ({
-        __DIR__ "obj/piqiu",
+        "/d/items/cloth/piqiu",
     }));
     set("chat_chance", 20);
     set("chat_msg", ({
         (: random_move :)
     }));
     setup();
-    carry_object(__DIR__ "obj/piqiu")->wear();
+    carry_object("/d/items/cloth/piqiu")->wear();
 }
 void init() {
     //    object ob;

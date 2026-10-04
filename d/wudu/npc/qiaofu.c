@@ -28,5 +28,5 @@ void create() {
         "name": "大家都叫我阿牛．平常上山打柴，有时也采些药材。\n",
         "here": "此乃卧龙岗．听说山上有位卧龙先生。\n",
     ]));
-    carry_object("/d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 }

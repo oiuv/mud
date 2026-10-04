@@ -77,7 +77,7 @@ LONG);
     setup();
 
     carry_object("/d/xueshan/obj/gangchu")->wield();
-    carry_object("/d/xueshan/obj/y-jiasha")->wear();
+    carry_object("/d/items/cloth/huangse_jiasha")->wear();
 }
 
 void attempt_apprentice(object ob) {

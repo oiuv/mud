@@ -101,7 +101,7 @@ void create() {
         }
     }
 
-    carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao")->wear();
     set_temp("handing", carry_object("/d/kaifeng/npc/obj/jinzhen"));
 }
 

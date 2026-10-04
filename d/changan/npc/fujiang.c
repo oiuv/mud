@@ -63,5 +63,5 @@ LONG);
 
     setup();
     carry_object(__DIR__ "obj/" + weapon_file)->wield();
-    carry_object(__DIR__ "obj/zhanjia")->wear();
+    carry_object("/d/items/cloth/zhanjia")->wear();
 }

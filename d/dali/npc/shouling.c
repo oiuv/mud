@@ -28,5 +28,5 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/mandao")->wield();
-    carry_object(__DIR__ "obj/hupi")->wear();
+    carry_object("/d/items/cloth/hupi_zhongxing")->wear();
 }

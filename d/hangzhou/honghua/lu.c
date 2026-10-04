@@ -64,6 +64,6 @@ void create() {
     create_family("武当派", 17, "掌门");
 
     setup();
-    carry_object("/d/wudang/obj/greyrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao")->wear();
     carry_object("/clone/weapon/changjian")->wield();
 }

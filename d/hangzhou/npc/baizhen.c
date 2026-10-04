@@ -29,7 +29,7 @@ void create() {
     prepare_skill("claw", "sougu");
 
     setup();
-    carry_object("/d/city/obj/tiejia")->wear();
+    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
 
     add_money("coin", 30);
 }

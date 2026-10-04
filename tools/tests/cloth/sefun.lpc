@@ -1,0 +1,20 @@
+#include "json.c"
+
+string base_name(object ob) { return explode(file_name(ob), "#")[0]; }
+void log_file(string path, string message) { write_file("/log/" + path, message); }
+int is_root(object ob) { return getuid(ob) == "Root"; }
+int wiz_level(mixed ob) { return 0; }
+string wizhood(mixed ob) { return "(player)"; }
+string to_chinese(string value) { return value; }
+string filter_color(string value) { return value; }
+mixed element_of(mixed *values) { return values[0]; }
+object find_player(string id) { return 0; }
+void assure_file(string file) {}  // All save targets are in pre-created /data/.
+int color_len(string value) { return sizeof(value); }
+string chinese_number(int value) { return sprintf("%d", value); }
+varargs void message_vision(string message, object actor, object target) {}
+varargs void message_sort(string message, object actor, object target) {}
+int getoid(object ob) { return 1; }
+varargs void msg(string kind, string text, object actor, object target) {}
+
+#include "destruct.c"

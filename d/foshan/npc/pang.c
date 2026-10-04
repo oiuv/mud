@@ -16,5 +16,5 @@ void create() {
     setup();
 
     add_money("silver", 3);
-    carry_object(__DIR__ "obj/magcloth")->wear();
+    carry_object("/d/items/cloth/zipao_qingxing")->wear();
 }

@@ -42,7 +42,7 @@ void create() {
     map_skill("blade", "cibei-dao");
     setup();
 
-    carry_object(__DIR__ "obj/black-cloth")->wear();
+    carry_object("/d/items/cloth/huoyan_heiyi")->wear();
 }
 
 void init() {

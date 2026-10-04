@@ -67,7 +67,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/dali/npc/obj/junfu")->wear();
+    carry_object("/d/items/cloth/huangyi_junfu")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     add_money("silver", 10);
 }

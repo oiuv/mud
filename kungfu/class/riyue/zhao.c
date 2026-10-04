@@ -80,7 +80,7 @@ LONG);
     setup();
 
     carry_object("/d/heimuya/npc/obj/leizhendang")->wield();
-    carry_object("/d/heimuya/npc/obj/jinpao")->wear();
+    carry_object("/d/items/cloth/riyue_jinpao")->wear();
 }
 
 void attempt_apprentice(object ob) {

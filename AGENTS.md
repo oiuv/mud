@@ -70,6 +70,10 @@ Function names must describe actual behavior, not mechanically split capital let
 - `inherit`、`load_object()`、`clone_object()`、`call_other()` 等对象引用优先使用无扩展名路径，如 `"/std/room"`；`#include` 仍写实际文件名。
 - 引入新 `.lpc` 文件时检查所属模块的命令索引、目录扫描和更新工具；涉及只识别 `.c` 或拼接 `".c"` 的加载路径时，同步兼容双扩展名并验证新文件可被发现、加载。
 
+## Virtual Objects
+
+虚拟对象统一采用 `/provider/key` 路径，由实体处理程序实现 `object create_virtual_object(string key)`；守护精灵只原样传递末段，业务自行解析坐标/编号、检查归属并返回新克隆或 `0`。新代码不使用 `query_maze_room()` 作为通用入口，不增加 daemon 类型分支，不手动重命名、赋权或重复初始化；依赖最终虚拟身份的初始化使用驱动 `virtual_start()`。继承 CORE_VRM 的迷宫须配套更新 mudcore。约定、测试和部署边界见 `docs/architecture/virtual-objects.md`。
+
 ## LPC Formatting（必须执行）
 
 修改或新增 LPC 源文件（`.c`、`.lpc`）及其头文件（`.h`）后，AI 必须在交付或提交前对本次修改的文件运行格式化，再运行 `--check` 验证。此要求也适用于 `mudcore/` 子模块。

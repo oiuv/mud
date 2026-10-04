@@ -46,5 +46,5 @@ void create() {
     setup();
 
     carry_object("/d/beijing/npc/obj/sword3")->wield();
-    carry_object("/d/beijing/npc/obj/guanfu5")->wear();
+    carry_object("/d/items/cloth/jintuan_guanfu")->wear();
 }

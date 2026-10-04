@@ -89,7 +89,7 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/quanzhen/npc/obj/grayrobe")->wear();
+    carry_object("/d/items/cloth/huise_daopao_qingxing")->wear();
 }
 
 void attempt_apprentice(object ob) {

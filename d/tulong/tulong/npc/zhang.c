@@ -26,7 +26,7 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/beijing/npc/obj/cloth1")->wear();
+    carry_object("/d/items/cloth/qingbu_changshan_lanse")->wear();
 }
 int accept_fight(object who) {
     command("say 我是不会和你打架的！");
