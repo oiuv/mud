@@ -1,6 +1,6 @@
 # 普通 CLOTH 首批基线
 
-源码基线：`ed10c535`。202 份原定义、源码 SHA-256、第一版品种键及引用位置见 [baseline.json](../../../tools/tests/cloth/baseline.json)。该 JSON 保持历史内容，其中 `new_path` 是归并前的中间路径，不再是运行入口。基线留在测试目录，OpenSpec 归档不会破坏转换工具。盘点脚本为 `tools/tests/cloth_inventory.mjs`，只读取受跟踪源码，不读取玩家数据。
+源码基线：`ed10c535`。202 份原定义、源码 SHA-256、第一版品种键及引用位置见 [baseline.json](../../../../tools/tests/cloth/baseline.json)。该 JSON 保持历史内容，其中 `new_path` 是归并前的中间路径，不再是运行入口。基线留在测试目录，OpenSpec 归档不会破坏转换工具。盘点脚本为 `tools/tests/cloth_inventory.mjs`，只读取受跟踪源码，不读取玩家数据。
 
 ## 品种与身份
 
@@ -12,7 +12,7 @@
 
 ## 规范映射与差异判定
 
-[canonical_ids.json](../../../tools/tests/cloth/canonical_ids.json) 为每组代表来源指定规范名；[cloth_canonical.mjs](../../../tools/tests/cloth_canonical.mjs) 从不可变历史基线生成完整多对一对应。执行 `node tools/tests/cloth_canonical.mjs` 查看各规范品种、原路径、中间路径、输入别名及 404 项离线迁移映射；不加载游戏、不修改文件。
+[canonical_ids.json](../../../../tools/tests/cloth/canonical_ids.json) 为每组代表来源指定规范名；[cloth_canonical.mjs](../../../../tools/tests/cloth_canonical.mjs) 从不可变历史基线生成完整多对一对应。执行 `node tools/tests/cloth_canonical.mjs` 查看各规范品种、原路径、中间路径、输入别名及 404 项离线迁移映射；不加载游戏、不修改文件。
 
 分组核对名称/颜色、重量、所有属性、初始化位置与行为，不按中文同名归并。数值与表达式按 token 核对，属性排列顺序不充当品种差异，运行数据采用代表定义的属性顺序。经核对统一普通布衣 `value=0` 与未设置、历史输入别名，以及固定描述的蓝图存放位置；不推广为任意字段归零、去色或动态初始化位置归一。
 
@@ -44,7 +44,7 @@
 
 ## 存取边界
 
-背包 `my_depot/itemN/file`、指定旧乾坤袋记录及玩家商店货品路径已有配套离线转换工具，见 [部署说明](../../../docs/architecture/data-driven-items.md)。普通 CLOTH 不提供 query_autoload，不借此次迁移启用自动加载。正式数据未在开发阶段转换。
+背包 `my_depot/itemN/file`、指定旧乾坤袋记录及玩家商店货品路径已有配套离线转换工具，见 [部署说明](../../../../docs/architecture/data-driven-items.md)。普通 CLOTH 不提供 query_autoload，不借此次迁移启用自动加载。正式数据未在开发阶段转换。
 
 ## 代表验证（2026-10-04）
 
