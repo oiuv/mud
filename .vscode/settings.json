@@ -1,15 +1,23 @@
 {
-    "C_Cpp.errorSquiggles": "Disabled",
-    "editor.formatOnType": true,
     "files.autoGuessEncoding": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    "editor.renderWhitespace": "all",
     "files.eol": "\n",
     "files.associations": {
-        "*.c": "c"
+        "*.c": "lpc",
+        "*.h": "lpc"
     },
     "git.ignoreLimitWarning": true,
-    "cmake.configureOnOpen": false
+    "lpc.format.printWidth": 100,
+    "lpc.format.indentSize": 4,
+    "lpc.lpcc.path": "fluffos/build/bin/lpcc.exe",
+    "lpc.lpcc.configFile": "config.cfg",
+    "[lpc]": {
+        "editor.renderWhitespace": "all",
+        "editor.defaultFormatter": "fluffos.fluffos-lpc",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": true
+    }
 }
