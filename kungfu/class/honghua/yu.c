@@ -87,7 +87,7 @@ void create() {
 
     setup();
     carry_object("/clone/cloth/jinduan")->wear();
-    carry_object("/d/kaifeng/npc/obj/jindi")->wield();
+    carry_object("/d/items/sword/jindi")->wield();
     set_temp("handing", carry_object("/d/kaifeng/npc/obj/jinzhen"));
 }
 

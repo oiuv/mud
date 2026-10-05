@@ -24,7 +24,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/city/obj/changjian")->wield();
+    carry_object("/d/items/sword/changjian5")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("coin", 20);
 }

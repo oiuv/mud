@@ -14,7 +14,7 @@ LONG);
     ]));
     set("objects", ([ /* sizeof() == 4 */
         __DIR__ "obj/gangdao": 1,
-        __DIR__ "obj/gangjian": 1,
+        "/d/items/sword/gangjian3": 1,
         __DIR__ "obj/gangzhang": 1,
         __DIR__ "obj/changbian": 1,
     ]));

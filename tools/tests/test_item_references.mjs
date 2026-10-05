@@ -9,10 +9,11 @@ import { migrationPaths as hands } from './hands_inventory.mjs';
 import { migrationPaths as neck } from './neck_inventory.mjs';
 import { migrationPaths as wrists } from './wrists_inventory.mjs';
 import { migrationPaths as food } from './food_inventory.mjs';
+import { migrationPaths as sword } from './sword_inventory.mjs';
 
 test('all migrated historical item paths are absent, including root paths without slash', () => {
-    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food() };
-    assert.equal(Object.keys(paths).length, 757);
+    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword() };
+    assert.equal(Object.keys(paths).length, 842);
     const rows = Object.entries(paths).map(([old_path, new_path]) => ({ old_path, new_path }));
     assert.deepEqual(references(rows).hits, []);
 });

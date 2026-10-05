@@ -96,7 +96,7 @@ int do_pick(string arg) {
 
     if (!query("had_sword")) {
         message_vision("$N轻轻的摘下宝剑，哈哈，真开心...\n", me);
-        sword = new(__DIR__ "obj/longquan");
+        sword = new("/d/items/sword/longquan_jian");
         sword->move(me, 1);
         set("had_sword", 1);
         return 1;

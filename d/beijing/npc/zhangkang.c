@@ -29,7 +29,7 @@ void create() {
         "张康年喝道：太岁头上居然敢动土？\n",
     }));
     setup();
-    carry_object("/d/beijing/npc/obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/shiweifu2")->wear();
 }
 

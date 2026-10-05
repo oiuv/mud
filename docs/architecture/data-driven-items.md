@@ -2,7 +2,7 @@
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
-后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。七类保持各自继承和行为，共用以下离线迁移与部署流程。累计 476 个旧定义归并为 14 个共用程序/数据文件，定义文件净减少 462 个（不含测试及文档）。
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。八类保持各自继承和行为，共用以下离线迁移与部署流程。累计 561 个旧定义归并为 16 个共用程序/数据文件，定义文件净减少 545 个（不含工具、测试及文档）。
 
 ## 创建与维护
 
@@ -49,9 +49,27 @@
 
 剩余口数、`base_value` 和临时附加效果属于独立实例。吃东西仍使用原 `eat` 命令与 `F_FOOD`：不改饱食、战斗/忙碌限制、`plant` 分支和吃完销毁。15 份兼作兵器的食物、明教变鱼骨的大白鱼、洛阳可种植花种保持原文件和行为，本表不承载特殊回调。
 
+## 普通剑
+
+`d/items/sword.lpc` 继承原 `SWORD`，定义集中在 `sword_data.h`。85 份旧定义按真实蓝图/实例的属性、显示、重量、动作及 UID/EUID 对照后归为 70 个品种。笛、钩、剪等原本使用 SWORD 的普通物品仍保留剑类行为，不按名称改变类型；七件有回调、额外继承或克隆自毁逻辑的特殊对象保留原实现。
+
+```c
+object sword, blueprint, second;
+
+sword = new("/d/items/sword/changjian");
+blueprint = load_object("/d/items/sword/changjian");
+second = new(base_name(sword));
+```
+
+创建入口与其他类别相同，不使用 `new("/d/items/sword", id)`。短 ID 如 `changjian`、`changjian2`、`zhujian1`，编号表示稳定品种，不随排序改变；相同名称但重量、伤害、价格或描述不同的剑不强行合并，历史输入别名保留。
+
+新增普通品种仅在表内相应自然排序位置增加数据，先确认不能复用已有品种。除 `name`、`ids`、`weight`、`properties` 外，剑增加整数 `damage` 字段，用于原 `init_sword()`；无需独立实体文件、`instance` 或空 `flags`。固定描述、材质、价值、持用/收起消息及原有特殊数值仍写在 `properties`，不复制武器基类的动作代码。
+
+`init_sword()` 遇到克隆直接返回，因此公共程序的 `create()` 不提前初始化武器；最终虚拟蓝图在 `virtual_start()` 中先设置属性，再调用 `init_sword(damage)` 和一次 `setup()`。实例绑定该蓝图，复制可变复合默认值，再执行一次 `setup()`，保留伤害、EDGED、剑技能、默认动作、重量闪避修正和材质耐久。持用、卸下、磨损及交易继续走现有功能，不增加战斗或存储机制。
+
 ## 存储边界
 
-背包入口识别七张表已登记的精确虚拟路径，但这不等于存放资格。FOOD 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物。其余六类的穿戴中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
+背包入口识别八张表已登记的精确虚拟路径，但这不等于存放资格。FOOD 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物。其余七类的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。剑类存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -60,6 +78,7 @@
 | `data/user/<首字母>/<账号>.o` | `my_depot/itemN/file` |
 | `data/shop/<店铺>.o` | `dbase/vendor_goods` 与 `dbase/vendor_goods_num` 的路径键 |
 | `data/dbased.o` 中明确选定的旧袋对象 | `save_dbase/<对象路径>/itemN/file` |
+| `data/npc/meng-zhu.o` | `dbase/weapon`、`dbase/armor` |
 
 背包和旧袋逐条保留名称、别名、数量及其他字段，不因规范身份相同而吞并带不同状态的记录。同店同品同价库存合计数量，单价、库存总数、余额及其他玩家文本不变；价格冲突明确失败，不覆盖任一价格。采购中的 `pending` 是临时状态，通过维护重启结束，不增加存档格式。排行榜 SQLite 缓存不保存这些物品字段，不在转换范围。
 
@@ -67,7 +86,7 @@
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。一次转换覆盖 **757 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读七张品种表，共 345 个品种，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。一次转换覆盖 **842 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读八张品种表，共 415 个品种，不读取历史映射。
 
 食物通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予食物存放资格。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -76,7 +95,7 @@
 工具不加载玩家对象、不连接正式游戏，不猜测正式 `data/`。管理员必须给出备份根目录或清单；当前游戏使用未压缩 UTF-8 存档，其他格式须先在备份副本中按相应流程还原。
 
 1. 安排维护，正常保存并停止游戏，备份代码与相关存档。不要用 `updateall` 代替切换：内存中的旧实例、临时订单和默认对象也需要重建。
-2. 备份根目录直接包含 `user/` 与 `shop/`。推荐通过 `--backup-root` 自动发现两目录内全部普通 `.o` 文件；不读取其他目录、不跟随链接。缺目录、不可读或链接导致范围不完整时失败。也可先保存清单以人工审阅，无需枚举账号：
+2. 备份根目录直接包含 `user/` 与 `shop/`，并在原服存在盟主存档时一并备份 `npc/meng-zhu.o`。推荐通过 `--backup-root` 自动发现两目录内全部普通 `.o` 文件，并纳入存在的这份盟主存档；不遍历其他 NPC 文件、不跟随链接。缺少 user/shop 目录、不可读或链接导致范围不完整时失败；盟主文件可不存在，但工具不能判断是否漏备，需维护者核对备份范围。也可先保存清单以人工审阅，无需枚举账号：
 
 ```powershell
 node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items --write-manifest C:/mud-backup/items/manifest.json
@@ -94,6 +113,8 @@ node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items --write-ma
 ```
 
 若需要保留旧袋记录，另加 `kind: "legacy_bags"` 的 `dbased.o` 条目及 `bag_objects` 数组。管理员必须先确认这些对象确实使用 `clone/misc/depot_ob.h` 的记录结构；不能把所有 dbased 条目当作袋子处理。未选对象不变，所选对象不存在或结构异常则失败。
+
+手工清单若含盟主备份，增加 `{ "file": "npc/meng-zhu.o", "kind": "mengzhu_equipment" }`。该类型只接受这一个精确文件，仅转换已登记旧路径的 `dbase/weapon`、`dbase/armor`，不修改姓名、武功、经验或其他字段；空值及未迁移的特殊装备保持原样。盟主恢复时会直接加载这两个装备路径，不能只改 NPC 默认配装而漏掉旧存档。本工具不扫描或修改正式文件，也不提供运行期旧路径别名。
 
 3. 先预览，再输出转换副本。`--output` 的父目录必须存在，目标目录必须全新且不在输入目录内；输入永不覆盖。
 
@@ -159,12 +180,20 @@ node tools/tests/audit_food_migration.mjs
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --food
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --food --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --food --bench
+node tools/tests/sword_inventory.mjs
+node tools/tests/audit_sword_migration.mjs
+node --test tools/tests/test_sword_inventory.mjs
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --sword
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --sword --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --sword --bench
 ```
 
-需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361`、`57f106f8`、`61abfde3`、`1c35e24c` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
+需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361`、`57f106f8`、`61abfde3`、`1c35e24c`、`3c572f18` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
 
 引用扫描同时覆盖带 `/` 的绝对路径、不带 `/` 的根路径、相对路径、宏和常量拼接；动态前缀只报告线索，不自动替换。`--village-startup` 不复制已删除的历史布衣源码：先复现旧引用的失败，再执行杂货店与李四当前的 `create()`，检查装备和房间补刷。仅无关的 NPC 技能与心跳依赖使用夹具，携物、移动和穿戴使用实际代码；不能以只编译函数体代替创建链路验收。
 
 `--bench` 每轮新启驱动，对照相同的 202 份历史来源请求和 4,040 实例；旧版实际为 202 个蓝图，新版为 148 个规范蓝图。旧/新顺序交替，共三轮。`memory_info()` 是驱动估算，不是 OS RSS。数据化减少源码重复和冷加载开销，但虚拟创建与实例状态隔离有成本；不能推断批量创建更快或实例更省内存。归并前后结果分别记录，不把旧报告冒充当前结果。
+
+剑类使用 `--sword --bench`，同条件为 85 个历史来源请求、每来源 20 次创建（共 1,700 实例）；新版共 70 个虚拟品种。当前测量与实施证据见 [SWORD 验证报告](../../openspec/changes/refactor-data-driven-swords/validation.md)。该报告不代表已转换正式存档或完成线上部署。

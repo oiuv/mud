@@ -20,7 +20,7 @@ LONG);
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/xiyu/obj/fire",
-        "/d/hengyang/obj/mujian",
+        "/d/items/sword/mujian1",
         //"/d/hengyang/obj/jia",
         "/d/item/obj/chanhs",
         "/d/items/headwear/hong_meigui3",

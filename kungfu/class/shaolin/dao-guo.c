@@ -71,7 +71,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/shaolin/obj/changjian")->wield();
+    carry_object("/d/items/sword/changjian5")->wield();
     carry_object("/d/items/cloth/hui_jiasha")->wear();
 }
 

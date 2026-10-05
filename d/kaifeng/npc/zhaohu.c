@@ -53,7 +53,7 @@ LONG);
     set_temp("apply/damage", 50);
     set_temp("apply/armor", 100);
 
-    carry_object("/d/beijing/npc/obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/guanfu2")->wear();
 }
 

@@ -26,7 +26,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/buyi")->wear();
-    carry_object(__DIR__ "obj/hanyan");
+    carry_object("/d/items/sword/hanyandai");
     add_money("coin", 50);
     set("inquiry", ([
         "name": "我是苗三斤．因为村里我酒量最大，所以大家选我当了村长。\n",

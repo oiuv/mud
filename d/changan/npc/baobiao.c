@@ -30,7 +30,7 @@ void create() {
     set("jingli", 600);
 
     setup();
-    carry_object(__DIR__ "obj/sword")->wield();
+    carry_object("/d/items/sword/changjian4")->wield();
     carry_object("/d/items/cloth/zhanjia")->wear();
 }
 

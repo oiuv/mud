@@ -23,7 +23,7 @@ void init() {
     object ob;
     object me = this_object();
     if (query("init") == 0) {
-        ob = new("/d/city/obj/duanjian");
+        ob = new("/d/items/sword/duanjian");
         ob->move(me);
         add("init", 1);
     }

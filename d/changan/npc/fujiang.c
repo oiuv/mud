@@ -62,6 +62,9 @@ LONG);
     set("jiali", 25);
 
     setup();
-    carry_object(__DIR__ "obj/" + weapon_file)->wield();
+    if (weapon_file == "changjian")
+        carry_object("/d/items/sword/changjian3")->wield();
+    else
+        carry_object(__DIR__ "obj/" + weapon_file)->wield();
     carry_object("/d/items/cloth/zhanjia")->wear();
 }

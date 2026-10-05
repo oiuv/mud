@@ -80,7 +80,7 @@ LONG);
     setup();
     carry_object("/d/items/headwear/cuiyu")->wear();
     carry_object("/d/items/cloth/huangshan2")->wear();
-    carry_object(__DIR__ "obj/shortsword")->wield();
+    carry_object("/d/items/sword/duanjian2")->wield();
 }
 
 mixed ask_skill1() {

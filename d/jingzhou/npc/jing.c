@@ -27,6 +27,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__ "obj/gangjian")->wield();
+    carry_object("/d/items/sword/gangjian3")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

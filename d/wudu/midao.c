@@ -12,7 +12,7 @@ LONG);
     ]));
     //新增解密千蛛万毒所需的火把 2017-02-10
     set("objects", ([
-        __DIR__ "obj/huoba": 1,
+        "/d/items/sword/huoba": 1,
     ]));
     setup();
     replace_program(ROOM);

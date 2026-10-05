@@ -21,8 +21,8 @@ void run() {
         environment(cloth) == npc && cloth->query("equipped") == "worn",
         "shopkeeper carries and wears canonical cloth");
     weapon = npc->query_temp("weapon");
-    check(objectp(weapon) && base_name(weapon) == "/d/city/obj/gangjian" &&
-        weapon->query("equipped") == "wielded", "unmigrated root-relative weapon still works");
+    check(objectp(weapon) && base_name(weapon) == "/d/items/sword/gangjian2" &&
+        weapon->query("equipped") == "wielded", "shopkeeper wields canonical sword");
     room->reset();
     check(present("li si", room) == npc && sizeof(all_inventory(room)) == 1,
         "room reset keeps its existing shopkeeper");

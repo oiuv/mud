@@ -11,7 +11,7 @@ LONG);
         "west": __DIR__ "qianyuan",
     ]));
     set("objects", ([
-        __DIR__ "obj/taojian": 5,
+        "/d/items/sword/taomu_jian": 5,
     ]));
     setup();
 }

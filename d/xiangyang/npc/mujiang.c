@@ -16,7 +16,7 @@ void create() {
     set("int", 22);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        __DIR__ "obj/mujian",
+        "/d/items/sword/mujian3",
         __DIR__ "obj/mudao",
         __DIR__ "obj/mugun",
     }));

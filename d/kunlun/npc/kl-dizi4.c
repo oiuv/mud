@@ -34,6 +34,6 @@ void create() {
 
     create_family("昆仑派", 6, "弟子");
     setup();
-    carry_object("/d/kunlun/obj/sword")->wield();
+    carry_object("/d/items/sword/changjian7")->wield();
     carry_object("/d/items/cloth/huang_changpao")->wear();
 }

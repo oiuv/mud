@@ -118,7 +118,7 @@ string ask_jian() {
         return "你身上不是带着武器吗？怎么还来要！";
 
     add("jian_count", -1);
-    ob = new("/d/emei/obj/ruanjian");
+    ob = new("/d/items/sword/ruanjian");
     ob->move(this_player());
     return "我这里有一把软剑，你拿去用吧。";
 }

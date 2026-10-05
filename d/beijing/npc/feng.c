@@ -45,6 +45,6 @@ void create() {
     map_skill("dodge", "huashan-shenfa");
     setup();
 
-    carry_object("/d/beijing/npc/obj/sword3")->wield();
+    carry_object("/d/items/sword/bintie_jian")->wield();
     carry_object("/d/items/cloth/guanfu2")->wear();
 }

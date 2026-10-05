@@ -58,8 +58,8 @@ private void convert_shop(mapping data, mapping paths) {
 }
 
 mapping convert(string serialized, string kind, mapping paths, string *bag_objects) {
-    mixed data;
-    string bag;
+    mixed data, value;
+    string bag, field;
 
     changes = 0;
     data = restore_variable(serialized);
@@ -75,6 +75,17 @@ mapping convert(string serialized, string kind, mapping paths, string *bag_objec
             break;
         case "shop":
             convert_shop(data, paths);
+            break;
+        case "mengzhu_equipment":
+            foreach (field in ({ "weapon", "armor" })) {
+                value = data[field];
+                if (undefinedp(value) || (intp(value) && value == 0)) continue;
+                if (!stringp(value)) error("Expected a saved equipment path or zero.\n");
+                if (!undefinedp(paths[value])) {
+                    data[field] = paths[value];
+                    changes++;
+                }
+            }
             break;
         case "legacy_bags":
             if (!arrayp(bag_objects) || !sizeof(bag_objects))

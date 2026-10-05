@@ -14,9 +14,11 @@ import { migrationPaths as handsPaths, baseline as handsBaseline } from './tests
 import { migrationPaths as neckPaths, baseline as neckBaseline } from './tests/neck_inventory.mjs';
 import { migrationPaths as wristsPaths, baseline as wristsBaseline } from './tests/wrists_inventory.mjs';
 import { migrationPaths as foodPaths, baseline as foodBaseline } from './tests/food_inventory.mjs';
+import { migrationPaths as swordPaths, baseline as swordBaseline } from './tests/sword_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const fields = { backpack: 'my_depot', shop: 'dbase', legacy_bags: 'save_dbase' };
+const fields = { backpack: 'my_depot', shop: 'dbase', legacy_bags: 'save_dbase', mengzhu_equipment: 'dbase' };
+const mengzhuFile = 'npc/meng-zhu.o';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const inside = (base, file) => { const path = relative(base, file); return path && !isAbsolute(path) && path !== '..' && !path.startsWith('..' + sep); };
 
@@ -40,6 +42,18 @@ export function discoverBackup(backupRoot) {
     // No default root, no traversal of other data, no record body reads here.
     visit(join(input, 'user'), 'backpack');
     visit(join(input, 'shop'), 'shop');
+    // This one confirmed NPC record is optional; never enumerate other NPC files.
+    const npc = join(input, 'npc'), npcInfo = lstatSync(npc, { throwIfNoEntry: false });
+    if (npcInfo) {
+        if (npcInfo.isSymbolicLink() || !npcInfo.isDirectory())
+            throw new Error('Expected an ordinary backup directory: ' + npc);
+        const path = join(input, mengzhuFile), info = lstatSync(path, { throwIfNoEntry: false });
+        if (info) {
+            if (info.isSymbolicLink() || !info.isFile()) throw new Error('Expected a regular record: ' + path);
+            accessSync(path, constants.R_OK);
+            files.push({ file: mengzhuFile, kind: 'mengzhu_equipment' });
+        }
+    }
     files.sort((a, b) => a.file < b.file ? -1 : a.file > b.file ? 1 : 0);
     return { input, manifest: { files } };
 }
@@ -77,9 +91,12 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     const seen = new Set();
     const files = manifest.files.map(entry => {
         if (!entry || !Object.hasOwn(fields, entry.kind) || typeof entry.file !== 'string' || !entry.file.endsWith('.o'))
-            throw new Error('Each entry needs kind=backpack/shop/legacy_bags and a relative .o file');
+            throw new Error('Each entry needs kind=backpack/shop/legacy_bags/mengzhu_equipment and a relative .o file');
         if (isAbsolute(entry.file) || entry.file.includes('\\') || entry.file.split('/').includes('..'))
             throw new Error('Use relative forward-slash paths within the backup directory');
+        if (entry.kind === 'mengzhu_equipment' && (entry.file !== mengzhuFile ||
+            lstatSync(join(input, 'npc')).isSymbolicLink() || lstatSync(join(input, mengzhuFile)).isSymbolicLink()))
+            throw new Error('mengzhu_equipment requires the exact ordinary npc/meng-zhu.o backup');
         const path = realpathSync(resolve(input, entry.file));
         if (!inside(input, path) || seen.has(path)) throw new Error('Outside backup tree or duplicate file: ' + entry.file);
         if (!lstatSync(path).isFile()) throw new Error('Expected a regular record: ' + entry.file);
@@ -95,7 +112,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -144,9 +161,9 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     const results = JSON.parse(readFileSync(join(sandbox, 'result.json'), 'utf8'));
     if (results.length !== files.length) throw new Error('Incomplete conversion result');
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
-        input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o'] : 'listed_files_only',
+        input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o', mengzhuFile] : 'listed_files_only',
         baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
-        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sandbox, files: [] };
+        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')
@@ -194,8 +211,9 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     if (!args.length || args.includes('--help')) {
         console.log('node tools/migrate_item_records.mjs (--backup-root <backup> | --manifest <backup/manifest.json>) [--driver bin/driver.exe] [--output <new-directory>]');
         console.log('node tools/migrate_item_records.mjs --backup-root <backup> --write-manifest <backup/manifest.json>');
-        console.log('备份根目录须含 user/ 和 shop/；不扫描其他目录。默认预览，显式 --output 才产生全新副本。');
-        console.log('一次处理已迁移服装、鞋靴、头饰、手部装备、颈饰、护腕及食物；仅转换明确的物品路径字段，不替换玩家文本，也不改变存放资格。');
+        console.log('备份根目录须含 user/ 和 shop/；若有 npc/meng-zhu.o，仅额外检查该文件，不扫描其他 NPC。默认预览，显式 --output 才产生全新副本。');
+        console.log('一次处理已迁移服装、鞋靴、头饰、手部装备、颈饰、护腕、食物及剑器；仅转换明确的物品路径字段，不替换玩家文本，也不改变存放资格。');
+        console.log('盟主备份使用 kind=mengzhu_equipment，仅转换 dbase/weapon、dbase/armor，其他字段不变。');
         console.log('--write-manifest 仅枚举路径，清单须放备份根目录：不读正文、不启动驱动，不代表内容检查。');
         console.log('checked_files/affected_files/changes 分别表示检查数、受影响文件数、路径字段变更数。');
         console.log('manifest 只覆盖所列文件；empty_scope 是空范围，不代表全库无影响。输入永不覆盖。');

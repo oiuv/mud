@@ -26,6 +26,6 @@ void create() {
     set_temp("apply/armor", 40);
 
     setup();
-    carry_object(__DIR__ "obj/ganggou")->wield();
+    carry_object("/d/items/sword/ganggou")->wield();
     carry_object("/d/items/cloth/jinyi")->wear();
 }

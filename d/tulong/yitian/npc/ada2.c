@@ -73,6 +73,6 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object(__DIR__ "obj/jian")->wield();
+    carry_object("/d/items/sword/yitian_jian")->wield();
     carry_object("/clone/cloth/cloth")->wear();
 }

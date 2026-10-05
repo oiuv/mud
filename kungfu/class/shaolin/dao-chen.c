@@ -87,7 +87,10 @@ string ask_me(string name) {
     if (query("wuqi_count") < 1)
         return "抱歉，你来得不是时候，武器已经发完了。";
 
-    ob = new("/d/shaolin/obj/" + name);
+    if (name == "changjian")
+        ob = new("/d/items/sword/changjian5");
+    else
+        ob = new("/d/shaolin/obj/" + name);
     ob->move(this_player());
 
     add("wuqi_count", -1);

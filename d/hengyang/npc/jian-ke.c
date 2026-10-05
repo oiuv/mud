@@ -17,7 +17,7 @@ void create() {
     set_skill("parry", 50);
     set_skill("dodge", 50);
     setup();
-    carry_object("/d/city/obj/changjian")->wield();
+    carry_object("/d/items/sword/changjian5")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 20);
 }

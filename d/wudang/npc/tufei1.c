@@ -21,7 +21,7 @@ void create() {
     set_skill("dodge", 40);
     setup();
 
-    carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/items/sword/duanjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 1);
 }

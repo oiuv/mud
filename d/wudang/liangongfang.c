@@ -10,7 +10,7 @@ LONG);
         "west": __DIR__ "donglang2",
     ]));
     set("objects", ([
-        "/d/village/obj/zhujian": 3
+        "/d/items/sword/zhujian3": 3
     ]));
     setup();
 }

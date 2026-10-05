@@ -37,7 +37,7 @@ void create() {
         "reward": (: ask_reward :),
     ]));
     setup();
-    carry_object("/d/beijing/npc/obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/shiweifu")->wear();
 }
 

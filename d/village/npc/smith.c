@@ -57,7 +57,7 @@ int accept_object(object who, object ob) {
     if ((string)ob->query("id") == "hand letter") {
         destruct(ob);
         if (!query("yl_trigger")) {
-            sword = new(__DIR__ "obj/youlong");
+            sword = new("/d/items/sword/youlong_jian");
             message_vision("$N说道：这把剑虽不起眼，可也是小人的心血，总算对得起岳掌门。\n"
                 "$N把" + sword->query("name") + "交给了$n。\n",
                 this_object(), this_player());

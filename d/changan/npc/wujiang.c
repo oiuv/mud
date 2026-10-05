@@ -26,7 +26,7 @@ void create() {
     set("jingli_factor", 5);
 
     setup();
-    carry_object(__DIR__ "obj/changjian")->wield();
+    carry_object("/d/items/sword/changjian3")->wield();
     carry_object("/d/items/cloth/zhanjia")->wear();
 }
 

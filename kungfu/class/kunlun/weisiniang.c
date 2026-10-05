@@ -69,7 +69,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/kunlun/obj/sword")->wield();
+    carry_object("/d/items/sword/changjian7")->wield();
     carry_object("/d/items/cloth/lan_changpao")->wear();
 }
 

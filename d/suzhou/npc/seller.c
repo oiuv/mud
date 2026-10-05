@@ -18,7 +18,7 @@ void create() {
     set("vendor_goods", ({
         "/d/shaolin/obj/hulu",
         "/d/city/obj/zhubang",
-        "/d/village/obj/zhujian",
+        "/d/items/sword/zhujian3",
         "/d/xiyu/obj/fire",
     }));
     setup();

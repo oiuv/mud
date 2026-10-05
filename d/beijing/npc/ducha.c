@@ -29,6 +29,6 @@ void create() {
     set_skill("sword", 80);
 
     setup();
-    carry_object("/d/beijing/npc/obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/guanfu2")->wear();
 }

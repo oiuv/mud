@@ -98,7 +98,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/wudu/npc/obj/jiandao")->wield();
+    carry_object("/d/items/sword/wudu_jian")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
     carry_object("/d/wudu/obj/wuxing");
 

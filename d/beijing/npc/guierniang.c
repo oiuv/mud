@@ -65,6 +65,6 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/baise_changshan")->wear();
-    carry_object("/d/beijing/npc/obj/sword1")->wield();
+    carry_object("/d/items/sword/changjian2")->wield();
 
 }

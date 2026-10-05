@@ -46,7 +46,7 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/green_water_sword")->wield();
+    carry_object("/d/items/sword/bishui_jian")->wield();
     carry_object("/clone/cloth/cloth")->wear();
 
 }

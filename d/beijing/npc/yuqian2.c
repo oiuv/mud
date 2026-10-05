@@ -27,7 +27,7 @@ void create() {
         "骁骑营侍卫喝道：亡命狂徒，京城之中，岂得由你猖狂？\n",
     }));
     setup();
-    carry_object("/d/beijing/npc/obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/shiweifu")->wear();
 }
 

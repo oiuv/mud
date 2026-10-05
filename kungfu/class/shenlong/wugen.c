@@ -68,7 +68,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/items/sword/duanjian")->wield();
     add_money("silver", 10);
 }
 

@@ -18,7 +18,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/baihongjian": 1,
+        "/d/items/sword/baihong_jian": 1,
     ]));
 
     set("item_desc", ([

@@ -116,6 +116,8 @@ mapping trade_result(string path, int price) {
     id = path->query("id");
     check(vendor->is_vendor_good(id) == path, "dealer blueprint lookup " + path);
     MONEY_D->pay_player(actor, 999999);
+    if (path->query("value") > 999999)
+        MONEY_D->pay_player(actor, path->query("value"));
     before = actor->cash_value();
     actor->run_command("testbuy " + id);
     foreach (ob in all_inventory(actor))

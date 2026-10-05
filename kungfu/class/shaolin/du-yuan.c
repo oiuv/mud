@@ -101,7 +101,7 @@ void create() {
         }
     }
 
-    carry_object("/d/beijing/npc/obj/sword3")->wield();
+    carry_object("/d/items/sword/bintie_jian")->wield();
 }
 
 mixed ask_me() {

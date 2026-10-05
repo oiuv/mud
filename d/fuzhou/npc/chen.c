@@ -19,7 +19,7 @@ void create() {
     ]));
 
     set("vendor_goods", ({
-        "/d/fuzhou/obj/xiuhua",
+        "/d/items/sword/xiuhua_zhen",
         "/d/items/boots/xiuhuaxie",
         "/d/items/cloth/fenhong_choushan",
         "/d/items/hands/jinjie",

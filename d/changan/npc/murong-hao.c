@@ -19,7 +19,7 @@ void create() {
     set("max_force", 200);
     set("force_factor", 5);
     set("vendor_goods", ({
-        __DIR__ "obj/changjian",
+        "/d/items/sword/changjian3",
         __DIR__ "obj/blade",
         __DIR__ "obj/hammer",
         "/clone/weapon/arrow",
@@ -33,7 +33,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
-    carry_object(__DIR__ "obj/changjian")->wield();
+    carry_object("/d/items/sword/changjian3")->wield();
 }
 
 void init() {

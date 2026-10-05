@@ -83,7 +83,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new(__DIR__ "obj/ling");
+            ob = new("/d/items/sword/bintie_ling");
             ob->move(this_object());
             ob->wield();
         }

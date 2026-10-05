@@ -27,7 +27,7 @@ void create() {
         "西厂官兵喝道：大胆刁民，京城之中，竟敢造反不成？\n",
     }));
     setup();
-    carry_object(__DIR__ "obj/sword4")->wield();
+    carry_object("/d/items/sword/guanfu_jian")->wield();
     carry_object("/d/items/cloth/guanfu")->wear();
 }
 

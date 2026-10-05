@@ -22,7 +22,7 @@ LONG);
     set("objects", ([
         CLASS_D("shaolin") + "/dao-chen": 1,
         __DIR__ "npc/datie-seng": 1,
-        __DIR__ "obj/zhujian": 1,
+        "/d/items/sword/zhujian2": 1,
         __DIR__ "obj/mudao": 1,
     ]));
     //    set("no_clean_up", 0);

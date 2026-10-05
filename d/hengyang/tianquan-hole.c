@@ -180,7 +180,7 @@ TEXT
 
         message_vision(HIG "唰~！的一声，$N已将木剑从石壁中拔了出来。\n" NOR, me);
 
-        jian = new(__DIR__ "obj/mujian");
+        jian = new("/d/items/sword/mujian1");
         jian->move(me);
 
         return 1;

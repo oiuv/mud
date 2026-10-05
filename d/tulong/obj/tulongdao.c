@@ -41,7 +41,7 @@ int do_open(string arg, object me) {
     } else if (this_player()->query("jiali") <= 160)
         return notify_fail(WHT "\n你提起屠龙刀对准倚天剑用力的砍了下去！" NOR + HIR "\n\n只听“镪”的一声脆响，飞溅出几点火星。\n" NOR);
     {
-        pai = new("/d/tulong/obj/duan1");
+        pai = new("/d/items/sword/duan_yitian");
         pai->move(this_player());
         pai = new("/d/tulong/obj/duan2");
         pai->move(this_player());

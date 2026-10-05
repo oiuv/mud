@@ -12,7 +12,7 @@ LONG);
         "east": __DIR__ "chanfang2",
     ]));
     set("objects", ([
-        __DIR__ "npc/obj/gangjian": random(3),
+        "/d/items/sword/gangjian2": random(3),
         __DIR__ "npc/obj/gangdao": random(2),
         "/d/items/cloth/tiejia2": random(2),
     ]));

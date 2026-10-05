@@ -28,7 +28,7 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object("/d/city/npc/obj/gangjian")->wield();
+    carry_object("/d/items/sword/gangjian2")->wield();
     carry_object("/d/items/cloth/tiejia2")->wear();
 }
 

@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
 import { afterFoodMigration } from './food_inventory.mjs';
+import { afterSwordMigration } from './sword_inventory.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
@@ -54,6 +55,7 @@ for (const [file, hits] of files) {
     expected = afterNeckMigration(file, expected, semanticTokens);
     expected = afterWristsMigration(file, expected, semanticTokens);
     expected = afterFoodMigration(file, expected, semanticTokens);
+    expected = afterSwordMigration(file, expected, semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

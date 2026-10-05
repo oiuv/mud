@@ -36,7 +36,7 @@ void create() {
 
     setup();
     carry_object("/d/shenlong/obj/xionghuang")->wield();
-    carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/items/sword/duanjian")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 5);
 }

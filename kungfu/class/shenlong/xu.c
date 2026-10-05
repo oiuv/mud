@@ -64,7 +64,7 @@ void create() {
         "许雪亭叹口气，说道：唉，不杀了洪安通，谁也活不了。\n",
     }));
     setup();
-    carry_object("/d/city/obj/duanjian")->wield();
+    carry_object("/d/items/sword/duanjian")->wield();
 }
 
 int ask_gao() {

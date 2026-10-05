@@ -13,6 +13,7 @@ import { migrationPaths as handsPaths, canonicalGroups as handsGroups } from './
 import { migrationPaths as neckPaths, canonicalGroups as neckGroups } from './neck_inventory.mjs';
 import { migrationPaths as wristsPaths, canonicalGroups as wristsGroups } from './wrists_inventory.mjs';
 import { migrationPaths as foodPaths, canonicalGroups as foodGroups } from './food_inventory.mjs';
+import { migrationPaths as swordPaths, canonicalGroups as swordGroups } from './sword_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = join(root, 'bin/driver.exe');
@@ -50,19 +51,85 @@ const original = new Map(selected.map(file => [file, readFileSync(join(backup, f
 let output;
 console.log('Synthetic record tests: ' + sandbox);
 
-test('deterministic discovery, relative paths and only user/shop', () => {
+test('deterministic discovery and relative paths with optional NPC record absent', () => {
     const found = discoverBackup(backup);
     assert.deepEqual(found.manifest.files.map(f => f.file), selected);
     assert.deepEqual(found.manifest.files.map(f => f.kind), ['shop', 'backpack', 'backpack']);
     assert.deepEqual(discoverBackup(backup), found);
 });
 
+test('only the exact mengzhu backup and its two equipment fields migrate, with rollback and replay', async () => {
+    const input = join(sandbox, 'mengzhu-input'), target = join(sandbox, 'mengzhu-output');
+    for (const part of ['user', 'shop', 'npc']) mkdirSync(join(input, part), { recursive: true });
+    const oldSword = '/d/shaolin/obj/changjian', swordPath = swordPaths()[oldSword];
+    assert.ok(swordPath);
+    const record = { name: '合成盟主', weapon: oldSword, armor: oldCloth, combat_exp: 876543,
+        note: oldSword, unrelated: { weapon: oldSword, armor: oldCloth }, vendor_goods: { [oldSword]: 123 } };
+    const source = '# synthetic\r\ndbase ' + lpc(record) + '\r\nother "unchanged"\r\n';
+    const file = 'npc/meng-zhu.o', path = join(input, file);
+    writeFileSync(path, source);
+    writeFileSync(join(input, 'npc/other.o'), 'not a record: must never be parsed');
+    const expected = [{ file, kind: 'mengzhu_equipment' }];
+    assert.deepEqual(discoverBackup(input).manifest.files, expected);
+    const manifest = join(input, 'manifest.json');
+    const savedRead = fs.readFileSync;
+    fs.readFileSync = () => { throw new Error('manifest must not read bodies'); }; syncBuiltinESMExports();
+    try { assert.equal(writeBackupManifest(input, manifest).discovered_files, 1); }
+    finally { fs.readFileSync = savedRead; syncBuiltinESMExports(); }
+    const preview = await migrateBackupRecords(input, driver);
+    assert.deepEqual(preview.coverage, ['user/**/*.o', 'shop/**/*.o', file]);
+    assert.equal(preview.checked_files, 1); assert.equal(preview.changes, 2);
+    const copied = await migrateItemRecords(manifest, driver, target);
+    assert.equal(copied.changes, 2);
+    assert.equal(readFileSync(path, 'utf8'), source);
+    assert.equal(readFileSync(join(target, 'backup', file), 'utf8'), source);
+    const converted = readFileSync(join(target, 'converted', file), 'utf8');
+    assert.ok(converted.includes('"weapon":"' + swordPath + '"'));
+    assert.ok(converted.includes('"armor":"' + cloth + '"'));
+    assert.ok(converted.includes('"combat_exp":876543,'));
+    assert.ok(converted.includes('"note":"' + oldSword + '"'));
+    assert.ok(converted.includes('"weapon":"' + oldSword + '"'), 'nested non-target unchanged');
+    assert.ok(converted.includes('"armor":"' + oldCloth + '"'), 'nested non-target unchanged');
+    assert.ok(converted.includes('"' + oldSword + '":123,'), 'shop-shaped data is not converted');
+    assert.ok(converted.startsWith('# synthetic\r\n') && converted.endsWith('\r\nother "unchanged"\r\n'));
+    assert.equal(existsSync(join(target, 'converted/npc/other.o')), false);
+    const replay = join(target, 'converted/manifest.json');
+    writeFileSync(replay, JSON.stringify({ files: expected }));
+    assert.equal((await migrateItemRecords(replay, driver)).changes, 0);
+    const rollback = join(sandbox, 'mengzhu-rollback'); cpSync(join(target, 'backup'), rollback, { recursive: true });
+    assert.deepEqual(readFileSync(join(rollback, file)), Buffer.from(source));
+    for (const data of [{}, { weapon: 0, armor: 0 }, { weapon: '/clone/weapon/changjian', armor: cloth }]) {
+        const unchanged = 'dbase ' + lpc(data) + '\n'; writeFileSync(path, unchanged);
+        assert.equal((await migrateBackupRecords(input, driver)).changes, 0);
+        assert.equal(readFileSync(path, 'utf8'), unchanged);
+    }
+    writeFileSync(manifest, JSON.stringify({ files: [{ file: 'npc/other.o', kind: 'mengzhu_equipment' }] }));
+    await assert.rejects(migrateItemRecords(manifest, driver), /exact ordinary/);
+    for (const [index, data] of [{ weapon: 12 }, { armor: { file: oldCloth } }].entries()) {
+        writeFileSync(path, 'dbase ' + lpc(data) + '\n');
+        const failed = join(sandbox, 'bad-mengzhu-' + index);
+        await assert.rejects(migrateBackupRecords(input, driver, failed), /Invalid record: npc\/meng-zhu\.o/);
+        assert.equal(existsSync(failed), false);
+    }
+});
+
+test('optional NPC scope rejects linked directories without enumerating other NPC records', () => {
+    const input = join(sandbox, 'mengzhu-linked');
+    for (const part of ['user', 'shop', 'unrelated']) mkdirSync(join(input, part), { recursive: true });
+    writeFileSync(join(input, 'unrelated/meng-zhu.o'), 'not authorized');
+    const link = join(input, 'npc');
+    symlinkSync(join(input, 'unrelated'), link, process.platform === 'win32' ? 'junction' : 'dir');
+    try { assert.throws(() => discoverBackup(input), /ordinary backup directory/); }
+    finally { unlinkSync(link); }
+});
+
 for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['wrists', wristsPaths, wristsGroups, 6, 4], ['food', foodPaths, foodGroups, 167, 119],
+    ['sword', swordPaths, swordGroups, 85, 70],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
-    const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan' });
+    const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan', '/d/guanwai/obj/mantou': '/d/items/food/mantou' });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};
