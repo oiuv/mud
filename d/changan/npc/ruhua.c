@@ -16,7 +16,7 @@ void create() {
     set_skill("dodge", 30);
     set_skill("parry", 30);
     set("vendor_goods", ({
-        __DIR__ "obj/baijiu",
+        "/d/items/liquid/baijiu",
     }));
 
     setup();

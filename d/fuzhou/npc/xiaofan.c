@@ -19,7 +19,7 @@ void create() {
         "大力丸": "看你也是正人君子，怎么问这个？\n",
     ]));
     set("vendor_goods", ({
-        "/d/village/npc/obj/bottle",
+        "/d/items/liquid/shuihu2",
         "/d/items/food/chayedan",
     }));
     setup();

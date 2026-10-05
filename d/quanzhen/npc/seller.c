@@ -20,7 +20,7 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         __DIR__ "obj/stick",
-        __DIR__ "obj/bottle",
+        "/d/items/liquid/shuihu2",
         "/d/items/food/chayedan",
         "/d/xiyu/obj/fire",
     }));

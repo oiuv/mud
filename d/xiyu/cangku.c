@@ -11,7 +11,7 @@ LONG);
         "out": __DIR__ "xxroad5",
     ]));
     set("objects", ([
-        __DIR__ "obj/hulu": 2,
+        "/d/items/liquid/qing_hulu": 2,
         __DIR__ "obj/menghan_yao": 1 + random(2),
         __DIR__ "obj/xxqingxin-san": 1,
         "/d/items/hands/jinsi_shoutao": 1 + random(2),

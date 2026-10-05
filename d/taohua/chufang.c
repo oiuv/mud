@@ -48,7 +48,7 @@ int do_serve() {
         message_vision(CYN "程英将热气腾腾的饭菜递到$N" CYN "手中"
             "，笑道：你慢用。\n" NOR, me);
         food = new("/d/items/food/taohua_gao");
-        water = new("/d/taohua/obj/cha");
+        water = new("/d/items/liquid/zuixiancha");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

@@ -12,7 +12,7 @@ LONG);
         "west": __DIR__ "rest1",
     ]));
     set("objects", ([
-        "/d/kaifeng/npc/obj/zaopeng": 2,
+        "/d/items/liquid/zaopen": 2,
     ]));
     setup();
     replace_program(ROOM);

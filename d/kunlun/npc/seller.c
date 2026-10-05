@@ -19,7 +19,7 @@ void create() {
     set("vendor_goods", ({
         "/d/xiyu/obj/fire",
         "/d/quanzhen/npc/obj/stick",
-        "/d/quanzhen/npc/obj/bottle",
+        "/d/items/liquid/shuihu2",
         "/d/items/food/chayedan",
     }));
     setup();

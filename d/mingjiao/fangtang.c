@@ -26,7 +26,7 @@ LONG);
     ]));
 
     set("objects", ([
-        "/d/hangzhou/npc/obj/jiuping": 1,
+        "/d/items/liquid/jiuping2": 1,
         names[random(sizeof(names))]: 1,
         names[random(sizeof(names))]: 1,
         names[random(sizeof(names))]: 1,

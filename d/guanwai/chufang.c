@@ -14,7 +14,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/wan": 2,
+        "/d/items/liquid/zhou": 2,
         "/d/items/food/mantou": 5,
     ]));
 

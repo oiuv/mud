@@ -17,7 +17,7 @@ void create() {
     set("shen_type", 1);
     set_skill("unarmed", 10);
     set("vendor_goods", ({
-        __DIR__ "obj/jiudai",
+        "/d/items/liquid/jiudai",
         "/d/items/food/gourou",
         __DIR__ "obj/jitui",
     }));

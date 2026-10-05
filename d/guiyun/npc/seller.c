@@ -18,7 +18,7 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/village/npc/obj/shoes",
-        "/d/village/npc/obj/bottle",
+        "/d/items/liquid/shuihu2",
     }));
 
     setup();

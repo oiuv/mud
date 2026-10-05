@@ -233,7 +233,8 @@ int store_item(object me, object ob, int amount) {
         !"/d/items/neck"->valid_variety_path(base_name(ob)) &&
         !"/d/items/wrists"->valid_variety_path(base_name(ob)) &&
         !"/d/items/food"->valid_variety_path(base_name(ob)) &&
-        !"/d/items/sword"->valid_variety_path(base_name(ob)))
+        !"/d/items/sword"->valid_variety_path(base_name(ob)) &&
+        !"/d/items/liquid"->valid_variety_path(base_name(ob)))
         return 1;
 
     if (ob->is_money()) {

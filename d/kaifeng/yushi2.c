@@ -8,7 +8,7 @@ void create() {
 中当然是浴盆，有些人为示对佛诚心，拜佛之前定要沐浴。
 LONG);
     set("objects", ([
-        __DIR__ "npc/obj/zaopeng": 1,
+        "/d/items/liquid/zaopen": 1,
     ]));
     set("exits", ([
         "east": __DIR__ "yushi",

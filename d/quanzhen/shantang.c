@@ -48,7 +48,7 @@ int do_serve() {
         message_vision(CYN "火工道人将热气腾腾的饭菜递到你手中，笑"
             "道：你慢用。\n" NOR, me);
         food = new("/d/items/food/mifan2");
-        water = new(__DIR__ "obj/bowl");
+        water = new("/d/items/liquid/shuiwan");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

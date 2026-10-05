@@ -23,7 +23,7 @@ void create() {
         "/d/items/food/tanghulu2",
         __DIR__ "obj/stick",
         __DIR__ "obj/shoes",
-        __DIR__ "obj/bottle",
+        "/d/items/liquid/shuihu",
         "/d/items/food/kaoya2",
     }));
     setup();

@@ -16,7 +16,7 @@ void create() {
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
         __DIR__ "obj/jitui",
-        __DIR__ "obj/jiudai",
+        "/d/items/liquid/jiudai2",
         "/d/items/food/baozi",
         "/d/items/food/kaoya2",
         "/clone/fam/pill/food",

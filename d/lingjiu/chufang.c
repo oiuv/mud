@@ -12,7 +12,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "npc/lisao": 1,
-        __DIR__ "obj/suanmei": 2,
+        "/d/items/liquid/suanmei_tang": 2,
         "/d/items/food/feicui_gao": 2,
     ]));
 

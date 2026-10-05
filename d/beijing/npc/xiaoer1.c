@@ -15,7 +15,7 @@ void create() {
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
         "/d/city/obj/jitui",
-        "/d/city/obj/jiudai",
+        "/d/items/liquid/jiudai2",
         "/d/items/food/baozi",
         "/d/beijing/obj/mian",
     }));

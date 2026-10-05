@@ -10,7 +10,7 @@ void create() {
 LONG);
     set("objects", ([
         "/d/items/food/xueli": 4,
-        __DIR__ "npc/obj/puercha": 1,
+        "/d/items/liquid/puercha": 1,
     ]));
     set("exits", ([ /* sizeof() == 1 */
         "east": __DIR__ "tingfang",

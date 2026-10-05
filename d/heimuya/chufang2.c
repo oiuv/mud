@@ -11,7 +11,7 @@ LONG);
 
     set("objects", ([
         __DIR__ "npc/shinu": 1,
-        __DIR__ "obj/tea": 1 + random(6),
+        "/d/items/liquid/xiangcha": 1 + random(6),
         "/d/items/food/sherou": 1 + random(4),
     ]));
     setup();

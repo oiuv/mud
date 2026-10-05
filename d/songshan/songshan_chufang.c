@@ -46,7 +46,7 @@ int do_serve() {
             "道：你慢用。\n" NOR, me);
 
         food = new("/d/items/food/mantou2");
-        water = new("/d/hengyang/obj/water");
+        water = new("/d/items/liquid/qingshui");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

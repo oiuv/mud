@@ -22,7 +22,7 @@ void create() {
         "/d/items/food/longjing_xiaren",
         "/d/items/food/jiaohuaji3",
         "/d/items/food/xianli_geng",
-        __DIR__ "obj/jiuping",
+        "/d/items/liquid/jiuping2",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

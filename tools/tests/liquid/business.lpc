@@ -1,0 +1,180 @@
+// Actual consumer methods; not replacements for drink/room/dealer behavior.
+inherit "/tests/cloth_regression";
+
+private mapping paths;
+
+mapping stock(object holder) {
+    mapping result;
+    object ob;
+    string path;
+
+    result = ([]);
+    foreach (ob in all_inventory(holder)) {
+        path = base_name(ob);
+        if (paths[path]) path = paths[path];
+        result[path]++;
+    }
+    return result;
+}
+
+void clear_stock(object holder) {
+    object ob;
+    foreach (ob in all_inventory(holder)) destruct(ob);
+}
+
+void check_banquet(string file) {
+    object before, after, left, right, pristine;
+    int wine;
+    string description;
+
+    before = new("/tests/old/" + file); after = new("/" + file);
+    foreach (wine in ({ 0, 1 })) foreach (description in ({ 0, "杯面浮着几片桂花。\n" })) {
+        before->serve_fixture(wine, description); after->serve_fixture(wine, description);
+        left = all_inventory(before)[0]; right = all_inventory(after)[0];
+        compare(left, right, file + " banquet customization");
+        check(right->name() == (wine ? "琉璃杯" : "青瓷盏") && right->id("fixture cup") &&
+            right->query("liquid/name") == (wine ? "桂花酒" : "龙井茶"), "banquet overrides vessel and liquid name");
+        check(same_value(stock(before), stock(after)), "banquet uses canonical identity");
+        if (description) check(right->query("long") == description, "custom banquet description");
+        pristine = new(base_name(right));
+        check(pristine->query("liquid/name") != right->query("liquid/name") &&
+            pristine->query("long") != right->query("long"), "banquet customization cannot pollute future cups");
+        destruct(pristine); clear_stock(before); clear_stock(after);
+    }
+    destruct(before); destruct(after);
+}
+
+mapping kitchen_result(string file) {
+    object room, actor, rice;
+    mapping result;
+
+    room = new(file); room->reset();
+    actor = new("/tests/liquid_actor"); actor->move(room, 1);
+    actor->select_npc(room, "do_serve");
+    actor->run_command("testnpc");
+    check(
+        !sizeof(all_inventory(actor)) && room->query("ricewater") == 5,
+        "kitchen family restriction"
+    );
+    actor->set("family/family_name", "华山派"); actor->run_command("testnpc");
+    check(
+        sizeof(all_inventory(actor)) == 2 && room->query("ricewater") == 4,
+        "kitchen supplies one rice and soup"
+    );
+    result = stock(actor);
+    check(!room->valid_leave(actor, "east"), "kitchen still disallows taking food away");
+    actor->run_command("testnpc");
+    check(
+        sizeof(all_inventory(actor)) == 2 && room->query("ricewater") == 4,
+        "kitchen prevents repeated serving"
+    );
+    rice = present("rice", actor); rice->move(room, 1); clear_stock(actor);
+    actor->run_command("testnpc");
+    check(
+        !sizeof(all_inventory(actor)) && room->query("ricewater") == 4,
+        "uneaten room rice blocks serving"
+    );
+    destruct(rice); room->set("ricewater", 0); actor->run_command("testnpc");
+    check(!sizeof(all_inventory(actor)), "exhausted kitchen supplies nothing");
+    room->reset(); actor->run_command("testnpc");
+    check(
+        same_value(stock(actor), result) && room->query("ricewater") == 4,
+        "kitchen reset replenishes supply"
+    );
+    clear_stock(actor); destruct(actor); destruct(room);
+    return result;
+}
+
+mapping maid_result(string file) {
+    object room, maid, actor, absent, ob;
+    mapping result;
+
+    room = new("/tests/room"); maid = new(file); maid->move(room, 1); maid->reset();
+    actor = new("/tests/liquid_actor"); actor->move(room, 1);
+    maid->serve_tea(actor);
+    check(
+        sizeof(all_inventory(room)) == 2 && maid->query("can_supply") == 15,
+        "must sit before tea"
+    );
+    absent = new("/tests/liquid_actor"); absent->set_temp("marks/sit", 1);
+    maid->serve_tea(absent); destruct(absent);
+    check(
+        sizeof(all_inventory(room)) == 2 && maid->query("can_supply") == 15,
+        "maid requires same room"
+    );
+    actor->set_temp("marks/sit", 1); maid->serve_tea(actor);
+    result = ([]);
+    foreach (ob in all_inventory(room)) if (ob != actor && ob != maid) {
+        result[paths[base_name(ob)] ? paths[base_name(ob)] : base_name(ob)]++;
+        destruct(ob);
+    }
+    check(sizeof(result) == 2 && maid->query("can_supply") == 14, "maid serves tea and pastry");
+    maid->set("can_supply", 0); maid->serve_tea(actor);
+    check(sizeof(all_inventory(room)) == 2, "maid respects exhausted stock");
+    maid->reset(); maid->serve_tea(actor);
+    check(
+        sizeof(all_inventory(room)) == 4 && maid->query("can_supply") == 14,
+        "maid reset preserves supply limit"
+    );
+    clear_stock(room); destruct(room);
+    return result;
+}
+
+void check_search(string file) {
+    object actor, room, before, after;
+    mapping old_goods, new_goods, normalized;
+    string path, new_path;
+    int score, value;
+
+    actor = new("/tests/liquid_actor"); room = new("/tests/room"); actor->move(room, 1);
+    before = load_object("/tests/old/" + file); after = load_object("/" + file);
+    check(!sizeof(after->query_default_objects(actor)), "indoor search stays empty");
+    room->set("outdoors", 1);
+    new_path = paths["/d/city/npc/obj/jiudai"];
+    foreach (score in ({ 0, 99, 100, 399, 400, 1999, 2000, 9999, 10000 })) {
+        actor->set("score", score);
+        old_goods = before->query_default_objects(actor); new_goods = after->query_default_objects(actor);
+        normalized = ([]);
+        foreach (path, value in old_goods) normalized[paths[path] ? paths[path] : path] = value;
+        check(same_value(normalized, new_goods), "all search rewards and weights preserved");
+        value = score < 100 ? 10000 : score < 400 ? 8000 : score < 2000 ? 10000 : score < 10000 ? 5000 : 0;
+        check(new_goods[new_path] == value, "four drink search tiers and upper threshold");
+    }
+    destruct(actor); destruct(room);
+}
+
+void check_room() {
+    object room, ob;
+    mapping quantities;
+    int expected, count;
+
+    room = load_object("/d/shaolin/fanting1"); quantities = room->query("objects");
+    foreach (count in values(quantities)) expected += count;
+    check(sizeof(all_inventory(room)) == expected && quantities["/d/items/liquid/qingshui_hulu"],
+        "real dining room creates canonical liquids and food");
+    foreach (ob in all_inventory(room)) check(
+        quantities[base_name(ob)] > 0,
+        "room objects use registered identities"
+    );
+    clear_stock(room); room->reset();
+    check(sizeof(all_inventory(room)) == expected, "room replenishes destroyed stock");
+    room->reset(); check(
+        sizeof(all_inventory(room)) == expected,
+        "room does not duplicate remaining stock"
+    );
+    clear_stock(room); destruct(room);
+}
+
+void run() {
+    mapping consumers;
+    string file;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    consumers = json_decode(read_file("/tests/liquid-consumers.json"));
+    foreach (file in consumers["banquets"]) check_banquet(file);
+    check(same_value(kitchen_result("/tests/old/" + consumers["kitchen"]),
+        kitchen_result("/" + consumers["kitchen"])), "old/new kitchen supply parity");
+    check(same_value(maid_result("/tests/old/" + consumers["maid"]),
+        maid_result("/" + consumers["maid"])), "old/new maid supply parity");
+    check_search(consumers["search"]); check_room();
+}

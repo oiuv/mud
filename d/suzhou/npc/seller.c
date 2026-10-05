@@ -16,7 +16,7 @@ void create() {
     set("int", 22);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/shaolin/obj/hulu",
+        "/d/items/liquid/hulu2",
         "/d/city/obj/zhubang",
         "/d/items/sword/zhujian3",
         "/d/xiyu/obj/fire",

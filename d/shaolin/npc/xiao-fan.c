@@ -21,7 +21,7 @@ void create() {
         "/d/shaolin/obj/guide",
         "/d/village/npc/obj/stick",
         "/d/village/npc/obj/shoes",
-        "/d/village/npc/obj/bottle",
+        "/d/items/liquid/shuihu2",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

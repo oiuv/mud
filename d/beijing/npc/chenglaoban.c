@@ -26,7 +26,7 @@ void create() {
     set_temp("apply/defense", 30);
 
     set("vendor_goods", ({
-        "/d/city/obj/hdjiudai",
+        "/d/items/liquid/huadiao_dai",
         "/d/items/food/kaoya",
     }));
 

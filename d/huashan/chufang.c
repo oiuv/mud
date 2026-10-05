@@ -45,7 +45,7 @@ int do_serve() {
     if (query("ricewater") > 0) {
         message_vision("小师妹连声答应，给$N一碗黄米饭和一碗鲜菇汤。\n", me);
         food = new("/d/items/food/huangmifan");
-        water = new(__DIR__ "obj/soup");
+        water = new("/d/items/liquid/mogu_tang");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

@@ -15,7 +15,7 @@ void create() {
     set("shen_type", 1);
     set_skill("unarmed", 34);
     set("vendor_goods", ({
-        __DIR__ "obj/teapot",
+        "/d/items/liquid/chahu",
     }));
 
     setup();

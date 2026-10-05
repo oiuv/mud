@@ -12,7 +12,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "npc/feifei": 1,
-        __DIR__ "obj/doujiang": 5 + random(3),
+        "/d/items/liquid/doujiang": 5 + random(3),
         "/d/items/food/hongbing": 5 + random(3),
     ]));
     set("resource/water", 1);

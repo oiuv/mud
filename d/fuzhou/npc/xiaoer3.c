@@ -17,7 +17,7 @@ void create() {
     set("no_get", "1");
     set("vendor_goods", ({
         "/d/items/food/fotiaoqiang",
-        __DIR__ "obj/jiuping",
+        "/d/items/liquid/jiuping",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

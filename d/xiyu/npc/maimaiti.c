@@ -17,7 +17,7 @@ void create() {
     set("attitude", "friendly");
     set("rank_info/respect", "大叔");
     set("vendor_goods", ({
-        "/d/xiyu/obj/hu",
+        "/d/items/liquid/manai_hu",
         "/d/items/food/nang",
         "/d/xiyu/obj/fire",
         "/d/items/food/hamigua2",

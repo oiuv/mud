@@ -1,3 +1,4 @@
+import { afterLiquidMigration } from "./liquid_inventory.mjs";
 // Exact allowed caller edits and historical semantics; no live data access.
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
@@ -18,7 +19,7 @@ const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
 const baseline = readBaseline();
 const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
 for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-    semantic(afterSwordMigration(file, afterFoodMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic)), 'Unexpected caller change: ' + file);
+    semantic(afterLiquidMigration(file, afterSwordMigration(file, afterFoodMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic), semantic)), 'Unexpected caller change: ' + file);
 assert.equal(callers.size, 30);
 assert.equal(baseline.hits.length, 45);
 assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');
@@ -31,7 +32,7 @@ if (!process.argv.includes('--before-removal')) {
 }
 for (const file of [...excluded, ...unrelatedCallers])
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-        semantic(afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
+        semantic(afterLiquidMigration(file, afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
 for (const file of callers) {
     const paths = new Map();
     for (const h of baseline.hits.filter(h => h.file === file)) {

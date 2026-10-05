@@ -1,3 +1,4 @@
+import { afterLiquidMigration } from "./liquid_inventory.mjs";
 // Exact caller edits and frozen behavior, without reading runtime data.
 import assert from 'node:assert/strict';
 import { afterSwordMigration } from './sword_inventory.mjs';
@@ -12,7 +13,7 @@ const data = readBaseline();
 assert.equal(data.varieties.length, 167); assert.equal(data.excluded.length, 17);
 assert.equal(data.hits.length, 186); assert.equal(Object.keys(data.callers).length, 100);
 for (const file of Object.keys(data.callers)) {
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterSwordMigration(file, expectedCaller(file), semantic)), file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterLiquidMigration(file, afterSwordMigration(file, expectedCaller(file), semantic), semantic)), file);
     assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller at baseline: ' + file);
     const paths = new Map();
     for (const hit of data.hits.filter(h => h.file === file)) {
@@ -31,7 +32,7 @@ for (const row of data.varieties) {
 for (const { file, source_hash } of data.excluded)
     assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special food changed: ' + file);
 for (const { file } of data.dynamic) if (!data.callers[file])
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterSwordMigration(file, original(file), semantic)), 'Dynamic clue changed: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterLiquidMigration(file, afterSwordMigration(file, original(file), semantic), semantic)), 'Dynamic clue changed: ' + file);
 assert.equal(canonicalGroups().length, 119);
 for (const group of canonicalGroups()) {
     const identity = row => {

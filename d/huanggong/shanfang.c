@@ -16,7 +16,7 @@ LONG
     ]));
     set("objects", ([
         "/d/items/food/yuchi": 2,
-        __DIR__ "obj/nverhong": 1,
+        "/d/items/liquid/nverhong": 1,
     ]));
     setup();
     replace_program(ROOM);

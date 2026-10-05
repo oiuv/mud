@@ -20,7 +20,7 @@ void create() {
         "/d/items/food/yeerba",
         "/d/items/food/huotui",
         "/d/items/food/qiguoji",
-        __DIR__ "obj/puercha",
+        "/d/items/liquid/puercha",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname, posix } from 'node:path';
 import { original, dynamicCallers } from '../sword_inventory.mjs';
 import { original as clothOriginal } from '../cloth_inventory.mjs';
+import { original as liquidOriginal } from '../liquid_inventory.mjs';
 
 export function prepareSword(root, sandbox, copy) {
     const put = (file, text) => {
@@ -31,7 +32,9 @@ export function prepareSword(root, sandbox, copy) {
         put((old ? 'tests/old/' : '') + file, shell);
     }
     put('adm/daemons/rankd.c', 'string query_respect(object who) { return "这位朋友"; }\n');
-    for (const file of ['cmds/std/wield.c', 'cmds/std/unwield.c', 'd/shaolin/obj/qingshui-hulu.c',
+    // Old supplier branches still reference the physical drink in this disposable fixture.
+    put('d/shaolin/obj/qingshui-hulu.c', liquidOriginal('d/shaolin/obj/qingshui-hulu.c'));
+    for (const file of ['cmds/std/wield.c', 'cmds/std/unwield.c',
         'd/changan/npc/obj/gangdao.c', 'd/changan/npc/obj/gangzhang.c',
         'd/changan/npc/obj/changbian.c', 'd/changan/npc/obj/axe.c',
         'd/shaolin/obj/qimeigun.c', 'd/beijing/npc/obj/blade.c']) copy(file);

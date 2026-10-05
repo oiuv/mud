@@ -22,10 +22,10 @@ void create() {
     }));
 
     set("vendor_goods", ({
-        "/d/beijing/obj/tea1",
-        "/d/beijing/obj/tea2",
-        "/d/beijing/obj/tea3",
-        "/d/beijing/obj/tea4",
+        "/d/items/liquid/gaiwancha",
+        "/d/items/liquid/wulongcha",
+        "/d/items/liquid/longjingcha",
+        "/d/items/liquid/longjingcha2",
     }));
     setup();
     carry_object("/d/items/cloth/buyi")->wear();

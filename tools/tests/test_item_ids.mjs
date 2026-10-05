@@ -13,6 +13,7 @@ import * as neck from './neck_inventory.mjs';
 import * as wrists from './wrists_inventory.mjs';
 import * as food from './food_inventory.mjs';
 import * as sword from './sword_inventory.mjs';
+import * as liquid from './liquid_inventory.mjs';
 import { canonicalId, canonicalPath, currentBaseline, renamedIds, renamedPaths, validId, compareItemIds } from './item_ids.mjs';
 
 const families = { cloth, boots, headwear };
@@ -20,11 +21,11 @@ const counts = { cloth: 148, boots: 8, headwear: 36 };
 const historicalNames = JSON.parse(execFileSync('git', ['show', 'b081c7ff:tools/tests/cloth/canonical_ids.json'],
     { cwd: root, encoding: 'utf8', windowsHide: true }));
 
-test('all eight data tables and renderers use natural ID order without changing definitions or history', () => {
+test('all nine data tables and renderers use natural ID order without changing definitions or history', () => {
     const idsIn = source => [...source.matchAll(/^        "([a-z][a-z0-9_]*)": \(\[/gm)].map(m => m[1]);
     assert.deepEqual(['chahua10', 'buyi2', 'chahua2', 'buyi', 'chahua13', 'chahua1'].sort(compareItemIds),
         ['buyi', 'buyi2', 'chahua1', 'chahua2', 'chahua10', 'chahua13']);
-    for (const [family, metadata] of Object.entries({ ...families, hands, neck, wrists, food, sword })) {
+    for (const [family, metadata] of Object.entries({ ...families, hands, neck, wrists, food, sword, liquid })) {
         const snapshot = join(root, `tools/tests/${family}/baseline.json`);
         const savedBytes = readFileSync(snapshot);
         const groupsBefore = metadata.canonicalGroups();
@@ -34,7 +35,7 @@ test('all eight data tables and renderers use natural ID order without changing 
         const actual = readFileSync(join(root, `d/items/${family}_data.h`), 'utf8');
         assert.deepEqual(idsIn(rendered), expected, family + ' generator order');
         assert.deepEqual(idsIn(actual), expected, family + ' file order');
-        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 70 })[family]);
+        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 70, liquid: 54 })[family]);
         assert.deepEqual(metadata.canonicalGroups(), groupsBefore, family + ' historical group order unchanged');
         assert.deepEqual(metadata.migrationPaths(), pathsBefore, family + ' migration unchanged');
         assert.deepEqual(readFileSync(snapshot), savedBytes, family + ' frozen baseline unchanged');

@@ -21,7 +21,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/qingshui-hulu": 1,
+        "/d/items/liquid/qingshui_hulu": 1,
         names[random(sizeof(names))]: 1,
         names[random(sizeof(names))]: 1,
         names[random(sizeof(names))]: 1,

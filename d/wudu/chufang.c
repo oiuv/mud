@@ -13,7 +13,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "obj/ganchai": 3,
-        __DIR__ "obj/hulu": 1,
+        "/d/items/liquid/hulu2": 1,
         __DIR__ "npc/tian": 1,
     ]));
     set("resource", ([

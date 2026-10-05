@@ -1,0 +1,248 @@
+// Real ITEM + F_LIQUID baseline and old/new behavior in a disposable mudlib.
+inherit "/tests/cloth_regression";
+
+private mixed *cases;
+private int next_case;
+private int effects;
+
+void effect() { effects++; }
+
+void check_baseline() {
+    mixed *pair, *observations;
+    object blueprint, instance, second;
+    mapping record, liquid;
+    int remaining;
+
+    observations = ({});
+    foreach (pair in cases) {
+        blueprint = load_object(pair[0]);
+        instance = new(pair[0]);
+        second = new(pair[0]);
+        check(blueprint->is_liquid() && instance->is_liquid(), "original liquid identity");
+        check(blueprint->query_weight() == pair[2] && instance->query_weight() == pair[3],
+            pair[0] + " original weights");
+        check(master()->setup_count(blueprint) == pair[4] &&
+            master()->setup_count(instance) == pair[4], pair[0] + " original setup count");
+        check(!blueprint->query_effect() && !instance->query_effect(), "original effect state");
+        record = ([ "path": pair[0], "weight": blueprint->query_weight(),
+            "clone_weight": instance->query_weight(),
+            "blueprint": copy(blueprint->query_entire_dbase()),
+            "clone": copy(instance->query_entire_dbase()),
+            "ids": blueprint->parse_command_id_list(), "uid": getuid(blueprint),
+            "euid": geteuid(blueprint), "clone_uid": getuid(instance), "clone_euid": geteuid(instance),
+            "setup": master()->setup_count(blueprint), "clone_setup": master()->setup_count(instance),
+            "effect": !!instance->query_effect() ]);
+        observations += ({ record });
+        liquid = instance->query("liquid");
+        remaining = liquid["remaining"];
+        liquid["remaining"] = 0;
+        check(instance->query("liquid/remaining") == 0 &&
+            blueprint->query("liquid/remaining") == remaining &&
+            second->query("liquid/remaining") == remaining, "original liquid mapping is per-instance");
+        destruct(instance); destruct(second);
+    }
+    write_file("/tests/liquid-baseline.json", json_encode(observations), 1);
+}
+
+void check_commands(string path) {
+    object actor, ob, second, blueprint, poison, fresh;
+    mapping initial;
+    string id;
+    int remaining, old_effects, drunk;
+
+    actor = new("/tests/liquid_actor"); actor->move(this_object(), 1);
+    ob = new(path); second = new(path); blueprint = load_object(path);
+    ob->move(actor, 1); id = ob->query("id"); initial = copy(ob->query("liquid"));
+    remaining = initial["remaining"];
+    check(!ob->is_food() && !ob->is_armor(), "liquid remains an ordinary ITEM");
+    ob->apply_effect((: effect :));
+    old_effects = effects;
+    actor->set("test_busy", 1); actor->run_command("testdrink " + id);
+    check(
+        ob->query("liquid/remaining") == remaining && effects == old_effects,
+        "busy drink refused"
+    );
+    actor->delete("test_busy"); actor->set("test_fighting", 1);
+    actor->run_command("testdrink " + id);
+    check(
+        ob->query("liquid/remaining") == remaining && effects == old_effects,
+        "combat drink refused"
+    );
+    actor->delete("test_fighting"); actor->set("water", 100001);
+    actor->run_command("testdrink " + id);
+    check(
+        ob->query("liquid/remaining") == remaining && effects == old_effects,
+        "full drink refused"
+    );
+    check(!second->query_effect() && !blueprint->query_effect(), "effects are not shared");
+    // Empty containers are real historical definitions too. Do not invent an initial sip.
+    actor->set("water", 100000);
+    if (!remaining) {
+        actor->run_command("testdrink " + id);
+        check(actor->query("water") == 100000 && effects == old_effects && ob->query_effect(),
+            "empty drink leaves water and effects unchanged");
+    } else {
+        actor->run_command("testdrink " + id); remaining--;
+        check(actor->query("water") == 100030 && effects == old_effects + 1 &&
+            ob->query("liquid/remaining") == remaining, "capacity equality allows original sip");
+        drunk = initial["type"] == "alcohol" && remaining ? initial["drunk_apply"] : 0;
+        check(actor->query_condition("drunk") == drunk, "only original drunk_apply counts");
+    }
+    // Exercise the last-sip and automatic drop branches independently of initial capacity.
+    ob->clear_effect(); ob->apply_effect((: effect :));
+    ob->set("liquid/remaining", 1); actor->set("water", 0); actor->set("env/auto_drinkout", 1);
+    old_effects = effects; drunk = actor->query_condition("drunk");
+    actor->run_command("testdrink " + id);
+    check(objectp(ob) && !ob->query("liquid/remaining") && environment(ob) == this_object() &&
+        !ob->query_effect() && effects == old_effects + 1, "last sip runs then clears effect and drops container");
+    check(actor->query_condition("drunk") == drunk, "last sip does not add drunk condition");
+    ob->move(actor, 1); actor->run_command("testdrink " + id);
+    check(environment(ob) == this_object(), "already empty container also auto-drops");
+    ob->move(actor, 1); actor->delete("env/auto_drinkout");
+    ob->apply_effect((: effect :));
+    delete("resource/water"); actor->run_command("testfill " + id);
+    check(!ob->query("liquid/remaining"), "fill without water refused");
+    set("resource/water", 1);
+    actor->set("test_busy", 1); actor->run_command("testfill " + id);
+    check(!ob->query("liquid/remaining"), "busy fill refused");
+    actor->delete("test_busy"); actor->set("test_fighting", 1);
+    actor->run_command("testfill " + id);
+    check(!ob->query("liquid/remaining"), "combat fill refused");
+    actor->delete("test_fighting"); actor->run_command("testfill " + id);
+    check(ob->query("liquid/type") == "water" && ob->query("liquid/name") == "清水" &&
+        ob->query("liquid/remaining") == ob->query("max_liquid") && !ob->query("liquid/drink_func"),
+        "fill mutates the live mapping and uses max_liquid");
+    check(functionp(ob->query_effect()), "fill preserves legacy effect behavior");
+    ob->clear_effect();
+    poison = new("/tests/liquid_poison"); poison->move(actor, 1);
+    ob->set("liquid/remaining", 0); actor->run_command("testpour poison in " + id);
+    check(objectp(poison) && !ob->query_effect(), "empty liquid cannot be poisoned");
+    ob->set("liquid/remaining", 2); actor->set("test_busy", 1);
+    actor->run_command("testpour poison in " + id);
+    check(objectp(poison) && !ob->query_effect(), "busy poisoning refused");
+    actor->delete("test_busy"); actor->set("test_fighting", 1);
+    actor->run_command("testpour poison in " + id);
+    check(objectp(poison) && !ob->query_effect(), "combat poisoning refused");
+    actor->delete("test_fighting"); actor->run_command("testpour poison in " + id);
+    check(!poison && functionp(ob->query_effect()), "real pour consumes poison and binds effect");
+    actor->set("water", 0); actor->run_command("testdrink " + id);
+    check(actor->query_condition("fixture_poison") == 7, "real drink executes bound poison");
+    actor->run_command("testdrink " + id);
+    check(actor->query_condition("fixture_poison") == 14 && !ob->query_effect(),
+        "last poisoned sip executes before clearing");
+    fresh = new(path);
+    check(same_value(
+        second->query("liquid"),
+        initial
+    ) && same_value(blueprint->query("liquid"), initial) &&
+        same_value(
+            fresh->query("liquid"),
+            initial
+        ) && !fresh->query_effect(), "all other and future liquids unchanged");
+    actor->store_item(actor, ob, 1);
+    check(objectp(ob) && !sizeof(actor->depot_records()) &&
+        strsrch(
+            actor->query_received(),
+            "食物饮水存背包里会变质的。"
+        ) >= 0, "original individual storage refusal");
+    actor->run_command("teststore all");
+    check(objectp(ob) && !sizeof(actor->depot_records()), "store all still excludes liquids");
+    destruct(ob); destruct(second); destruct(fresh); destruct(actor);
+}
+
+void check_variety(mixed *pair) {
+    object before, after, blueprint, second, fresh;
+    mapping initial;
+    string original_long;
+
+    before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
+    blueprint = load_object(pair[1]); initial = copy(before->query("liquid"));
+    compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
+    compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
+    check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
+        after->query_default_object() == blueprint, "final virtual identities");
+    check(master()->setup_count(blueprint) == pair[4] && master()->setup_count(after) == pair[4],
+        "original setup count preserved");
+    original_long = second->long(); after->set("long", "杯沿沾着一点茶渍。\n");
+    after->set("liquid/remaining", 123); after->virtual_start();
+    check(after->query("liquid/remaining") == 123 && second->long() == original_long &&
+        blueprint->long() == original_long, "instance description/state isolated; initialization idempotent");
+    after->delete("long"); after->set("liquid", copy(initial));
+    check(after->long() == original_long, "description fallback");
+    blueprint->set("liquid/name", "测试换水"); blueprint->set("liquid/remaining", 0);
+    fresh = new(pair[1]);
+    check(
+        same_value(fresh->query("liquid"), initial),
+        "new liquid comes from pristine definition, not modified blueprint"
+    );
+    blueprint->set("liquid", copy(initial));
+    destruct(before); destruct(after); destruct(second); destruct(fresh);
+    check_commands(pair[0]); check_commands(pair[1]);
+    check(
+        same_value(trade_result(pair[0], 0), trade_result(pair[1], 0)),
+        "dealer default price and delivery parity"
+    );
+    check(
+        same_value(trade_result(pair[0], 321), trade_result(pair[1], 321)),
+        "dealer explicit price parity"
+    );
+}
+
+void check_contracts() {
+    object provider, ob, actor;
+    mapping group, definition;
+    mixed err;
+    string *ids;
+
+    provider = load_object("/d/items/liquid");
+    check(
+        !provider->query("name") && !environment(provider),
+        "provider is not a deliverable drink"
+    );
+    err = catch(ob = new("/d/items/liquid/missing"));
+    check(!ob && !find_object("/d/items/liquid/missing"), "unknown variety fails");
+    err = catch(new(
+        "/d/items/liquid",
+        "jiudai"
+    )); check(!!err, "direct parameter construction rejected");
+    check(!provider->valid_variety_path("/d/items/liquid/jiudai/extra") &&
+        !provider->valid_variety_path("/d/items/liquid/jiudai.c") &&
+        !provider->valid_variety_path("/tests/foo") && !provider->valid_variety_path("/d/items/liquid/missing"),
+        "registry accepts exact registered path only");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(
+            same_value(load_object(group["path"])->parse_command_id_list(), ids),
+            "canonical input aliases"
+        );
+    }
+    definition = provider->query_definition("jiudai"); definition["ids"][0] = "mutated";
+    definition["properties"][0][1] = "mutated";
+    check(provider->query_definition("jiudai")["ids"][0] != "mutated" &&
+        provider->query_definition("jiudai")["properties"][0][1] != "mutated", "definition query returns deep copy");
+    actor = new("/tests/liquid_actor"); ob = new("/tests/vendor");
+    actor->store_item(actor, ob, 1);
+    check(
+        objectp(ob) && !sizeof(actor->depot_records()),
+        "no general admission for unrelated .lpc objects"
+    );
+    destruct(ob); destruct(actor);
+}
+
+void run_chunk() {
+    if (next_case < sizeof(cases)) {
+        check_variety(cases[next_case++]);
+        call_out("run_chunk", 0);
+        return;
+    }
+    check_contracts();
+    "/tests/liquid_business"->run();
+    master()->finish();
+}
+
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

@@ -18,7 +18,7 @@ void create() {
 
     set("vendor_goods", ({
         "/d/items/food/kaoya2",
-        __DIR__ "obj/jiudai",
+        "/d/items/liquid/jiudai2",
     }));
 
     setup();

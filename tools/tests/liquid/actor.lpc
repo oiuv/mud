@@ -1,0 +1,28 @@
+inherit "/tests/actor";
+
+private string received = "";
+private mapping conditions = ([]);
+private object selected_npc;
+private string selected_method;
+
+void catch_tell(string text) { received += text; }
+string query_received() { return received; }
+int is_busy() { return query("test_busy"); }
+int is_fighting() { return query("test_fighting"); }
+int max_water_capacity() { return 100000; }
+mixed query_condition(string type) { return conditions[type]; }
+void apply_condition(string type, mixed value) { conditions[type] = value; }
+void affect_by(string type, mapping value) { conditions[type] = value; }
+int drink_liquid(string arg) { return "/cmds/std/drink"->main(this_object(), arg); }
+int fill_liquid(string arg) { return "/cmds/std/fill"->main(this_object(), arg); }
+int pour_poison(string arg) { return "/cmds/std/pour"->main(this_object(), arg); }
+void select_npc(object npc, string method) { selected_npc = npc; selected_method = method; }
+int call_npc(string arg) { call_other(selected_npc, selected_method, arg); return 1; }
+void create() {
+    ::create();
+    add_action("drink_liquid", "testdrink");
+    add_action("fill_liquid", "testfill");
+    add_action("pour_poison", "testpour");
+    add_action("do_store", "teststore");
+    add_action("call_npc", "testnpc");
+}

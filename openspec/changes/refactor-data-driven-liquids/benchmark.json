@@ -1,0 +1,8 @@
+[
+  {"clones_bytes":1698320,"round":1,"source_definitions":74,"version":0,"programs_loaded":81,"programs_cloned":0,"blueprints_bytes":286710,"cold_load_us":131047,"varieties":74,"warm_clone_us":5550,"clones":1480},
+  {"clones_bytes":1818940,"round":1,"source_definitions":74,"version":1,"programs_loaded":9,"programs_cloned":0,"blueprints_bytes":182539,"cold_load_us":42152,"varieties":54,"warm_clone_us":150553,"clones":1480},
+  {"clones_bytes":1818940,"round":2,"source_definitions":74,"version":1,"programs_loaded":9,"programs_cloned":0,"blueprints_bytes":182539,"cold_load_us":27723,"varieties":54,"warm_clone_us":154815,"clones":1480},
+  {"clones_bytes":1698320,"round":2,"source_definitions":74,"version":0,"programs_loaded":81,"programs_cloned":0,"blueprints_bytes":286710,"cold_load_us":80191,"varieties":74,"warm_clone_us":5641,"clones":1480},
+  {"clones_bytes":1698320,"round":3,"source_definitions":74,"version":0,"programs_loaded":81,"programs_cloned":0,"blueprints_bytes":286710,"cold_load_us":98085,"varieties":74,"warm_clone_us":7591,"clones":1480},
+  {"clones_bytes":1818940,"round":3,"source_definitions":74,"version":1,"programs_loaded":9,"programs_cloned":0,"blueprints_bytes":182539,"cold_load_us":31250,"varieties":54,"warm_clone_us":147712,"clones":1480}
+]

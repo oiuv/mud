@@ -42,7 +42,7 @@ int do_serve() {
         message_vision(CYN "厨师将热气腾腾的饭菜递到你手中，笑"
             "道：你慢用。\n" NOR, me);
         food = new("/d/items/food/tangcu_liji");
-        water = new("/d/shaolin/obj/soup");
+        water = new("/d/items/liquid/suancai_tang");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

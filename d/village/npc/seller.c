@@ -20,7 +20,7 @@ void create() {
     set("vendor_goods", ({
         __DIR__ "obj/stick",
         __DIR__ "obj/shoes",
-        __DIR__ "obj/bottle",
+        "/d/items/liquid/shuihu2",
         "/d/items/food/chayedan",
     }));
 

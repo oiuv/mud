@@ -12,7 +12,7 @@ LONG);
         "east": __DIR__ "minju3",
     ]));
     set("objects", ([
-        __DIR__ "obj/qhcwan": 2,
+        "/d/items/liquid/qinghua_wan": 2,
         "/d/items/food/yezhutui": 1,
         "/d/items/food/paozirou": 1,
     ]));

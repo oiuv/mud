@@ -12,7 +12,7 @@ LONG);
 
     set("objects", ([
         __DIR__ "obj/jitui": 3,
-        __DIR__ "obj/jiudai": 1,
+        "/d/items/liquid/jiudai2": 1,
     ]));
     setup();
 }

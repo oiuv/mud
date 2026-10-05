@@ -18,7 +18,7 @@ varargs protected void create_food(string nmstr, string *idlist, string longstr)
 varargs protected void create_water(string nmstr, string *idlist, string cup, string longstr) {
     object obj;
 
-    obj = new(__DIR__ "obj/water");
+    obj = new("/d/items/liquid/beizhan");
     obj->set_name(cup, idlist);
     if (longstr)
         obj->set("long", longstr);
@@ -32,7 +32,7 @@ varargs protected void create_water(string nmstr, string *idlist, string cup, st
 varargs protected void create_wine(string nmstr, string *idlist, string cup, string longstr) {
     object obj;
 
-    obj = new(__DIR__ "obj/wine");
+    obj = new("/d/items/liquid/jiubei");
     obj->set_name(cup, idlist);
     if (longstr)
         obj->set("long", longstr);

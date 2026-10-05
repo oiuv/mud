@@ -37,7 +37,7 @@ int do_order(string arg) {
         message_vision(CYN "小二哥连声答应，从内厅一溜烟跑出来。\n" HIY "不多"
             "时，便端着一碗米饭和一碗水拿了给$N" HIY "。\n" NOR, me);
         food = new("/d/items/food/mifan2");
-        water = new(__DIR__ "obj/bowl");
+        water = new("/d/items/liquid/shuiwan2");
         food->move(me);
         water->move(me);
         add("ricewater", -1);

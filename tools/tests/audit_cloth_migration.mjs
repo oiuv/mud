@@ -1,3 +1,4 @@
+import { afterLiquidMigration } from "./liquid_inventory.mjs";
 // Verify the broad caller edit is exactly the approved path substitution.
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
@@ -55,7 +56,7 @@ for (const [file, hits] of files) {
     expected = afterNeckMigration(file, expected, semanticTokens);
     expected = afterWristsMigration(file, expected, semanticTokens);
     expected = afterFoodMigration(file, expected, semanticTokens);
-    expected = afterSwordMigration(file, expected, semanticTokens);
+    expected = afterLiquidMigration(file, afterSwordMigration(file, expected, semanticTokens), semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

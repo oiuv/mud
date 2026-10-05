@@ -17,9 +17,9 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/xiyu/obj/fire",
-        "/d/city/npc/obj/jiudai",
+        "/d/items/liquid/jiudai2",
         "/d/items/food/gourou4",
-        "/d/shenfeng/npc/obj/hulu",
+        "/d/items/liquid/jiuhulu2",
     }));
     setup();
     carry_object("/d/city/npc/cloth/yan-dress")->wear();

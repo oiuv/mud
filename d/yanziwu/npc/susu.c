@@ -78,7 +78,7 @@ void serve_tea(object who) {
         return;
     }
     add("can_supply", -1);
-    obn = new("/d/yanziwu/obj/cha");
+    obn = new("/d/items/liquid/biluochun");
     obn->move(room);
     message_vision("素素拿出一个小茶壶，沏上一杯香浓的碧螺春．\n", who);
 

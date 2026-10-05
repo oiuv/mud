@@ -1,0 +1,9 @@
+// Deterministic poison parameters, consumed by the actual pour command.
+inherit ITEM;
+void create() {
+    set_name("药粉", ({ "poison" }));
+    set("unit", "包");
+    set("can_pour", 1);
+    set("poison_type", "fixture_poison");
+    set("poison", 7);
+}
