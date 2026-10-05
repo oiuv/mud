@@ -134,7 +134,7 @@ LONG);
             ob2->move(this_object());
             ob2->wear();
         } else {
-            ob2 = new("/d/items/cloth/hufa_jiasha_huangse");
+            ob2 = new("/d/items/cloth/hufa_jiasha2");
             ob2->move(this_object());
             ob2->wear();
         }
@@ -190,7 +190,7 @@ mixed ask_me() {
     command("give jinlan jiasha to " + me->query("id"));
 
     if (!query_temp("armor/cloth")) {
-        ob = new("/d/items/cloth/hufa_jiasha_huangse");
+        ob = new("/d/items/cloth/hufa_jiasha2");
         ob->move(this_object());
         ob->wear();
     }

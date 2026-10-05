@@ -87,19 +87,19 @@ int do_jiaoshui() {
             me->add("mark/job_zhonghua", 1);
             switch (random(5)) {
                 case 1:
-                    ob = new("/d/changan/npc/obj/hmeigui");
+                    ob = new("/d/items/headwear/hong_meigui");
                     break;
                 case 2:
-                    ob = new("/d/changan/npc/obj/zi-luolan");
+                    ob = new("/d/items/headwear/zi_luolan");
                     break;
                 case 3:
-                    ob = new("/d/changan/npc/obj/bai-chahua");
+                    ob = new("/d/items/headwear/bai_chahua");
                     break;
                 case 4:
-                    ob = new("/d/changan/npc/obj/huang-meigui");
+                    ob = new("/d/items/headwear/huang_meigui2");
                     break;
                 case 0:
-                    ob = new("/d/changan/npc/obj/lan-tiane");
+                    ob = new("/d/items/headwear/lan_tiane");
                     break;
             }
 

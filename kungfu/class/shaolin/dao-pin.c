@@ -62,5 +62,5 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/jiedao")->wield();
-    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
+    carry_object("/d/items/cloth/hui_jiasha")->wear();
 }

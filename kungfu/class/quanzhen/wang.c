@@ -118,7 +118,7 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/items/cloth/qingse_daopao_sizhi")->wear();
+    carry_object("/d/items/cloth/qing_daopao2")->wear();
 }
 
 void attempt_apprentice(object ob) {

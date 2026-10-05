@@ -13,8 +13,8 @@ void create() {
     set("combat_exp", 250);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/items/cloth/goupi_maopi",
-        "/d/items/cloth/pi_beixin_guizhong",
+        "/d/items/cloth/goupi",
+        "/d/items/cloth/pi_beixin2",
         "/clone/misc/gaoyao",
     }));
 

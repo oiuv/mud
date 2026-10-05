@@ -1,0 +1,122 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+void check_storage(mixed *pair) {
+    object actor, item, converter;
+    mapping paths, data, result, records;
+    int count;
+
+    actor = new("/tests/actor");
+    item = new(pair[1]);
+    actor->store_item(actor, item, 1);
+    check(
+        !item && actor->depot_records()["item0"]["file"] == pair[1],
+        "headwear stored with canonical path"
+    );
+    actor->run_command("take 1 1");
+    check(
+        sizeof(all_inventory(actor)) == 1 && !sizeof(actor->depot_records()),
+        "stored headwear reconstructed"
+    );
+    foreach (item in all_inventory(actor)) destruct(item);
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    paths["/d/changan/npc/obj/cloth"] = "/d/items/cloth/buyi";
+    paths["/d/city/npc/obj/caoxie"] = "/d/items/boots/caoxie";
+    converter = load_object("/tests/cloth_records");
+    data = ([
+        "item0": ([ "file": pair[0], "amount": 2, "id": "old headwear", "name": "旧头饰" ]),
+        "item1": ([ "file": "/d/changan/npc/obj/cloth", "amount": 3, "id": "cloth", "name": "布衣" ]),
+        "item2": ([ "file": "/d/city/npc/obj/caoxie", "amount": 4, "id": "sandals", "name": "草鞋" ])
+    ]);
+    result = converter->convert(save_variable(data), "backpack", paths, ({}));
+    records = restore_variable(result["value"]);
+    check(result["changes"] == 3 && records["item0"]["amount"] == 2 &&
+        records["item0"]["name"] == "旧头饰", "three-family record conversion");
+    write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/restored");
+    actor->run_command("take 1 2"); actor->run_command("take 1 3"); actor->run_command("take 1 4");
+    check(
+        sizeof(all_inventory(actor)) == 9 && !sizeof(actor->depot_records()),
+        "three-family saved quantities rebuilt"
+    );
+    foreach (item in all_inventory(actor)) {
+        check(member_array(
+            base_name(item),
+            ({ pair[1], "/d/items/cloth/buyi", "/d/items/boots/caoxie" })
+        ) >= 0,
+            "restored canonical identity");
+        if (base_name(item) == pair[1]) count++;
+        destruct(item);
+    }
+    check(count == 2, "exact restored headwear count");
+    destruct(actor);
+}
+
+void run() {
+    object actor, room, qian, item;
+    string path;
+
+    room = new("/tests/room");
+    actor = new("/tests/actor"); actor->move(room, 1);
+    qian = new("/d/beijing/npc/qianzhenglun"); actor->select_npc(qian, "do_yao");
+    actor->run_command("testnpc helmet");
+    check(
+        !sizeof(all_inventory(actor)) && qian->issued("helmet") == 0,
+        "helmet requires correct sect"
+    );
+    actor->set("family/family_name", "八卦门");
+    actor->run_command("testnpc nonsense");
+    check(!sizeof(all_inventory(actor)), "unknown request refused");
+    actor->run_command("testnpc helmet");
+    item = present("helmet", actor);
+    check(objectp(item) && base_name(item) == "/d/items/headwear/gangkui" &&
+        item->query("value") == 50 && stringp(item->query("no_sell")) &&
+        actor->query_temp("mark/zhenyuan_armor") == 1 && qian->issued("helmet") == 1,
+        "helmet keyword, stock and instance overrides");
+    check("/d/items/headwear/gangkui"->query("value") == 0 &&
+        !"/d/items/headwear/gangkui"->query("no_sell"), "qian overrides do not change canonical defaults");
+    if (item) destruct(item);
+    actor->set_temp("mark/zhenyuan_armor", 3); actor->run_command("testnpc helmet");
+    check(
+        !sizeof(all_inventory(actor)) && qian->issued("helmet") == 1,
+        "personal armor quota retained"
+    );
+    actor->delete_temp("mark/zhenyuan_armor"); actor->run_command("testnpc helmet");
+    foreach (item in all_inventory(actor)) destruct(item);
+    actor->run_command("testnpc helmet");
+    check(
+        !sizeof(all_inventory(actor)) && qian->issued("helmet") == 2,
+        "helmet stock quota retained"
+    );
+    actor->run_command("testnpc feet");
+    item = present("feet", actor);
+    check(objectp(item) && base_name(item) == "/d/items/boots/zhanxue" &&
+        actor->query_temp("mark/zhenyuan_armor") == 2, "feet branch and shared armor quota retained");
+    foreach (item in all_inventory(actor)) destruct(item);
+    destruct(qian);
+
+    foreach (path in ({ "/tests/unknown/key", "/tests/unique", "/tests/noclone" })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && !sizeof(actor->depot_records()),
+            "unknown/unique/no-clone storage refused " + path
+        );
+        if (item) destruct(item);
+    }
+    foreach (path in ({ "/d/death/npc/obj/armor2", "/d/luoyang/npc/obj/head1" })) {
+        item = new(path); item->owner_is_killed();
+        check(!item, "excluded headwear death callback retained " + path);
+    }
+    check("/d/items/headwear/shaolin_toukui"->query("shaolin") == 1 &&
+        !"/d/items/headwear/toukui"->query("shaolin"), "real sect distinction retained");
+    foreach (path in ({
+        "/d/items/cloth/buyi",
+        "/d/items/boots/caoxie",
+        "/d/items/headwear/gangkui",
+        "/clone/cloth/qingyi"
+    })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(!item, "all families and physical storage coexist");
+    }
+    check(sizeof(actor->depot_records()) == 4, "distinct stored varieties retained");
+    destruct(actor); destruct(room);
+}

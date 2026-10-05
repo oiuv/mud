@@ -29,7 +29,7 @@ void create() {
     set("shen_type", 1);
     setup();
     set("vendor_goods", ({
-        "/d/city/npc/obj/toukui",
+        "/d/items/headwear/tie_toukui",
         "/d/city/npc/obj/cycle",
         "/d/city/npc/obj/shield",
         "/d/city/npc/obj/huwan",

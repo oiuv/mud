@@ -63,7 +63,7 @@ LONG);
     setup();
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/items/cloth/huise_daopao_qingxing")->wear();
+    carry_object("/d/items/cloth/huise_daopao2")->wear();
 
 }
 

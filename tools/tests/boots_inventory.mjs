@@ -6,22 +6,23 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { root, parseCloth, tokens, references } from './cloth_inventory.mjs';
+import { currentBaseline, renamedPaths, renameReferences, validId } from './item_ids.mjs';
 
 export { root };
 export const baseline = '09e371bb';
 export const original = file => execFileSync('git', ['show', `${baseline}:${file}`],
     { cwd: root, encoding: 'utf8', maxBuffer: 32e6 });
-export const readBaseline = () => JSON.parse(readFileSync(resolve(root, 'tools/tests/boots/baseline.json'), 'utf8'));
+export const readBaseline = () => currentBaseline('boots', JSON.parse(readFileSync(resolve(root, 'tools/tests/boots/baseline.json'), 'utf8')));
 export const groups = {
     zhanxue: ['beijing/npc/obj/feet'],
     caoxie: ['city/npc/obj/caoxie', 'city/obj/caoxie', 'jingzhou/obj/caoxie'],
-    xiuhua_xiaoxie: ['city/npc/obj/flower_shoe', 'city/obj/flower_shoe', 'dali/npc/obj/shoes',
+    xiuhuaxie: ['city/npc/obj/flower_shoe', 'city/obj/flower_shoe', 'dali/npc/obj/shoes',
         'fuzhou/npc/flower_shoe', 'fuzhou/obj/flower_shoe', 'jingzhou/obj/flower_shoe',
         'quanzhou/obj/flower_shoe', 'yanziwu/npc/obj/flower_shoe'],
     pixue: ['city/npc/obj/pixue', 'city/obj/pixue', 'jingzhou/obj/pixue'],
     qilinxue: ['death/obj/qilinxue'],
-    jingzhi_xiuhua_xiaoxie: ['hengyang/npc/obj/female-shoe'],
-    qingbu_sengxie: ['mingjiao/obj/sengxie'],
+    xiuhuaxie2: ['hengyang/npc/obj/female-shoe'],
+    sengxie: ['mingjiao/obj/sengxie'],
     shaolin_sengxie: ['shaolin/obj/sengxie'],
 };
 export function parseBoots(source, file) {
@@ -38,6 +39,7 @@ export function canonicalGroups() {
     const signature = r => JSON.stringify([expression(r.name[0]), expression(r.weight),
         r.properties.map(pair => pair.map(expression)).sort((a, b) => JSON.stringify(a[0]).localeCompare(JSON.stringify(b[0])))]);
     return Object.keys(groups).map(id => {
+        assert.ok(validId(id), 'Invalid BOOTS ID: ' + id);
         const members = rows.filter(r => r.id === id);
         assert.equal(members.length, groups[id].length);
         assert.equal(new Set(members.map(signature)).size, 1, 'Non-equivalent group: ' + id);
@@ -50,7 +52,8 @@ export function canonicalGroups() {
         return { id, path: '/d/items/boots/' + id, rows: members, representative: members[0], ids };
     });
 }
-export const migrationPaths = () => Object.fromEntries(readBaseline().varieties.map(r => [r.old_path, r.new_path]));
+export const migrationPaths = () => ({ ...Object.fromEntries(readBaseline().varieties.map(r => [r.old_path, r.new_path])),
+    ...renamedPaths('boots') });
 export const dynamicCallers = ['d/beijing/npc/qianzhenglun.c', 'kungfu/class/shaolin/dao-xiang.c'];
 export function expectedCaller(file) {
     let source = original(file);
@@ -63,7 +66,7 @@ export function expectedCaller(file) {
         'if (arg == "feet") obj = new("/d/items/boots/zhanxue"); else obj = new(__DIR__ "obj/" + arg);');
     if (file === dynamicCallers[1]) source = source.replace('ob = new("/d/shaolin/obj/" + name);',
         'if (name == "sengxie") ob = new("/d/items/boots/shaolin_sengxie"); else ob = new("/d/shaolin/obj/" + name);');
-    return source;
+    return renameReferences(source);
 }
 export function renderDefinitions() {
     return '// 普通鞋靴共用资产；仅保存品种蓝图默认值，历史路径不参与运行。\n'

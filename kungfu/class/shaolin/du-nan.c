@@ -134,7 +134,7 @@ LONG);
             ob2->wear();
         }
     }
-    carry_object("/d/items/cloth/hufa_jiasha_huangse")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha2")->wear();
 }
 
 mixed ask_me() {

@@ -67,11 +67,11 @@ void check_canonical_definitions() {
     definition["ids"][0] = "fixture";
     check(member_array("fixture", program->query_definition("buyi")["ids"]) == -1,
         "definition copies cannot mutate registry");
-    check(load_object("/d/items/cloth/buyi") != load_object("/d/items/cloth/buyi_qingxing") &&
+    check(load_object("/d/items/cloth/buyi") != load_object("/d/items/cloth/buyi2") &&
         load_object("/d/items/cloth/buyi")->query_weight() !=
-        load_object("/d/items/cloth/buyi_qingxing")->query_weight(), "real weight differences remain distinct");
+        load_object("/d/items/cloth/buyi2")->query_weight(), "real weight differences remain distinct");
     check(!"/d/items/cloth/tie_beixin"->query("shaolin") &&
-        "/d/items/cloth/tie_beixin_sengmen"->query("shaolin") == 1,
+        "/d/items/cloth/tie_beixin2"->query("shaolin") == 1,
         "real gameplay flag differences remain distinct");
     destruct(first); destruct(second);
 }
@@ -191,6 +191,8 @@ void check_refusals(string path) {
 
     actor = new("/tests/actor");
     foreach (reason in ({ "no_store", "no_put", "worn", "wet", "temporary", "contents" })) {
+        if (reason == "wet" && !function_exists("washed", load_object(path)))
+            continue;
         item = new(path);
         switch (reason) {
             case "no_store": case "no_put": item->set(reason, 1); break;

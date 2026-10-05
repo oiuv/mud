@@ -70,7 +70,7 @@ void create() {
 
     setup();
     carry_object("/d/kunlun/obj/sword")->wield();
-    carry_object("/d/items/cloth/baibian_lanse_changpao")->wear();
+    carry_object("/d/items/cloth/lan_changpao")->wear();
 }
 
 void attempt_apprentice(object me) {

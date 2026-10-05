@@ -62,7 +62,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/items/cloth/zhenshen_qingyi")->wear();
+    carry_object("/d/items/cloth/qingyi")->wear();
     carry_object("/d/items/cloth/doupeng")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     add_money("silver", 15);

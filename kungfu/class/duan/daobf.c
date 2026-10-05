@@ -81,7 +81,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/items/cloth/qingse_daopao_buzhi")->wear();
+    carry_object("/d/items/cloth/qing_daopao")->wear();
     carry_object("/d/dali/obj/fuchen")->wield();
     add_money("silver", 10);
 }

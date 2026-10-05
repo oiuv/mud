@@ -65,7 +65,7 @@ void create() {
     create_family("波斯明教总舵", 32, "弟子");
 
     setup();
-    carry_object("/d/items/cloth/bosi_mingjiao_jiaofu")->wear();
+    carry_object("/d/items/cloth/bosi_jiaofu")->wear();
     carry_object("/d/tulong/tulong/obj/ling1")->wield();
 }
 void init() {

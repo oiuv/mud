@@ -9,7 +9,7 @@ void create() {
 娇艳的茶花。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua5": 1,
+        "/d/items/headwear/chahua5": 1,
     ]));
     set("outdoors", "dali");
     set("exits", ([

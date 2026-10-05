@@ -52,7 +52,7 @@ void create() {
 
     create_family("灵鹫宫", 3, "弟子");
     setup();
-    carry_object("/d/items/cloth/zhenshen_qingyi")->wear();
+    carry_object("/d/items/cloth/qingyi")->wear();
     carry_object("/d/items/cloth/doupeng")->wear();
     add_money("silver", 10);
 }

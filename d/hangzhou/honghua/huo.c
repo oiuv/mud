@@ -78,8 +78,8 @@ LONG);
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object(__DIR__ "obj/cuiyu")->wear();
-    carry_object("/d/items/cloth/huangshan_houshi")->wear();
+    carry_object("/d/items/headwear/cuiyu")->wear();
+    carry_object("/d/items/cloth/huangshan2")->wear();
     carry_object(__DIR__ "obj/shortsword")->wield();
 }
 

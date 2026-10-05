@@ -13,7 +13,7 @@ void create() {
     set("combat_exp", 400);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/items/cloth/tiejia_qingxing",
+        "/d/items/cloth/tiejia3",
         "/d/items/cloth/pi_beixin",
         "/d/city/npc/obj/jinsijia",
     }));

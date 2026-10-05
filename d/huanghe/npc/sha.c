@@ -35,5 +35,5 @@ void create() {
 
     setup();
     carry_object("/d/hangzhou/honghua/obj/tiejiang")->wield();
-    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
+    carry_object("/d/items/cloth/tiejia2")->wear();
 }

@@ -1,8 +1,8 @@
-# 数据化物品：普通服装与鞋靴
+# 数据化物品：普通服装、鞋靴与头饰
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
-后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，保持独立父类，详见[鞋靴维护说明](data-driven-boots.md)。两类共用以下离线迁移与部署流程，不合并运行期行为。
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。三类保持独立父类，共用以下离线迁移与部署流程，不合并运行期行为。
 
 ## 创建与维护
 
@@ -12,9 +12,9 @@
 - 保留 `/d` 路径是为了维持原来的 Domain UID，不修改安全系统。`create_virtual_object(string key)` 按[通用虚拟对象约定](virtual-objects.md)接入 virtuald；驱动完成虚拟命名后，`virtual_start()` 才设置默认对象并执行一次 `setup()`。
 - 不从外部使用 `new("/d/items/cloth", key)`。公共程序无参加载只保存定义，不是可流通商品；未知品种失败，不回退为布衣。
 
-新增前先检查已有品种；实际属性、显示和行为一致时直接复用，确有差异才添加一条数据，不创建 `.c/.lpc` 入口文件。所有 ID 按物品含义使用 `snake_case`，不由地区目录、`npc/obj` 层级或作者名称拼接；门派、产地只有确属物品自身特征时才可作限定。ID 与玩家输入别名是不同概念。
+新增前先检查已有品种；实际属性、显示和行为一致时直接复用，确有差异才添加一条数据，不创建 `.c/.lpc` 入口文件。所有迁移数据的规范 ID 应简洁、唯一，能大致识别内容即可；多词使用 `snake_case`，允许有意义的短名称加稳定编号，如 `buyi2`、`xiuhuaxie2`、`chahua13`。不由旧地区目录、`npc/obj` 层级或作者名称拼接，也不强行把全部颜色、重量、价格、描述和限制写进 ID；简短实用的门派等特征可保留。编号不是数组下标，确定后不随排序或新增品种改变。ID 与玩家输入别名是不同概念，命名精简不修改玩家名称、别名或属性。
 
-例如，18 个历史布衣来源归为 `buyi`，保留 `cloth`、`linen` 及历史首字母输入；重量 1000 的 `buyi_qingxing` 和价值 5 的 `buyi_shoumai` 仍是不同品种。`tie_beixin_sengmen` 保留原 `shaolin` 属性，不与没有该属性的 `tie_beixin` 合并。商店各自的售价留在货表配置，不为跨店售价差异复制物品。
+例如，18 个历史布衣来源归为 `buyi`，保留 `cloth`、`linen` 及历史首字母输入；重量 1000 的 `buyi2` 和价值 5 的 `buyi3` 仍是不同品种。`tie_beixin2` 保留原 `shaolin` 属性，不与没有该属性的 `tie_beixin` 合并。商店各自的售价留在货表配置，不为跨店售价差异复制物品。
 
 同品种共用蓝图，每件衣物仍是独立克隆，通过 `set_default_object()` 读取品种默认值，并非驱动自动复制所有属性。名称缓存和重量按现有接口初始化，可变复合属性由实例持有独立副本；实例 `set("long", ...)` 可覆盖默认描述而不影响其他物品，`delete("long")` 恢复蓝图默认值。原 28 份在重量设置前写入的 `long` 均为固定字符串（含 ANSI 文本），已统一并入蓝图，未保留历史初始化位置造成的额外数据层。需要随机或专用初始化的新行为应按实际需求实现，不预设通用实例属性层。
 
@@ -24,7 +24,7 @@
 
 ## 存储边界
 
-背包仅额外放行 CLOTH 与 BOOTS 两张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
+背包仅额外放行 CLOTH、BOOTS 与 HEAD 三张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -38,7 +38,11 @@
 
 ## 离线转换与部署
 
-工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径，不改写历史；`canonical_ids.json` 记录语义命名，`cloth_canonical.mjs` 形成 **404 条 CLOTH 历史路径**映射。`tools/tests/boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴原文与哈希，`boots_inventory.mjs` 提供另 **19 条 BOOTS 映射**。运行游戏只读各自数据表，不加载迁移资料。
+工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
+
+本轮对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。连同原有来源，一次转换覆盖 **541 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58），全部直接到达最终路径，不需逐版本转换；2 件未选特殊头饰不转换。游戏只读三张品种表，归并结果仍为 CLOTH 148、BOOTS 8、HEAD 36。
+
+即使之前已完成服装或鞋靴迁移，也需要重新预览停服备份：记录里可能保存改名前的规范 ID。只更新代码而不转换受影响记录会导致这些物品无法加载。没有受影响记录时，无须执行转换。
 
 工具不加载玩家对象、不连接正式游戏，不猜测正式 `data/`。管理员必须给出备份根目录或清单；当前游戏使用未压缩 UTF-8 存档，其他格式须先在备份副本中按相应流程还原。
 
@@ -75,7 +79,7 @@ Linux 或其他驱动位置使用 `--driver <driver路径>`。未指定 `--outpu
 
 报告包含 `input_mode`、`input`、`coverage`、`checked_files`、`affected_files` 和总 `changes`；逐文件保留变更数与哈希。`no_changes_in_checked_scope` 只说明已检查范围没有需要转换的路径；`empty_scope` 明确表示没有记录，不能声称全服无影响。`paths_only` 仅表示生成清单，尚未检查内容。副本只在全部成功后发布；I/O 失败留下的 `.item-migration-*` 暂存目录不能用于上线。
 
-支持原实体路径、第一版虚拟路径和规范路径混合输入，旧路径直接转到最终规范路径。商店同品同价合并数量；价格冲突或无法安全合计库存时，报告原因和清单文件，整批不发布输出。管理员先在备份副本上核对冲突并明确价格，再重新预览，不由脚本选取任一价格。报告中的 `changes` 是迁移的路径字段/映射键数，不是物品件数；合并后的品种键数减少属正常，仍须核对总件数。
+支持原实体路径、第一版虚拟路径、改名前规范路径和当前规范路径混合输入，旧路径直接转到最终规范路径。商店同品同价合并数量；价格冲突或无法安全合计库存时，报告原因和清单文件，整批不发布输出。管理员先在备份副本上核对冲突并明确价格，再重新预览，不由脚本选取任一价格。报告中的 `changes` 是迁移的路径字段/映射键数，不是物品件数；合并后的品种键数减少属正常，仍须核对总件数。
 
 工具使用用户临时目录启动隔离驱动，临时目录含选定记录及转换结果，须由 OS 权限保护；测试结束按本地备份保留策略清理，不提交 Git。它不会外发数据或调用模型。重复预览已转换记录应为 0 项变更。
 
@@ -97,10 +101,16 @@ node tools/tests/audit_boots_migration.mjs
 node tools/tests/compile_boots_callers.mjs bin/lpcc.exe
 node tools/tests/test_boots_objects.mjs bin/driver.exe --all
 node tools/tests/test_boots_objects.mjs bin/driver.exe --bench
+node tools/tests/headwear_inventory.mjs
+node tools/tests/audit_headwear_migration.mjs
+node tools/tests/compile_headwear_callers.mjs bin/lpcc.exe
+node tools/tests/test_headwear_objects.mjs bin/driver.exe --all
+node tools/tests/test_headwear_objects.mjs bin/driver.exe --bench
 node --test tools/tests/test_item_records.mjs
+node --test tools/tests/test_item_ids.mjs
 ```
 
-需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb` 的 Git 历史。基线审计逐个核对旧源码；调用审计比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
+需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
 

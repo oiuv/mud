@@ -39,7 +39,7 @@ void create() {
         "大扫帚拍了出去。\n" NOR,
         CYN "韦春芳对你说道：你一双眼睛贼忒嘻嘻的，真像那个喇嘛！\n" NOR,
     }));
-    carry_object("/d/items/boots/xiuhua_xiaoxie")->wear();
+    carry_object("/d/items/boots/xiuhuaxie")->wear();
 
     carry_object("/d/items/cloth/fenhong_choushan")->wear();
 }

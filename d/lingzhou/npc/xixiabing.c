@@ -30,5 +30,5 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/changqiang")->wield();
-    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
+    carry_object("/d/items/cloth/tiejia2")->wear();
 }

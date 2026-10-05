@@ -26,6 +26,6 @@ void create() {
     set_temp("apply/armor", 20);
 
     setup();
-    carry_object(__DIR__ "obj/ttoujin")->wear();
-    carry_object("/d/items/cloth/yuanling_xiaoao")->wear();
+    carry_object("/d/items/headwear/taiyi_toujin")->wear();
+    carry_object("/d/items/cloth/xiaoao")->wear();
 }

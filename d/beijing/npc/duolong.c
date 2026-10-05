@@ -29,8 +29,8 @@ void create() {
         "多隆喝道：他奶奶的，你连我都敢惹？\n",
     }));
     setup();
-    carry_object("/d/items/cloth/yipin_shiweizhuang")->wear();
-    carry_object("/d/items/cloth/yuci_huangmagua")->wear();
+    carry_object("/d/items/cloth/shiweifu2")->wear();
+    carry_object("/d/items/cloth/huangmagua")->wear();
 }
 
 void init() {

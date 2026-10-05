@@ -67,7 +67,7 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/items/cloth/qingse_daopao_louhua")->wear();
+    carry_object("/d/items/cloth/qing_daopao3")->wear();
 }
 
 void attempt_apprentice(object ob) {

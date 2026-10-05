@@ -27,7 +27,7 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/gangjian")->wield();
-    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
+    carry_object("/d/items/cloth/tiejia2")->wear();
 }
 
 void init() {

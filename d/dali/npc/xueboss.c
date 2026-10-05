@@ -16,11 +16,11 @@ void create() {
     set("int", 22);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/items/boots/xiuhua_xiaoxie",
-        "/d/items/cloth/lvse_doupeng",
-        "/d/items/cloth/duijin_guazi",
+        "/d/items/boots/xiuhuaxie",
+        "/d/items/cloth/doupeng2",
+        "/d/items/cloth/guazi",
         "/d/items/cloth/zhaiken_ao",
-        "/d/items/cloth/baisha_xiangbianqun",
+        "/d/items/cloth/baisha_qun",
     }));
     setup();
     carry_object("/clone/cloth/cloth")->wear();

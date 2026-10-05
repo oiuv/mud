@@ -66,7 +66,7 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/changjian")->wield();
-    carry_object("/d/items/cloth/qingbu_xiangbian_jiasha")->wear();
+    carry_object("/d/items/cloth/qingse_jiasha2")->wear();
 }
 
 #include "hui.h"

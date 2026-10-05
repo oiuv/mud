@@ -15,7 +15,7 @@ void create() {
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/items/cloth/pi_beixin_guizhong",
+        "/d/items/cloth/pi_beixin2",
         __DIR__ "obj/shield",
         __DIR__ "obj/muqin",
         "/d/xiyu/obj/fire",

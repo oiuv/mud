@@ -9,7 +9,7 @@ void create() {
 了一个个涟漪。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua1": 1,
+        "/d/items/headwear/chahua1": 1,
         __DIR__ "npc/huanu": 1,
     ]));
     set("outdoors", "dali");

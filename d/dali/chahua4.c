@@ -9,7 +9,7 @@ void create() {
 骄然出群。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua4": 1,
+        "/d/items/headwear/chahua4": 1,
     ]));
     set("outdoors", "dali");
     set("exits", ([

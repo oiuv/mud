@@ -77,7 +77,7 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/changjian")->wield();
-    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
+    carry_object("/d/items/cloth/hui_jiasha")->wear();
 }
 
 string ask_me_1(string name) {
@@ -116,7 +116,7 @@ string ask_me_2(string name) {
     if (query("beixin_count") < 1)
         return "抱歉，你来得不是时候，武器已经发完了。";
 
-    ob = new("/d/items/cloth/tie_beixin_sengmen");
+    ob = new("/d/items/cloth/tie_beixin2");
     ob->move(this_player());
 
     add("beixin_count", -1);

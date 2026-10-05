@@ -58,7 +58,7 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/jiedao")->wield();
-    carry_object("/d/items/cloth/baibu_heibian_jiasha")->wear();
+    carry_object("/d/items/cloth/bai_jiasha")->wear();
 }
 
 void attempt_apprentice(object ob) {

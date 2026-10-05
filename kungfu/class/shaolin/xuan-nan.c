@@ -78,5 +78,5 @@ void create() {
     setup();
 
     carry_object("/d/shaolin/obj/chanzhang")->wield();
-    carry_object("/d/items/cloth/hufa_jiasha_huangse")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha2")->wear();
 }

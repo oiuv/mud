@@ -47,6 +47,6 @@ void create() {
 
     setup();
     carry_object("/d/taohua/obj/ruanwei")->wear();
-    carry_object("/d/taohua/obj/shudai")->wear();
+    carry_object("/d/items/headwear/jindai2")->wear();
 
 }

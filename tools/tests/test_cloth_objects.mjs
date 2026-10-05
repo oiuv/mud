@@ -7,14 +7,18 @@ import { createServer } from 'node:net';
 import { root, original as clothOriginal } from './cloth_inventory.mjs';
 import * as clothMetadata from './cloth_canonical.mjs';
 import * as bootsMetadata from './boots_inventory.mjs';
+import * as headwearMetadata from './headwear_inventory.mjs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { migrateItemRecords } from '../migrate_item_records.mjs';
 
 const boots = process.argv.includes('--boots');
-const { canonicalGroups, migrationPaths } = boots ? bootsMetadata : clothMetadata;
-const original = boots ? bootsMetadata.original : clothOriginal;
-const canonicalBaseline = boots ? bootsMetadata.readBaseline : clothMetadata.canonicalBaseline;
+const headwear = process.argv.includes('--headwear');
+const metadata = headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
+const label = headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
+const { canonicalGroups, migrationPaths } = metadata;
+const original = headwear || boots ? metadata.original : clothOriginal;
+const canonicalBaseline = headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -25,21 +29,24 @@ for (const dir of ['tests', 'log', 'data', 'adm/daemons', 'd/items'])
     mkdirSync(join(sandbox, dir), { recursive: true });
 for (const file of ['adm/daemons/virtuald.c', 'adm/daemons/moneyd.c', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'clone/misc/bandage.c', 'clone/misc/cloth.c', 'clone/cloth/qingyi.c', 'cmds/std/wear.c']) copy(file);
 for (const file of ['d/items/boots.lpc', 'd/items/boots_data.h']) copy(file);
+for (const file of ['d/items/headwear.lpc', 'd/items/headwear_data.h']) copy(file);
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
-if (boots) {
+if (boots || headwear) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
-    cpSync(join(root, 'tools/tests/boots/regression.lpc'), join(sandbox, 'tests/regression.lpc'));
-    // Count actual BOOTS::setup calls only in the disposable copy, without adding item fields.
-    const parent = join(sandbox, 'inherit/armor/boots.c');
+    cpSync(join(root, `tools/tests/${headwear ? 'headwear' : 'boots'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
+    // Count the selected family's setup only in the disposable copy.
+    const parent = join(sandbox, `inherit/armor/${headwear ? 'head' : 'boots'}.c`);
     if (!process.argv.includes('--bench'))
         writeFileSync(parent, readFileSync(parent, 'utf8').replace('void setup() {',
             'void setup() {\n    master()->record_setup(this_object());'));
     const master = join(sandbox, 'tests/master.lpc');
-    writeFileSync(master, readFileSync(master, 'utf8').replaceAll('CLOTH', 'BOOTS') +
+    writeFileSync(master, readFileSync(master, 'utf8').replaceAll('CLOTH', label) +
         '\nprivate mapping setup_counts = ([]);\nvoid record_setup(object ob) { setup_counts[ob]++; }\nint setup_count(object ob) { return setup_counts[ob]; }\n');
     const bench = join(sandbox, 'tests/benchmark.lpc');
-    writeFileSync(bench, readFileSync(bench, 'utf8').replaceAll('CLOTH', 'BOOTS'));
-    cpSync(join(root, 'tools/tests/boots/business.lpc'), join(sandbox, 'tests/boots_business.lpc'));
+    writeFileSync(bench, readFileSync(bench, 'utf8').replaceAll('CLOTH', label));
+    if (boots) cpSync(join(root, 'tools/tests/boots/business.lpc'), join(sandbox, 'tests/boots_business.lpc'));
+    if (headwear && process.argv.includes('--all') && !process.argv.includes('--baseline-only'))
+        cpSync(join(root, 'tools/tests/headwear/business.lpc'), join(sandbox, 'tests/headwear_business.lpc'));
     const method = (file, signature) => {
         const source = readFileSync(join(root, file), 'utf8'), start = source.indexOf(signature);
         if (start < 0) throw new Error('Missing business function: ' + file);
@@ -63,10 +70,11 @@ if (boots) {
         + 'void select_npc(object npc, string method) { selected_npc = npc; selected_method = method; }\n'
         + 'int call_npc(string arg) { call_other(selected_npc, selected_method, arg); return 1; }\nvoid create() {')
         .replace('enable_commands();', 'enable_commands();\n    add_action("call_npc", "testnpc");'));
-    for (const file of ['d/beijing/npc/obj/helmet.c', 'd/shaolin/obj/huwan.c', 'd/city/npc/cloth/shoes.c',
+    for (const file of ['d/shaolin/obj/huwan.c', 'd/city/npc/cloth/shoes.c',
         'd/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c']) copy(file);
+    if (headwear) for (const file of headwearMetadata.excluded) copy(file);
     for (const [file, extra] of [['unknown', ''], ['unique', 'inherit F_UNIQUE;'], ['noclone', 'inherit F_NOCLONE;']])
-        writeFileSync(join(sandbox, 'tests', file + '.c'), '#include <armor.h>\ninherit BOOTS;\n' + extra
+        writeFileSync(join(sandbox, 'tests', file + '.c'), '#include <armor.h>\ninherit ' + (headwear ? 'HEAD' : 'BOOTS') + ';\n' + extra
             + '\nvoid create() { set_name("旧鞋", ({ "test shoes" })); set("unit", "双"); setup(); }\n'
             + 'object create_virtual_object(string key) { return new("/tests/' + file + '"); }\n');
 }
@@ -100,7 +108,8 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
 const rows = canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
-    (boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
+    (headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
+        boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
 for (const row of rows) {
     const path = row.old_path.slice(1) + '.c';
     const source = original(path);
@@ -109,9 +118,12 @@ for (const row of rows) {
     mkdirSync(dirname(join(sandbox, path)), { recursive: true });
     writeFileSync(join(sandbox, path), source);
 }
-writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => [row.old_path, row.new_path])));
+writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => headwear
+    ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight)]
+    : [row.old_path, row.new_path])));
+if (process.argv.includes('--baseline-only')) writeFileSync(join(sandbox, 'tests/baseline-only'), '1');
 writeFileSync(join(sandbox, 'tests/migration_paths.json'), JSON.stringify(migrationPaths()));
-writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(canonicalGroups().map(g => ({
+writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(canonicalGroups().filter(g => !headwear || rows.some(r => r.new_path === g.path)).map(g => ({
     path: g.path, ids: g.ids, historical: g.rows.map(r => r.new_path),
 }))));
 const socket = createServer();
@@ -142,23 +154,23 @@ if (process.argv.includes('--bench')) {
             writeFileSync(join(sandbox, 'tests/benchmark.json'), JSON.stringify({ version, round }));
             const result = await runDriver();
             writeFileSync(join(sandbox, `benchmark-${round}-${version}.txt`), result.output);
-            const line = result.output.split('\n').find(line => line.startsWith((boots ? 'BOOTS' : 'CLOTH') + ' BENCH '));
+            const line = result.output.split('\n').find(line => line.startsWith(label + ' BENCH '));
             if (result.code !== 0 || !line) throw new Error('Benchmark failed: ' + sandbox);
-            const measurement = JSON.parse(line.slice('CLOTH BENCH '.length));
+            const measurement = JSON.parse(line.slice((label + ' BENCH ').length));
             measurements.push(measurement);
             console.log(JSON.stringify(measurement));
         }
     }
     writeFileSync(join(sandbox, 'benchmark.json'), JSON.stringify(measurements, null, 2) + '\n');
-    console.log((boots ? 'BOOTS' : 'CLOTH') + ' BENCH PASS: old/new are independent driver processes; memory_info is not OS RSS');
+    console.log(label + ' BENCH PASS: old/new are independent driver processes; memory_info is not OS RSS');
     process.exit(0);
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
-if (result.code !== 0 || !result.output.includes((boots ? 'BOOTS' : 'CLOTH') + ' PASS'))
+console.log(result.output.split('\n').filter(line => /HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (boots) process.exit(0);
+if (boots || headwear) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },

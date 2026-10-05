@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { root, readBaseline, tokens } from './cloth_inventory.mjs';
+import { validId, renamedPaths } from './item_ids.mjs';
 
 const names = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/canonical_ids.json'), 'utf8'));
 const expression = source => tokens(source).map(token => token.text);
@@ -37,7 +38,7 @@ export function canonicalGroups() {
     const groups = [...grouped.values()].map(rows => {
         const representative = rows[0];
         const id = names[representative.key];
-        assert.match(id || '', /^[a-z]+(?:_[a-z]+)*$/, 'Missing semantic ID: ' + representative.key);
+        assert.ok(validId(id), 'Missing semantic ID: ' + representative.key);
         assert.ok(!used.has(id), 'Duplicate canonical ID: ' + id);
         used.add(id);
         const aliases = row => tokens(row.name[1]).filter(t => t.kind === 'string').map(t => JSON.parse(t.text));
@@ -63,8 +64,8 @@ export function canonicalBaseline() {
 }
 
 export function migrationPaths() {
-    return Object.fromEntries(canonicalGroups().flatMap(g => g.rows.flatMap(r =>
-        [[r.old_path, g.path], [r.new_path, g.path]])));
+    return { ...Object.fromEntries(canonicalGroups().flatMap(g => g.rows.flatMap(r =>
+        [[r.old_path, g.path], [r.new_path, g.path]]))), ...renamedPaths('cloth') };
 }
 
 export function renderDefinitions() {

@@ -25,7 +25,7 @@ private mapping boots_definitions() {
                 ({ "armor_prop/dodge", 2 })
             }),
         ]),
-        "xiuhua_xiaoxie": ([
+        "xiuhuaxie": ([
             "name": "绣花小鞋",
             "ids": ({ "flower shoes", "shoes" }),
             "weight": 900,
@@ -61,7 +61,7 @@ private mapping boots_definitions() {
                 ({ "armor_prop/dodge", 80 })
             }),
         ]),
-        "jingzhi_xiuhua_xiaoxie": ([
+        "xiuhuaxie2": ([
             "name": HIM "绣花小鞋" NOR,
             "ids": ({ "flower shoes", "shoes" }),
             "weight": 900,
@@ -74,7 +74,7 @@ private mapping boots_definitions() {
                 ({ "female_only", 1 })
             }),
         ]),
-        "qingbu_sengxie": ([
+        "sengxie": ([
             "name": HIC "僧鞋" NOR,
             "ids": ({ "seng xie", "xie" }),
             "weight": 1000,

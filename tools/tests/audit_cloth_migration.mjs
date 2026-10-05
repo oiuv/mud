@@ -6,6 +6,9 @@ import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import { original, root, references, readBaseline } from './cloth_inventory.mjs';
 import { canonicalBaseline, canonicalGroups, renderDefinitions } from './cloth_canonical.mjs';
 import { readBaseline as bootsBaseline, original as beforeBoots, expectedCaller, dynamicCallers } from './boots_inventory.mjs';
+import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedCaller as expectedHeadwearCaller,
+    dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
+import { renameReferences } from './item_ids.mjs';
 
 const baseline = canonicalBaseline();
 const files = new Map();
@@ -27,13 +30,18 @@ for (const [file, hits] of files) {
         const expression = 'new("/d/shaolin/obj/" + name)';
         const offset = expected.lastIndexOf(expression);
         assert.ok(offset >= 0, file + ' dynamic iron vest branch');
-        expected = expected.slice(0, offset) + 'new("/d/items/cloth/tie_beixin_sengmen")' +
+        expected = expected.slice(0, offset) + 'new("/d/items/cloth/tie_beixin2")' +
             expected.slice(offset + expression.length);
     }
     if (bootsBaseline().hits.some(h => h.file === file) || dynamicCallers.includes(file)) {
-        assert.deepEqual(semanticTokens(beforeBoots(file)), semanticTokens(expected),
+        assert.deepEqual(semanticTokens(renameReferences(beforeBoots(file))), semanticTokens(expected),
             'CLOTH historical caller baseline changed: ' + file);
         expected = expectedCaller(file);
+    }
+    if (headwearBaseline().hits.some(h => h.file === file) || headwearDynamicCallers.includes(file)) {
+        assert.deepEqual(semanticTokens(renameReferences(beforeHeadwear(file))), semanticTokens(expected),
+            'Prior migration caller baseline changed: ' + file);
+        expected = expectedHeadwearCaller(file);
     }
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);

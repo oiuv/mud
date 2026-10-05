@@ -1,0 +1,78 @@
+// 普通头饰品种；沿用地图物品的 Domain UID 和 HEAD 行为。
+#include <ansi.h>
+#include <armor.h>
+
+inherit HEAD;
+
+#define HEADWEAR_PROGRAM "/d/items/headwear"
+#include "headwear_data.h"
+
+private nosave mapping varieties;
+private nosave string variety;
+private nosave int initialized;
+
+mapping query_definition(string key) {
+    if (base_name(this_object()) != HEADWEAR_PROGRAM || !mapp(varieties))
+        return 0;
+    return copy(varieties[key]);
+}
+
+int valid_variety_path(string path) {
+    string key;
+
+    if (base_name(this_object()) != HEADWEAR_PROGRAM || !mapp(varieties) ||
+        !stringp(path) || sscanf(path, HEADWEAR_PROGRAM + "/%s", key) != 1)
+        return 0;
+    return mapp(varieties[key]);
+}
+
+void create(string key) {
+    if (!clonep()) {
+        varieties = headwear_definitions();
+        return;
+    }
+    // 只有 provider 内部创建；正式品种身份由驱动建立。
+    if (previous_object() != find_object(HEADWEAR_PROGRAM) || !stringp(key))
+        error("Ordinary headwear requires a registered virtual variety.\n");
+    variety = key;
+}
+
+object create_virtual_object(string key) {
+    if (base_name(this_object()) != HEADWEAR_PROGRAM || clonep() ||
+        !mapp(varieties) || !mapp(varieties[key]))
+        return 0;
+    return new(HEADWEAR_PROGRAM, key);
+}
+
+void virtual_start() {
+    mapping definition, defaults;
+    mixed *entry;
+    string key;
+    mixed value;
+
+    if (initialized)
+        return;
+    if (!stringp(variety) || base_name(this_object()) != HEADWEAR_PROGRAM + "/" + variety)
+        error("Invalid ordinary headwear virtual identity.\n");
+    definition = HEADWEAR_PROGRAM->query_definition(variety);
+    if (!mapp(definition))
+        error("Unknown ordinary headwear variety.\n");
+    initialized = 1;
+    set_name(definition["name"], definition["ids"]);
+    // 重量不是 dbase 属性；部分旧花饰只给蓝图设重，克隆的有效值是零。
+    if (clonep() && !undefinedp(definition["clone_weight"]))
+        set_weight(definition["clone_weight"]);
+    else
+        set_weight(definition["weight"]);
+    if (clonep()) {
+        set_default_object(base_name(this_object()));
+        defaults = query_default_object()->query_entire_dbase();
+        foreach (key, value in defaults)
+            if (mapp(value) || arrayp(value))
+                set(key, copy(value));
+    } else {
+        foreach (entry in definition["properties"])
+            set(entry[0], entry[1]);
+    }
+    setup();
+}

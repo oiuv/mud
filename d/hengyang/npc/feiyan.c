@@ -49,7 +49,7 @@ LONG);
     ]));
 
     setup();
-    carry_object("/d/items/boots/jingzhi_xiuhua_xiaoxie")->wear();
+    carry_object("/d/items/boots/xiuhuaxie2")->wear();
     carry_object("/d/items/cloth/hulv_changqun")->wear();
 
 }

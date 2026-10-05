@@ -81,7 +81,7 @@ void create() {
     create_family("明教", 36, "弟子");
     setup();
 
-    carry_object("/d/items/cloth/huoyan_baibu_changpao")->wear();
+    carry_object("/d/items/cloth/baipao2")->wear();
 }
 
 

@@ -26,49 +26,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 3 })
             }),
         ]),
-        "baibian_huangse_changpao": ([
-            "name": YEL "白边黄色长袍" NOR,
-            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "long", "这是一件白色滚边黄色长袍，做工似乎比较简单。\n" }),
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 10 }),
-                ({ "value", 100 }),
-                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
-                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
-            }),
-        ]),
-        "baibian_lanse_changpao": ([
-            "name": BLU "白边蓝色长袍" NOR,
-            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "long", "这是一件白色滚边做工精细的蓝色长袍。\n" }),
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 30 }),
-                ({ "value", 100 }),
-                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
-                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
-            }),
-        ]),
-        "baibian_qingse_changpao": ([
-            "name": HIC "白边青色长袍" NOR,
-            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "long", "这是一件白色滚边做工精细的青色长袍，看不出是用什么质料裁成的。\n" }),
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 45 }),
-                ({ "value", 100 }),
-                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
-                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
-            }),
-        ]),
-        "baibu_heibian_jiasha": ([
+        "bai_jiasha": ([
             "name": "白布黑边袈裟",
             "ids": ({ "jia sha", "cloth" }),
             "weight": 5000,
@@ -90,19 +48,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 30 })
             }),
         ]),
-        "baimian_yayifu": ([
-            "name": "衙役服",
-            "ids": ({ "yayi cloth", "cloth" }),
-            "weight": 2000,
-            "properties": ({
-                ({ "long", "这是一件崭新的白棉布衙役服。\n" }),
-                ({ "material", "cloth" }),
-                ({ "unit", "件" }),
-                ({ "value", 150 }),
-                ({ "armor_prop/armor", 5 })
-            }),
-        ]),
-        "baipao_sizhi": ([
+        "baipao": ([
             "name": HIW "白袍" NOR,
             "ids": ({ "bai pao", "pao" }),
             "weight": 2000,
@@ -112,6 +58,18 @@ private mapping cloth_definitions() {
                 ({ "material", "silk" }),
                 ({ "armor_prop/armor", 8 }),
                 ({ "value", 100 })
+            }),
+        ]),
+        "baipao2": ([
+            "name": "白布长袍",
+            "ids": ({ "cloth", "pao" }),
+            "weight": 1000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "这是件白布长袍，虽不奢华，却洗得一尘不染，在袍襟上锈了一团血红的火焰，\n"
+                    "颇为鲜艳。\n" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
             }),
         ]),
         "baise_changpao": ([
@@ -124,6 +82,20 @@ private mapping cloth_definitions() {
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 8 }),
                 ({ "value", 100 })
+            }),
+        ]),
+        "baise_changpao2": ([
+            "name": WHT "黑边白色长袍" NOR,
+            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
+            "weight": 6000,
+            "properties": ({
+                ({ "long", "这是一件黑色滚边的白色长袍，华贵异常，看不出是什么质料做的。\n" }),
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 65 }),
+                ({ "value", 100 }),
+                ({ "wear_msg", "$N迎风一展，[唰]的一声，披上一件$n。\n" }),
+                ({ "remove_msg", "$N解开$n,把$n从身上脱了下来。\n" })
             }),
         ]),
         "baise_changshan": ([
@@ -147,7 +119,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 3 })
             }),
         ]),
-        "baisha_xiangbianqun": ([
+        "baisha_qun": ([
             "name": "白纱挑线镶边裙",
             "ids": ({ "xiangbian qun" }),
             "weight": 2000,
@@ -182,16 +154,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 3 })
             }),
         ]),
-        "bankai_shayi": ([
-            "name": "胸部半开纱衣",
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
         "bingfu": ([
             "name": "兵服",
             "ids": ({ "cloth" }),
@@ -202,6 +164,18 @@ private mapping cloth_definitions() {
                 ({ "value", 1000 }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 5 })
+            }),
+        ]),
+        "bingfu2": ([
+            "name": "兵服",
+            "ids": ({ "cloth", "bingfu" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "long", "一件兵服，前后有铜镜护心，中间绣了一个兵字．\n" }),
+                ({ "material", "cloth" }),
+                ({ "value", 300 }),
+                ({ "unit", "件" }),
+                ({ "armor_prop/armor", 10 })
             }),
         ]),
         "bosi_changpao": ([
@@ -216,7 +190,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 10 })
             }),
         ]),
-        "bosi_mingjiao_jiaofu": ([
+        "bosi_jiaofu": ([
             "name": MAG "波斯明教教服" NOR,
             "ids": ({ "bosi cloth", "cloth" }),
             "weight": 3000,
@@ -228,7 +202,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 2 })
             }),
         ]),
-        "bosi_mingjiao_jiaofu_zise_shuoming": ([
+        "bosi_jiaofu2": ([
             "name": NOR + MAG "波斯明教教服" NOR,
             "ids": ({ "bosi cloth", "bosi", "cloth" }),
             "weight": 3000,
@@ -250,7 +224,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "buyi_qingxing": ([
+        "buyi2": ([
             "name": "布衣",
             "ids": ({ "cloth" }),
             "weight": 1000,
@@ -260,7 +234,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "buyi_shoumai": ([
+        "buyi3": ([
             "name": "布衣",
             "ids": ({ "buyi", "cloth" }),
             "weight": 3000,
@@ -281,6 +255,18 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "value", 300 }),
                 ({ "armor_prop/armor", 15 })
+            }),
+        ]),
+        "changpao2": ([
+            "name": "长袍",
+            "ids": ({ "chang pao", "cloth", "pao" }),
+            "weight": 2000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "这是件质量上佳长袍，是由[针神]亲手缝制的。\n" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 10 }),
+                ({ "value", 100 })
             }),
         ]),
         "choupao": ([
@@ -342,17 +328,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "diaolong_changpao": ([
-            "name": HIY "雕龙长袍" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "value", 6000 }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
         "diaoqiu": ([
             "name": MAG "貂裘" NOR,
             "ids": ({ "diao qiu", "cloth" }),
@@ -377,14 +352,16 @@ private mapping cloth_definitions() {
                 ({ "value", 100 })
             }),
         ]),
-        "duanda_jinzhuang": ([
-            "name": "短打劲装",
-            "ids": ({ "cloth" }),
-            "weight": 3000,
+        "doupeng2": ([
+            "name": "斗篷",
+            "ids": ({ "dou peng" }),
+            "weight": 2000,
             "properties": ({
-                ({ "unit", "件" }),
+                ({ "long", "这是一件绿色宽大的斗篷。\n" }),
                 ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
+                ({ "unit", "件" }),
+                ({ "value", 200 }),
+                ({ "armor_prop/armor", 3 })
             }),
         ]),
         "duanqun": ([
@@ -395,30 +372,6 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 1 })
-            }),
-        ]),
-        "duijin_guazi": ([
-            "name": "对衿褂子",
-            "ids": ({ "duijin guazi" }),
-            "weight": 2000,
-            "properties": ({
-                ({ "long", "这是一件少数民族常用的对衿褂子。\n" }),
-                ({ "material", "cloth" }),
-                ({ "unit", "件" }),
-                ({ "value", 350 }),
-                ({ "armor_prop/armor", 5 })
-            }),
-        ]),
-        "erpin_shiweizhuang": ([
-            "name": HIW "二品侍卫装" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "御前侍卫的统一装束。\n" }),
-                ({ "value", 1000 }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 25 })
             }),
         ]),
         "fenhong_choushan": ([
@@ -435,7 +388,7 @@ private mapping cloth_definitions() {
                 ({ "female_only", 1 })
             }),
         ]),
-        "fenhong_choushan_liangzi": ([
+        "fenhong_choushan2": ([
             "name": HIM "粉红绸衫" NOR,
             "ids": ({ "pink cloth", "cloth" }),
             "weight": 1000,
@@ -459,7 +412,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 3 })
             }),
         ]),
-        "goupi_maopi": ([
+        "goupi": ([
             "name": "狗皮",
             "ids": ({ "gou pi", "pi" }),
             "weight": 5000,
@@ -470,7 +423,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "goupi_pige": ([
+        "goupi2": ([
             "name": "狗皮",
             "ids": ({ "gou pi", "pi" }),
             "weight": 1200,
@@ -493,7 +446,19 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 5 })
             }),
         ]),
-        "guanfu_sizhi": ([
+        "guanfu2": ([
+            "name": HIY "锦团官服" NOR,
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "上品官兵所穿戴的制服。\n" }),
+                ({ "value", 1000 }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 5 })
+            }),
+        ]),
+        "guanfu3": ([
             "name": HIC "官服" NOR,
             "ids": ({ "guan fu", "fu" }),
             "weight": 3000,
@@ -502,6 +467,18 @@ private mapping cloth_definitions() {
                 ({ "material", "丝" }),
                 ({ "value", 5000 }),
                 ({ "armor_prop/armor", 3 })
+            }),
+        ]),
+        "guazi": ([
+            "name": "对衿褂子",
+            "ids": ({ "duijin guazi" }),
+            "weight": 2000,
+            "properties": ({
+                ({ "long", "这是一件少数民族常用的对衿褂子。\n" }),
+                ({ "material", "cloth" }),
+                ({ "unit", "件" }),
+                ({ "value", 350 }),
+                ({ "armor_prop/armor", 5 })
             }),
         ]),
         "guiwang_pao": ([
@@ -524,20 +501,6 @@ private mapping cloth_definitions() {
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 3 }),
                 ({ "value", 500 })
-            }),
-        ]),
-        "heibian_baise_changpao": ([
-            "name": WHT "黑边白色长袍" NOR,
-            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
-            "weight": 6000,
-            "properties": ({
-                ({ "long", "这是一件黑色滚边的白色长袍，华贵异常，看不出是什么质料做的。\n" }),
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 65 }),
-                ({ "value", 100 }),
-                ({ "wear_msg", "$N迎风一展，[唰]的一声，披上一件$n。\n" }),
-                ({ "remove_msg", "$N解开$n,把$n从身上脱了下来。\n" })
             }),
         ]),
         "heise_buyi": ([
@@ -571,19 +534,28 @@ private mapping cloth_definitions() {
                 ({ "value", 100 })
             }),
         ]),
-        "hongbian_yayifu": ([
-            "name": "衙役服",
-            "ids": ({ "yayi fu", "cloth" }),
-            "weight": 2000,
+        "heise_jiasha2": ([
+            "name": "金边黑布袈裟",
+            "ids": ({ "jia sha", "cloth" }),
+            "weight": 5000,
             "properties": ({
-                ({ "long", "一件黑色短装，嵌以红边，是长安府的衙役穿的．\n" }),
-                ({ "material", "cloth" }),
                 ({ "unit", "件" }),
-                ({ "value", 500 }),
+                ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 10 })
             }),
         ]),
-        "hongchou_xiaoshan": ([
+        "heiyi": ([
+            "name": CYN "黑衣" NOR,
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "long", "这是一件绣着红色火焰的黑色圣衣。\n" }),
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
+            }),
+        ]),
+        "hongchou_shan": ([
             "name": "红绸小杉",
             "ids": ({ "cloth" }),
             "weight": 5000,
@@ -624,7 +596,7 @@ private mapping cloth_definitions() {
                 ({ "value", 100 })
             }),
         ]),
-        "hongse_jiasha_buzhi": ([
+        "hongse_jiasha2": ([
             "name": HIR "红色袈裟" NOR,
             "ids": ({ "jia sha", "cloth" }),
             "weight": 3000,
@@ -634,6 +606,20 @@ private mapping cloth_definitions() {
                 ({ "value", 1000 }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 5 })
+            }),
+        ]),
+        "huang_changpao": ([
+            "name": YEL "白边黄色长袍" NOR,
+            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
+            "weight": 5000,
+            "properties": ({
+                ({ "long", "这是一件白色滚边黄色长袍，做工似乎比较简单。\n" }),
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 10 }),
+                ({ "value", 100 }),
+                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
+                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
             }),
         ]),
         "huangbu_jiasha": ([
@@ -657,6 +643,32 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 50 })
             }),
         ]),
+        "huangmagua": ([
+            "name": HIY "黄马褂" NOR,
+            "ids": ({ "huang magua", "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "皇上御赐的黄马褂。\n" }),
+                ({ "value", 1000 }),
+                ({ "no_sell", "这，这可不敢买！" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 10 })
+            }),
+        ]),
+        "huangmagua2": ([
+            "name": HIY "镶边黄马褂" NOR,
+            "ids": ({ "huang magua", "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "皇上御赐的黄马褂。\n" }),
+                ({ "value", 1500 }),
+                ({ "no_sell", "这，这可不敢买！" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 18 })
+            }),
+        ]),
         "huangse_jiasha": ([
             "name": HIY "黄色袈裟" NOR,
             "ids": ({ "jiasha", "jia sha", "cloth" }),
@@ -678,7 +690,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "huangshan_houshi": ([
+        "huangshan2": ([
             "name": HIY "黄衫" NOR,
             "ids": ({ "huang shan", "shan", "cloth" }),
             "weight": 3000,
@@ -711,7 +723,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 15 })
             }),
         ]),
-        "hufa_jiasha_huangse": ([
+        "hufa_jiasha2": ([
             "name": YEL "护法袈裟" NOR,
             "ids": ({ "jia sha", "jia", "sha" }),
             "weight": 8000,
@@ -719,6 +731,16 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 30 })
+            }),
+        ]),
+        "hui_jiasha": ([
+            "name": "灰布镶边袈裟",
+            "ids": ({ "jia sha", "cloth" }),
+            "weight": 5000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 6 })
             }),
         ]),
         "huibai_changshan": ([
@@ -733,16 +755,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 2 })
             }),
         ]),
-        "huibu_xiangbian_jiasha": ([
-            "name": "灰布镶边袈裟",
-            "ids": ({ "jia sha", "cloth" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 6 })
-            }),
-        ]),
         "huise_daopao": ([
             "name": "灰色道袍",
             "ids": ({ "pao", "cloth", "dao pao" }),
@@ -754,7 +766,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 2 })
             }),
         ]),
-        "huise_daopao_qingxing": ([
+        "huise_daopao2": ([
             "name": WHT "灰色道袍" NOR,
             "ids": ({ "pao", "cloth", "dao pao" }),
             "weight": 1200,
@@ -778,29 +790,6 @@ private mapping cloth_definitions() {
                 ({ "female_only", 1 })
             }),
         ]),
-        "huoyan_baibu_changpao": ([
-            "name": "白布长袍",
-            "ids": ({ "cloth", "pao" }),
-            "weight": 1000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "这是件白布长袍，虽不奢华，却洗得一尘不染，在袍襟上锈了一团血红的火焰，\n"
-                    "颇为鲜艳。\n" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
-        "huoyan_heiyi": ([
-            "name": CYN "黑衣" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "long", "这是一件绣着红色火焰的黑色圣衣。\n" }),
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
         "hupi": ([
             "name": "虎皮",
             "ids": ({ "hu pi", "pi" }),
@@ -812,7 +801,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 10 })
             }),
         ]),
-        "hupi_zhongxing": ([
+        "hupi2": ([
             "name": "虎皮",
             "ids": ({ "hu pi" }),
             "weight": 20000,
@@ -835,16 +824,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 5 })
             }),
         ]),
-        "jinbian_heibu_jiasha": ([
-            "name": "金边黑布袈裟",
-            "ids": ({ "jia sha", "cloth" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 10 })
-            }),
-        ]),
         "jinduan": ([
             "name": "锦缎",
             "ids": ({ "jin duan", "jin", "duan" }),
@@ -854,18 +833,6 @@ private mapping cloth_definitions() {
                 ({ "material", "丝" }),
                 ({ "value", 4000 }),
                 ({ "armor_prop/armor", 3 })
-            }),
-        ]),
-        "jintuan_guanfu": ([
-            "name": HIY "锦团官服" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "上品官兵所穿戴的制服。\n" }),
-                ({ "value", 1000 }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 5 })
             }),
         ]),
         "jinyi": ([
@@ -889,6 +856,16 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "value", 1200 }),
                 ({ "armor_prop/armor", 15 })
+            }),
+        ]),
+        "jinzhuang": ([
+            "name": "短打劲装",
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
             }),
         ]),
         "junfu": ([
@@ -922,6 +899,20 @@ private mapping cloth_definitions() {
                     "衣轻轻披在身上，映衬的\n$P" HIW "肌肤如"
                     "雪一般，一张盈盈笑脸如出水芙蓉，"
                     "让人意动魂摇。\n" NOR })
+            }),
+        ]),
+        "lan_changpao": ([
+            "name": BLU "白边蓝色长袍" NOR,
+            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
+            "weight": 5000,
+            "properties": ({
+                ({ "long", "这是一件白色滚边做工精细的蓝色长袍。\n" }),
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 30 }),
+                ({ "value", 100 }),
+                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
+                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
             }),
         ]),
         "lanse_jinzhuang": ([
@@ -968,16 +959,25 @@ private mapping cloth_definitions() {
                 ({ "no_sell", 1 })
             }),
         ]),
-        "lvse_doupeng": ([
-            "name": "斗篷",
-            "ids": ({ "dou peng" }),
-            "weight": 2000,
+        "longwen_pao": ([
+            "name": HIY "雕龙长袍" NOR,
+            "ids": ({ "cloth" }),
+            "weight": 3000,
             "properties": ({
-                ({ "long", "这是一件绿色宽大的斗篷。\n" }),
-                ({ "material", "cloth" }),
                 ({ "unit", "件" }),
-                ({ "value", 200 }),
-                ({ "armor_prop/armor", 3 })
+                ({ "value", 6000 }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
+            }),
+        ]),
+        "luopao": ([
+            "name": "熟罗长袍",
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
             }),
         ]),
         "lvse_shengyi": ([
@@ -1034,7 +1034,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 6 })
             }),
         ]),
-        "pi_beixin_guizhong": ([
+        "pi_beixin2": ([
             "name": "皮背心",
             "ids": ({ "pi beixin", "beixin" }),
             "weight": 1000,
@@ -1042,6 +1042,17 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "value", 4000 }),
                 ({ "material", "leather" }),
+                ({ "armor_prop/armor", 6 })
+            }),
+        ]),
+        "pipao": ([
+            "name": HIR "枣红缎面皮袍" NOR,
+            "ids": ({ "zaohong pao", "zaohong", "pao" }),
+            "weight": 4000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "value", 3000 }),
                 ({ "armor_prop/armor", 6 })
             }),
         ]),
@@ -1090,6 +1101,55 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
+        "qing_changpao": ([
+            "name": HIC "白边青色长袍" NOR,
+            "ids": ({ "chang pao", "cloth", "changpao", "pao" }),
+            "weight": 5000,
+            "properties": ({
+                ({ "long", "这是一件白色滚边做工精细的青色长袍，看不出是用什么质料裁成的。\n" }),
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 45 }),
+                ({ "value", 100 }),
+                ({ "wear_msg", "$N把$n迎风一展，缓缓的披在身上。\n" }),
+                ({ "remove_msg", "$N轻轻的把$n从身上脱了下来。\n" })
+            }),
+        ]),
+        "qing_daopao": ([
+            "name": "青色道袍",
+            "ids": ({ "pao", "cloth", "dao pao" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "一件普普通通的青布道袍。\n" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 2 })
+            }),
+        ]),
+        "qing_daopao2": ([
+            "name": HIG "青色道袍" NOR,
+            "ids": ({ "pao", "cloth", "dao pao" }),
+            "weight": 1500,
+            "properties": ({
+                ({ "female_only", 1 }),
+                ({ "unit", "件" }),
+                ({ "long", "这是件质地柔软的青色道袍。\n" }),
+                ({ "material", "silk" }),
+                ({ "armor_prop/armor", 3 })
+            }),
+        ]),
+        "qing_daopao3": ([
+            "name": "青色道袍",
+            "ids": ({ "pao", "cloth", "dao pao" }),
+            "weight": 1500,
+            "properties": ({
+                ({ "female_only", 1 }),
+                ({ "unit", "件" }),
+                ({ "long", "这是件质地轻软的青色道袍，边上还镂着花呢。\n" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
+            }),
+        ]),
         "qingbu_changshan": ([
             "name": "青布长衫",
             "ids": ({ "shan", "cloth" }),
@@ -1100,7 +1160,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "qingbu_changshan_lanse": ([
+        "qingbu_changshan2": ([
             "name": HIB "青布长衫" NOR,
             "ids": ({ "cloth" }),
             "weight": 3000,
@@ -1120,16 +1180,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "qingbu_xiangbian_jiasha": ([
-            "name": "青布镶边袈裟",
-            "ids": ({ "jia sha", "cloth" }),
-            "weight": 5000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 8 })
-            }),
-        ]),
         "qingse_changshan": ([
             "name": HIB "青色长衫" NOR,
             "ids": ({ "cloth" }),
@@ -1138,41 +1188,6 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 1 })
-            }),
-        ]),
-        "qingse_daopao_buzhi": ([
-            "name": "青色道袍",
-            "ids": ({ "pao", "cloth", "dao pao" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "一件普普通通的青布道袍。\n" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 2 })
-            }),
-        ]),
-        "qingse_daopao_louhua": ([
-            "name": "青色道袍",
-            "ids": ({ "pao", "cloth", "dao pao" }),
-            "weight": 1500,
-            "properties": ({
-                ({ "female_only", 1 }),
-                ({ "unit", "件" }),
-                ({ "long", "这是件质地轻软的青色道袍，边上还镂着花呢。\n" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
-        "qingse_daopao_sizhi": ([
-            "name": HIG "青色道袍" NOR,
-            "ids": ({ "pao", "cloth", "dao pao" }),
-            "weight": 1500,
-            "properties": ({
-                ({ "female_only", 1 }),
-                ({ "unit", "件" }),
-                ({ "long", "这是件质地柔软的青色道袍。\n" }),
-                ({ "material", "silk" }),
-                ({ "armor_prop/armor", 3 })
             }),
         ]),
         "qingse_jiasha": ([
@@ -1184,6 +1199,16 @@ private mapping cloth_definitions() {
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 20 }),
                 ({ "value", 100 })
+            }),
+        ]),
+        "qingse_jiasha2": ([
+            "name": "青布镶边袈裟",
+            "ids": ({ "jia sha", "cloth" }),
+            "weight": 5000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 8 })
             }),
         ]),
         "qingse_sipao": ([
@@ -1215,6 +1240,28 @@ private mapping cloth_definitions() {
         ]),
         "qingshan": ([
             "name": "青衫",
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
+            }),
+        ]),
+        "qingyi": ([
+            "name": "青衣",
+            "ids": ({ "qing yi", "cloth", "yi" }),
+            "weight": 2000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "这是件质量上佳青衣，是由[针神]亲手缝制的。\n" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 10 }),
+                ({ "value", 100 })
+            }),
+        ]),
+        "qingyi2": ([
+            "name": "绣梅青衣",
             "ids": ({ "cloth" }),
             "weight": 3000,
             "properties": ({
@@ -1258,6 +1305,16 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 2 })
             }),
         ]),
+        "shayi": ([
+            "name": "胸部半开纱衣",
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 1 })
+            }),
+        ]),
         "shengdan_mao": ([
             "name": HIR "圣诞" HIW "帽" NOR,
             "ids": ({ "mao zi", "mao", "zi" }),
@@ -1281,14 +1338,40 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 10 })
             }),
         ]),
-        "shuluo_changpao": ([
-            "name": "熟罗长袍",
+        "shiweifu": ([
+            "name": HIR "御前侍卫装" NOR,
             "ids": ({ "cloth" }),
             "weight": 3000,
             "properties": ({
                 ({ "unit", "件" }),
+                ({ "long", "御前侍卫的统一装束。\n" }),
+                ({ "value", 1000 }),
                 ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 1 })
+                ({ "armor_prop/armor", 25 })
+            }),
+        ]),
+        "shiweifu2": ([
+            "name": HIY "一品侍卫装" NOR,
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "御前侍卫的统一装束。\n" }),
+                ({ "value", 1000 }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 25 })
+            }),
+        ]),
+        "shiweifu3": ([
+            "name": HIW "二品侍卫装" NOR,
+            "ids": ({ "cloth" }),
+            "weight": 3000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "long", "御前侍卫的统一装束。\n" }),
+                ({ "value", 1000 }),
+                ({ "material", "cloth" }),
+                ({ "armor_prop/armor", 25 })
             }),
         ]),
         "taiyi_duanqun": ([
@@ -1326,7 +1409,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 15 })
             }),
         ]),
-        "tie_beixin_sengmen": ([
+        "tie_beixin2": ([
             "name": "铁背心",
             "ids": ({ "tie beixin", "beixin" }),
             "weight": 3000,
@@ -1349,18 +1432,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 20 })
             }),
         ]),
-        "tiejia_qingxing": ([
-            "name": "铁甲",
-            "ids": ({ "armor", "tiejia" }),
-            "weight": 1000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "value", 4000 }),
-                ({ "material", "leather" }),
-                ({ "armor_prop/armor", 10 })
-            }),
-        ]),
-        "tiejia_zhongfang": ([
+        "tiejia2": ([
             "name": "铁甲",
             "ids": ({ "armor" }),
             "weight": 20000,
@@ -1371,7 +1443,18 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 50 })
             }),
         ]),
-        "tiejia_zhongxing": ([
+        "tiejia3": ([
+            "name": "铁甲",
+            "ids": ({ "armor", "tiejia" }),
+            "weight": 1000,
+            "properties": ({
+                ({ "unit", "件" }),
+                ({ "value", 4000 }),
+                ({ "material", "leather" }),
+                ({ "armor_prop/armor", 10 })
+            }),
+        ]),
+        "tiejia4": ([
             "name": "铁甲",
             "ids": ({ "armor", "jia" }),
             "weight": 28000,
@@ -1380,18 +1463,6 @@ private mapping cloth_definitions() {
                 ({ "value", 4000 }),
                 ({ "material", "leather" }),
                 ({ "armor_prop/armor", 25 })
-            }),
-        ]),
-        "tongjing_bingfu": ([
-            "name": "兵服",
-            "ids": ({ "cloth", "bingfu" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "long", "一件兵服，前后有铜镜护心，中间绣了一个兵字．\n" }),
-                ({ "material", "cloth" }),
-                ({ "value", 300 }),
-                ({ "unit", "件" }),
-                ({ "armor_prop/armor", 10 })
             }),
         ]),
         "tongqun": ([
@@ -1452,26 +1523,15 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 3 })
             }),
         ]),
-        "xiangbian_huangmagua": ([
-            "name": HIY "镶边黄马褂" NOR,
-            "ids": ({ "huang magua", "cloth" }),
-            "weight": 3000,
+        "xiaoao": ([
+            "name": "圆领小袄",
+            "ids": ({ "xiao ao", "cloth" }),
+            "weight": 2000,
             "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "皇上御赐的黄马褂。\n" }),
-                ({ "value", 1500 }),
-                ({ "no_sell", "这，这可不敢买！" }),
+                ({ "long", "这是一件台夷族的圆领小袄。\n" }),
                 ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 18 })
-            }),
-        ]),
-        "xiumei_qingyi": ([
-            "name": "绣梅青衣",
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
                 ({ "unit", "件" }),
-                ({ "material", "cloth" }),
+                ({ "value", 300 }),
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
@@ -1497,6 +1557,30 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
+        "yayifu": ([
+            "name": "衙役服",
+            "ids": ({ "yayi cloth", "cloth" }),
+            "weight": 2000,
+            "properties": ({
+                ({ "long", "这是一件崭新的白棉布衙役服。\n" }),
+                ({ "material", "cloth" }),
+                ({ "unit", "件" }),
+                ({ "value", 150 }),
+                ({ "armor_prop/armor", 5 })
+            }),
+        ]),
+        "yayifu2": ([
+            "name": "衙役服",
+            "ids": ({ "yayi fu", "cloth" }),
+            "weight": 2000,
+            "properties": ({
+                ({ "long", "一件黑色短装，嵌以红边，是长安府的衙役穿的．\n" }),
+                ({ "material", "cloth" }),
+                ({ "unit", "件" }),
+                ({ "value", 500 }),
+                ({ "armor_prop/armor", 10 })
+            }),
+        ]),
         "yexing_shuikao": ([
             "name": "夜行水靠",
             "ids": ({ "Shui kao", "kao" }),
@@ -1517,30 +1601,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "yipin_shiweizhuang": ([
-            "name": HIY "一品侍卫装" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "御前侍卫的统一装束。\n" }),
-                ({ "value", 1000 }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 25 })
-            }),
-        ]),
-        "yuanling_xiaoao": ([
-            "name": "圆领小袄",
-            "ids": ({ "xiao ao", "cloth" }),
-            "weight": 2000,
-            "properties": ({
-                ({ "long", "这是一件台夷族的圆领小袄。\n" }),
-                ({ "material", "cloth" }),
-                ({ "unit", "件" }),
-                ({ "value", 300 }),
-                ({ "armor_prop/armor", 1 })
-            }),
-        ]),
         "yuchang": ([
             "name": NOR + YEL "羽氅" NOR,
             "ids": ({ "yu chang", "yu", "chang" }),
@@ -1552,19 +1612,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 15 })
             }),
         ]),
-        "yuci_huangmagua": ([
-            "name": HIY "黄马褂" NOR,
-            "ids": ({ "huang magua", "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "皇上御赐的黄马褂。\n" }),
-                ({ "value", 1000 }),
-                ({ "no_sell", "这，这可不敢买！" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 10 })
-            }),
-        ]),
         "yunchang": ([
             "name": HIW "云裳" NOR,
             "ids": ({ "cloth" }),
@@ -1573,29 +1620,6 @@ private mapping cloth_definitions() {
                 ({ "unit", "件" }),
                 ({ "material", "cloth" }),
                 ({ "armor_prop/armor", 1 })
-            }),
-        ]),
-        "yuqian_shiweizhuang": ([
-            "name": HIR "御前侍卫装" NOR,
-            "ids": ({ "cloth" }),
-            "weight": 3000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "御前侍卫的统一装束。\n" }),
-                ({ "value", 1000 }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 25 })
-            }),
-        ]),
-        "zaohong_duanmian_pipao": ([
-            "name": HIR "枣红缎面皮袍" NOR,
-            "ids": ({ "zaohong pao", "zaohong", "pao" }),
-            "weight": 4000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "material", "cloth" }),
-                ({ "value", 3000 }),
-                ({ "armor_prop/armor", 6 })
             }),
         ]),
         "zhaiken_ao": ([
@@ -1623,30 +1647,6 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/dodge", -10 })
             }),
         ]),
-        "zhenshen_changpao": ([
-            "name": "长袍",
-            "ids": ({ "chang pao", "cloth", "pao" }),
-            "weight": 2000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "这是件质量上佳长袍，是由[针神]亲手缝制的。\n" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 10 }),
-                ({ "value", 100 })
-            }),
-        ]),
-        "zhenshen_qingyi": ([
-            "name": "青衣",
-            "ids": ({ "qing yi", "cloth", "yi" }),
-            "weight": 2000,
-            "properties": ({
-                ({ "unit", "件" }),
-                ({ "long", "这是件质量上佳青衣，是由[针神]亲手缝制的。\n" }),
-                ({ "material", "cloth" }),
-                ({ "armor_prop/armor", 10 }),
-                ({ "value", 100 })
-            }),
-        ]),
         "zi_choushan": ([
             "name": MAG "紫绸衫" NOR,
             "ids": ({ "zichou shan", "zichou", "shan", "cloth" }),
@@ -1658,7 +1658,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 10 })
             }),
         ]),
-        "zipao_qingxing": ([
+        "zipao": ([
             "name": "紫袍",
             "ids": ({ "zi pao", "cloth" }),
             "weight": 500,
@@ -1669,7 +1669,7 @@ private mapping cloth_definitions() {
                 ({ "armor_prop/armor", 1 })
             }),
         ]),
-        "zipao_zhongxing": ([
+        "zipao2": ([
             "name": MAG "紫袍" NOR,
             "ids": ({ "zi pao", "cloth" }),
             "weight": 3000,

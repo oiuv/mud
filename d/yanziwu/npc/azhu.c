@@ -47,7 +47,7 @@ void create() {
     carry_object(__DIR__ "obj/necklace")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/d/items/cloth/fenhong_choushan")->wear();
-    carry_object("/d/items/boots/xiuhua_xiaoxie")->wear();
+    carry_object("/d/items/boots/xiuhuaxie")->wear();
     carry_object("/clone/misc/mask");
 }
 

@@ -90,7 +90,7 @@ void run() {
         blueprint->query("fixture_array")[0]["value"] == 1, "nested array defaults isolated");
     blueprint->delete("fixture_array"); destruct(after); destruct(second);
     check("/d/items/boots/shaolin_sengxie"->query("shaolin") == 1 &&
-        !"/d/items/boots/qingbu_sengxie"->query("shaolin"), "real sect distinction retained");
+        !"/d/items/boots/sengxie"->query("shaolin"), "real sect distinction retained");
     actor = new("/tests/actor");
     foreach (path in ({ "/d/items/cloth/buyi", "/d/items/boots/caoxie", "/clone/cloth/qingyi" })) {
         item = new(path);

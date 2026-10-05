@@ -7,7 +7,7 @@ void create() {
 西门吊桥，向西南可达岭南广东。
 LONG);
     set("objects", ([
-        __DIR__ "obj/hua3": 1,
+        "/d/items/headwear/huilan_hua": 1,
     ]));
     set("outdoors", "foshan");
     set("exits", ([

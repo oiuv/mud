@@ -9,6 +9,7 @@ import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { migrationPaths as clothPaths } from './tests/cloth_canonical.mjs';
 import { migrationPaths as bootsPaths, baseline as bootsBaseline } from './tests/boots_inventory.mjs';
+import { migrationPaths as headwearPaths, baseline as headwearBaseline } from './tests/headwear_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const fields = { backpack: 'my_depot', shop: 'dbase', legacy_bags: 'save_dbase' };
@@ -90,7 +91,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -133,7 +134,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     if (results.length !== files.length) throw new Error('Incomplete conversion result');
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
         input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o'] : 'listed_files_only',
-        baseline: baseline.baseline, boots_baseline: bootsBaseline, sandbox, files: [] };
+        baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')
@@ -182,6 +183,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
         console.log('node tools/migrate_item_records.mjs (--backup-root <backup> | --manifest <backup/manifest.json>) [--driver bin/driver.exe] [--output <new-directory>]');
         console.log('node tools/migrate_item_records.mjs --backup-root <backup> --write-manifest <backup/manifest.json>');
         console.log('备份根目录须含 user/ 和 shop/；不扫描其他目录。默认预览，显式 --output 才产生全新副本。');
+        console.log('一次处理已迁移服装、鞋靴与头饰；仅转换明确的物品路径字段，不替换玩家文本。');
         console.log('--write-manifest 仅枚举路径，清单须放备份根目录：不读正文、不启动驱动，不代表内容检查。');
         console.log('checked_files/affected_files/changes 分别表示检查数、受影响文件数、路径字段变更数。');
         console.log('manifest 只覆盖所列文件；empty_scope 是空范围，不代表全库无影响。输入永不覆盖。');

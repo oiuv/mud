@@ -8,9 +8,9 @@ void create() {
 眼。西面是一个小湖，湖面碧绿如玉，曛曛入醉。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua11": 1,
-        __DIR__ "obj/chahua12": 1,
-        __DIR__ "obj/chahua13": 1,
+        "/d/items/headwear/chahua11": 1,
+        "/d/items/headwear/chahua12": 1,
+        "/d/items/headwear/chahua13": 1,
         __DIR__ "npc/huanu": 1,
     ]));
     set("outdoors", "dali");

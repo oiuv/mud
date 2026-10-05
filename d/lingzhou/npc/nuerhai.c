@@ -30,7 +30,7 @@ void create() {
     set("jiali", 100);
 
     setup();
-    carry_object("/d/items/cloth/tiejia_zhongfang")->wear();
+    carry_object("/d/items/cloth/tiejia2")->wear();
 }
 
 void init() {

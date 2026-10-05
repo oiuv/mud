@@ -83,7 +83,7 @@ void create() {
         }
     }
 
-    carry_object("/d/items/cloth/erpin_shiweizhuang")->wear();
+    carry_object("/d/items/cloth/shiweifu3")->wear();
     add_money("silver", 20);
 }
 

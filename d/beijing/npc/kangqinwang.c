@@ -19,5 +19,5 @@ void create() {
     set_skill("unarmed", 50);
 
     setup();
-    carry_object("/d/items/cloth/xiangbian_huangmagua")->wear();
+    carry_object("/d/items/cloth/huangmagua2")->wear();
 }

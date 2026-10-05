@@ -38,7 +38,7 @@ void create() {
     set("jingli", 300);
 
     setup();
-    carry_object("/d/items/cloth/hongbian_yayifu")->wear();
+    carry_object("/d/items/cloth/yayifu2")->wear();
     carry_object(__DIR__ "obj/shawei")->wield();
 }
 

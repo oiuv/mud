@@ -8,7 +8,7 @@ void create() {
 望亭台楼阁，错落有秩。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua7": 1,
+        "/d/items/headwear/chahua7": 1,
         __DIR__ "npc/muwanqing": 1,
     ]));
     set("outdoors", "dali");

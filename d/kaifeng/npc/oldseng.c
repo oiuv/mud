@@ -18,6 +18,6 @@ void create() {
     set_skill("parry", 5);
 
     setup();
-    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
+    carry_object("/d/items/cloth/hui_jiasha")->wear();
     add_money("coin", 50);
 }

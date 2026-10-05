@@ -60,7 +60,7 @@ LONG);
     set_temp("apply/armor", 100);
 
     carry_object("/d/beijing/npc/obj/sword4")->wield();
-    carry_object("/d/items/cloth/jintuan_guanfu")->wear();
+    carry_object("/d/items/cloth/guanfu2")->wear();
 }
 
 int do_halt() {

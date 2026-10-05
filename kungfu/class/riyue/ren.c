@@ -120,7 +120,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/items/cloth/zaohong_duanmian_pipao")->wear();
+    carry_object("/d/items/cloth/pipao")->wear();
 }
 
 void attempt_apprentice(object ob) {

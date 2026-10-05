@@ -26,5 +26,5 @@ void create() {
     set_temp("apply/armor", 60);
 
     setup();
-    carry_object("/d/items/cloth/huibu_xiangbian_jiasha")->wear();
+    carry_object("/d/items/cloth/hui_jiasha")->wear();
 }

@@ -16,12 +16,12 @@ void create() {
     set_skill("dodge", 30);
     set_skill("parry", 30);
     set("vendor_goods", ({
-        __DIR__ "obj/zi-luolan",
-        __DIR__ "obj/hong-meigui",
-        __DIR__ "obj/huang-meigui",
-        __DIR__ "obj/lan-tiane",
-        __DIR__ "obj/bai-chahua",
-        __DIR__ "obj/hei-mudan",
+        "/d/items/headwear/zi_luolan",
+        "/d/items/headwear/hong_meigui2",
+        "/d/items/headwear/huang_meigui2",
+        "/d/items/headwear/lan_tiane",
+        "/d/items/headwear/bai_chahua",
+        "/d/items/headwear/hei_mudan",
     }));
 
     setup();

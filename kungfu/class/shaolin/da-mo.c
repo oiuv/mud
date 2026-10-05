@@ -153,7 +153,7 @@ void create() {
     set_temp("apply/unarmed_damage", 150);
 
     setup();
-    carry_object("/d/items/cloth/hufa_jiasha_huangse")->wear();
+    carry_object("/d/items/cloth/hufa_jiasha2")->wear();
 }
 
 void attempt_apprentice(object ob) {

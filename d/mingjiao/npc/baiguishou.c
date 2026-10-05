@@ -55,5 +55,5 @@ void create() {
 
     setup();
 
-    carry_object("/d/items/cloth/huoyan_baibu_changpao")->wear();
+    carry_object("/d/items/cloth/baipao2")->wear();
 }

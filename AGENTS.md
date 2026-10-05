@@ -54,6 +54,10 @@ Honor `.editorconfig`: UTF-8, LF endings, four-space indentation, trimmed traili
 
 Function names must describe actual behavior, not mechanically split capital letters: treat `todo` as one concept, distinguish collections/counts/descriptions, and use action verbs for mutations. A naming-only change must preserve parameters, return values, boolean polarity, and stored data.
 
+### 物品与迁移数据命名
+
+规范 ID 和新增文件名应简洁、唯一、能大致识别内容。允许有意义的短名称加稳定编号，如 `buyi2`、`xiuhuaxie2`、`chahua13`；多词使用 snake_case。不为表达所有颜色、价格、重量、描述或限制而拼接长限定词，也不带仅表示历史来源的目录或作者前缀。已有简洁名称保留，编号不随排序或插入改变，等价定义仍合并。此规则适用于所有后续数据迁移；更名须同步调用、测试、文档及旧记录的离线映射，不改变玩家名称、属性或行为，不增加运行期别名。
+
 ### 玩家可见文本
 
 - 所有玩家可能看到的名称、描述和提示都必须符合武侠游戏语境，包括房间、物品、NPC 对话、命令反馈、帮助文本、系统消息、异常提示、默认值、占位内容和降级文案。

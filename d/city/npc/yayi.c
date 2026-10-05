@@ -18,5 +18,5 @@ void create() {
         "衙役说道：衙门岂是你放肆的地方？！\n"
     }));
     setup();
-    carry_object("/d/items/cloth/baimian_yayifu")->wear();
+    carry_object("/d/items/cloth/yayifu")->wear();
 }

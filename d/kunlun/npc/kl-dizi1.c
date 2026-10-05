@@ -26,5 +26,5 @@ void create() {
 
     create_family("昆仑派", 6, "弟子");
     setup();
-    carry_object("/d/items/cloth/baibian_huangse_changpao")->wear();
+    carry_object("/d/items/cloth/huang_changpao")->wear();
 }

@@ -30,7 +30,7 @@ void create() {
     }));
     setup();
     carry_object("/d/beijing/npc/obj/sword4")->wield();
-    carry_object("/d/items/cloth/yipin_shiweizhuang")->wear();
+    carry_object("/d/items/cloth/shiweifu2")->wear();
 }
 
 void init() {

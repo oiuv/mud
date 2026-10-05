@@ -54,8 +54,8 @@ void run() {
     actor->run_command("testnpc helmet");
     item = present("helmet", actor);
     check(
-        objectp(item) && base_name(item) == "/d/beijing/npc/obj/helmet",
-        "other qian branch unchanged"
+        objectp(item) && base_name(item) == "/d/items/headwear/gangkui",
+        "helmet branch retains delivery after HEAD migration"
     );
     foreach (item in all_inventory(actor)) destruct(item);
 

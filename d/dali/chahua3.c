@@ -8,9 +8,9 @@ void create() {
 边一溜的盆栽的茶花，微风从水面吹来，摇曳婆娑。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua8": 1,
-        __DIR__ "obj/chahua9": 1,
-        __DIR__ "obj/chahua10": 1,
+        "/d/items/headwear/chahua8": 1,
+        "/d/items/headwear/chahua9": 1,
+        "/d/items/headwear/chahua10": 1,
     ]));
     set("outdoors", "dali");
     set("exits", ([

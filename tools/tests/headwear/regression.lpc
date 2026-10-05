@@ -1,0 +1,161 @@
+// Reuse actual gameplay assertions, not CLOTH behavior in the game.
+inherit "/tests/cloth_regression";
+
+private mixed *headwear_cases;
+private int current_case;
+
+void check_baseline() {
+    mixed *pair;
+    object blueprint, instance;
+    mixed *observations;
+
+    observations = ({});
+    foreach (pair in headwear_cases) {
+        blueprint = load_object(pair[0]);
+        instance = new(pair[0]);
+        check(blueprint->query_weight() == pair[2], pair[0] + " original blueprint weight");
+        check(instance->query_weight() == pair[3], pair[0] + " original clone weight");
+        check(instance->query("armor_type") == "head", pair[0] + " original head slot");
+        observations += ({ ({ pair[0], blueprint->query_weight(), instance->query_weight() }) });
+        destruct(instance);
+    }
+    write_file("/tests/weight-baseline.json", json_encode(observations), 1);
+}
+
+void check_variety(mixed *pair) {
+    object old_blueprint, blueprint, before, after, second, actor;
+    mapping state, applied;
+    string path, instance_long, blueprint_long;
+    int old_wear, new_wear, encumbrance;
+
+    path = pair[1];
+    old_blueprint = load_object(pair[0]);
+    blueprint = load_object(path);
+    before = new(pair[0]); after = new(path); second = new(path);
+    compare(old_blueprint, blueprint, path + " blueprint");
+    compare(before, after, path + " clone");
+    compare(after, second, path + " reconstruction");
+    check(!clonep(blueprint) && virtualp(blueprint) && clonep(after) && virtualp(after) &&
+        base_name(after) == path && after->query_default_object() == blueprint, "final identities/default object");
+    check(
+        blueprint->query_weight() == pair[2] && after->query_weight() == pair[3],
+        "effective weights retained"
+    );
+    check(
+        master()->setup_count(blueprint) == 1 && master()->setup_count(after) == 1,
+        "setup exactly once"
+    );
+    after->virtual_start();
+    check(master()->setup_count(after) == 1, "virtual_start idempotent");
+    state = copy(second->query("armor_prop"));
+    after->set("armor_prop/armor", 9999);
+    check(save_variable(state) == save_variable(second->query("armor_prop")) &&
+        save_variable(state) == save_variable(blueprint->query("armor_prop")), "mapping isolation");
+    after->set("armor_prop", copy(state));
+    instance_long = second->long();
+    blueprint_long = blueprint->long();
+    after->set("long", "边缘沾着一片落叶。\n");
+    check(
+        second->long() == instance_long && blueprint->long() == blueprint_long,
+        "description override isolated"
+    );
+    after->delete("long");
+    check(after->long() == instance_long, "description fallback with instance weight");
+    check(after->query("armor_type") == "head" && !function_exists("washed", after) &&
+        !function_exists(
+            "dry_cloth",
+            after
+        ) && !function_exists("do_tear", after), "head slot without other family abilities");
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    encumbrance = actor->query_encumbrance();
+    before->move(actor); second->move(actor);
+    check(actor->query_encumbrance() - encumbrance == 2 * pair[3], "carried clone weights");
+    old_wear = "/cmds/std/wear"->do_wear(actor, before);
+    applied = copy(actor->query_temp("apply"));
+    if (old_wear) before->unequip();
+    new_wear = "/cmds/std/wear"->do_wear(actor, second);
+    check(old_wear == new_wear && new_wear == 1, "female wear parity");
+    check(
+        save_variable(applied) == save_variable(actor->query_temp("apply")),
+        "wear applied properties"
+    );
+    check(actor->query_temp("armor/head") == second, "actual head equipment slot");
+    if (new_wear) second->unequip();
+    actor->set("gender", "男性");
+    old_wear = "/cmds/std/wear"->do_wear(actor, before);
+    if (old_wear) before->unequip();
+    new_wear = "/cmds/std/wear"->do_wear(actor, second);
+    check(old_wear == new_wear, "male restriction parity");
+    if (new_wear) second->unequip();
+    check(!actor->query_temp("armor/head"), "head slot released");
+    before->move(this_object(), 1); second->move(this_object(), 1);
+    check(actor->query_encumbrance() == encumbrance, "encumbrance restored");
+    destruct(actor); destruct(before); destruct(after); destruct(second);
+}
+
+void check_contracts() {
+    object provider, blueprint, first, second, item;
+    mapping definition, group;
+    mixed *nested;
+    mixed err;
+    string *ids;
+
+    provider = load_object("/d/items/headwear");
+    check(!provider->query("name") && master()->setup_count(provider) == 0, "inert provider");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        blueprint = load_object(group["path"]);
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(
+            save_variable(blueprint->parse_command_id_list()) == save_variable(ids),
+            "canonical aliases exactly match"
+        );
+    }
+    definition = provider->query_definition("gangkui");
+    definition["ids"][0] = "mutated";
+    check(provider->query_definition("gangkui")["ids"][0] != "mutated", "registry copy isolated");
+    err = catch(item = new("/d/items/headwear/not_a_variety"));
+    check(!item && !find_object("/d/items/headwear/not_a_variety"), "unknown variety rejected");
+    err = catch(new("/d/items/headwear", "gangkui"));
+    check(!!err, "direct parameter clone rejected");
+    check(!provider->valid_variety_path("/d/items/headwear/gangkui/extra") &&
+        !provider->valid_variety_path("/d/items/boots/caoxie"), "exact registry");
+    blueprint = load_object("/d/items/headwear/gangkui");
+    blueprint->set("fixture_array", ({ ([ "value": 1 ]) }));
+    first = new(base_name(blueprint)); second = new(base_name(blueprint));
+    nested = first->query("fixture_array"); nested[0]["value"] = 2;
+    check(first != second && second->query("fixture_array")[0]["value"] == 1 &&
+        blueprint->query("fixture_array")[0]["value"] == 1, "nested defaults and reconstruction isolated");
+    blueprint->delete("fixture_array"); destruct(first); destruct(second);
+}
+
+void run_chunk() {
+    mixed *pair;
+
+    if (current_case < sizeof(headwear_cases)) {
+        pair = headwear_cases[current_case++];
+        check_variety(pair);
+        // Full-batch business checks follow the integration of storage and callers.
+        if (file_size("/tests/headwear_business.lpc") > 0) {
+            check_business(pair);
+            check_refusals(pair[0]); check_refusals(pair[1]);
+            "/tests/headwear_business"->check_storage(pair);
+        }
+        call_out("run_chunk", 0);
+        return;
+    }
+    check_contracts();
+    if (file_size("/tests/headwear_business.lpc") > 0)
+        "/tests/headwear_business"->run();
+    master()->finish();
+}
+
+void run() {
+    headwear_cases = json_decode(read_file("/tests/cases.json"));
+    current_case = 0;
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) {
+        master()->finish();
+        return;
+    }
+    run_chunk();
+}

@@ -71,7 +71,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/items/cloth/baibu_heibian_jiasha")->wear();
+    carry_object("/d/items/cloth/bai_jiasha")->wear();
 }
 
 

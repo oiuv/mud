@@ -90,7 +90,7 @@ string ask_me_2(string name) {
     if (query("beixin_count") < 1)
         return "抱歉，你来得不是时候，武器已经发完了。";
 
-    ob = new("/d/items/cloth/tie_beixin_sengmen");
+    ob = new("/d/items/cloth/tie_beixin2");
     ob->move(this_player());
 
     add("beixin_count", -1);

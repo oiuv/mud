@@ -32,5 +32,5 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/bi")->wield();
-    carry_object("/d/items/cloth/pi_beixin_guizhong")->wear();
+    carry_object("/d/items/cloth/pi_beixin2")->wear();
 }

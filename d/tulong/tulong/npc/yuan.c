@@ -20,7 +20,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/items/cloth/duanda_jinzhuang")->wear();
+    carry_object("/d/items/cloth/jinzhuang")->wear();
 }
 
 int accept_fight(object who) {

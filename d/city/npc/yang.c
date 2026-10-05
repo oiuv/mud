@@ -16,8 +16,8 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         __DIR__ "obj/mabudai",
-        "/d/items/cloth/pi_beixin_guizhong",
-        __DIR__ "obj/toukui",
+        "/d/items/cloth/pi_beixin2",
+        "/d/items/headwear/tie_toukui",
         __DIR__ "obj/cycle",
         __DIR__ "obj/surcoat",
         __DIR__ "obj/shield",

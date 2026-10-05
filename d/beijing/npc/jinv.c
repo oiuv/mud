@@ -21,6 +21,6 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/items/cloth/bankai_shayi")->wear();
+    carry_object("/d/items/cloth/shayi")->wear();
     add_money("coin", 30);
 }

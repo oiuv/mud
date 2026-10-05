@@ -34,6 +34,6 @@ void create() {
     create_family("武当派", 5, "茶童");
 
     setup();
-    carry_object("/d/items/cloth/qingse_daopao_louhua")->wear();
+    carry_object("/d/items/cloth/qing_daopao3")->wear();
     carry_object("/d/city/obj/necklace");
 }

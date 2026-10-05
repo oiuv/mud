@@ -6,13 +6,15 @@ import { execFileSync, spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { root, readBaseline, tracked } from './cloth_inventory.mjs';
 import { readBaseline as bootsBaseline, dynamicCallers } from './boots_inventory.mjs';
+import { readBaseline as headwearBaseline, dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 
 const compiler = resolve(process.argv[2] || join(root, 'bin/lpcc.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-compile-'));
 console.log('Compile-only cloth migration: ' + sandbox);
 const core = execFileSync('git', ['-C', join(root, 'mudcore'), 'ls-files', '-z'], { encoding: 'utf8' })
     .split('\0').filter(Boolean).map(path => 'mudcore/' + path);
-const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h']
+const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
+    'd/items/headwear.lpc', 'd/items/headwear_data.h']
     .filter(path => /\.(c|lpc|h)$/.test(path) && !/^(fluffos|tools|data|ai)\//.test(path));
 for (const file of new Set(sources)) {
     if (!existsSync(join(root, file))) continue;
@@ -48,7 +50,10 @@ writeFileSync(join(sandbox, 'driver.cfg'), [
     'include directories : /include:/mudcore/include', 'global include file : <globals.h>',
 ].join('\n') + '\n');
 const boots = process.argv.includes('--boots');
-const files = boots ? [...new Set([...bootsBaseline().hits.map(hit => hit.file), ...dynamicCallers,
+const headwear = process.argv.includes('--headwear');
+const files = headwear ? [...new Set([...headwearBaseline().hits.map(hit => hit.file), ...headwearDynamicCallers,
+    'feature/user_storage.c', 'd/items/headwear.lpc', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] :
+    boots ? [...new Set([...bootsBaseline().hits.map(hit => hit.file), ...dynamicCallers,
     'feature/user_storage.c', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] : [...new Set([...readBaseline().hits.map(hit => hit.file),
     'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-xiang.c',
     'feature/user_storage.c', 'd/items/cloth.lpc'])].filter(path => /\.(c|lpc)$/.test(path));
@@ -66,5 +71,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);

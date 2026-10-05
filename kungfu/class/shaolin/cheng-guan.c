@@ -58,7 +58,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/items/cloth/jinbian_heibu_jiasha")->wear();
+    carry_object("/d/items/cloth/heise_jiasha2")->wear();
 }
 
 #include "/kungfu/class/shaolin/cheng.h"

@@ -8,9 +8,9 @@ void create() {
 花怒放，实在不知道哪本茶花更好些。
 LONG);
     set("objects", ([
-        __DIR__ "obj/chahua2": 1,
-        __DIR__ "obj/chahua3": 1,
-        __DIR__ "obj/chahua6": 1,
+        "/d/items/headwear/chahua2": 1,
+        "/d/items/headwear/chahua3": 1,
+        "/d/items/headwear/chahua6": 1,
     ]));
     set("exits", ([
         "west": __DIR__ "chahua7",

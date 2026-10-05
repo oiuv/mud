@@ -4,13 +4,22 @@ import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import { references } from './cloth_inventory.mjs';
 import { root, original, readBaseline, canonicalGroups, renderDefinitions, expectedCaller, dynamicCallers } from './boots_inventory.mjs';
+import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedCaller as expectedHeadwearCaller,
+    dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
+import { renameReferences } from './item_ids.mjs';
 
 const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
     .filter(t => t.kind !== 'whitespace').map(t => [t.kind, t.text]);
 const baseline = readBaseline();
 const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
-for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-    semantic(expectedCaller(file)), 'Unexpected caller change: ' + file);
+for (const file of callers) {
+    let expected = expectedCaller(file);
+    if (headwearBaseline().hits.some(h => h.file === file) || headwearDynamicCallers.includes(file)) {
+        assert.deepEqual(semantic(renameReferences(beforeHeadwear(file))), semantic(expected), 'BOOTS historical caller baseline changed: ' + file);
+        expected = expectedHeadwearCaller(file);
+    }
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expected), 'Unexpected caller change: ' + file);
+}
 assert.equal(callers.size, 15);
 assert.equal(baseline.hits.length, 17);
 assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');
@@ -21,7 +30,7 @@ for (const row of baseline.varieties) {
 }
 for (const file of ['d/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c',
     'd/city/npc/cloth/shoes.c', 'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-chen.c'])
-    assert.equal(readFileSync(join(root, file), 'utf8'), original(file), 'Excluded behavior changed: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(renameReferences(original(file))), 'Excluded behavior changed: ' + file);
 // No two substitutions in one file collapse distinct configuration keys in this batch.
 for (const file of callers) {
     const paths = new Map();

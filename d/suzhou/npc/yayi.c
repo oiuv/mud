@@ -12,5 +12,5 @@ void create() {
     set_skill("unarmed", 30);
     set_skill("dodge", 30);
     setup();
-    carry_object("/d/items/cloth/baimian_yayifu")->wear();
+    carry_object("/d/items/cloth/yayifu")->wear();
 }
