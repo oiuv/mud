@@ -4,6 +4,14 @@
 
 This is a UTF-8 Chinese MUD written primarily in LPC and run by FluffOS. Administrative daemons and configuration live in `adm/`; player, wizard, and test commands are under `cmds/`. Game content is organized across `d/`, `b/`, `world/`, and `clone/`. Shared behavior belongs in `feature/`, `inherit/`, and `std/`, while headers and macros live in `include/`. Keep technical documentation in `docs/`; `www/` contains the WebSocket client assets. `mudcore/` is a Git submodule, and `ai/` is an optional Python service.
 
+## Documentation Layout & Sources
+
+- `doc/` 是历史 LPC、efun/apply 文档归档，仅供历史查阅，不作为当前开发依据。
+- 查阅 efun/apply 的签名、行为和限制时，必须使用所用 FluffOS 版本对应的 `fluffos/docs/` 文档或 `fluffos/src/` 源码；有疑义时以驱动实现为准，并核对功能的支持版本。
+- `docs/` 存放本项目的游戏开发文档。目前覆盖不全，随功能开发、修复和重构同步补充完善，不安排专项补齐或以全量覆盖为交付前提。
+- `help/` 统一存放面向游戏用户的文档，包括玩法说明、命令用法和操作帮助；开发者参考与实现细节留在 `docs/`。
+- 所有面向玩家的游戏更新（新功能、玩法或数值调整、操作变化及问题修复）必须在同一变更中同步更新 `help/changelog`，玩家通过 `help changelog` 查看。沿用现有日期倒序和游戏内显示格式，用简洁中文说明玩家能感知的变化及必要的操作示例，不直接复制技术提交记录，不把未实现或尚未开放的功能写成已可用。纯内部重构、开发规范等无玩家影响的变更无需写入玩家更新日志。
+
 ## Build, Test, and Development Commands
 
 当前 MUDLIB 最低支持 **FluffOS v2026.0712.3**，开发与测试以该版本及更新版本为目标，不为更早的驱动添加兼容分支。使用晚于最低版本才引入的功能时，须核对实际支持版本并明确提升最低要求，不能把“现代 FluffOS”当作所有新特性均可用的保证。
@@ -110,7 +118,7 @@ There is no repository-wide coverage runner. Start FluffOS in debug mode, inspec
 
 ## LPC Language Reference
 
-开发中涉及 LPC 语法、类型、运算符、编译器扩展或 efun 签名时，以 `docs/LPC_Language_FluffOS.md` 的最新内容为项目标准。驱动升级后，应先根据 `fluffos/` 源码和测试同步该文档。
+开发中涉及 LPC 语法、类型、运算符或编译器扩展时，以 `docs/LPC_Language_FluffOS.md` 的最新内容为项目标准，并注意其中标注的核对基线与支持版本。efun/apply 的签名和行为必须查阅 `fluffos/docs/` 或 `fluffos/src/`，不以历史 `doc/` 或项目指南中的摘要替代驱动依据。驱动升级或开发中发现差异时，根据源码和测试同步修订相关内容。
 
 ## Commit & Pull Request Guidelines
 
@@ -119,3 +127,14 @@ Recent history favors concise subjects such as `fix: ...`, `feat: ...`, and `ref
 ## Security & Configuration
 
 Copy `data/.env.example` to `data/.env` locally. Never commit credentials, generated logs, dumps, temporary files, or player data.
+
+### 权限架构与后续开发
+
+后续开发以[简化权限规范](docs/architecture/security-permissions.md)为准：新功能仅区分玩家与管理员，复用驱动 `wizardp()` 标记判断管理身份，不细分巫师等级；代码经 Git 审查、测试和部署交付，不再以按巫师等级分区的在线源码开发为目标。开发贡献者身份不自动获得实服管理权限；只有出现明确的运营需求时才另行设计受限 GM，不预建多级权限或复杂 RBAC 框架。
+
+- 新功能和重构不为 `immortal/apprentice/wizard/arch` 中间等级、个人开发目录授权或旧在线编辑流程增加兼容分支、别名和新依赖；不新增 `wiz_level() >= 数字` 等等级序号判断。
+- 保留 UID/EUID、对象归属、文件与存档访问、身份切换及管理操作授权。Root/Domain 等对象身份不是人员角色，不得把全部对象提权为 Root，或将 `valid_*` 改为无条件放行。
+- 源码由部署流程写入；后续不新增在线编辑源码的开发入口，旧命令保留但不作为日常开发流程。必要的更新、重启、数据管理及 `eval` 等高危操作仍须受授权、调用者校验和审计约束，不因采用 Git 而免检；本规范不调整已有操作的权限。
+- **旧实现保留，新功能遵守新规范。** 现有六级权限、账号角色、命令路径及目录规则不迁移、不顺带改写，全面迁移不是新功能开发的前提。新管理员命令放在 `/cmds/adm/`，以 `wizardp(me)` 判断管理身份，保留调用者、对象归属及具体操作授权检查；不要求新功能使用旧 `(admin)` 名称或等级序号判断，不另建权限运行时。巫师标记由可信身份流程通过 `enable_wizard()` / `disable_wizard()` 管理，不能由玩家输入自授。现有多个旧巫师等级都可能具有该标记，不能据此批量替换旧命令的 `valid_grant()` 或改变既有权限；整体迁移须另行确认。
+- 旧权限系统功能正常即可长期共存，不列为默认待迁移债务，不设清理期限。仅在具体场景显示安全、维护或功能接入方面的明确收益，且迁移收益高于成本和风险时，才提出独立迁移建议；未经确认不实施，不因架构年代或形式统一而重构。
+- 本规范属于本 MUDLIB 的宿主策略，不将两角色业务规则硬编码进通用 `mudcore`；不改变既有物品存档迁移和驱动最低版本要求。
