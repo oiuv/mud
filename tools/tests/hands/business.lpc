@@ -1,0 +1,277 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+void check_storage(mixed *pair) {
+    object actor, item, converter;
+    mapping paths, data, result, records;
+    int count;
+
+    actor = new("/tests/actor");
+    item = new(pair[1]);
+    actor->store_item(actor, item, 1);
+    check(
+        !item && actor->depot_records()["item0"]["file"] == pair[1],
+        "hands stored with canonical path"
+    );
+    actor->run_command("take 1 1");
+    check(
+        sizeof(all_inventory(actor)) == 1 && !sizeof(actor->depot_records()),
+        "stored hands reconstructed"
+    );
+    foreach (item in all_inventory(actor)) destruct(item);
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    paths["/d/changan/npc/obj/cloth"] = "/d/items/cloth/buyi";
+    paths["/d/city/npc/obj/caoxie"] = "/d/items/boots/caoxie";
+    paths["/d/beijing/npc/obj/head"] = "/d/items/headwear/gangkui";
+    converter = load_object("/tests/cloth_records");
+    data = ([
+        "item0": ([ "file": pair[0], "amount": 2, "id": "old hands", "name": "旧手具" ]),
+        "item1": ([ "file": "/d/changan/npc/obj/cloth", "amount": 3, "id": "cloth", "name": "布衣" ]),
+        "item2": ([ "file": "/d/city/npc/obj/caoxie", "amount": 4, "id": "sandals", "name": "草鞋" ]),
+        "item3": ([ "file": "/d/beijing/npc/obj/head", "amount": 5, "id": "helmet", "name": "钢盔" ])
+    ]);
+    result = converter->convert(save_variable(data), "backpack", paths, ({}));
+    records = restore_variable(result["value"]);
+    check(result["changes"] == 4 && records["item0"]["amount"] == 2 &&
+        records["item0"]["name"] == "旧手具", "four-family record conversion");
+    write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/restored");
+    actor->run_command("take 1 2"); actor->run_command("take 1 3"); actor->run_command("take 1 4"); actor->run_command("take 1 5");
+    check(
+        sizeof(all_inventory(actor)) == 14 && !sizeof(actor->depot_records()),
+        "four-family saved quantities rebuilt"
+    );
+    foreach (item in all_inventory(actor)) {
+        check(member_array(
+            base_name(item),
+            ({
+                pair[1],
+                "/d/items/cloth/buyi",
+                "/d/items/boots/caoxie",
+                "/d/items/headwear/gangkui"
+            })
+        ) >= 0,
+            "restored canonical identity");
+        if (base_name(item) == pair[1]) count++;
+        destruct(item);
+    }
+    check(count == 2, "exact restored hands count");
+    destruct(actor);
+}
+
+void clear_inventory(object actor) {
+    object item;
+
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+void check_dynamic(object actor) {
+    object npc, item;
+    string file, keyword, expected;
+    int stock;
+
+    foreach (file in ({ "/d/xiangyang/npc/wuxiuwen", "/kungfu/class/shaolin/dao-xiang" })) {
+        npc = new(file); npc->set("huju_count", 20); npc->set("beixin_count", 2);
+        actor->delete("family"); actor->select_npc(npc, "ask_me_1");
+        actor->run_command("testnpc shoutao");
+        if (file == "/kungfu/class/shaolin/dao-xiang") {
+            check(
+                !sizeof(all_inventory(actor)) && npc->query("huju_count") == 20,
+                "dao sect required"
+            );
+            actor->set("family/family_name", "少林派");
+            actor->run_command("testnpc shoutao");
+        } else check(sizeof(all_inventory(actor)) == 1, "wu has no sect requirement");
+        item = present("shoutao", actor);
+        check(objectp(item) && base_name(item) == "/d/items/hands/shaolin_shoutao" &&
+            npc->query("huju_count") == 19, "dynamic glove and stock");
+        actor->run_command("testnpc shoutao");
+        check(
+            sizeof(all_inventory(actor)) == 1 && npc->query("huju_count") == 19,
+            "held glove not issued twice"
+        );
+        clear_inventory(actor);
+        foreach (keyword in ({ "zhitao", "huwan", "huyao", "weibo" })) {
+            stock = npc->query("huju_count");
+            actor->run_command("testnpc " + keyword);
+            expected = keyword == "zhitao" ? "/d/items/hands/shaolin_zhitao" : "/d/shaolin/obj/" + keyword;
+            check(sizeof(all_inventory(actor)) == 1 && base_name(all_inventory(actor)[0]) == expected &&
+                npc->query("huju_count") == stock - 1, "shared stock and branch " + keyword);
+            if (keyword == "zhitao") {
+                actor->run_command("testnpc zhitao");
+                check(sizeof(all_inventory(actor)) == 1 && npc->query("huju_count") == stock - 1,
+                    "held finger guard not issued twice");
+            }
+            clear_inventory(actor);
+        }
+        if (file == "/kungfu/class/shaolin/dao-xiang") {
+            actor->run_command("testnpc sengxie");
+            check(sizeof(all_inventory(actor)) == 1 &&
+                base_name(all_inventory(actor)[0]) == "/d/items/boots/shaolin_sengxie", "existing boots branch");
+            clear_inventory(actor);
+        }
+        npc->set("huju_count", 0); actor->run_command("testnpc zhitao");
+        check(!sizeof(all_inventory(actor)), "empty shared stock refuses");
+        actor->select_npc(npc, "ask_me_2"); actor->run_command("testnpc beixin");
+        check(sizeof(all_inventory(actor)) == 1 &&
+            base_name(all_inventory(actor)[0]) == "/d/items/cloth/tie_beixin2" &&
+            npc->query("beixin_count") == 1, "existing CLOTH branch and independent stock");
+        clear_inventory(actor);
+        npc->set("beixin_count", 0); actor->run_command("testnpc beixin");
+        check(!sizeof(all_inventory(actor)), "empty vest stock refuses");
+        destruct(npc);
+    }
+}
+
+void check_monk(object actor, object room) {
+    object monk, item;
+    int i, stock;
+
+    monk = new("/d/shaolin/npc/datie-seng"); monk->reset();
+    actor->select_npc(monk, "ask_armor");
+    check(
+        monk->query("hand_count") == 20 && sizeof(monk->pool()) == 10,
+        "monk reset and ten reward entries"
+    );
+    for (i = 0; i < 10; i++) {
+        monk->choose(i); actor->delete_temp("last_ask/for_hand");
+        actor->run_command("testnpc hand");
+        item = present("iron hand", actor);
+        check(objectp(item) && base_name(item) == (i ? "/d/items/hands/shaolin_tieshou" : "/clone/book/book-iron"),
+            "actual reward pool entry " + i);
+        check(monk->query("hand_count") == 19 - i &&
+            time() - actor->query_temp("last_ask/for_hand") < 2, "reward decrements stock and starts cooldown");
+        check(
+            !!function_exists("do_study", item) == !i,
+            "only original book reward has study behavior"
+        );
+        stock = monk->query("hand_count");
+        actor->delete_temp("last_ask/for_hand"); actor->run_command("testnpc hand");
+        check(
+            sizeof(all_inventory(actor)) == 1 && monk->query("hand_count") == stock,
+            "held iron hand refuses"
+        );
+        item->move(room, 1); actor->run_command("testnpc hand");
+        check(
+            !sizeof(all_inventory(actor)) && monk->query("hand_count") == stock,
+            "ground iron hand refuses"
+        );
+        destruct(item);
+        actor->set_temp("last_ask/for_hand", time()); actor->run_command("testnpc hand");
+        check(
+            !sizeof(all_inventory(actor)) && monk->query("hand_count") == stock,
+            "240 second cooldown retained"
+        );
+    }
+    actor->set_temp("last_ask/for_hand", time() - 241); monk->set("hand_count", 0);
+    actor->run_command("testnpc hand"); check(
+        !sizeof(all_inventory(actor)),
+        "empty monk stock refuses"
+    );
+    monk->reset(); actor->run_command("testnpc hand");
+    check(
+        sizeof(all_inventory(actor)) == 1 && monk->query("hand_count") == 19,
+        "reset and expired cooldown allow reward"
+    );
+    clear_inventory(actor); destruct(monk);
+}
+
+void check_cave(object actor, object room) {
+    object cave, item, artifact, other;
+    string path;
+    int deaths;
+
+    cave = new("/d/xiyu/houdong");
+    // Run each path with real equipment; die() counts only inside this test actor.
+    foreach (path in ({
+        "",
+        "unworn_gold",
+        "/d/items/hands/shoutao",
+        "/d/items/hands/jinsi_shoutao"
+    })) {
+        actor->delete_temp("move"); deaths = actor->death_count();
+        if (path != "") {
+            item = new(path == "unworn_gold" ? "/d/items/hands/jinsi_shoutao" : path);
+            item->move(actor, 1);
+            if (path != "unworn_gold")
+                check("/cmds/std/wear"->do_wear(actor, item), "cave glove worn in real hands slot");
+        }
+        actor->select_npc(cave, "do_move"); actor->run_command("testnpc other");
+        check(
+            !actor->query_temp("move") && actor->death_count() == deaths,
+            "wrong desk argument harmless"
+        );
+        actor->run_command("testnpc desk");
+        if (path != "/d/items/hands/jinsi_shoutao") {
+            check(
+                actor->death_count() == deaths + 1 && !actor->query_temp("move"),
+                "missing/wrong glove move retains death"
+            );
+            actor->set_temp("move", 1); actor->select_npc(cave, "do_pick");
+            actor->run_command("testnpc mu ding from desk");
+            check(
+                actor->death_count() == deaths + 2 && !actor->query_temp("move"),
+                "missing/wrong glove pick retains death"
+            );
+        } else {
+            check(
+                actor->query_temp("move") == 1 && actor->death_count() == deaths,
+                "gold silk glove moves desk safely"
+            );
+            actor->run_command("testnpc desk");
+            check(
+                actor->query_temp("move") == 1 && actor->death_count() == deaths,
+                "repeat desk move refused safely"
+            );
+            actor->select_npc(cave, "do_pick"); actor->run_command("testnpc other");
+            check(
+                !environment(load_object("/clone/misc/swmuding")),
+                "wrong pick does not move artifact"
+            );
+            actor->run_command("testnpc mu ding from desk");
+            artifact = find_object("/clone/misc/swmuding");
+            check(environment(artifact) == actor && !actor->query_temp("move") && actor->death_count() == deaths,
+                "gold silk glove picks artifact and clears desk state");
+            actor->run_command("testnpc mu ding from desk");
+            check(environment(artifact) == actor, "repeat pick without move does not duplicate");
+            other = new("/tests/actor"); other->move(room, 1); artifact->move(other, 1);
+            actor->set_temp("move", 1); actor->run_command("testnpc mu ding from desk");
+            check(environment(artifact) == other, "owned artifact cannot be stolen");
+            destruct(artifact); destruct(other);
+        }
+        if (item) { item->unequip(); destruct(item); }
+    }
+    destruct(cave);
+}
+
+void run() {
+    object actor, room, item;
+    string path;
+
+    room = new("/tests/room"); actor = new("/tests/actor"); actor->move(room, 1);
+    check_dynamic(actor); check_monk(actor, room); check_cave(actor, room);
+    foreach (path in ({ "/tests/unknown/key", "/tests/unique", "/tests/noclone" })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && !sizeof(actor->depot_records()),
+            "unknown/unique/no-clone storage refused " + path
+        );
+        destruct(item);
+    }
+    foreach (path in ({ "/d/luoyang/npc/obj/hand", "/d/luoyang/npc/obj/finger" })) {
+        item = new(path); item->owner_is_killed();
+        check(!item, "excluded death callback retained " + path);
+    }
+    item = new("/d/lingxiao/obj/book-iron");
+    check(
+        function_exists("do_study", item) && master()->setup_count(item) == 0,
+        "excluded study item initializer retained"
+    );
+    destruct(item);
+    foreach (path in ({ "/d/items/cloth/buyi", "/d/items/boots/caoxie", "/d/items/headwear/gangkui",
+        "/d/items/hands/jinjie", "/clone/cloth/qingyi" })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(!item, "four families and physical storage coexist");
+    }
+    check(sizeof(actor->depot_records()) == 5, "distinct stored varieties retained");
+    destruct(actor); destruct(room);
+}

@@ -7,15 +7,15 @@ mixed ask_armor();
 
 string *armors = ({
     "/clone/book/book-iron",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
-    "/d/shaolin/obj/tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
+    "/d/items/hands/shaolin_tieshou",
 });
 
 void create() {

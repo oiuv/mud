@@ -14,7 +14,7 @@ LONG);
         __DIR__ "obj/hulu": 2,
         __DIR__ "obj/menghan_yao": 1 + random(2),
         __DIR__ "obj/xxqingxin-san": 1,
-        __DIR__ "obj/shoutao": 1 + random(2),
+        "/d/items/hands/jinsi_shoutao": 1 + random(2),
         "/clone/misc/muding": 2 + random(2),
         "/clone/book/dujing_1": random(2),
 

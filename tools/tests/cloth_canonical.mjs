@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { root, readBaseline, tokens } from './cloth_inventory.mjs';
-import { validId, renamedPaths } from './item_ids.mjs';
+import { validId, renamedPaths, compareItemIds } from './item_ids.mjs';
 
 const names = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/canonical_ids.json'), 'utf8'));
 const expression = source => tokens(source).map(token => token.text);
@@ -76,7 +76,7 @@ export function renderDefinitions() {
         + '// 相同物品只维护一条定义。历史对应表仅用于离线迁移，不是运行期入口。\n'
         + '// properties 统一保存品种蓝图默认值，实例通过默认对象读取并可独立覆盖。\n'
         + 'private mapping cloth_definitions() {\n    return ([\n'
-        + canonicalGroups().sort((a, b) => a.id.localeCompare(b.id)).map(g => {
+        + canonicalGroups().sort((a, b) => compareItemIds(a.id, b.id)).map(g => {
             const r = g.representative;
             assert.equal(r.before_branch.length + r.after_branch.length, 0);
             return `        "${g.id}": ([\n            "name": ${r.name[0]},\n`

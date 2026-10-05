@@ -1,0 +1,1645 @@
+{
+  "baseline": "0265d3615c4429fe0a718a3a09f8766306f35494",
+  "count": 28,
+  "varieties": [
+    {
+      "old_path": "/d/changan/npc/obj/baijie",
+      "key": "changan_npc_obj_baijie",
+      "source_hash": "2f8af224fd04928aeccad3c061aed2d27798e8d84a8fb9d562df6d67c7d383fb",
+      "name": [
+        "\"白金戒指\"",
+        "({ \"bai jie\", \"baijie\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "400"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "400"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "10000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/personality\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "400",
+      "id": "baijie",
+      "new_path": "/d/items/hands/baijie",
+      "source": "//baijie.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"白金戒指\", ({ \"bai jie\", \"baijie\", \"ring\" }));\n    set(\"weight\", 400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 10000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/personality\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/baojie",
+      "key": "changan_npc_obj_baojie",
+      "source_hash": "c577a420e120fed077c449cf1b7f35aa59f46280e0a09e3d9691819eadd570c9",
+      "name": [
+        "\"宝石戒指\"",
+        "({ \"bao jie\", \"baojie\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "400"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "400"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "10000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/personality\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "400",
+      "id": "baojie",
+      "new_path": "/d/items/hands/baojie",
+      "source": "//baojie.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"宝石戒指\", ({ \"bao jie\", \"baojie\", \"ring\" }));\n    set(\"weight\", 400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 10000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/personality\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/jinjie",
+      "key": "changan_npc_obj_jinjie",
+      "source_hash": "d60fec8d8c2e74e393df594b4eeb97afbe4a751b7040e293961208a180112dc1",
+      "name": [
+        "\"金戒指\"",
+        "({ \"jin jie\", \"jinjie\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "400"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "400"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "10000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/personality\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "400",
+      "id": "jinjie2",
+      "new_path": "/d/items/hands/jinjie2",
+      "source": "//jinjie.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"金戒指\", ({ \"jin jie\", \"jinjie\", \"ring\" }));\n    set(\"weight\", 400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 10000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/personality\", 1);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/ring",
+      "key": "changan_npc_obj_ring",
+      "source_hash": "c3ee669b5d84b8be8ddd8a8251c22288cdd7b767296ac1a0a57ca9bce03b5a18",
+      "name": [
+        "MAG \"紫金戒指\" NOR",
+        "({ \"zijin jiezhi\", \"jiezhi\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "100"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "100"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "100",
+      "id": "zijin_jie",
+      "new_path": "/d/items/hands/zijin_jie",
+      "source": "//ring.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(MAG \"紫金戒指\" NOR, ({ \"zijin jiezhi\", \"jiezhi\", \"ring\" }));\n    set(\"weight\", 100);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 1000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/yinjie",
+      "key": "changan_npc_obj_yinjie",
+      "source_hash": "c9d5e39b9390336969ba47f8422206f88e79adf16b533f1d00079f79ce1bcc19",
+      "name": [
+        "\"银戒指\"",
+        "({ \"yin jie\", \"yinjie\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "400"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "400"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"silver\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/personality\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "400",
+      "id": "yinjie",
+      "new_path": "/d/items/hands/yinjie",
+      "source": "//yinjie.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"银戒指\", ({ \"yin jie\", \"yinjie\", \"ring\" }));\n    set(\"weight\", 400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 1000);\n        set(\"material\", \"silver\");\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/personality\", 1);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/zuanjie",
+      "key": "changan_npc_obj_zuanjie",
+      "source_hash": "0bf0102f829a184d5a707ef5506de990dcb8ad43377a996f10679c305b7190f4",
+      "name": [
+        "\"钻石戒指\"",
+        "({ \"zuan jie\", \"zuanjie\", \"ring\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "400"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "400"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "12000"
+        ],
+        [
+          "\"material\"",
+          "\"diamond\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/personality\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "400",
+      "id": "zuanjie",
+      "new_path": "/d/items/hands/zuanjie",
+      "source": "//zuanjie.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"钻石戒指\", ({ \"zuan jie\", \"zuanjie\", \"ring\" }));\n    set(\"weight\", 400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 12000);\n        set(\"material\", \"diamond\");\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/personality\", 1);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/goldring",
+      "key": "city_npc_obj_goldring",
+      "source_hash": "385d545dddc897431327a4adb0c9f56de2c5a6c223765b677e48076001354705",
+      "name": [
+        "\"金戒指\"",
+        "({ \"golden ring\", \"ring\" })"
+      ],
+      "weight": "400",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinjie",
+      "new_path": "/d/items/hands/jinjie",
+      "source": "// goldring.c 金戒指\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"金戒指\", ({ \"golden ring\", \"ring\" }));\n    set_weight(400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 2000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/goldring",
+      "key": "city_obj_goldring",
+      "source_hash": "385d545dddc897431327a4adb0c9f56de2c5a6c223765b677e48076001354705",
+      "name": [
+        "\"金戒指\"",
+        "({ \"golden ring\", \"ring\" })"
+      ],
+      "weight": "400",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinjie",
+      "new_path": "/d/items/hands/jinjie",
+      "source": "// goldring.c 金戒指\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"金戒指\", ({ \"golden ring\", \"ring\" }));\n    set_weight(400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 2000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/yanziwu/npc/obj/goldring",
+      "key": "yanziwu_npc_obj_goldring",
+      "source_hash": "385d545dddc897431327a4adb0c9f56de2c5a6c223765b677e48076001354705",
+      "name": [
+        "\"金戒指\"",
+        "({ \"golden ring\", \"ring\" })"
+      ],
+      "weight": "400",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinjie",
+      "new_path": "/d/items/hands/jinjie",
+      "source": "// goldring.c 金戒指\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"金戒指\", ({ \"golden ring\", \"ring\" }));\n    set_weight(400);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 2000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/shoutao",
+      "key": "city_npc_obj_shoutao",
+      "source_hash": "0c7fe9a51f899ce9ad35c9b2054fcc838ca88cf886c90640cc12d415866d3567",
+      "name": [
+        "\"皮手套\"",
+        "({ \"gloves\", \"pi shoutao\", \"shoutao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "4000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shoutao",
+      "new_path": "/d/items/hands/shoutao",
+      "source": "// shoutao.c  手套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"皮手套\", ({ \"gloves\", \"pi shoutao\", \"shoutao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\");\n        set(\"value\", 4000);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/shoutao",
+      "key": "city_obj_shoutao",
+      "source_hash": "0c7fe9a51f899ce9ad35c9b2054fcc838ca88cf886c90640cc12d415866d3567",
+      "name": [
+        "\"皮手套\"",
+        "({ \"gloves\", \"pi shoutao\", \"shoutao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "4000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shoutao",
+      "new_path": "/d/items/hands/shoutao",
+      "source": "// shoutao.c  手套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"皮手套\", ({ \"gloves\", \"pi shoutao\", \"shoutao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\");\n        set(\"value\", 4000);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/shoutao",
+      "key": "jingzhou_obj_shoutao",
+      "source_hash": "0c7fe9a51f899ce9ad35c9b2054fcc838ca88cf886c90640cc12d415866d3567",
+      "name": [
+        "\"皮手套\"",
+        "({ \"gloves\", \"pi shoutao\", \"shoutao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "4000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shoutao",
+      "new_path": "/d/items/hands/shoutao",
+      "source": "// shoutao.c  手套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"皮手套\", ({ \"gloves\", \"pi shoutao\", \"shoutao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\");\n        set(\"value\", 4000);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/tieshou",
+      "key": "city_npc_obj_tieshou",
+      "source_hash": "a6b5a20355368a46c1283ed67bc452dac7a5216ff7232372e007d42a14fabbd2",
+      "name": [
+        "\"铁手掌\"",
+        "({ \"iron hand\", \"hand\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一块铁质的手掌形护具，用以保护手掌。\\n\""
+        ],
+        [
+          "\"value\"",
+          "900"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "tieshou",
+      "new_path": "/d/items/hands/tieshou",
+      "source": "// tieshou.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁手掌\", ({ \"iron hand\", \"hand\" }));\n    set_weight(2000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"块\");\n        set(\"long\", \"这是一块铁质的手掌形护具，用以保护手掌。\\n\");\n        set(\"value\", 900);\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/tieshou",
+      "key": "city_obj_tieshou",
+      "source_hash": "a6b5a20355368a46c1283ed67bc452dac7a5216ff7232372e007d42a14fabbd2",
+      "name": [
+        "\"铁手掌\"",
+        "({ \"iron hand\", \"hand\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一块铁质的手掌形护具，用以保护手掌。\\n\""
+        ],
+        [
+          "\"value\"",
+          "900"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "tieshou",
+      "new_path": "/d/items/hands/tieshou",
+      "source": "// tieshou.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁手掌\", ({ \"iron hand\", \"hand\" }));\n    set_weight(2000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"块\");\n        set(\"long\", \"这是一块铁质的手掌形护具，用以保护手掌。\\n\");\n        set(\"value\", 900);\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/tieshou",
+      "key": "jingzhou_obj_tieshou",
+      "source_hash": "a6b5a20355368a46c1283ed67bc452dac7a5216ff7232372e007d42a14fabbd2",
+      "name": [
+        "\"铁手掌\"",
+        "({ \"iron hand\", \"hand\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一块铁质的手掌形护具，用以保护手掌。\\n\""
+        ],
+        [
+          "\"value\"",
+          "900"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "tieshou",
+      "new_path": "/d/items/hands/tieshou",
+      "source": "// tieshou.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁手掌\", ({ \"iron hand\", \"hand\" }));\n    set_weight(2000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"块\");\n        set(\"long\", \"这是一块铁质的手掌形护具，用以保护手掌。\\n\");\n        set(\"value\", 900);\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/zhitao",
+      "key": "city_npc_obj_zhitao",
+      "source_hash": "839ce2997ac1f26ad5f6691ffeec9577521daa0d9786e7b3e28548e9e228807f",
+      "name": [
+        "\"指套\"",
+        "({ \"finger\", \"zhitao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"副\""
+        ],
+        [
+          "\"long\"",
+          "\"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "zhitao",
+      "new_path": "/d/items/hands/zhitao",
+      "source": "// zhitao.c 指套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"指套\", ({ \"finger\", \"zhitao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"副\");\n        set(\"long\", \"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/zhitao",
+      "key": "city_obj_zhitao",
+      "source_hash": "839ce2997ac1f26ad5f6691ffeec9577521daa0d9786e7b3e28548e9e228807f",
+      "name": [
+        "\"指套\"",
+        "({ \"finger\", \"zhitao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"副\""
+        ],
+        [
+          "\"long\"",
+          "\"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "zhitao",
+      "new_path": "/d/items/hands/zhitao",
+      "source": "// zhitao.c 指套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"指套\", ({ \"finger\", \"zhitao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"副\");\n        set(\"long\", \"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/zhitao",
+      "key": "jingzhou_obj_zhitao",
+      "source_hash": "e77ba65bf02fd0607f2f248d580ef14e18581ba07054e5d5905c1bb05e2d458a",
+      "name": [
+        "\"指套\"",
+        "({ \"finger\", \"zhitao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"副\""
+        ],
+        [
+          "\"long\"",
+          "\"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/unarmed_damage\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "zhitao2",
+      "new_path": "/d/items/hands/zhitao2",
+      "source": "// zhitao.c 指套\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"指套\", ({ \"finger\", \"zhitao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"副\");\n        set(\"long\", \"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/unarmed_damage\", 5);\n\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/npc/obj/hands",
+      "key": "death_sky_npc_obj_hands",
+      "source_hash": "2abf1a0dc19a4195c5991e0bfbc4f28261b62537b87433a5bb114041138bf25b",
+      "name": [
+        "RED \"残血手套\" NOR",
+        "({ \"canxue shoutao\", \"shoutao\", \"canxue\", \"hand\", \"tao\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "RED \"传说中的上古神器。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"rigidity\"",
+          "8000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "100"
+        ]
+      ],
+      "after_branch": [],
+      "id": "canxue_shoutao",
+      "new_path": "/d/items/hands/canxue_shoutao",
+      "source": "#include <weapon.h>\n#include <ansi.h>\n#include <armor.h>\ninherit HANDS;\n\nvoid create() {\n    set_name(RED \"残血手套\" NOR, ({ \"canxue shoutao\", \"shoutao\", \"canxue\", \"hand\", \"tao\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", RED \"传说中的上古神器。\\n\" NOR);\n        set(\"value\", 100000);\n        set(\"rigidity\", 8000);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 100);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/sky/npc/obj/hands",
+      "key": "sky_npc_obj_hands",
+      "source_hash": "2abf1a0dc19a4195c5991e0bfbc4f28261b62537b87433a5bb114041138bf25b",
+      "name": [
+        "RED \"残血手套\" NOR",
+        "({ \"canxue shoutao\", \"shoutao\", \"canxue\", \"hand\", \"tao\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "RED \"传说中的上古神器。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"rigidity\"",
+          "8000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "100"
+        ]
+      ],
+      "after_branch": [],
+      "id": "canxue_shoutao",
+      "new_path": "/d/items/hands/canxue_shoutao",
+      "source": "#include <weapon.h>\n#include <ansi.h>\n#include <armor.h>\ninherit HANDS;\n\nvoid create() {\n    set_name(RED \"残血手套\" NOR, ({ \"canxue shoutao\", \"shoutao\", \"canxue\", \"hand\", \"tao\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", RED \"传说中的上古神器。\\n\" NOR);\n        set(\"value\", 100000);\n        set(\"rigidity\", 8000);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 100);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/shoutao",
+      "key": "mingjiao_obj_shoutao",
+      "source_hash": "ff930665bc88ffe6e926cf999142edd6ad569d6b3b8e49eba280d08effed6ace",
+      "name": [
+        "\"皮手套\"",
+        "({ \"pi shoutao\", \"shoutao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"hands\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shoutao2",
+      "new_path": "/d/items/hands/shoutao2",
+      "source": "// shoutao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"皮手套\", ({ \"pi shoutao\", \"shoutao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"hands\");\n        set(\"armor_prop/armor\", 3);\n        //        set(\"shaolin\",1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/tieshou",
+      "key": "mingjiao_obj_tieshou",
+      "source_hash": "2d21e56c5e7bc65a574c6d35fdf34381be338b1c9d415e57edc4503a10932c41",
+      "name": [
+        "\"铁手掌\"",
+        "({ \"iron hand\", \"hand\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"value\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "tieshou2",
+      "new_path": "/d/items/hands/tieshou2",
+      "source": "// tieshou.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁手掌\", ({ \"iron hand\", \"hand\" }));\n    set_weight(2000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"块\");\n        set(\"value\", 5);\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/zhitao",
+      "key": "mingjiao_obj_zhitao",
+      "source_hash": "05a1fcd335df82effbb7f20c0a035c4dcddc399500c0376f4a2920e678ecefbf",
+      "name": [
+        "\"铁指套\"",
+        "({ \"zhitao\", \"zhi tao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"副\""
+        ],
+        [
+          "\"long\"",
+          "\"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"finger\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "zhitao3",
+      "new_path": "/d/items/hands/zhitao3",
+      "source": "// shoutao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁指套\", ({ \"zhitao\", \"zhi tao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"副\");\n        set(\"long\", \"这是五个环环相链的铁指套，前端锋利如刃，既可暗藏掌中伤人，又可保护指关节。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"finger\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/shoutao",
+      "key": "shaolin_obj_shoutao",
+      "source_hash": "63316ed1b455cb295f286d3c8e34c8fc9a1f44237db546eb25dc638af497ee9d",
+      "name": [
+        "\"皮手套\"",
+        "({ \"pi shoutao\", \"shoutao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "3000"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/hand\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/strike\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/unarmed_damage\"",
+          "3"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_shoutao",
+      "new_path": "/d/items/hands/shaolin_shoutao",
+      "source": "// shoutao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"皮手套\", ({ \"pi shoutao\", \"shoutao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一双皮手套，上面有硬物刻勒的痕迹。\\n\");\n        set(\"value\", 3000);\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/hand\", 1);\n        set(\"armor_prop/strike\", 1);\n        set(\"armor_prop/unarmed_damage\", 3);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/tieshou",
+      "key": "shaolin_obj_tieshou",
+      "source_hash": "30f05b1a910ba654862ba2a80f4d78e60c1a8a83f23fe1c742fe16aa6eb700c0",
+      "name": [
+        "\"铁手掌\"",
+        "({ \"iron hand\", \"hand\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/hand\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/strike\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/unarmed_damage\"",
+          "20"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou",
+      "source": "// tieshou.c\n\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁手掌\", ({ \"iron hand\", \"hand\" }));\n    set_weight(2000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"块\");\n        set(\"value\", 500);\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/hand\", 5);\n        set(\"armor_prop/strike\", 5);\n        set(\"armor_prop/unarmed_damage\", 20);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/zhitao",
+      "key": "shaolin_obj_zhitao",
+      "source_hash": "7e2e8015e70997c5ec0a914abe5bd3f49038894434c8735c7633fe2e155040eb",
+      "name": [
+        "\"铁指套\"",
+        "({ \"zhitao\", \"zhi tao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"副\""
+        ],
+        [
+          "\"long\"",
+          "\"这是五个环环相链的铁指套，前端锋利如\"\n            \"刃，既可暗藏掌中伤人，又可保护指关节。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"finger\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/finger\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/unarmed_damage\"",
+          "20"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_zhitao",
+      "new_path": "/d/items/hands/shaolin_zhitao",
+      "source": "// shoutao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(\"铁指套\", ({ \"zhitao\", \"zhi tao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"副\");\n        set(\"long\", \"这是五个环环相链的铁指套，前端锋利如\"\n            \"刃，既可暗藏掌中伤人，又可保护指关节。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"finger\");\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/finger\", 5);\n        set(\"armor_prop/unarmed_damage\", 20);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "key": "tulong_yitian_npc_obj_gong",
+      "source_hash": "2187c46a8700e5138b0eb18e1ed392d3b7ca0cbe78bc365bdd536b0442cfc799",
+      "name": [
+        "HIY \"点金盘龙弓\" NOR",
+        "({ \"panlong gong\", \"gong\", \"panlong\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"支\""
+        ],
+        [
+          "\"value\"",
+          "8000"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/hand\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/strike\"",
+          "1"
+        ],
+        [
+          "\"armor_prop/unarmed_damage\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "panlong_gong",
+      "new_path": "/d/items/hands/panlong_gong",
+      "source": "#include <ansi.h>\n#include <armor.h>\n\ninherit HANDS;\n\nvoid create() {\n    set_name(HIY \"点金盘龙弓\" NOR, ({ \"panlong gong\", \"gong\", \"panlong\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"支\");\n        set(\"value\", 8000);\n        set(\"armor_prop/armor\", 1);\n        set(\"armor_prop/hand\", 1);\n        set(\"armor_prop/strike\", 1);\n        set(\"armor_prop/unarmed_damage\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/xiyu/obj/shoutao",
+      "key": "xiyu_obj_shoutao",
+      "source_hash": "d2f01b61afe121a58ef432d77b3f9f0c58b123fed5b272139c94acedb3aafc84",
+      "name": [
+        "HIY \"金丝手套\" NOR",
+        "({ \"jinsi shoutao\", \"shoutao\", \"jinsi\" })"
+      ],
+      "weight": "2900",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"long\"",
+          "HIY \"这是一双用金丝编制而成的手套，戴上他可以拿取或触摸带毒的物品而不会中毒。\\n\" NOR"
+        ],
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"material\"",
+          "\"iron\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"no_sell\"",
+          "\"这你也卖？\\n\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinsi_shoutao",
+      "new_path": "/d/items/hands/jinsi_shoutao",
+      "source": "#include <armor.h>\ninherit HANDS;\n#include <ansi.h>\n\nvoid create() {\n    set_name(HIY \"金丝手套\" NOR, ({ \"jinsi shoutao\", \"shoutao\", \"jinsi\" }));\n    set_weight(2900);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"long\", HIY \"这是一双用金丝编制而成的手套，戴上他可以拿取或触摸带毒的物品而不会中毒。\\n\" NOR);\n        set(\"unit\", \"双\");\n        set(\"material\", \"iron\");\n        set(\"value\", 500);\n        set(\"no_sell\", \"这你也卖？\\n\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "b/yitian/npc/li4.c",
+      "line": 49,
+      "start": 1174,
+      "end": 1205,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "b/yitian/npc/sun3.c",
+      "line": 49,
+      "start": 1178,
+      "end": 1209,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "b/yitian/npc/wang8.c",
+      "line": 49,
+      "start": 1182,
+      "end": 1213,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "b/yitian/npc/wu6.c",
+      "line": 49,
+      "start": 1174,
+      "end": 1205,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "b/yitian/npc/zheng7.c",
+      "line": 49,
+      "start": 1180,
+      "end": 1211,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "b/yitian/npc/zhou5.c",
+      "line": 49,
+      "start": 1178,
+      "end": 1209,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/changan/npc/chen-laoban.c",
+      "line": 27,
+      "start": 654,
+      "end": 674,
+      "expression": "__DIR__ \"obj/yinjie\"",
+      "old_path": "/d/changan/npc/obj/yinjie",
+      "new_path": "/d/items/hands/yinjie"
+    },
+    {
+      "file": "d/changan/npc/chen-laoban.c",
+      "line": 28,
+      "start": 684,
+      "end": 705,
+      "expression": "__DIR__ \"obj/zuanjie\"",
+      "old_path": "/d/changan/npc/obj/zuanjie",
+      "new_path": "/d/items/hands/zuanjie"
+    },
+    {
+      "file": "d/changan/npc/chen-laoban.c",
+      "line": 29,
+      "start": 715,
+      "end": 735,
+      "expression": "__DIR__ \"obj/baojie\"",
+      "old_path": "/d/changan/npc/obj/baojie",
+      "new_path": "/d/items/hands/baojie"
+    },
+    {
+      "file": "d/changan/npc/chen-laoban.c",
+      "line": 30,
+      "start": 745,
+      "end": 765,
+      "expression": "__DIR__ \"obj/jinjie\"",
+      "old_path": "/d/changan/npc/obj/jinjie",
+      "new_path": "/d/items/hands/jinjie2"
+    },
+    {
+      "file": "d/changan/npc/chen-laoban.c",
+      "line": 31,
+      "start": 775,
+      "end": 795,
+      "expression": "__DIR__ \"obj/baijie\"",
+      "old_path": "/d/changan/npc/obj/baijie",
+      "new_path": "/d/items/hands/baijie"
+    },
+    {
+      "file": "d/changan/npc/jinfuhuan.c",
+      "line": 20,
+      "start": 463,
+      "end": 481,
+      "expression": "__DIR__ \"obj/ring\"",
+      "old_path": "/d/changan/npc/obj/ring",
+      "new_path": "/d/items/hands/zijin_jie"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 25,
+      "start": 669,
+      "end": 689,
+      "expression": "__DIR__ \"obj/zhitao\"",
+      "old_path": "/d/city/npc/obj/zhitao",
+      "new_path": "/d/items/hands/zhitao"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 29,
+      "start": 793,
+      "end": 814,
+      "expression": "__DIR__ \"obj/shoutao\"",
+      "old_path": "/d/city/npc/obj/shoutao",
+      "new_path": "/d/items/hands/shoutao"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 30,
+      "start": 824,
+      "end": 845,
+      "expression": "__DIR__ \"obj/tieshou\"",
+      "old_path": "/d/city/npc/obj/tieshou",
+      "new_path": "/d/items/hands/tieshou"
+    },
+    {
+      "file": "d/city/npc/yuhuan.c",
+      "line": 39,
+      "start": 862,
+      "end": 884,
+      "expression": "__DIR__ \"obj/goldring\"",
+      "old_path": "/d/city/npc/obj/goldring",
+      "new_path": "/d/items/hands/jinjie"
+    },
+    {
+      "file": "d/death/sky/npc/xu.c",
+      "line": 60,
+      "start": 1611,
+      "end": 1630,
+      "expression": "__DIR__ \"obj/hands\"",
+      "old_path": "/d/death/sky/npc/obj/hands",
+      "new_path": "/d/items/hands/canxue_shoutao"
+    },
+    {
+      "file": "d/fuzhou/npc/chen.c",
+      "line": 25,
+      "start": 603,
+      "end": 625,
+      "expression": "\"/d/city/obj/goldring\"",
+      "old_path": "/d/city/obj/goldring",
+      "new_path": "/d/items/hands/jinjie"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 24,
+      "start": 647,
+      "end": 671,
+      "expression": "\"/d/city/npc/obj/zhitao\"",
+      "old_path": "/d/city/npc/obj/zhitao",
+      "new_path": "/d/items/hands/zhitao"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 28,
+      "start": 779,
+      "end": 804,
+      "expression": "\"/d/city/npc/obj/shoutao\"",
+      "old_path": "/d/city/npc/obj/shoutao",
+      "new_path": "/d/items/hands/shoutao"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 29,
+      "start": 814,
+      "end": 839,
+      "expression": "\"/d/city/npc/obj/tieshou\"",
+      "old_path": "/d/city/npc/obj/tieshou",
+      "new_path": "/d/items/hands/tieshou"
+    },
+    {
+      "file": "d/luoyang/npc/zhou.c",
+      "line": 18,
+      "start": 450,
+      "end": 475,
+      "expression": "\"/d/changan/npc/obj/ring\"",
+      "old_path": "/d/changan/npc/obj/ring",
+      "new_path": "/d/items/hands/zijin_jie"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 36,
+      "start": 907,
+      "end": 931,
+      "expression": "\"/d/city/npc/obj/zhitao\"",
+      "old_path": "/d/city/npc/obj/zhitao",
+      "new_path": "/d/items/hands/zhitao"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 38,
+      "start": 974,
+      "end": 999,
+      "expression": "\"/d/city/npc/obj/tieshou\"",
+      "old_path": "/d/city/npc/obj/tieshou",
+      "new_path": "/d/items/hands/tieshou"
+    },
+    {
+      "file": "d/quanzhou/npc/chen.c",
+      "line": 30,
+      "start": 687,
+      "end": 709,
+      "expression": "\"/d/city/obj/goldring\"",
+      "old_path": "/d/city/obj/goldring",
+      "new_path": "/d/items/hands/jinjie"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 10,
+      "start": 120,
+      "end": 144,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 11,
+      "start": 150,
+      "end": 174,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 12,
+      "start": 180,
+      "end": 204,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 13,
+      "start": 210,
+      "end": 234,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 14,
+      "start": 240,
+      "end": 264,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 15,
+      "start": 270,
+      "end": 294,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 16,
+      "start": 300,
+      "end": 324,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 17,
+      "start": 330,
+      "end": 354,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/shaolin/npc/datie-seng.c",
+      "line": 18,
+      "start": 360,
+      "end": 384,
+      "expression": "\"/d/shaolin/obj/tieshou\"",
+      "old_path": "/d/shaolin/obj/tieshou",
+      "new_path": "/d/items/hands/shaolin_tieshou"
+    },
+    {
+      "file": "d/sky/npc/xu.c",
+      "line": 60,
+      "start": 1523,
+      "end": 1542,
+      "expression": "__DIR__ \"obj/hands\"",
+      "old_path": "/d/sky/npc/obj/hands",
+      "new_path": "/d/items/hands/canxue_shoutao"
+    },
+    {
+      "file": "d/tulong/yitian/npc/li4.c",
+      "line": 49,
+      "start": 1166,
+      "end": 1197,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/qian2.c",
+      "line": 49,
+      "start": 1170,
+      "end": 1201,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/sun3.c",
+      "line": 49,
+      "start": 1170,
+      "end": 1201,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/wang8.c",
+      "line": 49,
+      "start": 1174,
+      "end": 1205,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/wu6.c",
+      "line": 49,
+      "start": 1166,
+      "end": 1197,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/zhao1.c",
+      "line": 49,
+      "start": 1174,
+      "end": 1205,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/zheng7.c",
+      "line": 49,
+      "start": 1172,
+      "end": 1203,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/tulong/yitian/npc/zhou5.c",
+      "line": 49,
+      "start": 1170,
+      "end": 1201,
+      "expression": "\"/d/tulong/yitian/npc/obj/gong\"",
+      "old_path": "/d/tulong/yitian/npc/obj/gong",
+      "new_path": "/d/items/hands/panlong_gong"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 30,
+      "start": 727,
+      "end": 751,
+      "expression": "\"/d/city/npc/obj/zhitao\"",
+      "old_path": "/d/city/npc/obj/zhitao",
+      "new_path": "/d/items/hands/zhitao"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 34,
+      "start": 859,
+      "end": 884,
+      "expression": "\"/d/city/npc/obj/shoutao\"",
+      "old_path": "/d/city/npc/obj/shoutao",
+      "new_path": "/d/items/hands/shoutao"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 35,
+      "start": 894,
+      "end": 919,
+      "expression": "\"/d/city/npc/obj/tieshou\"",
+      "old_path": "/d/city/npc/obj/tieshou",
+      "new_path": "/d/items/hands/tieshou"
+    },
+    {
+      "file": "d/xiyu/cangku.c",
+      "line": 17,
+      "start": 363,
+      "end": 384,
+      "expression": "__DIR__ \"obj/shoutao\"",
+      "old_path": "/d/xiyu/obj/shoutao",
+      "new_path": "/d/items/hands/jinsi_shoutao"
+    },
+    {
+      "file": "d/yanziwu/npc/abi.c",
+      "line": 36,
+      "start": 870,
+      "end": 892,
+      "expression": "__DIR__ \"obj/goldring\"",
+      "old_path": "/d/yanziwu/npc/obj/goldring",
+      "new_path": "/d/items/hands/jinjie"
+    },
+    {
+      "file": "d/yanziwu/npc/azhu.c",
+      "line": 46,
+      "start": 988,
+      "end": 1010,
+      "expression": "__DIR__ \"obj/goldring\"",
+      "old_path": "/d/yanziwu/npc/obj/goldring",
+      "new_path": "/d/items/hands/jinjie"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 65,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 76,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 90,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 99,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "excluded": [
+    "d/luoyang/npc/obj/hand.c",
+    "d/luoyang/npc/obj/finger.c",
+    "d/lingxiao/obj/book-iron.c"
+  ],
+  "dynamic_callers": [
+    "d/xiangyang/npc/wuxiuwen.c",
+    "kungfu/class/shaolin/dao-xiang.c"
+  ],
+  "unrelated_dynamic_callers": [
+    "d/changan/npc/fujiang.c",
+    "kungfu/class/shaolin/dao-chen.c",
+    "d/xiyu/houdong.c"
+  ]
+}

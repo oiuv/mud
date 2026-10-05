@@ -1,0 +1,78 @@
+// 手部装备品种。留在 /d 下，保持原地图物品的 Domain UID。
+#include <ansi.h>
+#include <armor.h>
+
+inherit HANDS;
+
+#define HANDS_PROGRAM "/d/items/hands"
+#include "hands_data.h"
+
+private nosave mapping varieties;
+private nosave string variety;
+private nosave int initialized;
+
+mapping query_definition(string key) {
+    if (base_name(this_object()) != HANDS_PROGRAM || !mapp(varieties))
+        return 0;
+    return copy(varieties[key]);
+}
+
+// 仓库只放行本类已登记的可重建品种，不放开任意虚拟对象。
+int valid_variety_path(string path) {
+    string key;
+
+    if (base_name(this_object()) != HANDS_PROGRAM || !mapp(varieties) ||
+        !stringp(path) || sscanf(path, HANDS_PROGRAM + "/%s", key) != 1)
+        return 0;
+    return mapp(varieties[key]);
+}
+
+void create(string key) {
+    if (!clonep()) {
+        varieties = hands_definitions();
+        return;
+    }
+    // 唯一内部入口 create_virtual_object 已检查品种；不重复复制整条定义。
+    // 参数构造不提供第二种商品身份。
+    if (previous_object() != find_object(HANDS_PROGRAM) || !stringp(key))
+        error("Ordinary hands requires a registered virtual variety.\n");
+    variety = key;
+}
+
+object create_virtual_object(string key) {
+    if (base_name(this_object()) != HANDS_PROGRAM || clonep() ||
+        !mapp(varieties) || !mapp(varieties[key]))
+        return 0;
+    return new(HANDS_PROGRAM, key);
+}
+
+// 驱动已赋予正式路径和 clone 标志后才执行构造；create 阶段不调用 setup。
+void virtual_start() {
+    mapping definition, defaults;
+    mixed *entry;
+    string key;
+    mixed value;
+
+    if (initialized)
+        return;
+    if (!stringp(variety) || base_name(this_object()) != HANDS_PROGRAM + "/" + variety)
+        error("Invalid ordinary hands virtual identity.\n");
+    definition = HANDS_PROGRAM->query_definition(variety);
+    if (!mapp(definition))
+        error("Unknown ordinary hands variety.\n");
+    initialized = 1;
+    set_name(definition["name"], definition["ids"]);
+    set_weight(definition["weight"]);
+    if (clonep()) {
+        set_default_object(base_name(this_object()));
+        // 仅隔离可变的复合默认值，标量仍沿用原有蓝图回退语义。
+        defaults = query_default_object()->query_entire_dbase();
+        foreach (key, value in defaults)
+            if (mapp(value) || arrayp(value))
+                set(key, copy(value));
+    } else {
+        foreach (entry in definition["properties"])
+            set(entry[0], entry[1]);
+    }
+    setup();
+}

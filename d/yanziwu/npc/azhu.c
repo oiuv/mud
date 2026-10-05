@@ -43,7 +43,7 @@ void create() {
         "易容术": (: ask_me :),
     ]));
     setup();
-    carry_object(__DIR__ "obj/goldring")->wear();
+    carry_object("/d/items/hands/jinjie")->wear();
     carry_object(__DIR__ "obj/necklace")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/d/items/cloth/fenhong_choushan")->wear();

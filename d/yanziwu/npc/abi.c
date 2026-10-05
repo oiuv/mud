@@ -33,7 +33,7 @@ void create() {
         "阿朱": "那小妮子只大我一岁，整天就喜欢扮别人玩。\n",
     ]));
     setup();
-    carry_object(__DIR__ "obj/goldring")->wear();
+    carry_object("/d/items/hands/jinjie")->wear();
     carry_object(__DIR__ "obj/necklace")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/d/items/cloth/cuilv_choushan")->wear();

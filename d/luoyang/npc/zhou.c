@@ -15,7 +15,7 @@ void create() {
     set_temp("apply/attack", 30);
     set_temp("apply/defense", 30);
     set("vendor_goods", ({
-        "/d/changan/npc/obj/ring",
+        "/d/items/hands/zijin_jie",
         "/d/changan/npc/obj/wrists",
         "/d/changan/npc/obj/neck",
         "/d/kaifeng/npc/obj/ciwan",

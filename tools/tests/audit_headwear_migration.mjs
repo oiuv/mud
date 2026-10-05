@@ -7,13 +7,14 @@ import { references } from './cloth_inventory.mjs';
 import { root, original, readBaseline, canonicalGroups, renderDefinitions, expectedCaller,
     dynamicCallers, excluded, unrelatedCallers } from './headwear_inventory.mjs';
 import { renameReferences } from './item_ids.mjs';
+import { afterHandsMigration } from './hands_inventory.mjs';
 
 const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
     .filter(t => t.kind !== 'whitespace').map(t => [t.kind, t.text]);
 const baseline = readBaseline();
 const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
 for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-    semantic(expectedCaller(file)), 'Unexpected caller change: ' + file);
+    semantic(afterHandsMigration(file, expectedCaller(file), semantic)), 'Unexpected caller change: ' + file);
 assert.equal(callers.size, 30);
 assert.equal(baseline.hits.length, 45);
 assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');
@@ -25,7 +26,8 @@ if (!process.argv.includes('--before-removal')) {
     }
 }
 for (const file of [...excluded, ...unrelatedCallers])
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(renameReferences(original(file))), 'Excluded behavior changed: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
+        semantic(afterHandsMigration(file, renameReferences(original(file)), semantic)), 'Excluded behavior changed: ' + file);
 for (const file of callers) {
     const paths = new Map();
     for (const h of baseline.hits.filter(h => h.file === file)) {

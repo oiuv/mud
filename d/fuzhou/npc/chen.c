@@ -22,7 +22,7 @@ void create() {
         "/d/fuzhou/obj/xiuhua",
         "/d/items/boots/xiuhuaxie",
         "/d/items/cloth/fenhong_choushan",
-        "/d/city/obj/goldring",
+        "/d/items/hands/jinjie",
         "/d/city/obj/necklace",
     }));
 

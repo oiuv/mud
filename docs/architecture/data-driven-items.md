@@ -1,10 +1,12 @@
-# 数据化物品：普通服装、鞋靴与头饰
+# 数据化物品：普通服装、鞋靴、头饰与手部装备
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
-后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。三类保持独立父类，共用以下离线迁移与部署流程，不合并运行期行为。
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。四类保持独立父类，共用以下离线迁移与部署流程，不合并运行期行为。
 
 ## 创建与维护
+
+各 `*_data.h` 的顶层品种统一按规范 ID 自然升序排列：字母按名称排序，数字后缀按数值排序（如 `chahua1`、`chahua2`、…、`chahua13`）。新增条目插入对应位置；不因排序更换 ID 或编号，不调整品种内部字段、别名及属性数组顺序。离线生成器与审计采用同一规则，历史快照和迁移映射保持不变。
 
 - 行为：`d/items/cloth.lpc`，继续继承 `CLOTH`，沿用装备、撕布、洗涤及晾干行为。
 - 数据：`d/items/cloth_data.h`。`name`、`ids`、`weight` 定义名称、输入别名及重量；固定描述、材质、价值和防御等统一放在 `properties`，不设 `instance` 字段。
@@ -24,7 +26,7 @@
 
 ## 存储边界
 
-背包仅额外放行 CLOTH、BOOTS 与 HEAD 三张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
+背包仅额外放行 CLOTH、BOOTS、HEAD 与 HANDS 四张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -40,7 +42,7 @@
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-本轮对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。连同原有来源，一次转换覆盖 **541 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58），全部直接到达最终路径，不需逐版本转换；2 件未选特殊头饰不转换。游戏只读三张品种表，归并结果仍为 CLOTH 148、BOOTS 8、HEAD 36。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。本批 `hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希。一次转换覆盖 **569 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读四张品种表，共 CLOTH 148、BOOTS 8、HEAD 36、HANDS 20 个品种。
 
 即使之前已完成服装或鞋靴迁移，也需要重新预览停服备份：记录里可能保存改名前的规范 ID。只更新代码而不转换受影响记录会导致这些物品无法加载。没有受影响记录时，无须执行转换。
 
@@ -106,11 +108,16 @@ node tools/tests/audit_headwear_migration.mjs
 node tools/tests/compile_headwear_callers.mjs bin/lpcc.exe
 node tools/tests/test_headwear_objects.mjs bin/driver.exe --all
 node tools/tests/test_headwear_objects.mjs bin/driver.exe --bench
+node tools/tests/hands_inventory.mjs
+node tools/tests/audit_hands_migration.mjs
+node tools/tests/compile_hands_callers.mjs bin/lpcc.exe
+node tools/tests/test_hands_objects.mjs bin/driver.exe --all
+node tools/tests/test_hands_objects.mjs bin/driver.exe --bench
 node --test tools/tests/test_item_records.mjs
 node --test tools/tests/test_item_ids.mjs
 ```
 
-需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
+需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
 

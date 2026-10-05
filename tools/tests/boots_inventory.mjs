@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { root, parseCloth, tokens, references } from './cloth_inventory.mjs';
-import { currentBaseline, renamedPaths, renameReferences, validId } from './item_ids.mjs';
+import { currentBaseline, renamedPaths, renameReferences, validId, compareItemIds } from './item_ids.mjs';
 
 export { root };
 export const baseline = '09e371bb';
@@ -71,7 +71,7 @@ export function expectedCaller(file) {
 export function renderDefinitions() {
     return '// 普通鞋靴共用资产；仅保存品种蓝图默认值，历史路径不参与运行。\n'
         + 'private mapping boots_definitions() {\n    return ([\n'
-        + canonicalGroups().map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`
+        + canonicalGroups().sort((a, b) => compareItemIds(a.id, b.id)).map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`
             + `            "ids": ({ ${g.ids.map(id => JSON.stringify(id)).join(', ')} }),\n`
             + `            "weight": ${g.representative.weight},\n            "properties": ({\n`
             + g.representative.properties.map(([k, v]) => `                ({ ${k}, ${v} })`).join(',\n')

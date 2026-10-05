@@ -73,7 +73,12 @@ string ask_me_1(string name) {
     if (query("huju_count") < 1)
         return "抱歉，你来得不是时候，防具已经发完了。";
 
-    ob = new("/d/shaolin/obj/" + name);
+    if (name == "shoutao")
+        ob = new("/d/items/hands/shaolin_shoutao");
+    else if (name == "zhitao")
+        ob = new("/d/items/hands/shaolin_zhitao");
+    else
+        ob = new("/d/shaolin/obj/" + name);
     ob->move(this_player());
 
     add("huju_count", -1);

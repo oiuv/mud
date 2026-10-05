@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { root, parseCloth, tokens, references } from './cloth_inventory.mjs';
-import { currentBaseline, renamedPaths, renameReferences, validId } from './item_ids.mjs';
+import { currentBaseline, renamedPaths, renameReferences, validId, compareItemIds } from './item_ids.mjs';
 
 export { root };
 export const baseline = 'b081c7ffd4febbeaff6b13595e306e29ea0b84b6';
@@ -123,7 +123,8 @@ export function expectedCaller(file) {
 export function renderDefinitions(selection) {
     return '// 普通头饰共用资产；固定属性只用 properties，历史路径仅用于离线迁移。\n'
         + 'private mapping headwear_definitions() {\n    return ([\n'
-        + canonicalGroups().filter(g => !selection || selection.includes(g.id)).map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`
+        + canonicalGroups().filter(g => !selection || selection.includes(g.id))
+            .sort((a, b) => compareItemIds(a.id, b.id)).map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`
             + `            "ids": ({ ${g.ids.map(id => JSON.stringify(id)).join(', ')} }),\n`
             + `            "weight": ${g.representative.weight},\n`
             + (g.representative.weight_scope === 'blueprint' ? '            "clone_weight": 0,\n' : '')

@@ -24,11 +24,11 @@ void create() {
     set_skill("parry", 40);
     set_skill("dodge", 40);
     set("vendor_goods", ({
-        __DIR__ "obj/yinjie",
-        __DIR__ "obj/zuanjie",
-        __DIR__ "obj/baojie",
-        __DIR__ "obj/jinjie",
-        __DIR__ "obj/baijie",
+        "/d/items/hands/yinjie",
+        "/d/items/hands/zuanjie",
+        "/d/items/hands/baojie",
+        "/d/items/hands/jinjie2",
+        "/d/items/hands/baijie",
     }));
 
     setup();

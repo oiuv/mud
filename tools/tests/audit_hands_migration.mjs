@@ -1,0 +1,40 @@
+// Exact allowed caller edits and historical semantics; no live data access.
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
+import { references } from './cloth_inventory.mjs';
+import { root, original, readBaseline, canonicalGroups, renderDefinitions, expectedCaller,
+    dynamicCallers, excluded, unrelatedCallers } from './hands_inventory.mjs';
+
+const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
+    .filter(t => t.kind !== 'whitespace').map(t => [t.kind, t.text]);
+const baseline = readBaseline();
+const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
+for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
+    semantic(expectedCaller(file)), 'Unexpected caller change: ' + file);
+assert.equal(callers.size, 32);
+assert.equal(baseline.hits.length, 49);
+assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');
+assert.deepEqual(semantic(readFileSync(join(root, 'd/items/hands_data.h'), 'utf8')), semantic(renderDefinitions()));
+if (!process.argv.includes('--before-removal')) {
+    for (const row of baseline.varieties) {
+        assert.equal(existsSync(join(root, row.old_path.slice(1) + '.c')), false, 'Old source remains');
+        for (const suffix of ['.c', '.lpc']) assert.equal(existsSync(join(root, row.new_path.slice(1) + suffix)), false);
+    }
+}
+for (const file of [...excluded, ...unrelatedCallers])
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
+        semantic(original(file)), 'Excluded behavior changed: ' + file);
+for (const file of callers) {
+    const paths = new Map();
+    for (const h of baseline.hits.filter(h => h.file === file)) {
+        if (!paths.has(h.new_path)) paths.set(h.new_path, new Set());
+        paths.get(h.new_path).add(h.old_path);
+    }
+    assert.ok([...paths.values()].every(p => p.size === 1), 'Review merged configuration keys: ' + file);
+}
+assert.equal(canonicalGroups().length, 20);
+assert.ok(canonicalGroups().every(g => !/_npc_|_obj_/.test(g.id)));
+console.log('HANDS AUDIT PASS: 28 originals -> 20 varieties; 32 caller files, 49 static + 4 dynamic; no key collisions; excluded unchanged'
+    + (process.argv.includes('--before-removal') ? '; old file removal NOT checked' : '; no old files or per-variety shells'));

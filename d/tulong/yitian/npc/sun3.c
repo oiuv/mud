@@ -46,7 +46,7 @@ void create() {
     setup();
 
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/tulong/yitian/npc/obj/gong")->wear();
+    carry_object("/d/items/hands/panlong_gong")->wear();
     set_temp("is_riding", BLK "雪蹄马" NOR);
     set_temp("handing", carry_object("/d/mingjiao/yuan/obj/arrow"));
 }

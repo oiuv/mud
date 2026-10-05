@@ -9,6 +9,7 @@ import { readBaseline as bootsBaseline, original as beforeBoots, expectedCaller,
 import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedCaller as expectedHeadwearCaller,
     dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 import { renameReferences } from './item_ids.mjs';
+import { afterHandsMigration } from './hands_inventory.mjs';
 
 const baseline = canonicalBaseline();
 const files = new Map();
@@ -43,6 +44,7 @@ for (const [file, hits] of files) {
             'Prior migration caller baseline changed: ' + file);
         expected = expectedHeadwearCaller(file);
     }
+    expected = afterHandsMigration(file, expected, semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

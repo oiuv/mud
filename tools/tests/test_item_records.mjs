@@ -1,7 +1,7 @@
 // Only synthetic backups in an OS temporary directory. No live records or game service.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs, { mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync, symlinkSync, unlinkSync } from 'node:fs';
+import fs, { cpSync, mkdirSync, mkdtempSync, writeFileSync, readFileSync, existsSync, symlinkSync, unlinkSync } from 'node:fs';
 import { syncBuiltinESMExports } from 'node:module';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +9,7 @@ import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { discoverBackup, writeBackupManifest, migrateBackupRecords, migrateItemRecords } from '../migrate_item_records.mjs';
 import { renamedPaths } from './item_ids.mjs';
+import { migrationPaths as handsPaths, canonicalGroups as handsGroups } from './hands_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = join(root, 'bin/driver.exe');
@@ -244,6 +245,86 @@ test('all renamed canonical IDs convert once across players, shops and selected 
         }) + '\n');
         const failed = join(sandbox, 'renamed-conflict-' + family);
         await assert.rejects(migrateItemRecords(join(input, 'manifest.json'), driver, failed), /Shop price conflict/);
+        assert.equal(existsSync(failed), false);
+    }
+});
+
+test('all 28 HANDS paths and four-family backups: CLI, stock merging, state, bags, rollback and conflicts', async () => {
+    const input = join(sandbox, 'hands-input');
+    mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
+    const pairs = Object.entries({ ...handsPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head });
+    assert.equal(Object.keys(handsPaths()).length, 28);
+    assert.equal(handsGroups().length, 20);
+    const items = {}, goods = {}, amounts = {}, expectedCounts = {};
+    for (const [i, [oldPath, path]] of pairs.entries()) {
+        items['item' + i * 2] = { file: oldPath, amount: 2, name: '旧物' + i, unknown_field: 'state-' + i };
+        items['item' + (i * 2 + 1)] = { file: path, amount: 3, name: '独立物品' + i };
+        goods[oldPath] = goods[path] = 100;
+        amounts[oldPath] = 2; amounts[path] = 3;
+        expectedCounts[path] = (expectedCounts[path] ?? 3) + 2;
+    }
+    items.item62 = { file: '/d/lingxiao/obj/book-iron', amount: 1, name: '未选研读物品' };
+    const total = Object.values(amounts).reduce((a, b) => a + b, 0);
+    const note = '正文保留旧路径 ' + pairs[0][0];
+    const sources = {
+        'user/player.o': 'my_depot ' + lpc(items) + '\ndbase ' + lpc({ note }) + '\n',
+        'shop/shop.o': 'dbase ' + lpc({ vendor_goods: goods, vendor_goods_num: amounts, all_vendor_goods: total, balance: 789, note }) + '\n',
+        'dbased.o': 'save_dbase ' + lpc({ '/test/bag': items, '/test/unselected': items }) + '\n',
+    };
+    for (const [file, source] of Object.entries(sources)) writeFileSync(join(input, file), source);
+    const cli = args => JSON.parse(execFileSync(process.execPath, [join(root, 'tools/migrate_item_records.mjs'), ...args],
+        { encoding: 'utf8', windowsHide: true }));
+    const manifestFile = join(input, 'manifest.json');
+    assert.equal(cli(['--backup-root', input, '--write-manifest', manifestFile]).discovered_files, 2);
+    const preview = cli(['--backup-root', input, '--driver', driver]);
+    assert.equal(preview.checked_files, 2); assert.equal(preview.changes, pairs.length * 3);
+    const manifest = JSON.parse(readFileSync(manifestFile, 'utf8'));
+    manifest.files.push({ file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/bag'] });
+    writeFileSync(manifestFile, JSON.stringify(manifest));
+    const target = join(sandbox, 'hands-copy');
+    const result = cli(['--manifest', manifestFile, '--driver', driver, '--output', target]);
+    assert.equal(result.changes, pairs.length * 4); assert.equal(result.checked_files, 3);
+    const player = readFileSync(join(target, 'converted/user/player.o'), 'utf8');
+    const changedShop = readFileSync(join(target, 'converted/shop/shop.o'), 'utf8');
+    const bags = readFileSync(join(target, 'converted/dbased.o'), 'utf8');
+    for (const [i, [oldPath, path]] of pairs.entries()) {
+        assert.ok(!player.includes('"file":"' + oldPath + '"'));
+        assert.ok(player.includes('"unknown_field":"state-' + i + '"'));
+        assert.ok(player.includes('"name":"旧物' + i + '"'));
+        assert.ok(player.includes('"name":"独立物品' + i + '"'));
+        assert.ok(!changedShop.includes('"' + oldPath + '":'));
+        assert.equal(bags.split('"file":"' + oldPath + '"').length - 1, 1, 'unselected bag unchanged');
+        const groupSize = pairs.filter(p => p[1] === path).length;
+        assert.equal(player.split('"file":"' + path + '"').length - 1, 2 * groupSize, 'player entries not coalesced');
+    }
+    for (const [path, count] of Object.entries(expectedCounts)) {
+        assert.ok(changedShop.includes('"' + path + '":' + count + ','));
+        assert.ok(changedShop.includes('"' + path + '":100,'));
+    }
+    assert.ok(changedShop.includes('"all_vendor_goods":' + total + ','));
+    assert.ok(changedShop.includes('"balance":789,')); assert.ok(changedShop.includes(note));
+    assert.ok(player.includes('"file":"/d/lingxiao/obj/book-iron"'));
+    assert.equal(player.split('"amount":2,').length - 1, pairs.length);
+    assert.equal(player.split('"amount":3,').length - 1, pairs.length);
+    assert.ok(player.endsWith('dbase ' + lpc({ note }) + '\n'));
+    for (const [file, source] of Object.entries(sources)) {
+        assert.equal(readFileSync(join(input, file), 'utf8'), source);
+        assert.equal(readFileSync(join(target, 'backup', file), 'utf8'), source, 'byte-exact rollback copy');
+    }
+    const rollback = join(sandbox, 'hands-rollback');
+    cpSync(join(target, 'backup'), rollback, { recursive: true });
+    for (const [file, source] of Object.entries(sources))
+        assert.deepEqual(readFileSync(join(rollback, file)), Buffer.from(source), 'restored backup bytes');
+    const replay = join(target, 'converted/manifest.json'); writeFileSync(replay, JSON.stringify(manifest));
+    assert.equal((await migrateItemRecords(replay, driver)).changes, 0);
+    await assert.rejects(migrateItemRecords(manifestFile, driver, target), /new directory/);
+    // All old/new HANDS identities are mapped; differing prices must not silently win.
+    for (const [index, [oldPath, path]] of Object.entries(handsPaths()).entries()) {
+        writeFileSync(join(input, 'shop/shop.o'), 'dbase ' + lpc({
+            vendor_goods: { [oldPath]: 1, [path]: 2 }, vendor_goods_num: { [oldPath]: 2, [path]: 3 },
+        }) + '\n');
+        const failed = join(sandbox, 'hands-conflict-' + index);
+        await assert.rejects(migrateItemRecords(manifestFile, driver, failed), /Shop price conflict/);
         assert.equal(existsSync(failed), false);
     }
 });

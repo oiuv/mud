@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 
 export const renamedIds = JSON.parse(readFileSync(new URL('./item_id_renames.json', import.meta.url), 'utf8'));
 export const validId = id => typeof id === 'string' && /^[a-z]+(?:_[a-z]+)*[0-9]*$/.test(id);
+// Human-readable definition order: chahua2 precedes chahua10; never renumber IDs.
+export const compareItemIds = (left, right) => left.localeCompare(right, 'en', { numeric: true });
 export const canonicalId = (family, id) => renamedIds[family]?.[id] ?? id;
 export const renamedPaths = family => Object.fromEntries(Object.entries(renamedIds[family]).map(([oldId, id]) =>
     [`/d/items/${family}/${oldId}`, `/d/items/${family}/${id}`]));
