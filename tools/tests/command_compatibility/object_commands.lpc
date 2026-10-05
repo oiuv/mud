@@ -1,0 +1,169 @@
+void check(int ok, string label) { master()->check(ok, "objects: " + label); }
+void run() {
+    object actor, first, second, poor, room, mount, mortar, item;
+    object *before;
+    string path;
+    int n;
+
+    actor = new("/tests/object");
+    room = load_object("/cases/modern");
+    actor->move(room);
+    first = new("/tests/object");
+    second = new("/tests/object");
+    poor = new("/tests/object");
+    first->set("combat_exp", 50001);
+    second->set("combat_exp", 100000);
+    first->set("born", 1);
+    second->set("born", 1);
+    first->move(room);
+    second->move(room);
+    set_test_users(({ first, second, poor }));
+    foreach (path in ({ "/cases/old.c", "/cases/modern.lpc", "/tests/provider/gift" })) {
+        n = sizeof(all_inventory(first));
+        actor->invoke("/cmds/adm/giveall", path);
+        check(sizeof(all_inventory(first)) == n + 1 && sizeof(all_inventory(second)) == n + 1,
+            "giveall delivers physical and virtual gift: " + path);
+        check(!sizeof(all_inventory(poor)), "giveall retains experience qualification");
+    }
+    load_object("/cases/modern")->set("base_unit", "个");
+    write_file(
+        "/cases/stack.lpc",
+        "inherit \"/tests/object\"; void create() { ::create(); set(\"base_unit\", \"个\"); }\n",
+        1
+    );
+    before = all_inventory(first);
+    actor->invoke("/cmds/adm/giveall", "/cases/stack 5");
+    item = (all_inventory(first) - before)[0];
+    check(item->query_amount() == 5, "stack quantity unchanged");
+    n = sizeof(all_inventory(first));
+    actor->invoke("/cmds/adm/giveall", "/cases/modern.c");
+    actor->invoke("/cmds/adm/giftall", "/cases/modern.c");
+    check(sizeof(all_inventory(first)) == n, "missing explicit c source does not fall back to lpc");
+    actor->invoke("/cmds/adm/giveall", "/tests/provider/bad");
+    check(sizeof(all_inventory(first)) == n, "bad virtual gift not distributed");
+    actor->set("deny_grant", 1);
+    actor->invoke("/cmds/adm/giveall", "/cases/old");
+    actor->invoke("/cmds/adm/giftall", "/cases/old");
+    check(sizeof(all_inventory(first)) == n, "both distribution commands retain grant check");
+    actor->delete("deny_grant");
+    n = sizeof(all_inventory(first)) + sizeof(all_inventory(second));
+    actor->invoke("/cmds/adm/giftall", "/tests/provider/gift");
+    check(sizeof(all_inventory(first)) + sizeof(all_inventory(second)) == n + 1,
+        "giftall selects one qualified player per IP");
+    second->set("ip", "127.0.0.2");
+    actor->invoke("/cmds/adm/giftall", "/cases/modern");
+    check(sizeof(all_inventory(first)) + sizeof(all_inventory(second)) == n + 3,
+        "giftall supports lpc and distinct IPs");
+    write_file(
+        "/cases/partial.lpc",
+        "inherit \"/tests/object\"; int made; int next() { return ++made; } void create() { ::create(); if (clonep(this_object()) && \"/cases/partial\"->next() > 1) error(\"expected clone failure\\n\"); }\n",
+        1
+    );
+    actor->invoke("/cmds/adm/giveall", "/cases/partial");
+    check(strsrch(actor->transcript(), "创建失败") >= 0 && strsrch(actor->transcript(), "共有 1 位") >= 0,
+        "partial giveall reports real delivery count");
+    check(sizeof(filter_array(
+        children("/cases/partial"),
+        (: clonep($1) && !environment($1) :)
+    )) == 0,
+        "failed giveall construction leaves no orphan clone");
+    destruct(load_object("/cases/partial"));
+    actor->invoke("/cmds/adm/giftall", "/cases/partial");
+    check(strsrch(actor->transcript(), "创建失败") >= 0 && strsrch(actor->transcript(), "共有1位") >= 0,
+        "partial giftall reports real delivery count");
+    check(sizeof(filter_array(
+        children("/cases/partial"),
+        (: clonep($1) && !environment($1) :)
+    )) == 0,
+        "failed giftall construction leaves no orphan clone");
+    set_test_users(({}));
+
+    actor->invoke("/cmds/arch/child", "/tests/provider/gift");
+    check(strsrch(actor->transcript(), "/tests/provider/gift#") >= 0, "child lists virtual clones");
+    actor->invoke("/cmds/arch/child", "/tests/provider/not_loaded");
+    check(!find_object("/tests/provider/not_loaded") && strsrch(actor->transcript(), "没有找到") >= 0,
+        "child does not create unloaded virtual object");
+    foreach (path in ({ "/tests/provider/destination", "/u/Root/workroom.lpc" })) {
+        actor->invoke("/cmds/imm/flyto", path);
+        check(environment(actor) == find_object(path), "flyto cold load: " + path);
+        actor->move(room);
+        actor->invoke("/cmds/imm/flyto", path);
+        check(environment(actor) == find_object(path), "flyto warm load: " + path);
+    }
+    actor->invoke("/cmds/imm/flyto", "/tests/provider/throw");
+    check(environment(actor) == find_object("/u/Root/workroom"), "flyto failure does not move");
+    actor->move(room);
+    actor->invoke("/cmds/wiz/home", "");
+    check(environment(actor) == find_object("/u/Root/workroom"), "home reads lpc workroom");
+    rm("/u/Root/workroom.lpc");
+    actor->invoke("/cmds/wiz/home", "");
+    check(
+        environment(actor) == find_object("/d/wizard/hall"),
+        "home missing source retains fallback"
+    );
+    actor->invoke("/cmds/imm/flyto", "/cases/modern.c");
+    check(
+        environment(actor) == find_object("/d/wizard/hall"),
+        "flyto missing explicit source is not silently replaced"
+    );
+
+    mount = new("/tests/object");
+    mount->set("id", "test_mount");
+    mount->move(actor);
+    actor->set_temp("is_riding", mount);
+    foreach (path in ({ "/cases/old", "/cases/modern", "/tests/provider/home" })) {
+        actor->set("private_room/position", path);
+        actor->invoke("/cmds/usr/rideto", "home");
+        check(environment(actor) == find_object(path), "rideto configured home: " + path);
+    }
+    environment(actor)->set("no_ride", 1);
+    actor->set("private_room/position", "/cases/old");
+    actor->invoke("/cmds/usr/rideto", "home");
+    check(environment(actor) != find_object("/cases/old"), "rideto no_ride preserved");
+    environment(actor)->delete("no_ride");
+    actor->set("can_whistle/mount", "/tests/provider/mount");
+    actor->invoke("/cmds/usr/whistle", "mount");
+    check(
+        load_object("/tests/provider/mount")->query("summoned") == actor,
+        "whistle virtual mount"
+    );
+    actor->set("can_whistle/mount", "/cases/modern");
+    actor->invoke("/cmds/usr/whistle", "mount");
+    check(room->query("summoned") == actor, "whistle lpc mount");
+    actor->set("busy", 1);
+    actor->set("can_whistle/forbidden", "/tests/provider/forbidden");
+    actor->invoke("/cmds/usr/whistle", "forbidden");
+    check(!find_object("/tests/provider/forbidden"), "busy whistle denied before loading");
+    actor->delete("busy");
+
+    write_file(
+        "/clone/medicine/pill.lpc",
+        "inherit \"/tests/object\"; void create() { ::create(); set(\"mixture\", ([ \"herb\": ([ \"mint\": 2 ]) ])); }\n",
+        1
+    );
+    write_file(
+        "/clone/herb/mint.lpc",
+        "inherit \"/tests/object\"; void create() { ::create(); set(\"name\", \"薄荷\"); set(\"base_unit\", \"片\"); }\n",
+        1
+    );
+    write_file(
+        "/clone/medicine/provider.lpc",
+        "object create_virtual_object(string key) { return key == \"pill\" ? new(\"/clone/medicine/pill\") : 0; }\n",
+        1
+    );
+    foreach (path in ({ "pill", "provider/pill" })) {
+        actor->set("can_make/药丸", path);
+        actor->invoke("/cmds/std/make", "药丸 ?");
+        check(
+            strsrch(actor->transcript(), "2片薄荷") >= 0,
+            "recipe supports lpc and virtual medicine: " + path
+        );
+    }
+    mortar = new("/tests/object");
+    mortar->set("mortar", 1);
+    actor->set_temp("handing", mortar);
+    actor->invoke("/cmds/std/make", "药丸");
+    check(strsrch(actor->transcript(), "薄荷的分量还不够") >= 0, "missing lpc herb uses actual name");
+    actor->invoke("/cmds/std/make", "未知药方");
+    check(strsrch(actor->transcript(), "还不会") >= 0, "recipe eligibility unchanged");
+}

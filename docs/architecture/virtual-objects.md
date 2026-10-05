@@ -35,6 +35,20 @@ room = load_object("/u/mudren/workroom/-2,3,1");
 
 服装用 `virtual_start()` 设置同品种默认对象并只执行一次 `setup()`；普通房间原有构造逻辑继续保留。不要因为统一接口而把所有初始化再次放进 `virtual_start()`。
 
+## 管理指令中的身份与源码
+
+`file_name()` 是当前对象身份（克隆含 `#编号`），`base_name()` 是逻辑蓝图路径，
+两者都不应直接拼接 `.c` 当作实体源码。实体源码通过 `lpc_file()` 解析；虚拟
+对象没有同名源码。`info`、`data`、`sa` 分开显示身份与可找到的实体源码，
+`ff` 解析函数实际定义程序的源码扩展名。
+
+`more <对象名>` 对实体对象读取实际源码；对虚拟对象读取 `/provider/key`
+对应的处理程序，并提示这不一定是对象实际执行的程序。该功能不加载对象，
+最终文件仍须通过读取授权。`child` 仅列出现有实例，不探测或创建虚拟品种。
+
+批量 `loadall` 扫描真实源码并跳过测试及非游戏目录；`guilei` 不把处理程序
+克隆成商品，只追踪房间、NPC 和货表已有的对象引用；`fcrypt` 只改写真实文件。
+
 ## 现有接入点
 
 | 处理程序 | key 含义与职责 |
@@ -56,6 +70,7 @@ node mudcore/tests/run.mjs bin/driver.exe
 node tools/tests/test_illusion_world.mjs bin/driver.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --clone-command
+node tools/tests/test_command_compatibility.mjs bin/driver.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --bench
 node tools/tests/test_boots_objects.mjs bin/driver.exe --all
 ```

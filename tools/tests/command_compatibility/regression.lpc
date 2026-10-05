@@ -1,0 +1,20 @@
+void check(int ok, string label) { master()->check(ok, label); }
+void run() {
+    object ob;
+    mixed err;
+
+    check(objectp(load_object("/cases/old")), "physical c cold load");
+    check(objectp(load_object("/cases/modern")), "physical lpc cold load");
+    ob = load_object("/tests/provider/item");
+    check(objectp(ob) && virtualp(ob) && !clonep(ob), "virtual blueprint driver identity");
+    check(!load_object("/tests/provider/bad"), "virtual rejection returns zero");
+    err = catch(load_object("/tests/provider/throw"));
+    check(stringp(err), "virtual exception observable");
+    err = catch(load_object("/cases/failing"));
+    check(stringp(err), "physical constructor failure observable");
+    load_object("/tests/updatei")->run();
+    load_object("/tests/object_commands")->run();
+    load_object("/tests/skill_commands")->run();
+    load_object("/tests/batch_commands")->run();
+    load_object("/tests/display_commands")->run();
+}

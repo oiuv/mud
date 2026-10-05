@@ -1,0 +1,5 @@
+int valid_grant(object me, string grant) { return !me->query("deny_grant"); }
+int valid_read(string file, object me, string action) {
+    me->set("last_read", file);
+    return file != me->query("denied_path");
+}

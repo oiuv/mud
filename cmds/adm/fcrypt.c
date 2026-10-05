@@ -33,7 +33,8 @@ int main(object me, string arg) {
         return notify_fail("这个文件没有必要增加鉴别ID。\n");
 
     affix = arg[strlen(arg) - 2..<1];
-    if (affix != ".c" && affix != ".h")
+    if (affix != ".c" && affix != ".h" &&
+        (strlen(arg) <= 4 || arg[<4..] != ".lpc"))
         return notify_fail("这个文件没有必要增加鉴别ID。\n");
 
     if (VERSION_D->append_sn(arg) == 1) {
@@ -59,7 +60,8 @@ int build_path(string path) {
         reset_eval_cost();
         if (file[i][1] != -2) {
             affix = file[i][0][strlen(file[i][0]) - 2..<1];
-            if (affix != ".c" && affix != ".h")
+            if (affix != ".c" && affix != ".h" &&
+                (strlen(file[i][0]) <= 4 || file[i][0][<4..] != ".lpc"))
                 continue;
 
             switch (VERSION_D->append_sn(path + file[i][0])) {
@@ -90,7 +92,7 @@ int help(object me) {
 指令格式 : fcrypt <目录名> | <文件名>
 
 利用此一指令可以为某一个文件或是某一个目录下的所有源文件增加
-数据完整性ID。
+数据完整性ID。支持真实的 .c、.lpc 和 .h 文件，不处理虚拟对象路径。
 
 HELP
     );

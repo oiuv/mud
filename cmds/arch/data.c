@@ -78,7 +78,9 @@ int main(object me, string arg) {
         return notify_fail("Data: 此对象并没有储存任何资料。\n");
 
     if (!spec || spec == "-d") {
-        text = "Object: " + base_name(ob) + ".c\n";
+        text = "Object: " + file_name(ob) + "\n";
+        if (!virtualp(ob) && lpc_file(base_name(ob)))
+            text += "Source: " + lpc_file(base_name(ob)) + "\n";
 
         for (loop = 0; loop < sizeof(klist); loop++) {
             if (strlen(klist[loop]) > 7)

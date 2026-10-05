@@ -43,7 +43,7 @@ int main(object me, string arg) {
                 arg = implode(temp[0..sizeof(temp) - 2], " ");
             skill1 = temp[sizeof(temp) - 1];
 
-            if (file_size(SKILL_D(skill1) + ".c") <= 0) {
+            if (!lpc_file(SKILL_D(skill1))) {
                 if (sizeof(temp) < 2)
                     arg = skill1;
                 else
@@ -65,7 +65,7 @@ int main(object me, string arg) {
         if (ob && !ob->is_character())
             ob = 0;
 
-        if (skill1 && file_size(SKILL_D(skill1) + ".c") <= 0) {
+        if (skill1 && !lpc_file(SKILL_D(skill1))) {
             if (objectp(ob)) {
                 arg = 0;
                 skill1 = 0;

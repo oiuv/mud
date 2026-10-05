@@ -8,7 +8,8 @@ inherit F_CLEAN_UP;
 void create() { seteuid(getuid()); }
 
 int main(object me, string arg) {
-    object qm;
+    object qm, medicine, material;
+    mixed err;
     object hob;
     string med;
     mapping make;
@@ -45,7 +46,8 @@ int main(object me, string arg) {
     // The player can only make the medicine under the /clone/medicine,
     // nothing, but for save memory.
     med = MEDICINE(med);
-    if (file_size(med + ".c") < 0)
+    err = catch(medicine = load_object(med));
+    if (err || !objectp(medicine))
         return notify_fail("这种药方好像已经失传了？你还是问问巫师吧。\n");
 
     if (!mapp(req = med->query("mixture")))
@@ -59,8 +61,11 @@ int main(object me, string arg) {
         write("炼制" + arg + "需要以下这些药材：\n");
         ks = keys(herb);
         for (i = 0; i < sizeof(ks); i++) {
-            write(chinese_number(herb[ks[i]]) + HERB(ks[i])->query("base_unit") +
-                HERB(ks[i])->name() + "\n");
+            err = catch(material = load_object(HERB(ks[i])));
+            if (err || !objectp(material))
+                return notify_fail("药方中的药材暂时备不齐，还是请教一下药师吧。\n");
+            write(chinese_number(herb[ks[i]]) + material->query("base_unit") +
+                material->name() + "\n");
         }
         return 1;
     }
@@ -102,12 +107,13 @@ int main(object me, string arg) {
     for (i = 0; i < sizeof(ks); i++) {
         hob = present("herb_" + ks[i], me);
         if (!hob || hob->query_amount() < herb[ks[i]]) {
-            if (file_size(HERB(ks[i]) + ".c") < 0) {
+            err = catch(material = load_object(HERB(ks[i])));
+            if (err || !objectp(material)) {
                 write("没有(" + ks[i] + ")这种药材啊！怎么回事？\n");
                 return 1;
             }
             return notify_fail("你点了点药材，发现" +
-                HERB(ks[i])->name() +
+                material->name() +
                 "的分量还不够。\n");
         }
         hlist[i] = hob;

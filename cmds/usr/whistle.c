@@ -6,6 +6,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg) {
     object ob;
+    mixed err;
     string file;
     string msg, *ks;
     mapping whistle;
@@ -20,12 +21,13 @@ int main(object me, string arg) {
         msg = "你现在可以召唤的坐骑有：\n";
 
         for (i = 0; i < sizeof(ks); i++) {
-            if (!get_object(whistle[ks[i]]))
+            err = catch(ob = get_object(whistle[ks[i]]));
+            if (err || !objectp(ob))
                 continue;
             msg += sprintf(
                 HIW "坐骑ID：" MAG "%-15s" NOR HIW "    坐骑名字：%-20s\n" NOR,
                 ks[i],
-                whistle[ks[i]]->name()
+                ob->name()
             );
         }
         write(msg);
@@ -44,14 +46,12 @@ int main(object me, string arg) {
     if (!stringp(file = me->query("can_whistle/" + arg)))
         return notify_fail("你不知道如何召唤这个坐骑。\n");
 
-    if (file_size(file + ".c") < 0)
-        return notify_fail("你不知道如何召唤这个坐骑。\n");
-
     if (environment(me)->query("no_magic") || environment(me)->query("no_fly"))
         return notify_fail("你发现这里有点古怪，你的坐骑好象不能进来！\n");
 
-    call_other(file, "???");
-    ob = find_object(file);
+    err = catch(ob = load_object(file));
+    if (err || !objectp(ob))
+        return notify_fail("你的口哨声远远传开，却不见坐骑回应，稍后再试吧。\n");
 
     if (!ob || !ob->receive_whistle(me)) {
         message_vision(HIM "$N" HIM "吹了一声口哨。\n"

@@ -1,0 +1,9 @@
+inherit "/tests/object";
+int valid_enable(string kind) { return kind == "force"; }
+int valid_force(string skill) { return skill != "*" && query("compatible"); }
+mapping query_sub_skills() {
+    return ([ base_name(this_object()) == "/kungfu/skill/fusion_old" ? "sub_old" : "sub": 1 ]);
+}
+int get_ready(object me) { return 1; }
+int get_finish(object me) { return 1; }
+mapping query_action(object me, object weapon) { return ([ "action": "$N朝$n挥掌", "force": 1 ]); }

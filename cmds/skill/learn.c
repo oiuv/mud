@@ -211,7 +211,7 @@ int can_learn(object me, string skill) {
         return 1;
 
     foreach (skill_name in keys(skills)) {
-        if (file_size(SKILL_D(skill_name) + ".c") == -1) {
+        if (!lpc_file(SKILL_D(skill_name))) {
             // No such skill
             continue;
         }

@@ -23,8 +23,10 @@ int main(object me, string arg) {
         arg = 0;
     }
 
-    team_cmd = __DIR__ "team/" + team_cmd + ".c";
-    if (file_size(team_cmd) < 0)
+    if (strsrch(team_cmd, "/") != -1 || strsrch(team_cmd, "\\") != -1)
+        return notify_fail("你要发什么队伍命令？\n");
+    team_cmd = lpc_file(__DIR__ "team/" + team_cmd);
+    if (!team_cmd)
         return notify_fail("你要发什么队伍命令？\n");
 
     return team_cmd->main(me, arg);

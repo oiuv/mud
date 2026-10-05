@@ -30,7 +30,7 @@ int main(object me, string arg) {
     if (!file)
         write(sprintf("对象 %O 并没有定义 %s 这个函数。\n", ob, func));
     else
-        write(sprintf("对象 %O 的 %s 函数定义在 %s.c。\n", ob, func, file));
+        write(sprintf("对象 %O 的 %s 函数定义在 %s。\n", ob, func, lpc_file(file) || file));
     return 1;
 }
 

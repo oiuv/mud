@@ -1,0 +1,129 @@
+void check(int ok, string label) { master()->check(ok, "updatei: " + label); }
+void run() {
+    object actor, root, leaf, room, copy_ob, protected_player, guest, old;
+    string text, name;
+    int i;
+
+    actor = new("/tests/object");
+    write_file("/cases/root.lpc", "inherit \"/tests/object\";\nint revision() { return 1; }\n", 1);
+    write_file("/cases/a.c", "inherit \"/cases/root\";\nint a_value() { return revision(); }\n", 1);
+    write_file(
+        "/cases/b.lpc",
+        "inherit \"/cases/root\";\nint b_value() { return revision(); }\n",
+        1
+    );
+    write_file(
+        "/cases/leaf.lpc",
+        "inherit \"/cases/a\";\ninherit \"/cases/b\";\nint combined() { return a_value() + b_value(); }\n",
+        1
+    );
+    write_file(
+        "/cases/world.lpc",
+        "inherit \"/cases/root\";\nobject create_virtual_object(string key) { if (read_file(\"/cases/reject\")) return 0; return new(\"/cases/leaf\"); }\n",
+        1
+    );
+    write_file("/cases/player.lpc", "inherit \"/cases/root\";\n", 1);
+    leaf = load_object("/cases/leaf");
+    root = find_object("/cases/root");
+    room = load_object("/cases/world/room");
+    copy_ob = new("/cases/leaf");
+    protected_player = load_object("/cases/player");
+    protected_player->set("player", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/player -c");
+    check(protected_player == find_object("/cases/player"), "explicit player root excluded");
+    old = load_object(VOID_OB);
+    actor->invoke("/cmds/adm/updatei", VOID_OB + " -c");
+    check(old == find_object(VOID_OB), "safe temporary location cannot be update root");
+    actor->invoke("/cmds/adm/updatei", "/cases/root -d");
+    check(
+        leaf == find_object("/cases/leaf") && room == find_object("/cases/world/room"),
+        "preview does not destroy"
+    );
+    actor->invoke("/cmds/adm/updatei", "-c");
+    check(root == find_object("/cases/root"), "options without path are harmless");
+    write_file("/cases/root.lpc", "inherit \"/tests/object\";\nint revision() { return 2; }\n", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/root.lpc -c -d");
+    text = actor->transcript();
+    check(
+        !objectp(leaf) && load_object("/cases/leaf")->combined() == 4,
+        "mixed multiple inheritance rebuilt"
+    );
+    check(
+        !objectp(room) && load_object("/cases/world/room")->combined() == 4,
+        "virtual blueprint reconstructed after physical programs"
+    );
+    check(objectp(copy_ob) && copy_ob->combined() == 2, "clone retains old program");
+    check(
+        objectp(protected_player) && protected_player->revision() == 1,
+        "player blueprint excluded"
+    );
+    check(
+        strsrch(text, "/cases/leaf.lpc：成功") >= 0 && strsrch(text, "编译中止") < 0,
+        "accurate source and successful summary"
+    );
+
+    room = load_object("/cases/world/room");
+    guest = new("/tests/object");
+    guest->set("player", 1);
+    guest->move(room);
+    actor->invoke("/cmds/adm/updatei", "/cases/root -c");
+    check(!objectp(room) && environment(guest) == find_object("/cases/world/room"),
+        "successful rebuild restores occupants");
+    room = environment(guest);
+    guest->set("deny_move", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/root -c");
+    check(objectp(room) && environment(guest) == room, "failed evacuation preserves room");
+    check(strsrch(actor->transcript(), "迁出失败") >= 0, "evacuation failure reported");
+    guest->delete("deny_move");
+    write_file("/cases/reject", "1", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/root -c -d");
+    check(
+        !objectp(room) && environment(guest) == find_object(VOID_OB),
+        "zero reload leaves guest safely evacuated"
+    );
+    check(strsrch(actor->transcript(), "编译失败：/cases/world/room") >= 0 &&
+        strsrch(
+            actor->transcript(),
+            "编译 /cases/world/room：成功"
+        ) < 0, "zero result not called success");
+    rm("/cases/reject");
+    room = load_object("/cases/world/room");
+    guest->move(room);
+    guest->set("deny_return", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/root -c");
+    check(environment(guest) == find_object(VOID_OB) &&
+        strsrch(actor->transcript(), "内容恢复失败") >= 0,
+        "failed restoration is reported and guest stays safe");
+    guest->delete("deny_return");
+
+    write_file(
+        "/cases/broken.c",
+        "inherit \"/tests/object\";\nvoid create() { ::create(); if (read_file(\"/cases/fail\")) error(\"expected failure\\n\"); }\n",
+        1
+    );
+    old = load_object("/cases/broken");
+    guest->move(old);
+    write_file("/cases/fail", "1", 1);
+    actor->invoke("/cmds/adm/updatei", "/cases/broken -c -d");
+    check(environment(guest) == find_object(VOID_OB) && strsrch(actor->transcript(), "编译失败") >= 0,
+        "throwing reload leaves guest safe and stops");
+
+    write_file("/cases/many.c", "inherit \"/tests/object\";\n", 1);
+    for (i = 0; i < 1025; i++) {
+        reset_eval_cost();
+        name = sprintf("/cases/many_%d.lpc", i);
+        write_file(name, "inherit \"/cases/many\";\n", 1);
+        load_object(name);
+    }
+    root = find_object("/cases/many");
+    actor->invoke("/cmds/adm/updatei", "/cases/many -c");
+    check(
+        root == find_object("/cases/many") && strsrch(actor->transcript(), "-f") >= 0,
+        "force threshold prevents mutations"
+    );
+    actor->invoke("/cmds/adm/updatei", "/cases/many -c -f");
+    check(
+        !objectp(root) && strsrch(actor->transcript(), "1026 个对象被成功编译") >= 0,
+        "explicit force updates all selected objects"
+    );
+}

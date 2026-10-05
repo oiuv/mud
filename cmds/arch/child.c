@@ -15,12 +15,8 @@ int main(object me, string str) {
         return notify_fail("你要查看哪个文件？\n");
 
     str = resolve_path(me->query("cwd"), str);
-    if (sscanf(str, "%*s.c") != 1)
-        str += ".c";
+    str = lpc_object_path(str);
     me->set("cwf", str);
-
-    if (file_size(str) < 0)
-        return notify_fail("没有这个文件：" + str + ")\n");
 
     list = children(str);
     number = sizeof(list);
@@ -51,7 +47,9 @@ int help(object me) {
     write(@HELP
 指令格式: child filename
 
-列出一个文档对象和所有副本。
+列出某个身份下已加载的蓝图和所有副本，不主动创建对象。
+支持 .c、.lpc 或无扩展名路径，以及虚拟路径。
+例如：child /d/items/neck/baijin_quan
 
 HELP);
     return 1;

@@ -1,0 +1,77 @@
+private mapping data = ([]);
+private string output = "";
+private string selected_command;
+
+mixed query(string key) { return data[key]; }
+void set(string key, mixed value) { data[key] = value; }
+void delete(string key) { map_delete(data, key); }
+mapping query_entire_dbase() { return copy(data); }
+mapping query_entire_temp_dbase() { return ([]); }
+int is_admin() { return query("admin"); }
+int query_weight() { return query("weight"); }
+int is_area() { return query("area"); }
+varargs mapping query_info(int x, int y) { return query("coord_info"); }
+string name(int flag) { return query("name") || "测试物品"; }
+string short(int flag) { return name(flag); }
+int id(string value) { return value == query("id"); }
+void catch_tell(string text) { output += text; }
+string transcript() { return output; }
+void clear_output() { output = ""; }
+void start_more(string text) { catch_tell(text); }
+void start_more_file(string file) { set("read_file", file); }
+void set_amount(int amount) { set("amount", amount); }
+int query_amount() { return query("amount") || 1; }
+void add_amount(int amount) { set("amount", query_amount() + amount); }
+mixed query_temp(string key) { return query("temp/" + key); }
+void set_temp(string key, mixed value) { set("temp/" + key, value); }
+void delete_temp(string key) { delete("temp/" + key); }
+int visible(object ob) { return !ob->query("hidden"); }
+int is_character() { return query("character"); }
+int is_ghost() { return query("ghost"); }
+int is_busy() { return !!query("busy"); }
+int is_fighting() { return query("fighting"); }
+int is_in_prison() { return query("prison"); }
+int over_encumbranced() { return query("overweight"); }
+int query_encumbrance() { return 0; }
+int query_condition(string key) { return 0; }
+int receive_whistle(object me) { set("summoned", me); return 1; }
+void reset_action() {}
+void set_leader(object me) { set("leader", me); }
+varargs void start_busy(mixed time, mixed stop) { set("busy", time); }
+int can_make_medicine() { return query("mortar"); }
+int query_skill(string name, int flag) { return query("skill/" + name); }
+mapping query_skills() { return query("skills") || ([]); }
+mapping query_learned() { return ([]); }
+mapping query_skill_map() { return ([]); }
+void set_skill(string name, int level) {
+    mapping skills;
+    skills = query_skills();
+    skills[name] = level;
+    set("skills", skills);
+    set("skill/" + name, level);
+}
+void delete_skill(string name) {
+    map_delete(query_skills(), name);
+    delete("skill/" + name);
+}
+void add(string key, int value) { set(key, query(key) + value); }
+void set_short_desc(string text) { set("short_desc", text); }
+varargs int move(mixed destination, int flag) {
+    if (query("deny_move")) return 0;
+    if (query("deny_return") && destination != find_object(VOID_OB)) return 0;
+    move_object(destination);
+    return 1;
+}
+int do_case(string arg) { return selected_command->main(this_object(), arg); }
+int invoke(string path, string arg) {
+    selected_command = path;
+    output = "";
+    return command("case" + (stringp(arg) && arg != "" ? " " + arg : ""));
+}
+void create() {
+    enable_commands();
+    set("cwd", "/");
+    set("name", "测试物品");
+    set("id", "test_item");
+    add_action("do_case", "case");
+}

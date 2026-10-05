@@ -44,8 +44,10 @@ int main(object me, string arg) {
     if (wizardp(victim))
         return notify_fail("你要投巫师的票？\n");
 
-    if (!stringp(file = (string)"/cmds/std/vote/" + act_name) ||
-        file_size(file + ".c") <= 0)
+    if (strsrch(act_name, "/") != -1 || strsrch(act_name, "\\") != -1)
+        return notify_fail("你要投票干什么？\n");
+    file = lpc_file("/cmds/std/vote/" + act_name);
+    if (!file)
         return notify_fail("你要投票干什么？\n");
 
     call_other(file, "???");

@@ -67,7 +67,7 @@ int main(object me, string arg) {
     string file, dir, filename;
     string msg, msg1;
     //string  type;
-    int i, l, is_force, prefix;
+    int i, is_force, prefix;
     int perform, exert;
     mixed *all_file;
     string *sub_skills, sub_skill;
@@ -82,14 +82,14 @@ int main(object me, string arg) {
     if (!arg)
         return notify_fail("指令格式：checkskill <技能名称> | <技能中文名>\n");
 
-    if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0) {
+    if (!stringp(file = SKILL_D(arg)) || !lpc_file(file)) {
         // 英文的找不到？那就找中文名
         if (!stringp(arg = CHINESE_D->find_skill(arg)))
             return notify_fail("没有这种技能存在。\n");
 
         write("Original: " + arg + "\n");
         // 根据中文名找到了英文名，看看是否真的有此技能
-        if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0)
+        if (!stringp(file = SKILL_D(arg)) || !lpc_file(file))
             return notify_fail("没有这种技能存在。\n");
     }
 
@@ -163,7 +163,7 @@ int main(object me, string arg) {
         sub_skills = keys(sub_skill_list);
         msg += CYN "\n  技能合成：  " WHT;
         foreach (sub_skill in sub_skills) {
-            if (file_size(SKILL_D(sub_skill) + ".c") <= 0)
+            if (!lpc_file(SKILL_D(sub_skill)))
                 continue;
 
             msg += to_chinese(sub_skill) + "(" + sub_skill + ")\n" + PREFIX_STR;
@@ -185,7 +185,7 @@ int main(object me, string arg) {
     if (file_size(dir) != -2)
         msg1 += "";
     else {
-        all_file = get_dir(dir);
+        all_file = lpc_source_files(dir);
         if (!sizeof(all_file))
             msg1 += "";
         else {
@@ -195,13 +195,10 @@ int main(object me, string arg) {
                 else if (i > 7 && i % 7 == 0)
                     msg1 += "\n\t   ";
 
-                filename = all_file[i];
-                l = strlen(filename);
-                if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
-                    perform++;
-                    msg1 += (i == 0 ? "" : WHT + APPOSE_STR);
-                    msg1 += sprintf(WHT "%s" NOR, filename[0..l - 3]);
-                }
+                filename = explode(lpc_object_path(all_file[i]), "/")[<1];
+                perform++;
+                msg1 += (i == 0 ? "" : WHT + APPOSE_STR);
+                msg1 += sprintf(WHT "%s" NOR, filename);
             }
 
             if (msg1 != "") {
@@ -229,9 +226,9 @@ int main(object me, string arg) {
         dir += "/";
 
     if (file_size(dir + "exert/") == -2)
-        all_file = get_dir(dir + "exert/");
+        all_file = lpc_source_files(dir + "exert/");
     else if (file_size(dir) == -2)
-        all_file = get_dir(dir);
+        all_file = lpc_source_files(dir);
     else {
         msg += HORIZONTAL_STR;
         write(msg);
@@ -244,13 +241,10 @@ int main(object me, string arg) {
     }
 
     for (i = 0; i < sizeof(all_file); i++) {
-        filename = all_file[i];
-        l = strlen(filename);
-        if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
-            exert++;
-            msg1 += (i == 0 ? "" : WHT + APPOSE_STR);
-            msg1 += sprintf(WHT "%s" NOR, filename[0..l - 3]);
-        }
+        filename = explode(lpc_object_path(all_file[i]), "/")[<1];
+        exert++;
+        msg1 += (i == 0 ? "" : WHT + APPOSE_STR);
+        msg1 += sprintf(WHT "%s" NOR, filename);
     }
 
     if (msg1 != "") {
@@ -380,6 +374,8 @@ int help(object me) {
 
 另外，如果这个技能是一个可被演练合并的技能，则可以显示
 出需用哪些技能来进行演练。
+
+绝招和内功功能按名称列出，同名招式只列一次。
 
 相关指令：skills
 

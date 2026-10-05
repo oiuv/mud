@@ -17,7 +17,7 @@ int main(object me, string str) {
     if (!str)
         return notify_fail("你要统计什么技能？\n");
 
-    if (file_size("/kungfu/skill/" + str + ".c") == -1)
+    if (!lpc_file(SKILL_D(str)))
         return notify_fail("没有这个技能存在！\n");
 
     count = sizeof(users);

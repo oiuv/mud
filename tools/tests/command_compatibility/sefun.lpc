@@ -1,0 +1,40 @@
+#include "file.h"
+#include "path.h"
+
+string base_name(object ob) { return explode(file_name(ob), "#")[0]; }
+private object *test_users = ({});
+void set_test_users(object *value) { test_users = value; }
+object *users() { return test_users; }
+object *all_interactive() { return test_users; }
+int wizardp(object ob) { return ob->query("wizard"); }
+string query_ip_number(object ob) { return ob->query("ip") || "127.0.0.1"; }
+object get_object(string path) { return find_object(path) || load_object(path); }
+varargs void message_vision(string text, object actor, object target) {}
+varargs string sort_string(string text, int width, int prefix) { return text; }
+string sort_msg(string text) { return text; }
+int wiz_level(object ob) { return wizardp(ob) ? 5 : 0; }
+object find_player(string id) {
+    foreach (object ob in test_users) if (objectp(ob) && ob->query("id") == id) return ob;
+    return 0;
+}
+int is_sub(string text, string part) { return strsrch(text, part) != -1; }
+string log_time() { return ctime(time()); }
+string log_id(object ob) { return ob->query("id"); }
+string domain_file(string file) { return "test"; }
+string author_file(string file) { return "Root"; }
+string wizhood(object ob) { return "wizard"; }
+string appromix_time(int seconds) { return sprintf("%d", seconds); }
+string ansi(string text) { return text; }
+string remove_ansi(string text) { return text; }
+string chinese_number(int value) { return sprintf("%d", value); }
+string to_chinese(string text) { return text; }
+varargs int notify_fail(mixed text, int flag) {
+    if (this_player() && stringp(text)) this_player()->catch_tell(text);
+    return 0;
+}
+int is_root(object ob) { return objectp(ob) && getuid(ob) == "Root"; }
+int playerp(object ob) { return objectp(ob) && ob->query("player"); }
+void message_system(string text) {}
+void write(mixed text) {
+    if (this_player()) this_player()->catch_tell(stringp(text) ? text : sprintf("%O", text));
+}

@@ -21,7 +21,9 @@ void show_info(object me, mapping coord) {
 
     msg = sprintf(HIW "========================= %-8s (%2d,%2d) =========================\n" NOR,
         environment(me)->query("name"), coord["x_axis"], coord["y_axis"]);
-    msg += BYEL "[檔案]" NOR + " " + file_name(environment(me)) + ".c\n";
+    msg += BYEL "[对象]" NOR + " " + file_name(environment(me)) + "\n";
+    if (!virtualp(environment(me)) && lpc_file(base_name(environment(me))))
+        msg += BYEL "[源码]" NOR + " " + lpc_file(base_name(environment(me))) + "\n";
 
     foreach (type in keys(info))
         switch (type) {

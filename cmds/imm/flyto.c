@@ -7,6 +7,7 @@ inherit F_CLEAN_UP;
 
 int main(object me, string arg) {
     object obj;
+    mixed err;
 
     if (!SECURITY_D->valid_grant(me, "(immortal)"))
         return 0;
@@ -19,12 +20,12 @@ int main(object me, string arg) {
         obj = find_living(arg);
     if (!obj || !me->visible(obj)) {
         arg = resolve_path(me->query("cwd"), arg);
-        if (!sscanf(arg, "%*s.c"))
-            arg += ".c";
+        if (lpc_object_path(arg) != arg && !lpc_file(arg))
+            return notify_fail("指定的源码文件不存在。\n");
         if (!(obj = find_object(arg))) {
-            if (file_size(arg) >= 0)
-                return me->move(arg);
-            return notify_fail("没有这个玩家、生物、或地方。\n");
+            err = catch(obj = load_object(arg));
+            if (err || !objectp(obj))
+                return notify_fail("没有这个玩家、生物、或地方，或该处暂时无法到达。\n");
         }
     }
 
@@ -51,6 +52,7 @@ int main(object me, string arg) {
 int help(object me) {
     write(@HELP
 指令格式 : flyto <目标>
+目标可为生物名、.c/.lpc 源码路径或无扩展名的实体/虚拟房间路径。
 HELP);
     return 1;
 }

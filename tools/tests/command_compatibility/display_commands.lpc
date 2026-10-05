@@ -1,0 +1,89 @@
+void check(int ok, string label) { master()->check(ok, label); }
+void run() {
+    object me, item, room, security;
+    string path, output;
+    int count;
+
+    me = new("/tests/object");
+    me->move("/tests/void");
+    me->set("wizard", 1);
+    security = load_object(SECURITY_D);
+    foreach (path in ({ "/cases/old", "/cases/modern", "/tests/provider/display" })) {
+        item = new(path);
+        item->set("id", "inspect_item");
+        item->move(me);
+        count = sizeof(children(path));
+        me->invoke("/cmds/wiz/info", "inspect_item");
+        output = me->transcript();
+        check(strsrch(output, file_name(item)) != -1 &&
+            strsrch(
+                output,
+                "复制个数：\t" + count + "\n"
+            ) != -1, "info identity and instance count " + path);
+        if (virtualp(item))
+            check(
+                strsrch(output, path + ".c") == -1 && strsrch(output, "无同名源码") != -1,
+                "info virtual no fabricated source"
+            );
+        else check(strsrch(output, lpc_file(path)) != -1, "info real extension " + path);
+        me->invoke("/cmds/arch/data", "inspect_item");
+        output = me->transcript();
+        check(strsrch(output, "Object: " + file_name(item) + "\n") != -1,
+            "data native object identity " + path);
+        check((strsrch(output, path + ".c") == -1) == (path != "/cases/old"),
+            "data source suffix " + path);
+        me->invoke("/cmds/wiz/more", "inspect_item");
+        check(
+            me->query("read_file") == (virtualp(item) ? "/tests/provider.lpc" : lpc_file(path)),
+            "more actual source or provider " + path
+        );
+        if (virtualp(item)) check(strsrch(me->transcript(), "查看处理程序源码") != -1 &&
+            function_exists(
+                "query",
+                item
+            ) == "/tests/object", "more labels provider that returns different program");
+        me->delete("read_file");
+        destruct(item);
+    }
+    me->invoke("/cmds/wiz/ff", "me query");
+    check(strsrch(me->transcript(), "/tests/object.lpc") != -1 &&
+        strsrch(me->transcript(), "/tests/object.c") == -1, "ff actual lpc defining source");
+    me->invoke("/cmds/wiz/ff", "me no_such_function");
+    check(strsrch(me->transcript(), "并没有定义") != -1, "ff missing function feedback");
+    item = new("/tests/provider/read_denied");
+    item->set("id", "inspect_item");
+    item->move(me);
+    me->set("denied_path", "/tests/provider.lpc");
+    me->invoke("/cmds/wiz/more", "inspect_item");
+    check(!me->query("read_file") && me->query("last_read") == "/tests/provider.lpc" &&
+        strsrch(me->transcript(), "没有权限") != -1, "more authorizes final provider file");
+    me->delete("denied_path");
+    me->invoke("/cmds/wiz/more", "/cases/modern.lpc");
+    check(me->query("read_file") == "/cases/modern.lpc", "more explicit file behavior unchanged");
+    me->delete("read_file");
+    rm("/tests/provider.lpc");
+    me->invoke("/cmds/wiz/more", "inspect_item");
+    check(
+        !me->query("read_file") && strsrch(me->transcript(), "找不到") != -1,
+        "more missing provider source reports failure"
+    );
+    room = new("/cases/modern");
+    room->set("area", 1);
+    room->set("coord_info", ([ "short": "区域" ]));
+    me->set("area_info", ([ "x_axis": 1, "y_axis": 2 ]));
+    me->move(room);
+    me->invoke("/cmds/arch/sa", 0);
+    check(strsrch(me->transcript(), file_name(room) + "\n") != -1 &&
+        strsrch(me->transcript(), "/cases/modern.lpc") != -1 &&
+        strsrch(
+            me->transcript(),
+            file_name(room) + ".c"
+        ) == -1, "sa separates clone identity and actual source");
+    room = load_object("/tests/provider/item");
+    room->set("area", 1);
+    room->set("coord_info", ([ "short": "虚拟区域" ]));
+    me->move(room);
+    me->invoke("/cmds/arch/sa", 0);
+    check(strsrch(me->transcript(), "/tests/provider/item\n") != -1 &&
+        strsrch(me->transcript(), "/tests/provider/item.c") == -1, "sa virtual area identity");
+}

@@ -38,7 +38,7 @@ int main(object me, string arg) {
         if (!me->query("special_skill/" + skill))
             return notify_fail("你不会这种特技啊！\n");
 
-        if (file_size(SPECIAL_D(skill) + ".c") < 0)
+        if (!lpc_file(SPECIAL_D(skill)))
             return notify_fail("好像没有这种特技...\n");
 
         return SPECIAL_D(skill)->perform(me, skill, arg);

@@ -21,7 +21,7 @@ int main(object me, string arg) {
     if (!arg)
         return notify_fail("你想演练什么？\n");
 
-    if (file_size(SKILL_D(arg) + ".c") <= 0)
+    if (!lpc_file(SKILL_D(arg)))
         return notify_fail("没听说过有这种武功。\n");
 
     if (!mapp(SKILL_D(arg)->query_sub_skills()))
@@ -70,7 +70,7 @@ int practicing(object me) {
                 to_chinese(sub_skill) + "\n");
             return 0;
         }
-        if (file_size(SKILL_D(sub_skill) + ".c") <= 0) {
+        if (!lpc_file(SKILL_D(sub_skill))) {
             write("嗯、怎么回事？怎么" + to_chinese(sub_skill) +
                 "这种武功好像失传了？\n");
             return 0;

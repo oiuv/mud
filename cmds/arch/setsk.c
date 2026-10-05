@@ -69,7 +69,7 @@ int main(object me, string arg) {
         }
         write("\n" NOR);
     } else {
-        if (!stringp(file = SKILL_D(skill)) || file_size(file + ".c") <= 0)
+        if (!stringp(file = SKILL_D(skill)) || !lpc_file(file))
             return notify_fail("没有 " + skill + " 这种技能存在。\n");
 
         write(WHT);

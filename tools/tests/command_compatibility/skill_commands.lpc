@@ -1,0 +1,144 @@
+void check(int ok, string label) { master()->check(ok, label); }
+int occurrences(string text, string part) {
+    return (strlen(text) - strlen(replace_string(text, part, ""))) / strlen(part);
+}
+void run() {
+    object me, victim, learn, yanlian;
+    string output, suffix, path;
+
+    me = new("/tests/object");
+    me->move("/tests/void");
+    me->set("character", 1);
+    me->set("wizard", 1);
+    me->set("id", "tester");
+    me->set("age", 20);
+    me->set_skill("modernforce", 10);
+    foreach (path in ({ "/cmds/std/skill", "/cmds/skill/checkskill" })) {
+        me->invoke(path, "modernforce");
+        output = me->transcript();
+        check(occurrences(output, "alpha") == 2 && occurrences(output, "beta") == 2 &&
+            occurrences(output, "both") == 2 && strsrch(output, "ignored") == -1,
+            path + " mixed extensions and duplicate action stems");
+        me->invoke(path, "新功");
+        check(strsrch(me->transcript(), "beta") != -1, path + " Chinese skill lookup");
+        me->invoke(path, "oldforce");
+        check(strsrch(me->transcript(), "oldforce") != -1, path + " legacy c skill");
+    }
+    me->invoke("/cmds/skill/checkskill", "modernforce");
+    check(strsrch(me->transcript(), "sub(sub)") != -1 &&
+        strsrch(
+            me->transcript(),
+            "共有3项技能绝招，3项内功功能"
+        ) != -1, "checkskill lpc subskills and truthful totals");
+    me->set("wizard", 0);
+    me->delete_skill("modernforce");
+    me->invoke("/cmds/std/skill", "modernforce");
+    check(
+        strsrch(me->transcript(), "beta") == -1,
+        "skill still hides unlearned actions from players"
+    );
+    me->set_skill("modernforce", 10);
+    foreach (path in ({ "/cmds/skill/skills", "/cmds/skill/myskill" })) {
+        me->invoke(path, "modernforce");
+        check(strsrch(
+            me->transcript(),
+            "modernforce"
+        ) != -1 && strsrch(me->transcript(), "没有(") == -1,
+            path + " lpc skill selection");
+    }
+    learn = load_object("/cmds/skill/learn");
+    check(!learn->can_learn(me, "oldforce"), "learn rejects incompatible existing lpc force");
+    load_object("/kungfu/skill/modernforce")->set("compatible", 1);
+    check(learn->can_learn(me, "oldforce"), "learn allows compatible existing lpc force");
+    me->delete_skill("modernforce");
+    me->set_skill("oldforce", 10);
+    check(
+        !learn->can_learn(me, "modernforce"),
+        "learn keeps existing c force compatibility checks"
+    );
+    me->set_skill("sub", 10);
+    me->set("neili", 100);
+    me->set("jing", 100);
+    me->set("qi", 100);
+    me->set("int", 20);
+    me->invoke("/cmds/skill/yanlian", "fusion");
+    check(me->query_temp("pending/practice") == 1, "yanlian lpc combined skill starts");
+    yanlian = load_object("/cmds/skill/yanlian");
+    check(
+        yanlian->practicing(me) && me->query("neili") == 92,
+        "yanlian lpc dependency consumes original cost"
+    );
+    yanlian->practicing(me);
+    check(
+        me->query_skill("fusion") == 10 && !me->query_skill("sub"),
+        "yanlian preserves combination result"
+    );
+    me->delete("busy");
+    me->set("wizard", 1);
+    me->invoke("/cmds/arch/setsk", "modernforce 30");
+    check(me->query_skill("modernforce") == 30, "setsk lpc skill");
+    me->set("deny_grant", 1);
+    me->invoke("/cmds/arch/setsk", "modernforce 40");
+    check(me->query_skill("modernforce") == 30, "setsk grant preserved");
+    me->delete("deny_grant");
+    set_test_users(({ me }));
+    me->invoke("/cmds/adm/tongji", "modernforce");
+    check(strsrch(me->transcript(), "tester") != -1, "tongji counts lpc skills");
+    victim = new("/tests/object");
+    victim->set("id", "victim");
+    set_test_users(({ me, victim }));
+    me->set("born", 1);
+    me->set("special_skill", ([ "fixture_c": 1, "fixture_lpc": 1 ]));
+    foreach (suffix in ({ "c", "lpc" })) {
+        me->set("special_skill/fixture_" + suffix, 1);
+        me->invoke("/cmds/std/special", "fixture_" + suffix);
+        check(me->query("performed") == "fixture_" + suffix, "special " + suffix + " dispatch");
+        me->invoke("/cmds/std/team", "fixture_" + suffix + " hello");
+        check(me->query("team_result") == "hello", "team " + suffix + " dispatch");
+        me->delete("team_result");
+        me->invoke("/cmds/std/vote", "fixture_" + suffix + " victim");
+        check(me->query("vote_result") == victim, "vote " + suffix + " dispatch");
+        me->delete("vote_result");
+    }
+    me->invoke("/cmds/std/team", "../team/fixture_lpc escape");
+    check(!me->query("team_result"), "team path traversal rejected");
+    me->invoke("/cmds/std/vote", "../vote/fixture_lpc victim");
+    check(!me->query("vote_result"), "vote path traversal rejected");
+    me->set("wizard", 0);
+    me->set("age", 17);
+    me->invoke("/cmds/std/vote", "fixture_lpc victim");
+    check(!me->query("vote_result"), "vote minimum age preserved");
+    me->set("wizard", 1);
+    me->set("age", 20);
+    foreach (path in ({
+        "/cmds/std/skill",
+        "/cmds/skill/checkskill",
+        "/cmds/skill/skills",
+        "/cmds/skill/myskill"
+    })) {
+        me->invoke(path, "oldforce");
+        check(strsrch(me->transcript(), "oldforce") != -1, path + " retains c skill selection");
+        check(!me->invoke(path, "unknown_skill") && strlen(me->transcript()) > 0,
+            path + " rejects unknown skill");
+    }
+    me->invoke("/cmds/arch/setsk", "oldforce 35");
+    check(me->query_skill("oldforce") == 35, "setsk retains c skill");
+    check(!me->invoke("/cmds/arch/setsk", "unknown_skill 35") && !me->query_skill("unknown_skill"),
+        "setsk unknown skill cannot be created");
+    me->invoke("/cmds/adm/tongji", "oldforce");
+    check(strsrch(me->transcript(), "tester") != -1, "tongji retains c skill");
+    check(!me->invoke("/cmds/adm/tongji", "unknown_skill"), "tongji rejects unknown skill");
+    check(!me->invoke("/cmds/skill/yanlian", "unknown_skill"), "yanlian rejects unknown skill");
+    me->set("special_skill/unknown_skill", 1);
+    check(!me->invoke("/cmds/std/special", "unknown_skill"), "special rejects missing source");
+    check(!me->invoke("/cmds/std/team", "unknown_action"), "team rejects unknown action");
+    check(!me->invoke("/cmds/std/vote", "unknown_action victim"), "vote rejects unknown action");
+    load_object("/kungfu/skill/oldforce")->set("compatible", 1);
+    me->delete_skill("fusion");
+    check(learn->can_learn(me, "modernforce"), "learn allows compatible existing c force");
+    me->set_skill("sub_old", 12);
+    me->invoke("/cmds/skill/yanlian", "fusion_old");
+    check(me->query_temp("pending/practicing_skill") == "fusion_old" && yanlian->practicing(me),
+        "yanlian retains c combination and dependency");
+    set_test_users(({}));
+}

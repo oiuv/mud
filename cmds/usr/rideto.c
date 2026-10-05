@@ -70,6 +70,7 @@ mapping places = ([
 
 int main(object me, string arg) {
     object riding, room;
+    mixed err;
     string where;
 
     if (!arg)
@@ -123,10 +124,14 @@ int main(object me, string arg) {
     if (arg == "home" && !me->query("private_room/position"))
         return notify_fail("你还没有住房呢！\n");
 
-    if (arg == "home" && stringp(me->query("private_room/position")) &&
-        file_size(me->query("private_room/position") + ".c") > 0)
-        room = get_object(me->query("private_room/position"));
-    else  // 特殊：古墓2个，绝情谷2个。拜裘千尺后自动转成铁掌帮，实际是铁掌帮有两个？
+    if (arg == "home") {
+        where = me->query("private_room/position");
+        if (!stringp(where))
+            return notify_fail("你的坐骑一时找不到归家的路。\n");
+        err = catch(room = get_object(where));
+        if (err || !objectp(room))
+            return notify_fail("你的坐骑一时找不到归家的路，稍后再试吧。\n");
+    } else  // 特殊：古墓2个，绝情谷2个。拜裘千尺后自动转成铁掌帮，实际是铁掌帮有两个？
     //灵鹫下属小门派不管，已被关闭的门派不管。
     if (arg == "family") {
         if (!me->query("family/family_name"))

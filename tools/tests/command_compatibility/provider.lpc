@@ -1,0 +1,5 @@
+object create_virtual_object(string key) {
+    if (key == "bad") return 0;
+    if (key == "throw") error("fixture virtual failure\n");
+    return new("/tests/object");
+}

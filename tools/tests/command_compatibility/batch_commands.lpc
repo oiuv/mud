@@ -1,0 +1,116 @@
+void check(int ok, string label) { master()->check(ok, label); }
+void verify_async() {
+    check(
+        objectp(find_object("/batch/nested/item")),
+        "loadall asynchronously traverses child directories"
+    );
+    check(file_size("/blocked_marker") == -1, "loadall excluded code never executes");
+}
+int clones(string path) { return sizeof(filter_array(children(path), (: clonep($1) :))); }
+void run() {
+    object me, classifier;
+    string dir, extension, original, output;
+    int before;
+
+    me = new("/tests/object");
+    me->move("/tests/void");
+    me->set("admin", 1);
+    me->invoke("/cmds/adm/loadall", "/batch");
+    check(objectp(find_object("/batch/old")) && objectp(find_object("/batch/modern")) &&
+        objectp(find_object("/batch/both")), "loadall mixed extension cold loads");
+    check(
+        strsrch(me->transcript(), "加载成功 3，失败 1") != -1,
+        "loadall deduplication and truthful failure count"
+    );
+    foreach (dir in ({ "/batch/tests/deep", "/batch/.hidden/deep", "/batch/event", "/batch/simul_efun",
+        "/data/fixture", "/ai/fixture", "/fluffos/fixture", "/u/fixture", "/tools/fixture", "/openspec/fixture", "/docs/fixture" })) {
+        me->invoke("/cmds/adm/loadall", dir);
+        check(
+            !find_object(dir + "/blocked") && strsrch(me->transcript(), "跳过") != -1,
+            "loadall direct exclusion " + dir
+        );
+    }
+    call_out("verify_async", 2);
+    classifier = load_object("/cmds/adm/guilei");
+    before = clones("/tests/provider/equipment");
+    check(
+        classifier->guilei_file(me, "/catalog/room.lpc", "room") == 1,
+        "guilei lpc room with virtual reference"
+    );
+    output = read_file("/log/static/room");
+    check(strsrch(
+        output,
+        "/tests/provider/room_item|"
+    ) != -1 && strsrch(output, "room_item.c") == -1,
+        "guilei room preserves virtual identity");
+    check(
+        classifier->guilei_file(me, "/catalog/npc.lpc", "npc") == 1,
+        "guilei lpc NPC virtual equipment and goods"
+    );
+    output = read_file("/log/static/npc_obj");
+    check(strsrch(
+        output,
+        "/tests/provider/equipment|"
+    ) != -1 && strsrch(output, "/tests/provider/sold|") != -1,
+        "guilei NPC records use native virtual identities");
+    check(
+        clones("/catalog/npc") == 0 && clones("/tests/provider/equipment") == before,
+        "guilei successful temporary NPC and inventory cleanup"
+    );
+    check(classifier->guilei_file(
+        me,
+        "/catalog/no_vendor.c",
+        "npc"
+    ) == 1 && clones("/catalog/no_vendor") == 0 &&
+        clones("/tests/provider/equipment") == before, "guilei NPC without vendor still succeeds and cleans up");
+    check(!classifier->guilei_file(
+        me,
+        "/catalog/bad_vendor.lpc",
+        "npc"
+    ) && clones("/catalog/bad_vendor") == 0 &&
+        clones("/tests/provider/equipment") == before, "guilei invalid goods clean NPC and equipment");
+    check(!classifier->guilei_file(
+        me,
+        "/catalog/constructor.lpc",
+        "npc"
+    ) && clones("/catalog/constructor") == 0,
+        "guilei throwing constructor has no retained clone");
+    check(classifier->guilei_file(
+        me,
+        "/catalog/provider.lpc",
+        "obj"
+    ) == -1 && clones("/catalog/provider") == 0,
+        "guilei provider skipped without cloning");
+    check(!classifier->guilei_file(
+        me,
+        "/catalog/failure.lpc",
+        "obj"
+    ) && clones("/catalog/failure") == 0,
+        "guilei failed item recording cleans temporary clone");
+    me->invoke("/cmds/adm/guilei", "/catalog obj");
+    check(
+        strsrch(me->transcript(), "归类成功 1，失败 1，跳过 6") != -1,
+        "guilei scan deduplication and accurate counts"
+    );
+    me->set("cwd", "/");
+    foreach (extension in ({ "c", "lpc", "h" })) {
+        original = read_file("/stamp/file." + extension);
+        me->invoke("/cmds/adm/fcrypt", "/stamp/file." + extension);
+        check(strsrch(
+            me->transcript(),
+            "成功的增加"
+        ) != -1 && read_file("/stamp/file." + extension) == original,
+            "fcrypt " + extension + " preserves actual version daemon behavior");
+    }
+    me->invoke("/cmds/adm/fcrypt", "/stamp");
+    check(
+        strsrch(me->transcript(), "为 4 个文件") != -1,
+        "fcrypt scans mixed extensions and nested lpc"
+    );
+    me->invoke("/cmds/adm/fcrypt", "/tests/provider/no_stamp");
+    check(!find_object("/tests/provider/no_stamp") && file_size("/tests/provider/no_stamp") == -1,
+        "fcrypt virtual path neither loads nor writes");
+    me->set("deny_grant", 1);
+    me->invoke("/cmds/adm/fcrypt", "/stamp/file.lpc");
+    check(strsrch(me->transcript(), "成功") == -1, "fcrypt original grant denial");
+}

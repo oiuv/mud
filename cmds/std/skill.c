@@ -15,7 +15,7 @@ string *query_valid_types() {
 int main(object me, string arg) {
     string file, dir, filename;
     string msg, msg1;
-    int i, j, l, is_force;
+    int i, j, is_force;
     mixed *all_file;
 
     seteuid(getuid());
@@ -23,13 +23,13 @@ int main(object me, string arg) {
     if (!arg)
         return notify_fail("指令格式：skill  <技能名称> | <技能中文名>\n");
 
-    if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0) {
+    if (!stringp(file = SKILL_D(arg)) || !lpc_file(file)) {
         // 英文的找不到？那就找中文名
         if (!stringp(arg = CHINESE_D->find_skill(arg)))
             return notify_fail("没有这种技能存在。\n");
 
         // 根据中文名找到了英文名，看看是否真的有此技能
-        if (!stringp(file = SKILL_D(arg)) || file_size(file + ".c") <= 0)
+        if (!stringp(file = SKILL_D(arg)) || !lpc_file(file))
             return notify_fail("没有这种技能存在。\n");
     }
 
@@ -70,17 +70,14 @@ int main(object me, string arg) {
     if (file_size(dir) != -2)
         msg1 += "";
     else {
-        all_file = get_dir(dir);
+        all_file = lpc_source_files(dir);
         if (!sizeof(all_file))
             msg1 += "";
         else {
             for (i = 0; i < sizeof(all_file); i++) {
-                filename = all_file[i];
-                l = strlen(filename);
-                if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
-                    j++;
-                    msg1 += sprintf(HIY "%s  " NOR, filename[0..l - 3]);
-                }
+                filename = explode(lpc_object_path(all_file[i]), "/")[<1];
+                j++;
+                msg1 += sprintf(HIY "%s  " NOR, filename);
             }
 
             if (msg1 != "") {
@@ -107,9 +104,9 @@ int main(object me, string arg) {
         dir += "/";
 
     if (file_size(dir + "exert/") == -2)
-        all_file = get_dir(dir + "exert/");
+        all_file = lpc_source_files(dir + "exert/");
     else if (file_size(dir) == -2)
-        all_file = get_dir(dir);
+        all_file = lpc_source_files(dir);
     else {
         msg += HIC "≡" HIY "----------------------------------------------" HIC "≡\n" NOR;
         write(msg);
@@ -122,12 +119,9 @@ int main(object me, string arg) {
     }
 
     for (i = 0; i < sizeof(all_file); i++) {
-        filename = all_file[i];
-        l = strlen(filename);
-        if (filename[l - 1] == 'c' && filename[l - 2] == '.') {
-            j++;
-            msg1 += sprintf(HIW "%s  " NOR, filename[0..l - 3]);
-        }
+        filename = explode(lpc_object_path(all_file[i]), "/")[<1];
+        j++;
+        msg1 += sprintf(HIW "%s  " NOR, filename);
     }
 
     if (msg1 != "") {
@@ -148,6 +142,8 @@ int help(object me) {
 这个指令让你检查指定的某种武功或技能（技能名称可输入中
 文名）如果你本身具备这项技能，则会显示出该技能的绝招及
 特殊功能。
+
+绝招和内功功能按名称列出，同名招式只列一次。
 
 相关指令：skills
 

@@ -1,6 +1,6 @@
 private object actor, command_ob, state, first, second, container;
 private object root, middle, leaf, unrelated, original_actor;
-private function old_callback;
+private function old_callback, old_expression_callback;
 
 private void check(int ok, string label) { "/tests/master"->check(ok, label); }
 private void put(string path, string source) { write_file(path, source, 1); }
@@ -13,6 +13,7 @@ private string state_source(int version) {
         "int version() { return %d; }\n"
         "int added_value() { return %s; }\n"
         "function callback() { return (: version :); }\n"
+        "function expression_callback() { return (: version() + 0 :); }\n"
         "void move(object destination) { move_object(destination); }\n"
         "void alarm() {}\n"
         "void schedule() { call_out(\"alarm\", 60); }\n"
@@ -53,6 +54,7 @@ void start(object player) {
     second->set_state(30);
     first->schedule();
     old_callback = first->callback();
+    old_expression_callback = first->expression_callback();
     root_source(1);
     put("/cases/middle.lpc", "inherit \"/cases/zroot\";\n");
     leaf_source(1);
@@ -99,7 +101,7 @@ void start(object player) {
     call_out("next_step", 1, "after_state");
 }
 void after_state() {
-    mixed err;
+    mixed err, value;
     int *values;
 
     check(find_object("/cases/state") == state, "blueprint identity retained");
@@ -123,8 +125,13 @@ void after_state() {
         "hotupdate does not elevate target euid"
     );
     check(first->pending(), "named callout retained");
-    err = catch(evaluate(old_callback));
-    check(stringp(err) && strsrch(err, "Stale") >= 0, "old local closure rejected");
+    // 新驱动可按名称重绑本地函数引用；旧驱动拒绝亦符合既有热更新约定。
+    // 两者均不能执行旧代码或误调用新程序中的其他函数。
+    err = catch(value = evaluate(old_callback));
+    check((stringp(err) && strsrch(err, "Stale") >= 0) || (!err && value == 2),
+        "old named reference rebound or safely rejected");
+    err = catch(evaluate(old_expression_callback));
+    check(stringp(err) && strsrch(err, "Stale") >= 0, "old anonymous closure rejected");
     check(evaluate(first->callback()) == 2, "new local closure works");
     root_source(2);
     check(invoke("/cases/zroot.c"), "base-only reload accepted");

@@ -37,7 +37,9 @@ int main(object me, string arg) {
     }
 
     write(sprintf("对象 [%O]\n-----------------------------------------------------\n", obj));
-    write("档案：\t\t" + base_name(obj) + ".c\n");
+    write("对象路径：\t" + file_name(obj) + "\n");
+    write("源码：\t\t" + (virtualp(obj) ? "虚拟对象，无同名源码" :
+        (lpc_file(base_name(obj)) || "未找到实体源码")) + "\n");
     write("领域：\t\t" + domain_file(base_name(obj)) + "\n");
     write("作者：\t\t" + author_file(base_name(obj)) + "\n");
     write("权限：\t\tuid = " + getuid(obj) + ", euid = " + geteuid(obj) + "\n");

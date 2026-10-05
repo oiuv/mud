@@ -1,0 +1,36 @@
+int checks, failures;
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Root"; }
+string creator_file(string file) { return "Root"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) { return uid == getuid(ob); }
+int valid_override(string file, string name, string main_file) { return file == "/tests/sefun"; }
+void log_error(string file, string text) { debug_message(text); }
+mixed compile_object(string file) { return "/adm/daemons/virtuald"->compile_object(file); }
+void check(int ok, string label) {
+    checks++;
+    if (!ok) {
+        failures++;
+        debug_message("FAIL: " + label);
+    }
+}
+void finish() {
+    debug_message(sprintf("COMMAND CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "COMMAND FAIL" : "COMMAND PASS");
+    shutdown(failures ? 1 : 0);
+}
+void run() {
+    mixed err;
+
+    err = catch(load_object("/tests/regression")->run());
+    if (err) check(0, err);
+    call_out("finish", 3);
+}
+void error_handler(mapping details, int caught) {
+    if (!caught) {
+        debug_message(sprintf("FAIL: %s TRACE: %O", details["error"], details["trace"]));
+        shutdown(1);
+    }
+}
+string *epilog(int flag) { call_out("run", 0); return ({}); }
