@@ -31,7 +31,7 @@ void create() {
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/mingjiao/obj/mutang")->wield();
+    carry_object("/d/items/blade/mutang")->wield();
     add_money("silver", 10);
 }
 

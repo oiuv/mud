@@ -43,7 +43,7 @@ int do_open(string arg, object me) {
     {
         pai = new("/d/items/sword/duan_yitian");
         pai->move(this_player());
-        pai = new("/d/tulong/obj/duan2");
+        pai = new("/d/items/blade/duan_tulong");
         pai->move(this_player());
         pai = new("/d/tulong/obj/zhenjing");
         pai->move(this_player());

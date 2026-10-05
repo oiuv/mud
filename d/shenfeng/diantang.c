@@ -10,7 +10,7 @@ void create() {
 手中握有兵刃，有的却是空手。西侧有一扇小石门。
 LONG);
     set("objects", ([
-        __DIR__ "obj/yudao": random(2),
+        "/d/items/blade/yudao": random(2),
         "/d/items/sword/yujian": random(2),
         __DIR__ "obj/skeleton": random(3) + 1,
     ]));

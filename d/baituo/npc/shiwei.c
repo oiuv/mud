@@ -26,6 +26,6 @@ void create() {
 
     setup();
     add_money("coin", 20);
-    carry_object("/d/baituo/obj/dadao")->wield();
+    carry_object("/d/items/blade/dadao")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

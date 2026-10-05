@@ -11,7 +11,7 @@ void create() {
 LONG);
     set("objects", ([
         __DIR__ "obj/yufu": random(3),
-        __DIR__ "obj/yudao": random(3),
+        "/d/items/blade/yudao": random(3),
         "/d/items/sword/yujian": random(3),
         __DIR__ "obj/skeleton": random(5) + 3,
         __DIR__ "obj/skeleton1": 1,

@@ -81,7 +81,7 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/buyi")->wear();
-    carry_object("/d/city/npc/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
 }
 
 void attempt_apprentice(object ob) {

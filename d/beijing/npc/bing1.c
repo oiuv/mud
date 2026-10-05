@@ -28,7 +28,7 @@ void create() {
         "北京官兵喝道：大胆刁民，京城之中，竟敢造反不成？\n",
     }));
     setup();
-    carry_object(__DIR__ "obj/blade3")->wield();
+    carry_object("/d/items/blade/dadao2")->wield();
     carry_object("/d/items/cloth/bingfu")->wear();
 }
 

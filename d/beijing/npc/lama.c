@@ -32,7 +32,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/beijing/npc/obj/blade1")->wield();
+    carry_object("/d/items/blade/gangdao2")->wield();
     carry_object("/d/items/cloth/hongse_jiasha2")->wear();
 }
 

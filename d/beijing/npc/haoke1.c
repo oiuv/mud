@@ -28,6 +28,6 @@ void create() {
     set_skill("blade", 40);
 
     setup();
-    carry_object("/d/beijing/npc/obj/blade2")->wield();
+    carry_object("/d/items/blade/duandao")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
 }

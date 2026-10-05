@@ -60,6 +60,6 @@ void create() {
     ]));
 
     setup();
-    carry_object(__DIR__ "obj/jiandao")->wield();
+    carry_object("/d/items/blade/jiandao")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

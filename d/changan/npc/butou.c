@@ -23,7 +23,7 @@ void create() {
     set_skill("force", 40);
 
     setup();
-    carry_object(__DIR__ "obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
     carry_object(__DIR__ "obj/laofang-key");
 }

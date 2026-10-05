@@ -39,7 +39,7 @@ void create() {
         "官兵喝道：跑得了和尚跑不了庙，你还是快快束手就擒！\n",
     }));
     setup();
-    carry_object(__DIR__ "obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao6")->wield();
     carry_object("/d/items/cloth/junfu")->wear();
 }
 

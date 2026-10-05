@@ -27,7 +27,7 @@ void create() {
     set("max_neili", 400);
     set("jiali", 10);
     setup();
-    carry_object("/d/city/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
     add_money("silver", random(12));
 }
 

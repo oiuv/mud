@@ -22,5 +22,5 @@ void create() {
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/baituo/obj/dadao")->wield();
+    carry_object("/d/items/blade/dadao")->wield();
 }

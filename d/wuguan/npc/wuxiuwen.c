@@ -102,9 +102,9 @@ string give_tools() {
     else if (ob->query_temp("job_name") == "浇菜地")
         tools = new("/d/wuguan/obj/piao");
     else if (ob->query_temp("job_name") == "锯木头")
-        tools = new("/d/wuguan/obj/juzi");
+        tools = new("/d/items/blade/juzi");
     else if (ob->query_temp("job_name") == "劈柴")
-        tools = new("/d/wuguan/obj/chaidao");
+        tools = new("/d/items/blade/chaidao2");
     else
         tools = new("/d/wuguan/obj/saozhou");
 

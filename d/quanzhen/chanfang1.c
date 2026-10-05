@@ -13,7 +13,7 @@ LONG);
     ]));
     set("objects", ([
         "/d/items/sword/gangjian2": random(3),
-        __DIR__ "npc/obj/gangdao": random(2),
+        "/d/items/blade/gangdao5": random(2),
         "/d/items/cloth/tiejia2": random(2),
     ]));
 

@@ -15,6 +15,7 @@ import { migrationPaths as wristsPaths, canonicalGroups as wristsGroups } from '
 import { migrationPaths as foodPaths, canonicalGroups as foodGroups } from './food_inventory.mjs';
 import { migrationPaths as swordPaths, canonicalGroups as swordGroups } from './sword_inventory.mjs';
 import { migrationPaths as liquidPaths, canonicalGroups as liquidGroups } from './liquid_inventory.mjs';
+import { migrationPaths as bladePaths, canonicalGroups as bladeGroups } from './blade_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = join(root, 'bin/driver.exe');
@@ -128,11 +129,13 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['wrists', wristsPaths, wristsGroups, 6, 4], ['food', foodPaths, foodGroups, 167, 119],
     ['sword', swordPaths, swordGroups, 85, 70],
     ['liquid', liquidPaths, liquidGroups, 74, 54],
+    ['blade', bladePaths, bladeGroups, 61, 52],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
     const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan', '/d/guanwai/obj/mantou': '/d/items/food/mantou',
-        ...(family === 'liquid' ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}) });
+        ...(['liquid', 'blade'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
+        ...(family === 'blade' ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}) });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};

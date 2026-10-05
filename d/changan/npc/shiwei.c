@@ -37,6 +37,6 @@ void create() {
     set_skill("force", 100);
     setup();
 
-    carry_object(__DIR__ "obj/blade")->wield();
+    carry_object("/d/items/blade/gangdao3")->wield();
     carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
 }

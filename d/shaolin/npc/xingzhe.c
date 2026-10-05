@@ -53,7 +53,7 @@ void create() {
     create_family("少林派", 0, "弟子");
 
     setup();
-    carry_object("/d/city/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 50);
 }

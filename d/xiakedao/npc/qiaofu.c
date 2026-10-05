@@ -52,7 +52,7 @@ int inquiry_dao() {
     if (query_temp("buyed") == 1) {
         message_vision("既然好心人想要，就给你吧，本来史婆婆要我好好保管的，\n"
             "你可千万别瞎送给别人，否则她会生气的。\n", me);
-        ob = new("/d/xiakedao/obj/knife");
+        ob = new("/d/items/blade/chaidao");
         ob->move(me);
         message_vision("樵夫递给你一把柴刀！\n", me);
         set_temp("buyed", 0);

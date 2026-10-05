@@ -47,7 +47,7 @@ LONG);
 
     setup();
     add_money("silver", 2);
-    carry_object("/d/baituo/obj/dadao")->wield();
+    carry_object("/d/items/blade/dadao")->wield();
 }
 
 void init() {

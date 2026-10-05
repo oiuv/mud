@@ -39,6 +39,6 @@ void create() {
     }));
 
     setup();
-    carry_object(__DIR__ "obj/duandao")->wield();
+    carry_object("/d/items/blade/wandao")->wield();
     carry_object("/d/items/cloth/yangpi_ao")->wear();
 }

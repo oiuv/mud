@@ -89,6 +89,8 @@ string ask_me(string name) {
 
     if (name == "changjian")
         ob = new("/d/items/sword/changjian5");
+    else if (name == "jiedao")
+        ob = new("/d/items/blade/jiedao2");
     else
         ob = new("/d/shaolin/obj/" + name);
     ob->move(this_player());

@@ -2,7 +2,7 @@
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
-后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。九类保持各自继承和行为，共用以下离线迁移与部署流程。累计 635 个旧定义归并为 18 个共用程序/数据文件，定义文件净减少 617 个（不含工具、测试及文档）。
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。BLADE 批次将 61 个普通刀定义归为 **52 个规范品种**。十类保持各自继承和行为，共用以下离线迁移与部署流程。累计 696 个旧定义归并为 20 个共用程序/数据文件，定义文件净减少 676 个（不含工具、测试及文档）。
 
 ## 创建与维护
 
@@ -67,6 +67,16 @@ second = new(base_name(sword));
 
 `init_sword()` 遇到克隆直接返回，因此公共程序的 `create()` 不提前初始化武器；最终虚拟蓝图在 `virtual_start()` 中先设置属性，再调用 `init_sword(damage)` 和一次 `setup()`。实例绑定该蓝图，复制可变复合默认值，再执行一次 `setup()`，保留伤害、EDGED、剑技能、默认动作、重量闪避修正和材质耐久。持用、卸下、磨损及交易继续走现有功能，不增加战斗或存储机制。
 
+## 普通刀
+
+`d/items/blade.lpc` 继承原 `BLADE`，数据集中在 `blade_data.h`。61 份原定义经真实驱动蓝图/实例对照，归并为 52 个品种。使用 `new("/d/items/blade/gangdao")` 创建、`load_object()` 查询同路径蓝图、`new(base_name(ob))` 重建新品。公共程序不是商品，未知 ID 或外部直接带参克隆被拒绝；旧路径不留转发文件。
+
+短 ID 如 `gangdao2`、`qing_tianyu1`、`duan_tulong`，仅真实属性差异才分品种，稳定编号不随自然排序改变。字段沿用 `name`、`ids`、`weight`、`damage`、`properties`；三件原本 `init_blade(damage, 110)` 的品种额外保留 `"flags": 110`，其他条目省略，按零传入。不要根据标志名称猜测后丢弃其他位，也不把最终 `flag` 重复写入 `properties`。
+
+最终虚拟蓝图先设置定义，再调用原 `init_blade(damage, flags)` 和一次 `setup()`；实例绑定蓝图、复制复合默认值并执行一次 setup。保留 EDGED 合并、刀技能、默认动作、主副手、重量修正、耐久及 Domain UID/EUID；实例覆盖不污染新品。原 `unequip_msg` 和 `unwield_msg` 各自保留，不借迁移修正历史键名。
+
+六份特殊刀仍用原实现。屠龙刀只改普通断刀的生成路径，原对砍条件、断剑与三份书卷产物和销毁逻辑不变；另五份特殊源码原文不变。道尘原持有检查使用 `jiedao`，戒刀别名却是 `jie dao`，因此允许重复领取直到库存耗尽；这项既有行为未在本批修复。
+
 ## 普通饮具
 
 `d/items/liquid.lpc` 继承原 `ITEM + F_LIQUID`，数据在 `liquid_data.h`，包含茶、水、酒、汤及其饮具，不按显示名称改变原类型。74 份旧定义经真实驱动核对后归为 54 个品种，保留原别名、描述、容量、初始余量、效果字段和 UID/EUID。玉蜂蜜的解毒回调留在 `d/gumu/obj/fengmi.c`，不纳入普通表。
@@ -87,7 +97,7 @@ fresh = new(base_name(drink));
 
 ## 存储边界
 
-背包入口识别九张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余七类的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。剑类存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
+背包入口识别十张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余八类的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。刀剑存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -104,7 +114,7 @@ fresh = new(base_name(drink));
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。一次转换覆盖 **916 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读九张品种表，共 469 个品种，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。一次转换覆盖 **977 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十张品种表，共 521 个品种，不读取历史映射。
 
 食物和饮具通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予存放资格，也不补录原来没有保存的液体余量或毒效；新建满液体不代表恢复了旧实例。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -210,6 +220,12 @@ node --test tools/tests/test_sword_inventory.mjs
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --sword
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --sword --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --sword --bench
+node tools/tests/blade_inventory.mjs
+node tools/tests/audit_blade_migration.mjs
+node --test tools/tests/test_blade_inventory.mjs
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --blade
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --blade --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --blade --bench
 ```
 
 需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361`、`57f106f8`、`61abfde3`、`1c35e24c`、`3c572f18`、`719a96ec` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
@@ -223,3 +239,5 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --sword --bench
 剑类使用 `--sword --bench`，同条件为 85 个历史来源请求、每来源 20 次创建（共 1,700 实例）；新版共 70 个虚拟品种。当前测量与实施证据见 [SWORD 验证报告](../../openspec/changes/refactor-data-driven-swords/validation.md)。该报告不代表已转换正式存档或完成线上部署。
 
 饮具使用 `--liquid --bench`，同条件为 74 个历史来源请求、每来源 20 次创建（共 1,480 实例）；新版共 54 个虚拟品种。逐定义对照及真实命令/消费者回归使用 `--liquid --all`，证据与边界见 [LIQUID 验证报告](../../openspec/changes/refactor-data-driven-liquids/validation.md)。测试中的原 `setup()` 次数只在临时副本内计数，不给运行期程序增加统计代码。
+
+刀类使用 `--blade --all` 验证全部定义、装备、交易、存取、供应、屠龙刀对砍和盟主备份恢复；`--blade --bench` 对照 61 个来源请求、1,220 个实例。基线提交为 `b5e94cd0`，旧刀源码仅恢复到临时测试副本。实际结果与测量边界见 [BLADE 验证报告](../../openspec/changes/refactor-data-driven-blades/validation.md)。

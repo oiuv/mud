@@ -21,5 +21,5 @@ LONG);
     set("attitude", "friendly");
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/xiakedao/obj/knife")->wield();
+    carry_object("/d/items/blade/chaidao")->wield();
 }

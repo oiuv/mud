@@ -20,7 +20,7 @@ void create() {
     set("force_factor", 5);
     set("vendor_goods", ({
         "/d/items/sword/changjian3",
-        __DIR__ "obj/blade",
+        "/d/items/blade/gangdao3",
         __DIR__ "obj/hammer",
         "/clone/weapon/arrow",
         "/clone/weapon/wolfarrow",

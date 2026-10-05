@@ -34,6 +34,6 @@ void create() {
     set_skill("dodge", 50);
 
     setup();
-    carry_object(__DIR__ "obj/caidao")->wield();
+    carry_object("/d/items/blade/caidao")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

@@ -13,7 +13,7 @@ LONG);
         "south": __DIR__ "zoulang-1",
     ]));
     set("objects", ([ /* sizeof() == 4 */
-        __DIR__ "obj/gangdao": 1,
+        "/d/items/blade/gangdao6": 1,
         "/d/items/sword/gangjian3": 1,
         __DIR__ "obj/gangzhang": 1,
         __DIR__ "obj/changbian": 1,

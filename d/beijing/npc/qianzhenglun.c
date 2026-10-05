@@ -101,6 +101,8 @@ int do_yao(string arg) {
     my_count[arg] += 1;
     if (arg == "sword")
         obj = new("/d/items/sword/changjian");
+    else if (arg == "blade")
+        obj = new("/d/items/blade/gangdao");
     else if (arg == "feet")
         obj = new("/d/items/boots/zhanxue");
     else if (arg == "helmet")

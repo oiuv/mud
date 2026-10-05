@@ -22,7 +22,7 @@ void create() {
     setup();
     add_money("silver", 6);
     carry_object("/d/items/cloth/buyi")->wear();
-    carry_object(__DIR__ "obj/blade")->wield();
+    carry_object("/d/items/blade/gangdao3")->wield();
 
 }
 

@@ -22,7 +22,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/city/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
     carry_object("/d/items/cloth/tiejia2")->wear();
 
     add_money("coin", 30);

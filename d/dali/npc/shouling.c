@@ -27,6 +27,6 @@ void create() {
     set_temp("apply/armor", 40);
 
     setup();
-    carry_object(__DIR__ "obj/mandao")->wield();
+    carry_object("/d/items/blade/mandao")->wield();
     carry_object("/d/items/cloth/hupi2")->wear();
 }

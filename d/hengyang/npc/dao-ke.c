@@ -15,7 +15,7 @@ void create() {
     set_skill("parry", 40);
     set_skill("dodge", 40);
     setup();
-    carry_object("/d/city/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 10);
 }

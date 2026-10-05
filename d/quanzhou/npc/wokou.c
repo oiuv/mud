@@ -21,7 +21,7 @@ void create() {
     set_skill("dodge", 35);
 
     setup();
-    carry_object(__DIR__ "obj/wodao")->wield();
+    carry_object("/d/items/blade/wodao")->wield();
 }
 
 void init() {

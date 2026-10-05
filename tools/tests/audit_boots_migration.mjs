@@ -1,3 +1,4 @@
+import { afterBladeMigration } from "./blade_inventory.mjs";
 import { afterLiquidMigration } from "./liquid_inventory.mjs";
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
@@ -28,7 +29,7 @@ for (const file of callers) {
     expected = afterNeckMigration(file, expected, semantic);
     expected = afterWristsMigration(file, expected, semantic);
     expected = afterFoodMigration(file, expected, semantic);
-    expected = afterLiquidMigration(file, afterSwordMigration(file, expected, semantic), semantic);
+    expected = afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semantic), semantic), semantic);
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expected), 'Unexpected caller change: ' + file);
 }
 assert.equal(callers.size, 15);
@@ -42,7 +43,7 @@ for (const row of baseline.varieties) {
 for (const file of ['d/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c',
     'd/city/npc/cloth/shoes.c', 'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-chen.c'])
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-        semantic(afterLiquidMigration(file, afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
+        semantic(afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
 // No two substitutions in one file collapse distinct configuration keys in this batch.
 for (const file of callers) {
     const paths = new Map();

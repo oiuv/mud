@@ -85,7 +85,7 @@ LONG);
             set_temp("handing", ob);
         }
     }
-    carry_object("/d/city/obj/gangdao")->wield();
+    carry_object("/d/items/blade/gangdao5")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }
 
