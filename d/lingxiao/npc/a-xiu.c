@@ -75,9 +75,9 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/mudao")->wield();
-    carry_object("/d/city/npc/cloth/xian-cloth")->wear();
-    carry_object("/d/city/npc/cloth/boots")->wear();
-    carry_object("/d/city/npc/cloth/belt")->wear();
+    carry_object("/d/items/equip/xuanse_ao")->wear();
+    carry_object("/d/items/equip/yangpi_xue")->wear();
+    carry_object("/d/items/equip/ruanjin_dai")->wear();
 }
 
 void attempt_apprentice(object ob) {

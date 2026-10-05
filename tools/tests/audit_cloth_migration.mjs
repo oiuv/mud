@@ -1,3 +1,4 @@
+import { afterEquipMigration } from "./equip_inventory.mjs";
 import { afterBladeMigration } from "./blade_inventory.mjs";
 import { afterLiquidMigration } from "./liquid_inventory.mjs";
 // Verify the broad caller edit is exactly the approved path substitution.
@@ -57,7 +58,7 @@ for (const [file, hits] of files) {
     expected = afterNeckMigration(file, expected, semanticTokens);
     expected = afterWristsMigration(file, expected, semanticTokens);
     expected = afterFoodMigration(file, expected, semanticTokens);
-    expected = afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semanticTokens), semanticTokens), semanticTokens);
+    expected = afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semanticTokens), semanticTokens), semanticTokens), semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

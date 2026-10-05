@@ -47,7 +47,7 @@ LONG);
     ]));
 
     setup();
-    carry_object("/d/city/npc/cloth/moon-dress")->wear();
+    carry_object("/d/items/equip/jiaoyue_shang")->wear();
 }
 
 void fight_ob(object ob) {

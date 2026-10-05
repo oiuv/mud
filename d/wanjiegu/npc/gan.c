@@ -38,6 +38,6 @@ void create() {
 
     setup();
 
-    carry_object("/d/wanjiegu/npc/obj/red-dress")->wear();
-    carry_object("/d/wanjiegu/npc/obj/shoes")->wear();
+    carry_object("/d/items/equip/nihong_qun2")->wear();
+    carry_object("/d/items/equip/xiuhuaxie2")->wear();
 }

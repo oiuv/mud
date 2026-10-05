@@ -71,7 +71,7 @@ LONG);
 
     setup();
     carry_object("/d/lingjiu/npc/obj/diaogan")->wield();
-    carry_object("/d/city/npc/cloth/color-dress")->wear();
+    carry_object("/d/items/equip/wucai_qun")->wear();
 }
 
 int recognize_apprentice(object ob, string skill) {

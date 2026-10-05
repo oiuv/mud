@@ -110,7 +110,7 @@ void create() {
 
     setup();
     //        carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/city/npc/cloth/sha-dress")->wear();
+    carry_object("/d/items/equip/danyan_sha")->wear();
 }
 
 void attempt_apprentice(object ob) {

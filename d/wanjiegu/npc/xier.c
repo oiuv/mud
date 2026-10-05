@@ -28,6 +28,6 @@ void create() {
 
     setup();
 
-    carry_object("/d/wanjiegu/npc/obj/mini-dress")->wear();
-    carry_object("/d/wanjiegu/npc/obj/shoes")->wear();
+    carry_object("/d/items/equip/jinshen_ao2")->wear();
+    carry_object("/d/items/equip/xiuhuaxie2")->wear();
 }

@@ -34,7 +34,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/city/npc/cloth/zi-dress")->wear();
+    carry_object("/d/items/equip/shaxiang_qun")->wear();
     add_money("silver", 20);
 }
 

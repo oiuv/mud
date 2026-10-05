@@ -59,7 +59,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/npc/cloth/color-dress")->wear();
+    carry_object("/d/items/equip/wucai_qun")->wear();
 }
 
 void attempt_apprentice(object ob) {

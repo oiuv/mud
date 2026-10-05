@@ -22,7 +22,7 @@ void create() {
         "/d/items/liquid/jiuhulu2",
     }));
     setup();
-    carry_object("/d/city/npc/cloth/yan-dress")->wear();
+    carry_object("/d/items/equip/ningxiang_yi")->wear();
 }
 
 void init() {

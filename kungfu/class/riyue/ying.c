@@ -96,8 +96,8 @@ LONG);
             ob->wield();
         }
     }
-    carry_object("/d/city/npc/cloth/belt")->wear();
-    carry_object("/d/city/npc/cloth/moon-dress")->wear();
+    carry_object("/d/items/equip/ruanjin_dai")->wear();
+    carry_object("/d/items/equip/jiaoyue_shang")->wear();
     set_temp("handing", carry_object("/d/kunlun/obj/jwqin"));
 }
 

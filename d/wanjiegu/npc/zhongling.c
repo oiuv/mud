@@ -46,9 +46,9 @@ void create() {
 
     setup();
 
-    carry_object("/d/wanjiegu/npc/obj/moon-dress")->wear();
-    carry_object("/d/wanjiegu/npc/obj/shoes")->wear();
-    carry_object("/d/wanjiegu/npc/obj/xiu-scarf")->wear();
+    carry_object("/d/items/equip/jiaoyue_shang2")->wear();
+    carry_object("/d/items/equip/xiuhuaxie2")->wear();
+    carry_object("/d/items/equip/xiaofang_jin2")->wear();
 }
 
 void init() {

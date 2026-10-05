@@ -62,7 +62,7 @@ void create() {
     setup();
 
     carry_object("/clone/weapon/changjian")->wield();
-    carry_object("/d/city/npc/cloth/xian-cloth")->wear();
+    carry_object("/d/items/equip/xuanse_ao")->wear();
 }
 
 void attempt_apprentice(object me) {

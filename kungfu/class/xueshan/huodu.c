@@ -75,7 +75,7 @@ LONG);
     setup();
 
     carry_object("/d/xueshan/obj/gushan")->wield();
-    carry_object("/d/city/npc/cloth/fu-cloth")->wear();
+    carry_object("/d/items/equip/tuanjin_gua")->wear();
 }
 
 void attempt_apprentice(object ob) {

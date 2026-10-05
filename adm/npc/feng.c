@@ -81,7 +81,7 @@ LONG);
         set("startroom", "/d/foshan/pmc");
     }
 
-    carry_object("/d/city/npc/cloth/fu-cloth")->wear();
+    carry_object("/d/items/equip/tuanjin_gua")->wear();
     set_heart_beat(1);
 }
 

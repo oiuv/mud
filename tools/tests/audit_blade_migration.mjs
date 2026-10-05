@@ -1,5 +1,6 @@
 // Strict frozen-source/caller/effective-identity audit; no live records.
 import assert from 'node:assert/strict';
+import { afterEquipMigration } from './equip_inventory.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -13,7 +14,7 @@ assert.equal(data.hits.length, 102); assert.equal(new Set(data.hits.map(h => h.f
 assert.equal(data.dynamic.length, 7); assert.equal(Object.keys(data.callers).length, 85);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expectedCaller(file)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterEquipMigration(file, expectedCaller(file), semantic)), file);
         assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller: ' + file);
         const paths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {

@@ -90,7 +90,7 @@ LONG);
         }
     }
 
-    carry_object("/d/city/npc/cloth/cloth")->wear();
+    carry_object("/d/items/equip/magua")->wear();
     add_money("silver", 50);
 }
 

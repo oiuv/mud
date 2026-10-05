@@ -1,0 +1,369 @@
+// Direct EQUIP baseline and virtual variety parity, only in the disposable mudlib.
+inherit "/tests/cloth_regression";
+
+private mixed *cases;
+private int next_case;
+
+mapping wear_result(string path, string gender, int command_path) {
+    object actor, item;
+    mapping result, props;
+    string slot, key;
+    int worn;
+
+    actor = new("/tests/actor");
+    actor->move(this_object(), 1);
+    actor->set("gender", gender);
+    item = new(path);
+    item->move(actor, 1);
+    slot = item->query("armor_type");
+    props = copy(item->query("armor_prop"));
+    worn = command_path ? "/cmds/std/wear"->do_wear(actor, item) : item->wear();
+    result = ([ "result": worn, "slot": slot, "equipped": stringp(item->query("equipped")) ? item->query("equipped") : 0,
+        "owner_slot": actor->query_temp("armor/" + slot) == item,
+        "apply": mapp(actor->query_temp("apply")) ? copy(actor->query_temp("apply")) : ([]),
+        "consistence": item->query("consistence") + 0 ]);
+    if (worn) {
+        check(actor->query_temp("armor/" + slot) == item, "wear occupies original slot");
+        foreach (key in keys(props))
+            check(actor->query_temp("apply/" + key) == props[key], "wear applies " + key);
+        check(item->unequip(), "actual unequip succeeds");
+        check(
+            !actor->query_temp("armor/" + slot) && !item->query("equipped"),
+            "unequip clears slot"
+        );
+        foreach (key in keys(props))
+            check(!actor->query_temp("apply/" + key), "unequip restores " + key);
+    } else check(!actor->query_temp("armor/" + slot), "rejected wear occupies no slot");
+    result["after_apply"] = mapp(actor->query_temp("apply")) ? copy(actor->query_temp("apply")) : ([]);
+    destruct(item); destruct(actor);
+    return result;
+}
+
+mapping observe(string path) {
+    object blueprint, instance;
+    mapping properties, effective;
+    string key;
+
+    blueprint = load_object(path);
+    instance = new(path);
+    properties = copy(blueprint->query_entire_dbase());
+    effective = ([]);
+    foreach (key in keys(properties + instance->query_entire_dbase()))
+        effective[key] = copy(instance->query(key, 1));
+    properties = ([ "path": path, "name": blueprint->name(), "short": blueprint->short(),
+        "long": blueprint->long(), "weight": blueprint->query_weight(),
+        "clone_weight": instance->query_weight(), "blueprint": properties, "clone": effective,
+        "ids": blueprint->parse_command_id_list(), "uid": getuid(blueprint), "euid": geteuid(blueprint),
+        "clone_uid": getuid(instance), "clone_euid": geteuid(instance),
+        "blueprint_setup": master()->setup_count(blueprint), "clone_setup": master()->setup_count(instance),
+        "female_wear": wear_result(path, "女性", 1), "male_wear": wear_result(path, "男性", 1),
+        "npc_wear": wear_result(path, "男性", 0) ]);
+    destruct(instance);
+    return properties;
+}
+
+void check_baseline() {
+    mixed *pair, *observations;
+    mapping record;
+
+    observations = ({});
+    foreach (pair in cases) {
+        record = observe(pair[0]);
+        check(record["weight"] == pair[2] && record["clone_weight"] == pair[3], "original weight");
+        check(
+            record["blueprint_setup"] == pair[4] && record["clone_setup"] == pair[4],
+            "original setup choice"
+        );
+        check(record["female_wear"]["result"] == pair[4] && record["npc_wear"]["result"] == pair[4],
+            "original durability and wear result");
+        check(record["male_wear"]["result"] == (pair[4] && !record["blueprint"]["female_only"]),
+            "original command gender restriction");
+        observations += ({ record });
+    }
+    write_file("/tests/equip-baseline.json", json_encode(observations), 1);
+}
+
+void check_storage(mixed *pair) {
+    object actor, item;
+    mapping paths, records, result;
+    string path;
+    int allowed;
+
+    allowed = -1;
+    foreach (path in pair[0..1]) {
+        actor = new("/tests/actor"); actor->move(this_object(), 1);
+        item = new(path);
+        actor->store_item(actor, item, 1);
+        if (allowed < 0) allowed = !objectp(item);
+        else check(allowed == !objectp(item), "old/new storage eligibility");
+        if (!item) {
+            check(actor->depot_records()["item0"]["file"] == path, "stored exact variety path");
+            actor->run_command("take 1 1");
+            item = present(load_object(path)->query("id"), actor);
+            check(objectp(item) && base_name(item) == path && !sizeof(actor->depot_records()),
+                "storage reconstructs registered identity");
+            compare(load_object(path), item, "restored equipment");
+        }
+        if (item) destruct(item);
+        destruct(actor);
+        check_refusals(path);
+    }
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    records = ([ "item0": ([ "file": pair[0], "amount": 2, "name": "旧防具", "id": "old equip" ]) ]);
+    result = "/tests/cloth_records"->convert(save_variable(records), "backpack", paths, ({}));
+    check(result["changes"] == 1, "legacy backpack identity conversion");
+    write_file("/data/equip-restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    actor->load_backup("/data/equip-restored"); actor->run_command("take 1 2");
+    check(sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
+        "converted backpack quantity restores");
+    foreach (item in all_inventory(actor)) {
+        check(base_name(item) == pair[1], "converted backpack canonical identity");
+        compare(load_object(pair[0]), item, "converted backpack effective properties");
+        destruct(item);
+    }
+    destruct(actor);
+}
+
+void check_variety(mixed *pair) {
+    object blueprint, before, after, second, actor;
+    mapping props;
+    string gender, key;
+    int command_path;
+
+    before = new(pair[0]); after = new(pair[1]); second = new(pair[1]);
+    blueprint = load_object(pair[1]);
+    compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
+    compare(before, after, pair[0] + " clone");
+    compare(after, second, "reconstruction");
+    check(!clonep(blueprint) && virtualp(blueprint) && clonep(after) && virtualp(after) &&
+        base_name(after) == pair[1] && after->query_default_object() == blueprint, "final identity/default");
+    check(master()->setup_count(blueprint) == pair[4] && master()->setup_count(after) == pair[4],
+        "exact original setup count");
+    after->set("consistence", 7);
+    after->virtual_start();
+    check(master()->setup_count(after) == pair[4] && after->query("consistence") == 7,
+        "repeated virtual_start does not refresh wear state");
+    check(
+        second->query("consistence") == before->query("consistence"),
+        "durability is instance-local"
+    );
+    props = copy(blueprint->query("armor_prop"));
+    after->set("armor_prop/armor", 12345);
+    check(same_value(
+        props,
+        second->query("armor_prop")
+    ) && same_value(props, blueprint->query("armor_prop")),
+        "compound armor defaults isolated");
+    check(undefinedp(after->query_entire_dbase()["long"]), "fixed long stored only on blueprint");
+    after->set("long", "衣物上沾着一点尘土。\n");
+    check(
+        after->long() != second->long() && second->long() == blueprint->long(),
+        "long override isolated"
+    );
+    after->delete("long");
+    check(after->long() == blueprint->long(), "long falls back to blueprint");
+    foreach (key in ({ "washed", "dry_cloth", "do_tear" }))
+        check(
+            !function_exists(key, before) && !function_exists(key, after),
+            "no new ability " + key
+        );
+    foreach (gender in ({ "女性", "男性" }))
+        for (command_path = 0; command_path <= 1; command_path++)
+            check(same_value(
+                wear_result(pair[0], gender, command_path),
+                wear_result(pair[1], gender, command_path)
+            ),
+                "actual command/direct wear parity " + gender);
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    before->move(actor, 1); second->move(actor, 1);
+    before->set("consistence", 0); second->set("consistence", 0);
+    check(!before->wear() && !second->wear(), "broken armor refuses wear");
+    if (pair[4]) {
+        before->set("consistence", 100); second->set("consistence", 100);
+        check(before->wear() && !second->wear(), "same armor slot refuses second item");
+        before->unequip();
+        actor->set_temp("handing", second);
+        check(
+            second->wear() && !actor->query_temp("handing"),
+            "wear releases original handing state"
+        );
+        check(second->wear(), "already worn idempotent");
+        foreach (key in keys(props))
+            check(actor->query_temp("apply/" + key) == props[key], "idempotent bonus " + key);
+        second->unequip();
+    }
+    destruct(before); destruct(second); destruct(after); destruct(actor);
+    check_storage(pair);
+    check_business(pair);
+}
+
+void check_contracts() {
+    object provider, item, blueprint, first, second;
+    mapping definition;
+    mixed err;
+    mixed *nested;
+
+    provider = load_object("/d/items/equip");
+    check(!provider->query("name") && !master()->setup_count(provider), "inert provider");
+    definition = provider->query_definition("magua");
+    definition["ids"][0] = "mutated";
+    check(provider->query_definition("magua")["ids"][0] != "mutated", "definition defensive copy");
+    err = catch(item = new("/d/items/equip/not_a_variety"));
+    check(!item && !find_object("/d/items/equip/not_a_variety"), "unknown variety rejects");
+    err = catch(new("/d/items/equip", "magua"));
+    check(!!err, "direct parameter construction rejects");
+    err = catch(new("/d/items/equip"));
+    check(!!err, "direct no-argument clone rejects");
+    check(!provider->valid_variety_path("/d/items/equip/magua/extra") &&
+        !provider->valid_variety_path("/d/items/equip/magua.c") &&
+        !provider->valid_variety_path("/d/items/cloth/buyi"), "exact registry only");
+    blueprint = load_object("/d/items/equip/magua");
+    blueprint->set("fixture_array", ({ ([ "value": 1 ]) }));
+    first = new("/d/items/equip/magua"); second = new("/d/items/equip/magua");
+    nested = first->query("fixture_array"); nested[0]["value"] = 2;
+    check(second->query("fixture_array")[0]["value"] == 1 &&
+        blueprint->query("fixture_array")[0]["value"] == 1, "nested defaults isolate");
+    blueprint->delete("fixture_array"); destruct(first); destruct(second);
+}
+
+void clear_inventory(object actor) {
+    object item;
+
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, old_item, new_item, found;
+    string slot;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/equip-npcs.json"))) {
+        before = new("/tests/old" + record["fixture"]);
+        after = new(record["fixture"]);
+        check(sizeof(all_inventory(before)) == record["count"] &&
+            sizeof(all_inventory(after)) == record["count"], record["file"] + " equipment count");
+        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+            record["file"] + " original equipment bonuses");
+        foreach (old_item in all_inventory(before)) {
+            found = 0;
+            foreach (new_item in all_inventory(after))
+                if (base_name(new_item) == paths[base_name(old_item)]) found = new_item;
+            check(objectp(found), record["file"] + " canonical equipment identity");
+            if (!found) continue;
+            compare(old_item, found, record["file"] + " actual carry/wear");
+            slot = old_item->query("armor_type");
+            check((before->query_temp("armor/" + slot) == old_item) ==
+                (after->query_temp("armor/" + slot) == found), "NPC slot and rejected wear parity");
+        }
+        clear_inventory(before); clear_inventory(after); destruct(before); destruct(after);
+    }
+}
+
+void check_zeng_shop() {
+    object before, after, vendor, actor, item, bought;
+    string *goods, *old_goods, *new_goods;
+    string old_display, path;
+    mapping paths;
+    int i, cash;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    before = new("/tests/old/tests/equip_vendor"); after = new("/tests/equip_vendor");
+    before->move(this_object(), 1); after->move(this_object(), 1);
+    old_goods = before->query("vendor_goods"); new_goods = after->query("vendor_goods");
+    check(sizeof(old_goods) == 24 && sizeof(new_goods) == 24, "Zeng actual 24 merchandise");
+    for (i = 0; i < sizeof(old_goods); i++)
+        check(paths[old_goods[i]] == new_goods[i], "Zeng original merchandise order");
+    check(
+        member_array("/d/items/equip/lihua_shang", new_goods) < 0,
+        "unlisted variety stays unlisted"
+    );
+    check(before->do_list(0) && after->do_list(0), "Zeng actual listing method");
+    old_display = before->query_display();
+    check(old_display == after->query_display(), "Zeng displayed items prices and order unchanged");
+    foreach (vendor in ({ before, after })) {
+        goods = vendor->query("vendor_goods");
+        foreach (path in goods) {
+            actor = new("/tests/actor"); actor->move(
+                this_object(),
+                1
+            ); actor->select_vendor(vendor);
+            MONEY_D->pay_player(actor, 999999); cash = actor->cash_value();
+            actor->run_command("testbuy " + path->query("id"));
+            bought = 0;
+            foreach (item in all_inventory(actor)) if (base_name(item) == path) bought = item;
+            check(objectp(bought), "Zeng delivers " + path);
+            check(
+                cash - actor->cash_value() == path->query("value"),
+                "Zeng charges original price"
+            );
+            if (bought) compare(load_object(path), bought, "Zeng delivered defaults");
+            cash = actor->cash_value();
+            actor->run_command("testbuy " + path->query("id"));
+            check(
+                actor->cash_value() == cash,
+                "Zeng busy cooldown refuses immediate second purchase"
+            );
+            vendor->enough_rest();
+            clear_inventory(actor); destruct(actor);
+        }
+    }
+    check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        "Zeng own equipment bonuses unchanged");
+    clear_inventory(before); clear_inventory(after); destruct(before); destruct(after);
+}
+
+void check_mengzhu_restore(mixed *pair) {
+    mapping paths, data, converted;
+    object before, after, old_item, new_item, item;
+    string saved;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    data = ([ "name": "试验盟主", "str": 1000, "dex": 100, "combat_exp": 876543,
+        "weapon": "/d/items/sword/changjian5", "armor": pair[0], "note": pair[0], "gender": "男性" ]);
+    saved = save_variable(data);
+    write_file("/data/npc/meng-zhu.o", "dbase " + saved + "\n", 1);
+    before = new("/tests/mengzhu");
+    converted = "/tests/cloth_records"->convert(saved, "mengzhu_equipment", paths, ({}));
+    check(converted["changes"] == 1, "mengzhu exact armor field conversion");
+    write_file("/data/npc/meng-zhu.o", "dbase " + converted["value"] + "\n", 1);
+    after = new("/tests/mengzhu");
+    old_item = 0; new_item = 0;
+    foreach (item in all_inventory(before)) if (base_name(item) == pair[0]) old_item = item;
+    foreach (item in all_inventory(after)) if (base_name(item) == pair[1]) new_item = item;
+    check(objectp(old_item) && objectp(new_item), "mengzhu actual restore and carry");
+    if (old_item && new_item) compare(old_item, new_item, "mengzhu armor state parity");
+    check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
+        after->query("weapon") == data["weapon"], "mengzhu unrelated fields unchanged");
+    check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        "mengzhu actual wear or rejection preserved");
+    check("/tests/cloth_records"->convert(
+        converted["value"],
+        "mengzhu_equipment",
+        paths,
+        ({})
+    )["changes"] == 0,
+        "mengzhu idempotent conversion");
+    clear_inventory(before); clear_inventory(after); destruct(before); destruct(after);
+}
+
+void run_chunk() {
+    int end;
+
+    end = min(({ next_case + 8, sizeof(cases) }));
+    while (next_case < end) {
+        check_variety(cases[next_case]);
+        check_mengzhu_restore(cases[next_case++]);
+    }
+    if (next_case < sizeof(cases)) { call_out("run_chunk", 0); return; }
+    check_contracts(); check_npc_equipment(); check_zeng_shop();
+    master()->finish();
+}
+
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

@@ -101,7 +101,7 @@ void run() {
             item->query("armor_type") == "boots", "excluded hemp initializer unchanged");
         destruct(item);
     }
-    item = new("/d/city/npc/cloth/shoes");
+    item = new("/d/items/equip/xiuhuaxie");
     check(
         !function_exists("washed", item) && !function_exists("do_tear", item),
         "excluded EQUIP behavior"

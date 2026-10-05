@@ -30,7 +30,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/city/npc/cloth/gui-dress")->wear();
+    carry_object("/d/items/equip/guihua_shan")->wear();
     set_temp("handing", carry_object("/d/city/npc/shanzi/tuan-shan"));
     add_money("silver", 2);
 }

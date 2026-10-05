@@ -117,9 +117,9 @@ void create() {
         }
     }
 
-    carry_object("/d/city/npc/cloth/fu-cloth")->wear();
-    carry_object("/d/city/npc/cloth/jade-belt")->wear();
-    carry_object("/d/city/npc/cloth/scarf")->wear();
+    carry_object("/d/items/equip/tuanjin_gua")->wear();
+    carry_object("/d/items/equip/baoshi_dai")->wear();
+    carry_object("/d/items/equip/xiaoyao_jin")->wear();
     add_money("gold", 2);
 }
 

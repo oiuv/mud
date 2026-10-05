@@ -22,6 +22,6 @@ LONG);
     set_temp("apply/damage", 10);
     setup();
 
-    carry_object("/d/city/npc/cloth/fu-cloth")->wear();
-    carry_object("/d/city/npc/cloth/jade-belt")->wear();
+    carry_object("/d/items/equip/tuanjin_gua")->wear();
+    carry_object("/d/items/equip/baoshi_dai")->wear();
 }

@@ -47,9 +47,9 @@ void create() {
 
     setup();
     carry_object(__DIR__ "obj/liuxingchui")->wield();
-    carry_object("/d/city/npc/cloth/hat")->wear();
-    carry_object("/d/city/npc/cloth/boots")->wear();
-    carry_object("/d/city/npc/cloth/xian-cloth")->wear();
+    carry_object("/d/items/equip/yingzi_mao")->wear();
+    carry_object("/d/items/equip/yangpi_xue")->wear();
+    carry_object("/d/items/equip/xuanse_ao")->wear();
 }
 
 void init() {

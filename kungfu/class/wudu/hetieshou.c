@@ -157,7 +157,7 @@ LONG);
             ob2->wear();
         }
     }
-    carry_object("/d/city/npc/cloth/moon-dress")->wear();
+    carry_object("/d/items/equip/jiaoyue_shang")->wear();
 }
 
 void init() {
