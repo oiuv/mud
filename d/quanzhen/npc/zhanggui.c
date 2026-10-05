@@ -17,7 +17,7 @@ void create() {
     set("shen_type", 1);
 
     set("vendor_goods", ({
-        __DIR__ "obj/kaoya",
+        "/d/items/food/kaoya2",
         __DIR__ "obj/jiudai",
     }));
 

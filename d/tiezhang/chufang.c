@@ -12,9 +12,9 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/hsnr": 2,
-        __DIR__ "obj/ruzhu": 1,
-        __DIR__ "obj/fan": 2,
+        "/d/items/food/niurou2": 2,
+        "/d/items/food/ruzhu": 1,
+        "/d/items/food/mifan4": 2,
     ]));
 
     set("no_clean_up", 0);

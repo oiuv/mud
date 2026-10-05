@@ -29,7 +29,7 @@ LONG);
 
     set("objects", ([
         __DIR__ "npc/tongzi": 1,
-        "/d/wudang/obj/mitao": 4,
+        "/d/items/food/mitao2": 4,
         "/d/wudang/obj/xiangcha": 1,
     ]));
     setup();

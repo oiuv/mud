@@ -14,5 +14,5 @@ void create() {
     set("attitude", "friendly");
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/baituo/obj/caomei");
+    carry_object("/d/items/food/caomei");
 }

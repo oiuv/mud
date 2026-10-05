@@ -2,16 +2,16 @@
 
 inherit ROOM;
 string *names = ({
-    "/d/emei/obj/mala-doufu",
-    "/d/emei/obj/bocai-fentiao",
-    "/d/emei/obj/shanhu-baicai",
-    "/d/emei/obj/liuli-qiezi",
-    "/d/hangzhou/npc/obj/fish",
-    "/d/hangzhou/npc/obj/pork",
-    "/d/hangzhou/npc/obj/shrimp",
-    "/d/hangzhou/npc/obj/geng",
-    "/d/hangzhou/npc/obj/chicken",
-    "/d/hangzhou/npc/obj/baozi",
+    "/d/items/food/mala_doufu",
+    "/d/items/food/bocai_fentiao",
+    "/d/items/food/shanhu_baicai",
+    "/d/items/food/liuli_qiezi",
+    "/d/items/food/cuyu",
+    "/d/items/food/dongporou",
+    "/d/items/food/longjing_xiaren",
+    "/d/items/food/xianli_geng",
+    "/d/items/food/jiaohuaji3",
+    "/d/items/food/baiguo_bao",
 });
 
 void create() {

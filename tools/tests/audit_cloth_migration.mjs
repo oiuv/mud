@@ -1,6 +1,7 @@
 // Verify the broad caller edit is exactly the approved path substitution.
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
+import { afterFoodMigration } from './food_inventory.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
@@ -52,6 +53,7 @@ for (const [file, hits] of files) {
     expected = afterHandsMigration(file, expected, semanticTokens);
     expected = afterNeckMigration(file, expected, semanticTokens);
     expected = afterWristsMigration(file, expected, semanticTokens);
+    expected = afterFoodMigration(file, expected, semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

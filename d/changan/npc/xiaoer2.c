@@ -18,7 +18,7 @@ void create() {
     set_skill("unarmed", 10);
     set("vendor_goods", ({
         __DIR__ "obj/jiudai",
-        __DIR__ "obj/gourou",
+        "/d/items/food/gourou",
         __DIR__ "obj/jitui",
     }));
 

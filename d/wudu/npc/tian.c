@@ -33,8 +33,8 @@ int do_yao(string arg) {
     if (present("baozi", environment()))
         return notify_fail("田嫂笑道：那不是有一块呢嘛，吃完再说！\n");
 
-    m = new(__DIR__ "obj/baozi2");
-    mm = new(__DIR__ "obj/baozi2");
+    m = new("/d/items/food/sherou_bao");
+    mm = new("/d/items/food/sherou_bao");
 
 
     m->move(this_player());

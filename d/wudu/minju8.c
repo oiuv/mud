@@ -13,8 +13,8 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "obj/qhcwan": 2,
-        __DIR__ "obj/shourou2": 1,
-        __DIR__ "obj/shourou1": 1,
+        "/d/items/food/yezhutui": 1,
+        "/d/items/food/paozirou": 1,
     ]));
     setup();
     replace_program(ROOM);

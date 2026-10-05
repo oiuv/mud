@@ -18,9 +18,9 @@ void create() {
     set_skill("dodge", 60);
     set_skill("parry", 20);
     set("vendor_goods", ({
-        __DIR__ "obj/bao1",
-        __DIR__ "obj/bao2",
-        __DIR__ "obj/bao3",
+        "/d/items/food/zhurou_bao",
+        "/d/items/food/haixian_bao",
+        "/d/items/food/sucai_bao",
     }));
 
     setup();

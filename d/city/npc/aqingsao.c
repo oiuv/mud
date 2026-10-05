@@ -24,8 +24,8 @@ void create() {
     ]));
 
     set("vendor_goods", ({
-        __DIR__ "obj/peanut",
-        __DIR__ "obj/tofu",
+        "/d/items/food/huasheng",
+        "/d/items/food/feicui_doufu",
     }));
 
     setup();

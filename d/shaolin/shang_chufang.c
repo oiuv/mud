@@ -41,7 +41,7 @@ int do_serve() {
     if (query("ricewater") > 0) {
         message_vision(CYN "厨师将热气腾腾的饭菜递到你手中，笑"
             "道：你慢用。\n" NOR, me);
-        food = new("/d/shaolin/obj/food");
+        food = new("/d/items/food/tangcu_liji");
         water = new("/d/shaolin/obj/soup");
         food->move(me);
         water->move(me);

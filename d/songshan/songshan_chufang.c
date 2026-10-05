@@ -45,7 +45,7 @@ int do_serve() {
         message_vision(CYN "厨师将一个馒头和一碗清水递到$N手中，笑"
             "道：你慢用。\n" NOR, me);
 
-        food = new("/d/hengyang/obj/mantou");
+        food = new("/d/items/food/mantou2");
         water = new("/d/hengyang/obj/water");
         food->move(me);
         water->move(me);

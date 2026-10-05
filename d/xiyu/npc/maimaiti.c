@@ -18,9 +18,9 @@ void create() {
     set("rank_info/respect", "大叔");
     set("vendor_goods", ({
         "/d/xiyu/obj/hu",
-        "/d/xiyu/obj/nang",
+        "/d/items/food/nang",
         "/d/xiyu/obj/fire",
-        "/d/xiyu/obj/hamigua",
+        "/d/items/food/hamigua2",
         "/d/xiyu/obj/dongbula",
     }));
     setup();

@@ -1,8 +1,8 @@
-# 数据化物品：普通服装、鞋靴、头饰、手部装备、颈饰与护腕
+# 数据化物品：普通装备与食物
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
-后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。六类保持独立父类，共用以下离线迁移与部署流程，不合并运行期行为。累计 309 个旧定义归并为 12 个共用程序/数据文件，定义文件净减少 297 个（不含新增测试及文档）。
+后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。七类保持各自继承和行为，共用以下离线迁移与部署流程。累计 476 个旧定义归并为 14 个共用程序/数据文件，定义文件净减少 462 个（不含测试及文档）。
 
 ## 创建与维护
 
@@ -24,9 +24,34 @@
 
 带独有回调、F_NOCLONE 或不同父类的物品不套进此表。特别是直接 EQUIP 衣物不会因此获得 CLOTH 的撕布和洗涤行为。后续优先评估无回调、固定初始化的防具或兵器；食物、饮具、书籍分别按消耗、容量、阅读行为分组，先验证代表，不承诺一次迁完所有类别。
 
+## 普通食物
+
+`d/items/food.lpc` 直接继承 `ITEM + F_FOOD`，数据在 `food_data.h`，不继承装备能力。使用 `new("/d/items/food/baozi")` 创建食物，`load_object("/d/items/food/baozi")` 查询蓝图，`new(base_name(ob))` 重建完整新品。公共 `/d/items/food` 只管理品种，不能作为商品或带参克隆入口。
+
+167 份旧定义经真实驱动比较名称、颜色、描述、实际重量、属性及 UID/EUID 后，归并为 119 个品种。例如九处相同包子共用 `baozi`；不同土豆保留 `tudou`、`tudou2`。表按 ID 自然排序，编号固定。新条目仍只使用以下字段，插入对应排序位置；先确认没有可复用品种，不再创建独立入口文件：
+
+```c
+"baozi": ([
+    "name": "包子",
+    "ids": ({ "baozi", "dumpling" }),
+    "weight": 80,
+    "properties": ({
+        ({ "long", "一个香喷喷的肉包子。\n" }),
+        ({ "unit", "个" }),
+        ({ "value", 50 }),
+        ({ "food_remaining", 3 }),
+        ({ "food_supply", 20 }),
+    }),
+]),
+```
+
+上述示例取自现有 `baozi` 定义。固定属性放蓝图，不增加 `instance` 层。13 份原先未设置重量的食物保留实际负重 0；原材质拼写及分支不修正。`setup()` 仅执行原 ITEM 的 EUID 初始化，已逐项验证权限等价。
+
+剩余口数、`base_value` 和临时附加效果属于独立实例。吃东西仍使用原 `eat` 命令与 `F_FOOD`：不改饱食、战斗/忙碌限制、`plant` 分支和吃完销毁。15 份兼作兵器的食物、明教变鱼骨的大白鱼、洛阳可种植花种保持原文件和行为，本表不承载特殊回调。
+
 ## 存储边界
 
-背包仅额外放行 CLOTH、BOOTS、HEAD、HANDS、NECK 与 WRISTS 六张表已登记的精确虚拟路径；穿戴中、带临时状态、`no_put/no_store`、独特物品、装有其他物品等原拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
+背包入口识别七张表已登记的精确虚拟路径，但这不等于存放资格。FOOD 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物。其余六类的穿戴中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -42,7 +67,9 @@
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希。一次转换覆盖 **590 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读六张品种表，共 CLOTH 148、BOOTS 8、HEAD 36、HANDS 20、NECK 10、WRISTS 4 个品种。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。一次转换覆盖 **757 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读七张品种表，共 345 个品种，不读取历史映射。
+
+食物通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予食物存放资格。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
 即使之前已完成服装或鞋靴迁移，也需要重新预览停服备份：记录里可能保存改名前的规范 ID。只更新代码而不转换受影响记录会导致这些物品无法加载。没有受影响记录时，无须执行转换。
 
@@ -127,9 +154,14 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --wrists --bench
 node --test tools/tests/test_item_records.mjs
 node --test tools/tests/test_item_ids.mjs
 node --test tools/tests/test_item_references.mjs
+node tools/tests/food_inventory.mjs
+node tools/tests/audit_food_migration.mjs
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --food
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --food --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --food --bench
 ```
 
-需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361`、`57f106f8`、`61abfde3` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
+需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361`、`57f106f8`、`61abfde3`、`1c35e24c` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
 

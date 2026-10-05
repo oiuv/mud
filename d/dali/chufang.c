@@ -9,7 +9,7 @@ void create() {
 这里是段家弟子用餐的地方。
 LONG);
     set("objects", ([
-        __DIR__ "obj/xueli": 4,
+        "/d/items/food/xueli": 4,
         __DIR__ "npc/obj/puercha": 1,
     ]));
     set("exits", ([ /* sizeof() == 1 */

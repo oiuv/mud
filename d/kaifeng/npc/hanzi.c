@@ -27,11 +27,11 @@ void create() {
     }));
 
     set("vendor_goods", ({
-        "/d/beijing/obj/luobo",
-        "/d/beijing/obj/huluobo",
-        "/d/beijing/obj/baicai",
-        "/d/beijing/obj/dacong",
-        "/d/beijing/obj/tudou",
+        "/d/items/food/luobo",
+        "/d/items/food/huluobo",
+        "/d/items/food/baicai",
+        "/d/items/food/dacong",
+        "/d/items/food/tudou",
     }));
 
     setup();

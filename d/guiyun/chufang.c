@@ -35,7 +35,7 @@ int do_serve() {
         message_vision(CYN "厨娘连声答应，递给$N" CYN "一杯香"
             "茶和一个粽子。\n" NOR, me);
 
-        food = new(__DIR__ "obj/zongzi");
+        food = new("/d/items/food/zongzi2");
         water = new("/d/wudang/obj/xiangcha");
         food->move(me);
         water->move(me);

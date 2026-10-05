@@ -47,7 +47,7 @@ int do_serve() {
     if (query("ricewater") > 0) {
         message_vision(CYN "程英将热气腾腾的饭菜递到$N" CYN "手中"
             "，笑道：你慢用。\n" NOR, me);
-        food = new("/d/taohua/obj/gao");
+        food = new("/d/items/food/taohua_gao");
         water = new("/d/taohua/obj/cha");
         food->move(me);
         water->move(me);

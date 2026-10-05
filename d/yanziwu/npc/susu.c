@@ -82,7 +82,7 @@ void serve_tea(object who) {
     obn->move(room);
     message_vision("素素拿出一个小茶壶，沏上一杯香浓的碧螺春．\n", who);
 
-    obn = new("/d/yanziwu/obj/gao");
+    obn = new("/d/items/food/dianxin");
     obn->move(room);
     message_vision("素素拿出一碟精致的四色点心，放在桌上．\n", who);
 

@@ -15,7 +15,7 @@ void create() {
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
         "/d/xueshan/obj/niupidai",
-        "/d/xueshan/obj/qingke-m",
+        "/d/items/food/qingkemian",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

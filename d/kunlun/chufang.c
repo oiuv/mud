@@ -15,9 +15,9 @@ LONG);
 
     set("objects", ([
         __DIR__ "npc/puren": 1,
-        __DIR__ "obj/rice": 2,
+        "/d/items/food/mifan": 2,
         __DIR__ "obj/xiangcha": 1,
-        __DIR__ "obj/kaoya": 1,
+        "/d/items/food/kaoya2": 1,
     ]));
 
     set("no_fight", 1);

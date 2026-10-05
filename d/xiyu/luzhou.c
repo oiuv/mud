@@ -14,7 +14,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/hamigua": 2,
+        "/d/items/food/hamigua2": 2,
     ]));
 
     set("outdoors", "xiyu");

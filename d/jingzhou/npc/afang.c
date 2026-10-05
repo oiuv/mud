@@ -21,8 +21,8 @@ void create() {
     ]));
 
     set("vendor_goods", ({
-        "/d/city/npc/obj/peanut",
-        "/d/city/npc/obj/tofu",
+        "/d/items/food/huasheng",
+        "/d/items/food/feicui_doufu",
     }));
 
     setup();

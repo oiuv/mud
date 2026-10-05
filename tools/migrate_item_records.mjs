@@ -13,6 +13,7 @@ import { migrationPaths as headwearPaths, baseline as headwearBaseline } from '.
 import { migrationPaths as handsPaths, baseline as handsBaseline } from './tests/hands_inventory.mjs';
 import { migrationPaths as neckPaths, baseline as neckBaseline } from './tests/neck_inventory.mjs';
 import { migrationPaths as wristsPaths, baseline as wristsBaseline } from './tests/wrists_inventory.mjs';
+import { migrationPaths as foodPaths, baseline as foodBaseline } from './tests/food_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const fields = { backpack: 'my_depot', shop: 'dbase', legacy_bags: 'save_dbase' };
@@ -94,7 +95,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -103,9 +104,13 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         cpSync(join(root, 'tools/tests/cloth_migration', file), join(sandbox, file));
     cpSync(join(root, 'mudcore/system/kernel/simul_efun/json.c'), join(sandbox, 'sefun.c'));
     writeFileSync(join(sandbox, 'include/globals.h'), '// Isolated converter: no game globals.\n');
-    writeFileSync(join(sandbox, 'request.json'), JSON.stringify({ paths, entries: files.map(file => ({
+    const request = JSON.stringify({ paths, entries: files.map(file => ({
         kind: file.entry.kind, value: file.value, bag_objects: file.entry.bag_objects || [],
-    })) }), { mode: 0o600 });
+    })) });
+    writeFileSync(join(sandbox, 'request.json'), request, { mode: 0o600 });
+    // The shared LPC JSON decoder tokenizes the request into arrays. Size this
+    // isolated driver's limits to the explicit backup batch, not a live config.
+    const requestBytes = Buffer.byteLength(request);
     const socket = createServer();
     await new Promise(done => socket.listen(0, '127.0.0.1', done));
     const port = socket.address().port;
@@ -115,6 +120,9 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         'mudlib directory : ' + sandbox.replaceAll('\\', '/'), 'log directory : /log',
         'debug log file : debug.log', 'master file : /cloth_master', 'simulated efun file : /sefun',
         'include directories : /include', 'global include file : <globals.h>',
+        'maximum array size : ' + Math.max(15000, requestBytes),
+        'maximum read file size : ' + Math.max(262144, requestBytes),
+        'maximum string length : ' + Math.max(1048576, requestBytes * 4),
     ].join('\n') + '\n');
     const result = await new Promise((done, reject) => {
         const child = spawn(resolve(driver), ['driver.cfg'], { cwd: sandbox, windowsHide: true });
@@ -138,7 +146,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
         input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o'] : 'listed_files_only',
         baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
-        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, sandbox, files: [] };
+        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')
@@ -187,7 +195,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
         console.log('node tools/migrate_item_records.mjs (--backup-root <backup> | --manifest <backup/manifest.json>) [--driver bin/driver.exe] [--output <new-directory>]');
         console.log('node tools/migrate_item_records.mjs --backup-root <backup> --write-manifest <backup/manifest.json>');
         console.log('备份根目录须含 user/ 和 shop/；不扫描其他目录。默认预览，显式 --output 才产生全新副本。');
-        console.log('一次处理已迁移服装、鞋靴、头饰与手部装备；仅转换明确的物品路径字段，不替换玩家文本。');
+        console.log('一次处理已迁移服装、鞋靴、头饰、手部装备、颈饰、护腕及食物；仅转换明确的物品路径字段，不替换玩家文本，也不改变存放资格。');
         console.log('--write-manifest 仅枚举路径，清单须放备份根目录：不读正文、不启动驱动，不代表内容检查。');
         console.log('checked_files/affected_files/changes 分别表示检查数、受影响文件数、路径字段变更数。');
         console.log('manifest 只覆盖所列文件；empty_scope 是空范围，不代表全库无影响。输入永不覆盖。');

@@ -16,12 +16,12 @@ void create() {
     set("rank_info/respect", "小二哥");
     set("no_get", "1");
     set("vendor_goods", ({
-        __DIR__ "obj/pork",
-        __DIR__ "obj/fish",
-        __DIR__ "obj/baozi",
-        __DIR__ "obj/shrimp",
-        __DIR__ "obj/chicken",
-        __DIR__ "obj/geng",
+        "/d/items/food/dongporou",
+        "/d/items/food/cuyu",
+        "/d/items/food/baiguo_bao",
+        "/d/items/food/longjing_xiaren",
+        "/d/items/food/jiaohuaji3",
+        "/d/items/food/xianli_geng",
         __DIR__ "obj/jiuping",
     }));
     setup();

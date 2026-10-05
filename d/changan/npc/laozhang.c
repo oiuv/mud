@@ -19,10 +19,10 @@ void create() {
     set_skill("unarmed", 40);
     set_skill("dodge", 40);
     set("vendor_goods", ({
-        __DIR__ "obj/miantang",
-        __DIR__ "obj/miantiao1",
-        __DIR__ "obj/miantiao2",
-        __DIR__ "obj/miantiao3",
+        "/d/items/food/miantang",
+        "/d/items/food/daoxiaomian",
+        "/d/items/food/niuroumian",
+        "/d/items/food/paigumian",
     }));
 
     setup();

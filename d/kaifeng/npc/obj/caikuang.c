@@ -7,10 +7,10 @@ void create() {
     if (clonep()) {
         object a, b;
         seteuid(getuid());
-        if (a = new(__DIR__ "baicai"))
+        if (a = new("/d/items/food/baicai2"))
             a->move(this_object());
         seteuid(getuid());
-        if (b = new(__DIR__ "qingcai"))
+        if (b = new("/d/items/food/qingcai"))
             b->move(this_object());
         set_default_object(__FILE__);
     } else {

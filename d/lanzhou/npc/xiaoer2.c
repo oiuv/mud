@@ -15,9 +15,9 @@ void create() {
 
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
-        __DIR__ "obj/tangbo",
-        __DIR__ "obj/kaoya",
-        __DIR__ "obj/huasen",
+        "/d/items/food/tangbao",
+        "/d/items/food/kaoya2",
+        "/d/items/food/huasheng3",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

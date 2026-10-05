@@ -17,8 +17,8 @@ void create() {
     set("vendor_goods", ({
         "/d/city/npc/obj/jitui",
         "/d/city/npc/obj/jiudai",
-        "/d/city/npc/obj/baozi",
-        "/d/city/npc/obj/kaoya",
+        "/d/items/food/baozi",
+        "/d/items/food/kaoya2",
 
     }));
     setup();

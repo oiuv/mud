@@ -21,7 +21,7 @@ void create() {
     set("vendor_goods", ({
         __DIR__ "obj/stick",
         __DIR__ "obj/bottle",
-        __DIR__ "obj/egg",
+        "/d/items/food/chayedan",
         "/d/xiyu/obj/fire",
     }));
     set("inquiry", ([

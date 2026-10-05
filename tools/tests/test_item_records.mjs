@@ -12,6 +12,7 @@ import { renamedPaths } from './item_ids.mjs';
 import { migrationPaths as handsPaths, canonicalGroups as handsGroups } from './hands_inventory.mjs';
 import { migrationPaths as neckPaths, canonicalGroups as neckGroups } from './neck_inventory.mjs';
 import { migrationPaths as wristsPaths, canonicalGroups as wristsGroups } from './wrists_inventory.mjs';
+import { migrationPaths as foodPaths, canonicalGroups as foodGroups } from './food_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = join(root, 'bin/driver.exe');
@@ -56,12 +57,14 @@ test('deterministic discovery, relative paths and only user/shop', () => {
     assert.deepEqual(discoverBackup(backup), found);
 });
 
-test('all 6 WRISTS paths and six-family backups: CLI, stock merging, state, bags, rollback and conflicts', async () => {
-    const input = join(sandbox, 'wrists-input');
+for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
+    ['wrists', wristsPaths, wristsGroups, 6, 4], ['food', foodPaths, foodGroups, 167, 119],
+]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
+    const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
-    const pairs = Object.entries({ ...wristsPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian' });
-    assert.equal(Object.keys(wristsPaths()).length, 6);
-    assert.equal(wristsGroups().length, 4);
+    const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan' });
+    assert.equal(Object.keys(familyPaths()).length, oldCount);
+    assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};
     for (const [i, [oldPath, path]] of pairs.entries()) {
         items['item' + i * 2] = { file: oldPath, amount: 2, name: '旧物' + i, unknown_field: 'state-' + i };
@@ -88,7 +91,7 @@ test('all 6 WRISTS paths and six-family backups: CLI, stock merging, state, bags
     const manifest = JSON.parse(readFileSync(manifestFile, 'utf8'));
     manifest.files.push({ file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/bag'] });
     writeFileSync(manifestFile, JSON.stringify(manifest));
-    const target = join(sandbox, 'wrists-copy');
+    const target = join(sandbox, family + '-copy');
     const result = cli(['--manifest', manifestFile, '--driver', driver, '--output', target]);
     assert.equal(result.changes, pairs.length * 4); assert.equal(result.checked_files, 3);
     const player = readFileSync(join(target, 'converted/user/player.o'), 'utf8');
@@ -118,19 +121,19 @@ test('all 6 WRISTS paths and six-family backups: CLI, stock merging, state, bags
         assert.equal(readFileSync(join(input, file), 'utf8'), source);
         assert.equal(readFileSync(join(target, 'backup', file), 'utf8'), source, 'byte-exact rollback copy');
     }
-    const rollback = join(sandbox, 'wrists-rollback');
+    const rollback = join(sandbox, family + '-rollback');
     cpSync(join(target, 'backup'), rollback, { recursive: true });
     for (const [file, source] of Object.entries(sources))
         assert.deepEqual(readFileSync(join(rollback, file)), Buffer.from(source), 'restored backup bytes');
     const replay = join(target, 'converted/manifest.json'); writeFileSync(replay, JSON.stringify(manifest));
     assert.equal((await migrateItemRecords(replay, driver)).changes, 0);
     await assert.rejects(migrateItemRecords(manifestFile, driver, target), /new directory/);
-    // All old/new WRISTS identities are mapped; differing prices must not silently win.
-    for (const [index, [oldPath, path]] of Object.entries(wristsPaths()).entries()) {
+    // Every historical identity must reject a conflicting current price.
+    for (const [index, [oldPath, path]] of Object.entries(familyPaths()).entries()) {
         writeFileSync(join(input, 'shop/shop.o'), 'dbase ' + lpc({
             vendor_goods: { [oldPath]: 1, [path]: 2 }, vendor_goods_num: { [oldPath]: 2, [path]: 3 },
         }) + '\n');
-        const failed = join(sandbox, 'wrists-conflict-' + index);
+        const failed = join(sandbox, family + '-conflict-' + index);
         await assert.rejects(migrateItemRecords(manifestFile, driver, failed), /Shop price conflict/);
         assert.equal(existsSync(failed), false);
     }

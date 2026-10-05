@@ -4,14 +4,14 @@
 inherit ROOM;                                   /* EXAMPLE */
 
 string *names = ({
-    "/d/shaolin/obj/mala-doufu",
-    "/d/shaolin/obj/bocai-fentiao",
-    "/d/shaolin/obj/shanhu-baicai",
-    "/d/shaolin/obj/liuli-qiezi",
-    "/d/shaolin/obj/mizhi-tianou",
-    "/d/shaolin/obj/jiaxin-biji",
-    "/d/shaolin/obj/basi-shanyao",
-    "/d/shaolin/obj/furong-huagu",
+    "/d/items/food/mala_doufu",
+    "/d/items/food/bocai_fentiao",
+    "/d/items/food/shanhu_baicai",
+    "/d/items/food/liuli_qiezi",
+    "/d/items/food/mizhi_tianou",
+    "/d/items/food/jiaxin_biqi",
+    "/d/items/food/basi_shanyao",
+    "/d/items/food/furong_huagu",
 });
 
 void create() {

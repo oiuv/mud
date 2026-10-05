@@ -9,7 +9,7 @@ void create() {
 LONG);
     set("resource/water", 1);
     set("objects", ([
-        __DIR__ "obj/yangrou": 3,
+        "/d/items/food/yangrouchuan": 3,
     ]));
     set("exits", ([
         "east": __DIR__ "xxroad6",

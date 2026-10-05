@@ -4,10 +4,10 @@
 inherit ROOM;
 
 string *names = ({
-    __DIR__ "obj/mizhi-tianou",
-    __DIR__ "obj/jiaxin-biji",
-    __DIR__ "obj/basi-shanyao",
-    __DIR__ "obj/furong-huagu",
+    "/d/items/food/mizhi_tianou",
+    "/d/items/food/jiaxin_biqi",
+    "/d/items/food/basi_shanyao",
+    "/d/items/food/furong_huagu",
 });
 
 void create() {

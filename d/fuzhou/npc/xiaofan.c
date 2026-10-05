@@ -20,7 +20,7 @@ void create() {
     ]));
     set("vendor_goods", ({
         "/d/village/npc/obj/bottle",
-        "/d/village/npc/obj/egg",
+        "/d/items/food/chayedan",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

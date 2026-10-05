@@ -12,7 +12,7 @@ LONG);
 
     set("objects", ([
         __DIR__ "obj/cha": 2 + random(2),
-        __DIR__ "obj/nailao": 2 + random(2),
+        "/d/items/food/nailao": 2 + random(2),
     ]));
 
     set("resource/water", 1);

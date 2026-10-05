@@ -16,10 +16,10 @@ void create() {
     set("no_get", "1");
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
-        __DIR__ "obj/mixian",
-        __DIR__ "obj/yeerba",
-        __DIR__ "obj/huotui",
-        __DIR__ "obj/qiguoji",
+        "/d/items/food/mixian",
+        "/d/items/food/yeerba",
+        "/d/items/food/huotui",
+        "/d/items/food/qiguoji",
         __DIR__ "obj/puercha",
     }));
     setup();

@@ -21,8 +21,8 @@ void create() {
     set_temp("apply/defense", 30);
     set("vendor_goods", ({
         __DIR__ "obj/zuixunfeng",
-        __DIR__ "obj/snxiangji",
-        __DIR__ "obj/lhjiyu",
+        "/d/items/food/xiangji",
+        "/d/items/food/luohan_jiyu",
     }));
 
     setup();

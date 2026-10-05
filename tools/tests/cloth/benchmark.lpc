@@ -1,4 +1,14 @@
 // Equal-load measurements in a fresh driver process for each version/run.
+int program_count() {
+    string line;
+    int count, bytes;
+
+    foreach (line in explode(mud_status(1), "\n"))
+        if (sscanf(line, "Prog blocks %d %d", count, bytes) == 2)
+            return count;
+    error("Program block statistics unavailable.\n");
+}
+
 void load_blueprints(mixed *cases, int version) {
     mixed *pair;
 
@@ -18,21 +28,27 @@ void run() {
     object *objects;
     object ob;
     int before, loaded, created, compile_us, clone_us;
+    int programs_before, programs_loaded, programs_created;
 
     config = json_decode(read_file("/tests/benchmark.json"));
     cases = json_decode(read_file("/tests/cases.json"));
     objects = allocate(sizeof(cases) * 20);
+    programs_before = program_count();
     before = memory_info();
     compile_us = time_expression (load_blueprints(cases, config["version"]));
     loaded = memory_info();
+    programs_loaded = program_count();
     clone_us = time_expression (populate(objects, cases, config["version"]));
     created = memory_info();
+    programs_created = program_count();
     varieties = ([]);
     foreach (pair in cases) varieties[pair[config["version"]]] = 1;
     result = ([ "version": config["version"], "round": config["round"],
         "source_definitions": sizeof(cases), "varieties": sizeof(varieties), "clones": sizeof(objects),
         "cold_load_us": compile_us, "warm_clone_us": clone_us,
-        "blueprints_bytes": loaded - before, "clones_bytes": created - loaded ]);
+        "blueprints_bytes": loaded - before, "clones_bytes": created - loaded,
+        "programs_loaded": programs_loaded - programs_before,
+        "programs_cloned": programs_created - programs_loaded ]);
     foreach (ob in objects) destruct(ob);
     debug_message("CLOTH BENCH " + json_encode(result));
 }

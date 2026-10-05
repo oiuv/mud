@@ -7,9 +7,9 @@ void create() {
 存放着一些准备过冬的食物，都整齐的堆放在木板上。
 LONG);
     set("objects", ([
-        __DIR__ "obj/shibing": 2,
-        __DIR__ "obj/huluobu": 1,
-        __DIR__ "obj/tudou": 1,
+        "/d/items/food/shibing": 2,
+        "/d/items/food/huluobo_gan": 1,
+        "/d/items/food/tudou2": 1,
     ]));
     set("item_desc", ([
         "xi": "\n一张厚厚的草席盖在洞口，遮住了外面的阳光。\n",

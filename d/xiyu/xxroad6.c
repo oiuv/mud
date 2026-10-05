@@ -11,7 +11,7 @@ LONG);
 
     set("resource/water", 1);
     set("objects", ([
-        __DIR__ "obj/yangrou": 3,
+        "/d/items/food/yangrouchuan": 3,
     ]));
     set("exits", ([
         "south": __DIR__ "xxroad5",

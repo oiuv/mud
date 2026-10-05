@@ -4,7 +4,7 @@ inherit ROOM;
 varargs protected void create_food(string nmstr, string *idlist, string longstr) {
     object obj;
 
-    obj = new(__DIR__ "obj/food");
+    obj = new("/d/items/food/shiwu");
     obj->set_name(nmstr, idlist);
     if (longstr)
         obj->set("long", longstr);

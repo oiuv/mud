@@ -19,7 +19,7 @@ void create() {
 
     set("vendor_goods", ({
         __DIR__ "obj/jitui",
-        __DIR__ "obj/baozi",
+        "/d/items/food/roubao",
         __DIR__ "obj/flagon",
     }));
     setup();

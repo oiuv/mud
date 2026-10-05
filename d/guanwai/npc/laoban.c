@@ -13,7 +13,7 @@ void create() {
     set("attitude", "friendly");
     set("no_get", "1");
     set("vendor_goods", ({
-        __DIR__ "obj/gourou",
+        "/d/items/food/gourou3",
         __DIR__ "obj/gouroutang",
         __DIR__ "obj/map",
     }));

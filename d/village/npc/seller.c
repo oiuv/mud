@@ -21,7 +21,7 @@ void create() {
         __DIR__ "obj/stick",
         __DIR__ "obj/shoes",
         __DIR__ "obj/bottle",
-        __DIR__ "obj/egg",
+        "/d/items/food/chayedan",
     }));
 
     set("chat_msg_chance", 5);

@@ -15,7 +15,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "npc/xiaocui": 1,
-        __DIR__ "obj/mitao": 3,
+        "/d/items/food/mitao2": 3,
         __DIR__ "obj/dawancha": 4,
     ]));
     setup();

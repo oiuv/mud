@@ -43,7 +43,7 @@ int do_serve() {
     if (query("ricewater") > 0) {
         message_vision(CYN "凌霄弟子将热气腾腾的饭菜递到你手中，笑"
             "道：你慢用。\n" NOR, me);
-        food = new(__DIR__ "obj/rice");
+        food = new("/d/items/food/zhenzhufan");
         water = new(__DIR__ "obj/soup");
         food->move(me);
         water->move(me);

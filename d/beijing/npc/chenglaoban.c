@@ -27,7 +27,7 @@ void create() {
 
     set("vendor_goods", ({
         "/d/city/obj/hdjiudai",
-        "/d/beijing/obj/kaoya",
+        "/d/items/food/kaoya",
     }));
 
     setup();

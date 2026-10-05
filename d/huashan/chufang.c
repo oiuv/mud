@@ -44,7 +44,7 @@ int do_serve() {
         return notify_fail("小师妹道：吃完了再拿，别浪费食物。\n");
     if (query("ricewater") > 0) {
         message_vision("小师妹连声答应，给$N一碗黄米饭和一碗鲜菇汤。\n", me);
-        food = new(__DIR__ "obj/rice");
+        food = new("/d/items/food/huangmifan");
         water = new(__DIR__ "obj/soup");
         food->move(me);
         water->move(me);

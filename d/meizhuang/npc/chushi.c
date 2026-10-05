@@ -40,7 +40,7 @@ int do_serve() {
 
     message_vision(HIC "\n厨师将热气腾腾的饭菜递到$N" HIC "手中，笑"
         "道：你慢用。\n\n" NOR, me);
-    food = new("/d/wuguan/obj/rice");
+    food = new("/d/items/food/xiaomifan");
     water = new("/d/wuguan/obj/tea");
     food->move(me);
     water->move(me);

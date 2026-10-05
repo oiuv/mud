@@ -56,6 +56,10 @@ void run() {
     check(base_name(item) == "/tests/clone_actor", "explicit .lpc still works");
     item = clone_into(actor, "/clone/money/silver 5", actor);
     check(item->query_amount() == 5, "existing stack quantity semantics retained");
+    item = clone_into(actor, "/d/items/food/baozi", actor);
+    check(virtualp(item) && clonep(item) && item->is_food() &&
+        item->query("food_remaining") == 3 && item->query("value") == 50,
+        "registered food via actual clone command and documented example");
 
     count = sizeof(all_inventory(actor));
     actor->run_command("clone " + path + " 0");

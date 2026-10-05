@@ -20,7 +20,7 @@ void create() {
         "/d/xiyu/obj/fire",
         "/d/quanzhen/npc/obj/stick",
         "/d/quanzhen/npc/obj/bottle",
-        "/d/quanzhen/npc/obj/egg",
+        "/d/items/food/chayedan",
     }));
     setup();
     carry_object("/clone/cloth/cloth")->wear();

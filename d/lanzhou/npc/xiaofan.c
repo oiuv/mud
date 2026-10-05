@@ -20,11 +20,11 @@ void create() {
     set_skill("dodge", 20);
     set_skill("unarmed", 20);
     set("vendor_goods", ({
-        __DIR__ "obj/tanghulu",
+        "/d/items/food/tanghulu2",
         __DIR__ "obj/stick",
         __DIR__ "obj/shoes",
         __DIR__ "obj/bottle",
-        __DIR__ "obj/kaoya",
+        "/d/items/food/kaoya2",
     }));
     setup();
     carry_object("clone/misc/cloth")->wear();

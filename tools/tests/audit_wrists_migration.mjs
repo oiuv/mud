@@ -1,5 +1,6 @@
 // Exact allowed caller edits and historical semantics; no live data access.
 import assert from 'node:assert/strict';
+import { afterFoodMigration } from './food_inventory.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
@@ -12,7 +13,7 @@ const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
 const baseline = readBaseline();
 const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
 for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-    semantic(expectedCaller(file)), 'Unexpected caller change: ' + file);
+    semantic(afterFoodMigration(file, expectedCaller(file), semantic)), 'Unexpected caller change: ' + file);
 assert.equal(callers.size, 8);
 assert.equal(baseline.hits.length, 6);
 assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');

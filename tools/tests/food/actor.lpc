@@ -1,0 +1,15 @@
+inherit "/tests/actor";
+
+private string received = "";
+void catch_tell(string text) { received += text; }
+string query_received() { return received; }
+
+int is_busy() { return query("test_busy"); }
+int is_fighting() { return query("test_fighting"); }
+int max_food_capacity() { return 100000; }
+int eat_food(string arg) { return "/cmds/std/eat"->main(this_object(), arg); }
+void create() {
+    ::create();
+    add_action("eat_food", "testeat");
+    add_action("do_store", "teststore");
+}

@@ -17,8 +17,8 @@ void create() {
     set("vendor_goods", ({
         __DIR__ "obj/jiudai",
         __DIR__ "obj/jiouhulu",
-        __DIR__ "obj/maoniurou",
-        __DIR__ "obj/gourou",
+        "/d/items/food/maoniurou",
+        "/d/items/food/gourou2",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

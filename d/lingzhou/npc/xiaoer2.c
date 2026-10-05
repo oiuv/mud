@@ -16,11 +16,11 @@ void create() {
     set("no_get", "1");
     set("rank_info/respect", "小二哥");
     set("vendor_goods", ({
-        "/d/xiyu/obj/nang",
+        "/d/items/food/nang",
         "/d/xiyu/obj/hu",
-        "/d/xiyu/obj/yangrou",
-        __DIR__ "obj/paomo",
-        __DIR__ "obj/kaoyangtui",
+        "/d/items/food/yangrouchuan",
+        "/d/items/food/paomo",
+        "/d/items/food/yangtui",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

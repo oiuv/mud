@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { afterWristsMigration } from './wrists_inventory.mjs';
+import { afterFoodMigration } from './food_inventory.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
@@ -24,6 +25,7 @@ for (const file of callers) {
     expected = afterHandsMigration(file, expected, semantic);
     expected = afterNeckMigration(file, expected, semantic);
     expected = afterWristsMigration(file, expected, semantic);
+    expected = afterFoodMigration(file, expected, semantic);
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expected), 'Unexpected caller change: ' + file);
 }
 assert.equal(callers.size, 15);

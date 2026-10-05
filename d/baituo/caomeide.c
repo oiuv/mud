@@ -11,7 +11,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/caomei": random(7),
+        "/d/items/food/caomei": random(7),
     ]));
 
     set("outdoors", "baituo");

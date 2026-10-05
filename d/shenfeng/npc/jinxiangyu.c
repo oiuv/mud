@@ -18,7 +18,7 @@ void create() {
     set("vendor_goods", ({
         "/d/xiyu/obj/fire",
         "/d/city/npc/obj/jiudai",
-        "/d/shenfeng/npc/obj/dogrou",
+        "/d/items/food/gourou4",
         "/d/shenfeng/npc/obj/hulu",
     }));
     setup();

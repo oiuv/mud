@@ -18,11 +18,11 @@ void create() {
     set_skill("unarmed", 20);
     set("chat_chance", 20);
     set("vendor_goods", ({
-        __DIR__ "obj/guo1",
-        __DIR__ "obj/guo2",
-        __DIR__ "obj/guo3",
-        __DIR__ "obj/guo4",
-        __DIR__ "obj/guo5",
+        "/d/items/food/pingguo2",
+        "/d/items/food/juzi2",
+        "/d/items/food/xiangjiao",
+        "/d/items/food/lizhi",
+        "/d/items/food/xigua",
     }));
 
     setup();

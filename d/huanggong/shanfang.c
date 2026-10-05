@@ -15,7 +15,7 @@ LONG
         "north": __DIR__ "tinglang2",
     ]));
     set("objects", ([
-        __DIR__ "obj/yuchi": 2,
+        "/d/items/food/yuchi": 2,
         __DIR__ "obj/nverhong": 1,
     ]));
     setup();

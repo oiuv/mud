@@ -83,7 +83,7 @@ mapping getKill() {
 
 // 任務須要取得某些物品(以檔名來識別，注意加上`.c`)，若不需要則 return 0
 mapping getItem() {
-    return ([ "/d/city/npc/obj/baozi.c": 1 ]);
+    return ([ "/d/items/food/baozi": 1 ]);
 }
 
 // 完成任務的條件除了系統提供的

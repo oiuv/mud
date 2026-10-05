@@ -1,0 +1,189 @@
+// Old/new food behavior through real ITEM, F_FOOD, eat, dealer and storage code.
+inherit "/tests/cloth_regression";
+
+private mixed *cases;
+private int next_case;
+private int effects;
+
+void effect() { effects++; }
+
+void check_baseline() {
+    mixed *pair;
+    object blueprint, instance;
+    mapping record;
+    mixed *observations;
+
+    observations = ({});
+    foreach (pair in cases) {
+        blueprint = load_object(pair[0]);
+        instance = new(pair[0]);
+        check(blueprint->query_weight() == pair[2] && instance->query_weight() == pair[3],
+            pair[0] + " original effective weights");
+        check(blueprint->is_food() && instance->is_food(), "original food identity");
+        record = ([ "path": pair[0], "weight": blueprint->query_weight(),
+            "clone_weight": instance->query_weight(),
+            "blueprint": blueprint->query_entire_dbase(), "clone": instance->query_entire_dbase(),
+            "ids": blueprint->parse_command_id_list(), "uid": getuid(blueprint),
+            "euid": geteuid(blueprint), "clone_uid": getuid(instance), "clone_euid": geteuid(instance) ]);
+        observations += ({ record });
+        destruct(instance);
+    }
+    write_file("/tests/food-baseline.json", json_encode(observations), 1);
+}
+
+void check_eating(string path) {
+    object actor, ob, second, blueprint;
+    int remaining, supply, old_effects;
+    string id;
+
+    actor = new("/tests/food_actor"); actor->move(this_object(), 1);
+    ob = new(path); second = new(path); blueprint = load_object(path);
+    ob->move(actor, 1);
+    id = ob->query("id");
+    remaining = ob->query("food_remaining"); supply = ob->query("food_supply");
+    check(!function_exists("wear", ob) && !ob->is_armor(), "food has no equipment behavior");
+    actor->set("test_busy", 1);
+    actor->run_command("testeat " + id);
+    check(objectp(ob) && ob->query("food_remaining") == remaining, "busy preserves food");
+    actor->delete("test_busy"); actor->set("test_fighting", 1);
+    actor->run_command("testeat " + id);
+    check(objectp(ob) && ob->query("food_remaining") == remaining, "combat preserves food");
+    actor->delete("test_fighting");
+    ob->apply_effect((: effect :));
+    check(functionp(ob->query_effect()) && !second->query_effect() && !blueprint->query_effect(),
+        "effect state isolated");
+    ob->clear_effect();
+    check(!ob->query_effect(), "effect cleared");
+    ob->apply_effect((: effect :));
+    old_effects = effects;
+    actor->set("food", actor->max_food_capacity() + 1);
+    actor->run_command("testeat " + id);
+    if (ob->query("material") == "plant") {
+        check(!objectp(ob) && effects == old_effects && actor->query("food") == 100001,
+            "plant branch consumes without hunger/effect even when full");
+    } else {
+        check(objectp(ob) && ob->query("food_remaining") == remaining && effects == old_effects,
+            "full preserves food and effects");
+        actor->set("food", actor->max_food_capacity());
+        ob->set("base_value", 123);
+        actor->run_command("testeat " + id);
+        check(actor->query("food") == 100000 + supply && effects == old_effects + 1,
+            "capacity equality allows one bite and effect");
+        remaining--;
+        if (remaining > 0)
+            check(objectp(ob) && ob->query("food_remaining") == remaining && ob->query("base_value") == 0,
+                "remaining and value updated");
+        while (remaining-- > 0) {
+            actor->set("food", 0);
+            actor->run_command("testeat " + id);
+        }
+        check(!objectp(ob), "last bite destroys food");
+    }
+    check(second->query("food_remaining") == blueprint->query("food_remaining") &&
+        !second->query_effect(), "other instance unchanged after consumption");
+    ob = new(path);
+    check(ob->query("food_remaining") == blueprint->query("food_remaining") &&
+        !ob->query_effect(), "future instance restored defaults");
+    ob->move(actor, 1);
+    actor->store_item(actor, ob, 1);
+    check(objectp(ob) && !sizeof(actor->depot_records()), "individual food still cannot be stored");
+    check(strsrch(actor->query_received(), "食物饮水存背包里会变质的。") >= 0,
+        "original storage refusal message");
+    actor->run_command("teststore all");
+    check(objectp(ob) && !sizeof(actor->depot_records()), "store all excludes food");
+    destruct(ob); destruct(second); destruct(actor);
+}
+
+void check_variety(mixed *pair) {
+    object before, after, second, blueprint;
+    string original_long;
+
+    before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
+    blueprint = load_object(pair[1]);
+    compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
+    compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
+    check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
+        after->query_default_object() == blueprint, "final virtual identities");
+    original_long = second->long();
+    after->set("long", "还剩小半碗。\n"); after->set("food_remaining", 99);
+    check(second->long() == original_long && blueprint->long() == original_long &&
+        second->query("food_remaining") == before->query("food_remaining"), "mutable instance isolation");
+    after->virtual_start();
+    check(after->query("food_remaining") == 99, "initialization idempotent");
+    after->delete("long"); check(after->long() == original_long, "description fallback");
+    destruct(before); destruct(after); destruct(second);
+    check_eating(pair[0]); check_eating(pair[1]);
+    check(
+        same_value(trade_result(pair[0], 0), trade_result(pair[1], 0)),
+        "dealer price and delivery parity"
+    );
+}
+
+void check_contracts() {
+    object provider, item, first, second;
+    mapping group, definition;
+    mixed err;
+    mixed *nested;
+    string *ids;
+    provider = load_object("/d/items/food");
+    check(!provider->query("name"), "public provider not a deliverable item");
+    err = catch(item = new("/d/items/food/missing"));
+    check(!item && !find_object("/d/items/food/missing"), "unknown key fails");
+    err = catch(new("/d/items/food", "baozi")); check(!!err, "direct clone fails");
+    check(!provider->valid_variety_path("/d/items/food/baozi/extra") &&
+        !provider->valid_variety_path("/tests/foo"), "exact registry boundary");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(
+            same_value(load_object(group["path"])->parse_command_id_list(), ids),
+            "canonical aliases"
+        );
+    }
+    definition = provider->query_definition("baozi"); definition["ids"][0] = "mutated";
+    check(provider->query_definition("baozi")["ids"][0] != "mutated", "definition copy isolated");
+    item = load_object("/d/items/food/baozi");
+    item->set("fixture", ({ ([ "value": 1 ]) }));
+    first = new(base_name(item)); second = new(base_name(item));
+    nested = first->query("fixture"); nested[0]["value"] = 2;
+    check(second->query("fixture")[0]["value"] == 1 && item->query("fixture")[0]["value"] == 1,
+        "nested blueprint properties isolated");
+    item->delete("fixture"); destruct(first); destruct(second);
+}
+
+void check_room_refresh() {
+    object room, ob;
+    mapping quantities;
+    string path;
+    int expected;
+
+    room = load_object("/d/shaolin/fanting1");
+    quantities = room->query("objects");
+    foreach (path in keys(quantities)) expected += quantities[path];
+    check(sizeof(all_inventory(room)) == expected, "real dining room refresh quantities");
+    foreach (ob in all_inventory(room)) {
+        check(!undefinedp(quantities[base_name(ob)]), "real dining room canonical identities");
+        destruct(ob);
+    }
+    room->reset();
+    check(sizeof(all_inventory(room)) == expected, "consumed room stock replenished");
+    room->reset();
+    check(sizeof(all_inventory(room)) == expected, "existing room stock not duplicated");
+    foreach (ob in all_inventory(room)) destruct(ob);
+    destruct(room);
+}
+
+void run_chunk() {
+    if (next_case < sizeof(cases)) {
+        check_variety(cases[next_case++]);
+        call_out("run_chunk", 0);
+        return;
+    }
+    check_contracts(); check_room_refresh(); master()->finish();
+}
+
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

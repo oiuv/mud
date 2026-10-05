@@ -15,7 +15,7 @@ LONG);
 
     set("objects", ([
         __DIR__ "obj/wan": 2,
-        __DIR__ "obj/mantou": 5,
+        "/d/items/food/mantou": 5,
     ]));
 
     set("resource/water", 1);

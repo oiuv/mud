@@ -23,7 +23,7 @@ void create() {
     }));
 
     set("vendor_goods", ({
-        "/d/beijing/obj/tanghulu",
+        "/d/items/food/tanghulu",
     }));
 
     setup();
