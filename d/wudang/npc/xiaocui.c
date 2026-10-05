@@ -35,5 +35,5 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/qing_daopao3")->wear();
-    carry_object("/d/city/obj/necklace");
+    carry_object("/d/items/neck/jinxianglian");
 }

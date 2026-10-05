@@ -1,0 +1,10 @@
+// Runs the actual wizard command with this_player() set by the driver.
+inherit "/tests/actor";
+
+int is_admin() { return !query("non_admin"); }
+int do_clone(string arg) { return "/cmds/wiz/clone"->main(this_object(), arg); }
+
+void create() {
+    ::create();
+    add_action("do_clone", "clone");
+}

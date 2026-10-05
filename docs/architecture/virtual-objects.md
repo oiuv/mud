@@ -27,6 +27,8 @@ room = load_object("/u/mudren/workroom/-2,3,1");
 
 `load_object(path)` 获取该虚拟路径的蓝图；`new(path)` 创建实例；`new(base_name(ob))` 按规范身份重建。处理程序可返回自身程序的克隆，也可创建另一程序，如 `d/illusion/world.lpc` 返回 `/d/illusion/room` 的克隆。
 
+巫师 `clone` 指令也使用同一加载链路，例如 `clone /d/items/neck/baijin_quan`，不要求虚拟路径存在实体文件。实体对象支持 `.c`、`.lpc` 及无扩展名路径；原有授权、数量和物品落点规则不变。
+
 1. 驱动定位并加载处理程序，调用新接口；无参加载处理程序不应生成待交付商品。
 2. 接口解析/校验 key，创建独立对象。可变实例数据不得串用，不以临时克隆名作为持久身份。
 3. 返回后由驱动完成虚拟命名、克隆标志和 UID，并调用 `virtual_start()`。依赖最终 `base_name()` 的初始化放在这里；守护精灵不补调 `create()`、`setup()` 或手动赋权。
@@ -53,6 +55,7 @@ mudcore 为其他旧 MUD 保留原目录路由及旧接口，详见[框架约定
 node mudcore/tests/run.mjs bin/driver.exe
 node tools/tests/test_illusion_world.mjs bin/driver.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --clone-command
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --bench
 node tools/tests/test_boots_objects.mjs bin/driver.exe --all
 ```

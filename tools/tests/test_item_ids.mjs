@@ -9,6 +9,7 @@ import * as cloth from './cloth_canonical.mjs';
 import * as boots from './boots_inventory.mjs';
 import * as headwear from './headwear_inventory.mjs';
 import * as hands from './hands_inventory.mjs';
+import * as neck from './neck_inventory.mjs';
 import { canonicalId, canonicalPath, currentBaseline, renamedIds, renamedPaths, validId, compareItemIds } from './item_ids.mjs';
 
 const families = { cloth, boots, headwear };
@@ -16,11 +17,11 @@ const counts = { cloth: 148, boots: 8, headwear: 36 };
 const historicalNames = JSON.parse(execFileSync('git', ['show', 'b081c7ff:tools/tests/cloth/canonical_ids.json'],
     { cwd: root, encoding: 'utf8', windowsHide: true }));
 
-test('all four data tables and renderers use natural ID order without changing definitions or history', () => {
+test('all five data tables and renderers use natural ID order without changing definitions or history', () => {
     const idsIn = source => [...source.matchAll(/^        "([a-z][a-z0-9_]*)": \(\[/gm)].map(m => m[1]);
     assert.deepEqual(['chahua10', 'buyi2', 'chahua2', 'buyi', 'chahua13', 'chahua1'].sort(compareItemIds),
         ['buyi', 'buyi2', 'chahua1', 'chahua2', 'chahua10', 'chahua13']);
-    for (const [family, metadata] of Object.entries({ ...families, hands })) {
+    for (const [family, metadata] of Object.entries({ ...families, hands, neck })) {
         const snapshot = join(root, `tools/tests/${family}/baseline.json`);
         const savedBytes = readFileSync(snapshot);
         const groupsBefore = metadata.canonicalGroups();
@@ -30,12 +31,12 @@ test('all four data tables and renderers use natural ID order without changing d
         const actual = readFileSync(join(root, `d/items/${family}_data.h`), 'utf8');
         assert.deepEqual(idsIn(rendered), expected, family + ' generator order');
         assert.deepEqual(idsIn(actual), expected, family + ' file order');
-        assert.equal(new Set(expected).size, counts[family] ?? 20);
+        assert.equal(new Set(expected).size, counts[family] ?? (family === 'neck' ? 10 : 20));
         assert.deepEqual(metadata.canonicalGroups(), groupsBefore, family + ' historical group order unchanged');
         assert.deepEqual(metadata.migrationPaths(), pathsBefore, family + ' migration unchanged');
         assert.deepEqual(readFileSync(snapshot), savedBytes, family + ' frozen baseline unchanged');
     }
-    for (const metadata of [headwear, hands]) {
+    for (const metadata of [headwear, hands, neck]) {
         const selection = metadata.canonicalGroups().map(g => g.id).reverse().slice(0, 4);
         assert.deepEqual(idsIn(metadata.renderDefinitions(selection)), [...selection].sort(compareItemIds));
     }

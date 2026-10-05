@@ -1,0 +1,14 @@
+// Only save, follow and command dispatch are observation fixtures.
+inherit "/tests/actor";
+
+private int saves;
+private object following;
+private string *commands = ({});
+
+void save() { saves++; }
+int save_count() { return saves; }
+void set_leader(object leader) { following = leader; }
+object query_leader() { return following; }
+int record_command(string line) { commands += ({ line }); return 1; }
+string *recorded_commands() { return commands + ({}); }
+int stop_callback(string name) { return remove_call_out(name); }

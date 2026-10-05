@@ -8,6 +8,7 @@ import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedC
     dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 import { renameReferences } from './item_ids.mjs';
 import { afterHandsMigration } from './hands_inventory.mjs';
+import { afterNeckMigration } from './neck_inventory.mjs';
 
 const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
     .filter(t => t.kind !== 'whitespace').map(t => [t.kind, t.text]);
@@ -20,6 +21,7 @@ for (const file of callers) {
         expected = expectedHeadwearCaller(file);
     }
     expected = afterHandsMigration(file, expected, semantic);
+    expected = afterNeckMigration(file, expected, semantic);
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expected), 'Unexpected caller change: ' + file);
 }
 assert.equal(callers.size, 15);
@@ -33,7 +35,7 @@ for (const row of baseline.varieties) {
 for (const file of ['d/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c',
     'd/city/npc/cloth/shoes.c', 'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-chen.c'])
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-        semantic(afterHandsMigration(file, renameReferences(original(file)), semantic)), 'Excluded behavior changed: ' + file);
+        semantic(afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic)), 'Excluded behavior changed: ' + file);
 // No two substitutions in one file collapse distinct configuration keys in this batch.
 for (const file of callers) {
     const paths = new Map();

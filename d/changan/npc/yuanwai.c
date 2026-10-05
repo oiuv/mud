@@ -70,7 +70,7 @@ void read_letter(object me, object who, object ob) {
 }
 
 void send_to_fight(object me, object who) {
-    object yupei = new(__DIR__ "obj/yupei");
+    object yupei = new("/d/items/neck/yupei");
     yupei->move(who);
     message_vision("$N对$n说道：还请这位" +
         RANK_D->query_respect(who) +

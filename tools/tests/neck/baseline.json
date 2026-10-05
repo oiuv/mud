@@ -1,0 +1,763 @@
+{
+  "baseline": "57f106f88060abce0fd1172b24021a80948c6343",
+  "count": 15,
+  "varieties": [
+    {
+      "old_path": "/d/changan/npc/obj/neck",
+      "key": "changan_npc_obj_neck",
+      "source_hash": "ede1dc0e0f17bc501cd03376eba18c617ac82657894942b4ad7a5c4587bb1522",
+      "name": [
+        "HIW \"白金项圈\" NOR",
+        "({ \"baijin xiangquan\", \"xiangquan\", \"neck\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "200"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "200"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "3500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "200",
+      "id": "baijin_quan",
+      "new_path": "/d/items/neck/baijin_quan",
+      "source": "//neck.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(HIW \"白金项圈\" NOR, ({ \"baijin xiangquan\", \"xiangquan\", \"neck\" }));\n    set(\"weight\", 200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 3500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/dali/npc/obj/lace",
+      "key": "dali_npc_obj_lace",
+      "source_hash": "534435e7c8c8b87c4aad897bebeef150e427d7eb628945efb435a3afe640c851",
+      "name": [
+        "\"贝壳项链\"",
+        "({ \"shell lace\", \"lace\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "beike_lian",
+      "new_path": "/d/items/neck/beike_lian",
+      "source": "// lace.c\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"贝壳项链\", ({ \"shell lace\", \"lace\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/necklace",
+      "key": "city_npc_obj_necklace",
+      "source_hash": "7c461f1552ec18a8c75aa3879512bf1a16c8f4573659c244d94d51061cf4f367",
+      "name": [
+        "\"金项链\"",
+        "({ \"golden necklace\", \"necklace\", \"lace\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinxianglian",
+      "new_path": "/d/items/neck/jinxianglian",
+      "source": "// necklace.c 金项链\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"金项链\", ({ \"golden necklace\", \"necklace\", \"lace\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/necklace",
+      "key": "city_obj_necklace",
+      "source_hash": "7c461f1552ec18a8c75aa3879512bf1a16c8f4573659c244d94d51061cf4f367",
+      "name": [
+        "\"金项链\"",
+        "({ \"golden necklace\", \"necklace\", \"lace\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinxianglian",
+      "new_path": "/d/items/neck/jinxianglian",
+      "source": "// necklace.c 金项链\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"金项链\", ({ \"golden necklace\", \"necklace\", \"lace\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/yanziwu/npc/obj/necklace",
+      "key": "yanziwu_npc_obj_necklace",
+      "source_hash": "7c461f1552ec18a8c75aa3879512bf1a16c8f4573659c244d94d51061cf4f367",
+      "name": [
+        "\"金项链\"",
+        "({ \"golden necklace\", \"necklace\", \"lace\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "jinxianglian",
+      "new_path": "/d/items/neck/jinxianglian",
+      "source": "// necklace.c 金项链\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"金项链\", ({ \"golden necklace\", \"necklace\", \"lace\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/npc/obj/necklace",
+      "key": "jingzhou_npc_obj_necklace",
+      "source_hash": "60e75873a1774a04652d48c341357cdb631a4d3a20168201859b322c19974c18",
+      "name": [
+        "\"金项链\"",
+        "({ \"golden necklace\", \"necklace\", \"lace\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "500"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "500"
+        ],
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "500",
+      "id": "jinxianglian2",
+      "new_path": "/d/items/neck/jinxianglian2",
+      "source": "// necklace.c 金项链\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"金项链\", ({ \"golden necklace\", \"necklace\", \"lace\" }));\n    set(\"weight\", 500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/necklace",
+      "key": "jingzhou_obj_necklace",
+      "source_hash": "60e75873a1774a04652d48c341357cdb631a4d3a20168201859b322c19974c18",
+      "name": [
+        "\"金项链\"",
+        "({ \"golden necklace\", \"necklace\", \"lace\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "500"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "500"
+        ],
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"value\"",
+          "2500"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "500",
+      "id": "jinxianglian2",
+      "new_path": "/d/items/neck/jinxianglian2",
+      "source": "// necklace.c 金项链\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"金项链\", ({ \"golden necklace\", \"necklace\", \"lace\" }));\n    set(\"weight\", 500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"串\");\n        set(\"value\", 2500);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/xiakedao/obj/shane-bu",
+      "key": "xiakedao_obj_shane-bu",
+      "source_hash": "634531cc5968fbd6b12a8ff0ffc430e85501cf295a28be4c052b36a9c5e4451e",
+      "name": [
+        "\"赏善罚恶簿\"",
+        "({ \"shane bu\", \"bu\" })"
+      ],
+      "weight": "300",
+      "before_weight": [
+        [
+          "\"long\"",
+          "\"这是一本赏善罚恶簿，里头记载着江湖善恶。\\n\""
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"long\"",
+          "\"这是一本赏善罚恶簿，里头记载着江湖善恶。\\n\""
+        ],
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ]
+      ],
+      "after_branch": [],
+      "id": "shane_bu",
+      "new_path": "/d/items/neck/shane_bu",
+      "source": "// shane-bu.c 赏善罚恶簿\n\n#include <armor.h>\n#include <ansi.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"赏善罚恶簿\", ({ \"shane bu\", \"bu\" }));\n    set(\"long\", \"这是一本赏善罚恶簿，里头记载着江湖善恶。\\n\");\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"material\", \"paper\");\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/weibo",
+      "key": "shaolin_obj_weibo",
+      "source_hash": "904cf78f082e2303de81a12dc4884fe28e27d5daffa3910d71925da38408a483",
+      "name": [
+        "HIC \"围脖\" NOR",
+        "({ \"wei bo\", \"bo\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一皮围脖，用以保护颈部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"neck\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_weibo",
+      "new_path": "/d/items/neck/shaolin_weibo",
+      "source": "#include <ansi.h>\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(HIC \"围脖\" NOR, ({ \"wei bo\", \"bo\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一皮围脖，用以保护颈部。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"neck\");\n        set(\"armor_prop/armor\", 3);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/weibo",
+      "key": "mingjiao_obj_weibo",
+      "source_hash": "56d43f1af0e8a89f0d20be47911fff6ea830457f59590f36181937fc93995f27",
+      "name": [
+        "HIC \"围脖\" NOR",
+        "({ \"wei bo\", \"bo\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一皮围脖，用以保护颈部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"neck\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "id": "weibo",
+      "new_path": "/d/items/neck/weibo",
+      "source": "#include <ansi.h>\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(HIC \"围脖\" NOR, ({ \"wei bo\", \"bo\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一皮围脖，用以保护颈部。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"neck\");\n        set(\"armor_prop/armor\", 3);\n        //        set(\"shaolin\",1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/cycle",
+      "key": "city_npc_obj_cycle",
+      "source_hash": "497ab40aa9463edb66d8b1230d055f07f56facfb4fff613dfc65b91efeec98f2",
+      "name": [
+        "\"武者项圈\"",
+        "({ \"neck-cycle\", \"xiang quan\", \"lian\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一串铁质的项链，用以保护颈部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiangquan",
+      "new_path": "/d/items/neck/xiangquan",
+      "source": "// necklace.c 武者项圈\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"武者项圈\", ({ \"neck-cycle\", \"xiang quan\", \"lian\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"串\");\n        set(\"long\", \"这是一串铁质的项链，用以保护颈部。\\n\");\n        set(\"value\", 1800);\n        set(\"armor_prop/dodge\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/cycle",
+      "key": "city_obj_cycle",
+      "source_hash": "497ab40aa9463edb66d8b1230d055f07f56facfb4fff613dfc65b91efeec98f2",
+      "name": [
+        "\"武者项圈\"",
+        "({ \"neck-cycle\", \"xiang quan\", \"lian\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一串铁质的项链，用以保护颈部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiangquan",
+      "new_path": "/d/items/neck/xiangquan",
+      "source": "// necklace.c 武者项圈\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"武者项圈\", ({ \"neck-cycle\", \"xiang quan\", \"lian\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"串\");\n        set(\"long\", \"这是一串铁质的项链，用以保护颈部。\\n\");\n        set(\"value\", 1800);\n        set(\"armor_prop/dodge\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/cycle",
+      "key": "jingzhou_obj_cycle",
+      "source_hash": "497ab40aa9463edb66d8b1230d055f07f56facfb4fff613dfc65b91efeec98f2",
+      "name": [
+        "\"武者项圈\"",
+        "({ \"neck-cycle\", \"xiang quan\", \"lian\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"unit\"",
+          "\"串\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一串铁质的项链，用以保护颈部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xiangquan",
+      "new_path": "/d/items/neck/xiangquan",
+      "source": "// necklace.c 武者项圈\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"武者项圈\", ({ \"neck-cycle\", \"xiang quan\", \"lian\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"steel\");\n        set(\"unit\", \"串\");\n        set(\"long\", \"这是一串铁质的项链，用以保护颈部。\\n\");\n        set(\"value\", 1800);\n        set(\"armor_prop/dodge\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/xiakedao/obj/xuantie",
+      "key": "xiakedao_obj_xuantie",
+      "source_hash": "91db1903e7bb5dac080ba0d43d9f4cfd0aa4c62955bfba8da5cbb700d8a1076b",
+      "name": [
+        "HIC \"玄铁令\" NOR",
+        "({ \"xuan tie\", \"xuan\" })"
+      ],
+      "weight": "300",
+      "before_weight": [
+        [
+          "\"long\"",
+          "\"\\n这是一块碧绿色的玉牌，莹洁光绿，真是一块好玉。\\n\" +\n        \"正面雕龙刻凤，正中写着玄铁两个大字。这便是江湖上传说的玄铁令。\\n\""
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"long\"",
+          "\"\\n这是一块碧绿色的玉牌，莹洁光绿，真是一块好玉。\\n\" +\n        \"正面雕龙刻凤，正中写着玄铁两个大字。这便是江湖上传说的玄铁令。\\n\""
+        ],
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"value\"",
+          "50000"
+        ],
+        [
+          "\"material\"",
+          "\"玉\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "2"
+        ],
+        [
+          "\"female_only\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "xuantie_ling",
+      "new_path": "/d/items/neck/xuantie_ling",
+      "source": "// xuantie.c 玄铁令\n\n#include <armor.h>\n#include <ansi.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(HIC \"玄铁令\" NOR, ({ \"xuan tie\", \"xuan\" }));\n    set(\"long\", \"\\n这是一块碧绿色的玉牌，莹洁光绿，真是一块好玉。\\n\" +\n        \"正面雕龙刻凤，正中写着玄铁两个大字。这便是江湖上传说的玄铁令。\\n\");\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"块\");\n        set(\"value\", 50000);\n        set(\"material\", \"玉\");\n        set(\"armor_prop/armor\", 2);\n        set(\"female_only\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/yupei",
+      "key": "changan_npc_obj_yupei",
+      "source_hash": "4bcc58945834fc311e89cc898a045a2e5b466ce41220d7ee901b212d640609e0",
+      "name": [
+        "\"龙凤玉佩\"",
+        "({ \"yu pei\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"long\"",
+          "\"一枚玉佩，上面雕刻着龙凤图案．\\n\""
+        ],
+        [
+          "\"no_sell\"",
+          "1"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "10"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "2"
+        ]
+      ],
+      "after_branch": [],
+      "id": "yupei",
+      "new_path": "/d/items/neck/yupei",
+      "source": "//yupei.c\n\n#include <armor.h>\n\ninherit NECK;\n\nvoid create() {\n    set_name(\"龙凤玉佩\", ({ \"yu pei\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 2000);\n        set(\"long\", \"一枚玉佩，上面雕刻着龙凤图案．\\n\");\n        set(\"no_sell\", 1);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/dodge\", 10);\n        set(\"armor_prop/armor\", 2);\n    }\n\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/changan/npc/jinfuhuan.c",
+      "line": 22,
+      "start": 529,
+      "end": 547,
+      "expression": "__DIR__ \"obj/neck\"",
+      "old_path": "/d/changan/npc/obj/neck",
+      "new_path": "/d/items/neck/baijin_quan"
+    },
+    {
+      "file": "d/changan/npc/yuanwai.c",
+      "line": 73,
+      "start": 1709,
+      "end": 1728,
+      "expression": "__DIR__ \"obj/yupei\"",
+      "old_path": "/d/changan/npc/obj/yupei",
+      "new_path": "/d/items/neck/yupei"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 21,
+      "start": 550,
+      "end": 569,
+      "expression": "__DIR__ \"obj/cycle\"",
+      "old_path": "/d/city/npc/obj/cycle",
+      "new_path": "/d/items/neck/xiangquan"
+    },
+    {
+      "file": "d/city/npc/yuhuan.c",
+      "line": 40,
+      "start": 913,
+      "end": 935,
+      "expression": "__DIR__ \"obj/necklace\"",
+      "old_path": "/d/city/npc/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    },
+    {
+      "file": "d/dali/npc/datusi.c",
+      "line": 32,
+      "start": 733,
+      "end": 751,
+      "expression": "__DIR__ \"obj/lace\"",
+      "old_path": "/d/dali/npc/obj/lace",
+      "new_path": "/d/items/neck/beike_lian"
+    },
+    {
+      "file": "d/fuzhou/npc/chen.c",
+      "line": 26,
+      "start": 636,
+      "end": 658,
+      "expression": "\"/d/city/obj/necklace\"",
+      "old_path": "/d/city/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    },
+    {
+      "file": "d/jingzhou/npc/shuanghua.c",
+      "line": 27,
+      "start": 607,
+      "end": 629,
+      "expression": "__DIR__ \"obj/necklace\"",
+      "old_path": "/d/jingzhou/npc/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian2"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 20,
+      "start": 512,
+      "end": 535,
+      "expression": "\"/d/city/npc/obj/cycle\"",
+      "old_path": "/d/city/npc/obj/cycle",
+      "new_path": "/d/items/neck/xiangquan"
+    },
+    {
+      "file": "d/luoyang/npc/zhou.c",
+      "line": 20,
+      "start": 523,
+      "end": 548,
+      "expression": "\"/d/changan/npc/obj/neck\"",
+      "old_path": "/d/changan/npc/obj/neck",
+      "new_path": "/d/items/neck/baijin_quan"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 33,
+      "start": 807,
+      "end": 830,
+      "expression": "\"/d/city/npc/obj/cycle\"",
+      "old_path": "/d/city/npc/obj/cycle",
+      "new_path": "/d/items/neck/xiangquan"
+    },
+    {
+      "file": "d/quanzhou/npc/chen.c",
+      "line": 31,
+      "start": 720,
+      "end": 742,
+      "expression": "\"/d/city/obj/necklace\"",
+      "old_path": "/d/city/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    },
+    {
+      "file": "d/wudang/npc/xiaocui.c",
+      "line": 38,
+      "start": 884,
+      "end": 906,
+      "expression": "\"/d/city/obj/necklace\"",
+      "old_path": "/d/city/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 26,
+      "start": 592,
+      "end": 615,
+      "expression": "\"/d/city/npc/obj/cycle\"",
+      "old_path": "/d/city/npc/obj/cycle",
+      "new_path": "/d/items/neck/xiangquan"
+    },
+    {
+      "file": "d/yanziwu/npc/abi.c",
+      "line": 37,
+      "start": 921,
+      "end": 943,
+      "expression": "__DIR__ \"obj/necklace\"",
+      "old_path": "/d/yanziwu/npc/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    },
+    {
+      "file": "d/yanziwu/npc/azhu.c",
+      "line": 47,
+      "start": 1039,
+      "end": 1061,
+      "expression": "__DIR__ \"obj/necklace\"",
+      "old_path": "/d/yanziwu/npc/obj/necklace",
+      "new_path": "/d/items/neck/jinxianglian"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 65,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 81,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 90,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 103,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "excluded": [
+    "d/tulong/tulong/obj/xuantie-ling.c"
+  ],
+  "dynamic_callers": [
+    "d/xiangyang/npc/wuxiuwen.c",
+    "kungfu/class/shaolin/dao-xiang.c"
+  ],
+  "unrelated_dynamic_callers": [
+    "d/changan/npc/fujiang.c",
+    "kungfu/class/shaolin/dao-chen.c",
+    "d/changan/npc/xiangxiang.c"
+  ]
+}

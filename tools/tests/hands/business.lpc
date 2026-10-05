@@ -93,7 +93,7 @@ void check_dynamic(object actor) {
         foreach (keyword in ({ "zhitao", "huwan", "huyao", "weibo" })) {
             stock = npc->query("huju_count");
             actor->run_command("testnpc " + keyword);
-            expected = keyword == "zhitao" ? "/d/items/hands/shaolin_zhitao" : "/d/shaolin/obj/" + keyword;
+            expected = keyword == "zhitao" ? "/d/items/hands/shaolin_zhitao" : keyword == "weibo" ? "/d/items/neck/shaolin_weibo" : "/d/shaolin/obj/" + keyword;
             check(sizeof(all_inventory(actor)) == 1 && base_name(all_inventory(actor)[0]) == expected &&
                 npc->query("huju_count") == stock - 1, "shared stock and branch " + keyword);
             if (keyword == "zhitao") {

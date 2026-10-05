@@ -19,7 +19,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/hands/zijin_jie",
         __DIR__ "obj/wrists",
-        __DIR__ "obj/neck",
+        "/d/items/neck/baijin_quan",
     }));
 
     setup();

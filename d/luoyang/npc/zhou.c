@@ -17,7 +17,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/hands/zijin_jie",
         "/d/changan/npc/obj/wrists",
-        "/d/changan/npc/obj/neck",
+        "/d/items/neck/baijin_quan",
         "/d/kaifeng/npc/obj/ciwan",
         "/d/kaifeng/npc/obj/luowenhai",
         "/d/kaifeng/npc/obj/bibohu",

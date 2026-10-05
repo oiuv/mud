@@ -18,7 +18,7 @@ void create() {
         __DIR__ "obj/mabudai",
         "/d/items/cloth/pi_beixin2",
         "/d/items/headwear/tie_toukui",
-        __DIR__ "obj/cycle",
+        "/d/items/neck/xiangquan",
         __DIR__ "obj/surcoat",
         __DIR__ "obj/shield",
         __DIR__ "obj/huwan",

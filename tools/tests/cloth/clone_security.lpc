@@ -1,0 +1,10 @@
+// Controlled policy fixture, not the production security daemon.
+private string privilege = "all";
+
+int valid_grant(object who, string level) { return !who->query("deny_grant"); }
+int valid_read(string file, object who, string operation) {
+    who->set("last_read", file);
+    return file != who->query("denied_path");
+}
+void set_privilege(string value) { privilege = value; }
+string query_site_privilege(string operation) { return privilege; }

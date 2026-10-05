@@ -1,0 +1,98 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+private object clone_into(object actor, string arg, object destination) {
+    object *before, *added;
+
+    before = all_inventory(destination);
+    check(actor->run_command("clone " + arg) == 1, "command handled: " + arg);
+    added = all_inventory(destination) - before;
+    check(sizeof(added) == 1, "one independent object delivered: " + arg);
+    return sizeof(added) == 1 ? added[0] : 0;
+}
+
+void run() {
+    object actor, room, item, again;
+    string path, log;
+    int count;
+
+    room = load_object("/tests/room");
+    actor = new("/tests/clone_actor");
+    actor->move(room);
+    path = "/d/items/neck/baijin_quan";
+    check(!find_object(path) && file_size(path + ".c") == -1 &&
+        file_size(path + ".lpc") == -1, "virtual item has no loaded blueprint or source file");
+    item = clone_into(actor, path, actor);
+    check(objectp(item) && virtualp(item) && clonep(item) && base_name(item) == path,
+        "cold virtual clone has driver-assigned identity");
+    check(item->query("id") == "baijin xiangquan" && item->query("value") == 3500,
+        "real neck definition initialized");
+    check(actor->query("cwf") == path && actor->query("last_read") == path,
+        "virtual path retained in current file and read authorization");
+    again = clone_into(actor, "", actor);
+    check(
+        again != item && base_name(again) == path,
+        "repeat current virtual path creates a fresh instance"
+    );
+    actor->set("cwd", "/d/items/neck/");
+    again = clone_into(actor, "baijin_quan", actor);
+    check(base_name(again) == path, "relative virtual path resolved from cwd");
+
+    item = clone_into(actor, "/clone/misc/cloth", actor);
+    check(base_name(item) == "/clone/misc/cloth" && actor->query("cwf") == "/clone/misc/cloth.c" &&
+        actor->query("last_read") == "/clone/misc/cloth.c", "physical .c resolved and authorized as before");
+    item = clone_into(actor, "/clone/misc/cloth.c", actor);
+    check(base_name(item) == "/clone/misc/cloth", "explicit .c still works");
+    item = clone_into(actor, "/tests/clone_actor", room);
+    check(base_name(item) == "/tests/clone_actor" && actor->query("cwf") == "/tests/clone_actor.lpc" &&
+        actor->query("last_read") == "/tests/clone_actor.lpc", "physical .lpc and character floor placement");
+    item = clone_into(actor, "/tests/clone_actor.lpc", room);
+    check(base_name(item) == "/tests/clone_actor", "explicit .lpc still works");
+    item = clone_into(actor, "/clone/money/silver 5", actor);
+    check(item->query_amount() == 5, "existing stack quantity semantics retained");
+
+    count = sizeof(all_inventory(actor));
+    actor->run_command("clone " + path + " 0");
+    check(sizeof(all_inventory(actor)) == count, "zero quantity rejected");
+    actor->run_command("clone /d/items/neck/not_a_variety");
+    check(sizeof(all_inventory(actor)) == count && !find_object("/d/items/neck/not_a_variety"),
+        "invalid virtual key fails without delivering an object");
+    actor->run_command("clone /missing/object");
+    check(sizeof(all_inventory(actor)) == count, "missing physical and provider path fails safely");
+
+    actor->set("deny_grant", 1);
+    actor->run_command("clone /d/items/neck/xiangquan");
+    check(sizeof(all_inventory(actor)) == count && !find_object("/d/items/neck/xiangquan"),
+        "wizard grant denied before loading");
+    actor->delete("deny_grant");
+    actor->set("denied_path", "/d/items/neck/xiangquan");
+    actor->run_command("clone /d/items/neck/xiangquan");
+    check(sizeof(all_inventory(actor)) == count && !find_object("/d/items/neck/xiangquan"),
+        "virtual read permission denied before loading");
+    actor->set("denied_path", "/clone/misc/cloth.c");
+    actor->run_command("clone /clone/misc/cloth");
+    check(
+        sizeof(all_inventory(actor)) == count,
+        "physical source read permission remains enforced"
+    );
+    actor->delete("denied_path");
+    actor->set("non_admin", 1);
+    SECURITY_D->set_privilege("gift");
+    actor->run_command("clone " + path);
+    check(
+        sizeof(all_inventory(actor)) == count,
+        "gift privilege does not allow arbitrary virtual items"
+    );
+    SECURITY_D->set_privilege("none");
+    actor->run_command("clone " + path);
+    check(sizeof(all_inventory(actor)) == count, "disabled site privilege rejects virtual items");
+    SECURITY_D->set_privilege("all");
+    item = clone_into(actor, path, actor);
+    check(base_name(item) == path, "all privilege permits virtual items for non-admin wizard");
+    log = read_file("/log/static/clone");
+    check(stringp(log) && strsrch(log, path + "(1)") >= 0 &&
+        strsrch(
+            log,
+            "/clone/money/silver(5)"
+        ) >= 0, "audit log records canonical path and quantity");
+    master()->finish();
+}

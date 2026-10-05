@@ -1,0 +1,68 @@
+[
+  {
+    "clones_bytes": 245720,
+    "round": 1,
+    "source_definitions": 15,
+    "version": 0,
+    "blueprints_bytes": 80972,
+    "cold_load_us": 66029,
+    "varieties": 15,
+    "warm_clone_us": 1519,
+    "clones": 300
+  },
+  {
+    "clones_bytes": 340440,
+    "round": 1,
+    "source_definitions": 15,
+    "version": 1,
+    "blueprints_bytes": 58840,
+    "cold_load_us": 32035,
+    "varieties": 10,
+    "warm_clone_us": 26337,
+    "clones": 300
+  },
+  {
+    "clones_bytes": 340440,
+    "round": 2,
+    "source_definitions": 15,
+    "version": 1,
+    "blueprints_bytes": 58840,
+    "cold_load_us": 24283,
+    "varieties": 10,
+    "warm_clone_us": 27631,
+    "clones": 300
+  },
+  {
+    "clones_bytes": 245720,
+    "round": 2,
+    "source_definitions": 15,
+    "version": 0,
+    "blueprints_bytes": 80972,
+    "cold_load_us": 31107,
+    "varieties": 15,
+    "warm_clone_us": 2026,
+    "clones": 300
+  },
+  {
+    "clones_bytes": 245720,
+    "round": 3,
+    "source_definitions": 15,
+    "version": 0,
+    "blueprints_bytes": 80972,
+    "cold_load_us": 32664,
+    "varieties": 15,
+    "warm_clone_us": 2052,
+    "clones": 300
+  },
+  {
+    "clones_bytes": 340440,
+    "round": 3,
+    "source_definitions": 15,
+    "version": 1,
+    "blueprints_bytes": 58840,
+    "cold_load_us": 23448,
+    "varieties": 10,
+    "warm_clone_us": 26721,
+    "clones": 300
+  }
+]

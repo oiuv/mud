@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import { references } from './cloth_inventory.mjs';
+import { afterNeckMigration } from './neck_inventory.mjs';
 import { root, original, readBaseline, canonicalGroups, renderDefinitions, expectedCaller,
     dynamicCallers, excluded, unrelatedCallers } from './hands_inventory.mjs';
 
@@ -12,7 +13,7 @@ const semantic = source => tokenize(source.replaceAll('\r\n', '\n'))
 const baseline = readBaseline();
 const callers = new Set([...baseline.hits.map(h => h.file), ...dynamicCallers]);
 for (const file of callers) assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-    semantic(expectedCaller(file)), 'Unexpected caller change: ' + file);
+    semantic(afterNeckMigration(file, expectedCaller(file), semantic)), 'Unexpected caller change: ' + file);
 assert.equal(callers.size, 32);
 assert.equal(baseline.hits.length, 49);
 assert.equal(references(baseline.varieties).hits.length, 0, 'Old executable reference');

@@ -33,5 +33,5 @@ export function prepareHands(root, sandbox, method, copy) {
     put('clone/misc/swmuding.c', 'inherit ITEM;\nvoid create() { set_name("神木王鼎", ({ "mu ding" })); }\n');
     const actor = join(sandbox, 'tests/actor.lpc');
     writeFileSync(actor, readFileSync(actor, 'utf8') + '\nint deaths;\nvoid die() { deaths++; }\nint death_count() { return deaths; }\n');
-    for (const file of [...excluded, 'clone/book/book-iron.c', 'd/shaolin/obj/huyao.c', 'd/shaolin/obj/weibo.c']) copy(file);
+    for (const file of [...excluded, 'clone/book/book-iron.c', 'd/shaolin/obj/huyao.c']) copy(file);
 }

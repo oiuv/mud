@@ -23,7 +23,7 @@ void create() {
         "/d/city/npc/obj/mabudai",
         "/d/items/cloth/pi_beixin2",
         "/d/items/headwear/tie_toukui",
-        "/d/city/npc/obj/cycle",
+        "/d/items/neck/xiangquan",
         "/d/city/npc/obj/surcoat",
         "/d/city/npc/obj/shield",
         "/d/city/npc/obj/huwan",

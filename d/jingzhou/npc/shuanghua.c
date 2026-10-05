@@ -24,7 +24,7 @@ void create() {
     set("combat_exp", 2000);
     set("shen_type", 1);
     setup();
-    carry_object(__DIR__ "obj/necklace")->wear();
+    carry_object("/d/items/neck/jinxianglian2")->wear();
     carry_object(__DIR__ "obj/pink_cloth")->wear();
 }
 

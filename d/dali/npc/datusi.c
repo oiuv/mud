@@ -29,5 +29,5 @@ void create() {
     set_temp("apply/armor", 100);
 
     setup();
-    carry_object(__DIR__ "obj/lace")->wear();
+    carry_object("/d/items/neck/beike_lian")->wear();
 }

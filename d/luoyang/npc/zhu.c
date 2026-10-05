@@ -30,7 +30,7 @@ void create() {
     setup();
     set("vendor_goods", ({
         "/d/items/headwear/tie_toukui",
-        "/d/city/npc/obj/cycle",
+        "/d/items/neck/xiangquan",
         "/d/city/npc/obj/shield",
         "/d/city/npc/obj/huwan",
         "/d/items/hands/zhitao",

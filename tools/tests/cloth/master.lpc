@@ -46,6 +46,7 @@ void run() {
 void error_handler(mapping details, int caught) {
     if (!caught) {
         debug_message("FAIL: " + details["error"]);
+        debug_message(sprintf("TEST TRACE: %O", details["trace"]));
         shutdown(1);
     }
 }

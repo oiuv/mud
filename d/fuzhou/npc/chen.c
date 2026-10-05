@@ -23,7 +23,7 @@ void create() {
         "/d/items/boots/xiuhuaxie",
         "/d/items/cloth/fenhong_choushan",
         "/d/items/hands/jinjie",
-        "/d/city/obj/necklace",
+        "/d/items/neck/jinxianglian",
     }));
 
     setup();

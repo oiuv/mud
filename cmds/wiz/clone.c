@@ -28,14 +28,11 @@ int main(object me, string arg) {
         return notify_fail("你要复制什麽对象？\n");
 
     file = resolve_path(me->query("cwd"), file);
-    if (sscanf(file, "%*s.c") != 1)
-        file += ".c";
+    // 实体对象解析实际扩展名；虚拟路径没有源码，交给驱动加载。
+    file = lpc_file(file) || file;
     me->set("cwf", file);
 
-    if (file_size(file) < 0)
-        return notify_fail("没有这个档案(" + file + ")。\n");
-
-    // 必须对该文件可读才能复制。
+    // 必须对实体源码或虚拟对象路径可读才能复制。
     if (!SECURITY_D->valid_read(file, me, "clone")) {
         write("你没有权限操作这个对象。\n");
         return 1;
@@ -136,6 +133,8 @@ int help(object me) {
 指令格式 : clone <文件名> [<数量>]
 
 利用此指令可复制任何能移动之对象(含人物)。
+支持 .c、.lpc 实体文件及虚拟对象，通常使用不带扩展名的对象路径。
+例如：clone /d/items/neck/baijin_quan
 
 该命令在可以被授权使用的信息包括：gift、all。
 

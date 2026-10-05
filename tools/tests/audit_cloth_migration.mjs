@@ -10,6 +10,7 @@ import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedC
     dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 import { renameReferences } from './item_ids.mjs';
 import { afterHandsMigration } from './hands_inventory.mjs';
+import { afterNeckMigration } from './neck_inventory.mjs';
 
 const baseline = canonicalBaseline();
 const supplementalHits = references(baseline.varieties,
@@ -48,6 +49,7 @@ for (const [file, hits] of files) {
         expected = expectedHeadwearCaller(file);
     }
     expected = afterHandsMigration(file, expected, semanticTokens);
+    expected = afterNeckMigration(file, expected, semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

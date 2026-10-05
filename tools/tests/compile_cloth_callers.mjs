@@ -9,6 +9,7 @@ import { supplementalCallers } from './cloth_canonical.mjs';
 import { readBaseline as bootsBaseline, dynamicCallers } from './boots_inventory.mjs';
 import { readBaseline as headwearBaseline, dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 import { readBaseline as handsBaseline, dynamicCallers as handsDynamicCallers } from './hands_inventory.mjs';
+import { readBaseline as neckBaseline, dynamicCallers as neckDynamicCallers } from './neck_inventory.mjs';
 
 const compiler = resolve(process.argv[2] || join(root, 'bin/lpcc.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-compile-'));
@@ -16,7 +17,8 @@ console.log('Compile-only cloth migration: ' + sandbox);
 const core = execFileSync('git', ['-C', join(root, 'mudcore'), 'ls-files', '-z'], { encoding: 'utf8' })
     .split('\0').filter(Boolean).map(path => 'mudcore/' + path);
 const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
-    'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h']
+    'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
+    'd/items/neck.lpc', 'd/items/neck_data.h']
     .filter(path => /\.(c|lpc|h)$/.test(path) && !/^(fluffos|tools|data|ai)\//.test(path));
 for (const file of new Set(sources)) {
     if (!existsSync(join(root, file))) continue;
@@ -54,7 +56,10 @@ writeFileSync(join(sandbox, 'driver.cfg'), [
 const boots = process.argv.includes('--boots');
 const headwear = process.argv.includes('--headwear');
 const hands = process.argv.includes('--hands');
-const files = hands ? [...new Set([...handsBaseline().hits.map(hit => hit.file), ...handsDynamicCallers,
+const neck = process.argv.includes('--neck');
+const files = neck ? [...new Set([...neckBaseline().hits.map(hit => hit.file), ...neckDynamicCallers,
+    'd/changan/npc/xiangxiang.c', 'feature/user_storage.c', 'd/items/neck.lpc', 'd/items/hands.lpc',
+    'd/items/headwear.lpc', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] : hands ? [...new Set([...handsBaseline().hits.map(hit => hit.file), ...handsDynamicCallers,
     'd/xiyu/houdong.c', 'feature/user_storage.c', 'd/items/hands.lpc', 'd/items/headwear.lpc', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] :
     headwear ? [...new Set([...headwearBaseline().hits.map(hit => hit.file), ...headwearDynamicCallers,
     'feature/user_storage.c', 'd/items/headwear.lpc', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] :
@@ -77,5 +82,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);

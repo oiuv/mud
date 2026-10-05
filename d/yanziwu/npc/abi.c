@@ -34,7 +34,7 @@ void create() {
     ]));
     setup();
     carry_object("/d/items/hands/jinjie")->wear();
-    carry_object(__DIR__ "obj/necklace")->wear();
+    carry_object("/d/items/neck/jinxianglian")->wear();
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/d/items/cloth/cuilv_choushan")->wear();
     carry_object("/d/items/boots/xiuhuaxie")->wear();
