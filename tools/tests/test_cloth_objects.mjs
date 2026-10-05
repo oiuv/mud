@@ -17,6 +17,9 @@ import { migrateItemRecords } from '../migrate_item_records.mjs';
 const boots = process.argv.includes('--boots');
 const headwear = process.argv.includes('--headwear');
 const hands = process.argv.includes('--hands');
+const villageStartup = process.argv.includes('--village-startup');
+assert.ok(!villageStartup || !['--boots', '--headwear', '--hands', '--bench', '--baseline-only']
+    .some(flag => process.argv.includes(flag)), '--village-startup is a separate startup regression');
 const metadata = hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
 const label = hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
 const { canonicalGroups, migrationPaths } = metadata;
@@ -35,6 +38,14 @@ for (const file of ['d/items/boots.lpc', 'd/items/boots_data.h']) copy(file);
 for (const file of ['d/items/headwear.lpc', 'd/items/headwear_data.h']) copy(file);
 for (const file of ['d/items/hands.lpc', 'd/items/hands_data.h']) copy(file);
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
+if (villageStartup) {
+    for (const file of ['d/village/shop.c', 'd/village/npc/xiejian.c', 'd/city/obj/gangjian.c']) copy(file);
+    // Execute the current room and NPC constructor unchanged. Only unrelated NPC
+    // skill/heartbeat infrastructure is replaced; carry/move/equip use real code.
+    const file = join(sandbox, 'd/village/npc/xiejian.c');
+    writeFileSync(file, readFileSync(file, 'utf8').replace('inherit NPC;', 'inherit "/tests/village_npc";'));
+    cpSync(join(sandbox, 'tests/village_startup.lpc'), join(sandbox, 'tests/regression.lpc'));
+}
 if (boots || headwear || hands) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
     cpSync(join(root, `tools/tests/${hands ? 'hands' : headwear ? 'headwear' : 'boots'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
@@ -114,7 +125,7 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 }
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
-const rows = canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
+const rows = villageStartup ? [] : canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
     (hands ? ['jinjie', 'jinjie2', 'shaolin_shoutao', 'jinsi_shoutao'].includes(row.id) :
         headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
         boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
@@ -178,7 +189,7 @@ writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
 console.log(result.output.split('\n').filter(line => /HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (boots || headwear || hands) process.exit(0);
+if (boots || headwear || hands || villageStartup) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },

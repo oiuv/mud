@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { execFileSync, spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { root, readBaseline, tracked } from './cloth_inventory.mjs';
+import { supplementalCallers } from './cloth_canonical.mjs';
 import { readBaseline as bootsBaseline, dynamicCallers } from './boots_inventory.mjs';
 import { readBaseline as headwearBaseline, dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
 import { readBaseline as handsBaseline, dynamicCallers as handsDynamicCallers } from './hands_inventory.mjs';
@@ -59,6 +60,7 @@ const files = hands ? [...new Set([...handsBaseline().hits.map(hit => hit.file),
     'feature/user_storage.c', 'd/items/headwear.lpc', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] :
     boots ? [...new Set([...bootsBaseline().hits.map(hit => hit.file), ...dynamicCallers,
     'feature/user_storage.c', 'd/items/boots.lpc', 'd/items/cloth.lpc'])] : [...new Set([...readBaseline().hits.map(hit => hit.file),
+    ...supplementalCallers, 'd/village/shop.c',
     'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-xiang.c',
     'feature/user_storage.c', 'd/items/cloth.lpc'])].filter(path => /\.(c|lpc)$/.test(path));
 const result = await new Promise((done, reject) => {

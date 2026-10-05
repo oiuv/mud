@@ -1,0 +1,37 @@
+// Real room/NPC create bodies; unrelated NPC skills and heartbeat are stubbed.
+void check(int ok, string label) { master()->check(ok, label); }
+
+void run() {
+    object actor, room, npc, cloth, weapon;
+    mixed err;
+
+    check(file_size("/d/city/obj/cloth.c") == -1 &&
+        file_size("/d/city/obj/cloth.lpc") == -1, "no historical cloth fixture masks missing path");
+    actor = new("/tests/actor");
+    err = catch(actor->carry_object("d/city/obj/cloth")->wear());
+    check(stringp(err) && strsrch(err, "call_other") >= 0,
+        "old root-relative path reproduces the reported call_other failure");
+    destruct(actor);
+
+    room = load_object("/d/village/shop");
+    npc = present("li si", room);
+    check(objectp(npc) && npc->query("name") == "李四", "shop creates its real shopkeeper");
+    cloth = npc->query_temp("armor/cloth");
+    check(objectp(cloth) && base_name(cloth) == "/d/items/cloth/buyi" &&
+        environment(cloth) == npc && cloth->query("equipped") == "worn",
+        "shopkeeper carries and wears canonical cloth");
+    weapon = npc->query_temp("weapon");
+    check(objectp(weapon) && base_name(weapon) == "/d/city/obj/gangjian" &&
+        weapon->query("equipped") == "wielded", "unmigrated root-relative weapon still works");
+    room->reset();
+    check(present("li si", room) == npc && sizeof(all_inventory(room)) == 1,
+        "room reset keeps its existing shopkeeper");
+    foreach (actor in all_inventory(npc)) destruct(actor);
+    destruct(npc);
+    room->reset();
+    npc = present("li si", room);
+    cloth = npc->query_temp("armor/cloth");
+    check(objectp(cloth) && cloth->query("equipped") == "worn",
+        "room reset recreates an equipped shopkeeper");
+    master()->finish();
+}

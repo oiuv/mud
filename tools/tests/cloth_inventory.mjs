@@ -74,14 +74,16 @@ export function parseCloth(source, path) {
         before_weight: beforeWeight, before_branch: beforeBranch, properties, after_branch: afterBranch };
 }
 
-export function references(rows) {
+export function references(rows, sources) {
     const paths = new Map(rows.map(row => [row.old_path, row]));
     const hits = [], dynamic = [];
     const targets = [...paths.keys()];
-    for (const file of new Set([...tracked(), 'd/items/cloth.lpc', 'd/items/cloth_data.h'].filter(
-        file => /\.(c|lpc|h)$/.test(file) && !/^(mudcore|fluffos|tools)\//.test(file)))) {
-        if (!existsSync(resolve(root, file))) continue;
-        const source = readFileSync(resolve(root, file), 'utf8');
+    const files = sources ? sources.keys() : new Set(
+        [...tracked(), 'd/items/cloth.lpc', 'd/items/cloth_data.h'].filter(
+            file => /\.(c|lpc|h)$/.test(file) && !/^(mudcore|fluffos|tools)\//.test(file)));
+    for (const file of files) {
+        if (!sources && !existsSync(resolve(root, file))) continue;
+        const source = sources ? sources.get(file) : readFileSync(resolve(root, file), 'utf8');
         const all = tokenize(source);
         const code = all.filter(t => !['whitespace', 'comment'].includes(t.kind));
         const macros = { __DIR__: '/' + posix.dirname(file) + '/' };
@@ -102,15 +104,19 @@ export function references(rows) {
                     value += atom(code[i + 1]); i++;
                 } else break;
             }
-            const path = posix.resolve('/' + posix.dirname(file), value).replace(/\.(c|lpc)$/, '');
+            // Driver object names can omit the leading slash. Keep directory-relative
+            // candidates too for mudlib wrappers and historical relative references.
+            const candidates = [...new Set([
+                posix.resolve('/', value), posix.resolve('/' + posix.dirname(file), value),
+            ].map(path => path.replace(/\.(c|lpc)$/, '')))];
             const pathUse = value.includes('/') || (code[start - 1]?.text === '(' &&
                 ['new', 'clone_object', 'load_object', 'find_object', 'carry_object', 'file_size'].includes(code[start - 2]?.text));
-            const row = pathUse && paths.get(path);
+            const row = pathUse && candidates.map(path => paths.get(path)).find(Boolean);
             if (row) {
                 hits.push({ file, line: code[start].line, start: code[start].start, end: code[i].end,
-                    expression: source.slice(code[start].start, code[i].end), old_path: path, new_path: row.new_path });
+                    expression: source.slice(code[start].start, code[i].end), old_path: row.old_path, new_path: row.new_path });
             } else if (value.length >= 4 && (value.includes('/') || code[i + 1]?.text === '+') &&
-                targets.some(p => p.startsWith(path + '/') || p.startsWith(path))) {
+                candidates.some(path => targets.some(p => p.startsWith(path)))) {
                 dynamic.push({ file, line: code[start].line, expression: source.split(/\r?\n/)[code[start].line - 1].trim() });
             }
         }

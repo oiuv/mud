@@ -1,0 +1,10 @@
+// Only in the disposable startup fixture, not a game NPC implementation.
+inherit "/tests/actor";
+
+void set_skill(string name, int level) {}
+
+void setup() {
+    ::setup();
+    set_max_encumbrance(10000000);
+    enable_commands();
+}

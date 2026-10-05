@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tokenize } from '../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import { original, root, references, readBaseline } from './cloth_inventory.mjs';
-import { canonicalBaseline, canonicalGroups, renderDefinitions } from './cloth_canonical.mjs';
+import { canonicalBaseline, canonicalGroups, renderDefinitions, supplementalCallers } from './cloth_canonical.mjs';
 import { readBaseline as bootsBaseline, original as beforeBoots, expectedCaller, dynamicCallers } from './boots_inventory.mjs';
 import { readBaseline as headwearBaseline, original as beforeHeadwear, expectedCaller as expectedHeadwearCaller,
     dynamicCallers as headwearDynamicCallers } from './headwear_inventory.mjs';
@@ -12,8 +12,11 @@ import { renameReferences } from './item_ids.mjs';
 import { afterHandsMigration } from './hands_inventory.mjs';
 
 const baseline = canonicalBaseline();
+const supplementalHits = references(baseline.varieties,
+    new Map(supplementalCallers.map(file => [file, original(file)]))).hits;
+assert.equal(supplementalHits.length, supplementalCallers.length);
 const files = new Map();
-for (const hit of baseline.hits) {
+for (const hit of [...baseline.hits, ...supplementalHits]) {
     if (!files.has(hit.file)) files.set(hit.file, []);
     files.get(hit.file).push(hit);
 }
@@ -49,6 +52,7 @@ for (const [file, hits] of files) {
         'Unexpected non-formatting change: ' + file);
 }
 assert.equal(new Set(baseline.varieties.map(row => row.new_path)).size, 148);
+assert.deepEqual(references(baseline.varieties).hits, [], 'Historical CLOTH references remain');
 assert.deepEqual(semanticTokens(readFileSync(join(root, 'd/items/cloth_data.h'), 'utf8')),
     semanticTokens(renderDefinitions()), 'Canonical data differs from reviewed historical groups');
 assert.equal(references(readBaseline().varieties.map(row => ({ ...row, old_path: row.new_path }))).hits.length,
@@ -62,4 +66,4 @@ for (const row of baseline.varieties) {
     assert.equal(existsSync(join(root, row.new_path.slice(1) + '.c')), false, 'Per-variety .c shell');
     assert.equal(existsSync(join(root, row.new_path.slice(1) + '.lpc')), false, 'Per-variety .lpc shell');
 }
-console.log(`CLOTH CALLER AUDIT PASS: ${files.size} files, ${baseline.hits.length} static substitutions, 2 dynamic branches, 202 historical definitions -> 148 varieties, no per-variety shells or intermediate IDs`);
+console.log(`CLOTH CALLER AUDIT PASS: ${files.size} files, ${baseline.hits.length} original + ${supplementalHits.length} supplemental static substitutions, 2 dynamic branches, 202 historical definitions -> 148 varieties, no per-variety shells or intermediate IDs`);

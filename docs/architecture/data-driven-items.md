@@ -97,6 +97,7 @@ node tools/tests/cloth_canonical.mjs
 node tools/tests/audit_cloth_migration.mjs
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --village-startup
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --bench
 node tools/tests/boots_inventory.mjs
 node tools/tests/audit_boots_migration.mjs
@@ -115,10 +116,13 @@ node tools/tests/test_hands_objects.mjs bin/driver.exe --all
 node tools/tests/test_hands_objects.mjs bin/driver.exe --bench
 node --test tools/tests/test_item_records.mjs
 node --test tools/tests/test_item_ids.mjs
+node --test tools/tests/test_item_references.mjs
 ```
 
 需 Node.js、本地 FluffOS 源码、驱动及 `ed10c535`、`09e371bb`、`b081c7ff`、`0265d361` 的 Git 历史。基线审计逐个核对旧源码；调用审计按已批准的各批迁移逐层核对，保留历史基线，再比较允许的路径替换及格式化。批量编译工具需要支持 `--batch` 的本地 lpcc，在临时源码副本中重命名 `create`，编译其函数体但不自动执行，并禁止 LPC 写入与外部 socket；这不是正式服启动测试，也不提高游戏本身的最低驱动要求。
 
 独立驱动回归另用未改构造函数的 202 份原始旧定义与 148 个规范品种逐一对照。历史输入别名须可用；统一主输入名导致的括号内 ID 改变单独核对，不要求别名数组完全相等。显示辅助、测试角色和店主在线状态使用夹具，装备、移动、货币、交易、房间刷新、存取及序列化使用实际代码。交易用例分批跨时钟执行，让原有清理回调正常运行，不提高驱动回调上限。
+
+引用扫描同时覆盖带 `/` 的绝对路径、不带 `/` 的根路径、相对路径、宏和常量拼接；动态前缀只报告线索，不自动替换。`--village-startup` 不复制已删除的历史布衣源码：先复现旧引用的失败，再执行杂货店与李四当前的 `create()`，检查装备和房间补刷。仅无关的 NPC 技能与心跳依赖使用夹具，携物、移动和穿戴使用实际代码；不能以只编译函数体代替创建链路验收。
 
 `--bench` 每轮新启驱动，对照相同的 202 份历史来源请求和 4,040 实例；旧版实际为 202 个蓝图，新版为 148 个规范蓝图。旧/新顺序交替，共三轮。`memory_info()` 是驱动估算，不是 OS RSS。数据化减少源码重复和冷加载开销，但虚拟创建与实例状态隔离有成本；不能推断批量创建更快或实例更省内存。归并前后结果分别记录，不把旧报告冒充当前结果。

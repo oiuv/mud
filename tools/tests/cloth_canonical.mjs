@@ -7,6 +7,12 @@ import { root, readBaseline, tokens } from './cloth_inventory.mjs';
 import { validId, renamedPaths, compareItemIds } from './item_ids.mjs';
 
 const names = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/canonical_ids.json'), 'utf8'));
+// Discovered by the village startup failure on 2026-10-05. Keep the original
+// frozen baseline intact; audit these previously missed root-relative callers too.
+export const supplementalCallers = [
+    'adm/npc/beichou.c', 'd/death/sky/npc/beichou.c', 'd/huanghe/npc/zu.c',
+    'd/sky/npc/beichou.c', 'd/village/npc/xiejian.c',
+];
 const expression = source => tokens(source).map(token => token.text);
 // Only value=0 is normalized: the reviewed CLOTH/dealer paths use its numeric value,
 // not undefinedp(). Other zero values remain significant.

@@ -153,7 +153,7 @@ LONG);
     }));
 
     setup();
-    carry_object("d/city/obj/cloth")->wear();
+    carry_object("/d/items/cloth/buyi")->wear();
 
     if (!clonep(this_object())) {
         move("/d/city/kedian");
