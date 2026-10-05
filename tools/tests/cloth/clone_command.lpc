@@ -37,6 +37,13 @@ void run() {
     again = clone_into(actor, "baijin_quan", actor);
     check(base_name(again) == path, "relative virtual path resolved from cwd");
 
+    foreach (path in ({ "/d/items/wrists/huwan", "/d/items/wrists/shaolin_huwan",
+        "/d/items/wrists/tie_huwan", "/d/items/wrists/wanlian" })) {
+        item = clone_into(actor, path, actor);
+        check(virtualp(item) && clonep(item) && base_name(item) == path &&
+            item->query("armor_type") == "wrists", "registered wrist variety via actual clone command");
+    }
+    path = "/d/items/neck/baijin_quan";
     item = clone_into(actor, "/clone/misc/cloth", actor);
     check(base_name(item) == "/clone/misc/cloth" && actor->query("cwf") == "/clone/misc/cloth.c" &&
         actor->query("last_read") == "/clone/misc/cloth.c", "physical .c resolved and authorized as before");

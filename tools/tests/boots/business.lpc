@@ -76,7 +76,7 @@ void run() {
     actor->run_command("testnpc huwan");
     item = present("hu wan", actor);
     check(sizeof(all_inventory(actor)) == 1 &&
-        base_name(all_inventory(actor)[0]) == "/d/shaolin/obj/huwan", "other dao branch unchanged");
+        base_name(all_inventory(actor)[0]) == "/d/items/wrists/shaolin_huwan", "other dao branch unchanged");
     foreach (item in all_inventory(actor)) destruct(item);
     actor->run_command("testnpc sengxie");
     check(!sizeof(all_inventory(actor)), "dao empty stock");

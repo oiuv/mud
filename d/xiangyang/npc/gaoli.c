@@ -26,7 +26,7 @@ void create() {
         "/d/items/neck/xiangquan",
         "/d/city/npc/obj/surcoat",
         "/d/city/npc/obj/shield",
-        "/d/city/npc/obj/huwan",
+        "/d/items/wrists/huwan",
         "/d/items/hands/zhitao",
         "/d/city/npc/obj/huyao",
         "/d/items/boots/caoxie",

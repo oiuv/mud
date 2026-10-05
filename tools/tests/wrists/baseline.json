@@ -1,0 +1,334 @@
+{
+  "baseline": "61abfde332b86b286f2cf8ce44d5b502cfbec10e",
+  "count": 6,
+  "varieties": [
+    {
+      "old_path": "/d/city/npc/obj/huwan",
+      "key": "city_npc_obj_huwan",
+      "source_hash": "be72187de6365cfc9d6c812150d1f3c4ad86900ae33d60d43c4992d7232b0598",
+      "name": [
+        "\"护腕\"",
+        "({ \"wrists\", \"hu wan\", \"huwan\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件布质的护腕，用以保护腕部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1300"
+        ],
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "huwan",
+      "new_path": "/d/items/wrists/huwan",
+      "source": "// huwan.c 护腕\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(\"护腕\", ({ \"wrists\", \"hu wan\", \"huwan\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一件布质的护腕，用以保护腕部。\\n\");\n        set(\"value\", 1300);\n        set(\"material\", \"cloth\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/huwan",
+      "key": "city_obj_huwan",
+      "source_hash": "be72187de6365cfc9d6c812150d1f3c4ad86900ae33d60d43c4992d7232b0598",
+      "name": [
+        "\"护腕\"",
+        "({ \"wrists\", \"hu wan\", \"huwan\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件布质的护腕，用以保护腕部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1300"
+        ],
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "huwan",
+      "new_path": "/d/items/wrists/huwan",
+      "source": "// huwan.c 护腕\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(\"护腕\", ({ \"wrists\", \"hu wan\", \"huwan\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一件布质的护腕，用以保护腕部。\\n\");\n        set(\"value\", 1300);\n        set(\"material\", \"cloth\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/huwan",
+      "key": "jingzhou_obj_huwan",
+      "source_hash": "be72187de6365cfc9d6c812150d1f3c4ad86900ae33d60d43c4992d7232b0598",
+      "name": [
+        "\"护腕\"",
+        "({ \"wrists\", \"hu wan\", \"huwan\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件布质的护腕，用以保护腕部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1300"
+        ],
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "huwan",
+      "new_path": "/d/items/wrists/huwan",
+      "source": "// huwan.c 护腕\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(\"护腕\", ({ \"wrists\", \"hu wan\", \"huwan\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一件布质的护腕，用以保护腕部。\\n\");\n        set(\"value\", 1300);\n        set(\"material\", \"cloth\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/huwan",
+      "key": "shaolin_obj_huwan",
+      "source_hash": "a23590f3f7dcbc4fdf382628ccf141daffefacc63967ef685930d14b9a8d8c15",
+      "name": [
+        "\"铁护腕\"",
+        "({ \"hu wan\", \"huwan\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"wrists\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "id": "shaolin_huwan",
+      "new_path": "/d/items/wrists/shaolin_huwan",
+      "source": "// huwan.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(\"铁护腕\", ({ \"hu wan\", \"huwan\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"wrists\");\n        set(\"armor_prop/armor\", 5);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/huwan",
+      "key": "mingjiao_obj_huwan",
+      "source_hash": "a3ed4e68594edfd5710d176fd99ed4afbfd34f07cfb72c4cc669d97443919ecf",
+      "name": [
+        "\"铁护腕\"",
+        "({ \"hu wan\", \"huwan\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"双\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"wrists\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "id": "tie_huwan",
+      "new_path": "/d/items/wrists/tie_huwan",
+      "source": "// huwan.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(\"铁护腕\", ({ \"hu wan\", \"huwan\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"双\");\n        set(\"long\", \"这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"wrists\");\n        set(\"armor_prop/armor\", 5);\n        //        set(\"shaolin\",1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/wrists",
+      "key": "changan_npc_obj_wrists",
+      "source_hash": "0284042de7956af051772b02b7eef2ff42a9c9260cddcd8b8b9d1f7d7459ccac",
+      "name": [
+        "HIY \"鎏金腕链\" NOR",
+        "({ \"liujin wanlian\", \"wanlian\", \"wrists\" })"
+      ],
+      "weight": "0",
+      "before_weight": [
+        [
+          "\"weight\"",
+          "200"
+        ]
+      ],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"weight\"",
+          "200"
+        ],
+        [
+          "\"unit\"",
+          "\"个\""
+        ],
+        [
+          "\"value\"",
+          "5000"
+        ],
+        [
+          "\"material\"",
+          "\"gold\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "weight_attribute": "200",
+      "id": "wanlian",
+      "new_path": "/d/items/wrists/wanlian",
+      "source": "//wrists.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WRISTS;\n\nvoid create() {\n    set_name(HIY \"鎏金腕链\" NOR, ({ \"liujin wanlian\", \"wanlian\", \"wrists\" }));\n    set(\"weight\", 200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"value\", 5000);\n        set(\"material\", \"gold\");\n        set(\"armor_prop/armor\", 1);\n    }\n\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/changan/npc/jinfuhuan.c",
+      "line": 21,
+      "start": 499,
+      "end": 519,
+      "expression": "__DIR__ \"obj/wrists\"",
+      "old_path": "/d/changan/npc/obj/wrists",
+      "new_path": "/d/items/wrists/wanlian"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 24,
+      "start": 646,
+      "end": 665,
+      "expression": "__DIR__ \"obj/huwan\"",
+      "old_path": "/d/city/npc/obj/huwan",
+      "new_path": "/d/items/wrists/huwan"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 23,
+      "start": 616,
+      "end": 639,
+      "expression": "\"/d/city/npc/obj/huwan\"",
+      "old_path": "/d/city/npc/obj/huwan",
+      "new_path": "/d/items/wrists/huwan"
+    },
+    {
+      "file": "d/luoyang/npc/zhou.c",
+      "line": 19,
+      "start": 486,
+      "end": 513,
+      "expression": "\"/d/changan/npc/obj/wrists\"",
+      "old_path": "/d/changan/npc/obj/wrists",
+      "new_path": "/d/items/wrists/wanlian"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 35,
+      "start": 876,
+      "end": 899,
+      "expression": "\"/d/city/npc/obj/huwan\"",
+      "old_path": "/d/city/npc/obj/huwan",
+      "new_path": "/d/items/wrists/huwan"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 29,
+      "start": 696,
+      "end": 719,
+      "expression": "\"/d/city/npc/obj/huwan\"",
+      "old_path": "/d/city/npc/obj/huwan",
+      "new_path": "/d/items/wrists/huwan"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 65,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 83,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 90,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 105,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "excluded": [
+    "d/luoyang/npc/obj/wanlun1.c"
+  ],
+  "dynamic_callers": [
+    "d/xiangyang/npc/wuxiuwen.c",
+    "kungfu/class/shaolin/dao-xiang.c"
+  ],
+  "unrelated_dynamic_callers": [
+    "d/changan/npc/fujiang.c",
+    "kungfu/class/shaolin/dao-chen.c",
+    "d/city/npc/obj/yang.c"
+  ]
+}

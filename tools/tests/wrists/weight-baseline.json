@@ -1,0 +1,166 @@
+[
+  [
+    "/d/city/npc/obj/huwan",
+    500,
+    500,
+    null,
+    null,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 5
+      },
+      "value": 1300,
+      "stable": 0,
+      "unit": "双",
+      "id": "wrists",
+      "material": "cloth",
+      "long": "这是一件布质的护腕，用以保护腕部。\n",
+      "consistence": 100,
+      "armor_type": "wrists",
+      "name": "护腕"
+    },
+    {
+      "id": "wrists",
+      "consistence": 100,
+      "name": "护腕"
+    }
+  ],
+  [
+    "/d/city/obj/huwan",
+    500,
+    500,
+    null,
+    null,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 5
+      },
+      "value": 1300,
+      "stable": 0,
+      "unit": "双",
+      "id": "wrists",
+      "material": "cloth",
+      "long": "这是一件布质的护腕，用以保护腕部。\n",
+      "consistence": 100,
+      "armor_type": "wrists",
+      "name": "护腕"
+    },
+    {
+      "id": "wrists",
+      "consistence": 100,
+      "name": "护腕"
+    }
+  ],
+  [
+    "/d/jingzhou/obj/huwan",
+    500,
+    500,
+    null,
+    null,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 5
+      },
+      "value": 1300,
+      "stable": 0,
+      "unit": "双",
+      "id": "wrists",
+      "material": "cloth",
+      "long": "这是一件布质的护腕，用以保护腕部。\n",
+      "consistence": 100,
+      "armor_type": "wrists",
+      "name": "护腕"
+    },
+    {
+      "id": "wrists",
+      "consistence": 100,
+      "name": "护腕"
+    }
+  ],
+  [
+    "/d/shaolin/obj/huwan",
+    500,
+    500,
+    null,
+    null,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 5
+      },
+      "value": 6000,
+      "stable": 50,
+      "unit": "双",
+      "id": "hu wan",
+      "material": "wrists",
+      "long": "这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\n",
+      "consistence": 100,
+      "armor_type": "wrists",
+      "shaolin": 1,
+      "name": "铁护腕"
+    },
+    {
+      "id": "hu wan",
+      "consistence": 100,
+      "name": "铁护腕"
+    }
+  ],
+  [
+    "/d/mingjiao/obj/huwan",
+    500,
+    500,
+    null,
+    null,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 5
+      },
+      "value": 6000,
+      "stable": 50,
+      "unit": "双",
+      "id": "hu wan",
+      "material": "wrists",
+      "long": "这是一件皮质的护腕，上面满布铁钉，用以保护腕部。\n",
+      "consistence": 100,
+      "armor_type": "wrists",
+      "name": "铁护腕"
+    },
+    {
+      "id": "hu wan",
+      "consistence": 100,
+      "name": "铁护腕"
+    }
+  ],
+  [
+    "/d/changan/npc/obj/wrists",
+    0,
+    0,
+    200,
+    200,
+    {
+      "no_clean_up": 1,
+      "armor_prop": {
+        "armor": 1
+      },
+      "value": 5000,
+      "stable": 25,
+      "unit": "个",
+      "id": "liujin wanlian",
+      "material": "gold",
+      "consistence": 100,
+      "weight": 200,
+      "armor_type": "wrists",
+      "name": "\u001b[1;33m鎏金腕链\u001b[0m"
+    },
+    {
+      "id": "liujin wanlian",
+      "consistence": 100,
+      "weight": 200,
+      "name": "\u001b[1;33m鎏金腕链\u001b[0m"
+    }
+  ]
+]

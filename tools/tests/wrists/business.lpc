@@ -1,0 +1,161 @@
+void check(int ok, string label) { master()->check(ok, label); }
+
+void check_storage(mixed *pair) {
+    object actor, item, converter;
+    mapping paths, data, result, records;
+    int count;
+
+    actor = new("/tests/actor");
+    item = new(pair[1]);
+    actor->store_item(actor, item, 1);
+    check(
+        !item && actor->depot_records()["item0"]["file"] == pair[1],
+        "wrists stored with canonical path"
+    );
+    actor->run_command("take 1 1");
+    check(
+        sizeof(all_inventory(actor)) == 1 && !sizeof(actor->depot_records()),
+        "stored wrists reconstructed"
+    );
+    foreach (item in all_inventory(actor)) destruct(item);
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    paths["/d/changan/npc/obj/cloth"] = "/d/items/cloth/buyi";
+    paths["/d/city/npc/obj/caoxie"] = "/d/items/boots/caoxie";
+    paths["/d/beijing/npc/obj/head"] = "/d/items/headwear/gangkui";
+    paths["/d/city/npc/obj/necklace"] = "/d/items/neck/jinxianglian";
+    paths["/d/city/obj/shoutao"] = "/d/items/hands/shoutao";
+    converter = load_object("/tests/cloth_records");
+    data = ([
+        "item0": ([ "file": pair[0], "amount": 2, "id": "old wrists", "name": "旧护腕" ]),
+        "item1": ([ "file": "/d/changan/npc/obj/cloth", "amount": 3, "id": "cloth", "name": "布衣" ]),
+        "item2": ([ "file": "/d/city/npc/obj/caoxie", "amount": 4, "id": "sandals", "name": "草鞋" ]),
+        "item3": ([ "file": "/d/beijing/npc/obj/head", "amount": 5, "id": "helmet", "name": "钢盔" ]),
+        "item4": ([ "file": "/d/city/obj/shoutao", "amount": 6, "id": "shoutao", "name": "手套" ]),
+        "item5": ([
+            "file": "/d/city/npc/obj/necklace",
+            "amount": 7,
+            "id": "xianglian",
+            "name": "项链"
+        ])
+    ]);
+    result = converter->convert(save_variable(data), "backpack", paths, ({}));
+    records = restore_variable(result["value"]);
+    check(result["changes"] == 6 && records["item0"]["amount"] == 2 &&
+        records["item0"]["name"] == "旧护腕", "six-family record conversion");
+    write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/restored");
+    actor->run_command("take 1 2"); actor->run_command("take 1 3"); actor->run_command("take 1 4"); actor->run_command("take 1 5"); actor->run_command("take 1 6"); actor->run_command("take 1 7");
+    check(
+        sizeof(all_inventory(actor)) == 27 && !sizeof(actor->depot_records()),
+        "six-family saved quantities rebuilt"
+    );
+    foreach (item in all_inventory(actor)) {
+        check(member_array(
+            base_name(item),
+            ({
+                pair[1],
+                "/d/items/cloth/buyi",
+                "/d/items/boots/caoxie",
+                "/d/items/headwear/gangkui",
+                "/d/items/hands/shoutao",
+                "/d/items/neck/jinxianglian"
+            })
+        ) >= 0,
+            "restored canonical identity");
+        if (base_name(item) == pair[1]) count++;
+        destruct(item);
+    }
+    check(count == 2, "exact restored wrists count");
+    destruct(actor);
+}
+
+void clear_inventory(object actor) {
+    object item;
+
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+void check_dynamic(object actor) {
+    object npc, item;
+    string file, prefix, expected, keyword;
+    int stock;
+
+    foreach (prefix in ({ "/tests/old", "" })) {
+        foreach (file in ({ "/d/xiangyang/npc/wuxiuwen", "/kungfu/class/shaolin/dao-xiang" })) {
+            npc = new(prefix + file); npc->set("huju_count", 20); npc->set("beixin_count", 2);
+            actor->delete("family"); actor->select_npc(npc, "ask_me_1");
+            actor->run_command("testnpc huwan");
+            if (file == "/kungfu/class/shaolin/dao-xiang") {
+                check(
+                    !sizeof(all_inventory(actor)) && npc->query("huju_count") == 20,
+                    "original sect restriction"
+                );
+                actor->set("family/family_name", "少林派");
+                actor->run_command("testnpc huwan");
+            }
+            expected = prefix == "" ? "/d/items/wrists/shaolin_huwan" : "/d/shaolin/obj/huwan";
+            item = present("hu wan", actor);
+            check(objectp(item) && base_name(item) == expected && item->query("shaolin") == 1 &&
+                npc->query("huju_count") == 19, "original/new wrists issued with mark and stock");
+            check(present("huwan", actor) == item, "historical compact alias retained");
+            actor->run_command("testnpc huwan");
+            check(sizeof(all_inventory(actor)) == 1 && npc->query("huju_count") == 19,
+                "existing matching wrists refused without stock consumption");
+            clear_inventory(actor);
+            item = new("/clone/misc/cloth"); item->set_name(
+                "护具",
+                ({ "huwan" })
+            ); item->move(actor, 1);
+            actor->run_command("testnpc huwan");
+            check(
+                sizeof(all_inventory(actor)) == 1 && npc->query("huju_count") == 19,
+                "actual matching held id refuses"
+            );
+            clear_inventory(actor);
+            foreach (keyword in ({ "shoutao", "zhitao", "weibo", "huyao" })) {
+                stock = npc->query("huju_count"); actor->run_command("testnpc " + keyword);
+                expected = keyword == "shoutao" ? "/d/items/hands/shaolin_shoutao" : keyword == "zhitao" ? "/d/items/hands/shaolin_zhitao" : keyword == "weibo" ? "/d/items/neck/shaolin_weibo" : "/d/shaolin/obj/" + keyword;
+                check(sizeof(all_inventory(actor)) == 1 && base_name(all_inventory(actor)[0]) == expected &&
+                    npc->query("huju_count") == stock - 1, "other branch/shared stock " + keyword);
+                clear_inventory(actor);
+            }
+            if (file == "/kungfu/class/shaolin/dao-xiang") {
+                actor->run_command("testnpc sengxie");
+                check(sizeof(all_inventory(actor)) == 1 &&
+                    base_name(all_inventory(actor)[0]) == "/d/items/boots/shaolin_sengxie", "existing boots branch");
+                clear_inventory(actor);
+            }
+            npc->set("huju_count", 0); actor->run_command("testnpc huwan");
+            check(!sizeof(all_inventory(actor)), "empty shared stock refuses wrists");
+            actor->select_npc(npc, "ask_me_2"); actor->run_command("testnpc beixin");
+            check(sizeof(all_inventory(actor)) == 1 && base_name(all_inventory(actor)[0]) == "/d/items/cloth/tie_beixin2" &&
+                npc->query("beixin_count") == 1, "vest independent stock retained");
+            clear_inventory(actor); destruct(npc);
+        }
+    }
+}
+
+void run() {
+    object actor, room, item;
+    string path;
+
+    room = new("/tests/room"); actor = new("/tests/actor"); actor->move(room, 1);
+    check_dynamic(actor);
+    item = new("/d/luoyang/npc/obj/wanlun1");
+    check(item->query("armor_type") == "wrists" && item->query("armor_prop/armor") == 60,
+        "special wrist wheel retains definition");
+    item->owner_is_killed();
+    check(!item, "special wrist wheel retains death destruction");
+    foreach (path in ({ "/tests/unknown/key", "/tests/unique", "/tests/noclone" })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(objectp(item) && !sizeof(actor->depot_records()), "unknown/unique/no-clone refused");
+        destruct(item);
+    }
+    foreach (path in ({ "/d/items/cloth/buyi", "/d/items/boots/caoxie", "/d/items/headwear/gangkui",
+        "/d/items/hands/jinjie", "/d/items/neck/yupei", "/d/items/wrists/huwan", "/clone/cloth/qingyi" })) {
+        item = new(path); actor->store_item(actor, item, 1);
+        check(!item, "six families and physical storage coexist");
+    }
+    check(sizeof(actor->depot_records()) == 7, "distinct stored varieties retained");
+    destruct(actor); destruct(room);
+}

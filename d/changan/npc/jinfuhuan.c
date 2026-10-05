@@ -18,7 +18,7 @@ void create() {
     set_temp("apply/defense", 30);
     set("vendor_goods", ({
         "/d/items/hands/zijin_jie",
-        __DIR__ "obj/wrists",
+        "/d/items/wrists/wanlian",
         "/d/items/neck/baijin_quan",
     }));
 

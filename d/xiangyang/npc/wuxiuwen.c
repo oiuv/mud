@@ -73,7 +73,9 @@ string ask_me_1(string name) {
     if (query("huju_count") < 1)
         return "抱歉，你来得不是时候，防具已经发完了。";
 
-    if (name == "weibo")
+    if (name == "huwan")
+        ob = new("/d/items/wrists/shaolin_huwan");
+    else if (name == "weibo")
         ob = new("/d/items/neck/shaolin_weibo");
     else if (name == "shoutao")
         ob = new("/d/items/hands/shaolin_shoutao");

@@ -10,8 +10,10 @@ import * as bootsMetadata from './boots_inventory.mjs';
 import * as headwearMetadata from './headwear_inventory.mjs';
 import * as handsMetadata from './hands_inventory.mjs';
 import * as neckMetadata from './neck_inventory.mjs';
+import * as wristsMetadata from './wrists_inventory.mjs';
 import { prepareHands } from './hands/fixtures.mjs';
 import { prepareNeck } from './neck/fixtures.mjs';
+import { prepareWrists } from './wrists/fixtures.mjs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { migrateItemRecords } from '../migrate_item_records.mjs';
@@ -20,17 +22,18 @@ const boots = process.argv.includes('--boots');
 const headwear = process.argv.includes('--headwear');
 const hands = process.argv.includes('--hands');
 const neck = process.argv.includes('--neck');
+const wrists = process.argv.includes('--wrists');
 const villageStartup = process.argv.includes('--village-startup');
 const cloneCommand = process.argv.includes('--clone-command');
-assert.ok(!cloneCommand || !['--boots', '--headwear', '--hands', '--neck', '--bench', '--baseline-only', '--village-startup']
+assert.ok(!cloneCommand || !['--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only', '--village-startup']
     .some(flag => process.argv.includes(flag)), '--clone-command is a separate command regression');
-assert.ok(!villageStartup || !['--boots', '--headwear', '--hands', '--neck', '--bench', '--baseline-only']
+assert.ok(!villageStartup || !['--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only']
     .some(flag => process.argv.includes(flag)), '--village-startup is a separate startup regression');
-const metadata = neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
-const label = neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
+const metadata = wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
+const label = wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
 const { canonicalGroups, migrationPaths } = metadata;
-const original = neck || hands || headwear || boots ? metadata.original : clothOriginal;
-const canonicalBaseline = neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
+const original = wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
+const canonicalBaseline = wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -43,7 +46,7 @@ for (const file of ['adm/daemons/virtuald.c', 'adm/daemons/moneyd.c', 'd/items/c
 for (const file of ['d/items/boots.lpc', 'd/items/boots_data.h']) copy(file);
 for (const file of ['d/items/headwear.lpc', 'd/items/headwear_data.h']) copy(file);
 for (const file of ['d/items/hands.lpc', 'd/items/hands_data.h']) copy(file);
-for (const file of ['d/items/neck.lpc', 'd/items/neck_data.h']) copy(file);
+for (const file of ['d/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h']) copy(file);
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
 if (cloneCommand) {
     copy('cmds/wiz/clone.c');
@@ -72,11 +75,11 @@ if (villageStartup) {
     writeFileSync(file, readFileSync(file, 'utf8').replace('inherit NPC;', 'inherit "/tests/village_npc";'));
     cpSync(join(sandbox, 'tests/village_startup.lpc'), join(sandbox, 'tests/regression.lpc'));
 }
-if (boots || headwear || hands || neck) {
+if (boots || headwear || hands || neck || wrists) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
-    cpSync(join(root, `tools/tests/${neck ? 'neck' : hands ? 'hands' : headwear ? 'headwear' : 'boots'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
+    cpSync(join(root, `tools/tests/${wrists ? 'wrists' : neck ? 'neck' : hands ? 'hands' : headwear ? 'headwear' : 'boots'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
     // Count the selected family's setup only in the disposable copy.
-    const parent = join(sandbox, `inherit/armor/${neck ? 'neck' : hands ? 'hands' : headwear ? 'head' : 'boots'}.c`);
+    const parent = join(sandbox, `inherit/armor/${wrists ? 'wrists' : neck ? 'neck' : hands ? 'hands' : headwear ? 'head' : 'boots'}.c`);
     if (!process.argv.includes('--bench'))
         writeFileSync(parent, readFileSync(parent, 'utf8').replace('void setup() {',
             'void setup() {\n    master()->record_setup(this_object());'));
@@ -92,6 +95,8 @@ if (boots || headwear || hands || neck) {
         cpSync(join(root, 'tools/tests/hands/business.lpc'), join(sandbox, 'tests/hands_business.lpc'));
     if (neck && process.argv.includes('--all') && !process.argv.includes('--baseline-only'))
         cpSync(join(root, 'tools/tests/neck/business.lpc'), join(sandbox, 'tests/neck_business.lpc'));
+    if (wrists && process.argv.includes('--all') && !process.argv.includes('--baseline-only'))
+        cpSync(join(root, 'tools/tests/wrists/business.lpc'), join(sandbox, 'tests/wrists_business.lpc'));
     const method = (file, signature) => {
         const source = readFileSync(join(root, file), 'utf8'), start = source.indexOf(signature);
         if (start < 0) throw new Error('Missing business function: ' + file);
@@ -115,13 +120,17 @@ if (boots || headwear || hands || neck) {
         + 'void select_npc(object npc, string method) { selected_npc = npc; selected_method = method; }\n'
         + 'int call_npc(string arg) { call_other(selected_npc, selected_method, arg); return 1; }\nvoid create() {')
         .replace('enable_commands();', 'enable_commands();\n    add_action("call_npc", "testnpc");'));
-    for (const file of ['d/shaolin/obj/huwan.c', 'd/city/npc/cloth/shoes.c',
+    // Old NPC methods still need their historical object, only in this disposable fixture.
+    mkdirSync(join(sandbox, 'd/shaolin/obj'), { recursive: true });
+    writeFileSync(join(sandbox, 'd/shaolin/obj/huwan.c'), wristsMetadata.original('d/shaolin/obj/huwan.c'));
+    for (const file of ['d/city/npc/cloth/shoes.c',
         'd/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c']) copy(file);
     if (headwear) for (const file of headwearMetadata.excluded) copy(file);
     if (hands) prepareHands(root, sandbox, method, copy);
     if (neck) prepareNeck(root, sandbox, copy);
+    if (wrists) prepareWrists(root, sandbox, copy);
     for (const [file, extra] of [['unknown', ''], ['unique', 'inherit F_UNIQUE;'], ['noclone', 'inherit F_NOCLONE;']])
-        writeFileSync(join(sandbox, 'tests', file + '.c'), '#include <armor.h>\ninherit ' + (neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEAD' : 'BOOTS') + ';\n' + extra
+        writeFileSync(join(sandbox, 'tests', file + '.c'), '#include <armor.h>\ninherit ' + (wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEAD' : 'BOOTS') + ';\n' + extra
             + '\nvoid create() { set_name("旧鞋", ({ "test shoes" })); set("unit", "双"); setup(); }\n'
             + 'object create_virtual_object(string key) { return new("/tests/' + file + '"); }\n');
 }
@@ -155,7 +164,7 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
 const rows = villageStartup || cloneCommand ? [] : canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
-    (neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
+    (wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
         hands ? ['jinjie', 'jinjie2', 'shaolin_shoutao', 'jinsi_shoutao'].includes(row.id) :
         headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
         boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
@@ -167,12 +176,12 @@ for (const row of rows) {
     mkdirSync(dirname(join(sandbox, path)), { recursive: true });
     writeFileSync(join(sandbox, path), source);
 }
-writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => headwear || hands || neck
+writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => headwear || hands || neck || wrists
     ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight)]
     : [row.old_path, row.new_path])));
 if (process.argv.includes('--baseline-only')) writeFileSync(join(sandbox, 'tests/baseline-only'), '1');
 writeFileSync(join(sandbox, 'tests/migration_paths.json'), JSON.stringify(migrationPaths()));
-writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(canonicalGroups().filter(g => !(headwear || hands || neck) || rows.some(r => r.new_path === g.path)).map(g => ({
+writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(canonicalGroups().filter(g => !(headwear || hands || neck || wrists) || rows.some(r => r.new_path === g.path)).map(g => ({
     path: g.path, ids: g.ids, historical: g.rows.map(r => r.new_path),
 }))));
 const socket = createServer();
@@ -216,10 +225,10 @@ if (process.argv.includes('--bench')) {
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+console.log(result.output.split('\n').filter(line => /WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (boots || headwear || hands || neck || villageStartup || cloneCommand) process.exit(0);
+if (boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },
