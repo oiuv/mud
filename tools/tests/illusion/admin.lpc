@@ -12,10 +12,11 @@ void run() {
     mixed *samples;
 
     actor = "/tests/master"->query_players()[0];
-    foreach (command in ({ "status", "status test-rooms-v1 0 0", "entry off", "ai on",
+    foreach (command in ({ "help", "status", "status test-rooms-v1 0 0", "entry off", "ai on",
         "init public-fixture 42 production", "enter test-rooms-v1" }))
         CHECK(!CMD->main(actor, command), "ordinary player denied: " + command);
     actor->set("admin", 1);
+    CHECK(CMD->main(actor, "help"), "administrator can display grouped command help");
     CHECK(CMD->main(actor, "init test-admin 42"), "legacy test init works");
     CHECK(
         !WORLD->query_active_world() && !CONTENT->query_enabled(),

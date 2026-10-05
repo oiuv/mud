@@ -1,3 +1,5 @@
+#include <ansi.h>
+
 inherit F_CLEAN_UP;
 #define WORLD_D "/adm/daemons/illusion_world_d"
 #define CONTENT_D "/adm/daemons/illusion_content_d"
@@ -78,8 +80,44 @@ int main(object me, string arg) {
         write("场景创作申请开关已更新；已保存正文仍可读取。Python 服务须另行配置 WORLD_ENABLED。\n");
         return 1;
     }
-    write("用法：illusion status [世界ID [X Y]] | init test-世界ID 种子\n"
-        "      illusion init 正式世界ID 种子 production | enter 世界ID | entry 世界ID/off | ai on/off\n"
-        "正式初始化须使用非测试内容表；完成冻结、备份及上线验收后再切换入口。\n");
+    write(HIC "\n━━━━━━━━━━ 心魔幻境 · 管理指令 ━━━━━━━━━━\n" NOR
+        "  仅限管理员使用。尖括号内为必填参数，输入时不带括号。\n\n"
+        HIW "【查看状态】\n" NOR
+        "  illusion status\n"
+        "    查看公共入口、地形缓存和场景创作状态；不带参数时相同。\n"
+        "  illusion status <世界ID>\n"
+        "    查看指定世界的冻结清单。\n"
+        "  illusion status <世界ID> <X> <Y>\n"
+        "    查看指定坐标的房间事实和本地正文状态。\n"
+        "    例：illusion status huanjing-v1 0 0\n\n"
+        HIW "【创建世界】\n" NOR
+        "  illusion init <test-世界ID> <种子>\n"
+        "    创建测试世界。例：illusion init test-demo 12345\n"
+        "  illusion init <世界ID> <种子> production\n"
+        "    使用正式内容表创建世界。\n"
+        "    例：illusion init huanjing-v2 12345 production\n"
+        "    只初始化并冻结清单，不切换入口，也不申请场景创作。\n\n"
+        HIW "【进入体验】\n" NOR
+        "  illusion enter <世界ID>\n"
+        "    自己进入指定世界，不改变玩家的公共入口。\n"
+        "    例：illusion enter test-demo\n"
+        "    返回起点后，可用 out 离开幻境。\n\n"
+        HIW "【切换公共入口】\n" NOR
+        "  illusion entry <世界ID>\n"
+        "    将子虚道人的入口切换至已初始化的正式世界。\n"
+        "    例：illusion entry huanjing-v1\n"
+        "  illusion entry off\n"
+        "    恢复旧幻境入口，不是关闭所有幻境。\n"
+        "    设置会保存；切换不改变仍有效的在线实例。\n\n"
+        HIW "【场景创作】\n" NOR
+        "  illusion ai on\n"
+        "    开启新描述的创作申请；AI 服务还须启用 WORLD_ENABLED。\n"
+        "  illusion ai off\n"
+        "    停止新申请，已保存的正文仍可读取。\n\n"
+        HIY "【注意事项】\n" NOR
+        "  种子和坐标使用十进制整数，如 12345、0、-2，不写前导零。\n"
+        "  世界一经冻结，不能用同一 ID 改种子或内容表。\n"
+        "  测试世界不能接入公共入口；正式切换前须完成备份与上线验收。\n"
+        "  示例中的世界 ID 请按实际替换；再次查看本页：illusion help。\n\n");
     return 1;
 }
