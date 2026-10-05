@@ -90,7 +90,7 @@ BOOTS：`mud-cloth-6oLzDX`；HEAD：`mud-cloth-jRrSOK`；HANDS：`mud-cloth-34m1
 记录：`mud-record-tests-v8IRzS`；性能：`mud-cloth-z2rfgj`。这些临时输出不提交，可能被系统
 清理；仓库保留冻结基线、测试脚本及性能计量。
 
-上线须按[统一部署说明](../../../docs/architecture/data-driven-items.md)在停服备份中预览，
+上线须按[统一部署说明](../../../../docs/architecture/data-driven-items.md)在停服备份中预览，
 仅转换确实受影响的记录，再联合部署代码与记录、冷启动；回退同样恢复配套代码和原字节
 备份。开发验收不包含推送或发布，不代表正式服存档已经转换。
 

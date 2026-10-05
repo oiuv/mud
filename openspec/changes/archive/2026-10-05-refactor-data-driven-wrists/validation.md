@@ -55,7 +55,7 @@
 
 ## 复现与交付边界
 
-各类命令见 [护腕维护说明](../../../docs/architecture/data-driven-wrists.md)及[统一说明](../../../docs/architecture/data-driven-items.md)；另运行：
+各类命令见 [护腕维护说明](../../../../docs/architecture/data-driven-wrists.md)及[统一说明](../../../../docs/architecture/data-driven-items.md)；另运行：
 
 ```powershell
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --clone-command

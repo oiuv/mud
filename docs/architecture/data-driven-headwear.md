@@ -61,8 +61,8 @@ ID 简洁、唯一、能识别大致物品即可，允许短名称加稳定编�
 旧/新使用独立进程，各三轮；每轮同样 39 个来源请求、780 个实例，分别报告冷加载、热创建及驱动
 `memory_info()`，后者不是 OS RSS。文件减少不代表热创建一定更快，使用绝对值评估影响。
 
-本批实测与验收边界见[验证报告](../../openspec/changes/refactor-data-driven-headwear/validation.md)。
+本批实测与验收边界见[验证报告](../../openspec/changes/archive/2026-10-05-refactor-data-driven-headwear/validation.md)。
 
-本批范围及实施状态见 [OpenSpec 设计](../../openspec/changes/refactor-data-driven-headwear/design.md)
-和 [任务清单](../../openspec/changes/refactor-data-driven-headwear/tasks.md)。上线须使用统一离线迁移工具
+本批范围及实施状态见 [OpenSpec 设计](../../openspec/changes/archive/2026-10-05-refactor-data-driven-headwear/design.md)
+和 [任务清单](../../openspec/changes/archive/2026-10-05-refactor-data-driven-headwear/tasks.md)。上线须使用统一离线迁移工具
 核对停服备份、按需转换旧记录，并配套切换代码；开发测试不代表正式数据已经迁移。

@@ -22,7 +22,7 @@
 
 ### Requirement: Families follow shared behavior
 
-分类 SHALL 核对继承、头文件及特殊回调，共有特殊行为 SHALL 可以提取为子类；独有行为 SHALL 允许保留专用实现。不能仅按文件名、显示名或是否存在自定义函数决定归并。已迁移鞋靴 SHALL 保留原足部穿戴、性别限制、洗涤与晾干能力，MUST NOT 从其他物品类别获得原来没有的功能；未选对象的初始化与行为 SHALL 保持现状。
+分类 SHALL 核对继承、头文件及特殊回调，共有特殊行为 SHALL 可以提取为子类；独有行为 SHALL 允许保留专用实现。不能仅按文件名、显示名或是否存在自定义函数决定归并。已迁移鞋靴 SHALL 保留原足部穿戴、性别限制、洗涤与晾干能力；已迁移头饰 SHALL 保留头部槽位、护甲及魅力等有效加成、原穿戴限制和文案。各类 MUST NOT 从其他物品类别获得原来没有的功能；未选对象的初始化与行为 SHALL 保持现状。
 
 #### Scenario: Clothing parents provide different capabilities
 
@@ -44,6 +44,21 @@
 - **WHEN** 本批标准鞋靴完成迁移，游戏同时创建尚未选择的麻鞋或异父类绣花鞋
 - **THEN** 未选对象保持原路径与行为，不因名称相近而改写初始化、赋予新能力或放宽资格
 
+#### Scenario: A player equips a migrated flower or helmet
+
+- **WHEN** 玩家穿戴或卸下本批花饰、帽子、头巾或头盔
+- **THEN** 它占用原头部槽位，属性增减、性别限制和实际穿脱文案与原对象一致，不获得原来没有的洗涤、晾干或撕布能力
+
+#### Scenario: Similar headwear has a real gameplay distinction
+
+- **WHEN** 两件头饰同名但有效价格、禁售、性别限制、显示或门派标记不同
+- **THEN** 保留独立品种及真实差异；经核对完全等价的跨目录头盔则归为同一身份，历史输入别名仍可用
+
+#### Scenario: Death-triggered headwear remains outside this batch
+
+- **WHEN** 本批普通头饰迁移完成，原主人死亡时销毁的两件特殊头饰继续使用
+- **THEN** 两件特殊头饰的原路径和死亡销毁行为保持，不把该回调加到普通头饰，也不删除特殊物品的触发逻辑
+
 ### Requirement: Partial adoption preserves unrelated features
 
 每批 SHALL 在其他类别继续运行的条件下接入。传统地图、货币、自制装备及本批未选的独特任务对象 SHALL 保持现状；游戏重构 MUST NOT 要求 mudcore 或驱动加入本游戏的数据体系。
@@ -52,3 +67,22 @@
 
 - **WHEN** 普通服装采用虚拟品种入口
 - **THEN** 同步其实际调用方后可独立验收，不要求兵器、食物、NPC 和整个地图同时转换
+
+### Requirement: Hand equipment preserves its actual slot and interactions
+
+获准迁移的手部装备 SHALL 保持原手部槽位、穿脱文案、属性增减、别名、限制及原外部互动条件；MUST NOT 因名为戒指、指套或弓就更改类别，也不将描述扩展为新的能力。具有真实价格、材质、显示或门派加成差异的品种 SHALL 分开维护，等价跨地区定义 SHALL 合并；未选研读和死亡销毁装备 SHALL 保持原行为。
+
+#### Scenario: A ring and a bow are used as hand armor
+
+- **WHEN** 玩家或 NPC 按原方式穿戴本批戒指或点金盘龙弓
+- **THEN** 仍占用原手部槽位并提供原加成，不改成独立戒指槽、可发射武器或其他装备能力
+
+#### Scenario: Golden silk gloves allow the existing cave interaction
+
+- **WHEN** 角色穿戴金丝手套并操作原有移桌、取鼎流程
+- **THEN** 保持原手套识别与成功结果；未穿戴或戴其他手套仍触发原失败后果，不获得额外全局免毒能力
+
+#### Scenario: Specialized hand equipment remains outside the batch
+
+- **WHEN** 原研读铁手掌或两件主人死亡时销毁的黄金装备被使用
+- **THEN** 原路径与读书、销毁行为保持，普通手部装备不获得这些能力
