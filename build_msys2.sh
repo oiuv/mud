@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
     cat <<'HELP'
-用法：bash build_msys2.sh [--local] [--no-install] [--help]
+用法：bash build_msys2.sh [--local] [--no-install] [--build-dir DIR] [--debug] [--march-native] [--help]
 
 在 MSYS2 MinGW64 终端中运行，可从任意目录调用。
 
@@ -13,16 +13,28 @@ usage() {
 
 选项：
   --local       使用本地源码和已安装依赖，跳过 pacman、checkout 和 pull
-  --no-install  编译产物保留在 fluffos/build-msys2/bin/，不复制到项目 bin/
+  --no-install  编译产物保留在所选构建目录的 bin/，不复制到项目 bin/
+  --build-dir DIR
+                指定构建目录，默认 fluffos/build-msys2
+                相对路径以本项目根目录为准，也支持 Windows/MSYS2 绝对路径
+  --debug       使用 Debug 构建；默认 Release，不改变构建目录
+  --march-native
+                开启本机 CPU 优化；默认关闭，生成的程序可能无法在较旧 CPU 上运行
   --help        显示此帮助
 
 BUILD_JOBS 可指定并行任务数，例如：
   BUILD_JOBS=4 bash build_msys2.sh --local --no-install
+  bash build_msys2.sh --local --no-install --build-dir fluffos/build
+  bash build_msys2.sh --local --no-install --debug --build-dir fluffos/build-debug
+  bash build_msys2.sh --local --no-install --march-native
 
 默认启用 CRYPTO（包含 hash）、SQLite，关闭 MySQL/PostgreSQL。
+SQLite 后端编号和默认数据库编号均为 1（不是 SQLite 版本号）。
 只构建安装所需的程序，不构建上游单元测试或基准程序。
 MSYS2 核心升级可能要求关闭终端；重开 MinGW64 终端后重新执行脚本。
 复制驱动前请先停止游戏，也可使用 --no-install 仅完成编译。
+复用已有目录会按本次选项重新配置；保留不同构建模式时请使用不同目录。
+始终使用静态构建；不同生成器应使用不同目录。
 HELP
 }
 
@@ -35,10 +47,21 @@ trap 'printf "错误：构建在第 %s 行失败，已停止后续操作。\n" "
 
 LOCAL_BUILD=false
 INSTALL=true
+BUILD_DIR=""
+BUILD_TYPE=Release
+MARCH_NATIVE=OFF
 while (( $# )); do
     case "$1" in
         --local) LOCAL_BUILD=true ;;
         --no-install) INSTALL=false ;;
+        --debug) BUILD_TYPE=Debug ;;
+        --march-native) MARCH_NATIVE=ON ;;
+        --build-dir)
+            [[ $# -ge 2 && -n "${2:-}" && "${2:-}" != --* ]] ||
+                fail "--build-dir 需要非空目录参数。"
+            BUILD_DIR="$2"
+            shift
+            ;;
         --help|-h) usage; exit 0 ;;
         *) usage >&2; fail "未知参数：$1" ;;
     esac
@@ -54,7 +77,11 @@ export PKG_CONFIG_PATH="/mingw64/lib/pkgconfig:/mingw64/share/pkgconfig"
 export PKG_CONFIG_LIBDIR="$PKG_CONFIG_PATH"
 PROJECT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 SOURCE_DIR="$PROJECT_DIR/fluffos"
-BUILD_DIR="$SOURCE_DIR/build-msys2"
+# 相对目录绑定脚本所在项目，不随调用者的当前目录改变。
+BUILD_DIR="$(cd -- "$PROJECT_DIR" && cygpath -au "${BUILD_DIR:-fluffos/build-msys2}")"
+BUILD_DIR="$(realpath -m -- "$BUILD_DIR")"
+[[ "$BUILD_DIR" != "$PROJECT_DIR" && "$BUILD_DIR" != "$SOURCE_DIR" ]] ||
+    fail "构建目录不能是项目或 FluffOS 源码根目录，请指定独立子目录。"
 TARGET_DIR="$PROJECT_DIR/bin"
 JOBS="${BUILD_JOBS:-$(nproc)}"
 [[ "$JOBS" =~ ^[1-9][0-9]*$ ]] || fail "BUILD_JOBS 必须是正整数。"
@@ -77,7 +104,7 @@ done
 
 if [[ ! -e "$SOURCE_DIR" ]]; then
     $LOCAL_BUILD && fail "未找到 fluffos/ 源码，请先不带 --local 执行脚本。"
-    git clone https://gitee.com/fluffos/fluffos.git "$SOURCE_DIR"
+    git clone https://github.com/fluffos/fluffos.git "$SOURCE_DIR"
 fi
 [[ -f "$SOURCE_DIR/CMakeLists.txt" ]] || fail "fluffos/ 不是有效的源码目录。"
 # 防止错误目录使 git 向上找到游戏仓库，进而恢复了错误仓库的文件。
@@ -93,16 +120,18 @@ fi
 
 START_SECONDS=$SECONDS
 printf '开始编译，并行任务数：%s\n构建目录：%s\n' "$JOBS" "$BUILD_DIR"
-# 使用独立构建目录并增量编译，不删除现有 build/ 或递归清理目录。
+printf '构建类型：%s\n' "$BUILD_TYPE"
+printf '本机 CPU 优化：%s\n' "$MARCH_NATIVE"
+# 在所选目录增量编译，不自动移动或删除其他构建目录。
 cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -G "MSYS Makefiles" \
     -U PCRE_LIBRARY -U PCRE_INCLUDE_DIR \
     -DCMAKE_C_COMPILER=/mingw64/bin/gcc.exe \
     -DCMAKE_CXX_COMPILER=/mingw64/bin/g++.exe \
-    -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" \
-    -DSTATIC=ON -DMARCH_NATIVE=OFF \
+    -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" \
+    -DSTATIC=ON -DMARCH_NATIVE="$MARCH_NATIVE" \
     -DPACKAGE_CRYPTO=ON -DPACKAGE_DB=ON \
     -DPACKAGE_DB_MYSQL="" -DPACKAGE_DB_POSTGRESQL="" \
-    -DPACKAGE_DB_SQLITE=2 -DPACKAGE_DB_DEFAULT_DB=2
+    -DPACKAGE_DB_SQLITE=1 -DPACKAGE_DB_DEFAULT_DB=1
 cmake --build "$BUILD_DIR" --parallel "$JOBS" \
     --target driver lpcc lpcshell symbol o2json json2o
 cmake --install "$BUILD_DIR"

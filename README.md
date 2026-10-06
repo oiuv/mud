@@ -60,16 +60,28 @@
 bash build_msys2.sh
 ~~~
 
-脚本默认更新 MSYS2、安装依赖，对独立的 `fluffos/` 仓库执行 `git checkout -- .` 恢复已跟踪文件，再通过 `git pull --ff-only` 更新源码。构建启用 CRYPTO（提供 `hash`）和 SQLite，仅构建安装所需的驱动及发布工具，生成静态 EXE，不构建上游单元测试或基准程序；成功后复制到项目 `bin/`，复制前会检查本项目的驱动和编译工具是否仍在运行。
+脚本默认更新 MSYS2、安装依赖，对独立的 `fluffos/` 仓库执行 `git checkout -- .` 恢复已跟踪文件，再通过 `git pull --ff-only` 更新源码。构建启用 CRYPTO（提供 `hash`）和 SQLite，关闭 MySQL/PostgreSQL；SQLite 后端编号与默认数据库编号均为 `1`，该编号用于 `db_connect()` 选择后端，不是 SQLite 版本号。仅构建安装所需的驱动及发布工具，生成静态 EXE，不构建上游单元测试或基准程序；成功后复制到项目 `bin/`，复制前会检查本项目的驱动和编译工具是否仍在运行。
 
 MSYS2 核心升级若要求关闭终端，重新打开 MinGW64 终端后再次执行脚本。已有源码和依赖时，可以跳过更新，只编译验证：
 
 ~~~bash
 BUILD_JOBS=4 bash build_msys2.sh --local --no-install
+# 使用 FluffOS 常规 build 目录
+bash build_msys2.sh --local --no-install --build-dir fluffos/build
+# 在独立目录生成 Debug 调试版本
+bash build_msys2.sh --local --no-install --debug --build-dir fluffos/build-debug
+# 仅为本机或兼容 CPU 开启本机优化
+bash build_msys2.sh --local --no-install --march-native
 bash build_msys2.sh --help
 ~~~
 
-`--local` 跳过软件包及源码更新；`--no-install` 保留当前项目的驱动，产物位于 `fluffos/build-msys2/bin/`。脚本可从其他目录使用完整路径调用，构建目录始终位于项目内。
+`--local` 跳过软件包及源码更新；`--no-install` 保留当前项目的驱动，产物位于所选构建目录的 `bin/`。默认构建目录仍为 `fluffos/build-msys2`；可用 `--build-dir DIR` 指定 `fluffos/build` 或其他目录。相对路径始终以本项目根目录为准，与调用位置无关；也支持 Windows/MSYS2 绝对路径，含空格的路径须加引号，例如 `--build-dir "C:/builds/fluffos release"`。
+
+`--march-native` 将 `MARCH_NATIVE` 设为 `ON`，启用针对编译机器 CPU 的优化；产物可能无法在较旧或不同指令集能力的 CPU 上运行。默认关闭；下次运行不传该选项时，会显式恢复为 `OFF`，不沿用缓存中的开启状态。关闭本机优化不影响常规 Release 优化。
+
+`--debug` 将 `CMAKE_BUILD_TYPE` 设为 `Debug`；不传时始终使用 `Release`，不沿用缓存中的 Debug 配置。该选项不改变构建目录，可与 `--build-dir`、`--march-native` 组合使用；静态链接和数据库配置不变。
+
+脚本不自动搬迁或删除旧构建目录。复用已有目录会按本次选项重新配置；若要同时保留 Release 和 Debug 产物，请用 `--build-dir` 指定不同目录。已有 CMake 缓存必须使用同一源码位置和生成器（`MSYS Makefiles`）；不兼容时应另选构建目录。
 
 当前上游驱动使用 PCRE2，依赖包为 `mingw-w64-x86_64-pcre2`。脚本每次配置时重新探测 PCRE 的头文件和库，避免沿用升级前缓存中的 `libpcre.a`；无需删除整个构建目录。使用 `--local` 时须已安装相应依赖。
 

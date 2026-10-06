@@ -52,9 +52,9 @@ cmake() {
             ;;
         --install)
             [[ "$BUILD_TEST_FAIL" != install ]] || return 1
-            mkdir -p "$BUILD_TEST_ROOT/fluffos/build-msys2/bin"
-            printf 'new driver\n' > "$BUILD_TEST_ROOT/fluffos/build-msys2/bin/driver.exe"
-            printf 'new compiler\n' > "$BUILD_TEST_ROOT/fluffos/build-msys2/bin/lpcc.exe"
+            mkdir -p "$2/bin"
+            printf 'new driver\n' > "$2/bin/driver.exe"
+            printf 'new compiler\n' > "$2/bin/lpcc.exe"
             ;;
         *)
             [[ "$BUILD_TEST_FAIL" != configure ]]
@@ -122,10 +122,12 @@ class Msys2BuildTests(unittest.TestCase):
         self.assertIn("<checkout> <--> <.>", calls)
         self.assertIn("<pull> <--ff-only>", calls)
         self.assertLess(calls.index("<checkout>"), calls.index("<pull>"))
-        for flag in ("-DSTATIC=ON", "-DMARCH_NATIVE=OFF", "-DPACKAGE_CRYPTO=ON",
-                     "-DPACKAGE_DB_SQLITE=2", "-DPACKAGE_DB_DEFAULT_DB=2"):
+        for flag in ("-DCMAKE_BUILD_TYPE=Release", "-DSTATIC=ON", "-DMARCH_NATIVE=OFF", "-DPACKAGE_CRYPTO=ON",
+                     "-DPACKAGE_DB=ON", "-DPACKAGE_DB_MYSQL=", "-DPACKAGE_DB_POSTGRESQL=",
+                     "-DPACKAGE_DB_SQLITE=1", "-DPACKAGE_DB_DEFAULT_DB=1"):
             self.assertIn("<" + flag + ">", calls)
         self.assertIn("<--parallel> <2>", calls)
+        self.assertIn("/fluffos/build-msys2>", calls)
         self.assertEqual((self.root / "bin/driver.exe").read_text(), "new driver\n")
         self.assertEqual((self.root / "bin/lpcc.exe").read_text(), "new compiler\n")
         self.assertFalse((ROOT / "temp/fluffos").exists())
@@ -137,6 +139,83 @@ class Msys2BuildTests(unittest.TestCase):
             self.assertNotIn(command, calls)
         self.assertIn("<--install>", calls)
         self.assert_original_driver()
+
+    def test_relative_build_directory_is_project_relative_from_another_cwd(self):
+        result, calls = self.command("--local", "--no-install", "--build-dir", "fluffos/build")
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        source = calls.split("<rev-parse>")[0].split("git <-C> <", 1)[1].split(">", 1)[0]
+        directory = source + "/build"
+        for option in ("-B", "--build", "--install"):
+            self.assertIn(f"<{option}> <{directory}>", calls)
+        self.assertIn(f"<-DCMAKE_INSTALL_PREFIX={directory}>", calls)
+        self.assertIn(directory + "/bin/", result.stdout)
+        self.assertTrue((self.root / "fluffos/build/bin/driver.exe").is_file())
+        self.assertFalse((self.root / "fluffos/build-msys2").exists())
+        self.assertFalse((ROOT / "temp/fluffos").exists())
+        self.assert_original_driver()
+
+    def test_march_native_is_opt_in_and_resets_on_next_run(self):
+        for native, expected in ((True, "ON"), (False, "OFF")):
+            with self.subTest(native=native):
+                arguments = ["--local", "--no-install", "--build-dir", "fluffos/build"]
+                if native:
+                    arguments.append("--march-native")
+                result, calls = self.command(*arguments)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn(f"<-DMARCH_NATIVE={expected}>", calls)
+                self.assertEqual(calls.count("<-DMARCH_NATIVE="), 1)
+                self.assertIn(f"本机 CPU 优化：{expected}", result.stdout)
+                for command in ("pacman", "<checkout>", "<pull>", "powershell"):
+                    self.assertNotIn(command, calls)
+                self.assert_original_driver()
+
+    def test_debug_is_opt_in_and_resets_on_next_run(self):
+        for debug, expected in ((True, "Debug"), (False, "Release")):
+            with self.subTest(debug=debug):
+                arguments = ["--local", "--no-install"]
+                if debug:
+                    arguments.append("--debug")
+                result, calls = self.command(*arguments)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn(f"<-DCMAKE_BUILD_TYPE={expected}>", calls)
+                self.assertEqual(calls.count("<-DCMAKE_BUILD_TYPE="), 1)
+                self.assertIn(f"构建类型：{expected}", result.stdout)
+                self.assertIn("/fluffos/build-msys2>", calls)
+                self.assertIn("<-DMARCH_NATIVE=OFF>", calls)
+                for command in ("pacman", "<checkout>", "<pull>", "powershell"):
+                    self.assertNotIn(command, calls)
+                self.assert_original_driver()
+
+    def test_debug_combines_with_native_and_custom_directory(self):
+        result, calls = self.command(
+            "--local", "--no-install", "--debug", "--march-native",
+            "--build-dir", "fluffos/build-debug"
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        for flag in ("-DCMAKE_BUILD_TYPE=Debug", "-DMARCH_NATIVE=ON", "-DSTATIC=ON",
+                     "-DPACKAGE_DB_SQLITE=1", "-DPACKAGE_DB_DEFAULT_DB=1"):
+            self.assertIn("<" + flag + ">", calls)
+        self.assertIn("/fluffos/build-debug>", calls)
+        self.assertTrue((self.root / "fluffos/build-debug/bin/driver.exe").is_file())
+        self.assertFalse((self.root / "fluffos/build-msys2").exists())
+        self.assert_original_driver()
+
+    def test_absolute_directory_with_spaces_is_used_for_build_and_copy(self):
+        target = self.root / "custom 中文 build"
+        msys_target = subprocess.run(
+            [str(BASH), "-c", 'exec /usr/bin/cygpath -au "$1"', "path", str(target)],
+            check=True, capture_output=True, encoding="utf-8", timeout=20,
+            creationflags=subprocess.CREATE_NO_WINDOW
+        ).stdout.strip()
+        for argument in (str(target), target.as_posix(), msys_target):
+            with self.subTest(path=argument):
+                result, calls = self.command("--local", "--build-dir", argument)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                for option in ("-B", "--build", "--install"):
+                    self.assertIn(f"<{option}> <{msys_target}>", calls)
+                self.assertEqual((target / "bin/driver.exe").read_text(), "new driver\n")
+                self.assertEqual((self.root / "bin/driver.exe").read_text(), "new driver\n")
+                self.assertFalse((self.root / "fluffos/build-msys2").exists())
 
     def test_failure_stops_following_steps_and_never_copies(self):
         for failure, forbidden in (
@@ -168,7 +247,11 @@ class Msys2BuildTests(unittest.TestCase):
 
     def test_bad_arguments_environment_and_parallelism_have_no_side_effects(self):
         for arguments, options in (
-            (("--unknown",), {}), ((), {"msystem": "UCRT64"}), ((), {"jobs": "0"})
+            (("--unknown",), {}), ((), {"msystem": "UCRT64"}), ((), {"jobs": "0"}),
+            (("--build-dir",), {}), (("--build-dir", ""), {}),
+            (("--build-dir", "--local"), {}), (("--build-dir", "."), {}),
+            (("--build-dir", "fluffos"), {}), (("--build-dir", "fluffos/.."), {}),
+            (("--build-dir", "fluffos/."), {})
         ):
             with self.subTest(arguments=arguments, options=options):
                 result, calls = self.command(*arguments, **options)
@@ -178,6 +261,8 @@ class Msys2BuildTests(unittest.TestCase):
         result, calls = self.command("--help", msystem="")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("用法：", result.stdout)
+        self.assertIn("--march-native", result.stdout)
+        self.assertIn("--debug", result.stdout)
         self.assertEqual(calls, "")
 
 
