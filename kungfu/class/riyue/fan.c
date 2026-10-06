@@ -93,7 +93,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new("/d/heimuya/npc/obj/dafu");
+            ob = new("/d/items/hammer/kaishan_fu");
             ob->move(this_object());
             ob->wield();
         }
@@ -199,7 +199,7 @@ mixed ask_fu() {
     command("say 你用它多杀几个正派人士，扬扬咋们日月神教的威风。");
     command("give poyang fu to " + me->query("id"));
 
-    ob = new("/d/heimuya/npc/obj/dafu");
+    ob = new("/d/items/hammer/kaishan_fu");
     ob->move(this_object());
     ob->wield();
     return 1;

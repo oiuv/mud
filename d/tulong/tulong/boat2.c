@@ -11,7 +11,7 @@ LONG);
     ]));
 
     set("objects", ([
-        "/d/tulong/tulong/obj/stone": 1,
+        "/d/items/hammer/shitou3": 1,
     ]));
 
     setup();

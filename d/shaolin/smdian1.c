@@ -15,7 +15,7 @@ LONG);
         "west": __DIR__ "smdian",
     ]));
     set("objects", ([
-        __DIR__ "obj/muchui": 1,
+        "/d/items/hammer/muyu_chui": 1,
     ]));
     //    set("no_clean_up", 0);
     setup();

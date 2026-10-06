@@ -14,7 +14,7 @@ long);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/da-shitou": 1,
+        "/d/items/hammer/shitou2": 1,
     ]));
 
     set("outdoors", "kunlun");

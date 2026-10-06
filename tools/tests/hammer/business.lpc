@@ -1,0 +1,269 @@
+// Included by the isolated regression; game methods are supplied by business.mjs.
+void check_qian() {
+    object actor, npc, item;
+    string prefix, path;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->delete("family"); actor->delete_temp("mark"); actor->select_npc(npc, "do_yao");
+        actor->run_command("testnpc hammer");
+        check(!sizeof(all_inventory(actor)) && !npc->issued("hammer"), "qian sect restriction");
+        actor->set("family/family_name", "八卦门"); actor->set_temp("mark/zhenyuan_weapon", 3);
+        actor->run_command("testnpc hammer"); check(!npc->issued("hammer"), "qian player quota");
+        actor->delete_temp("mark"); actor->run_command("testnpc hammer");
+        path = prefix == "" ? "/d/items/hammer/tiechui" : "/d/beijing/npc/obj/hammer";
+        item = present("hammer", actor);
+        check(objectp(item) && base_name(item) == path && item->query("no_sell") && item->query("value") == 50 &&
+            npc->issued("hammer") == 1 && actor->query_temp("mark/zhenyuan_weapon") == 1, "qian issue and instance overrides");
+        check(
+            load_object(path)->query("value") != 50 && !load_object(path)->query("no_sell"),
+            "qian blueprint unchanged"
+        );
+        actor->run_command("testnpc hammer"); actor->run_command("testnpc hammer");
+        check(sizeof(all_inventory(actor)) == 2 && npc->issued("hammer") == 2 && actor->query_temp("mark/zhenyuan_weapon") == 2,
+            "qian exhausted stock does not increment");
+        clear_inventory(actor); destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_wuguan() {
+    object actor, npc, item, guard;
+    string prefix, path, id;
+    mixed *job;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    guard = new("/tests/actor"); guard->set_name(
+        "管事",
+        ({ "caiyuan guanshi", "mafang guanshi" })
+    ); guard->move(this_object(), 1);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/tests/wuxiuwen");
+        foreach (job in ({
+            ({ "锄草", "chutou", "chutou", "chu tou", "chu", "cao", "锄", "staff", "cuff" }),
+            ({ "浇菜地", "piao", "shuipiao", "shui piao", "jiao", "shui", "浇", "whip", "finger" }),
+            ({ "打扫马房", "saozhou", "saozhou", "sao zhou", "sao", "mafang", "扫", "claw", "club" })
+        })) {
+            actor->delete_temp("mark"); actor->delete_temp("job_name"); actor->delete_temp("improved");
+            actor->select_npc(npc, "give_tools"); actor->run_command("testnpc");
+            check(!sizeof(all_inventory(actor)), "no job cannot receive tool");
+            actor->set_temp(
+                "job_name",
+                job[0]
+            ); actor->set_temp("mark/还了", 1); actor->run_command("testnpc");
+            check(!sizeof(all_inventory(actor)), "returned job cannot receive again");
+            actor->delete_temp("mark"); actor->run_command("testnpc");
+            path = prefix == "" ? "/d/items/hammer/" + job[2] : "/d/wuguan/obj/" + job[1];
+            id = job[3]; item = present(id, actor);
+            check(
+                objectp(item) && base_name(item) == path && actor->query_temp("mark/工具"),
+                "wuguan actual issue"
+            );
+            actor->run_command("testnpc"); check(
+                sizeof(all_inventory(actor)) == 1,
+                "duplicate issue refused"
+            );
+            actor->run_command("testreturn " + id); check(
+                objectp(item) && !actor->query_temp("mark/还了"),
+                "premature return refused"
+            );
+            actor->select_npc(load_object("/tests/" + job[4]), "do_" + job[4]);
+            actor->set("jing", 100); actor->set("qi", 100); actor->set("int", 20);
+            actor->set("str", 30); actor->set("con", 30);
+            actor->run_command("testnpc " + job[5]); check(
+                !actor->query_temp("mark/" + job[6]),
+                "tool must be wielded"
+            );
+            check(item->wield() == 1, "wuguan tool wields");
+            actor->run_command("testnpc wrong"); check(
+                !actor->query_temp("mark/" + job[6]),
+                "wrong work argument refused"
+            );
+            actor->run_command("testnpc " + job[5]);
+            check(actor->query_temp("mark/" + job[6]) == 1 && actor->query("jing") == 99 && actor->query("qi") == 99 &&
+                actor->query_temp("improved/" + job[7]) == 10 && actor->query_temp("improved/" + job[8]) == 10,
+                "actual work consumes energy and improves historical skills");
+            actor->set_temp("mark/" + job[6], 11); actor->run_command("testnpc " + job[5]);
+            check(actor->query_temp("mark/" + job[6] + "完了"), "actual work completion");
+            item->unequip(); actor->select_npc(
+                npc,
+                "give_tools"
+            ); actor->run_command("testreturn " + id);
+            check(
+                !item && actor->query_temp("mark/还了"),
+                "actual return destroys tool and records completion"
+            );
+        }
+        foreach (job in ({
+            ({ "锯木头", "/d/items/blade/juzi", "ju zi" }),
+            ({ "劈柴", "/d/items/blade/chaidao2", "chai dao" })
+        })) {
+            actor->delete_temp("mark"); actor->set_temp(
+                "job_name",
+                job[0]
+            ); actor->select_npc(npc, "give_tools"); actor->run_command("testnpc");
+            item = present(
+                job[2],
+                actor
+            ); check(objectp(item) && base_name(item) == job[1], "other tool branches unchanged");
+            clear_inventory(actor);
+        }
+        destruct(npc);
+    }
+    destruct(actor); destruct(guard);
+}
+
+void check_actual_shops() {
+    object actor, vendor, item;
+    string prefix, name, path, target, id;
+    string *goods, *original_goods;
+    mapping paths;
+    int before, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (name in ({ "smith", "wang" })) {
+        original_goods = 0;
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + "/tests/" + name); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                check(sizeof(goods) == sizeof(original_goods), "real shop stock size unchanged");
+                foreach (path in original_goods) check(
+                    member_array(paths[path] ? paths[path] : path, goods) >= 0,
+                    "real shop stock identities"
+                );
+            }
+            if (name == "smith") {
+                path = prefix == "" ? "/d/items/hammer/hongtiechui" : "/d/village/npc/obj/hothammer";
+                check(
+                    base_name(vendor->query_temp("weapon")) == path,
+                    "smith original held hot hammer"
+                );
+            }
+            actor->select_vendor(vendor); tested = 0;
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                id = load_object(target)->query("id");
+                check(vendor->is_vendor_good(id) == target, "real stock lookup");
+                MONEY_D->pay_player(
+                    actor,
+                    target->query("value") + 100000
+                ); before = actor->cash_value();
+                vendor->enough_rest();
+                actor->run_command("testbuy " + id); item = present(id, actor);
+                check(
+                    objectp(item) && base_name(item) == target,
+                    "real shop delivers selected hammer"
+                );
+                check(
+                    before - actor->cash_value() == target->query("value"),
+                    "real shop charges original price"
+                );
+                clear_inventory(actor); tested++;
+            }
+            check(tested == (name == "smith" ? 1 : 6), "all migrated shop goods tested");
+            clear_inventory(vendor); destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_actual_rooms() {
+    mapping record, old_stock, stock, paths, selected;
+    object before, after, room, item, actor;
+    string path, target;
+    int count, expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor");
+    foreach (record in json_decode(read_file("/tests/hammer-rooms.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        old_stock = before->query("objects"); stock = after->query("objects");
+        check(sizeof(old_stock) == sizeof(stock), "room stock mapping size");
+        foreach (path, count in old_stock) {
+            target = paths[path] ? paths[path] : path;
+            check(stock[target] == count, "room original stock count");
+        }
+        foreach (room in ({ before, after })) {
+            selected = ([]); expected = 0;
+            foreach (path, count in old_stock) if (paths[path]) {
+                selected[room == before ? path : paths[path]] = count; expected += count;
+            }
+            room->set("objects", selected); room->reset();
+            check(sizeof(all_inventory(room)) == expected, "actual room reset selected stock");
+            foreach (item in all_inventory(room)) check(
+                !undefinedp(selected[base_name(item)]),
+                "room creates correct identity"
+            );
+            if (!expected) { destruct(room); continue; }
+            item = all_inventory(room)[0]; destruct(item); room->reset();
+            check(sizeof(all_inventory(room)) == expected, "room recreates only destroyed stock");
+            item = all_inventory(room)[0]; item->move(actor, 1); room->reset();
+            check(
+                sizeof(all_inventory(room)) == expected - 1,
+                "room does not duplicate carried stock"
+            );
+            clear_inventory(room); clear_inventory(actor); destruct(room);
+        }
+    }
+    destruct(actor);
+}
+
+void check_unique_replacements() {
+    object actor, holder, npc, weapon;
+    string prefix, path;
+    mixed *row;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    holder = new("/tests/actor");
+    foreach (row in ({
+        ({
+            "heibai",
+            "/clone/lonely/qipan",
+            "ask_qipan",
+            "/d/meizhuang/obj/qipan",
+            "/d/items/hammer/tieqipan",
+            "梅庄",
+            "heibai zi",
+            "fenglei-panfa"
+        }),
+        ({
+            "fan",
+            "/clone/lonely/poyangfu",
+            "ask_fu",
+            "/d/heimuya/npc/obj/dafu",
+            "/d/items/hammer/kaishan_fu",
+            "日月神教",
+            "ren woxing",
+            "pangu-qishi"
+        })
+    })) foreach (prefix in ({ "/tests/old", "" })) {
+        weapon = load_object(row[1]); weapon->move(holder, 1);
+        npc = new(prefix + "/tests/" + row[0]);
+        path = prefix == "" ? row[4] : row[3];
+        check(
+            base_name(npc->query_temp("weapon")) == path,
+            "unique unavailable: actual constructor uses ordinary replacement"
+        );
+        clear_inventory(npc); destruct(npc);
+        weapon->move(this_object(), 1); destruct(weapon);
+        npc = new(prefix + "/tests/" + row[0]); weapon = load_object(row[1]);
+        check(npc->query_temp("weapon") == weapon, "unique available: original constructor branch");
+        actor->delete("family"); actor->select_npc(npc, row[2]); actor->run_command("testnpc");
+        check(environment(weapon) == npc, "original request restriction remains");
+        actor->set("family/family_name", row[5]); actor->set("family/master_id", row[6]);
+        actor->set(
+            "fixture_skills/" + row[7],
+            150
+        ); actor->set("fixture_skills/chess", 100); actor->set("shen", -100000);
+        actor->run_command("testnpc");
+        check(environment(weapon) == actor && base_name(npc->query_temp("weapon")) == path,
+            "real request creates and wields ordinary replacement after delivery");
+        clear_inventory(npc); destruct(npc); clear_inventory(actor);
+    }
+    destruct(actor); destruct(holder);
+}

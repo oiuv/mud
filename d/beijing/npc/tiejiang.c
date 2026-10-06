@@ -23,6 +23,6 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/magua")->wear();
-    carry_object("/d/beijing/npc/obj/hammer")->wield();
+    carry_object("/d/items/hammer/tiechui")->wield();
     add_money("coin", 200);
 }

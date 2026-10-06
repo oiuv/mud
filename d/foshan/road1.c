@@ -7,7 +7,7 @@ void create() {
 达广西。向西北走就是大理国的地界了。
 LONG);
     set("objects", ([
-        __DIR__ "obj/shikuai": 1,
+        "/d/items/hammer/shikuai": 1,
     ]));
 
     set("outdoors", "foshan");

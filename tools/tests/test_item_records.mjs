@@ -18,6 +18,8 @@ import { migrationPaths as liquidPaths, canonicalGroups as liquidGroups } from '
 import { migrationPaths as bladePaths, canonicalGroups as bladeGroups } from './blade_inventory.mjs';
 import { migrationPaths as equipPaths, canonicalGroups as equipGroups } from './equip_inventory.mjs';
 
+import { migrationPaths as hammerPaths, canonicalGroups as hammerGroups } from './hammer_inventory.mjs';
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = join(root, 'bin/driver.exe');
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-record-tests-'));
@@ -160,13 +162,15 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['liquid', liquidPaths, liquidGroups, 74, 54],
     ['blade', bladePaths, bladeGroups, 61, 52],
     ['equip', equipPaths, equipGroups, 56, 56],
+    ['hammer', hammerPaths, hammerGroups, 43, 40],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
     const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan', '/d/guanwai/obj/mantou': '/d/items/food/mantou',
-        ...(['liquid', 'blade', 'equip'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
-        ...(['blade', 'equip'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
-        ...(family === 'equip' ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}) });
+        ...(['liquid', 'blade', 'equip', 'hammer'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
+        ...(['blade', 'equip', 'hammer'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
+        ...(['equip', 'hammer'].includes(family) ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}),
+        ...(family === 'hammer' ? { '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'] } : {}) });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};

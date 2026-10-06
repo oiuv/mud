@@ -14,9 +14,11 @@ import { migrationPaths as liquid } from './liquid_inventory.mjs';
 import { migrationPaths as blade } from './blade_inventory.mjs';
 import { migrationPaths as equip } from './equip_inventory.mjs';
 
+import { migrationPaths as hammer } from './hammer_inventory.mjs';
+
 test('all migrated historical item paths are absent, including root paths without slash', () => {
-    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip() };
-    assert.equal(Object.keys(paths).length, 1033);
+    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip(), ...hammer() };
+    assert.equal(Object.keys(paths).length, 1076);
     const rows = Object.entries(paths).map(([old_path, new_path]) => ({ old_path, new_path }));
     assert.deepEqual(references(rows).hits, []);
 });

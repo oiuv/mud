@@ -16,7 +16,7 @@ LONG);
         "south": __DIR__ "gebitan3",
     ]));
     set("objects", ([
-        __DIR__ "obj/shigu": 3,
+        "/d/items/hammer/shigu": 3,
     ]));
     set("outdoors", "mingjiao");
     setup();

@@ -236,6 +236,7 @@ int store_item(object me, object ob, int amount) {
         !"/d/items/sword"->valid_variety_path(base_name(ob)) &&
         !"/d/items/blade"->valid_variety_path(base_name(ob)) &&
         !"/d/items/equip"->valid_variety_path(base_name(ob)) &&
+        !"/d/items/hammer"->valid_variety_path(base_name(ob)) &&
         !"/d/items/liquid"->valid_variety_path(base_name(ob)))
         return 1;
 

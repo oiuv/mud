@@ -14,7 +14,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/yufu": random(2),
+        "/d/items/hammer/yufu": random(2),
         "/d/items/blade/yudao": random(2),
         "/d/items/sword/yujian": random(2),
         __DIR__ "obj/skeleton": random(3) + 1,

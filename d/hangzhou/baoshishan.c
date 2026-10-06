@@ -14,7 +14,7 @@ LONG);
         "southdown": __DIR__ "road8",
     ]));
     set("objects", ([
-        __DIR__ "obj/shitou": 1,
+        "/d/items/hammer/shitou": 1,
         __DIR__ "obj/eluanshi": 1,
     ]));
     set("outdoors", "hangzhou");

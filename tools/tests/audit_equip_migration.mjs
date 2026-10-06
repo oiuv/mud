@@ -1,3 +1,4 @@
+import { afterHammerMigration } from './hammer_inventory.mjs';
 // Frozen source/caller and effective-identity audit; no live records.
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -39,7 +40,7 @@ for (const o of data.observations) {
 for (const [file, source] of Object.entries(data.callers)) assert.equal(source, original(file), 'Frozen caller: ' + file);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expectedCaller(file)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterHammerMigration(file, expectedCaller(file), semantic)), file);
         const newPaths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {
             if (!newPaths.has(hit.new_path)) newPaths.set(hit.new_path, new Set());

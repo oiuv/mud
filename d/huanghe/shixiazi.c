@@ -17,7 +17,7 @@ LONG);
         "northeast": __DIR__ "bingcao",
     ]));
     set("objects", ([
-        "/d/city/obj/shitou": 1,
+        "/d/items/hammer/shitou": 1,
         "/d/hangzhou/obj/eluanshi": 1,
     ]));
     //    set("no_clean_up", 0);

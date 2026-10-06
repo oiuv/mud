@@ -76,7 +76,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/xueshan/obj/gangchu")->wield();
+    carry_object("/d/items/hammer/gangchu")->wield();
     carry_object("/d/items/cloth/huangse_jiasha")->wear();
 }
 

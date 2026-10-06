@@ -76,7 +76,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/heimuya/npc/obj/tongchui")->wield();
+    carry_object("/d/items/hammer/tongchui")->wield();
     carry_object("/d/items/cloth/riyue_jinpao")->wear();
 }
 

@@ -15,7 +15,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "obj/shuzhi": 2,
-        __DIR__ "obj/shitou": 2,
+        "/d/items/hammer/shitou": 2,
     ]));
     setup();
     replace_program(ROOM);

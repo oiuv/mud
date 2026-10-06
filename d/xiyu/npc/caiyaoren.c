@@ -21,7 +21,7 @@ void create() {
     setup();
 
     add_money("coin", 50);
-    carry_object("/d/xiyu/obj/yaochu")->wield();
+    carry_object("/d/items/hammer/yaochu")->wield();
 
     if (random(10) > 8)
         carry_object("/clone/fam/pill/xuelian1");

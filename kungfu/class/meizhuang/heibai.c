@@ -107,7 +107,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new("/d/meizhuang/obj/qipan");
+            ob = new("/d/items/hammer/tieqipan");
             ob->move(this_object());
             ob->wield();
         }
@@ -314,7 +314,7 @@ mixed ask_qipan() {
     ob->move(this_object());
     command("give xuantie qipan to " + me->query("id"));
 
-    ob = new("/d/meizhuang/obj/qipan");
+    ob = new("/d/items/hammer/tieqipan");
     ob->move(this_object());
     ob->wield();
 

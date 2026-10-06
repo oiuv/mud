@@ -14,7 +14,7 @@ LONG);
         "south": __DIR__ "jiaowai4",
     ]));
     set("objects", ([
-        __DIR__ "obj/shitou": 2,
+        "/d/items/hammer/shitou": 2,
     ]));
     setup();
     replace_program(ROOM);

@@ -49,7 +49,7 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/tianying_jiaofu")->wear();
-    carry_object("/d/tulong/tulong/npc/obj/hammer")->wield();
+    carry_object("/d/items/hammer/xigua")->wield();
     //        carry_object("/d/tulong/obj/tulongdao");
     sword = find_object("/d/tulong/obj/tulongdao");
     if (objectp(sword)) {

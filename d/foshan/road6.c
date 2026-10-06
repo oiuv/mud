@@ -7,7 +7,7 @@ void create() {
 产毒虫，所以路人经过此地都是非常的小心。
 LONG);
     set("objects", ([
-        __DIR__ "obj/shikuai": 1,
+        "/d/items/hammer/shikuai": 1,
     ]));
     set("outdoors", "foshan");
     set("exits", ([

@@ -31,7 +31,7 @@ void create() {
     set_temp("apply/armor", 300);
 
     setup();
-    carry_object(__DIR__ "obj/huoqiang")->wield();
+    carry_object("/d/items/hammer/jinhuoqiang")->wield();
     carry_object("/d/items/cloth/huangmagua2")->wear();
 }
 

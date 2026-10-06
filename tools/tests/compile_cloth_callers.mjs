@@ -18,6 +18,8 @@ import { readBaseline as liquidBaseline } from './liquid_inventory.mjs';
 import { readBaseline as bladeBaseline } from './blade_inventory.mjs';
 import { readBaseline as equipBaseline } from './equip_inventory.mjs';
 
+import { readBaseline as hammerBaseline } from './hammer_inventory.mjs';
+
 const compiler = resolve(process.argv[2] || join(root, 'bin/lpcc.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-compile-'));
 console.log('Compile-only cloth migration: ' + sandbox);
@@ -27,7 +29,7 @@ const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data
     'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
     'd/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h',
     'd/items/food.lpc', 'd/items/food_data.h', 'd/items/sword.lpc', 'd/items/sword_data.h', 'd/items/liquid.lpc', 'd/items/liquid_data.h',
-    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h']
+    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h', 'd/items/hammer.lpc', 'd/items/hammer_data.h']
     .filter(path => /\.(c|lpc|h)$/.test(path) && !/^(fluffos|tools|data|ai)\//.test(path));
 for (const file of new Set(sources)) {
     if (!existsSync(join(root, file))) continue;
@@ -71,8 +73,11 @@ const food = process.argv.includes('--food');
 const sword = process.argv.includes('--sword');
 const liquid = process.argv.includes('--liquid');
 const blade = process.argv.includes('--blade');
+const hammer = process.argv.includes('--hammer');
 const equip = process.argv.includes('--equip');
-const files = equip ? [...new Set([...Object.keys(equipBaseline().callers), 'feature/user_storage.c',
+const files = hammer ? [...new Set([...Object.keys(hammerBaseline().callers), ...hammerBaseline().dynamic.map(h => h.file),
+    ...hammerBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
+    ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer'].map(f => `d/items/${f}.lpc`)])] : equip ? [...new Set([...Object.keys(equipBaseline().callers), 'feature/user_storage.c',
     ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip'].map(f => `d/items/${f}.lpc`)])] : blade ? [...new Set([...Object.keys(bladeBaseline().callers), ...bladeBaseline().dynamic.map(h => h.file),
     ...bladeBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
     ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade'].map(f => `d/items/${f}.lpc`)])] : liquid ? [...new Set([...Object.keys(liquidBaseline().callers), ...liquidBaseline().dynamic.map(h => h.file),
@@ -108,5 +113,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);

@@ -19,5 +19,5 @@ void create() {
     set("apply/damage", 5);
     setup();
     add_money("coin", 50);
-    carry_object("/d/xiyu/obj/yaochu")->wield();
+    carry_object("/d/items/hammer/yaochu")->wield();
 }

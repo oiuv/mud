@@ -90,7 +90,7 @@ LONG);
 
     carry_object("/d/items/cloth/heise_jiasha")->wear();
     carry_object("/d/items/headwear/zangseng_mao")->wear();
-    carry_object("/d/xueshan/obj/gangchu")->wield();
+    carry_object("/d/items/hammer/gangchu")->wield();
     add_money("silver", 10);
 }
 

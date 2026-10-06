@@ -1,0 +1,343 @@
+// Real-driver HAMMER baseline and parity checks in an isolated mudlib.
+inherit "/tests/cloth_regression";
+
+private mixed *cases;
+private int next_hammer;
+
+void clear_inventory(object actor) {
+    object item;
+
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+void check_equipment(string path) {
+    object actor, item, other;
+    mapping props, action;
+    string key, text;
+    int secondary;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    item = new(path); other = new(path);
+    check(!item->wield(), "not carried cannot wield");
+    item->move(actor, 1); other->move(actor, 1);
+    item->set("consistence", 0); check(!item->wield(), "broken weapon refuses wield");
+    item->set("consistence", 100); item->set("no_wield", "先歇一歇。\n");
+    check(!item->wield(), "no_wield refuses wield"); item->delete("no_wield");
+    actor->set_temp("handing", item);
+    props = copy(item->query("weapon_prop"));
+    check("/cmds/std/wield"->do_wield(actor, item) == 1 &&
+        actor->query_temp("weapon") == item && !actor->query_temp("handing") &&
+        item->query("equipped") == "wielded", "real wield and actor reference");
+    text = item->query("wield_msg");
+    check(master()->query_message() == (stringp(text) ? text : "$N装备$n作武器。\n"), "wield message");
+    foreach (key in keys(props)) check(
+        actor->query_temp("apply/" + key) == props[key],
+        "weapon bonus " + key
+    );
+    secondary = !!(item->query("flag") & 2);
+    check(item->wield() == 1, "already equipped idempotent");
+    check(!!other->wield() == secondary, "original secondary-hand flag respected");
+    if (secondary) {
+        check(actor->query_temp("secondary_weapon") == other &&
+            actor->query_temp("weapon") == item, "secondary weapon slot");
+        other->unequip();
+        check(!actor->query_temp("secondary_weapon"), "secondary slot cleared");
+    }
+    foreach (key in keys(props)) check(
+        actor->query_temp("apply/" + key) == props[key],
+        "bonus not doubled"
+    );
+    action = item->query("actions");
+    check(mapp(action) && member_array(action["damage_type"], ({ "挫伤" })) >= 0 &&
+        stringp(action["action"]), "actual WEAPON_D action callback");
+    check("/cmds/std/unwield"->main(actor, item->query("id")) == 1 &&
+        !actor->query_temp("weapon") && !item->query("equipped"), "real unwield clears references");
+    text = item->query("unwield_msg");
+    check(master()->query_message() == (stringp(text) ? text : "$N放下手中的$n。\n"), "unwield message");
+    foreach (key in keys(props)) check(!actor->query_temp("apply/" + key), "bonus restored " + key);
+    check(
+        actor->query_temp("action_resets") == (secondary ? 4 : 2),
+        "actor action reset on wield and unwield"
+    );
+    // Only the random draw is fixed in the disposable copy of the actual durability method.
+    item->set(
+        "stable",
+        2
+    ); item->set("consistence", 2); item->set("material", "steel"); item->wield();
+    "/tests/hammer_durability"->reduce_consistence(item);
+    check(
+        item->query("consistence") == 1 && item->query("equipped") == "wielded",
+        "normal wear keeps wield"
+    );
+    "/tests/hammer_durability"->reduce_consistence(item);
+    check(!item->query("consistence") && !actor->query_temp("weapon") && !item->query("equipped"),
+        "damage to zero automatically unwields");
+    item->set("consistence", 2); item->set("stable", 1);
+    "/tests/hammer_durability"->reduce_consistence(item);
+    check(item->query("consistence") == 2, "low stable bypass preserved");
+    item->set("stable", 2); item->set("material", "tian jing");
+    "/tests/hammer_durability"->reduce_consistence(item);
+    check(item->query("consistence") == 2 && other->query("consistence") == 100,
+        "material exception and instance durability isolation");
+    clear_inventory(actor); destruct(actor);
+}
+
+void check_storage(mixed *pair) {
+    object actor, item, converter;
+    mapping result, records, paths;
+    string path;
+    int allowed;
+
+    allowed = -1;
+    foreach (path in pair[0..1]) {
+        actor = new("/tests/actor"); actor->move(this_object(), 1);
+        item = new(path); actor->store_item(actor, item, 1);
+        if (allowed < 0) allowed = !objectp(item);
+        else check(allowed == !objectp(item), "old/new storage eligibility");
+        if (!item) {
+            check(actor->depot_records()["item0"]["file"] == path, "stored exact identity");
+            actor->run_command("take 1 1"); item = present(load_object(path)->query("id"), actor);
+            check(
+                objectp(item) && base_name(item) == path && !sizeof(actor->depot_records()),
+                "take reconstructs identity"
+            );
+            compare(load_object(path), item, "restored hammer");
+        }
+        clear_inventory(actor); if (item) destruct(item);
+        item = new(path); item->move(actor, 1); item->wield(); actor->store_item(actor, item, 1);
+        check(objectp(item) && !sizeof(actor->depot_records()), "wielded weapon cannot be stored");
+        item->unequip(); clear_inventory(actor); destruct(actor);
+    }
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    converter = load_object("/tests/cloth_records");
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    records = ([ "item0": ([ "file": pair[0], "amount": 2, "name": "旧剑", "id": "old hammer" ]) ]);
+    result = converter->convert(save_variable(records), "backpack", paths, ({}));
+    check(result["changes"] == 1, "old hammer record converted");
+    write_file("/data/hammer-restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/hammer-restored"); actor->run_command("take 1 2");
+    check(
+        sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
+        "converted quantity restored"
+    );
+    foreach (item in all_inventory(actor)) check(
+        base_name(item) == pair[1],
+        "converted canonical identity"
+    );
+    clear_inventory(actor); destruct(actor);
+}
+
+void check_contracts() {
+    object program, item, first, second, actor;
+    mapping group, definition;
+    mixed err;
+    mixed *nested;
+    string *ids;
+
+    program = load_object("/d/items/hammer");
+    check(!program->query("name") && !environment(program), "inert shared program");
+    err = catch(item = new("/d/items/hammer/missing"));
+    check(!item && !find_object("/d/items/hammer/missing"), "unknown variety rejected");
+    err = catch(new(
+        "/d/items/hammer",
+        "tiechui"
+    )); check(!!err, "direct parameter construction rejected");
+    check(!program->valid_variety_path("/d/items/hammer/tiechui/extra") &&
+        !program->valid_variety_path("/tests/hammer") && !program->valid_variety_path("/d/beijing/npc/obj/hammer"), "exact registered paths only");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(
+            same_value(load_object(group["path"])->parse_command_id_list(), ids),
+            "canonical aliases"
+        );
+    }
+    definition = program->query_definition("tiechui"); definition["ids"][0] = "mutated";
+    check(program->query_definition("tiechui")["ids"][0] != "mutated", "registry copy isolated");
+    item = load_object("/d/items/hammer/tiechui"); item->set("fixture", ({ ([ "value": 1 ]) }));
+    first = new(base_name(item)); second = new(base_name(item));
+    nested = first->query("fixture"); nested[0]["value"] = 2;
+    check(second->query("fixture")[0]["value"] == 1 && item->query("fixture")[0]["value"] == 1,
+        "nested compound defaults isolated");
+    item->delete("fixture"); destruct(first); destruct(second);
+    actor = new("/tests/actor");
+    foreach (item in ({
+        new("/d/items/food/mantou"),
+        new("/d/shaolin/obj/qingshui-hulu"),
+        new("/tests/unknown_hammer/one"),
+        new("/tests/vendor")
+    })) {
+        actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && !sizeof(actor->depot_records()),
+            "food/liquid/arbitrary LPC storage still refused"
+        );
+        destruct(item);
+    }
+    destruct(actor);
+}
+
+
+
+void check_baseline() {
+    mixed *pair, *observations;
+    object blueprint, instance;
+    mapping record, properties, effective;
+    string key;
+
+    observations = ({});
+    foreach (pair in cases) {
+        blueprint = load_object(pair[0]);
+        instance = new(pair[0]);
+        check(blueprint->query_weight() == pair[2] && instance->query_weight() == pair[3],
+            pair[0] + " original weights");
+        check(blueprint->is_weapon() && instance->is_weapon(), "original weapon identity");
+        check(master()->setup_count(blueprint) == 1 && master()->setup_count(instance) == 1,
+            "original setup once");
+        check(blueprint->query("skill_type") == "hammer" &&
+            instance->query("flag") == blueprint->query("flag"), "original hammer initialization");
+        properties = copy(blueprint->query_entire_dbase());
+        properties["actions"] = functionp(blueprint->query(
+            "actions",
+            1
+        )) ? "WEAPON_D query_action" : 0;
+        effective = ([]);
+        foreach (key in keys(properties))
+            effective[key] = key == "actions" ? properties[key] : instance->query(key, 1);
+        record = ([ "path": pair[0], "weight": blueprint->query_weight(),
+            "clone_weight": instance->query_weight(), "blueprint": properties, "clone": effective,
+            "ids": blueprint->parse_command_id_list(), "uid": getuid(blueprint),
+            "euid": geteuid(blueprint), "clone_uid": getuid(instance), "clone_euid": geteuid(instance) ]);
+        observations += ({ record });
+        destruct(instance);
+    }
+    write_file("/tests/hammer-baseline.json", json_encode(observations), 1);
+}
+
+void check_variety(mixed *pair) {
+    object before, after, second, blueprint;
+    mapping props;
+    string original_long;
+    int damage;
+
+    before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
+    blueprint = load_object(pair[1]);
+    check(!after->query("flag") && !after->is_food() && !after->is_liquid() &&
+        !function_exists(
+            "do_play",
+            after
+        ), "HAMMER does not gain edged, food, drink or instrument abilities");
+    compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
+    compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
+    check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
+        after->query_default_object() == blueprint, "final virtual identities");
+    check(
+        master()->setup_count(after) == 1 && master()->setup_count(blueprint) == 1,
+        "setup once in final identity"
+    );
+    damage = after->query("weapon_prop/damage"); props = after->query("weapon_prop"); props["damage"] = 999;
+    check(second->query("weapon_prop/damage") == damage && blueprint->query("weapon_prop/damage") == damage,
+        "weapon mapping isolated");
+    props["damage"] = damage;
+    original_long = second->long(); after->set("long", "锤身新添一道痕迹。\n");
+    check(
+        second->long() == original_long && blueprint->long() == original_long,
+        "description isolated"
+    );
+    after->delete("long"); check(after->long() == original_long, "description falls back");
+    after->set("consistence", 98);
+    after->virtual_start(); check(
+        after->query("consistence") == 98 && master()->setup_count(after) == 1,
+        "initialization idempotent"
+    );
+    destruct(before); destruct(after); destruct(second);
+    check_equipment(pair[0]); check_equipment(pair[1]);
+    check_business(pair); check_refusals(pair[0]); check_refusals(pair[1]); check_storage(pair);
+}
+
+void check_shop_display(mixed *pair) {
+    object vendor;
+    string before, after;
+    int price;
+
+    vendor = new("/tests/hammer_vendor");
+    foreach (price in ({ 0, 321 })) {
+        vendor->set("vendor_goods", ([ pair[0]: price ]));
+        check(vendor->do_list(0) == 1, "old dealer listing"); before = vendor->query_display();
+        vendor->set("vendor_goods", ([ pair[1]: price ]));
+        check(vendor->do_list(0) == 1, "virtual dealer listing"); after = vendor->query_display();
+        check(strsrch(after, pair[1]->name(1)) >= 0 &&
+            strsrch(after, MONEY_D->price_str(price ? price : pair[1]->query("value"))) >= 0,
+            "listing contains actual name and effective price");
+        before = replace_string(
+            before,
+            "(" + pair[0]->query("id") + ")",
+            "(" + pair[1]->query("id") + ")"
+        );
+        // Fixed-width padding changes when a merged primary alias has a different length.
+        check(replace_string(before, " ", "") == replace_string(after, " ", ""),
+            "same displayed merchandise after canonical alias and padding adjustment");
+    }
+    destruct(vendor);
+}
+
+void check_mengzhu_restore() {
+    mixed *pair;
+    mapping paths, data, converted;
+    object before, after, weapon, armor;
+    string saved;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    paths["/d/changan/npc/obj/cloth"] = "/d/items/cloth/buyi";
+    foreach (pair in cases) {
+        data = ([ "name": "合成盟主", "str": 1000, "dex": 100,
+            "combat_exp": 876543, "weapon": pair[0], "armor": "/d/changan/npc/obj/cloth",
+            "note": pair[0], "gender": "男性" ]);
+        saved = save_variable(data);
+        write_file("/data/npc/meng-zhu.o", "dbase " + saved + "\n", 1);
+        before = new("/tests/mengzhu");
+        converted = "/tests/cloth_records"->convert(saved, "mengzhu_equipment", paths, ({}));
+        check(converted["changes"] == 2, "mengzhu weapon and armor conversion");
+        write_file("/data/npc/meng-zhu.o", "dbase " + converted["value"] + "\n", 1);
+        after = new("/tests/mengzhu");
+        weapon = after->query_temp("weapon"); armor = after->query_temp("armor/cloth");
+        check(objectp(weapon) && base_name(weapon) == pair[1] && weapon->query("equipped") == "wielded",
+            "mengzhu restored canonical hammer equipped");
+        check(objectp(armor) && base_name(armor) == "/d/items/cloth/buyi" && armor->query("equipped") == "worn",
+            "mengzhu restored canonical armor equipped");
+        check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
+            after->query("name") == before->query("name"), "mengzhu non-target data retained");
+        compare(before->query_temp("weapon"), weapon, "mengzhu restored weapon parity");
+        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+            "mengzhu restored equipment bonuses match");
+        check("/tests/cloth_records"->convert(
+            converted["value"],
+            "mengzhu_equipment",
+            paths,
+            ({})
+        )["changes"] == 0,
+            "mengzhu record idempotent");
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+
+
+
+#include "hammer_business.h"
+
+void run_chunk() {
+    if (next_hammer < sizeof(cases)) {
+        check_shop_display(cases[next_hammer]);
+        check_variety(cases[next_hammer++]);
+        call_out("run_chunk", 0);
+        return;
+    }
+    check_contracts(); check_mengzhu_restore(); check_qian(); check_wuguan();
+    check_actual_shops(); check_actual_rooms(); check_unique_replacements(); master()->finish();
+}
+
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

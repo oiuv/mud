@@ -43,6 +43,6 @@ LONG);
 
     setup();
     carry_object("/clone/cloth/cloth")->wear();
-    carry_object(__DIR__ "obj/tongren")->wield();
+    carry_object("/d/items/hammer/tongren")->wield();
     add_money("silver", 50);
 }

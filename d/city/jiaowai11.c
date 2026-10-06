@@ -14,7 +14,7 @@ LONG);
     ]));
     set("objects", ([
         "/clone/beast/dushe": 2,
-        __DIR__ "obj/shitou": 1,
+        "/d/items/hammer/shitou": 1,
     ]));
     setup();
     replace_program(ROOM);

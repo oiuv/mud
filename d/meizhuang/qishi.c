@@ -15,7 +15,7 @@ LONG
 
     set("objects", ([
         __DIR__ "obj/qizi": 1,
-        __DIR__ "obj/qipan": 1,
+        "/d/items/hammer/tieqipan": 1,
     ]));
 
     setup();

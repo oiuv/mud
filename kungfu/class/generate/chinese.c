@@ -532,7 +532,7 @@ private void from_xueshan() {
 
     set("class", "bonze");
 
-    carry_object("/d/xueshan/obj/yinlun")->wield();
+    carry_object("/d/items/hammer/yinlun")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }
 

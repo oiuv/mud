@@ -98,15 +98,15 @@ string give_tools() {
         return "你又没有领工作，跑来要什么工具？";
 
     if (ob->query_temp("job_name") == "锄草")
-        tools = new("/d/wuguan/obj/chutou");
+        tools = new("/d/items/hammer/chutou");
     else if (ob->query_temp("job_name") == "浇菜地")
-        tools = new("/d/wuguan/obj/piao");
+        tools = new("/d/items/hammer/shuipiao");
     else if (ob->query_temp("job_name") == "锯木头")
         tools = new("/d/items/blade/juzi");
     else if (ob->query_temp("job_name") == "劈柴")
         tools = new("/d/items/blade/chaidao2");
     else
-        tools = new("/d/wuguan/obj/saozhou");
+        tools = new("/d/items/hammer/saozhou");
 
     tools->move(this_player());
 

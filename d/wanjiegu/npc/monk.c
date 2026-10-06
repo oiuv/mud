@@ -63,7 +63,7 @@ void create() {
 
     carry_object("/d/items/equip/magua2")->wear();
     carry_object("/d/items/equip/buxie2")->wear();
-    carry_object(__DIR__ "obj/muyu")->wield();
+    carry_object("/d/items/hammer/muyu_chui2")->wield();
 }
 
 int savemu() {

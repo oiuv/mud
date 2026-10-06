@@ -26,7 +26,7 @@ void create() {
     set_temp("apply/defense", 40);
 
     set("vendor_goods", ({
-        __DIR__ "obj/hammer",
+        "/d/items/hammer/tiechui4",
     }));
 
     set("inquiry", ([
@@ -43,7 +43,7 @@ void create() {
 
     setup();
     add_money("coin", 50);
-    carry_object(__DIR__ "obj/hothammer")->wield();
+    carry_object("/d/items/hammer/hongtiechui")->wield();
 }
 
 void init() {
