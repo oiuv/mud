@@ -52,6 +52,27 @@
 
 请把`data`目录中的`.env.example`复制为`.env`，并根据需要修改环境配置。
 
+### Linux 编译驱动
+
+Debian/Ubuntu 在 Bash 中执行 `bash build.sh`。脚本安装依赖，从 `https://github.com/fluffos/fluffos.git` 获取并快进更新源码，在 `fluffos/build` 增量构建；不会丢弃源码修改或删除构建目录。有未提交的 FluffOS 修改时停止更新，可改用 `--local` 编译当前源码。
+
+~~~bash
+bash build.sh
+# 已有源码和依赖：只编译，不更新、不复制到系统目录
+BUILD_JOBS=4 bash build.sh --local --no-install
+# 独立的 Debug 构建目录；相对路径以本项目根目录为准
+bash build.sh --local --no-install --debug --build-dir fluffos/build-debug
+# 仅为本机或兼容 CPU 开启优化
+bash build.sh --local --no-install --march-native
+bash build.sh --help
+~~~
+
+默认使用 `Release`、动态链接、`MARCH_NATIVE=OFF`，启用 CRYPTO 和 SQLite，关闭 MySQL/PostgreSQL；SQLite 后端编号及默认数据库编号均为 `1`。依赖使用 PCRE2 和 libffi，配置时重新探测旧 PCRE 缓存。仅构建驱动、`lpcc`、`lpcshell`、`symbol`、`o2json`、`json2o` 及 Linux 的 `portbind`，不构建上游测试或基准程序。
+
+产物始终安装到所选构建目录的 `bin/`；默认还将 `driver` 复制到 `/usr/local/games/`，`--no-install` 仅跳过这一步。软件包安装及系统复制按需使用 `sudo`，不要用 `sudo` 运行整个脚本。其他 Linux 发行版须自行安装依赖，再使用 `--local`。
+
+`run.sh` 仍从 `fluffos/build/bin/driver` 启动；自定义目录时从项目根目录手动执行，例如 `./fluffos/build-debug/bin/driver config.ini`。更新正在使用的驱动前先停服；仅验证时请同时指定独立构建目录和 `--no-install`。不传 `--debug` 或 `--march-native` 时会恢复默认值；并存多种构建模式、不同平台或 CMake 生成器时须分别使用构建目录。
+
 ### Windows 编译驱动
 
 在 **MSYS2 MinGW64** 终端中执行：
