@@ -67,7 +67,7 @@ int perform(object me, object target) {
     poison = me->query_skill("poison");
 
     poison = (int)poison / 15;
-    lvl += lvl * improve;
+    lvl += to_int(lvl * improve);
 
     if (lvl / 2 + random(lvl) > target->query_skill("force")) {
         damage = lvl + random(lvl / 2);

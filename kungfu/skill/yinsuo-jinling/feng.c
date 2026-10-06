@@ -72,7 +72,7 @@ int perform(object me, object target) {
     ap = me->query_skill("whip");
     dp = target->query_skill("parry");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     msg = "\n" HIW "只见$N" HIW "手中" + w1 + HIW "暮地一抖，幻出无数鞭影，霎"
         "时破风声骤起，" + w1 + HIW "携着"

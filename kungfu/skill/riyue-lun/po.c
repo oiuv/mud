@@ -77,7 +77,7 @@ int perform(object me, object target) {
     ap = me->query_skill("force") + me->query("str") * 10;
     dp = target->query_skill("force") + target->query("con") * 10;
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (ap / 2 + random(ap) > dp) {
         me->add("neili", -300);

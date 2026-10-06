@@ -73,7 +73,7 @@ int perform(object me, object target) {
     ap = me->query_skill("blade") + me->query("str") * 10;
     dp = target->query_skill("dodge") + target->query("dex") * 10;
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     msg = HIY "$N" HIY "陡然施出「" HIR "噬血穹苍" HIY "」，手中" + weapon->name() + HIY "腾起无边杀意，携着风雷之势向$n" HIY
         "劈斩而去！\n" NOR;

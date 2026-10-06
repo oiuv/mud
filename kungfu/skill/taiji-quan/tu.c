@@ -84,7 +84,7 @@ int perform(object me) {
         "taoism",
         1
     ) + me->query_skill("taiji-quan", 1) + me->query_skill("taiji-shengong", 1);
-    ap += ap * improve;
+    ap += to_int(ap * improve);
     obs = me->query_enemy();
     for (flag = 0, i = 0; i < sizeof(obs); i++) {
         dp = obs[i]->query_skill("force") * 2 + obs[i]->query_skill("taoism", 1);

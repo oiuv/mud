@@ -78,7 +78,7 @@ int perform(object me, object target) {
         1
     ) + target->query_skill("qimen-wuxing", 1);
     count = me->query_skill("mathematics", 1);
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (ap / 2 + random(ap) > dp) {
         damage = 0;

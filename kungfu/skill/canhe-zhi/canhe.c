@@ -70,7 +70,7 @@ int perform(object me, object target) {
     ap = me->query_skill("finger");
     dp = target->query_skill("dodge");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     msg = HIW "只见$N" HIW "十指分摊，霎时破空声骤响，数股剑气至指尖激"
         "射而出，朝$n" HIW "径直奔去！\n" NOR;

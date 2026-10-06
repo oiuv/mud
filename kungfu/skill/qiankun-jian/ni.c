@@ -67,7 +67,7 @@ int perform(object me, object target) {
     ap = me->query_skill("sword") + me->query_skill("force");
     dp = target->query_skill("dodge") + target->query_skill("parry");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (ap / 2 + random(ap) > dp) {
         damage = ap / 3 + random(ap / 3);

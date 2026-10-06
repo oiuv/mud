@@ -95,7 +95,7 @@ int perform(object me, object target) {
 
     dp = target->query_skill("parry");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (ap / 2 + random(ap) > dp) {
         damage = ap / 2 + random(ap);

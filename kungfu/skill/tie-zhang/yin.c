@@ -76,7 +76,7 @@ int perform(object me, object target) {
 
     improve = improve * 4 / 100 / lvl;
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (ap / 2 + random(ap) > dp) {
         damage = ap / 2 + random(ap / 2);

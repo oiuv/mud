@@ -305,7 +305,7 @@ int apply_damage() {
     lvl++;
 
     p = query("point") / 2;
-    d = 1.0 * (lvl * lvl) / (9 * 9) * p + query("bless") * 2;  // 乾坤圣水圣化一次增加2点攻击
+    d = to_int(1.0 * (lvl * lvl) / (9 * 9) * p + query("bless") * 2);  // 乾坤圣水圣化一次增加2点攻击
     return d + p;
 }
 

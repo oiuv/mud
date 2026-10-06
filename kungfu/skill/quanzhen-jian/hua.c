@@ -73,7 +73,7 @@ int perform(object me, object target) {
     ap = me->query_skill("xiantian-gong", 1) + me->query_skill("sword");
     dp = target->query_skill("force") + target->query_skill("parry", 1) * 2 / 3;
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     me->start_busy(3);
     me->add("neili", -200);

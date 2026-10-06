@@ -66,7 +66,7 @@ int perform(object me, object target) {
     me->add("neili", -50);
     ap = me->query_skill("sword");
     dp = target->query_skill("parry");
-    ap += ap * improve;
+    ap += to_int(ap * improve);
     if (target->is_bad()) ap += ap / 8;
 
     me->start_busy(2);

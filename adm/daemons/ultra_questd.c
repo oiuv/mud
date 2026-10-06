@@ -385,7 +385,7 @@ public void give_accede(object me, object who) {
     if (me->query_skill(skill))
         lvl = me->query_skill(skill, 1);
     else
-        lvl = pow(exp, 1.0 / 3) - 50;
+        lvl = to_int(pow(exp, 1.0 / 3) - 50);
 
     // 等级太低则提高
     if (lvl < 80) lvl = 80;

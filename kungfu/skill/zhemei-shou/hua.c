@@ -81,7 +81,7 @@ int perform(object me, object target) {
     ap = me->query_skill("dodge") + me->query_skill("hand");
     dp = target->query_skill("dodge") + target->query_skill("parry");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     if (target->is_bad() || !userp(target))
         ap += ap / 10;

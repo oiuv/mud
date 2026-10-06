@@ -35,10 +35,12 @@ private int measure_step(object me, string direction) {
     destination = environment(me);
     sample = ([ "kind": kind, "direction": direction, "wall_us": elapsed,
         "cpu_ms": after["utime"] + after["stime"] - before["utime"] - before["stime"],
-        "eval_cost": cost > 0 ? cost : "unavailable",
+        "eval_cost": cost,
         "moved": objectp(destination) && destination != origin,
         "command_ok": !err && !!result, "error": !!err,
         "chunks_before": chunks, "chunks_after": WORLD_D->query_cached_chunks() ]);
+    if (cost <= 0)
+        sample["eval_cost"] = "unavailable";
     me->set_temp(TIMINGS, samples + ({ sample }));
     printf("移动采样 #%d：%s，%d μs，CPU %d ms，评估消耗 %O，实际移动 %d。\n",
         sizeof(samples) + 1, kind, elapsed, sample["cpu_ms"], sample["eval_cost"], sample["moved"]);

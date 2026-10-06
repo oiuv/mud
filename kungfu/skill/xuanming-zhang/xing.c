@@ -78,7 +78,7 @@ int perform(object me, object target) {
     ap = me->query_skill("strike") + me->query_skill("force");
     dp = target->query_skill("dodge") + target->query_skill("force");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     me->start_busy(4);
 

@@ -79,7 +79,7 @@ int perform(object me, object target) {
     me->add("neili", -380);
     ap = me->query_skill("force") + me->query_skill("strike");
     dp = target->query_skill("force") + target->query_skill("parry");
-    ap += ap * improve;
+    ap += to_int(ap * improve);
     if (me->query("family/family_name") == "灵鹫宫")
         ap += ap / 10;
     if (target->is_good()) ap += ap / 10;

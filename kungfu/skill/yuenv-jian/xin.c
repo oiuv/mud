@@ -85,7 +85,7 @@ int perform(object me, object target) {
     me->add("neili", -180);
     ap = (me->query_skill("sword") + me->query_skill("dodge")) / 2;
     dp = target->query_skill("dodge");
-    ap += ap * improve;
+    ap += to_int(ap * improve);
     me->start_busy(1);
     if (ap * 7 / 10 + random(ap) > dp) {
         damage = ap / 2 + random(ap / 2) + delta * 20;

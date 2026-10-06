@@ -77,7 +77,7 @@ int perform(object me, object target) {
     ap = me->query_skill("finger");
     dp = target->query_skill("parry");
 
-    ap += ap * improve;
+    ap += to_int(ap * improve);
     damage = ap + random(ap);
 
     msg = HIW "突然间";
@@ -90,7 +90,7 @@ int perform(object me, object target) {
 
         ap = me->query_skill("finger");
         dp = target->query_skill("force");
-        ap += ap * improve;
+        ap += to_int(ap * improve);
 
         if (ap / 3 + random(ap) > dp) {
             msg += HIR "霎时间$n" HIR "只觉得手腕一麻，手中" + wp + HIR "再也拿持不住，脱手掉在地上。\n\n" HIW "紧"
@@ -121,7 +121,7 @@ int perform(object me, object target) {
 
     ap = me->query_skill("finger");
     dp = target->query_skill("dodge");
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     msg += "\n" HIW "接着$N" HIW "踏前一步，体内真气迸发，隔空一指劲点$n" HIW
         "而去，指气纵横，嗤然作响！\n" NOR;
@@ -140,7 +140,7 @@ int perform(object me, object target) {
 
     ap = me->query_skill("finger");
     dp = target->query_skill("force");
-    ap += ap * improve;
+    ap += to_int(ap * improve);
 
     msg += "\n" HIW "最后$N" HIW "一声猛喝，单指“嗤”的一声点出，纯阳指力同"
         "时笼罩$n" HIW "全身诸多要穴！\n" NOR;
