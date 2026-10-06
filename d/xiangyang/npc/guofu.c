@@ -46,7 +46,7 @@ void create() {
     prepare_skill("strike", "luoying-shenzhang");
 
     setup();
-    carry_object("/d/taohua/obj/ruanwei")->wear();
+    carry_object("/d/items/armor/ruanwei_jia")->wear();
     carry_object("/d/items/headwear/jindai2")->wear();
 
 }

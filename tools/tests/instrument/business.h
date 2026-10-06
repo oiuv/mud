@@ -1,5 +1,5 @@
 void check_instrument_business() {
-    mapping data, paths, now, before, expected, carrier;
+    mapping data, paths, defensive_paths, now, before, expected, carrier;
     object room, item, actor, vendor, npc;
     string fixture, prefix, key, target, path, id, listing;
     string *old_goods;
@@ -7,6 +7,7 @@ void check_instrument_business() {
 
     data = json_decode(read_file("/tests/instrument_business.json"));
     paths = json_decode(read_file("/tests/migration_paths.json"));
+    defensive_paths = json_decode(read_file("/tests/defensive_paths.json"));
     foreach (fixture in data["rooms"]) for (mode = 0; mode < 3; mode++) {
         before = 0;
         foreach (prefix in ({ "/tests/old", "" })) {
@@ -37,7 +38,10 @@ void check_instrument_business() {
             vendor = new(prefix + fixture); vendor->move(this_object(), 1);
             actor->select_vendor(vendor); vendor->do_list(0); listing = vendor->query_display();
             if (prefix != "") old_goods = copy(vendor->query("vendor_goods"));
-            else check(same_value(map_array(old_goods, (: $(paths)[$1] ? $(paths)[$1] : $1 :)),
+            else check(same_value(map_array(
+                old_goods,
+                (: $(paths)[$1] ? $(paths)[$1] : $(defensive_paths)[$1] ? $(defensive_paths)[$1] : $1 :)
+            ),
                 vendor->query("vendor_goods")), "complete vendor goods order preserved");
             bought = 0;
             foreach (path in vendor->query("vendor_goods")) {

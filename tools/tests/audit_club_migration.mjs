@@ -1,3 +1,4 @@
+import { afterDefensiveMigration } from './defensive_gear_inventory.mjs';
 // Strict frozen-source/caller/effective-identity audit; no live records.
 import assert from 'node:assert/strict';
 import { afterBookMigration } from './book_inventory.mjs';
@@ -31,10 +32,12 @@ if (!process.argv.includes('--baseline-only')) {
         for (const suffix of ['.c', '.lpc']) assert.equal(existsSync(join(root, row.new_path.slice(1) + suffix)), false);
     }
     for (const { file, source_hash } of data.excluded) {
-        assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special club changed: ' + file);
+        const frozen = original(file);
+        assert.equal(createHash('sha256').update(frozen).digest('hex'), source_hash, 'Frozen retained: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, frozen, semantic)), 'Retained or precisely migrated: ' + file);
     }
     for (const { file } of data.dynamic) if (!data.callers[file])
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(original(file)), 'Unrelated dynamic clue changed: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, original(file), semantic)), 'Unrelated or precisely migrated clue: ' + file);
 }
 const normalize = value => Array.isArray(value) ? value.map(normalize) : value && typeof value === 'object'
     ? Object.fromEntries(Object.entries(value).filter(([k]) => k !== 'id').sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => [k, normalize(v)])) : value;
@@ -46,5 +49,5 @@ assert.equal(new Set(data.varieties.map(row => JSON.stringify(identity(row)))).s
 for (const group of canonicalGroups()) for (const row of group.rows)
     assert.deepEqual(identity(row), identity(group.representative), 'Effective grouping: ' + group.id);
 console.log(`CLUB AUDIT PASS: 18 originals -> ${canonicalGroups().length} varieties; 24 callers, 27 static + 3 dynamic; LONG flags`
-    + (process.argv.includes('--baseline-only') ? '; baseline only' : '; no key collisions; 8 preserved objects and Qian unchanged')
+    + (process.argv.includes('--baseline-only') ? '; baseline only' : '; no key collisions; 8 preserved objects and precise cumulative Qian changes')
     + (process.argv.includes('--baseline-only') || process.argv.includes('--before-removal') ? '; removal not checked' : '; no old files or forwarding shells'));

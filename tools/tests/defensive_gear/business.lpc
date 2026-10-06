@@ -1,0 +1,293 @@
+void check_storage(mixed *pair) {
+    object actor, item;
+    mapping paths, result, records;
+
+    actor = new("/tests/actor"); item = new(pair[1]);
+    actor->store_item(actor, item, 1);
+    check(
+        !item && actor->depot_records()["item0"]["file"] == pair[1],
+        "canonical storage accepted"
+    );
+    actor->run_command("take 1 1");
+    check(
+        sizeof(all_inventory(actor)) == 1 && !sizeof(actor->depot_records()),
+        "canonical storage reconstructed"
+    );
+    clear_inventory(actor);
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    result = "/tests/cloth_records"->convert(
+        save_variable(([ "item0": ([
+            "file": pair[0],
+            "amount": 2,
+            "id": "test armor",
+            "name": "护具"
+        ]) ])),
+        "backpack",
+        paths,
+        ({})
+    );
+    records = restore_variable(result["value"]);
+    check(
+        result["changes"] == 1 && records["item0"]["file"] == pair[1] && records["item0"]["amount"] == 2,
+        "record converts identity only"
+    );
+    write_file("/data/restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/restored"); actor->run_command("take 1 2");
+    check(
+        sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
+        "converted quantity reconstructed"
+    );
+    foreach (item in all_inventory(actor)) check(base_name(item) == pair[1], "restored identity");
+    clear_inventory(actor); destruct(actor);
+}
+
+void check_suppliers() {
+    object actor, npc, item;
+    string prefix, file, method, stock, expected, keyword;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        foreach (file in ({
+            "/d/xiangyang/npc/wuxiuwen",
+            "/kungfu/class/shaolin/dao-xiang",
+            "/kungfu/class/shaolin/dao-chen"
+        })) {
+            method = file == "/kungfu/class/shaolin/dao-chen" ? "ask_me" : "ask_me_1";
+            stock = method == "ask_me" ? "wuqi_count" : "huju_count";
+            npc = new(prefix + file); npc->set(stock, 2); actor->select_npc(npc, method);
+            actor->delete("family"); actor->run_command("testnpc huyao");
+            if (file != "/d/xiangyang/npc/wuxiuwen") {
+                check(
+                    !sizeof(all_inventory(actor)) && npc->query(stock) == 2,
+                    "original shaolin supplier restriction"
+                );
+                actor->set("family/family_name", "少林派"); actor->run_command("testnpc huyao");
+            }
+            expected = prefix == "" ? "/d/items/waist/shaolin_huyao" : "/d/shaolin/obj/huyao";
+            item = present("hu yao", actor);
+            check(
+                objectp(item) && base_name(item) == expected && item->query("shaolin") == 1 && npc->query(stock) == 1,
+                "correct huyao and shared stock"
+            );
+            clear_inventory(actor);
+            item = new("/clone/misc/cloth"); item->set_name(
+                "护具",
+                ({ "huyao" })
+            ); item->move(actor, 1);
+            actor->run_command("testnpc huyao");
+            check(
+                sizeof(all_inventory(actor)) == 1 && npc->query(stock) == 1,
+                "original exact held-id check"
+            ); clear_inventory(actor);
+            keyword = method == "ask_me" ? "changjian" : "shoutao";
+            actor->run_command("testnpc " + keyword);
+            check(
+                sizeof(all_inventory(actor)) == 1 && npc->query(stock) == 0,
+                "other branch consumes same stock"
+            ); clear_inventory(actor);
+            actor->run_command("testnpc huyao"); check(
+                !sizeof(all_inventory(actor)) && !npc->query(stock),
+                "empty stock refused"
+            );
+            destruct(npc);
+        }
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun"); actor->select_npc(npc, "do_yao");
+        actor->delete("family"); actor->delete_temp("mark"); actor->run_command("testnpc body");
+        check(!sizeof(all_inventory(actor)) && !npc->issued("body"), "qian family refusal");
+        actor->set("family/family_name", "八卦门"); actor->run_command("testnpc body");
+        item = all_inventory(actor)[0]; expected = prefix == "" ? "/d/items/armor/tiejia" : "/d/beijing/npc/obj/body";
+        check(
+            base_name(item) == expected && item->query("value") == 50 && stringp(item->query("no_sell")) && npc->issued("body") == 1 && actor->query_temp("mark/zhenyuan_armor") == 1,
+            "qian instance overrides and counters"
+        );
+        check(
+            !load_object(expected)->query("value") && !load_object(expected)->query("no_sell"),
+            "qian does not mutate blueprint"
+        ); clear_inventory(actor);
+        actor->run_command("testnpc body"); clear_inventory(actor); actor->run_command("testnpc body");
+        check(
+            !sizeof(all_inventory(actor)) && npc->issued("body") == 2 && actor->query_temp("mark/zhenyuan_armor") == 2,
+            "per-argument stock exhausted before counters"
+        );
+        destruct(npc); npc = new(prefix + "/d/beijing/npc/qianzhenglun"); actor->select_npc(
+            npc,
+            "do_yao"
+        );
+        actor->set_temp("mark/zhenyuan_armor", 3); actor->run_command("testnpc body");
+        check(!sizeof(all_inventory(actor)) && !npc->issued("body"), "three armor limit");
+        actor->delete_temp("mark");
+        foreach (keyword in ({ "axe", "fork" })) {
+            actor->run_command("testnpc " + keyword);
+            check(
+                !sizeof(all_inventory(actor)) && !npc->issued(keyword),
+                "qian gains no axe/fork branch"
+            );
+        }
+        actor->run_command("testnpc helmet");
+        check(
+            sizeof(all_inventory(actor)) == 1 && base_name(all_inventory(actor)[0]) == "/d/items/headwear/gangkui" && actor->query_temp("mark/zhenyuan_armor") == 1,
+            "existing helmet branch"
+        );
+        clear_inventory(actor); destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_contracts() {
+    object actor, item, vendor;
+    mapping group;
+    string *ids;
+    string path;
+    int before;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (path in ({
+        "/d/items/armor/tiejia",
+        "/d/items/waist/huyao",
+        "/d/items/surcoat/dudai",
+        "/d/items/shield/niupi_dun"
+    })) {
+        item = new(path); item->move(actor);
+        check(
+            item->wear() && actor->query_temp("armor/" + item->query("armor_type")) == item,
+            "four slots coexist"
+        );
+    }
+    clear_inventory(actor);
+    item = new("/tests/unknown_defensive/fake"); actor->store_item(actor, item, 1);
+    check(
+        objectp(item) && !sizeof(actor->depot_records()),
+        "unknown virtual provider cannot bypass storage"
+    ); destruct(item);
+    vendor = new("/tests/vendor"); vendor->move(this_object(), 1); actor->select_vendor(vendor);
+    foreach (path in ({ "/d/items/waist/shaolin_huyao", "/d/items/waist/tie_huyao" })) {
+        item = new(path); item->move(actor); before = actor->cash_value();
+        actor->run_command("testsell " + item->query("id"));
+        if (item->query("shaolin")) check(
+            environment(item) == actor && actor->cash_value() == before,
+            "shaolin property cannot be sold"
+        );
+        else check(
+            environment(item) == vendor && actor->cash_value() > before,
+            "ordinary iron belt remains saleable"
+        );
+        clear_inventory(actor); clear_inventory(vendor);
+    }
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+        check(
+            same_value(load_object(group["path"])->parse_command_id_list(), ids),
+            "canonical aliases exact"
+        );
+    }
+    destruct(vendor); destruct(actor);
+}
+
+void check_actual_shops() {
+    object actor, vendor, item, display;
+    mapping paths, record;
+    string prefix, path, target, id, listing;
+    string *goods, *original_goods, *expected_goods;
+    int money, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (record in json_decode(read_file("/tests/defensive_gear-shops.json"))) {
+        original_goods = 0;
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + record["fixture"]); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                expected_goods = ({});
+                foreach (path in original_goods) expected_goods += ({ paths[path] ? paths[path] : path });
+                check(same_value(goods, expected_goods), "actual shop stock order unchanged");
+            }
+            actor->select_vendor(vendor); tested = 0;
+            display = new("/tests/defensive_gear_vendor");
+            display->set(
+                "vendor_goods",
+                goods
+            ); display->do_list(0); listing = display->query_display();
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                id = load_object(target)->query("id");
+                check(vendor->is_vendor_good(id) == target, "actual shop lookup");
+                check(strsrch(listing, target->name(1)) >= 0 &&
+                    strsrch(listing, MONEY_D->price_str(target->query("value"))) >= 0,
+                    "complete actual shop listing contains original name and price");
+                vendor->enough_rest(); actor->run_command("testbuy " + id);
+                check(
+                    !sizeof(all_inventory(actor)) && !actor->cash_value(),
+                    "actual shop insufficient payment refused"
+                );
+                MONEY_D->pay_player(
+                    actor,
+                    target->query("value") + 100000
+                ); money = actor->cash_value();
+                vendor->enough_rest(); actor->run_command("testbuy 2 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "ordinary weapon cannot be bulk purchased"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy 101 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "original shop quantity maximum"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy " + id); item = present(
+                    id,
+                    actor
+                );
+                check(objectp(item) && base_name(item) == target, "actual shop delivery");
+                check(
+                    money - actor->cash_value() == target->query("value"),
+                    "actual shop original price"
+                );
+                actor->run_command("testbuy " + id);
+                check(sizeof(filter_array(all_inventory(actor), (: !$1->query("money_id") :))) == 1,
+                    "actual shop cooldown prevents immediate second purchase");
+                clear_inventory(actor); tested++;
+            }
+            check(tested == record["count"], "all selected shop goods exercised");
+            destruct(display);
+            clear_inventory(vendor); destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, weapon, match, candidate;
+    string expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/defensive_gear-equipment.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        check(
+            sizeof(all_inventory(before)) == sizeof(all_inventory(after)),
+            "NPC full equipment count"
+        );
+        foreach (weapon in all_inventory(before)) {
+            expected = paths[base_name(weapon)] ? paths[base_name(weapon)] : base_name(weapon);
+            match = 0;
+            foreach (candidate in all_inventory(after))
+                if (base_name(candidate) == expected) match = candidate;
+            check(objectp(match), record["file"] + " full inventory identity " + expected);
+            if (match) {
+                compare(weapon, match, "NPC original clothing and weapon");
+                check(
+                    weapon->query("equipped") == match->query("equipped"),
+                    "NPC original equipment slot"
+                );
+            }
+        }
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "NPC full equipment bonuses"
+        );
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}

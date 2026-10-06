@@ -84,7 +84,7 @@ void create() {
     set_temp("apply/armor", 200);
 
     setup();
-    carry_object("/d/taohua/obj/ruanwei")->wear();
+    carry_object("/d/items/armor/ruanwei_jia")->wear();
     carry_object("/d/items/headwear/jindai2")->wear();
 }
 

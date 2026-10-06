@@ -1,3 +1,4 @@
+import { afterDefensiveMigration } from './defensive_gear_inventory.mjs';
 // Strict frozen-source/caller/effective-identity audit; no live records.
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -13,7 +14,7 @@ assert.equal(data.hits.length, 6); assert.equal(new Set(data.hits.map(h => h.fil
 assert.equal(data.dynamic.length, 2); assert.equal(Object.keys(data.callers).length, 7);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expectedCaller(file)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, expectedCaller(file), semantic)), file);
         assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller: ' + file);
         const paths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {
@@ -30,10 +31,12 @@ if (!process.argv.includes('--baseline-only')) {
         for (const suffix of ['.c', '.lpc']) assert.equal(existsSync(join(root, row.new_path.slice(1) + suffix)), false);
     }
     for (const { file, source_hash } of data.excluded) {
-        assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special club changed: ' + file);
+        const frozen = original(file);
+        assert.equal(createHash('sha256').update(frozen).digest('hex'), source_hash, 'Frozen retained: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, frozen, semantic)), 'Retained or precisely migrated: ' + file);
     }
     for (const { file } of data.dynamic) if (!data.callers[file])
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(original(file)), 'Unrelated dynamic clue changed: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, original(file), semantic)), 'Unrelated dynamic clue changed: ' + file);
 }
 const normalize = value => Array.isArray(value) ? value.map(normalize) : value && typeof value === 'object'
     ? Object.fromEntries(Object.entries(value).filter(([k]) => k !== 'id').sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => [k, normalize(v)])) : value;

@@ -1,3 +1,4 @@
+import * as defensive from './defensive_gear_inventory.mjs';
 import * as weapons from './axe_fork_pin_inventory.mjs';
 import * as club from './club_inventory.mjs';
 import * as book from './book_inventory.mjs';
@@ -33,21 +34,21 @@ const counts = { cloth: 148, boots: 8, headwear: 36 };
 const historicalNames = JSON.parse(execFileSync('git', ['show', 'b081c7ff:tools/tests/cloth/canonical_ids.json'],
     { cwd: root, encoding: 'utf8', windowsHide: true }));
 
-test('all 1282 historical paths resolve to registered varieties in one pass', () => {
-    const all = { ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing, club, book, instrument, weapons };
+test('all 1300 historical paths resolve to registered varieties in one pass', () => {
+    const all = { ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing, club, book, instrument, weapons, defensive };
     const pairs = Object.values(all).flatMap(m => Object.entries(m.migrationPaths()));
     const paths = Object.fromEntries(pairs);
     const targets = new Set(Object.values(all).flatMap(m => m.canonicalGroups().map(g => g.path)));
-    assert.equal(pairs.length, 1282);
-    assert.equal(Object.keys(paths).length, 1282);
-    assert.equal(targets.size, 800);
+    assert.equal(pairs.length, 1300);
+    assert.equal(Object.keys(paths).length, 1300);
+    assert.equal(targets.size, 810);
     for (const [oldPath, target] of pairs) {
         assert.ok(targets.has(target), oldPath);
         assert.equal(paths[target] ?? target, target, oldPath + ': no second conversion');
     }
 });
 
-test('all twenty-four data tables and renderers use natural ID order without changing definitions or history', () => {
+test('all twenty-eight data tables and renderers use natural ID order without changing definitions or history', () => {
     const idsIn = source => [...source.matchAll(/^        "([a-z][a-z0-9_]*)": \(\[/gm)].map(m => m[1]);
     assert.deepEqual(['chahua10', 'buyi2', 'chahua2', 'buyi', 'chahua13', 'chahua1'].sort(compareItemIds),
         ['buyi', 'buyi2', 'chahua1', 'chahua2', 'chahua10', 'chahua13']);
@@ -78,9 +79,9 @@ test('all twenty-four data tables and renderers use natural ID order without cha
     assert.deepEqual(instrument.canonicalGroups(), groupsBefore);
     assert.deepEqual(instrument.migrationPaths(), pathsBefore);
     assert.deepEqual(readFileSync(snapshot), savedBytes);
-    for (const family of weapons.families) {
-        const expected = weapons.canonicalGroups().filter(g => g.representative.family === family).map(g => g.id).sort(compareItemIds);
-        assert.deepEqual(idsIn(weapons.renderDefinitions(family)), expected);
+    for (const metadata of [weapons, defensive]) for (const family of metadata.families) {
+        const expected = metadata.canonicalGroups().filter(g => g.representative.family === family).map(g => g.id).sort(compareItemIds);
+        assert.deepEqual(idsIn(metadata.renderDefinitions(family)), expected);
         assert.deepEqual(idsIn(readFileSync(join(root, 'd/items/' + family + '_data.h'), 'utf8')), expected);
     }
     for (const metadata of [headwear, hands, neck, wrists]) {

@@ -1,3 +1,4 @@
+import { afterDefensiveMigration } from './defensive_gear_inventory.mjs';
 // Ordinary AXE/FORK/PIN inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -83,9 +84,9 @@ export function expectedCaller(file) {
 }
 export function afterWeaponMigration(file, expected, compare) {
     const data = readBaseline();
-    if (!data.callers[file]) return expected;
+    if (!data.callers[file]) return afterDefensiveMigration(file, expected, compare);
     assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected weapon overlap: ' + file);
-    return expectedCaller(file);
+    return afterDefensiveMigration(file, expectedCaller(file), compare);
 }
 export function correctedWeaponText(id, key, value) {
     if (id === 'sangmen_fu' && key === '"long"')

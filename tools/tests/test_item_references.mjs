@@ -1,4 +1,5 @@
 import { migrationPaths as club } from './club_inventory.mjs';
+import { migrationPaths as defensive } from './defensive_gear_inventory.mjs';
 import { migrationPaths as throwing } from './throwing_inventory.mjs';
 import { migrationPaths as dagger } from './dagger_inventory.mjs';
 import { migrationPaths as whip } from './whip_inventory.mjs';
@@ -22,8 +23,8 @@ import { migrationPaths as staff } from './staff_inventory.mjs';
 import { migrationPaths as hammer } from './hammer_inventory.mjs';
 
 test('all migrated historical item paths are absent, including root paths without slash', () => {
-    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip(), ...hammer(), ...staff(), ...whip(), ...dagger(), ...throwing(), ...club(), ...book(), ...instrument(), ...weapons() };
-    assert.equal(Object.keys(paths).length, 1282);
+    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip(), ...hammer(), ...staff(), ...whip(), ...dagger(), ...throwing(), ...club(), ...book(), ...instrument(), ...weapons(), ...defensive() };
+    assert.equal(Object.keys(paths).length, 1300);
     const rows = Object.entries(paths).map(([old_path, new_path]) => ({ old_path, new_path }));
     assert.deepEqual(references(rows).hits, []);
 });

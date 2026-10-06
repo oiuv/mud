@@ -105,6 +105,8 @@ string ask_me(string name) {
         ob = new("/d/items/book/fojing5");
     else if (name == "fojing21")
         ob = new("/d/items/book/fojing5");
+    else if (name == "huyao")
+        ob = new("/d/items/waist/shaolin_huyao");
     else
         ob = new("/d/shaolin/obj/" + name);
     ob->move(this_player());

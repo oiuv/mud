@@ -117,6 +117,8 @@ int do_yao(string arg) {
         obj = new("/d/items/boots/zhanxue");
     else if (arg == "helmet")
         obj = new("/d/items/headwear/gangkui");
+    else if (arg == "body")
+        obj = new("/d/items/armor/tiejia");
     else
         obj = new(__DIR__ "obj/" + arg);
     obj->set("no_sell", "这不是镇远镖局里的东西么？我可不敢收购。");

@@ -31,10 +31,10 @@ void create() {
     set("vendor_goods", ({
         "/d/items/headwear/tie_toukui",
         "/d/items/neck/xiangquan",
-        "/d/city/npc/obj/shield",
+        "/d/items/shield/niupi_dun",
         "/d/items/wrists/huwan",
         "/d/items/hands/zhitao",
-        "/d/city/npc/obj/huyao",
+        "/d/items/waist/huyao",
         "/d/items/hands/tieshou",
         "/d/city/npc/obj/jinsijia",
         "/d/luoyang/npc/obj/armor1",

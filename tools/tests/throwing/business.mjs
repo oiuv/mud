@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname, posix } from 'node:path';
 import { readBaseline } from '../throwing_inventory.mjs';
+import { readBaseline as defensiveBaseline } from '../defensive_gear_inventory.mjs';
 import { tokens } from '../cloth_inventory.mjs';
 
 export function prepareBusiness(root, sandbox) {
@@ -63,7 +64,7 @@ export function prepareBusiness(root, sandbox) {
         '#include <ansi.h>\ninherit ITEM;\nint total = 2;\nmapping my_count = ([]);\n'
         + 'int issued(string key) { return my_count[key]; }\n'
         + resolveDir(method(old ? data.callers[qianFile] : read(qianFile), 'int do_yao(string arg) {'), qianFile));
-    put('d/beijing/npc/obj/body.c', read('d/beijing/npc/obj/body.c'));
+    put('d/beijing/npc/obj/body.c', defensiveBaseline().varieties.find(row => row.old_path === '/d/beijing/npc/obj/body').source);
     put('adm/daemons/rankd.c', 'string query_respect(object who) { return "这位朋友"; }\n');
     for (const [file, signature, family, id, macro, uniqueId] of [
         ['kungfu/class/honghua/lu.c', 'mixed ask_zhen()', '红花会', 'lu feiqing'],

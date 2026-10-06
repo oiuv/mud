@@ -12,7 +12,7 @@ assert.equal(Object.keys(data.callers).length, 20); assert.equal(canonicalGroups
 assert.equal(data.observations.length, 36); assert.equal(data.excluded.length, 6);
 for (const file of Object.keys(data.callers)) {
     assert.equal(data.callers[file], original(file), 'Frozen caller: ' + file);
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expectedCaller(file)), file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWeaponMigration(file, expectedCaller(file), semantic)), file);
 }
 assert.equal(references(data.varieties).hits.length, 0, 'Old static runtime references');
 assert.deepEqual(semantic(readFileSync(join(root, 'd/items/book_data.h'), 'utf8')), semantic(renderDefinitions()));

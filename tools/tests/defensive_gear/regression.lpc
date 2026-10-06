@@ -1,0 +1,166 @@
+inherit "/tests/cloth_regression";
+
+private mixed *cases;
+private int next_defensive;
+
+void clear_inventory(object actor) {
+    object item;
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+#include "defensive_gear_business.h"
+
+mapping observe(object ob) {
+    return ([ "properties": copy(ob->query_entire_dbase()), "weight": ob->query_weight(),
+        "name": ob->name(), "short": ob->short(), "long": ob->long(),
+        "ids": ob->parse_command_id_list(), "uid": getuid(ob), "euid": geteuid(ob) ]);
+}
+
+void check_baseline() {
+    mixed *pair;
+    object blueprint, instance;
+    mixed *observations;
+
+    observations = ({});
+    foreach (pair in cases) {
+        blueprint = load_object(pair[0]); instance = new(pair[0]);
+        check(
+            blueprint->query_weight() == pair[2] && instance->query_weight() == pair[3],
+            pair[0] + " original weights"
+        );
+        check(
+            blueprint->query("armor_type") == pair[4] && instance->query("armor_type") == pair[4],
+            pair[0] + " original slot"
+        );
+        check(
+            !instance->is_container() && !function_exists("owner_is_killed", instance),
+            "ordinary behavior"
+        );
+        observations += ({ ([
+            "path": pair[0],
+            "blueprint": observe(blueprint),
+            "instance": observe(instance)
+        ]) });
+        destruct(instance);
+    }
+    write_file("/tests/observations.json", json_encode(observations), 1);
+}
+
+void check_variety(mixed *pair) {
+    object blueprint, before, after, second, actor, program, unknown;
+    mapping state, applied, definition;
+    mixed *nested;
+    mixed err;
+    string slot, provider, key;
+
+    slot = pair[4]; provider = "/d/items/" + slot; key = explode(pair[1], "/")[<1];
+    program = load_object(provider);
+    blueprint = load_object(pair[1]); before = new(pair[0]); after = new(pair[1]); second = new(pair[1]);
+    compare(load_object(pair[0]), blueprint, pair[1] + " blueprint");
+    compare(before, after, pair[1] + " instance"); compare(after, second, "reconstruction");
+    check(
+        !clonep(blueprint) && virtualp(blueprint) && clonep(after) && virtualp(after) && after->query_default_object() == blueprint,
+        "virtual identity/defaults"
+    );
+    check(!program->query("name") && !master()->setup_count(program), "inert provider");
+    check(master()->setup_count(after) == 1 && master()->setup_count(blueprint) == 1, "setup once");
+    after->set("consistence", 37); after->virtual_start();
+    check(
+        after->query("consistence") == 37 && master()->setup_count(after) == 1,
+        "repeat init cannot refresh durability"
+    );
+    state = copy(second->query("armor_prop")); after->set("armor_prop/armor", 9999);
+    check(
+        same_value(
+            state,
+            second->query("armor_prop")
+        ) && same_value(state, blueprint->query("armor_prop")),
+        "property isolation"
+    );
+    after->set("long", "边缘沾着一片落叶。\n");
+    check(second->long() == blueprint->long(), "description override isolated");
+    definition = program->query_definition(key); definition["ids"][0] = "mutated";
+    check(program->query_definition(key)["ids"][0] != "mutated", "registry copy isolated");
+    check(
+        program->valid_variety_path(pair[1]) && !program->valid_variety_path(pair[1] + "/extra") && !program->valid_variety_path(provider + "/unknown"),
+        "exact registry"
+    );
+    err = catch(new(provider, key)); check(!!err, "direct clone rejected");
+    err = catch(unknown = new(provider + "/unknown")); check(
+        !unknown && !find_object(provider + "/unknown"),
+        "unknown rejected"
+    );
+    actor = new("/tests/actor"); actor->move(
+        this_object(),
+        1
+    ); before->move(actor); second->move(actor);
+    check("/cmds/std/wear"->do_wear(actor, before) == 1, "old wear");
+    applied = copy(actor->query_temp("apply"));
+    check(
+        !"/cmds/std/wear"->do_wear(actor, second) && actor->query_temp("armor/" + slot) == before,
+        "exclusive slot"
+    );
+    before->unequip();
+    check(
+        "/cmds/std/wear"->do_wear(
+            actor,
+            second
+        ) == 1 && same_value(applied, actor->query_temp("apply")),
+        "new wear bonuses"
+    );
+    second->unequip();
+    foreach (key in keys(applied)) check(
+        !actor->query_temp("apply/" + key),
+        "bonus removed " + key
+    );
+    check(
+        !second->is_container() && !function_exists(
+            "owner_is_killed",
+            second
+        ) && !function_exists("washed", second),
+        "no added abilities"
+    );
+    destruct(before); destruct(after); destruct(second); destruct(actor);
+    blueprint->set("fixture_array", ({ ([ "value": 1 ]) }));
+    after = new(pair[1]); second = new(pair[1]); nested = after->query("fixture_array"); nested[0]["value"] = 2;
+    check(
+        second->query("fixture_array")[0]["value"] == 1 && blueprint->query("fixture_array")[0]["value"] == 1,
+        "nested defaults isolated"
+    );
+    blueprint->delete("fixture_array"); destruct(after); destruct(second);
+    check_business(pair); check_refusals(pair[0]); check_refusals(pair[1]);
+    check_storage(pair);
+    foreach (provider in pair[0..1]) {
+        actor = new("/tests/actor"); second = new(provider); second->move(actor);
+        second->set(
+            "stable",
+            2
+        ); second->set("material", "steel"); second->set("consistence", 2); second->wear();
+        "/tests/defensive_durability"->reduce_consistence(second);
+        check(
+            second->query("consistence") == 1 && second->query("equipped") == "worn",
+            "wear retains armor"
+        );
+        "/tests/defensive_durability"->reduce_consistence(second);
+        check(
+            !second->query("consistence") && !second->query("equipped") && !second->wear(),
+            "broken armor unequips and refuses wear"
+        );
+        destruct(second); destruct(actor);
+    }
+}
+
+void run_chunk() {
+    if (next_defensive < sizeof(cases)) {
+        check_variety(cases[next_defensive++]); call_out("run_chunk", 0); return;
+    }
+    check_actual_shops(); check_npc_equipment(); check_suppliers(); check_contracts();
+    master()->finish();
+}
+
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

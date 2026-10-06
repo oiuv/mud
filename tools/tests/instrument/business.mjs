@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, cpSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { readBaseline } from '../instrument_inventory.mjs';
+import { migrationPaths as defensivePaths } from '../defensive_gear_inventory.mjs';
 import { tokens } from '../cloth_inventory.mjs';
 
 export function prepareInstrumentBusiness(root, sandbox, copy) {
@@ -66,6 +67,7 @@ export function prepareInstrumentBusiness(root, sandbox, copy) {
     }
     assert.equal(rooms.length, 2); assert.equal(vendors.length, 2); assert.equal(carriers.length, 7);
     put('tests/instrument_business.json', JSON.stringify({ rooms, vendors, carriers }));
+    put('tests/defensive_paths.json', JSON.stringify(defensivePaths()));
     // Unrelated room NPCs are inert; actual item and merchant goods programs remain real.
     for (const file of ['d/baituo/npc/shiwei', 'd/taohua/npc/yapu'])
         put(file + '.lpc', 'inherit ITEM;\nvoid create() { set_name("刷新夹具", ({ "fixture" })); }\n');

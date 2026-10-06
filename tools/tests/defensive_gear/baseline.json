@@ -1,0 +1,1951 @@
+{
+  "baseline": "487c98daa21c94bf87c732dd08c3a78123cd6685",
+  "count": 18,
+  "varieties": [
+    {
+      "old_path": "/d/beijing/npc/obj/body",
+      "key": "beijing_npc_obj_body",
+      "source_hash": "d3037646fc722f1ce83d601dbc480f2c2628f338f30243efb3dbde0ca143562b",
+      "name": [
+        "\"铁甲\"",
+        "({ \"tie jia\", \"tiejia\", \"jia\", \"armor\", \"body\", })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"件\""
+        ],
+        [
+          "\"long\"",
+          "\"一件沉甸甸的铁甲。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "30"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-10"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "tiejia",
+      "new_path": "/d/items/armor/tiejia",
+      "source": "#include <armor.h>\n\ninherit ARMOR;\n\nvoid create() {\n    set_name(\"铁甲\", ({ \"tie jia\", \"tiejia\", \"jia\", \"armor\", \"body\", }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"件\");\n        set(\"long\", \"一件沉甸甸的铁甲。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"steel\");\n        set(\"armor_prop/armor\", 30);\n        set(\"armor_prop/dodge\", -10);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/armor1",
+      "key": "death_obj_armor1",
+      "source_hash": "ac0dd50f3f1fe4d92c7c593ddac10a754837bee1313e0ebda5363bfa0cb0f340",
+      "name": [
+        "HIY \"金环锁子甲\" NOR",
+        "({ \"jinhuan jia\", \"jinhuan\", \"jia\", \"armor\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"件\""
+        ],
+        [
+          "\"long\"",
+          "HIC \"一件金线织就的宝甲．\\n\" NOR"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"value\"",
+          "400000"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "30"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "jinhuan_jia",
+      "new_path": "/d/items/armor/jinhuan_jia",
+      "source": "#include <armor.h>\n#include <ansi.h>\n\ninherit ARMOR;\n\nvoid create() {\n    set_name(HIY \"金环锁子甲\" NOR, ({ \"jinhuan jia\", \"jinhuan\", \"jia\", \"armor\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"件\");\n        set(\"long\", HIC \"一件金线织就的宝甲．\\n\" NOR);\n        set(\"material\", \"steel\");\n        set(\"value\", 400000);\n        set(\"armor_prop/armor\", 30);\n        set(\"armor_prop/dodge\", -5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/npc/obj/pangukai",
+      "key": "death_sky_npc_obj_pangukai",
+      "source_hash": "9e063e8cd1dd907f3f5eafac9b9e144e0040980bb0e2e8e403f7c22d60b19e2b",
+      "name": [
+        "WHT \"盘古铠\" NOR",
+        "({ \"pangu kai\", \"kai\", \"armor\" })"
+      ],
+      "weight": "10000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"见\""
+        ],
+        [
+          "\"long\"",
+          "\"一见黑黝黝的铁甲，上面雕有盘古的头像。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "200"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "pangu_kai",
+      "new_path": "/d/items/armor/pangu_kai",
+      "source": "#include <ansi.h>\n#include <armor.h>\ninherit ARMOR;\nvoid create() {\n    set_name(WHT \"盘古铠\" NOR, ({ \"pangu kai\", \"kai\", \"armor\" }));\n    set_weight(10000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"见\");\n        set(\"long\", \"一见黑黝黝的铁甲，上面雕有盘古的头像。\\n\");\n        set(\"value\", 100000);\n        set(\"material\", \"cloth\");\n        set(\"armor_prop/armor\", 200);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/sky/npc/obj/pangukai",
+      "key": "sky_npc_obj_pangukai",
+      "source_hash": "9e063e8cd1dd907f3f5eafac9b9e144e0040980bb0e2e8e403f7c22d60b19e2b",
+      "name": [
+        "WHT \"盘古铠\" NOR",
+        "({ \"pangu kai\", \"kai\", \"armor\" })"
+      ],
+      "weight": "10000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"见\""
+        ],
+        [
+          "\"long\"",
+          "\"一见黑黝黝的铁甲，上面雕有盘古的头像。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"material\"",
+          "\"cloth\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "200"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "pangu_kai",
+      "new_path": "/d/items/armor/pangu_kai",
+      "source": "#include <ansi.h>\n#include <armor.h>\ninherit ARMOR;\nvoid create() {\n    set_name(WHT \"盘古铠\" NOR, ({ \"pangu kai\", \"kai\", \"armor\" }));\n    set_weight(10000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"见\");\n        set(\"long\", \"一见黑黝黝的铁甲，上面雕有盘古的头像。\\n\");\n        set(\"value\", 100000);\n        set(\"material\", \"cloth\");\n        set(\"armor_prop/armor\", 200);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/taohua/obj/ruanwei",
+      "key": "taohua_obj_ruanwei",
+      "source_hash": "6046dfdc2e68e872844ca594192558c1d447b9360c08a3f80a91ddb2adbb0080",
+      "name": [
+        "\"软猬甲\"",
+        "({ \"ruanwei jia\", \"jia\", })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"件\""
+        ],
+        [
+          "\"long\"",
+          "\"一件轻飘飘的、生满尖锐倒刺的护甲。\\n\""
+        ],
+        [
+          "\"material\"",
+          "\"copper\""
+        ],
+        [
+          "\"value\"",
+          "20000"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "75"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "ruanwei_jia",
+      "new_path": "/d/items/armor/ruanwei_jia",
+      "source": "// ruanwei jia\n\n#include <armor.h>\n\ninherit ARMOR;\n\nvoid create() {\n    set_name(\"软猬甲\", ({ \"ruanwei jia\", \"jia\", }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"件\");\n        set(\"long\", \"一件轻飘飘的、生满尖锐倒刺的护甲。\\n\");\n        set(\"material\", \"copper\");\n        set(\"value\", 20000);\n        set(\"armor_prop/armor\", 75);\n        set(\"armor_prop/dodge\", -5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/zhongzhou/npc/obj/beixin",
+      "key": "zhongzhou_npc_obj_beixin",
+      "source_hash": "eb55291d7d8dfccdb7e14744bd71a149b420f01b9a0826f46021b597ad20a6ba",
+      "name": [
+        "\"皮背心\"",
+        "({ \"pi beixin\", \"beixin\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"件\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "6"
+        ]
+      ],
+      "after_branch": [],
+      "family": "armor",
+      "id": "pi_beixin",
+      "new_path": "/d/items/armor/pi_beixin",
+      "source": "//beixin\n#include <ansi.h>\n#include <armor.h>\n\ninherit ARMOR;\n\nvoid create() {\n    set_name(\"皮背心\", ({ \"pi beixin\", \"beixin\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"件\");\n        set(\"value\", 1000);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 6);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/huyao",
+      "key": "city_npc_obj_huyao",
+      "source_hash": "3140f28cd9e817a51c69b0724be2c6008f659bf42999b44770212cfc6008b17d",
+      "name": [
+        "\"护腰\"",
+        "({ \"waist\", \"hu yao\", \"huyao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一条皮质的护腰，用以保护腰部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1600"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "waist",
+      "id": "huyao",
+      "new_path": "/d/items/waist/huyao",
+      "source": "// huyao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WAIST;\n\nvoid create() {\n    set_name(\"护腰\", ({ \"waist\", \"hu yao\", \"huyao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一条皮质的护腰，用以保护腰部。\\n\");\n        set(\"value\", 1600);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/huyao",
+      "key": "city_obj_huyao",
+      "source_hash": "3140f28cd9e817a51c69b0724be2c6008f659bf42999b44770212cfc6008b17d",
+      "name": [
+        "\"护腰\"",
+        "({ \"waist\", \"hu yao\", \"huyao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一条皮质的护腰，用以保护腰部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1600"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "waist",
+      "id": "huyao",
+      "new_path": "/d/items/waist/huyao",
+      "source": "// huyao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WAIST;\n\nvoid create() {\n    set_name(\"护腰\", ({ \"waist\", \"hu yao\", \"huyao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一条皮质的护腰，用以保护腰部。\\n\");\n        set(\"value\", 1600);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/huyao",
+      "key": "jingzhou_obj_huyao",
+      "source_hash": "3140f28cd9e817a51c69b0724be2c6008f659bf42999b44770212cfc6008b17d",
+      "name": [
+        "\"护腰\"",
+        "({ \"waist\", \"hu yao\", \"huyao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一条皮质的护腰，用以保护腰部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1600"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "waist",
+      "id": "huyao",
+      "new_path": "/d/items/waist/huyao",
+      "source": "// huyao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WAIST;\n\nvoid create() {\n    set_name(\"护腰\", ({ \"waist\", \"hu yao\", \"huyao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一条皮质的护腰，用以保护腰部。\\n\");\n        set(\"value\", 1600);\n        set(\"material\", \"leather\");\n        set(\"armor_prop/armor\", 5);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/huyao",
+      "key": "mingjiao_obj_huyao",
+      "source_hash": "a6989f954b96dd7cc02f1734ab5e3f22893f2f08c44c1e758a3ce515f3e1b16c",
+      "name": [
+        "\"铁护腰\"",
+        "({ \"hu yao\", \"huyao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"waist\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ]
+      ],
+      "after_branch": [],
+      "family": "waist",
+      "id": "tie_huyao",
+      "new_path": "/d/items/waist/tie_huyao",
+      "source": "// huyao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WAIST;\n\nvoid create() {\n    set_name(\"铁护腰\", ({ \"hu yao\", \"huyao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"waist\");\n        set(\"armor_prop/armor\", 5);\n        //        set(\"shaolin\",1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/huyao",
+      "key": "shaolin_obj_huyao",
+      "source_hash": "f7d0f87b7f2f456012a56c53ad609b68b272a0d320a9d15e962be657b8ec620a",
+      "name": [
+        "\"铁护腰\"",
+        "({ \"hu yao\", \"huyao\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "6000"
+        ],
+        [
+          "\"material\"",
+          "\"waist\""
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "family": "waist",
+      "id": "shaolin_huyao",
+      "new_path": "/d/items/waist/shaolin_huyao",
+      "source": "// huyao.c\n\n#include <ansi.h>\n#include <armor.h>\n\ninherit WAIST;\n\nvoid create() {\n    set_name(\"铁护腰\", ({ \"hu yao\", \"huyao\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\\n\");\n        set(\"value\", 6000);\n        set(\"material\", \"waist\");\n        set(\"armor_prop/armor\", 5);\n        set(\"shaolin\", 1);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/surcoat",
+      "key": "city_npc_obj_surcoat",
+      "source_hash": "9594382e788fdfe47d815733e6ebe74bf9c8fe2f619560cd6c960e5ffa2c69de",
+      "name": [
+        "\"肚带\"",
+        "({ \"surcoat\", \"du dai\", \"dai\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的肚带，用以保护腹部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "surcoat",
+      "id": "dudai",
+      "new_path": "/d/items/surcoat/dudai",
+      "source": "// necklace.c 肚带\n\n#include <armor.h>\n\ninherit SURCOAT;\n\nvoid create() {\n    set_name(\"肚带\", ({ \"surcoat\", \"du dai\", \"dai\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一件皮质的肚带，用以保护腹部。\\n\");\n        set(\"value\", 800);\n        set(\"armor_prop/dodge\", -3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/surcoat",
+      "key": "city_obj_surcoat",
+      "source_hash": "9594382e788fdfe47d815733e6ebe74bf9c8fe2f619560cd6c960e5ffa2c69de",
+      "name": [
+        "\"肚带\"",
+        "({ \"surcoat\", \"du dai\", \"dai\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的肚带，用以保护腹部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "surcoat",
+      "id": "dudai",
+      "new_path": "/d/items/surcoat/dudai",
+      "source": "// necklace.c 肚带\n\n#include <armor.h>\n\ninherit SURCOAT;\n\nvoid create() {\n    set_name(\"肚带\", ({ \"surcoat\", \"du dai\", \"dai\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一件皮质的肚带，用以保护腹部。\\n\");\n        set(\"value\", 800);\n        set(\"armor_prop/dodge\", -3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/surcoat",
+      "key": "jingzhou_obj_surcoat",
+      "source_hash": "9594382e788fdfe47d815733e6ebe74bf9c8fe2f619560cd6c960e5ffa2c69de",
+      "name": [
+        "\"肚带\"",
+        "({ \"surcoat\", \"du dai\", \"dai\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一件皮质的肚带，用以保护腹部。\\n\""
+        ],
+        [
+          "\"value\"",
+          "800"
+        ],
+        [
+          "\"armor_prop/dodge\"",
+          "-3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "surcoat",
+      "id": "dudai",
+      "new_path": "/d/items/surcoat/dudai",
+      "source": "// necklace.c 肚带\n\n#include <armor.h>\n\ninherit SURCOAT;\n\nvoid create() {\n    set_name(\"肚带\", ({ \"surcoat\", \"du dai\", \"dai\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"条\");\n        set(\"long\", \"这是一件皮质的肚带，用以保护腹部。\\n\");\n        set(\"value\", 800);\n        set(\"armor_prop/dodge\", -3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/shield",
+      "key": "changan_npc_obj_shield",
+      "source_hash": "6e58316c6af6fbbb4640e665a3fd2ffb245fff0389318ea0692639c15cb838ab",
+      "name": [
+        "\"牛皮盾\"",
+        "({ \"leather shield\", \"shield\", \"dun\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"面\""
+        ],
+        [
+          "\"value\"",
+          "1200"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/defense\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "shield",
+      "id": "niupi_dun",
+      "new_path": "/d/items/shield/niupi_dun",
+      "source": "//sjield.c\n\n#include <armor.h>\n\ninherit SHIELD;\n\nvoid create() {\n    set_name(\"牛皮盾\", ({ \"leather shield\", \"shield\", \"dun\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"面\");\n        set(\"value\", 1200);\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/defense\", 3);\n    }\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/shield",
+      "key": "city_npc_obj_shield",
+      "source_hash": "fbacadfbed745c13c2f1a487d3a00570129ac6686fd2b8364f577e2f9fa4af92",
+      "name": [
+        "\"牛皮盾\"",
+        "({ \"leather shield\", \"shield\", \"dun\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"面\""
+        ],
+        [
+          "\"value\"",
+          "1200"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/defense\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "shield",
+      "id": "niupi_dun",
+      "new_path": "/d/items/shield/niupi_dun",
+      "source": "// shield.c 牛皮盾\n\n#include <armor.h>\n\ninherit SHIELD;\n\nvoid create() {\n    set_name(\"牛皮盾\", ({ \"leather shield\", \"shield\", \"dun\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"面\");\n        set(\"value\", 1200);\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/defense\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/obj/shield",
+      "key": "city_obj_shield",
+      "source_hash": "fbacadfbed745c13c2f1a487d3a00570129ac6686fd2b8364f577e2f9fa4af92",
+      "name": [
+        "\"牛皮盾\"",
+        "({ \"leather shield\", \"shield\", \"dun\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"面\""
+        ],
+        [
+          "\"value\"",
+          "1200"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/defense\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "shield",
+      "id": "niupi_dun",
+      "new_path": "/d/items/shield/niupi_dun",
+      "source": "// shield.c 牛皮盾\n\n#include <armor.h>\n\ninherit SHIELD;\n\nvoid create() {\n    set_name(\"牛皮盾\", ({ \"leather shield\", \"shield\", \"dun\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"面\");\n        set(\"value\", 1200);\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/defense\", 3);\n    }\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/shield",
+      "key": "jingzhou_obj_shield",
+      "source_hash": "fbacadfbed745c13c2f1a487d3a00570129ac6686fd2b8364f577e2f9fa4af92",
+      "name": [
+        "\"牛皮盾\"",
+        "({ \"leather shield\", \"shield\", \"dun\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"unit\"",
+          "\"面\""
+        ],
+        [
+          "\"value\"",
+          "1200"
+        ],
+        [
+          "\"armor_prop/armor\"",
+          "5"
+        ],
+        [
+          "\"armor_prop/defense\"",
+          "3"
+        ]
+      ],
+      "after_branch": [],
+      "family": "shield",
+      "id": "niupi_dun",
+      "new_path": "/d/items/shield/niupi_dun",
+      "source": "// shield.c 牛皮盾\n\n#include <armor.h>\n\ninherit SHIELD;\n\nvoid create() {\n    set_name(\"牛皮盾\", ({ \"leather shield\", \"shield\", \"dun\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"material\", \"leather\");\n        set(\"unit\", \"面\");\n        set(\"value\", 1200);\n        set(\"armor_prop/armor\", 5);\n        set(\"armor_prop/defense\", 3);\n    }\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/changan/npc/liu.c",
+      "line": 19,
+      "start": 429,
+      "end": 449,
+      "expression": "__DIR__ \"obj/shield\"",
+      "old_path": "/d/changan/npc/obj/shield",
+      "new_path": "/d/items/shield/niupi_dun"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 22,
+      "start": 585,
+      "end": 606,
+      "expression": "__DIR__ \"obj/surcoat\"",
+      "old_path": "/d/city/npc/obj/surcoat",
+      "new_path": "/d/items/surcoat/dudai"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 23,
+      "start": 616,
+      "end": 636,
+      "expression": "__DIR__ \"obj/shield\"",
+      "old_path": "/d/city/npc/obj/shield",
+      "new_path": "/d/items/shield/niupi_dun"
+    },
+    {
+      "file": "d/city/npc/yang.c",
+      "line": 26,
+      "start": 712,
+      "end": 731,
+      "expression": "__DIR__ \"obj/huyao\"",
+      "old_path": "/d/city/npc/obj/huyao",
+      "new_path": "/d/items/waist/huyao"
+    },
+    {
+      "file": "d/death/npc/yinchangsheng.c",
+      "line": 30,
+      "start": 755,
+      "end": 776,
+      "expression": "\"/d/death/obj/armor1\"",
+      "old_path": "/d/death/obj/armor1",
+      "new_path": "/d/items/armor/jinhuan_jia"
+    },
+    {
+      "file": "d/death/sky/npc/li2.c",
+      "line": 61,
+      "start": 1606,
+      "end": 1628,
+      "expression": "__DIR__ \"obj/pangukai\"",
+      "old_path": "/d/death/sky/npc/obj/pangukai",
+      "new_path": "/d/items/armor/pangu_kai"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 21,
+      "start": 547,
+      "end": 572,
+      "expression": "\"/d/city/npc/obj/surcoat\"",
+      "old_path": "/d/city/npc/obj/surcoat",
+      "new_path": "/d/items/surcoat/dudai"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 22,
+      "start": 582,
+      "end": 606,
+      "expression": "\"/d/city/npc/obj/shield\"",
+      "old_path": "/d/city/npc/obj/shield",
+      "new_path": "/d/items/shield/niupi_dun"
+    },
+    {
+      "file": "d/luoyang/npc/xiao.c",
+      "line": 25,
+      "start": 682,
+      "end": 705,
+      "expression": "\"/d/city/npc/obj/huyao\"",
+      "old_path": "/d/city/npc/obj/huyao",
+      "new_path": "/d/items/waist/huyao"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 34,
+      "start": 842,
+      "end": 866,
+      "expression": "\"/d/city/npc/obj/shield\"",
+      "old_path": "/d/city/npc/obj/shield",
+      "new_path": "/d/items/shield/niupi_dun"
+    },
+    {
+      "file": "d/luoyang/npc/zhu.c",
+      "line": 37,
+      "start": 942,
+      "end": 965,
+      "expression": "\"/d/city/npc/obj/huyao\"",
+      "old_path": "/d/city/npc/obj/huyao",
+      "new_path": "/d/items/waist/huyao"
+    },
+    {
+      "file": "d/sky/npc/li2.c",
+      "line": 60,
+      "start": 1517,
+      "end": 1539,
+      "expression": "__DIR__ \"obj/pangukai\"",
+      "old_path": "/d/sky/npc/obj/pangukai",
+      "new_path": "/d/items/armor/pangu_kai"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 27,
+      "start": 627,
+      "end": 652,
+      "expression": "\"/d/city/npc/obj/surcoat\"",
+      "old_path": "/d/city/npc/obj/surcoat",
+      "new_path": "/d/items/surcoat/dudai"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 28,
+      "start": 662,
+      "end": 686,
+      "expression": "\"/d/city/npc/obj/shield\"",
+      "old_path": "/d/city/npc/obj/shield",
+      "new_path": "/d/items/shield/niupi_dun"
+    },
+    {
+      "file": "d/xiangyang/npc/gaoli.c",
+      "line": 31,
+      "start": 762,
+      "end": 785,
+      "expression": "\"/d/city/npc/obj/huyao\"",
+      "old_path": "/d/city/npc/obj/huyao",
+      "new_path": "/d/items/waist/huyao"
+    },
+    {
+      "file": "d/xiangyang/npc/guofu.c",
+      "line": 49,
+      "start": 1143,
+      "end": 1166,
+      "expression": "\"/d/taohua/obj/ruanwei\"",
+      "old_path": "/d/taohua/obj/ruanwei",
+      "new_path": "/d/items/armor/ruanwei_jia"
+    },
+    {
+      "file": "kungfu/class/taohua/rong.c",
+      "line": 87,
+      "start": 2545,
+      "end": 2568,
+      "expression": "\"/d/taohua/obj/ruanwei\"",
+      "old_path": "/d/taohua/obj/ruanwei",
+      "new_path": "/d/items/armor/ruanwei_jia"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "line": 121,
+      "expression": "obj = new(__DIR__ \"obj/\" + arg);"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 76,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 95,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 109,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 117,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "callers": {
+    "d/beijing/npc/qianzhenglun.c": "// qianzhenglun.c 钱正伦\n\n#include <ansi.h>\n\ninherit NPC;\n\nint total = random(15);\nmapping my_count = ([]);\n\nvoid create() {\n    set_name(\"钱正伦\", ({ \"qian zhenglun\", \"qian\", \"zhenglun\" }));\n    set(\"long\", \"镇远镖局的镖师，常年来勤勤恳恳的打理着镖\\n\"\n        \"局的事务，任劳任怨，忠心耿耿。他的鬓角已\\n\"\n        \"微见白发，皮肤黝黑，身材魁梧，腰粗臂长，\\n\"\n        \"双眼有神。\\n\");\n    set(\"title\", \"镇远镖局镖师\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"shen_type\", 1);\n    set(\"class\", \"fighter\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"str\", 40);\n    set(\"int\", 30);\n    set(\"dex\", 30);\n    set(\"con\", 35);\n    set(\"per\", 19);\n\n    set(\"qi\", 600);\n    set(\"max_qi\", 600);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1500);\n    set(\"max_neili\", 1500);\n    set(\"jiali\", 75);\n\n    set(\"combat_exp\", 200000);\n    set(\"score\", 50000);\n\n    set_skill(\"literate\", 40);\n    set_skill(\"parry\", 60);\n    set_skill(\"force\", 60);\n    set_skill(\"dodge\", 60);\n    set_skill(\"bagua-bu\", 40);\n    set_skill(\"bagua-dao\", 40);\n    set_skill(\"nei-bagua\", 30);\n    set_skill(\"blade\", 60);\n\n    map_skill(\"parry\", \"bagua-dao\");\n    map_skill(\"blade\", \"bagua-dao\");\n    map_skill(\"dodge\", \"bagua-bu\");\n    map_skill(\"force\", \"nei-bagua\");\n\n    setup();\n\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_yao\", \"yao\");\n}\n\nint do_yao(string arg) {\n    object me = this_player(), obj;\n\n    if (!arg) {\n        tell_object(me, CYN \"钱正伦道：你要什么东西？\\n\" NOR);\n        return 1;\n    }\n\n    if ((string)me->query(\"family/family_name\") != \"八卦门\")\n        return notify_fail(CYN \"钱正伦道：对不起，只有镖局里\"\n            \"的人才能领取兵器。\\n\" NOR);\n\n    if (arg != \"blade\" && arg != \"sword\" && arg != \"dagger\"\n        && arg != \"hammer\" && arg != \"staff\" && arg != \"throwing\"\n        && arg != \"whip\" && arg != \"body\" && arg != \"helmet\"\n        && arg != \"feet\" && arg != \"waist\")\n        return notify_fail(CYN \"钱正伦对你摇头道：对不起，你要的\"\n            \"东西我这里没有。\\n\" NOR);\n\n    if (my_count[arg] >= total)\n        return notify_fail(CYN \"钱正伦道：对不起，你要的东西我都\"\n            \"已经发完了。\\n\" NOR);\n\n    if (arg == \"body\" || arg == \"helmet\"\n        || arg == \"feet\" || arg == \"waist\") {\n        if (me->query_temp(\"mark/zhenyuan_armor\") >= 3)\n            return notify_fail(CYN \"钱正伦怒骂道：你要了这么\"\n                \"多件护甲，还不够？\\n\" NOR);\n\n        me->add_temp(\"mark/zhenyuan_armor\", 1);\n    } else {\n        if (me->query_temp(\"mark/zhenyuan_weapon\") >= 3)\n            return notify_fail(CYN \"钱正伦怒骂道：你要了这么\"\n                \"多件兵器，还不够？\\n\" NOR);\n\n        me->add_temp(\"mark/zhenyuan_weapon\", 1);\n    }\n\n    my_count[arg] += 1;\n    if (arg == \"sword\")\n        obj = new(\"/d/items/sword/changjian\");\n    else if (arg == \"blade\")\n        obj = new(\"/d/items/blade/gangdao\");\n    else if (arg == \"hammer\")\n        obj = new(\"/d/items/hammer/tiechui\");\n    else if (arg == \"staff\")\n        obj = new(\"/d/items/staff/chanzhang\");\n    else if (arg == \"whip\")\n        obj = new(\"/d/items/whip/pibian\");\n    else if (arg == \"dagger\")\n        obj = new(\"/d/items/dagger/bishou\");\n    else if (arg == \"throwing\")\n        obj = new(\"/d/items/throwing/feihuangshi\");\n    else if (arg == \"feet\")\n        obj = new(\"/d/items/boots/zhanxue\");\n    else if (arg == \"helmet\")\n        obj = new(\"/d/items/headwear/gangkui\");\n    else\n        obj = new(__DIR__ \"obj/\" + arg);\n    obj->set(\"no_sell\", \"这不是镇远镖局里的东西么？我可不敢收购。\");\n    obj->set(\"value\", 50);\n    command(\"say 这位\" + RANK_D->query_respect(me) + \"，\" +\n        obj->query(\"name\") + \"为数不多，千万别随便扔。\");\n    message_vision(HIC \"钱正伦给了$N\" HIC \"一\" + obj->query(\"unit\")\n        +obj->query(\"name\") + HIC \"。\\n\" NOR, me);\n    obj->move(me);\n    return 1;\n}\n",
+    "d/changan/npc/liu.c": "//liu.c\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"刘老实\", ({ \"liu laoshi\", \"liu\" }));\n    set(\"title\", \"杂货铺老板\");\n    set(\"shen_type\", 1);\n    set(\"gender\", \"男性\");\n    set(\"age\", 55);\n    set_skill(\"unarmed\", 40);\n    set_skill(\"dodge\", 40);\n    set_temp(\"apply/damage\", 15);\n    set(\"combat_exp\", 50000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/items/cloth/pi_beixin2\",\n        __DIR__ \"obj/shield\",\n        \"/d/items/qin/muqin\",\n        \"/d/xiyu/obj/fire\",\n        \"/d/item/obj/chanhs\",\n        \"/clone/misc/wood\",\n        //\"/clone/misc/shoeshine\",\n        //\"/clone/misc/brush\",\n        \"/clone/misc/diaogan\",\n        \"/clone/misc/yuer\",\n        \"/clone/misc/yanwu\",\n        \"/clone/misc/shexiang\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/changpao\")->wear();\n}\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/city/npc/yang.c": "inherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"杨永福\", ({ \"yang yongfu\", \"yang\", \"yongfu\" }));\n    set(\"title\", \"杂货铺老板\");\n    set(\"shen_type\", 1);\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"long\", \"杨老板是土生土长的扬州人，做了几十年的小买卖。\\n\");\n    set_skill(\"unarmed\", 50);\n    set_skill(\"dodge\", 50);\n    set_temp(\"apply/damage\", 15);\n\n    set(\"combat_exp\", 40000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        __DIR__ \"obj/mabudai\",\n        \"/d/items/cloth/pi_beixin2\",\n        \"/d/items/headwear/tie_toukui\",\n        \"/d/items/neck/xiangquan\",\n        __DIR__ \"obj/surcoat\",\n        __DIR__ \"obj/shield\",\n        \"/d/items/wrists/huwan\",\n        \"/d/items/hands/zhitao\",\n        __DIR__ \"obj/huyao\",\n        \"/d/items/boots/caoxie\",\n        \"/d/items/boots/pixue\",\n        \"/d/items/hands/shoutao\",\n        \"/d/items/hands/tieshou\",\n        __DIR__ \"obj/jinsijia\",\n        \"/clone/cloth/cuttonp\",\n        \"/d/xiyu/obj/fire\",\n        \"/d/taohua/obj/bagua\",\n        \"/d/item/obj/chanhs\",\n        \"/clone/misc/wood\",\n        \"/clone/misc/shoeshine\",\n        \"/clone/misc/brush\",\n        \"/clone/misc/sleepbag\",\n    }));\n\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/death/npc/yinchangsheng.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"阴长生\", ({ \"yin changsheng\", \"yin\", \"changsheng\" }));\n    set(\"title\", HIR \"冥府地藏王殿前\" NOR);\n    set(\"nickname\", HIB \"阴王\" NOR);\n    set(\"shen_type\", 1);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 475);\n    set(\"long\", \"阴长生本是个落弟秀才，后在丰都山修练成仙，御封「阴王」。\\n\");\n\n    set_skill(\"unarmed\", 500);\n    set_skill(\"dodge\", 500);\n    set_skill(\"force\", 500);\n    set_skill(\"parry\", 500);\n    set_skill(\"magic\", 500);\n    set_temp(\"apply/damage\", 2000);\n    set_temp(\"apply/parry\", 2000);\n    set_temp(\"apply/dodge\", 2000);\n    set_temp(\"apply/attack\", 2000);\n    set_temp(\"apply/force\", 2000);\n\n    set(\"combat_exp\", 20000000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/death/obj/armor1\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/yinwang_pao\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/death/sky/npc/li2.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"李逍遥\", ({ \"li xiaoyao\", \"li\", \"xiaoyao\" }));\n    set(\"long\", \"仙剑奇侠传中的传奇人物，少年得蜀山剑派\\n\"\n        \"高人授艺，兼习家传绝学飞龙探云手以及冰\\n\"\n        \"心决，乃一代不世的剑侠。\\n\");\n    set(\"nickname\", HIW \"蜀山剑神\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 24);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 50);\n    set(\"int\", 50);\n    set(\"con\", 50);\n    set(\"dex\", 50);\n\n    set(\"max_qi\", 9000);\n    set(\"max_jing\", 6000);\n    set(\"max_neili\", 12000);\n    set(\"neili\", 12000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 10000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.fei\" :),\n        (: exert_function, \"freeze\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    /*\n        set_skill(\"dodge\", 460);\n        set_skill(\"parry\", 460);\n        set_skill(\"unarmed\", 460);\n        set_skill(\"hand\", 460);\n        set_skill(\"sword\", 460);\n        set_skill(\"yujian-shu\", 460);\n        set_skill(\"feilong-shou\", 460);\n        set_skill(\"zuixian-bu\", 460);\n        set_skill(\"force\", 460);\n        set_skill(\"bingxin-jue\", 460);\n        set_skill(\"literate\", 200);\n\n        map_skill(\"force\", \"bingxin-jue\");\n        map_skill(\"dodge\", \"zuixian-bu\");\n        map_skill(\"parry\", \"yujian-shu\");\n        map_skill(\"sword\", \"yujian-shu\");\n        map_skill(\"unarmed\", \"feilong-shou\");\n        map_skill(\"hand\", \"feilong-shou\");\n\n        prepare_skill(\"hand\", \"feilong-shou\");\n        */\n    setup();\n\n    carry_object(__DIR__ \"obj/pangukai\")->wear();\n    carry_object(\"/d/items/sword/xuanchi_jian\")->wield();\n    // carry_object(\"/kungfu/class/sky/obj/miji3\");\n    // set_temp(\"handing\", carry_object(\"/kungfu/class/sky/obj/shenjiu\"));\n}\n",
+    "d/luoyang/npc/xiao.c": "inherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"萧南忠\", ({ \"xiao nanzhong\", \"xiao\", \"nanzhong\" }));\n    set(\"title\", \"杂货铺老板\");\n    set(\"shen_type\", 1);\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"dodge\", 50);\n    set_temp(\"apply/damage\", 15);\n\n    set(\"combat_exp\", 40000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/city/npc/obj/mabudai\",\n        \"/d/items/cloth/pi_beixin2\",\n        \"/d/items/headwear/tie_toukui\",\n        \"/d/items/neck/xiangquan\",\n        \"/d/city/npc/obj/surcoat\",\n        \"/d/city/npc/obj/shield\",\n        \"/d/items/wrists/huwan\",\n        \"/d/items/hands/zhitao\",\n        \"/d/city/npc/obj/huyao\",\n        \"/d/items/boots/caoxie\",\n        \"/d/items/boots/pixue\",\n        \"/d/items/hands/shoutao\",\n        \"/d/items/hands/tieshou\",\n        \"/d/city/npc/obj/jinsijia\",\n        \"/d/xiyu/obj/fire\",\n    }));\n\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/luoyang/npc/zhu.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"朱政\", ({ \"zhu zheng\", \"zhu\", \"zheng\" }));\n    set(\"gender\", \"男性\");\n    set(\"title\", \"盔甲店老板\");\n    set(\"age\", 45);\n    set_skill(\"dodge\", 80);\n    set_skill(\"force\", 80);\n    set_skill(\"parry\", 80);\n    set_skill(\"claw\", 80);\n    set_skill(\"hand\", 80);\n    set_skill(\"strike\", 80);\n    set_skill(\"finger\", 80);\n    set_skill(\"cuff\", 80);\n    set_skill(\"blade\", 80);\n    set_skill(\"club\", 80);\n    set_skill(\"staff\", 80);\n    set_skill(\"sword\", 80);\n    set_skill(\"throwing\", 80);\n    set_temp(\"apply/attack\", 80);\n    set_temp(\"apply/defense\", 80);\n    set_temp(\"apply/damage\", 20);\n\n    set(\"combat_exp\", 400000);\n    set(\"shen_type\", 1);\n    setup();\n    set(\"vendor_goods\", ({\n        \"/d/items/headwear/tie_toukui\",\n        \"/d/items/neck/xiangquan\",\n        \"/d/city/npc/obj/shield\",\n        \"/d/items/wrists/huwan\",\n        \"/d/items/hands/zhitao\",\n        \"/d/city/npc/obj/huyao\",\n        \"/d/items/hands/tieshou\",\n        \"/d/city/npc/obj/jinsijia\",\n        \"/d/luoyang/npc/obj/armor1\",\n        \"/d/luoyang/npc/obj/head1\",\n        \"/d/luoyang/npc/obj/wanlun1\",\n        \"/d/luoyang/npc/obj/hand\",\n        \"/d/luoyang/npc/obj/finger\",\n    }));\n    //carry_object(\"/d/luoyang/npc/obj/armor1\");\n    //carry_object(\"/d/luoyang/npc/obj/head1\");\n    //carry_object(\"/d/luoyang/npc/obj/wanlun1\");\n}\n\nvoid init() {\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n",
+    "d/sky/npc/li2.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"李逍遥\", ({ \"li xiaoyao\", \"li\", \"xiaoyao\" }));\n    set(\"long\", \"仙剑奇侠传中的传奇人物，少年得蜀山剑派\\n\"\n        \"高人授艺，兼习家传绝学飞龙探云手以及冰\\n\"\n        \"心决，乃一代不世的剑侠。\\n\");\n    set(\"nickname\", HIW \"蜀山剑神\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 24);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 50);\n    set(\"int\", 50);\n    set(\"con\", 50);\n    set(\"dex\", 50);\n\n    set(\"max_qi\", 9000);\n    set(\"max_jing\", 6000);\n    set(\"max_neili\", 12000);\n    set(\"neili\", 12000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 10000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.fei\" :),\n        (: exert_function, \"freeze\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    set_skill(\"dodge\", 460);\n    set_skill(\"parry\", 460);\n    set_skill(\"unarmed\", 460);\n    set_skill(\"hand\", 460);\n    set_skill(\"sword\", 460);\n    set_skill(\"yujian-shu\", 460);\n    set_skill(\"feilong-shou\", 460);\n    set_skill(\"zuixian-bu\", 460);\n    set_skill(\"force\", 460);\n    set_skill(\"bingxin-jue\", 460);\n    set_skill(\"literate\", 200);\n\n    map_skill(\"force\", \"bingxin-jue\");\n    map_skill(\"dodge\", \"zuixian-bu\");\n    map_skill(\"parry\", \"yujian-shu\");\n    map_skill(\"sword\", \"yujian-shu\");\n    map_skill(\"unarmed\", \"feilong-shou\");\n    map_skill(\"hand\", \"feilong-shou\");\n\n    prepare_skill(\"hand\", \"feilong-shou\");\n\n    setup();\n\n    carry_object(__DIR__ \"obj/pangukai\")->wear();\n    carry_object(\"/d/items/sword/xuanchi_jian\")->wield();\n    carry_object(\"/d/items/book/feilong_tanyun\");\n    set_temp(\"handing\", carry_object(\"/d/sky/obj/shenjiu\"));\n}\n",
+    "d/xiangyang/npc/gaoli.c": "// gaoli.c\n\ninherit NPC;\n//inherit F_VENDOR;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"高丽商\", ({ \"gaoli shang\", \"shang\" }));\n    set(\"title\", \"新罗坊老板\");\n    set(\"shen_type\", 1);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"long\",\n        \"这是个高丽商人，长得和中国人没啥区别。连卖的东西也差不多。\\n\");\n    set_skill(\"unarmed\", 50);\n    set_skill(\"dodge\", 50);\n    set_temp(\"apply/damage\", 15);\n\n    set(\"combat_exp\", 40000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/city/npc/obj/mabudai\",\n        \"/d/items/cloth/pi_beixin2\",\n        \"/d/items/headwear/tie_toukui\",\n        \"/d/items/neck/xiangquan\",\n        \"/d/city/npc/obj/surcoat\",\n        \"/d/city/npc/obj/shield\",\n        \"/d/items/wrists/huwan\",\n        \"/d/items/hands/zhitao\",\n        \"/d/city/npc/obj/huyao\",\n        \"/d/items/boots/caoxie\",\n        \"/d/items/boots/pixue\",\n        \"/d/items/hands/shoutao\",\n        \"/d/items/hands/tieshou\",\n        \"/d/city/npc/obj/jinsijia\",\n        \"/d/xiyu/obj/fire\",\n    }));\n\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/xiangyang/npc/guofu.c": "// guofu.c\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"郭芙\", ({ \"guo fu\", \"guo\", \"fu\" }));\n    set(\"gender\", \"女性\");\n    set(\"age\", 19);\n    set(\"long\", \"她是郭靖黄蓉的大女儿，东邪黄药师的大外孙女，长得如花似玉。\\n\");\n\n    set(\"attitude\", \"peaceful\");\n\n    set(\"per\", 30);\n    set(\"str\", 18);\n    set(\"int\", 30);\n    set(\"con\", 21);\n    set(\"dex\", 26);\n\n    set(\"qi\", 1000);\n    set(\"max_qi\", 1000);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 500);\n    set(\"max_neili\", 500);\n    set(\"jiali\", 0);\n\n    set(\"combat_exp\", 50000);\n    set(\"score\", 0);\n\n    set_skill(\"force\", 60);\n    set_skill(\"bibo-shengong\", 60);\n    set_skill(\"strike\", 60);\n    set_skill(\"luoying-shenzhang\", 60);\n    set_skill(\"dodge\", 80);\n    set_skill(\"anying-fuxiang\", 60);\n    set_skill(\"parry\", 60);\n    set_skill(\"sword\", 60);\n    set_skill(\"luoying-shenjian\", 60);\n    set_skill(\"qimen-wuxing\", 60);\n\n    map_skill(\"force\", \"bibo-shengong\");\n    map_skill(\"strike\", \"luoying-shenzhang\");\n    map_skill(\"dodge\", \"anying-fuxiang\");\n    map_skill(\"sword\", \"luoying-shenjian\");\n\n    prepare_skill(\"strike\", \"luoying-shenzhang\");\n\n    setup();\n    carry_object(\"/d/taohua/obj/ruanwei\")->wear();\n    carry_object(\"/d/items/headwear/jindai2\")->wear();\n\n}\n",
+    "d/xiangyang/npc/wuxiuwen.c": "// wuxiuwen.c\n\n#include <ansi.h>\n\ninherit NPC;\nstring ask_me_1(string name);\nstring ask_me_2(string name);\nvoid create() {\n    set_name(\"武修文\", ({ \"wu xiuwen\", \"wu\", \"xiuwen\" }));\n    set(\"title\", HIY \"郭靖二弟子\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 21);\n    set(\"long\", \"他是郭靖的二弟子，精明强干，专门负责后勤。\\n\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"per\", 23);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 30);\n    set(\"dex\", 25);\n\n    set(\"inquiry\", ([\n        \"黄蓉\": \"那是我师母。\\n\",\n        \"郭靖\": \"那是我师父。\\n\",\n    ]));\n\n    set(\"qi\", 1000);\n    set(\"max_qi\", 1000);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n\n    set(\"combat_exp\", 80000);\n    set(\"score\", 20000);\n\n    set(\"huju_count\", 20);\n    set(\"beixin_count\", 2);\n\n    set_skill(\"force\", 50);\n    set_skill(\"quanzhen-xinfa\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"changquan\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"jinyan-gong\", 50);\n    set_skill(\"parry\", 50);\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    map_skill(\"force\", \"quanzhen-xinfa\");\n    map_skill(\"unarmed\", \"changquana\");\n    map_skill(\"dodge\", \"jinyan-gong\");\n    map_skill(\"parry\", \"changquana\");\n\n    setup();\n\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\nstring ask_me_1(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else if (name == \"fojing10\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing11\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing20\")\n        ob = new(\"/d/items/book/fojing5\");\n    else if (name == \"fojing21\")\n        ob = new(\"/d/items/book/fojing5\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n",
+    "kungfu/class/shaolin/dao-chen.c": "// Npc: /kungfu/class/shaolin/dao-chen.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道尘禅师\", ({\n        \"daochen chanshi\",\n        \"daochen\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"齐眉棍\": (: ask_me, \"qimeigun\" :),\n        \"戒刀\": (: ask_me, \"jiedao\" :),\n        \"禅杖\": (: ask_me, \"chanzhang\" :),\n        \"长剑\": (: ask_me, \"changjian\" :),\n        \"皮鞭\": (: ask_me, \"changbian\" :),\n    ]));\n\n    set(\"wuqi_count\", 15);\n\n    setup();\n\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"wuqi_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    if (name == \"changjian\")\n        ob = new(\"/d/items/sword/changjian5\");\n    else if (name == \"jiedao\")\n        ob = new(\"/d/items/blade/jiedao2\");\n    else if (name == \"chanzhang\")\n        ob = new(\"/d/items/staff/chanzhang2\");\n    else if (name == \"changbian\")\n        ob = new(\"/d/items/whip/changbian2\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else if (name == \"fojing10\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing11\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing20\")\n        ob = new(\"/d/items/book/fojing5\");\n    else if (name == \"fojing21\")\n        ob = new(\"/d/items/book/fojing5\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"wuqi_count\", -1);\n\n    message_vision(\"道尘给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，武器只可防身练武，不可凭此杀害生灵。\";\n}\n",
+    "kungfu/class/shaolin/dao-xiang.c": "// Npc: /kungfu/class/shaolin/dao-xiang.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me_1(string name);\nstring ask_me_2(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道相禅师\", ({\n        \"daoxiang chanshi\",\n        \"daoxiang\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"sword\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"sword\", \"damo-jian\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"僧鞋\": (: ask_me_1, \"sengxie\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    set(\"huju_count\", 50);\n    set(\"beixin_count\", 5);\n\n    setup();\n\n    carry_object(\"/d/items/sword/changjian5\")->wield();\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me_1(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else if (name == \"sengxie\")\n        ob = new(\"/d/items/boots/shaolin_sengxie\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else if (name == \"fojing10\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing11\")\n        ob = new(\"/d/items/book/fojing1\");\n    else if (name == \"fojing20\")\n        ob = new(\"/d/items/book/fojing5\");\n    else if (name == \"fojing21\")\n        ob = new(\"/d/items/book/fojing5\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n",
+    "kungfu/class/taohua/rong.c": "#include <ansi.h>\n#include \"taohua.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"黄蓉\", ({ \"huang rong\", \"huang\", \"rong\" }));\n    set(\"title\", \"东海桃花岛主之女\");\n    set(\"nickname\", HIY \"丐帮前任帮主\" NOR);\n    set(\"gender\", \"女性\");\n    set(\"age\", 28);\n    set(\"long\", \"这便是桃花岛岛主的独生女儿。由于岛主夫人\\n\"\n        \"早死，岛主对这个女儿备加疼爱。她生性跳脱\\n\"\n        \"飞扬，喜欢四处乱跑。\\n\");\n    set(\"attitude\", \"peaceful\");\n    set(\"class\", \"scholar\");\n    set(\"str\", 28);\n    set(\"int\", 40);\n    set(\"con\", 30);\n    set(\"dex\", 30);\n    set(\"qi\", 4800);\n    set(\"max_qi\", 4800);\n    set(\"jing\", 3500);\n    set(\"max_jing\", 3500);\n    set(\"neili\", 5500);\n    set(\"max_neili\", 5500);\n    set(\"jiali\", 200);\n    set(\"combat_exp\", 3000000);\n\n    set_skill(\"force\", 240);\n    set_skill(\"bibo-shengong\", 240);\n    set_skill(\"luoying-xinfa\", 220);\n    set_skill(\"hand\", 240);\n    set_skill(\"strike\", 240);\n    set_skill(\"pikong-zhang\", 220);\n    set_skill(\"luoying-shenzhang\", 240);\n    set_skill(\"dodge\", 240);\n    set_skill(\"anying-fuxiang\", 240);\n    set_skill(\"parry\", 220);\n    set_skill(\"sword\", 220);\n    set_skill(\"luoying-shenjian\", 220);\n    set_skill(\"yuxiao-jian\", 220);\n    set_skill(\"lanhua-shou\", 240);\n    set_skill(\"staff\", 240);\n    set_skill(\"dagou-bang\", 240);\n    set_skill(\"unarmed\", 200);\n    set_skill(\"xiaoyaoyou\", 200);\n    set_skill(\"throwing\", 200);\n    set_skill(\"mantianhuayu-zhen\", 200);\n    set_skill(\"qimen-wuxing\", 280);\n    set_skill(\"count\", 280);\n    set_skill(\"jingluo-xue\", 260);\n    set_skill(\"literate\", 280);\n    set_skill(\"mathematics\", 280);\n    set_skill(\"cooking\", 280);\n    set_skill(\"martial-cognize\", 220);\n\n    map_skill(\"force\", \"bibo-shengong\");\n    map_skill(\"hand\", \"lanhua-shou\");\n    map_skill(\"strike\", \"luoying-shenzhang\");\n    map_skill(\"dodge\", \"anying-fuxiang\");\n    map_skill(\"parry\", \"lanhua-shou\");\n    map_skill(\"staff\", \"dagou-bang\");\n    map_skill(\"sword\", \"yuxiao-jian\");\n    map_skill(\"unarmed\", \"xiaoyaoyou\");\n    map_skill(\"throwing\", \"mantianhuayu-zhen\");\n\n    prepare_skill(\"hand\", \"lanhua-shou\");\n    prepare_skill(\"strike\", \"luoying-shenzhang\");\n\n    create_family(\"桃花岛\", 2, \"爱女\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"hand.fu\" :),\n        (: perform_action, \"hand.fei\" :),\n        (: perform_action, \"strike.zhuan\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"recover\" :),\n    }));\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    setup();\n    carry_object(\"/d/taohua/obj/ruanwei\")->wear();\n    carry_object(\"/d/items/headwear/jindai2\")->wear();\n}\n\nvoid attempt_apprentice(object ob) {\n    command(\"say 现在国难当头，我哪里有时间收徒啊。\");\n    return;\n}\n"
+  },
+  "excluded": [
+    {
+      "file": "d/death/npc/obj/armor1.c",
+      "source_hash": "603d8a149e8eff63ae3a3646e0f6e1cbb955fa12a42fe96864c69cb17310cff8"
+    },
+    {
+      "file": "d/emei/obj/yaodai.c",
+      "source_hash": "c5727ec338c2c2b6a39eca0a2951c04effc916822ad0dfe9c6d724178317b504"
+    },
+    {
+      "file": "d/mingjiao/obj/yaodai.c",
+      "source_hash": "79b619dea99cd5b1baec490795ca160259d68a594e5b4be69be7f7c185e74d77"
+    },
+    {
+      "file": "d/shaolin/obj/yaodai.c",
+      "source_hash": "7753dc275ef295d1f2c239a36ed8e7fc58e41489d501502c620a4d133c1b0fc7"
+    },
+    {
+      "file": "d/wudu/obj/zhulou.c",
+      "source_hash": "3da67ebbd63d15742d07028b82db8b09f80eed16e3f066446a4621f4ee4f72f4"
+    },
+    {
+      "file": "d/wudu/obj/zhulou2.c",
+      "source_hash": "b92e5af23ec5c02dbf37a0817599c7f74f282d3d0d31af077c13e4c01c6e8f77"
+    },
+    {
+      "file": "clone/cloth/yaodai.c",
+      "source_hash": "cb89c31d88e8c88625c7b1fb5bc3daabf89bef1ba933914f64641e322f14bc03"
+    },
+    {
+      "file": "clone/lonely/baojia.c",
+      "source_hash": "aa5ae6d7db54b4f57c77dfdb3faeded71bcbcee27a96e08291a430dd4ba9e266"
+    },
+    {
+      "file": "clone/lonely/jiasha.c",
+      "source_hash": "6f4786ccd0ef99f5ce9b67f6d124f46d93288d8cd1762bc0386913a042404ef4"
+    },
+    {
+      "file": "clone/lonely/sheying.c",
+      "source_hash": "92723a49193d98e85057ca63e811b7240a04269ed1bc542f7b69e54f1ca8cf57"
+    },
+    {
+      "file": "clone/weapon/jsbaojia.c",
+      "source_hash": "7e4e4731f71505fbf1f11a87b21f0d5c9d7537dd55df0c1673d9f1f2426228ec"
+    },
+    {
+      "file": "inherit/armor/armor.c",
+      "source_hash": "21241d4189acaccf80e70c10ff4570c1442876e7e0277b9c5e588b0cbaf03feb"
+    },
+    {
+      "file": "inherit/armor/waist.c",
+      "source_hash": "cf3aa1b650c4f1a6b259a5d59e6a2ca539ee1267a6b5c24d9a7b98bec4f79999"
+    },
+    {
+      "file": "inherit/armor/surcoat.c",
+      "source_hash": "8b2884dfbc17a3edd298da0ec4f7bfb5cf46daae512326fbdfabce7a38a779b3"
+    },
+    {
+      "file": "inherit/armor/shield.c",
+      "source_hash": "d7f54e9a86dd961d55be1055e729e8c46c13438764ace2a6fcf5a286496baacc"
+    },
+    {
+      "file": "inherit/misc/equip.c",
+      "source_hash": "2c27d3bc81c41204be8f4771e59561319f3f3c36aa00118465cb6ccdd3092e2b"
+    },
+    {
+      "file": "adm/daemons/itemd.c",
+      "source_hash": "0e25cc75d98d5a443f198f258af9a560d4a8abe87c709061ef7a589bbb325864"
+    },
+    {
+      "file": "feature/dealer.c",
+      "source_hash": "a184bd8c53afa3df066aebfc99066480f60e7a57be8018096ec32b059c27665f"
+    },
+    {
+      "file": "inherit/char/npc.c",
+      "source_hash": "a76a597c0b4068032b9be1716cb24b05035e25a379765a3eaba9c193d5e61384"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "source_hash": "b681db71e0c186cdad2589f602f5b848d734974eea63b3b2b2c04b9b3077005b"
+    }
+  ],
+  "observations": [
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "一件沉甸甸的铁甲。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 4000\n\u001b[0m\u001b[1;37m防 护 力 : 30\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 4000,
+        "ids": [
+          "tie jia",
+          "tiejia",
+          "jia",
+          "armor",
+          "body",
+          "t"
+        ],
+        "properties": {
+          "id": "tie jia",
+          "consistence": 100,
+          "name": "铁甲"
+        },
+        "euid": "Domain",
+        "name": "铁甲",
+        "short": "铁甲(tie jia)"
+      },
+      "path": "/d/beijing/npc/obj/body",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "一件沉甸甸的铁甲。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 4000\n\u001b[0m\u001b[1;37m防 护 力 : 30\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 4000,
+        "ids": [
+          "tie jia",
+          "tiejia",
+          "jia",
+          "armor",
+          "body",
+          "t"
+        ],
+        "properties": {
+          "value": 0,
+          "armor_prop": {
+            "armor": 30,
+            "dodge": -10
+          },
+          "no_clean_up": 1,
+          "stable": 37,
+          "id": "tie jia",
+          "unit": "件",
+          "material": "steel",
+          "long": "一件沉甸甸的铁甲。\n",
+          "consistence": 100,
+          "armor_type": "armor",
+          "weapon_prop": {
+            "dodge": -1
+          },
+          "name": "铁甲"
+        },
+        "euid": "Domain",
+        "name": "铁甲",
+        "short": "铁甲(tie jia)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "\u001b[1;36m一件金线织就的宝甲．\n\u001b[0m\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 20000\n\u001b[0m\u001b[1;37m防 护 力 : 30\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 20000,
+        "ids": [
+          "jinhuan jia",
+          "jinhuan",
+          "jia",
+          "armor",
+          "j"
+        ],
+        "properties": {
+          "id": "jinhuan jia",
+          "consistence": 100,
+          "name": "\u001b[1;33m金环锁子甲\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[1;33m金环锁子甲\u001b[0m",
+        "short": "\u001b[1;33m金环锁子甲\u001b[0m(jinhuan jia)"
+      },
+      "path": "/d/death/obj/armor1",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "\u001b[1;36m一件金线织就的宝甲．\n\u001b[0m\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 20000\n\u001b[0m\u001b[1;37m防 护 力 : 30\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 20000,
+        "ids": [
+          "jinhuan jia",
+          "jinhuan",
+          "jia",
+          "armor",
+          "j"
+        ],
+        "properties": {
+          "value": 400000,
+          "armor_prop": {
+            "armor": 30,
+            "dodge": -5
+          },
+          "no_clean_up": 1,
+          "stable": 37,
+          "id": "jinhuan jia",
+          "unit": "件",
+          "material": "steel",
+          "long": "\u001b[1;36m一件金线织就的宝甲．\n\u001b[0m",
+          "consistence": 100,
+          "armor_type": "armor",
+          "weapon_prop": {
+            "dodge": -6
+          },
+          "name": "\u001b[1;33m金环锁子甲\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[1;33m金环锁子甲\u001b[0m",
+        "short": "\u001b[1;33m金环锁子甲\u001b[0m(jinhuan jia)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 10000\n\u001b[0m\u001b[1;37m防 护 力 : 200\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 10000,
+        "ids": [
+          "pangu kai",
+          "kai",
+          "armor",
+          "p"
+        ],
+        "properties": {
+          "id": "pangu kai",
+          "consistence": 100,
+          "name": "\u001b[37m盘古铠\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[37m盘古铠\u001b[0m",
+        "short": "\u001b[37m盘古铠\u001b[0m(pangu kai)"
+      },
+      "path": "/d/death/sky/npc/obj/pangukai",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 10000\n\u001b[0m\u001b[1;37m防 护 力 : 200\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 10000,
+        "ids": [
+          "pangu kai",
+          "kai",
+          "armor",
+          "p"
+        ],
+        "properties": {
+          "value": 100000,
+          "armor_prop": {
+            "armor": 200,
+            "dodge": -3
+          },
+          "no_clean_up": 1,
+          "stable": 0,
+          "id": "pangu kai",
+          "unit": "见",
+          "material": "cloth",
+          "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n",
+          "consistence": 100,
+          "armor_type": "armor",
+          "weapon_prop": {
+            "dodge": -3
+          },
+          "name": "\u001b[37m盘古铠\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[37m盘古铠\u001b[0m",
+        "short": "\u001b[37m盘古铠\u001b[0m(pangu kai)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 10000\n\u001b[0m\u001b[1;37m防 护 力 : 200\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 10000,
+        "ids": [
+          "pangu kai",
+          "kai",
+          "armor",
+          "p"
+        ],
+        "properties": {
+          "id": "pangu kai",
+          "consistence": 100,
+          "name": "\u001b[37m盘古铠\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[37m盘古铠\u001b[0m",
+        "short": "\u001b[37m盘古铠\u001b[0m(pangu kai)"
+      },
+      "path": "/d/sky/npc/obj/pangukai",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 10000\n\u001b[0m\u001b[1;37m防 护 力 : 200\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 10000,
+        "ids": [
+          "pangu kai",
+          "kai",
+          "armor",
+          "p"
+        ],
+        "properties": {
+          "value": 100000,
+          "armor_prop": {
+            "armor": 200,
+            "dodge": -3
+          },
+          "no_clean_up": 1,
+          "stable": 0,
+          "id": "pangu kai",
+          "unit": "见",
+          "material": "cloth",
+          "long": "一见黑黝黝的铁甲，上面雕有盘古的头像。\n",
+          "consistence": 100,
+          "armor_type": "armor",
+          "weapon_prop": {
+            "dodge": -3
+          },
+          "name": "\u001b[37m盘古铠\u001b[0m"
+        },
+        "euid": "Domain",
+        "name": "\u001b[37m盘古铠\u001b[0m",
+        "short": "\u001b[37m盘古铠\u001b[0m(pangu kai)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "一件轻飘飘的、生满尖锐倒刺的护甲。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 1000\n\u001b[0m\u001b[1;37m防 护 力 : 75\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 1000,
+        "ids": [
+          "ruanwei jia",
+          "jia",
+          "r"
+        ],
+        "properties": {
+          "id": "ruanwei jia",
+          "consistence": 100,
+          "name": "软猬甲"
+        },
+        "euid": "Domain",
+        "name": "软猬甲",
+        "short": "软猬甲(ruanwei jia)"
+      },
+      "path": "/d/taohua/obj/ruanwei",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "一件轻飘飘的、生满尖锐倒刺的护甲。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 1000\n\u001b[0m\u001b[1;37m防 护 力 : 75\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 1000,
+        "ids": [
+          "ruanwei jia",
+          "jia",
+          "r"
+        ],
+        "properties": {
+          "value": 20000,
+          "armor_prop": {
+            "armor": 75,
+            "dodge": -5
+          },
+          "no_clean_up": 1,
+          "stable": 20,
+          "id": "ruanwei jia",
+          "unit": "件",
+          "material": "copper",
+          "long": "一件轻飘飘的、生满尖锐倒刺的护甲。\n",
+          "consistence": 100,
+          "armor_type": "armor",
+          "name": "软猬甲"
+        },
+        "euid": "Domain",
+        "name": "软猬甲",
+        "short": "软猬甲(ruanwei jia)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "皮背心(pi beixin)。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 1000\n\u001b[0m\u001b[1;37m防 护 力 : 6\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 1000,
+        "ids": [
+          "pi beixin",
+          "beixin",
+          "p"
+        ],
+        "properties": {
+          "id": "pi beixin",
+          "consistence": 100,
+          "name": "皮背心"
+        },
+        "euid": "Domain",
+        "name": "皮背心",
+        "short": "皮背心(pi beixin)"
+      },
+      "path": "/d/zhongzhou/npc/obj/beixin",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "皮背心(pi beixin)。\n\u001b[1;37m\n物品类型 : 防具(护甲)\n\u001b[0m\u001b[1;37m重    量 : 1000\n\u001b[0m\u001b[1;37m防 护 力 : 6\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 1000,
+        "ids": [
+          "pi beixin",
+          "beixin",
+          "p"
+        ],
+        "properties": {
+          "value": 1000,
+          "armor_prop": {
+            "armor": 6
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "pi beixin",
+          "unit": "件",
+          "material": "leather",
+          "consistence": 100,
+          "armor_type": "armor",
+          "name": "皮背心"
+        },
+        "euid": "Domain",
+        "name": "皮背心",
+        "short": "皮背心(pi beixin)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "id": "waist",
+          "consistence": 100,
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      },
+      "path": "/d/city/npc/obj/huyao",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "value": 1600,
+          "armor_prop": {
+            "armor": 5
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "waist",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一条皮质的护腰，用以保护腰部。\n",
+          "consistence": 100,
+          "armor_type": "waist",
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "id": "waist",
+          "consistence": 100,
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      },
+      "path": "/d/city/obj/huyao",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "value": 1600,
+          "armor_prop": {
+            "armor": 5
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "waist",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一条皮质的护腰，用以保护腰部。\n",
+          "consistence": 100,
+          "armor_type": "waist",
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "id": "waist",
+          "consistence": 100,
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      },
+      "path": "/d/jingzhou/obj/huyao",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一条皮质的护腰，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "waist",
+          "hu yao",
+          "huyao",
+          "w"
+        ],
+        "properties": {
+          "value": 1600,
+          "armor_prop": {
+            "armor": 5
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "waist",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一条皮质的护腰，用以保护腰部。\n",
+          "consistence": 100,
+          "armor_type": "waist",
+          "name": "护腰"
+        },
+        "euid": "Domain",
+        "name": "护腰",
+        "short": "护腰(waist)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "hu yao",
+          "huyao",
+          "h"
+        ],
+        "properties": {
+          "id": "hu yao",
+          "consistence": 100,
+          "name": "铁护腰"
+        },
+        "euid": "Domain",
+        "name": "铁护腰",
+        "short": "铁护腰(hu yao)"
+      },
+      "path": "/d/mingjiao/obj/huyao",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "hu yao",
+          "huyao",
+          "h"
+        ],
+        "properties": {
+          "value": 6000,
+          "armor_prop": {
+            "armor": 5
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "hu yao",
+          "unit": "条",
+          "material": "waist",
+          "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n",
+          "consistence": 100,
+          "armor_type": "waist",
+          "name": "铁护腰"
+        },
+        "euid": "Domain",
+        "name": "铁护腰",
+        "short": "铁护腰(hu yao)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "hu yao",
+          "huyao",
+          "h"
+        ],
+        "properties": {
+          "id": "hu yao",
+          "consistence": 100,
+          "name": "铁护腰"
+        },
+        "euid": "Domain",
+        "name": "铁护腰",
+        "short": "铁护腰(hu yao)"
+      },
+      "path": "/d/shaolin/obj/huyao",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n\u001b[1;37m\n物品类型 : 防具(腰带)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "hu yao",
+          "huyao",
+          "h"
+        ],
+        "properties": {
+          "value": 6000,
+          "armor_prop": {
+            "armor": 5
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "hu yao",
+          "unit": "条",
+          "material": "waist",
+          "long": "这是一件皮质的护腰，上面满布铁钉，用以保护腰部。\n",
+          "consistence": 100,
+          "armor_type": "waist",
+          "shaolin": 1,
+          "name": "铁护腰"
+        },
+        "euid": "Domain",
+        "name": "铁护腰",
+        "short": "铁护腰(hu yao)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "id": "surcoat",
+          "consistence": 100,
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      },
+      "path": "/d/city/npc/obj/surcoat",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "value": 800,
+          "armor_prop": {
+            "dodge": -3
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "surcoat",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一件皮质的肚带，用以保护腹部。\n",
+          "consistence": 100,
+          "armor_type": "surcoat",
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "id": "surcoat",
+          "consistence": 100,
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      },
+      "path": "/d/city/obj/surcoat",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "value": 800,
+          "armor_prop": {
+            "dodge": -3
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "surcoat",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一件皮质的肚带，用以保护腹部。\n",
+          "consistence": 100,
+          "armor_type": "surcoat",
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "id": "surcoat",
+          "consistence": 100,
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      },
+      "path": "/d/jingzhou/obj/surcoat",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "这是一件皮质的肚带，用以保护腹部。\n\u001b[1;37m\n物品类型 : 防具(披风)\n\u001b[0m\u001b[1;37m重    量 : 500\n\u001b[0m\u001b[1;37m防 护 力 : 0\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 500,
+        "ids": [
+          "surcoat",
+          "du dai",
+          "dai",
+          "s"
+        ],
+        "properties": {
+          "value": 800,
+          "armor_prop": {
+            "dodge": -3
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "surcoat",
+          "unit": "条",
+          "material": "leather",
+          "long": "这是一件皮质的肚带，用以保护腹部。\n",
+          "consistence": 100,
+          "armor_type": "surcoat",
+          "name": "肚带"
+        },
+        "euid": "Domain",
+        "name": "肚带",
+        "short": "肚带(surcoat)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "id": "leather shield",
+          "consistence": 100,
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      },
+      "path": "/d/changan/npc/obj/shield",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "value": 1200,
+          "armor_prop": {
+            "armor": 5,
+            "defense": 3,
+            "dodge": -2
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "leather shield",
+          "unit": "面",
+          "material": "leather",
+          "consistence": 100,
+          "armor_type": "shield",
+          "weapon_prop": {
+            "dodge": -2
+          },
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "id": "leather shield",
+          "consistence": 100,
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      },
+      "path": "/d/city/npc/obj/shield",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "value": 1200,
+          "armor_prop": {
+            "armor": 5,
+            "defense": 3,
+            "dodge": -2
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "leather shield",
+          "unit": "面",
+          "material": "leather",
+          "consistence": 100,
+          "armor_type": "shield",
+          "weapon_prop": {
+            "dodge": -2
+          },
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "id": "leather shield",
+          "consistence": 100,
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      },
+      "path": "/d/city/obj/shield",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "value": 1200,
+          "armor_prop": {
+            "armor": 5,
+            "defense": 3,
+            "dodge": -2
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "leather shield",
+          "unit": "面",
+          "material": "leather",
+          "consistence": 100,
+          "armor_type": "shield",
+          "weapon_prop": {
+            "dodge": -2
+          },
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      }
+    },
+    {
+      "instance": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "id": "leather shield",
+          "consistence": 100,
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      },
+      "path": "/d/jingzhou/obj/shield",
+      "blueprint": {
+        "uid": "Domain",
+        "long": "牛皮盾(leather shield)。\n\u001b[1;37m\n物品类型 : 防具(护盾)\n\u001b[0m\u001b[1;37m重    量 : 7000\n\u001b[0m\u001b[1;37m防 护 力 : 5\n\u001b[0m\u001b[1;37m镶嵌凹槽 : 0\n\u001b[0m\u001b[1;37m下线丢失 : 是\n\u001b[0m",
+        "weight": 7000,
+        "ids": [
+          "leather shield",
+          "shield",
+          "dun",
+          "l"
+        ],
+        "properties": {
+          "value": 1200,
+          "armor_prop": {
+            "armor": 5,
+            "defense": 3,
+            "dodge": -2
+          },
+          "no_clean_up": 1,
+          "stable": 50,
+          "id": "leather shield",
+          "unit": "面",
+          "material": "leather",
+          "consistence": 100,
+          "armor_type": "shield",
+          "weapon_prop": {
+            "dodge": -2
+          },
+          "name": "牛皮盾"
+        },
+        "euid": "Domain",
+        "name": "牛皮盾",
+        "short": "牛皮盾(leather shield)"
+      }
+    }
+  ]
+}

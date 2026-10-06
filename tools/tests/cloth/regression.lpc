@@ -33,6 +33,11 @@ int same_value(mixed left, mixed right) {
 
 mixed expected_display(object before, object after, string key, mixed text) {
     if (!stringp(text)) return text;
+    if (base_name(after) == "/d/items/armor/pangu_kai" && member_array(base_name(before),
+        ({ "/d/death/sky/npc/obj/pangukai", "/d/sky/npc/obj/pangukai" })) >= 0) {
+        if (key == "unit") return replace_string(text, "见", "件");
+        if (key == "long") return replace_string(text, "一见黑黝黝", "一件黑黝黝");
+    }
     if (key == "long" && strsrch(base_name(after), "/d/items/throwing/") == 0) {
         if (member_array(
             base_name(before),

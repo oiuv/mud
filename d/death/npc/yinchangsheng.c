@@ -27,7 +27,7 @@ void create() {
     set("combat_exp", 20000000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/death/obj/armor1",
+        "/d/items/armor/jinhuan_jia",
     }));
 
     setup();

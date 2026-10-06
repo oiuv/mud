@@ -324,6 +324,7 @@ void check_qian() {
         "feet": "/d/items/boots/zhanxue", "helmet": "/d/items/headwear/gangkui", "body": "/d/beijing/npc/obj/body" ]);
     foreach (prefix in ({ "/tests/old", "" })) {
         branches["throwing"] = prefix == "" ? "/d/items/throwing/feihuangshi" : "/d/beijing/npc/obj/throwing";
+        branches["body"] = prefix == "" ? "/d/items/armor/tiejia" : "/d/beijing/npc/obj/body";
         foreach (kind, path in branches) {
             npc = new(prefix + "/d/beijing/npc/qianzhenglun"); actor->select_npc(npc, "do_yao");
             actor->delete("family"); actor->delete_temp("mark"); actor->run_command("testnpc " + kind);

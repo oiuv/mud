@@ -1,3 +1,4 @@
+import { migrationPaths as defensivePaths, canonicalGroups as defensiveGroups } from './defensive_gear_inventory.mjs';
 import { migrationPaths as weaponPaths, canonicalGroups as weaponGroups } from './axe_fork_pin_inventory.mjs';
 import { migrationPaths as instrumentPaths, canonicalGroups as instrumentGroups } from './instrument_inventory.mjs';
 import { migrationPaths as clubPaths, canonicalGroups as clubGroups } from './club_inventory.mjs';
@@ -192,6 +193,34 @@ test('all axe_fork_pin identities migrate exact mengzhu fields without granting 
     }
 });
 
+test('all defensive_gear identities migrate exact mengzhu fields without granting equipment behavior', async () => {
+    // Test both saved fields; storing an armor path in weapon does not grant wielding.
+    const input = join(sandbox, 'defensive_gear-mengzhu-input');
+    mkdirSync(join(input, 'npc'), { recursive: true });
+    const file = 'npc/meng-zhu.o', manifest = join(input, 'manifest.json');
+    writeFileSync(manifest, JSON.stringify({ files: [{ file, kind: 'mengzhu_equipment' }] }));
+    for (const [index, [oldPath, path]] of Object.entries(defensivePaths()).entries()) {
+        const source = '# defensive_gear fixture\r\ndbase ' + lpc({ weapon: oldPath, armor: oldPath,
+            note: oldPath, nested: { weapon: oldPath, armor: oldPath }, combat_exp: 4321 }) + '\r\n';
+        writeFileSync(join(input, file), source);
+        const output = join(sandbox, 'defensive_gear-mengzhu-' + index);
+        const result = await migrateItemRecords(manifest, driver, output);
+        assert.equal(result.changes, 2);
+        const converted = readFileSync(join(output, 'converted', file), 'utf8');
+        for (const field of ['weapon', 'armor']) {
+            assert.equal(converted.split('"' + field + '":"' + path + '"').length - 1, 1);
+            assert.equal(converted.split('"' + field + '":"' + oldPath + '"').length - 1, 1);
+        }
+        assert.ok(converted.includes('"note":"' + oldPath + '"'));
+        assert.ok(converted.includes('"combat_exp":4321,'));
+        assert.equal(readFileSync(join(input, file), 'utf8'), source);
+        assert.deepEqual(readFileSync(join(output, 'backup', file)), Buffer.from(source));
+        const replay = join(output, 'converted/manifest.json');
+        writeFileSync(replay, readFileSync(manifest));
+        assert.equal((await migrateItemRecords(replay, driver)).changes, 0);
+    }
+});
+
 test('all EQUIP armor identities convert only exact mengzhu fields and preserve backup bytes', async () => {
     const input = join(sandbox, 'equip-mengzhu-input');
     for (const part of ['user', 'shop', 'npc']) mkdirSync(join(input, part), { recursive: true });
@@ -235,6 +264,7 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['book', bookPaths, bookGroups, 36, 28],
     ['instrument', instrumentPaths, instrumentGroups, 24, 24],
     ['axe_fork_pin', weaponPaths, weaponGroups, 9, 9],
+    ['defensive_gear', defensivePaths, defensiveGroups, 18, 10],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
