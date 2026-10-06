@@ -91,7 +91,7 @@ void create() {
 
     carry_object("/clone/weapon/changjian")->wield();
     carry_object("/clone/cloth/cloth")->wear();
-    set_temp("handing", carry_object("/d/hengyang/npc/obj/tanmuqin"));
+    set_temp("handing", carry_object("/d/items/qin/tanmuqin"));
 }
 
 

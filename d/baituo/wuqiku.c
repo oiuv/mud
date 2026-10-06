@@ -11,7 +11,7 @@ LONG);
     ]));
     set("objects", ([
         __DIR__ "npc/shiwei": 1,
-        __DIR__ "obj/zheng": 1,
+        "/d/items/zheng/guzheng": 1,
         "/clone/weapon/gangzhang": 2,
     ]));
     setup();

@@ -26,7 +26,7 @@ void create() {
 
     setup();
     carry_object("/clone/weapon/changjian");
-    carry_object("/clone/misc/hulu");
+    carry_object("/d/items/liquid/hulu");
 }
 
 // 对话命令

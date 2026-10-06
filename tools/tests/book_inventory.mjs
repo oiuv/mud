@@ -1,3 +1,4 @@
+import { afterInstrumentMigration } from './instrument_inventory.mjs';
 // Ordinary ITEM-based reading materials. Frozen sources, never player data.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -150,9 +151,11 @@ export function expectedCaller(file) {
 }
 export function afterBookMigration(file, expected, compare) {
     const data = readBaseline();
-    if (!data.callers[file]) return expected;
-    assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected BOOK baseline overlap: ' + file);
-    return expectedCaller(file);
+    if (data.callers[file]) {
+        assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected BOOK baseline overlap: ' + file);
+        expected = expectedCaller(file);
+    }
+    return afterInstrumentMigration(file, expected, compare);
 }
 export function correctedBookText(id, key, value) {
     if (key !== '"long"') return value;

@@ -1,0 +1,78 @@
+// 普通筝类乐器；固定品种数据与原演奏行为分离。
+#include <ansi.h>
+#include <music.h>
+
+inherit ITEM;
+inherit MI_ZHENG;
+
+#define ZHENG_PROGRAM "/d/items/zheng"
+#include "zheng_data.h"
+
+private nosave mapping varieties;
+private nosave string variety;
+private nosave int initialized;
+
+mapping query_definition(string key) {
+    if (base_name(this_object()) != ZHENG_PROGRAM || !mapp(varieties))
+        return 0;
+    return copy(varieties[key]);
+}
+
+int valid_variety_path(string path) {
+    string key;
+
+    if (base_name(this_object()) != ZHENG_PROGRAM || !mapp(varieties) ||
+        !stringp(path) || sscanf(path, ZHENG_PROGRAM + "/%s", key) != 1)
+        return 0;
+    return mapp(varieties[key]);
+}
+
+void create(string key) {
+    if (!clonep()) {
+        varieties = zheng_definitions();
+        return;
+    }
+    if (previous_object() != find_object(ZHENG_PROGRAM) || !stringp(key))
+        error("Instrument requires a registered virtual variety.\n");
+    variety = key;
+}
+
+object create_virtual_object(string key) {
+    if (base_name(this_object()) != ZHENG_PROGRAM || clonep() ||
+        !mapp(varieties) || !mapp(varieties[key]))
+        return 0;
+    return new(ZHENG_PROGRAM, key);
+}
+
+void virtual_start() {
+    mapping definition, defaults;
+    mixed *entry;
+    string key;
+    mixed value;
+
+    if (initialized)
+        return;
+    if (!stringp(variety) || base_name(this_object()) != ZHENG_PROGRAM + "/" + variety)
+        error("Invalid instrument virtual identity.\n");
+    definition = ZHENG_PROGRAM->query_definition(variety);
+    if (!mapp(definition))
+        error("Unknown instrument variety.\n");
+    initialized = 1;
+    set_name(definition["name"], definition["ids"]);
+    set_weight(definition["weight"]);
+    if (clonep()) {
+        set_default_object(base_name(this_object()));
+        defaults = query_default_object()->query_entire_dbase();
+        foreach (key, value in defaults)
+            if (mapp(value) || arrayp(value))
+                set(key, copy(value));
+    } else {
+        foreach (entry in definition["properties"])
+            set(entry[0], entry[1]);
+    }
+    setup();
+}
+
+void init() {
+    add_action("play_zheng", "play");
+}

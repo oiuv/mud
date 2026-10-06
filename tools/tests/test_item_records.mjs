@@ -1,3 +1,4 @@
+import { migrationPaths as instrumentPaths, canonicalGroups as instrumentGroups } from './instrument_inventory.mjs';
 import { migrationPaths as clubPaths, canonicalGroups as clubGroups } from './club_inventory.mjs';
 import { migrationPaths as bookPaths, canonicalGroups as bookGroups } from './book_inventory.mjs';
 import { migrationPaths as throwingPaths, canonicalGroups as throwingGroups } from './throwing_inventory.mjs';
@@ -134,6 +135,34 @@ test('optional NPC scope rejects linked directories without enumerating other NP
     finally { unlinkSync(link); }
 });
 
+test('all instrument identities migrate exact mengzhu fields without granting equipment behavior', async () => {
+    // Test the saved-field protocol, not whether an ITEM instrument can be wielded.
+    const input = join(sandbox, 'instrument-mengzhu-input');
+    mkdirSync(join(input, 'npc'), { recursive: true });
+    const file = 'npc/meng-zhu.o', manifest = join(input, 'manifest.json');
+    writeFileSync(manifest, JSON.stringify({ files: [{ file, kind: 'mengzhu_equipment' }] }));
+    for (const [index, [oldPath, path]] of Object.entries(instrumentPaths()).entries()) {
+        const source = '# instrument fixture\r\ndbase ' + lpc({ weapon: oldPath, armor: oldPath,
+            note: oldPath, nested: { weapon: oldPath, armor: oldPath }, combat_exp: 4321 }) + '\r\n';
+        writeFileSync(join(input, file), source);
+        const output = join(sandbox, 'instrument-mengzhu-' + index);
+        const result = await migrateItemRecords(manifest, driver, output);
+        assert.equal(result.changes, 2);
+        const converted = readFileSync(join(output, 'converted', file), 'utf8');
+        for (const field of ['weapon', 'armor']) {
+            assert.equal(converted.split('"' + field + '":"' + path + '"').length - 1, 1);
+            assert.equal(converted.split('"' + field + '":"' + oldPath + '"').length - 1, 1);
+        }
+        assert.ok(converted.includes('"note":"' + oldPath + '"'));
+        assert.ok(converted.includes('"combat_exp":4321,'));
+        assert.equal(readFileSync(join(input, file), 'utf8'), source);
+        assert.deepEqual(readFileSync(join(output, 'backup', file)), Buffer.from(source));
+        const replay = join(output, 'converted/manifest.json');
+        writeFileSync(replay, readFileSync(manifest));
+        assert.equal((await migrateItemRecords(replay, driver)).changes, 0);
+    }
+});
+
 test('all EQUIP armor identities convert only exact mengzhu fields and preserve backup bytes', async () => {
     const input = join(sandbox, 'equip-mengzhu-input');
     for (const part of ['user', 'shop', 'npc']) mkdirSync(join(input, part), { recursive: true });
@@ -175,6 +204,7 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['throwing', throwingPaths, throwingGroups, 27, 26],
     ['club', clubPaths, clubGroups, 18, 17],
     ['book', bookPaths, bookGroups, 36, 28],
+    ['instrument', instrumentPaths, instrumentGroups, 24, 24],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
@@ -187,8 +217,9 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
         ...(['whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'] } : {}),
         ...(['dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/whip': whipPaths()['/d/beijing/npc/obj/whip'] } : {}),
         ...(['throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/dagger': daggerPaths()['/d/beijing/npc/obj/dagger'] } : {}),
-        ...(['club', 'book'].includes(family) ? { '/d/beijing/npc/obj/throwing': throwingPaths()['/d/beijing/npc/obj/throwing'] } : {}),
-        ...(family === 'book' ? {
+        ...(['club', 'book', 'instrument'].includes(family) ? { '/d/beijing/npc/obj/throwing': throwingPaths()['/d/beijing/npc/obj/throwing'] } : {}),
+        ...(family === 'instrument' ? { '/d/quanzhen/npc/obj/daodejing-i': bookPaths()['/d/quanzhen/npc/obj/daodejing-i'] } : {}),
+        ...(['book', 'instrument'].includes(family) ? {
             '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'],
             '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'],
             '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'],

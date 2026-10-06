@@ -98,7 +98,7 @@ LONG);
     }
     carry_object("/d/items/equip/ruanjin_dai")->wear();
     carry_object("/d/items/equip/jiaoyue_shang")->wear();
-    set_temp("handing", carry_object("/d/kunlun/obj/jwqin"));
+    set_temp("handing", carry_object("/d/items/qin/jiaoweiqin"));
 }
 
 void attempt_apprentice(object ob) {

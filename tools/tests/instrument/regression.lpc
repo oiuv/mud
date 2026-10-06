@@ -1,0 +1,97 @@
+// Old sources and virtual instruments execute in a disposable real driver.
+inherit "/tests/cloth_regression";
+
+private mixed *instruments;
+private mixed *observations = ({});
+private int cursor;
+
+mapping effective(object ob) {
+    mapping result;
+    string key;
+
+    result = copy(load_object(base_name(ob))->query_entire_dbase()) + ob->query_entire_dbase();
+    foreach (key in keys(result)) result[key] = copy(ob->query(key, 1));
+    return result;
+}
+
+void check_instrument(object ob, mapping row) {
+    string family;
+
+    check(ob->query_weight() == row["weight"], "weight " + row["old_path"]);
+    check(master()->setup_count(ob) == 1, "exactly one setup " + row["old_path"]);
+    foreach (family in ({ "qin", "xiao", "zheng" }))
+        check(!!call_other(ob, "valid_as_" + family) == (family == row["family"]),
+            "only original music capability " + family);
+    check(!ob->is_weapon() && !ob->is_armor() && !ob->is_book(), "ITEM abilities unchanged");
+}
+
+#include "instrument_checks.h"
+#include "instrument_business.h"
+
+void check_pair(mapping row) {
+    object old_bp, old, new_bp, item, another, rebuilt;
+    mapping before;
+    mixed *old_play, *new_play;
+    string alias;
+
+    old_bp = load_object(row["old_path"]);
+    old = new(row["old_path"]);
+    check_instrument(old_bp, row); check_instrument(old, row);
+    observations += ({ ([ "path": row["old_path"], "blueprint": effective(old_bp),
+        "clone": effective(old), "ids": old->parse_command_id_list(),
+        "uid": getuid(old), "euid": geteuid(old), "blueprint_uid": getuid(old_bp),
+        "blueprint_euid": geteuid(old_bp), "weight": old->query_weight(),
+        "blueprint_weight": old_bp->query_weight(), "short": old->short(),
+        "type": old->type(), "family": row["family"]]) });
+    old_play = check_play(row["old_path"], row);
+    destruct(old);
+    if (file_size("/tests/baseline-only") >= 0) return;
+    old = new(row["old_path"]);
+    new_bp = load_object(row["new_path"]);
+    item = new(row["new_path"]); another = new(row["new_path"]);
+    check_instrument(new_bp, row); check_instrument(item, row);
+    check(!clonep(new_bp) && virtualp(new_bp) && clonep(item) && virtualp(item), "driver identity");
+    check(item->query_default_object() == new_bp && another->query_default_object() == new_bp,
+        "same variety defaults");
+    check(getuid(item) == getuid(old) && geteuid(item) == geteuid(old) &&
+        getuid(new_bp) == getuid(old_bp) && geteuid(new_bp) == geteuid(old_bp), "UID/EUID preserved");
+    check(
+        same_value(effective(old_bp), effective(new_bp)),
+        "all blueprint properties " + row["old_path"]
+    );
+    check(same_value(effective(old), effective(item)), "all clone properties " + row["old_path"]);
+    check(item->short() == old->short() && item->type() == old->type(), "short/type unchanged");
+    foreach (alias in old->parse_command_id_list()) check(item->id(alias), "old alias " + alias);
+    item->set("value", -1); item->set("test/nested", ({ 1, 2 }));
+    before = effective(item); item->virtual_start();
+    check(same_value(before, effective(item)) && master()->setup_count(item) == 1,
+        "repeated initialization preserves state");
+    check(another->query("value") == old->query("value") && !another->query("test") &&
+        !new_bp->query("test"), "instance/default isolation");
+    rebuilt = new(base_name(item));
+    check(same_value(effective(rebuilt), effective(old)), "new base_name restores variety");
+    destruct(rebuilt); destruct(old); destruct(item); destruct(another);
+    new_play = check_play(row["new_path"], row);
+    check(same_value(old_play, new_play), "all play outcomes/wording preserved " + row["old_path"]);
+    check_instrument_storage(row);
+}
+
+void next_case() {
+    if (cursor < sizeof(instruments)) {
+        check_pair(instruments[cursor++]);
+        call_out("next_case", 0);
+        return;
+    }
+    write_file("/tests/instrument-baseline.json", json_encode(observations), 1);
+    if (file_size("/tests/baseline-only") < 0) {
+        check_instrument_contracts();
+        check_multiple_instruments();
+        check_instrument_business();
+    }
+    master()->finish();
+}
+
+void run() {
+    instruments = json_decode(read_file("/tests/instrument_cases.json"));
+    next_case();
+}

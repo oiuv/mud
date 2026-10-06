@@ -2,15 +2,15 @@
 
 ## 范围与口径
 
-核对日期：2026-10-06。以普通研读物批次实施后的源码为准。本批离线全库编译为 **10,023/10,023，零 LPC 警告/错误**；用户另反馈游戏内 `updateall /` 成功，共 **10,026** 个档案，两种扫描计数分别记录。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
+核对日期：2026-10-06。以普通乐器批次实施后的源码为准。本批离线全库编译为 **10,002/10,002，零 LPC 警告/错误**；用户反馈游戏内 `updateall /` 成功，共 **10,005** 个档案，较上一批 10,026 减少 21 个。离线与游戏扫描计数分别记录。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
 
-覆盖已建立 `d/items/*_data.h` 的 **18 个分类**，按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
+覆盖已建立 `d/items/*_data.h` 的 **21 个分类**（乐器按琴、箫、筝分别统计），按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
 
-目前共有 **461 个不同实体源码文件**：
+目前共有 **464 个不同实体源码文件**：
 
-- **/d 内 78 个**：原普通物品批次保留的特殊行为或初始化差异，以及本批补充识别的自定义研读物，下文逐项记录原因。
-- **其他目录 383 个**：`clone/` 366、`b/` 10、`kungfu/` 2、`u/` 5，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
-- 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个）；另有 17 件研读物交叉属于 CLOTH（5）、HANDS（2）或 SWORD（10），其中 /d 内 2 件、clone 内 15 件。各表均登记，**分类合计 494 项，去重文件数 461**。
+- **/d 内 79 个**：普通物品批次保留的特殊行为或初始化差异，以及补充识别的自定义研读物、武器乐器，下文逐项记录原因。
+- **其他目录 385 个**：`clone/` 368、`b/` 10、`kungfu/` 2、`u/` 5，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
+- 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个）；另有 17 件研读物交叉属于 CLOTH（5）、HANDS（2）或 SWORD（10），其中 /d 内 2 件、clone 内 15 件。4 件琴类乐器已登记于 HAMMER（1）或 SWORD（3），另外 3 件 XSWORD 箫类为本次新登记。各表均登记，**分类合计 501 项，去重文件数 464**。
 
 “初始化候选”只表示当前文件仅见构造初始化、尚未完成迁移评估，不承诺与现有品种等价；还需检查调用者、属性覆盖、持久记录及跨目录 UID/EUID。特殊物品也不是永久禁止数据化，但不得为塞入普通数据表丢掉玩法或放开克隆限制。
 
@@ -36,6 +36,9 @@
 | 暗器 `THROWING` | 6 | 12 | 18 |
 | 棍类 `CLUB` | 1 | 7 | 8 |
 | 研读物 `ITEM / BOOK / 自定义阅读` | 17 | 202 | 219 |
+| 琴 `MI_QIN` | 2 | 2 | 4 |
+| 箫 `MI_XIAO`（含 XSWORD） | 1 | 2 | 3 |
+| 筝 `MI_ZHENG` | 0 | 0 | 0 |
 
 ## 后续维护要求
 
@@ -762,3 +765,31 @@
 | 诗词精选 | [u/mudren/obj/poem_book.c](../../u/mudren/obj/poem_book.c) | `init / do_read / write_data / receive_data / receive_callback / socket_shutdown`。 |
 | 千家诗 | [u/mudren/obj/qianjiashi_book.c](../../u/mudren/obj/qianjiashi_book.c) | `init / do_read`。 |
 | 诗经 | [u/mudren/obj/shijing_book.c](../../u/mudren/obj/shijing_book.c) | `init / do_read`。 |
+
+## 乐器（MI_QIN、MI_XIAO、MI_ZHENG）
+
+普通 ITEM 乐器 24 份已迁移到琴、箫、筝三个 provider，旧路径仅保留在离线映射及冻结快照。剩余 7 件均是武器乐器；4 件琴已经登记于上面的 HAMMER/SWORD 表，3 件 XSWORD 箫为新增登记，不能因间接继承漏记。
+
+### /d 内保留（3）
+
+| 物品名称 | 源码 | 特殊行为与保留原因 |
+| --- | --- | --- |
+| 瑶琴 | [d/dali/npc/obj/yaoqin.c](../../d/dali/npc/obj/yaoqin.c) | `HAMMER + MI_QIN`；锤类持用、伤害与演奏并存，不能改成普通 ITEM 琴；交叉登记于 HAMMER。 |
+| 檀木琴 | [d/meizhuang/obj/qin.c](../../d/meizhuang/obj/qin.c) | `SWORD + MI_QIN`；剑类持用与演奏并存；交叉登记于 SWORD。 |
+| 玉萧 | [d/taohua/obj/yuxiao.c](../../d/taohua/obj/yuxiao.c) | `XSWORD` 间接继承 `MI_XIAO`，使用 `init_xsword(45)`；保留专用武器与演奏两种能力。 |
+
+### 其他目录待评估（4）
+
+| 物品名称 | 源码 | 已发现行为 / 审查线索 |
+| --- | --- | --- |
+| 铁琴剑 | [clone/lonely/tieqin.c](../../clone/lonely/tieqin.c) | `SWORD + MI_QIN`、克隆自毁及 `hit_ob`；交叉登记于 SWORD，且 `/clone` 暂不迁移。 |
+| 白玉瑶琴 | [clone/lonely/yaoqin.c](../../clone/lonely/yaoqin.c) | `SWORD + MI_QIN`、克隆自毁及 `hit_ob`；交叉登记于 SWORD，且 `/clone` 暂不迁移。 |
+| 绿玉洞箫 | [clone/lonely/dongxiao.c](../../clone/lonely/dongxiao.c) | `XSWORD → MI_XIAO`，克隆自毁、专用伤害和持用行为；`/clone` 暂不迁移。 |
+| 玉箫 | [clone/lonely/yuxiao.c](../../clone/lonely/yuxiao.c) | `XSWORD → MI_XIAO`，克隆自毁及 `hit_ob` 忙碌/精力伤害；`/clone` 暂不迁移。 |
+
+筝类无保留项。以下四件仅外观名称类似乐器，原没有 MI 演奏能力，**不计入上述乐器数量，也不借迁移增加 play 功能**：
+
+- [昆仑古筝](../../d/kunlun/obj/guzheng.c)。
+- [铜钹](../../d/xiyu/obj/tongbo.c)、[铜鼓](../../d/xiyu/obj/tonggu.c)、[铜号](../../d/xiyu/obj/tonghao.c)。
+
+副将 [d/changan/npc/fujiang.c](../../d/changan/npc/fujiang.c) 的动态 `weapon_file` 只指向原有五种武器，不包含本批木琴，源文件保持不变。本批审计同时复查这些负例、7 件保留项及音乐基类/技能的原始 hash。

@@ -1,3 +1,4 @@
+import { readBaseline as instrumentBaseline } from './instrument_inventory.mjs';
 import { readBaseline as clubBaseline } from './club_inventory.mjs';
 import { readBaseline as bookBaseline } from './book_inventory.mjs';
 import { readBaseline as throwingBaseline } from './throwing_inventory.mjs';
@@ -31,7 +32,7 @@ const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-compile-'));
 console.log('Compile-only cloth migration: ' + sandbox);
 const core = execFileSync('git', ['-C', join(root, 'mudcore'), 'ls-files', '-z'], { encoding: 'utf8' })
     .split('\0').filter(Boolean).map(path => 'mudcore/' + path);
-const sources = [...tracked(), ...core, 'd/items/book.lpc', 'd/items/book_data.h', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
+const sources = [...['qin', 'xiao', 'zheng'].flatMap(f => ['d/items/' + f + '.lpc', 'd/items/' + f + '_data.h']), ...tracked(), ...core, 'd/items/book.lpc', 'd/items/book_data.h', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
     'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
     'd/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h',
     'd/items/food.lpc', 'd/items/food_data.h', 'd/items/sword.lpc', 'd/items/sword_data.h', 'd/items/liquid.lpc', 'd/items/liquid_data.h',
@@ -87,6 +88,7 @@ const hammer = process.argv.includes('--hammer');
 const equip = process.argv.includes('--equip');
 const club = process.argv.includes('--club');
 const book = process.argv.includes('--book');
+const instrument = process.argv.includes('--instrument');
 let files = club ? [...new Set([...Object.keys(clubBaseline().callers), ...clubBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
     ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club'].map(f => `d/items/${f}.lpc`)])] : throwing ? [...new Set([...Object.keys(throwingBaseline().callers), ...throwingBaseline().dynamic.map(h => h.file),
     ...throwingBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
@@ -121,14 +123,15 @@ let files = club ? [...new Set([...Object.keys(clubBaseline().callers), ...clubB
     'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-xiang.c',
     'feature/user_storage.c', 'd/items/cloth.lpc'])].filter(path => /\.(c|lpc)$/.test(path));
 if (book) files = [...Object.keys(bookBaseline().callers), ...bookBaseline().excluded.map(e => e.file), 'feature/user_storage.c', 'd/items/book.lpc'];
+if (instrument) files = [...Object.keys(instrumentBaseline().callers), ...instrumentBaseline().excluded.map(e => e.file).filter(f => /\.(c|lpc)$/.test(f)), 'feature/user_storage.c', ...['qin', 'xiao', 'zheng'].map(f => 'd/items/' + f + '.lpc')];
 if (process.argv.includes('--all-migrations')) {
     const snapshots = [readBaseline, bootsBaseline, headwearBaseline, handsBaseline, neckBaseline, wristsBaseline,
         foodBaseline, swordBaseline, liquidBaseline, bladeBaseline, equipBaseline, hammerBaseline, staffBaseline,
-        whipBaseline, daggerBaseline, throwingBaseline, clubBaseline, bookBaseline].map(read => read());
+        whipBaseline, daggerBaseline, throwingBaseline, clubBaseline, bookBaseline, instrumentBaseline].map(read => read());
     files = [...new Set([...files, ...supplementalCallers, 'd/village/shop.c',
         ...snapshots.flatMap(data => [...Object.keys(data.callers ?? {}), ...data.hits.map(h => h.file)]),
         ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip',
-            'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club', 'book'].map(f => `d/items/${f}.lpc`)])
+            'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club', 'book', 'qin', 'xiao', 'zheng'].map(f => `d/items/${f}.lpc`)])
     ];
 }
 const result = await new Promise((done, reject) => {

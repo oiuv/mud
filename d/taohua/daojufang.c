@@ -18,18 +18,18 @@ LONG);
             __DIR__ "npc/yapu": 2,
             __DIR__ "obj/bagua": 1,
             __DIR__ "obj/xiang": 1,
-            __DIR__ "obj/zhuxiao": 1,
+            "/d/items/xiao/zhuxiao3": 1,
         ]));
     else if (random(4) > 2)
         set("objects", ([
             __DIR__ "npc/yapu": 2,
             __DIR__ "obj/xiang": 1,
-            __DIR__ "obj/zhuxiao": 1,
+            "/d/items/xiao/zhuxiao3": 1,
         ]));
     else
         set("objects", ([
             __DIR__ "npc/yapu": 2,
-            __DIR__ "obj/zhuxiao": 1,
+            "/d/items/xiao/zhuxiao3": 1,
         ]));
 
     setup();

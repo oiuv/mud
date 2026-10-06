@@ -68,7 +68,7 @@ void create() {
     setup();
     carry_object("/clone/cloth/cloth")->wear();
     carry_object("/clone/weapon/blade")->wield();
-    set_temp("handing", carry_object("/d/changan/npc/obj/muqin"));
+    set_temp("handing", carry_object("/d/items/qin/muqin"));
 }
 
 void attempt_apprentice(object ob) {

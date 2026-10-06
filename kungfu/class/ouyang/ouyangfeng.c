@@ -120,7 +120,7 @@ void create() {
     setup();
     carry_object("/d/baituo/obj/shezhang")->wield();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("d/baituo/obj/tiezheng");
+    carry_object("/d/items/zheng/tiezheng");
     add_money("silver", 50);
 }
 

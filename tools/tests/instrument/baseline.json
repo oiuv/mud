@@ -1,0 +1,2057 @@
+{
+  "baseline": "aab4cff1e5b17ecadd0eb36ffd3581d6a7995ec8",
+  "count": 24,
+  "varieties": [
+    {
+      "old_path": "/d/baituo/obj/tiezheng",
+      "key": "baituo_obj_tiezheng",
+      "source_hash": "def934405ce5ddbf2985c976da9c73d38ef13094c66b6e743989267caac4db01",
+      "name": [
+        "NOR + WHT \"铁筝\" NOR",
+        "({ \"tie zheng\", \"tie\", \"zheng\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"台\""
+        ],
+        [
+          "\"long\"",
+          "WHT \"这是一台黑黝黝的铁筝。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "zheng",
+      "id": "tiezheng",
+      "new_path": "/d/items/zheng/tiezheng",
+      "source": "// tiezheng.c\n\n#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_ZHENG;\n\nvoid create() {\n    set_name(NOR + WHT \"铁筝\" NOR, ({ \"tie zheng\", \"tie\", \"zheng\" }));\n    set_weight(300);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"台\");\n        set(\"long\", WHT \"这是一台黑黝黝的铁筝。\\n\" NOR);\n        set(\"value\", 5000);\n        set(\"material\", \"steel\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_zheng\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/baituo/obj/zheng",
+      "key": "baituo_obj_zheng",
+      "source_hash": "77966c58c6ae784cdff6a3f1e06777f66bb46cd27cf35d881d73d3937213a828",
+      "name": [
+        "NOR + YEL \"古筝\" NOR",
+        "({ \"gu zheng\", \"gu\", \"zheng\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"台\""
+        ],
+        [
+          "\"long\"",
+          "YEL \"这是一台看上去有些陈旧的古筝。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "zheng",
+      "id": "guzheng",
+      "new_path": "/d/items/zheng/guzheng",
+      "source": "// zheng.c\n\n#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_ZHENG;\n\nvoid create() {\n    set_name(NOR + YEL \"古筝\" NOR, ({ \"gu zheng\", \"gu\", \"zheng\" }));\n    set_weight(300);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"台\");\n        set(\"long\", YEL \"这是一台看上去有些陈旧的古筝。\\n\" NOR);\n        set(\"value\", 50);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_zheng\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/muqin",
+      "key": "changan_npc_obj_muqin",
+      "source_hash": "2f68b5d5f3599749b58b66ec3a7d91f70e6e9a442b841064f2803d2db9b82f5b",
+      "name": [
+        "\"木琴\"",
+        "({ \"muqin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"台\""
+        ],
+        [
+          "\"long\"",
+          "\"一个平凡的木琴，没有什么特殊之处。\\n\""
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "muqin",
+      "new_path": "/d/items/qin/muqin",
+      "source": "// muqin.c\n\n#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(\"木琴\", ({ \"muqin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"台\");\n        set(\"long\", \"一个平凡的木琴，没有什么特殊之处。\\n\");\n        set(\"value\", 50);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/npc/obj/huqin",
+      "key": "hengyang_npc_obj_huqin",
+      "source_hash": "3f478eb77d76f163419161fb3f4e443143df59be23867e12258d2d99451a89b5",
+      "name": [
+        "NOR + YEL \"胡琴\" NOR",
+        "({ \"hu qin\", \"hu\", \"qin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "NOR + YEL \"这是一把普通的胡琴。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "huqin",
+      "new_path": "/d/items/qin/huqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(NOR + YEL \"胡琴\" NOR, ({ \"hu qin\", \"hu\", \"qin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", NOR + YEL \"这是一把普通的胡琴。\\n\" NOR);\n        set(\"value\", 50);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/npc/obj/tanmuqin",
+      "key": "hengyang_npc_obj_tanmuqin",
+      "source_hash": "3b3d125797450eacf26fe8381a56265838f46374d708a18c8f25574e378f0a21",
+      "name": [
+        "NOR + YEL \"檀木琴\" NOR",
+        "({ \"tanmu qin\", \"tanmu\", \"qin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "NOR + YEL \"一把檀木所制的木琴，古典雅致。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "tanmuqin",
+      "new_path": "/d/items/qin/tanmuqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(NOR + YEL \"檀木琴\" NOR, ({ \"tanmu qin\", \"tanmu\", \"qin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", NOR + YEL \"一把檀木所制的木琴，古典雅致。\\n\" NOR);\n        set(\"value\", 50);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/npc/obj/zhuxiao",
+      "key": "hengyang_npc_obj_zhuxiao",
+      "source_hash": "f720341b262918fc6f281ce73dcd38d0d176ad0037be8717497baba621ae9e10",
+      "name": [
+        "NOR + GRN \"翠竹萧\" NOR",
+        "({ \"zhu xiao\", \"zhu\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "GRN \"一把翠竹所制的洞萧，隐隐泛出绿光。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"bamboo\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(NOR + GRN \"翠竹萧\" NOR, ({ \"zhu xiao\", \"zhu\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", GRN \"一把翠竹所制的洞萧，隐隐泛出绿光。\\n\" NOR);\n        set(\"value\", 50);\n        set(\"material\", \"bamboo\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/honghuqin",
+      "key": "hengyang_yueqi_honghuqin",
+      "source_hash": "1d1cbb842cc53da66ef30442435ce4cfbec824f6cf10556f9b6ed415a4a369b1",
+      "name": [
+        "RED \"红木胡琴·五玄\" NOR",
+        "({ \"hongmu huqin\", \"qin\", \"huqin\", \"hongmu\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "RED \"一把精致的红木胡琴，琴身光滑，微泛红光。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "honghuqin",
+      "new_path": "/d/items/qin/honghuqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(RED \"红木胡琴·五玄\" NOR, ({ \"hongmu huqin\", \"qin\", \"huqin\", \"hongmu\" }));\n    set_weight(800);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", RED \"一把精致的红木胡琴，琴身光滑，微泛红光。\\n\" NOR);\n        set(\"value\", 2000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/huqin",
+      "key": "hengyang_yueqi_huqin",
+      "source_hash": "5fa41294c262c6f2546baebeee6b84d7ba4d917e34e3a0140b40cf2ed9e499f3",
+      "name": [
+        "YEL \"普通胡琴\" NOR",
+        "({ \"hu qin\", \"hu\", \"qin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "YEL \"一把普通的胡琴。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "200"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "huqin2",
+      "new_path": "/d/items/qin/huqin2",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(YEL \"普通胡琴\" NOR, ({ \"hu qin\", \"hu\", \"qin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", YEL \"一把普通的胡琴。\\n\" NOR);\n        set(\"value\", 200);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/jiaoyeqin",
+      "key": "hengyang_yueqi_jiaoyeqin",
+      "source_hash": "6a9c3ca156975b38c8c6400e513e9cfbab546af1a5b84e20376c5be372d67392",
+      "name": [
+        "HIY \"蕉叶古琴·明朝\" NOR",
+        "({ \"jiaoye qin\", \"jiaoye\", \"qin\" })"
+      ],
+      "weight": "700",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIY \"此琴乃弘治嘉靖年间著名斫琴家祝海鹤所制\\n\"\n            \"琴形旖旎秀逸，蕉叶卷边工雅生动，音色润\\n\"\n            \"匀透静，为琴器中难得一见的珍品。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "800000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "jiaoyeqin",
+      "new_path": "/d/items/qin/jiaoyeqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(HIY \"蕉叶古琴·明朝\" NOR, ({ \"jiaoye qin\", \"jiaoye\", \"qin\" }));\n    set_weight(700);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n\n        set(\"long\", HIY \"此琴乃弘治嘉靖年间著名斫琴家祝海鹤所制\\n\"\n            \"琴形旖旎秀逸，蕉叶卷边工雅生动，音色润\\n\"\n            \"匀透静，为琴器中难得一见的珍品。\\n\" NOR);\n        set(\"value\", 800000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/jiuxiaoqin",
+      "key": "hengyang_yueqi_jiuxiaoqin",
+      "source_hash": "6b573c09290bb81c4c026906b87cf4ea6e7391b7c97315bae946da897380bcc5",
+      "name": [
+        "MAG \"九霄环佩·唐朝\" NOR",
+        "({ \"jiuxiao qin\", \"jiuxiao\", \"qin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "MAG \"这是历史最悠久的传世之琴，盛唐开元之器。\\n\"\n            \"此琴形体饱满，上髹紫漆，间杂朱砂后补之  \\n\"\n            \"色，贵在声形俱佳，为传世之器的极品。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "400000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "jiuxiaoqin",
+      "new_path": "/d/items/qin/jiuxiaoqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(MAG \"九霄环佩·唐朝\" NOR, ({ \"jiuxiao qin\", \"jiuxiao\", \"qin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", MAG \"这是历史最悠久的传世之琴，盛唐开元之器。\\n\"\n            \"此琴形体饱满，上髹紫漆，间杂朱砂后补之  \\n\"\n            \"色，贵在声形俱佳，为传世之器的极品。\\n\" NOR);\n\n        set(\"value\", 400000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/qin-jimo",
+      "key": "hengyang_yueqi_qin-jimo",
+      "source_hash": "6f3e4c48ea20b6006334534e1ca9911ee62bebd75e14b217d83a48e06ad57ed9",
+      "name": [
+        "WHT \"七玄流银·寂寞\" NOR",
+        "({ \"jimo qin\", \"jimo\", \"qin\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIY \"寂寞\" WHT \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "jimo_qin",
+      "new_path": "/d/items/qin/jimo_qin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(WHT \"七玄流银·寂寞\" NOR, ({ \"jimo qin\", \"jimo\", \"qin\" }));\n    set_weight(1000);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIY \"寂寞\" WHT \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/qin-jueyin",
+      "key": "hengyang_yueqi_qin-jueyin",
+      "source_hash": "f478bf639099b0e6d0e1a13ccb698e23dd556a10912b97108518b8f5c72259a8",
+      "name": [
+        "WHT \"七玄流银·绝音\" NOR",
+        "({ \"jueyin qin\", \"jueyin\", \"qin\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIR \"绝音\" WHT \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "jueyin_qin",
+      "new_path": "/d/items/qin/jueyin_qin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(WHT \"七玄流银·绝音\" NOR, ({ \"jueyin qin\", \"jueyin\", \"qin\" }));\n    set_weight(1000);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIR \"绝音\" WHT \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/qin-konggu",
+      "key": "hengyang_yueqi_qin-konggu",
+      "source_hash": "2aeba5e4f914ed8302152aec70da5cadb2026c20156b60dc51f340b3764a6b3d",
+      "name": [
+        "WHT \"七玄流银·空谷\" NOR",
+        "({ \"konggu qin\", \"konggu\", \"qin\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIC \"空谷\" WHT \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "konggu_qin",
+      "new_path": "/d/items/qin/konggu_qin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(WHT \"七玄流银·空谷\" NOR, ({ \"konggu qin\", \"konggu\", \"qin\" }));\n    set_weight(1000);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIC \"空谷\" WHT \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/qin-tianlai",
+      "key": "hengyang_yueqi_qin-tianlai",
+      "source_hash": "cb873dadc87f30806747b676c2234c8006a9ac372075e85a7c82776407d7e0cd",
+      "name": [
+        "WHT \"七玄流银·天籁\" NOR",
+        "({ \"tianlai qin\", \"tianlai\", \"qin\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIG \"天籁\" WHT \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "tianlai_qin",
+      "new_path": "/d/items/qin/tianlai_qin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(WHT \"七玄流银·天籁\" NOR, ({ \"tianlai qin\", \"tianlai\", \"qin\" }));\n    set_weight(1000);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", WHT \"此琴通体泛出银光，耀眼夺\"\n            \"目。上刻「\" HIG \"天籁\" WHT \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/shixuanqin-zhanguo",
+      "key": "hengyang_yueqi_shixuanqin-zhanguo",
+      "source_hash": "f497bd04ed0174c52490a6afbeb46385ed797364fc5e8e98feb46cfe6dc54d04",
+      "name": [
+        "YEL \"十玄古琴·战国\" NOR",
+        "({ \"shixuan qin\", \"shixuan\", \"qin\" })"
+      ],
+      "weight": "700",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "YEL \"这是迄今能看到的中国最早的琴类乐器，此\\n\"\n            \"琴埋于战国曾候乙墓之中，琴长67公分，琴\\n\"\n            \"面起伏有致。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "100000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "shixuanqin",
+      "new_path": "/d/items/qin/shixuanqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(YEL \"十玄古琴·战国\" NOR, ({ \"shixuan qin\", \"shixuan\", \"qin\" }));\n    set_weight(700);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", YEL \"这是迄今能看到的中国最早的琴类乐器，此\\n\"\n            \"琴埋于战国曾候乙墓之中，琴长67公分，琴\\n\"\n            \"面起伏有致。\\n\" NOR);\n        set(\"value\", 100000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/tanhuqin",
+      "key": "hengyang_yueqi_tanhuqin",
+      "source_hash": "efc33c867b92e9fdf8f0f5be15d464182da022b0e0d978bb076510b422b29178",
+      "name": [
+        "HIY \"檀木胡琴\" NOR",
+        "({ \"tanmu huqin\", \"qin\", \"huqin\", \"tanmu\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIY \"一把精致的檀木胡琴。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "tanhuqin",
+      "new_path": "/d/items/qin/tanhuqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(HIY \"檀木胡琴\" NOR, ({ \"tanmu huqin\", \"qin\", \"huqin\", \"tanmu\" }));\n    set_weight(800);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", HIY \"一把精致的檀木胡琴。\\n\" NOR);\n        set(\"value\", 1000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhongnishi",
+      "key": "hengyang_yueqi_zhongnishi",
+      "source_hash": "77dd62c32d4b3b752896cad915161267671d28d553a2a4ac800e4b83a3b7bd1c",
+      "name": [
+        "HIC \"仲尼式琴·宋朝\" NOR",
+        "({ \"zhongni qin\", \"zhongni\", \"qin\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIC \"此琴体扁身薄，琴体怪异，琴轸右面垂下深\\n\"\n            \"舌罗汉腿，漆色亮绿，微泛绿光，仲尼式琴\\n\"\n            \"为元朝主流。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "200000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "zhongniqin",
+      "new_path": "/d/items/qin/zhongniqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(HIC \"仲尼式琴·宋朝\" NOR, ({ \"zhongni qin\", \"zhongni\", \"qin\" }));\n    set_weight(500);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n\n        set(\"long\", HIC \"此琴体扁身薄，琴体怪异，琴轸右面垂下深\\n\"\n            \"舌罗汉腿，漆色亮绿，微泛绿光，仲尼式琴\\n\"\n            \"为元朝主流。\\n\" NOR);\n        set(\"value\", 200000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhuxiao-liuquan",
+      "key": "hengyang_yueqi_zhuxiao-liuquan",
+      "source_hash": "3f5c8bf61c53599ae947c42b477f0cffc18a41042bdbded9cf282ddeb5c5e11c",
+      "name": [
+        "HIG \"碧玉洞萧·流泉\" NOR",
+        "({ \"liuquan xiao\", \"liuquan\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIC \"流泉\" HIG \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"stone\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "liuquan_xiao",
+      "new_path": "/d/items/xiao/liuquan_xiao",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(HIG \"碧玉洞萧·流泉\" NOR, ({ \"liuquan xiao\", \"liuquan\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIC \"流泉\" HIG \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"stone\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhuxiao-qingyin",
+      "key": "hengyang_yueqi_zhuxiao-qingyin",
+      "source_hash": "4097240903725a56b837aaf4d017cdf5346fe4169b3350e44ae99aefae454a24",
+      "name": [
+        "HIG \"碧玉洞萧·清音\" NOR",
+        "({ \"qingyin xiao\", \"qingyin\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIB \"清音\" HIG \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"stone\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "qingyin_xiao",
+      "new_path": "/d/items/xiao/qingyin_xiao",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(HIG \"碧玉洞萧·清音\" NOR, ({ \"qingyin xiao\", \"qingyin\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIB \"清音\" HIG \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"stone\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhuxiao-shuiyun",
+      "key": "hengyang_yueqi_zhuxiao-shuiyun",
+      "source_hash": "8a3f793fd0da2450d97589f9cd95e52476e63751220daa1feaa8621462c6b53c",
+      "name": [
+        "HIG \"碧玉洞萧·水云\" NOR",
+        "({ \"shuiyun xiao\", \"shuiyun\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIW \"水云\" HIG \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"stone\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "shuiyun_xiao",
+      "new_path": "/d/items/xiao/shuiyun_xiao",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(HIG \"碧玉洞萧·水云\" NOR, ({ \"shuiyun xiao\", \"shuiyun\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIW \"水云\" HIG \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"stone\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhuxiao-youlan",
+      "key": "hengyang_yueqi_zhuxiao-youlan",
+      "source_hash": "3da2fde7ada0e2003272c2a756ede2cf0101ac25bab59d8b8e61a99b886dd0ea",
+      "name": [
+        "HIG \"碧玉洞萧·幽兰\" NOR",
+        "({ \"youlan xiao\", \"youlan\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIM \"幽兰\" HIG \"」。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "5000000"
+        ],
+        [
+          "\"material\"",
+          "\"stone\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "youlan_xiao",
+      "new_path": "/d/items/xiao/youlan_xiao",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(HIG \"碧玉洞萧·幽兰\" NOR, ({ \"youlan xiao\", \"youlan\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", HIG \"一把碧玉所制的洞萧，隐隐泛出绿\"\n            \"光。上刻「\" HIM \"幽兰\" HIG \"」。\\n\" NOR);\n        set(\"value\", 5000000);\n        set(\"material\", \"stone\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/hengyang/yueqi/zhuxiao",
+      "key": "hengyang_yueqi_zhuxiao",
+      "source_hash": "095691baea64afaf3da5bc8c5e5099585f878e53d0d0e2a7b2a5c21f130ad80f",
+      "name": [
+        "GRN \"普通竹萧\" NOR",
+        "({ \"zhu xiao\", \"zhu\", \"xiao\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "GRN \"一把翠竹所制的洞萧，非常普通。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "200"
+        ],
+        [
+          "\"material\"",
+          "\"bamboo\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "zhuxiao2",
+      "new_path": "/d/items/xiao/zhuxiao2",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(GRN \"普通竹萧\" NOR, ({ \"zhu xiao\", \"zhu\", \"xiao\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", GRN \"一把翠竹所制的洞萧，非常普通。\\n\" NOR);\n        set(\"value\", 200);\n        set(\"material\", \"bamboo\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/kunlun/obj/jwqin",
+      "key": "kunlun_obj_jwqin",
+      "source_hash": "6189f4afb15c9e7c287a9f311d39ae6932c94b1b66aa8050d04c4c5ae1986172",
+      "name": [
+        "NOR + RED \"焦尾琴\" NOR",
+        "({ \"jiaowei qin\", \"jiaowei\", \"qin\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"台\""
+        ],
+        [
+          "\"long\"",
+          "RED \"相传这便是当年蔡文姬从火中所救出的焦木\"\n            \"做成的美琴，琴的\\n尾端仍可见焦黑色。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "10000"
+        ],
+        [
+          "\"material\"",
+          "\"wood\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "qin",
+      "id": "jiaoweiqin",
+      "new_path": "/d/items/qin/jiaoweiqin",
+      "source": "#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_QIN;\n\nvoid create() {\n    set_name(NOR + RED \"焦尾琴\" NOR, ({ \"jiaowei qin\", \"jiaowei\", \"qin\" }));\n    set_weight(600);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"台\");\n        set(\"long\", RED \"相传这便是当年蔡文姬从火中所救出的焦木\"\n            \"做成的美琴，琴的\\n尾端仍可见焦黑色。\\n\" NOR);\n        set(\"value\", 10000);\n        set(\"material\", \"wood\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_qin\", \"play\");\n}\n"
+    },
+    {
+      "old_path": "/d/taohua/obj/zhuxiao",
+      "key": "taohua_obj_zhuxiao",
+      "source_hash": "aed8702ee77c485da669e5e64a12727012c8dc3a798a2d1eed8333157b93ff8c",
+      "name": [
+        "\"竹萧\"",
+        "({ \"zhuxiao\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"一根普普通通的竹萧，但是也能吹出动人的曲子。\\n\""
+        ],
+        [
+          "\"value\"",
+          "10"
+        ],
+        [
+          "\"material\"",
+          "\"bamboo\""
+        ]
+      ],
+      "after_branch": [],
+      "family": "xiao",
+      "id": "zhuxiao3",
+      "new_path": "/d/items/xiao/zhuxiao3",
+      "source": "// zhuxiao.c\n\n#include <ansi.h>\n#include <music.h>\n\ninherit ITEM;\ninherit MI_XIAO;\n\nvoid create() {\n    set_name(\"竹萧\", ({ \"zhuxiao\" }));\n    set_weight(300);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"一根普普通通的竹萧，但是也能吹出动人的曲子。\\n\");\n        set(\"value\", 10);\n        set(\"material\", \"bamboo\");\n    }\n    setup();\n}\n\nvoid init() {\n    add_action(\"play_xiao\", \"play\");\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/baituo/wuqiku.c",
+      "line": 14,
+      "start": 260,
+      "end": 279,
+      "expression": "__DIR__ \"obj/zheng\"",
+      "old_path": "/d/baituo/obj/zheng",
+      "new_path": "/d/items/zheng/guzheng"
+    },
+    {
+      "file": "d/changan/npc/liu.c",
+      "line": 20,
+      "start": 459,
+      "end": 478,
+      "expression": "__DIR__ \"obj/muqin\"",
+      "old_path": "/d/changan/npc/obj/muqin",
+      "new_path": "/d/items/qin/muqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 27,
+      "start": 623,
+      "end": 661,
+      "expression": "\"/d/hengyang/yueqi/shixuanqin-zhanguo\"",
+      "old_path": "/d/hengyang/yueqi/shixuanqin-zhanguo",
+      "new_path": "/d/items/qin/shixuanqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 28,
+      "start": 671,
+      "end": 701,
+      "expression": "\"/d/hengyang/yueqi/jiuxiaoqin\"",
+      "old_path": "/d/hengyang/yueqi/jiuxiaoqin",
+      "new_path": "/d/items/qin/jiuxiaoqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 29,
+      "start": 711,
+      "end": 741,
+      "expression": "\"/d/hengyang/yueqi/zhongnishi\"",
+      "old_path": "/d/hengyang/yueqi/zhongnishi",
+      "new_path": "/d/items/qin/zhongniqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 30,
+      "start": 751,
+      "end": 780,
+      "expression": "\"/d/hengyang/yueqi/jiaoyeqin\"",
+      "old_path": "/d/hengyang/yueqi/jiaoyeqin",
+      "new_path": "/d/items/qin/jiaoyeqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 31,
+      "start": 790,
+      "end": 820,
+      "expression": "\"/d/hengyang/yueqi/qin-jueyin\"",
+      "old_path": "/d/hengyang/yueqi/qin-jueyin",
+      "new_path": "/d/items/qin/jueyin_qin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 32,
+      "start": 830,
+      "end": 860,
+      "expression": "\"/d/hengyang/yueqi/qin-konggu\"",
+      "old_path": "/d/hengyang/yueqi/qin-konggu",
+      "new_path": "/d/items/qin/konggu_qin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 33,
+      "start": 870,
+      "end": 898,
+      "expression": "\"/d/hengyang/yueqi/qin-jimo\"",
+      "old_path": "/d/hengyang/yueqi/qin-jimo",
+      "new_path": "/d/items/qin/jimo_qin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 34,
+      "start": 908,
+      "end": 939,
+      "expression": "\"/d/hengyang/yueqi/qin-tianlai\"",
+      "old_path": "/d/hengyang/yueqi/qin-tianlai",
+      "new_path": "/d/items/qin/tianlai_qin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 35,
+      "start": 949,
+      "end": 974,
+      "expression": "\"/d/hengyang/yueqi/huqin\"",
+      "old_path": "/d/hengyang/yueqi/huqin",
+      "new_path": "/d/items/qin/huqin2"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 36,
+      "start": 984,
+      "end": 1011,
+      "expression": "\"/d/hengyang/yueqi/zhuxiao\"",
+      "old_path": "/d/hengyang/yueqi/zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao2"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 37,
+      "start": 1021,
+      "end": 1050,
+      "expression": "\"/d/hengyang/yueqi/honghuqin\"",
+      "old_path": "/d/hengyang/yueqi/honghuqin",
+      "new_path": "/d/items/qin/honghuqin"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 38,
+      "start": 1060,
+      "end": 1094,
+      "expression": "\"/d/hengyang/yueqi/zhuxiao-youlan\"",
+      "old_path": "/d/hengyang/yueqi/zhuxiao-youlan",
+      "new_path": "/d/items/xiao/youlan_xiao"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 39,
+      "start": 1104,
+      "end": 1139,
+      "expression": "\"/d/hengyang/yueqi/zhuxiao-shuiyun\"",
+      "old_path": "/d/hengyang/yueqi/zhuxiao-shuiyun",
+      "new_path": "/d/items/xiao/shuiyun_xiao"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 40,
+      "start": 1149,
+      "end": 1184,
+      "expression": "\"/d/hengyang/yueqi/zhuxiao-liuquan\"",
+      "old_path": "/d/hengyang/yueqi/zhuxiao-liuquan",
+      "new_path": "/d/items/xiao/liuquan_xiao"
+    },
+    {
+      "file": "d/hengyang/npc/feiyan.c",
+      "line": 41,
+      "start": 1194,
+      "end": 1229,
+      "expression": "\"/d/hengyang/yueqi/zhuxiao-qingyin\"",
+      "old_path": "/d/hengyang/yueqi/zhuxiao-qingyin",
+      "new_path": "/d/items/xiao/qingyin_xiao"
+    },
+    {
+      "file": "d/taohua/daojufang.c",
+      "line": 21,
+      "start": 445,
+      "end": 466,
+      "expression": "__DIR__ \"obj/zhuxiao\"",
+      "old_path": "/d/taohua/obj/zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao3"
+    },
+    {
+      "file": "d/taohua/daojufang.c",
+      "line": 27,
+      "start": 621,
+      "end": 642,
+      "expression": "__DIR__ \"obj/zhuxiao\"",
+      "old_path": "/d/taohua/obj/zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao3"
+    },
+    {
+      "file": "d/taohua/daojufang.c",
+      "line": 32,
+      "start": 742,
+      "end": 763,
+      "expression": "__DIR__ \"obj/zhuxiao\"",
+      "old_path": "/d/taohua/obj/zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao3"
+    },
+    {
+      "file": "kungfu/class/henshan/liu.c",
+      "line": 94,
+      "start": 2647,
+      "end": 2677,
+      "expression": "\"/d/hengyang/npc/obj/tanmuqin\"",
+      "old_path": "/d/hengyang/npc/obj/tanmuqin",
+      "new_path": "/d/items/qin/tanmuqin"
+    },
+    {
+      "file": "kungfu/class/henshan/mo.c",
+      "line": 95,
+      "start": 2596,
+      "end": 2623,
+      "expression": "\"/d/hengyang/npc/obj/huqin\"",
+      "old_path": "/d/hengyang/npc/obj/huqin",
+      "new_path": "/d/items/qin/huqin"
+    },
+    {
+      "file": "kungfu/class/kunlun/hezudao.c",
+      "line": 122,
+      "start": 3251,
+      "end": 3272,
+      "expression": "\"/d/kunlun/obj/jwqin\"",
+      "old_path": "/d/kunlun/obj/jwqin",
+      "new_path": "/d/items/qin/jiaoweiqin"
+    },
+    {
+      "file": "kungfu/class/ouyang/ouyangfeng.c",
+      "line": 123,
+      "start": 3297,
+      "end": 3320,
+      "expression": "\"d/baituo/obj/tiezheng\"",
+      "old_path": "/d/baituo/obj/tiezheng",
+      "new_path": "/d/items/zheng/tiezheng"
+    },
+    {
+      "file": "kungfu/class/riyue/qu.c",
+      "line": 85,
+      "start": 2368,
+      "end": 2397,
+      "expression": "\"/d/hengyang/npc/obj/zhuxiao\"",
+      "old_path": "/d/hengyang/npc/obj/zhuxiao",
+      "new_path": "/d/items/xiao/zhuxiao"
+    },
+    {
+      "file": "kungfu/class/riyue/ying.c",
+      "line": 101,
+      "start": 2744,
+      "end": 2765,
+      "expression": "\"/d/kunlun/obj/jwqin\"",
+      "old_path": "/d/kunlun/obj/jwqin",
+      "new_path": "/d/items/qin/jiaoweiqin"
+    },
+    {
+      "file": "kungfu/class/xiaoyao/kanggl.c",
+      "line": 71,
+      "start": 1973,
+      "end": 1999,
+      "expression": "\"/d/changan/npc/obj/muqin\"",
+      "old_path": "/d/changan/npc/obj/muqin",
+      "new_path": "/d/items/qin/muqin"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 74,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    }
+  ],
+  "callers": {
+    "d/baituo/wuqiku.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"武器库\");\n    set(\"long\", @LONG\n这里是白驼山弟子的武器库，白驼山弟子可以到此拿取练\n功用的各种武器。不过别派弟子是不允许进来的。\nLONG);\n    set(\"exits\", ([\n        \"east\": __DIR__ \"yuanzi\",\n    ]));\n    set(\"objects\", ([\n        __DIR__ \"npc/shiwei\": 1,\n        __DIR__ \"obj/zheng\": 1,\n        \"/clone/weapon/gangzhang\": 2,\n    ]));\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/changan/npc/liu.c": "//liu.c\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"刘老实\", ({ \"liu laoshi\", \"liu\" }));\n    set(\"title\", \"杂货铺老板\");\n    set(\"shen_type\", 1);\n    set(\"gender\", \"男性\");\n    set(\"age\", 55);\n    set_skill(\"unarmed\", 40);\n    set_skill(\"dodge\", 40);\n    set_temp(\"apply/damage\", 15);\n    set(\"combat_exp\", 50000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/items/cloth/pi_beixin2\",\n        __DIR__ \"obj/shield\",\n        __DIR__ \"obj/muqin\",\n        \"/d/xiyu/obj/fire\",\n        \"/d/item/obj/chanhs\",\n        \"/clone/misc/wood\",\n        //\"/clone/misc/shoeshine\",\n        //\"/clone/misc/brush\",\n        \"/clone/misc/diaogan\",\n        \"/clone/misc/yuer\",\n        \"/clone/misc/yanwu\",\n        \"/clone/misc/shexiang\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/changpao\")->wear();\n}\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/hengyang/npc/feiyan.c": "#include <ansi.h>\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"绯胭\", ({ \"fei yan\", \"fei\", \"yan\" }));\n    set(\"nickname\", HIM \"八音狐仙\" NOR);\n    set(\"title\", \"老板娘\");\n    set(\"long\", @LONG\n绯胭原本在青楼以卖唱为生，因为被逼无奈，误杀县老\n爷的公子，险被处死，后来据说她被狐仙所救，从此隐\n姓埋名，做起这乐器的买卖。还有的说她本身就是狐仙\n所化，又由于她的一曲《恋八音》，所以人人都称她为\n「八音狐仙」。\nLONG);\n    set(\"shen_type\", 1);\n    set(\"gender\", \"女性\");\n    set(\"age\", 25);\n    set(\"per\", 28);\n    set_skill(\"unarmed\", 200);\n    set_skill(\"dodge\", 200);\n    set_temp(\"apply/damage\", 25);\n    set(\"combat_exp\", 800000);\n    set(\"no_get\", \"1\");\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/hengyang/yueqi/shixuanqin-zhanguo\",\n        \"/d/hengyang/yueqi/jiuxiaoqin\",\n        \"/d/hengyang/yueqi/zhongnishi\",\n        \"/d/hengyang/yueqi/jiaoyeqin\",\n        \"/d/hengyang/yueqi/qin-jueyin\",\n        \"/d/hengyang/yueqi/qin-konggu\",\n        \"/d/hengyang/yueqi/qin-jimo\",\n        \"/d/hengyang/yueqi/qin-tianlai\",\n        \"/d/hengyang/yueqi/huqin\",\n        \"/d/hengyang/yueqi/zhuxiao\",\n        \"/d/hengyang/yueqi/honghuqin\",\n        \"/d/hengyang/yueqi/zhuxiao-youlan\",\n        \"/d/hengyang/yueqi/zhuxiao-shuiyun\",\n        \"/d/hengyang/yueqi/zhuxiao-liuquan\",\n        \"/d/hengyang/yueqi/zhuxiao-qingyin\",\n        \"/d/hengyang/yueqi/yuepu-book\",\n        \"/d/hengyang/yueqi/yueqi-book\",\n        \"/d/hengyang/yueqi/huxian-book\",\n    }));\n\n    set(\"inquiry\", ([\n        \"杜凤鄂\": \"杜公子，他还好吗？\\n\",\n    ]));\n\n    setup();\n    carry_object(\"/d/items/boots/xiuhuaxie2\")->wear();\n    carry_object(\"/d/items/cloth/hulv_changqun\")->wear();\n\n}\n\nvoid init() {\n    object ob;\n\n    ob = this_player();\n\n    ::init();\n    if (interactive(ob) && !is_fighting()) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 2, ob);\n    }\n\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n\nvoid greeting(object ob) {\n    if (!ob || environment(ob) != environment()) return;\n\n    say(CYN \"绯胭笑着说道：这位\" + RANK_D->query_respect(ob) + \"这里\"\n        \"各种乐器应有尽有，请随便看看。\\n\" NOR);\n\n    return;\n}\n",
+    "d/taohua/daojufang.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"道具房\");\n    set(\"long\", @LONG\n这是一间道具房。摆着一些桃花弟子们常用的东西。房里\n好象黑乎乎的，靠窗处有一张斑驳长桌和一把靠背椅，虽是白\n天还点着小油灯。哑仆看到你进来，就使劲瞪着你，虽然口不\n能言，可你还是心中惴惴。\nLONG);\n    set(\"exits\", ([\n        \"west\": __DIR__ \"dating\",\n        \"up\": __DIR__ \"shufang\",\n    ]));\n\n    if (random(5) > 3)\n        set(\"objects\", ([\n            __DIR__ \"npc/yapu\": 2,\n            __DIR__ \"obj/bagua\": 1,\n            __DIR__ \"obj/xiang\": 1,\n            __DIR__ \"obj/zhuxiao\": 1,\n        ]));\n    else if (random(4) > 2)\n        set(\"objects\", ([\n            __DIR__ \"npc/yapu\": 2,\n            __DIR__ \"obj/xiang\": 1,\n            __DIR__ \"obj/zhuxiao\": 1,\n        ]));\n    else\n        set(\"objects\", ([\n            __DIR__ \"npc/yapu\": 2,\n            __DIR__ \"obj/zhuxiao\": 1,\n        ]));\n\n    setup();\n}\n",
+    "kungfu/class/henshan/liu.c": "#include <ansi.h>\n#include \"henshan.h\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_GUARDER;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"刘正风\", ({ \"liu zhengfeng\", \"liu\", \"zhengfeng\" }));\n    set(\"nickname\", HIR \"落雁剑\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"swordman\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n\n    set(\"age\", 45);\n    set(\"str\", 28);\n    set(\"con\", 26);\n    set(\"int\", 28);\n    set(\"dex\", 28);\n    set(\"max_qi\", 4500);\n    set(\"max_jing\", 2000);\n    set(\"neili\", 4000);\n    set(\"max_neili\", 4000);\n    set(\"jiali\", 150);\n    set(\"combat_exp\", 1800000);\n\n    set_skill(\"force\", 240);\n    set_skill(\"henshan-xinfa\", 240);\n    set_skill(\"zhenyue-jue\", 240);\n    set_skill(\"dodge\", 220);\n    set_skill(\"henshan-shenfa\", 220);\n    set_skill(\"cuff\", 220);\n    set_skill(\"henshan-quan\", 220);\n    set_skill(\"sword\", 240);\n    set_skill(\"henshan-jian\", 240);\n    set_skill(\"tianzhu-jian\", 240);\n    set_skill(\"zigai-jian\", 240);\n    set_skill(\"furong-jian\", 240);\n    set_skill(\"shilin-jian\", 240);\n    set_skill(\"luoyan-jian\", 240);\n    set_skill(\"strike\", 220);\n    set_skill(\"biluo-zhang\", 220);\n    set_skill(\"liuyun-zhang\", 220);\n    set_skill(\"parry\", 220);\n    set_skill(\"literate\", 260);\n    set_skill(\"tanqin-jifa\", 280);\n    set_skill(\"xiaoao-jianghu\", 280);\n    set_skill(\"guangling-san\", 280);\n    set_skill(\"martial-cognize\", 220);\n\n    map_skill(\"strike\", \"liuyun-zhang\");\n    map_skill(\"cuff\", \"henshan-quan\");\n    map_skill(\"sword\", \"luoyan-jian\");\n    map_skill(\"force\", \"zhenyue-jue\");\n    map_skill(\"dodge\", \"henshan-shenfa\");\n    map_skill(\"parry\", \"luoyan-jian\");\n    map_skill(\"tanqin-jifa\", \"xiaoao-jianghu\");\n    map_skill(\"tanqin-jifa\", \"xiaoao-jianghu\");\n\n    prepare_skill(\"strike\", \"liuyun-zhang\");\n\n    create_family(\"衡山派\", 13, \"名宿\");\n\n    set(\"no_teach\", ([\n        \"liuyun-zhang\": \"这流云掌向来只由掌门人亲授，你还是找我师兄传授吧！\",\n        \"shilin-jian\": \"石廪剑法向来只由掌门人亲授，你还是找我师兄传授吧！\",\n    ]));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.luo\" :),\n        (: perform_action, \"strike.pai\" :),\n        (: perform_action, \"strike.ying\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    set(\"coagents\", ({\n        ([ \"startroom\": \"/d/hengyang/furongfeng\",\n            \"id\": \"qu yang\" ]),\n    }));\n\n    set_temp(\"apply/attack\", 100);\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    setup();\n\n    carry_object(\"/clone/weapon/changjian\")->wield();\n    carry_object(\"/clone/cloth/cloth\")->wear();\n    set_temp(\"handing\", carry_object(\"/d/hengyang/npc/obj/tanmuqin\"));\n}\n\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if ((int)ob->query(\"shen\") < 30000) {\n        command(\"say 我衡山剑派乃是堂堂名门正派，对弟子要求严格。\");\n        command(\"say 你在这侠义与德行方面是否还做得不够？\");\n        return;\n    }\n\n    if ((int)ob->query(\"combat_exp\") < 200000) {\n        command(\"say 你现在经验尚浅，还是多在江湖上走走吧。\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"henshan-jian\", 1) < 120) {\n        command(\"say 我衡山乃五岳剑派之一，最为重视剑法。\");\n        command(\"say 你的衡山剑法还不够熟练，下去练练再来吧。\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"force\") < 150) {\n        command(\"say 我衡山剑派虽善用剑，但内功却是御剑之本。\");\n        command(\"say 你是否还应该在内功心法上多下点功夫？\");\n        return;\n    }\n\n    command(\"haha\");\n    command(\"say 孺子可教，孺子可教。今日我就收下你吧。\");\n    command(\"say 你以后定要勤练武，多行善，扬我衡山派雄风。\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n\nint accept_ask(object me, string topic) {\n    switch (topic) {\n        case \"乱剑覆花\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/furong-jian/luan\",\n                    \"name\": \"乱剑覆花\",\n                    \"msg1\": \"$N点了点头，忽然一声轻啸，腾\"\n                    \"空而起，蓦地挽出一个剑花，顷\"\n                    \"刻间只见得剑花四散，洋洋洒洒\"\n                    \"，犹如无数花瓣从半空洒下，招\"\n                    \"式当真精奇无比。\",\n                    \"sk1\": \"furong-jian\",\n                    \"lv1\": 100,\n                    \"force\": 140,\n                    \"dodge\": 140,\n                    \"neili\": 1600,\n                    \"gongxian\": 300,\n                    \"shen\": 20000, ]));\n            break;\n\n        case \"一剑落九雁\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/luoyan-jian/luo\",\n                    \"name\": \"一剑落九雁\",\n                    \"sk1\": \"luoyan-jian\",\n                    \"lv1\": 150,\n                    \"force\": 220,\n                    \"dodge\": 220,\n                    \"neili\": 2800,\n                    \"gongxian\": 1500,\n                    \"shen\": 50000, ]));\n            break;\n        default:\n            return 0;\n    }\n}\n\nvoid init() {\n    string startroom;\n    object ob;\n\n    if (interactive(ob = this_player())\n        && !is_fighting()) {\n        if (!ob || environment(ob) != environment())\n            return;\n\n        if (stringp(startroom = query(\"startroom\"))\n            && find_object(startroom) == environment())\n            command(\"play xiaoao-jianghu\");\n        else\n            say(CYN + this_object()->name() +\n                CYN \"深深地叹了口气。\\n\" NOR);\n    }\n    return;\n}\n",
+    "kungfu/class/henshan/mo.c": "#include <ansi.h>\n#include \"henshan.h\"\n\n#define ZHENYUE \"/clone/lonely/zhenyue\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_QUESTER;\ninherit F_COAGENT;\n\nvoid create() {\n    object ob;\n    set_name(\"莫大\", ({ \"mo da\", \"mo\", \"da\" }));\n    set(\"nickname\", HIW \"潇湘夜雨\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"swordman\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n\n    set(\"age\", 55);\n    set(\"str\", 28);\n    set(\"con\", 26);\n    set(\"int\", 28);\n    set(\"dex\", 28);\n    set(\"max_qi\", 5000);\n    set(\"max_jing\", 3000);\n    set(\"neili\", 5000);\n    set(\"max_neili\", 5000);\n    set(\"jiali\", 200);\n    set(\"combat_exp\", 3000000);\n\n    set_skill(\"force\", 240);\n    set_skill(\"henshan-xinfa\", 240);\n    set_skill(\"zhenyue-jue\", 240);\n    set_skill(\"dodge\", 240);\n    set_skill(\"henshan-shenfa\", 240);\n    set_skill(\"cuff\", 240);\n    set_skill(\"henshan-quan\", 240);\n    set_skill(\"sword\", 260);\n    set_skill(\"henshan-jian\", 260);\n    set_skill(\"tianzhu-jian\", 260);\n    set_skill(\"zigai-jian\", 260);\n    set_skill(\"furong-jian\", 260);\n    set_skill(\"shilin-jian\", 260);\n    set_skill(\"strike\", 240);\n    set_skill(\"biluo-zhang\", 240);\n    set_skill(\"liuyun-zhang\", 240);\n    set_skill(\"parry\", 240);\n    set_skill(\"literate\", 240);\n    set_skill(\"tanqin-jifa\", 300);\n    set_skill(\"xiaoxiang-yeyu\", 300);\n    set_skill(\"martial-cognize\", 220);\n\n    map_skill(\"strike\", \"liuyun-zhang\");\n    map_skill(\"cuff\", \"henshan-quan\");\n    map_skill(\"sword\", \"shilin-jian\");\n    map_skill(\"force\", \"zhenyue-jue\");\n    map_skill(\"dodge\", \"henshan-shenfa\");\n    map_skill(\"parry\", \"shilin-jian\");\n    map_skill(\"tanqin-jifa\", \"xiaoxiang-yeyu\");\n\n    prepare_skill(\"strike\", \"liuyun-zhang\");\n\n    create_family(\"衡山派\", 13, \"掌门\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.luo\" :),\n        (: perform_action, \"strike.pai\" :),\n        (: perform_action, \"strike.die\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    set_temp(\"apply/attack\", 100);\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    setup();\n\n    if (clonep()) {\n        ob = find_object(ZHENYUE);\n        if (!ob) ob = load_object(ZHENYUE);\n        if (!environment(ob)) {\n            ob->move(this_object());\n            ob->wield();\n        } else {\n            ob = new(\"/clone/weapon/changjian\");\n            ob->move(this_object());\n            ob->wield();\n        }\n    }\n    carry_object(\"/clone/cloth/cloth\")->wear();\n    set_temp(\"handing\", carry_object(\"/d/hengyang/npc/obj/huqin\"));\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if ((int)ob->query(\"shen\") < 40000) {\n        command(\"say 我衡山剑派乃是堂堂名门正派，对弟子要求严格。\");\n        command(\"say 你在这侠义与德行方面是否还做得不够？\");\n        return;\n    }\n\n    if ((int)ob->query(\"combat_exp\") < 300000) {\n        command(\"say 你现在经验尚浅，还是多在江湖上走走吧。\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"henshan-jian\", 1) < 120) {\n        command(\"say 我衡山乃五岳剑派之一，最为重视剑法。\");\n        command(\"say 你的衡山剑法还不够熟练，下去练练再来吧。\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"force\") < 180) {\n        command(\"say 我衡山剑派虽善用剑，但内功却是御剑之本。\");\n        command(\"say 你是否还应该在内功心法上多下点功夫？\");\n        return;\n    }\n\n    command(\"nod\");\n    command(\"say 念你平时刻苦努力，今日我就收下你吧。\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n\nint accept_ask(object me, string topic) {\n    switch (topic) {\n        case \"历练\":\n        case \"历炼\":\n        case \"锻炼\":\n            return QUEST_D->accept_ask(this_object(), me, topic);\n            break;\n\n        case \"紫盖回翔\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/zigai-jian/hui\",\n                    \"name\": \"紫盖回翔\",\n                    \"sk1\": \"zigai-jian\",\n                    \"lv1\": 120,\n                    \"force\": 150,\n                    \"dodge\": 120,\n                    \"gongxian\": 200,\n                    \"shen\": 15000, ]));\n            break;\n\n        case \"落英纷飞\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/shilin-jian/luo\",\n                    \"name\": \"落英纷飞\",\n                    \"sk1\": \"shilin-jian\",\n                    \"lv1\": 120,\n                    \"force\": 180,\n                    \"gongxian\": 500,\n                    \"shen\": 50000, ]));\n            break;\n\n        case \"流云叠影\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/liuyun-zhang/die\",\n                    \"name\": \"流云叠影\",\n                    \"msg1\": \"$N略微点点头，掌法陡然变快，\"\n                    \"双掌不断拍出，竟似如影如幻，\"\n                    \"似有三头六臂，直把你看得眼花\"\n                    \"缭乱。\",\n                    \"sk1\": \"liuyun-zhang\",\n                    \"lv1\": 100,\n                    \"dodge\": 150,\n                    \"gongxian\": 300,\n                    \"shen\": 50000, ]));\n            break;\n\n        case \"排山倒海\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/liuyun-zhang/pai\",\n                    \"name\": \"排山倒海\",\n                    \"msg1\": \"$N点了点头，说道：“我给你演\"\n                    \"示一遍，可看好了。”说完$N便\"\n                    \"将内力运于掌风之中，双掌猛然\"\n                    \"拍出，雄浑有力，气势磅礴，毫\"\n                    \"无滞带。正是衡山派绝学「排山\"\n                    \"倒海」。\",\n                    \"sk1\": \"liuyun-zhang\",\n                    \"lv1\": 140,\n                    \"force\": 180,\n                    \"gongxian\": 600,\n                    \"shen\": 50000, ]));\n            break;\n\n        case \"镇岳尚方\":\n            return MASTER_D->give_item(me, this_object(),\n                ([ \"item\": ZHENYUE,\n                    \"master\": 1,\n                    \"sk1\": \"henshan-jian\",\n                    \"lv1\": 120,\n                    \"shen\": 50000, ]));\n            break;\n        default:\n            return 0;\n    }\n}\n\nvoid unconcious() {\n    die();\n}\n",
+    "kungfu/class/kunlun/hezudao.c": "#include <ansi.h>\n#include \"kunlun.h\"\n\n#define LIANGJI    \"/clone/lonely/liangjijian\"\n\ninherit NPC;\ninherit F_MASTER;\n\nmixed ask_skill1();\nmixed ask_skill2();\nmixed ask_skill3();\nmixed ask_skill4();\nmixed ask_jian();\n\nvoid create() {\n    object ob;\n    set_name(\"何足道\", ({ \"he zudao\", \"he\", \"zudao\" }));\n    set(\"title\", \"昆仑派开山祖师\");\n    set(\"nickname\", HIY \"昆仑三圣\" NOR);\n    set(\"long\", @LONG\n这就是昆仑派开山祖师，号称琴剑棋三绝的昆\n仑三圣何足道。见他长脸深目，面目清秀。却\n是瘦骨棱棱，身着一青衫。\nLONG);\n    set(\"gender\", \"男性\");\n    set(\"age\", 95);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 40);\n    set(\"int\", 40);\n    set(\"con\", 40);\n    set(\"dex\", 40);\n    set(\"max_qi\", 6000);\n    set(\"max_jing\", 5000);\n    set(\"neili\", 6000);\n    set(\"max_neili\", 6000);\n    set(\"jiali\", 200);\n    set(\"combat_exp\", 4000000);\n\n    set_skill(\"force\", 300);\n    set_skill(\"kunlun-xinfa\", 300);\n    set_skill(\"liangyi-shengong\", 300);\n    set_skill(\"dodge\", 300);\n    set_skill(\"chuanyun-bu\", 300);\n    set_skill(\"strike\", 300);\n    set_skill(\"kunlun-zhang\", 300);\n    set_skill(\"hand\", 300);\n    set_skill(\"sanyin-shou\", 300);\n    set_skill(\"cuff\", 300);\n    set_skill(\"zhentian-quan\", 300);\n    set_skill(\"parry\", 300);\n    set_skill(\"sword\", 320);\n    set_skill(\"kunlun-jian\", 300);\n    set_skill(\"xunlei-jian\", 300);\n    set_skill(\"zhengliangyi-jian\", 300);\n    set_skill(\"qiankun-jian\", 320);\n    set_skill(\"throwing\", 300);\n    set_skill(\"kunlun-qifa\", 300);\n    set_skill(\"tanqin-jifa\", 320);\n    set_skill(\"jian-jia\", 320);\n    set_skill(\"qiuyue-lai\", 320);\n    set_skill(\"tieqin-yin\", 300);\n    set_skill(\"chess\", 320);\n    set_skill(\"literate\", 280);\n    set_skill(\"martial-cognize\", 300);\n\n    map_skill(\"force\", \"liangyi-shengong\");\n    map_skill(\"dodge\", \"chuanyun-bu\");\n    map_skill(\"parry\", \"zhengliangyi-jian\");\n    map_skill(\"sword\", \"qiankun-jian\");\n    map_skill(\"cuff\", \"zhentian-quan\");\n    map_skill(\"strike\", \"kunlun-zhang\");\n    map_skill(\"hand\", \"sanyin-shou\");\n    map_skill(\"throwing\", \"kunlun-qifa\");\n    map_skill(\"tanqin-jifa\", \"jian-jia\");\n\n    prepare_skill(\"strike\", \"kunlun-zhang\");\n    prepare_skill(\"hand\", \"sanyin-shou\");\n\n    create_family(\"昆仑派\", 1, \"祖师\");\n\n    set(\"inquiry\", ([\n        \"绝招\": \"你要问什么绝招？\",\n        \"绝技\": \"你要问什么绝技？\",\n        \"乾坤劲\": (: ask_skill1 :),\n        \"日月乾坤\": (: ask_skill2 :),\n        \"逆转乾坤\": (: ask_skill3 :),\n        \"日入空山\": (: ask_skill4 :),\n        \"两极剑\": (: ask_jian :),\n    ]));\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.ni\" :),\n        (: perform_action, \"sword.riyue\" :),\n        (: perform_action, \"strike.kong\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n\n    }));\n\n    setup();\n\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    if (clonep()) {\n        ob = find_object(LIANGJI);\n        if (!ob) ob = load_object(LIANGJI);\n        if (!environment(ob)) {\n            ob->move(this_object());\n            ob->wield();\n        } else {\n            ob = new(\"clone/weapon/changjian\");\n            ob->move(this_object());\n            ob->wield();\n        }\n    }\n\n    carry_object(\"clone/misc/cloth\")->wear();\n    set_temp(\"handing\", carry_object(\"/d/kunlun/obj/jwqin\"));\n}\n\nvoid attempt_apprentice(object me) {\n    if (!permit_recruit(me))\n        return;\n\n    if ((int)me->query(\"shen\") < 10000) {\n        command(\"say 武学之道深久长远，要成为当之无愧的大侠，德\"\n            \"行还在首位。\");\n        command(\"say 我那几个后辈不成气候，但却希望\"\n            +RANK_D->query_respect(me) + \"你能够多多注意。\");\n        return;\n    }\n\n    if ((int)me->query(\"combat_exp\") < 400000) {\n        command(\"sigh\");\n        command(\"say 你的江湖经验太浅，我就算收了你，恐怕你也难\"\n            \"有所作为。\");\n        return;\n    }\n\n    if (me->query_int() < 38) {\n        command(\"say 高深的武功以及精深的技艺都需灵性极高的人才\"\n            \"能悟其真谛，不致背道而驰。\");\n        command(\"say 我看\" + RANK_D->query_respect(me) + \"还是\"\n            \"先回去多读点书吧。\");\n        return;\n    }\n\n    if ((int)me->query_skill(\"liangyi-shengong\", 1) < 100) {\n        command(\"say 修习我的武功及剑法都需强大的内力为辅。\");\n        command(\"say 我看\" + RANK_D->query_respect(me) + \"是否\"\n            \"还应该先在本门的内功上多下点功夫？\");\n        return;\n    }\n\n    if ((int)me->query_skill(\"zhengliangyi-jian\", 1) < 100) {\n        command(\"say 本派的正两仪剑法乃武林一绝，，我看\"\n            +RANK_D->query_respect(me) + \"对此还练\"\n            \"得不够。\");\n        return;\n    }\n\n    command(\"say 看来你也是性情中人，我就教你一些琴剑棋的知识吧。\");\n    command(\"recruit \" + me->query(\"id\"));\n}\n\nmixed ask_skill1() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/qiankun-jian/qian\"))\n        return \"咦？这招你不是已经会了吗？\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"和本派素无瓜葛，何出此言？\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 1)\n        return \"你连乾坤神剑都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 300)\n        return \"你对本派所作出的贡献不够，这一招我暂时还不能传你。\";\n\n    if (me->query_skill(\"force\") < 150)\n        return \"你的内功火候不足，学不了这一招！\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 100)\n        return \"你的乾坤神剑修为还不够，自己下去练练再来吧。\";\n\n    message_vision(HIY \"$n\" HIY \"微微一笑，转身从弦琴上取出一本\"\n        \"剑经，指着其中一段对$N\" HIY \"细说\\n良久，$N\"\n        HIY \"一边听一边点头。\\n\" NOR, me, this_object());\n    command(\"nod\");\n    command(\"say 这是我早年所创的剑法，并不强劲，下去后稍加练习便成。\");\n    tell_object(me, HIC \"你学会了「乾坤劲」。\\n\" NOR);\n\n    if (me->can_improve_skill(\"sword\"))\n        me->improve_skill(\"sword\", 1500000);\n    if (me->can_improve_skill(\"qiankun-jian\"))\n        me->improve_skill(\"qiankun-jian\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/qiankun-jian/qian\", 1);\n    me->add(\"gongxian\", -300);\n\n    return 1;\n}\n\nmixed ask_skill2() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/qiankun-jian/riyue\"))\n        return \"咦？这招你不是已经会了吗？\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"和本派素无瓜葛，何出此言？\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 1)\n        return \"你连乾坤神剑都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 1500)\n        return \"你对本派所作出的贡献不够，这一招我暂时还不能传你。\";\n\n    if (me->query_skill(\"force\") < 220)\n        return \"你的内功火候不足，学不了这一招！\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 150)\n        return \"你的乾坤神剑修为还不够，自己下去练练再来吧。\";\n\n    message_vision(HIY \"$n\" HIY \"点了点头，道：我将这招给你演示一\"\n        \"遍，你可看好了。$n\" HIY \"话\\n音刚落，只见他身\"\n        \"形一展，以指作剑，指尖微颤，将乾坤剑法连环施而\"\n        \"\\n出。$N\" HIY \"霎时只觉剑影重重，直看得眼花缭\"\n        \"乱。\\n\" NOR, me, this_object());\n    command(\"nod\");\n    command(\"say 这便是日月乾坤，你看懂了多少？\");\n    tell_object(me, HIC \"你学会了「日月乾坤」。\\n\" NOR);\n\n    if (me->can_improve_skill(\"sword\"))\n        me->improve_skill(\"sword\", 1500000);\n    if (me->can_improve_skill(\"qiankun-jian\"))\n        me->improve_skill(\"qiankun-jian\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/qiankun-jian/riyue\", 1);\n    me->add(\"gongxian\", -1500);\n\n    return 1;\n}\n\nmixed ask_skill3() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/qiankun-jian/ni\"))\n        return \"咦？这招你不是已经会了吗？\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"和本派素无瓜葛，何出此言？\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 1)\n        return \"你连乾坤神剑都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 1800)\n        return \"你对本派所作出的贡献不够，这一招我暂时还不能传你。\";\n\n    if (!me->query(\"can_perform/qiankun-jian/qian\"))\n        return \"要学此招，必须先通晓「乾坤劲」的奥秘。\";\n\n    if (me->query_skill(\"force\") < 300)\n        return \"你的内功火候不足，学不了这一招！\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 180)\n        return \"你的乾坤神剑修为还不够，自己下去练练再来吧。\";\n\n    message_vision(HIW \"$n\" HIW \"微笑道：既然你的剑术已经到达超凡的\"\n        \"境界，今日我就传你这招。\\n$n\" HIW \"说着“刷”的\"\n        \"一声响，从背负的瑶琴底下抽出一柄长剑，纵身近\\n前\"\n        \"，长剑陡然弯弯弹出，剑尖直刺$N\" HIW \"胸口，出招\"\n        \"之快真乃为任何剑法所\\n不及。$N\" HIW \"顿时措手不\"\n        \"及，当场呆立，完全不知道该如何应招。$n\" HIW \"哈\"\n        \"\\n哈一笑，收起长剑，说道：刚才这一招不是直刺，却\"\n        \"是先聚内力，然后\\n蓄劲弹出。这逆转乾坤的奥秘便是\"\n        \"将乾坤剑法逆行施展即可。\\n\" NOR, me,\n        this_object());\n    command(\"haha\");\n    command(\"say 这招乃是乾坤神剑的精髓，你下去后自己勤加练习吧。\");\n    tell_object(me, HIC \"你学会了「逆转乾坤」。\\n\" NOR);\n\n    if (me->can_improve_skill(\"force\"))\n        me->improve_skill(\"force\", 1500000);\n    if (me->can_improve_skill(\"liangyi-shengong\"))\n        me->improve_skill(\"liangyi-shengong\", 1500000);\n    if (me->can_improve_skill(\"sword\"))\n        me->improve_skill(\"sword\", 1500000);\n    if (me->can_improve_skill(\"qiankun-jian\"))\n        me->improve_skill(\"qiankun-jian\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/qiankun-jian/ni\", 1);\n    me->add(\"gongxian\", -1800);\n\n    return 1;\n}\n\nmixed ask_skill4() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/kunlun-zhang/kong\"))\n        return \"咦？这招你不是已经会了吗？\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"和本派素无瓜葛，何出此言？\";\n\n    if (me->query_skill(\"kunlun-zhang\", 1) < 1)\n        return \"你连昆仑掌法都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 600)\n        return \"你对本派所作出的贡献不够，这一招我暂时还不能传你。\";\n\n    if (me->query_skill(\"force\") < 150)\n        return \"你的内功火候不足，学不了这一招！\";\n\n    if (me->query_skill(\"kunlun-zhang\", 1) < 120)\n        return \"你的昆仑掌法修为还不够，自己下去练练再来吧。\";\n\n    message_vision(HIY \"$n\" HIY \"点了点头，将$N\" HIY \"招至\"\n        \"身边，在耳旁低声细说良久，$N\" HIY \"听\"\n        \"后会心的\\n一笑，看来大有所悟。\\n\" NOR, me,\n        this_object());\n    command(\"nod\");\n    command(\"say 刚才我所说的便是日入空山的精要，你可记清了？\");\n    tell_object(me, HIC \"你学会了「日入空山」。\\n\" NOR);\n\n    if (me->can_improve_skill(\"strike\"))\n        me->improve_skill(\"strike\", 1500000);\n    if (me->can_improve_skill(\"kunlun-zhang\"))\n        me->improve_skill(\"kunlun-zhang\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/kunlun-zhang/kong\", 1);\n    me->add(\"gongxian\", -600);\n\n    return 1;\n}\n\nmixed ask_jian() {\n    object me;\n    object ob;\n    object owner;\n\n    me = this_player();\n\n    if (me->query(\"family/family_name\") != \"昆仑派\")\n        return \"阁下素来和本派并无渊源，何故来打听我的随身之物？\";\n\n    if (me->query(\"family/master_id\") != query(\"id\"))\n        return \"只有我的弟子才有资格使用我的随身宝剑，阁下还是请回吧。\";\n\n    if (me->query_skill(\"qiankun-jian\", 1) < 150)\n        return \"等你剑术大成之日，我自然不会吝惜佩剑，你再下去练练吧。\";\n\n    if (me->query_skill(\"tanqin-jifa\", 1) < 120\n        && me->query_skill(\"chess\", 1) < 120)\n        return \"你跟了我这么久，琴和棋却是这般…唉。\";\n\n    ob = find_object(LIANGJI);\n    if (!ob) ob = load_object(LIANGJI);\n    owner = environment(ob);\n\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"我的佩剑不正是你拿着在用吗，为何还反倒问起我来了？\";\n\n    if (objectp(owner) && owner != this_object()) {\n        if (!owner->is_character())\n            return \"你来晚了，我的两极剑现在并不在我手中。\";\n\n        if (owner->query(\"family/family_name\") == \"昆仑派\")\n            return \"我的佩剑现在暂时是你同门\" + owner->query(\"name\") + \"在用，你要用就去找他吧。\";\n        else\n            return \"我的那柄两极剑现在落在了\" + owner->query(\"name\") + \"手中，你去把它找回来吧。\";\n    }\n    ob->move(this_object());\n    command(\"give liangji jian to \" + me->query(\"id\"));\n\n    ob = new(\"clone/weapon/changjian\");\n    ob->move(this_object());\n    ob->wield();\n\n    return \"既然这样，我这柄两极剑你就暂时拿去用吧。\";\n}\n\nint accept_object(object me, object ob) {\n    if (base_name(ob) != LIANGJI) {\n        command(\"say 你给我这种东西干什么？\");\n        return 0;\n    }\n\n    if (me->query(\"family/master_id\") != query(\"id\"))\n        command(\"say 多谢这位\" + RANK_D->query_respect(me) +\n            \"将我的宝剑交回。\");\n    else\n        command(\"say 很好，很好！\");\n    destruct(ob);\n    return 1;\n}\n\nvoid init() {\n    object ob;\n\n    if (interactive(ob = this_player())\n        && !is_fighting() && random(10) < 3) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, ob);\n    }\n}\n\nvoid greeting(object ob) {\n    if (!ob || environment(ob) != environment())\n        return;\n\n    command(\"play jian-jia\");\n    return;\n}\n",
+    "kungfu/class/ouyang/ouyangfeng.c": "// ouyangfeng.c\n\n#include <ansi.h>\n#include \"ouyang.h\"\n\n#define LINGSHE_ZHANG    \"/d/baituo/obj/lingshezhang\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_COAGENT;\ninherit F_QUESTER;\n\n\nmixed ask_music_book();\nmixed ask_zhang();\nmixed ask_skill1();\nmixed ask_skill2();\nmixed ask_skill3();\n\nvoid create() {\n    set_name(\"欧阳锋\", ({ \"ouyang feng\", \"ouyang\", \"feng\" }));\n    set(\"long\", \"他就是白驼山庄主，号称“西毒”的欧阳锋。脸型瘦削，\\n\"\n        \"身形剽悍，虽然受到郭靖欺骗误学习了「九阴真经」而走\\n\"\n        \"火入魔，一度变得精神错乱，但是现在已然恢复，功力犹\\n\"\n        \"胜往昔。\\n\");\n    set(\"title\", \"白驼山庄主\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 53);\n    set(\"nickname\", HIR \"西毒\" NOR);\n    set(\"shen_type\", -1);\n    set(\"attitude\", \"peaceful\");\n\n    set(\"str\", 32);\n    set(\"int\", 34);\n    set(\"con\", 34);\n    set(\"dex\", 32);\n\n    set(\"qi\", 6000);\n    set(\"max_qi\", 6000);\n    set(\"jing\", 3000);\n    set(\"max_jing\", 3000);\n    set(\"neili\", 7300);\n    set(\"max_neili\", 7300);\n    set(\"jiali\", 120);\n\n    set(\"combat_exp\", 2500000);\n\n    set_skill(\"force\", 350);\n    set_skill(\"strike\", 350);\n    set_skill(\"dodge\", 350);\n    set_skill(\"parry\", 350);\n    set_skill(\"cuff\", 350);\n    set_skill(\"finger\", 350);\n    set_skill(\"staff\", 350);\n    set_skill(\"training\", 400);\n    set_skill(\"poison\", 400);\n    set_skill(\"shedu-qiqiao\", 350);\n    set_skill(\"hamagong\", 350);\n    set_skill(\"baituo-xinfa\", 350);\n    set_skill(\"chanchu-bufa\", 350);\n    set_skill(\"lingshe-quan\", 350);\n    set_skill(\"lingshe-zhangfa\", 350);\n    set_skill(\"baibian-daxue\", 350);\n    set_skill(\"guzheng-jifa\", 400);\n    set_skill(\"xiyu-tiezheng\", 400);\n    set_skill(\"wushe-qu\", 400);\n    set_skill(\"literate\", 300);\n    set_skill(\"medical\", 350);\n    set_skill(\"baituo-michuan\", 350);\n\n    map_skill(\"force\", \"hamagong\");\n    map_skill(\"dodge\", \"chanchu-bufa\");\n    map_skill(\"strike\", \"hamagong\");\n    map_skill(\"cuff\", \"lingshe-quan\");\n    map_skill(\"parry\", \"lingshe-zhangfa\");\n    map_skill(\"staff\", \"lingshe-zhangfa\");\n    map_skill(\"finger\", \"shedu-qiqiao\");\n    map_skill(\"poison\", \"shedu-qiqiao\");\n    map_skill(\"guzheng-jifa\", \"xiyu-tiezheng\");\n\n    prepare_skill(\"finger\", \"shedu-qiqiao\");\n    prepare_skill(\"cuff\", \"lingshe-quan\");\n\n    create_family(\"欧阳世家\", 5, \"掌门\");\n    set(\"chat_chance\", 2);\n    set(\"chat_msg\", ({\n        \"欧阳锋自言自语道：何日我欧阳氏才能重霸江湖呢…\\n\",\n        \"欧阳锋道：我儿欧阳克必能够重振我家雄风！\\n\",\n        \"欧阳锋道：江湖险恶，困难重重哪！\\n\",\n    }));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"staff.chan\" :),\n        (: perform_action, \"staff.qianshe\" :),\n        (: perform_action, \"staff.wuji\" :),\n        (: perform_action, \"strike.zhen\" :),\n        (: perform_action, \"cuff.rou\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    set(\"inquiry\", ([\n        \"筝谱\": (: ask_music_book :),\n        \"古筝技法\": (: ask_music_book :),\n        \"灵蛇杖\": (: ask_zhang :),\n        \"横行无忌\": (: ask_skill1 :),\n        \"千蛇出洞\": (: ask_skill2 :),\n        \"千蛇万噬\": (: ask_skill3 :),\n    ]));\n\n    set_temp(\"apply/attack\", 150);\n    set_temp(\"apply/defense\", 150);\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    set(\"music_book\", 1);\n\n    setup();\n    carry_object(\"/d/baituo/obj/shezhang\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n    carry_object(\"d/baituo/obj/tiezheng\");\n    add_money(\"silver\", 50);\n}\n\nint recognize_apprentice(object me, string skill) {\n    if (skill != \"guzheng-jifa\")\n        return 0;\n\n    if (me->query_temp(\"can_learn/ouyang/guzheng-jifa\"))\n        return 1;\n\n    command(\"say 好吧，你愿意学我就传你一点古筝之道。\");\n    me->set_temp(\"can_learn/ouyang/guzheng-jifa\", 1);\n    return 1;\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if ((int)ob->query(\"combat_exp\") < 200000) {\n        if (random(2))\n            command(\"smile\");\n        else\n            command(\"pat \" + ob->query(\"id\"));\n\n        command(\"say 你的经验还不够，先和我的侄儿欧阳克学习武功吧。\");\n        return;\n    }\n\n    command(\"sigh\");\n    command(\"pat \" + ob->query(\"id\"));\n    command(\"recruit \" + ob->query(\"id\"));\n    message_vision(\"欧阳锋喃喃自语道：我欧阳家真是后继有人啊！\\n\",\n        this_object());\n    return;\n}\n\nmixed ask_skill1() {\n    object me;\n    me = this_player();\n\n    if (me->query(\"can_perform/lingshe-zhangfa/wuji\"))\n        return \"你还不快去练功去？好好把我们欧阳家发扬光大！\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return (\"哪来的野小子敢在这里撒野！\\n\");\n\n    if (me->query(\"gongxian\") < 500)\n        return \"你为我欧阳家效力还不够，这招我先不忙传你。\";\n\n    if (me->query_skill(\"lingshe-zhangfa\", 1) < 100)\n        return (\"你的杖法还不到家，学不了「横行无忌」！\\n\");\n\n    command(\"say 好吧，你看好了。\");\n    tell_object(me, HIR \"欧阳峰将「横行无忌」演练了一遍，你心里默默暗记，心中惊叹不已。\\n\" NOR);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/lingshe-zhangfa/wuji\", 1);\n    me->add(\"gongxian\", -500);\n    return 1;\n}\n\nmixed ask_skill2() {\n    object me;\n\n    me = this_player();\n    if (me->query(\"can_perform/lingshe-zhangfa/qianshe\"))\n        return \"你还不快去练功去？好好把我们欧阳家发扬光大！\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return \"你是哪儿来的？找死么？\";\n\n    if (me->query(\"shen\") > -40000)\n        return \"你这人手段不够狠毒，我现在还不能传你绝招！\";\n\n    if (me->query(\"gongxian\") < 800)\n        return \"你为我欧阳家效力还不够，这招我先不忙传你。\";\n\n    if (me->query_skill(\"lingshe-zhangfa\", 1) < 120)\n        return \"你先好好把灵蛇杖法练好了再说！\";\n\n    message_vision(HIY \"$n\" HIY \"喝道：看仔细了！说把荡\"\n        \"臂横扫，伸伸缩缩，当真是变幻无穷！把$N\"\n        HIY \"的眼睛都看直了。\\n\" NOR,\n        me, this_object());\n    command(\"heihei\");\n    command(\"say 我演示的这么清楚，你看懂了没有？\");\n    tell_object(me, HIG \"你学会了千蛇出洞。\\n\" NOR);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/lingshe-zhangfa/qianshe\", 1);\n    me->add(\"gongxian\", -800);\n    return 1;\n}\n\nmixed ask_skill3() {\n    object me;\n\n    me = this_player();\n    if (me->query(\"can_perform/lingshe-zhangfa/wanshi\"))\n        return \"自己好好多练习吧！\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"不是我们欧阳世家的人，何出此言？\";\n\n    if (me->query(\"shen\") > -120000)\n        return \"你行事还不够狠毒，学不会这招「千蛇万噬」！\";\n\n    if (me->query(\"gongxian\") < 1000)\n        return \"你为我欧阳家效力还不够，这招我先不忙传你。\";\n\n    if (me->query_skill(\"lingshe-zhangfa\", 1) < 180)\n        return \"你的灵蛇杖法还不到家，要多练练！\";\n\n    message_vision(HIY \"$n\" HIY \"微微颔首，随手拣起一根木条点向$N\"\n        HIY \"$N\" HIY \"见来招缓慢，只是随手向上一格。\\n\"\n        \"忽然$p\" HIY \"杖势一变，木条从意想不到的角度拐\"\n        \"来，$P\" HIY \"大吃一惊，慌乱不迭。\\n\" NOR,\n        me, this_object());\n    command(\"smile\");\n    command(\"say 你可明白了？\");\n    tell_object(me, HIG \"你学会了千蛇万噬。\\n\" NOR);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"staff\"))\n        me->improve_skill(\"staff\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    if (me->can_improve_skill(\"lingshe-zhangfa\"))\n        me->improve_skill(\"lingshe-zhangfa\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/lingshe-zhangfa/wanshi\", 1);\n    me->add(\"gongxian\", 1000);\n    return 1;\n}\n\nmixed ask_music_book() {\n    object me;\n    object ob;\n\n    me = this_player();\n    if (query(\"music_book\") < 1)\n        return \"我的筝谱已经借出去了。\\n\";\n\n    ob = new(\"/clone/book/zhengpu\");\n    ob->move(me, 1);\n    message_vision(\"$n把筝谱给了$N，道：你拿去自己好好琢磨吧。\\n\",\n        me, this_object());\n    set(\"music_book\", 0);\n    return 1;\n}\n\nmixed ask_zhang() {\n    object me;\n    object ob;\n    object owner;\n\n    me = this_player();\n    if (me->is_good()) {\n        if (me->query(\"family/family_name\") == \"欧阳世家\")\n            message_vision(\"$N大怒，对$n道：“你身为世家弟子，\"\n                \"反而去学什么侠义，还不快快醒转？”\\n\",\n                this_object(), me);\n        else\n            message_vision(\"$N大怒，对$n喝道：“好一个臭小子，\"\n                \"居然敢窥测灵蛇杖？”\\n\",\n                this_object(), me);\n        return 1;\n    }\n\n    if (me->query(\"family/family_name\") != \"欧阳世家\")\n        return \"灵蛇杖是我们欧阳家的宝物，你打听它干什么？\";\n\n    if (me->query(\"family/master_id\") != query(\"id\"))\n        return \"只有我的弟子才能用灵蛇杖，你还是请回吧。\";\n\n    if (me->query(\"shen\") > -60000)\n        return \"你还不够心狠手辣，我不能把灵蛇杖交给你。\";\n\n    ob = find_object(LINGSHE_ZHANG);\n    if (!ob) ob = load_object(LINGSHE_ZHANG);\n    owner = environment(ob);\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"灵蛇杖不是在你的手中么，怎么反而来找我呢？\";\n\n    if (objectp(owner) && owner != this_object()) {\n        if (!owner->is_character())\n            return \"我已经把灵蛇杖借出去了。\";\n\n        if (owner->query(\"family/master_id\") == query(\"id\"))\n            return \"灵蛇杖现在在\" + owner->query(\"name\") + \"手中，你要想用就去找他吧。\";\n        else\n            return \"灵蛇杖现在落在\" + owner->query(\"name\") + \"手中，你去把它找回来吧。\";\n    }\n\n    ob->move(this_object());\n    message_vision(\"$N点点头道：“好，你便用这灵蛇杖去对付那些正派\"\n        \"人士吧！”\\n\", this_object(), me);\n    command(\"give lingshe zhang to \" + me->query(\"id\"));\n    //ob->start_borrowing();\n    return 1;\n}\n\nvoid reset() {\n    set(\"music_book\", 1);\n}\n\nvoid unconcious() {\n    die();\n}\n",
+    "kungfu/class/riyue/qu.c": "#include <ansi.h>\n#include \"riyue.h\"\n\n#define GUANGLING     \"/clone/item/xiaoao/guanglingsan\"\n\ninherit NPC;\ninherit F_GUARDER;\ninherit F_COAGENT;\n\nvoid create() {\n    object ob;\n    set_name(\"曲洋\", ({ \"qu yang\", \"qu\", \"yang\" }));\n    set(\"title\", \"日月神教前辈长老\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"long\", \"他就是日月神教十大长老之一，琴技天下无双。\\n\");\n    set(\"attitude\", \"friendly\");\n\n    set(\"max_qi\", 5400);\n    set(\"max_jing\", 4000);\n    set(\"neili\", 7000);\n    set(\"max_neili\", 7000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 3000000);\n    set(\"score\", 50000);\n\n    set_skill(\"force\", 240);\n    set_skill(\"tianhuan-shenjue\", 240);\n    set_skill(\"riyue-xinfa\", 220);\n    set_skill(\"dodge\", 220);\n    set_skill(\"juechen-shenfa\", 220);\n    set_skill(\"cuff\", 220);\n    set_skill(\"zhenyu-quan\", 220);\n    set_skill(\"claw\", 220);\n    set_skill(\"poyue-zhao\", 220);\n    set_skill(\"parry\", 220);\n    set_skill(\"hammer\", 240);\n    set_skill(\"pangu-qishi\", 240);\n    set_skill(\"club\", 220);\n    set_skill(\"jinyuan-gun\", 220);\n    set_skill(\"martial-cognize\", 220);\n    set_skill(\"literate\", 180);\n    set_skill(\"chuixiao-jifa\", 320);\n    set_skill(\"xiaoao-jianghu\", 320);\n\n    map_skill(\"chuixiao-jifa\", \"xiaoao-jianghu\");\n    map_skill(\"dodge\", \"juechen-shenfa\");\n    map_skill(\"force\", \"tianhuan-shenjue\");\n    map_skill(\"hammer\", \"pangu-qishi\");\n    map_skill(\"club\", \"jinyuan-gun\");\n    map_skill(\"parry\", \"pangu-qishi\");\n    map_skill(\"cuff\", \"zhenyu-quan\");\n    map_skill(\"claw\", \"poyue-zhao\");\n\n    prepare_skill(\"claw\", \"poyue-zhao\");\n    prepare_skill(\"cuff\", \"zhenyu-quan\");\n\n    create_family(\"日月神教\", 12, \"长老\");\n\n    set(\"coagents\", ({\n        ([ \"startroom\": \"/d/hengyang/furongfeng\",\n            \"id\": \"liu zhengfeng\" ]),\n    }));\n\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"cuff.tong\" :),\n        (: perform_action, \"claw.duan\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    setup();\n\n    if (clonep()) {\n        ob = find_object(GUANGLING);\n        if (!ob) ob = load_object(GUANGLING);\n        if (!environment(ob)) ob->move(this_object());\n    }\n    carry_object(\"/d/items/cloth/riyue_jinpao\")->wear();\n    set_temp(\"handing\", carry_object(\"/d/hengyang/npc/obj/zhuxiao\"));\n}\n\nvoid init() {\n    string startroom;\n    object ob;\n\n    if (interactive(ob = this_player())\n        && !is_fighting()) {\n        if (!ob || environment(ob) != environment())\n            return;\n\n        if (stringp(startroom = query(\"startroom\"))\n            && find_object(startroom) == environment())\n            command(\"play xiaoao-jianghu\");\n        else\n            say(CYN + this_object()->name() +\n                CYN \"深深地叹了口气。\\n\" NOR);\n    }\n    return;\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"say 老夫年岁已大，不再收徒，你去找其他长老好了。\");\n}\n",
+    "kungfu/class/riyue/ying.c": "#include <ansi.h>\n#include \"riyue.h\"\n\n#define YUCHANG    \"/clone/lonely/yuchang\"\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    object ob;\n    set_name(\"任盈盈\", ({ \"ren yingying\", \"ren\", \"yingying\", \"ying\" }));\n    set(\"nickname\", HIW \"圣姑\" NOR);\n    set(\"title\", \"日月神教\");\n    set(\"long\", @LONG\n这就是日月神教教主任我行之女，教中被人称\n作「圣姑」的任盈盈。只见她青衫小袖，明艳\n不可方物，却是颦眉微皱，似乎不高兴。\nLONG);\n    set(\"gender\", \"女性\");\n    set(\"class\", \"scholar\");\n    set(\"age\", 19);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", -1);\n    set(\"str\", 36);\n    set(\"int\", 36);\n    set(\"con\", 36);\n    set(\"dex\", 36);\n\n    set(\"max_qi\", 3200);\n    set(\"max_jing\", 2000);\n    set(\"neili\", 3500);\n    set(\"max_neili\", 3500);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 1000000);\n    set(\"score\", 10000);\n\n    set_skill(\"force\", 160);\n    set_skill(\"riyue-xinfa\", 160);\n    set_skill(\"tianhuan-shenjue\", 80);\n    set_skill(\"dodge\", 160);\n    set_skill(\"juechen-shenfa\", 160);\n    set_skill(\"dagger\", 160);\n    set_skill(\"jifeng-cixuefa\", 160);\n    set_skill(\"parry\", 160);\n    set_skill(\"strike\", 140);\n    set_skill(\"qingmang-zhang\", 140);\n    set_skill(\"throwing\", 140);\n    set_skill(\"heixue-shenzhen\", 140);\n    set_skill(\"martial-cognize\", 150);\n    set_skill(\"literate\", 220);\n    set_skill(\"tanqin-jifa\", 240);\n    set_skill(\"guangling-san\", 220);\n    set_skill(\"qingxin-pushan\", 240);\n    set_skill(\"xiaoao-jianghu\", 220);\n\n    map_skill(\"tanqin-jifa\", \"qingxin-pushan\");\n    map_skill(\"dodge\", \"juechen-shenfa\");\n    map_skill(\"force\", \"riyue-xinfa\");\n    map_skill(\"strike\", \"qingmang-zhang\");\n    map_skill(\"dagger\", \"jifeng-cixuefa\");\n    map_skill(\"parry\", \"jifeng-cixuefa\");\n    map_skill(\"throwing\", \"heixue-shenzhen\");\n\n    prepare_skill(\"strike\", \"qingmang-zhang\");\n\n    set(\"no_teach\", ([\n        \"tianhuan-shenjue\": \"这门内功我都没学好，怎么教你呀。\",\n    ]));\n\n    create_family(\"日月神教\", 14, \"圣姑\");\n\n    set(\"inquiry\", ([\n        \"天蝎藏针\": \"这招你去让桑三娘教你吧。\",\n        \"令狐冲\": \"……他…他现在……唉……\",\n        \"鱼肠剑\": \"这是我的随身物品，你打听这个干嘛？\",\n    ]));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"dagger.cang\" :),\n        (: perform_action, \"throwing.luo\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n    setup();\n\n    if (clonep()) {\n        ob = find_object(YUCHANG);\n        if (!ob) ob = load_object(YUCHANG);\n        if (!environment(ob)) {\n            ob->move(this_object());\n            ob->wield();\n        } else {\n            ob = new(\"/d/items/dagger/yueya_bi\");\n            ob->move(this_object());\n            ob->wield();\n        }\n    }\n    carry_object(\"/d/items/equip/ruanjin_dai\")->wear();\n    carry_object(\"/d/items/equip/jiaoyue_shang\")->wear();\n    set_temp(\"handing\", carry_object(\"/d/kunlun/obj/jwqin\"));\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if ((int)ob->query(\"shen\") > 0) {\n        command(\"heng\");\n        command(\"say 我日月神教从来不和正派人士结交，你还是走吧。\");\n        return;\n    }\n\n    if ((string)ob->query(\"gender\") != \"女性\") {\n        command(\"say 你还是去找教内的其他人吧。\");\n        return;\n    }\n\n    command(\"sigh\");\n    command(\"say 那你以后就跟着我吧。\");\n    command(\"recruit \" + ob->query(\"id\"));\n    return;\n}\n\nvoid init() {\n    object ob;\n    if (interactive(ob = this_player())\n        && !is_fighting()\n        && random(10) < 3) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, ob);\n    }\n}\n\nvoid greeting(object ob) {\n    if (!ob || environment(ob) != environment())\n        return;\n    command(\"play qingxin-pushan\");\n    return;\n}\n",
+    "kungfu/class/xiaoyao/kanggl.c": "#include <ansi.h>\n#include \"xiaoyao.h\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"康广陵\", ({ \"kang guangling\", \"kang\", \"guangling\" }));\n    set(\"long\", \"只见他高额凸颡，容貌奇古，笑眯眯的脸\\n\"\n        \"色极为和谟，手中抱着一具瑶琴。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"title\", \"逍遥派函谷八友\");\n    set(\"nickname\", YEL \"琴颠\" NOR);\n    set(\"age\", 58);\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"scholar\");\n    set(\"shen_type\", 1);\n    set(\"str\", 28);\n    set(\"int\", 28);\n    set(\"con\", 28);\n    set(\"dex\", 38);\n\n    set(\"max_qi\", 3500);\n    set(\"max_jing\", 3000);\n    set(\"neili\", 4000);\n    set(\"max_neili\", 4000);\n    set(\"jiali\", 120);\n    set(\"combat_exp\", 1500000);\n\n    set_skill(\"force\", 180);\n    set_skill(\"xiaoyao-xinfa\", 180);\n    set_skill(\"dodge\", 160);\n    set_skill(\"feiyan-zoubi\", 160);\n    set_skill(\"strike\", 160);\n    set_skill(\"panyang-zhang\", 160);\n    set_skill(\"hand\", 160);\n    set_skill(\"qingyun-shou\", 160);\n    set_skill(\"parry\", 160);\n    set_skill(\"blade\", 180);\n    set_skill(\"ruyi-dao\", 180);\n    set_skill(\"literate\", 140);\n    set_skill(\"tanqin-jifa\", 220);\n    set_skill(\"qiuyue-lai\", 220);\n    set_skill(\"martial-cognize\", 160);\n\n    map_skill(\"force\", \"xiaoyao-xinfa\");\n    map_skill(\"dodge\", \"feiyan-zoubi\");\n    map_skill(\"hand\", \"qingyun-shou\");\n    map_skill(\"strike\", \"panyang-zhang\");\n    map_skill(\"parry\", \"ruyi-dao\");\n    map_skill(\"blade\", \"ruyi-dao\");\n    map_skill(\"tanqin-jifa\", \"qiuyue-lai\");\n\n    prepare_skill(\"hand\", \"qingyun-shou\");\n    prepare_skill(\"strike\", \"panyang-zhang\");\n\n    create_family(\"逍遥派\", 3, \"弟子\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"hand.zhuo\" :),\n        (: perform_action, \"strike.pan\" :),\n        (: perform_action, \"blade.ruyi\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n    carry_object(\"/clone/cloth/cloth\")->wear();\n    carry_object(\"/clone/weapon/blade\")->wield();\n    set_temp(\"handing\", carry_object(\"/d/changan/npc/obj/muqin\"));\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if (ob->query_int() < 28) {\n        command(\"hmm\");\n        command(\"say 你的悟性太差，怎么学我的琴技？\");\n        return;\n    }\n\n    if (ob->query_skill(\"xiaoyao-xinfa\", 1) < 30) {\n        command(\"sigh\");\n        command(\"say 你连本门的入门心法都没有学好，教我如何收你？\");\n        return;\n    }\n\n    command(\"say 好吧，我收你为徒，多学些东西，别整天就想着练武。\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n"
+  },
+  "excluded": [
+    {
+      "file": "d/dali/npc/obj/yaoqin.c",
+      "source_hash": "2c03bac2fdcb80a08ec0fb85bc5316d21b7604273cd9840395c4e9e6563f5c2c"
+    },
+    {
+      "file": "d/meizhuang/obj/qin.c",
+      "source_hash": "9e398c9240294ddfbb2c19e86effab346770e81b005a0c35a9d2ad738bdd4782"
+    },
+    {
+      "file": "d/taohua/obj/yuxiao.c",
+      "source_hash": "6fd0d392fd18832f9a02724fbe76f180c76e22e28bf46ddf4cdc6e2e9f7e62ea"
+    },
+    {
+      "file": "clone/lonely/tieqin.c",
+      "source_hash": "9fb94c5a9ce6d225d876987e4aaeaabac312c115420a7e2c473a186d1592b4d0"
+    },
+    {
+      "file": "clone/lonely/yaoqin.c",
+      "source_hash": "ac052e1653647a558df6fa2fb62af18c2705768b3c07a1d123651c48ee7b191b"
+    },
+    {
+      "file": "clone/lonely/dongxiao.c",
+      "source_hash": "e75399b5d9598a02b25301e41dfc90e54c16ed2e1be0442ae9e748cd462cdfbf"
+    },
+    {
+      "file": "clone/lonely/yuxiao.c",
+      "source_hash": "95a45073eaef7d24c9edacedf726f37f773228c4ec04d4265eaa70a38eed2f03"
+    },
+    {
+      "file": "d/kunlun/obj/guzheng.c",
+      "source_hash": "f677a0e9e29fd01a7c263e0d513050d8d1efdfb6080a33a5d1272f5377ff9349"
+    },
+    {
+      "file": "d/xiyu/obj/tongbo.c",
+      "source_hash": "3a1c66182db238b269c2712c9883274c3ac53d4b7baf69b04a6215e7f9325198"
+    },
+    {
+      "file": "d/xiyu/obj/tonggu.c",
+      "source_hash": "6d7c73c6234d14ca6f5b5f0cc08b727cfbdaf25f5454b68f00348e5858c4408c"
+    },
+    {
+      "file": "d/xiyu/obj/tonghao.c",
+      "source_hash": "4ba014fade363b8f0c73ac0591268992e2b18b85ee9931c57c0ca9894e2f7cbf"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "source_hash": "0f957b429efc77a01699e93f6dabb57012700143ca3b80d57d443201d19be209"
+    },
+    {
+      "file": "include/music.h",
+      "source_hash": "cac1d501a49011270fcfdfc4dc2ffbd1ef2a1da9c6e43352f5bdb18bb01cedde"
+    },
+    {
+      "file": "inherit/misc/_qin.c",
+      "source_hash": "fb297018d75cb11c524ab418f6c6e136e7eb347ffe052887b0ba73421b879adb"
+    },
+    {
+      "file": "inherit/misc/_xiao.c",
+      "source_hash": "cb862d73c6fc197f2b82c1c18272473f56f45e9afdf5dfa1d28cb42e9d197df9"
+    },
+    {
+      "file": "inherit/misc/_zheng.c",
+      "source_hash": "0a7d2c370cc928f54b8942308d09b08e48d1c7386462912576024cfbbfd96fb0"
+    },
+    {
+      "file": "inherit/weapon/xsword.c",
+      "source_hash": "dd03202f950b36b68824e2a68652830d140db17577ebe86cf78184de73c35569"
+    },
+    {
+      "file": "kungfu/skill/tanqin-jifa.c",
+      "source_hash": "0134414db3cae725a2a693a47810363a826377e41ee0dbddb67925b81527c830"
+    },
+    {
+      "file": "kungfu/skill/chuixiao-jifa.c",
+      "source_hash": "1392f3747e58e8cded99c177bdf66a6bcd3c76b735df982fe593e86f353b5417"
+    },
+    {
+      "file": "kungfu/skill/guzheng-jifa.c",
+      "source_hash": "98a43799df141030dfe7dc44c40b80c4c8100ffeaa8dc9ce365d054809c92bc0"
+    }
+  ],
+  "observations": [
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/baituo/obj/tiezheng",
+      "blueprint_weight": 300,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000,
+        "unit": "台",
+        "id": "tie zheng",
+        "material": "steel",
+        "long": "\u001b[37m这是一台黑黝黝的铁筝。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[37m铁筝\u001b[0m"
+      },
+      "family": "zheng",
+      "weight": 300,
+      "ids": [
+        "tie zheng",
+        "tie",
+        "zheng",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000,
+        "unit": "台",
+        "id": "tie zheng",
+        "material": "steel",
+        "long": "\u001b[37m这是一台黑黝黝的铁筝。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[37m铁筝\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[37m铁筝\u001b[0m(tie zheng)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/baituo/obj/zheng",
+      "blueprint_weight": 300,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "台",
+        "id": "gu zheng",
+        "material": "wood",
+        "long": "\u001b[33m这是一台看上去有些陈旧的古筝。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m古筝\u001b[0m"
+      },
+      "family": "zheng",
+      "weight": 300,
+      "ids": [
+        "gu zheng",
+        "gu",
+        "zheng",
+        "g"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "台",
+        "id": "gu zheng",
+        "material": "wood",
+        "long": "\u001b[33m这是一台看上去有些陈旧的古筝。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m古筝\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[33m古筝\u001b[0m(gu zheng)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/changan/npc/obj/muqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "台",
+        "id": "muqin",
+        "material": "wood",
+        "long": "一个平凡的木琴，没有什么特殊之处。\n",
+        "name": "木琴"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "muqin",
+        "m"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "台",
+        "id": "muqin",
+        "material": "wood",
+        "long": "一个平凡的木琴，没有什么特殊之处。\n",
+        "name": "木琴"
+      },
+      "short": "木琴(muqin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/npc/obj/huqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "hu qin",
+        "material": "wood",
+        "long": "\u001b[0m\u001b[33m这是一把普通的胡琴。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m胡琴\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "hu qin",
+        "hu",
+        "qin",
+        "h"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "hu qin",
+        "material": "wood",
+        "long": "\u001b[0m\u001b[33m这是一把普通的胡琴。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m胡琴\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[33m胡琴\u001b[0m(hu qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/npc/obj/tanmuqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "tanmu qin",
+        "material": "wood",
+        "long": "\u001b[0m\u001b[33m一把檀木所制的木琴，古典雅致。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m檀木琴\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "tanmu qin",
+        "tanmu",
+        "qin",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "tanmu qin",
+        "material": "wood",
+        "long": "\u001b[0m\u001b[33m一把檀木所制的木琴，古典雅致。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[33m檀木琴\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[33m檀木琴\u001b[0m(tanmu qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/npc/obj/zhuxiao",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "zhu xiao",
+        "material": "bamboo",
+        "long": "\u001b[32m一把翠竹所制的洞萧，隐隐泛出绿光。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[32m翠竹萧\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "zhu xiao",
+        "zhu",
+        "xiao",
+        "z"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "unit": "把",
+        "id": "zhu xiao",
+        "material": "bamboo",
+        "long": "\u001b[32m一把翠竹所制的洞萧，隐隐泛出绿光。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[32m翠竹萧\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[32m翠竹萧\u001b[0m(zhu xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/honghuqin",
+      "blueprint_weight": 800,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 2000,
+        "unit": "把",
+        "id": "hongmu huqin",
+        "material": "wood",
+        "long": "\u001b[31m一把精致的红木胡琴，琴身光滑，微泛红光。\n\u001b[0m",
+        "name": "\u001b[31m红木胡琴·五玄\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 800,
+      "ids": [
+        "hongmu huqin",
+        "qin",
+        "huqin",
+        "hongmu",
+        "h"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 2000,
+        "unit": "把",
+        "id": "hongmu huqin",
+        "material": "wood",
+        "long": "\u001b[31m一把精致的红木胡琴，琴身光滑，微泛红光。\n\u001b[0m",
+        "name": "\u001b[31m红木胡琴·五玄\u001b[0m"
+      },
+      "short": "\u001b[31m红木胡琴·五玄\u001b[0m(hongmu huqin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/huqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 200,
+        "unit": "把",
+        "id": "hu qin",
+        "material": "wood",
+        "long": "\u001b[33m一把普通的胡琴。\n\u001b[0m",
+        "name": "\u001b[33m普通胡琴\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "hu qin",
+        "hu",
+        "qin",
+        "h"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 200,
+        "unit": "把",
+        "id": "hu qin",
+        "material": "wood",
+        "long": "\u001b[33m一把普通的胡琴。\n\u001b[0m",
+        "name": "\u001b[33m普通胡琴\u001b[0m"
+      },
+      "short": "\u001b[33m普通胡琴\u001b[0m(hu qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/jiaoyeqin",
+      "blueprint_weight": 700,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 800000,
+        "unit": "把",
+        "id": "jiaoye qin",
+        "material": "wood",
+        "long": "\u001b[1;33m此琴乃弘治嘉靖年间著名斫琴家祝海鹤所制\n琴形旖旎秀逸，蕉叶卷边工雅生动，音色润\n匀透静，为琴器中难得一见的珍品。\n\u001b[0m",
+        "name": "\u001b[1;33m蕉叶古琴·明朝\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 700,
+      "ids": [
+        "jiaoye qin",
+        "jiaoye",
+        "qin",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 800000,
+        "unit": "把",
+        "id": "jiaoye qin",
+        "material": "wood",
+        "long": "\u001b[1;33m此琴乃弘治嘉靖年间著名斫琴家祝海鹤所制\n琴形旖旎秀逸，蕉叶卷边工雅生动，音色润\n匀透静，为琴器中难得一见的珍品。\n\u001b[0m",
+        "name": "\u001b[1;33m蕉叶古琴·明朝\u001b[0m"
+      },
+      "short": "\u001b[1;33m蕉叶古琴·明朝\u001b[0m(jiaoye qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/jiuxiaoqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 400000,
+        "unit": "把",
+        "id": "jiuxiao qin",
+        "material": "wood",
+        "long": "\u001b[35m这是历史最悠久的传世之琴，盛唐开元之器。\n此琴形体饱满，上髹紫漆，间杂朱砂后补之  \n色，贵在声形俱佳，为传世之器的极品。\n\u001b[0m",
+        "name": "\u001b[35m九霄环佩·唐朝\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "jiuxiao qin",
+        "jiuxiao",
+        "qin",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 400000,
+        "unit": "把",
+        "id": "jiuxiao qin",
+        "material": "wood",
+        "long": "\u001b[35m这是历史最悠久的传世之琴，盛唐开元之器。\n此琴形体饱满，上髹紫漆，间杂朱砂后补之  \n色，贵在声形俱佳，为传世之器的极品。\n\u001b[0m",
+        "name": "\u001b[35m九霄环佩·唐朝\u001b[0m"
+      },
+      "short": "\u001b[35m九霄环佩·唐朝\u001b[0m(jiuxiao qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/qin-jimo",
+      "blueprint_weight": 1000,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "jimo qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;33m寂寞\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·寂寞\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 1000,
+      "ids": [
+        "jimo qin",
+        "jimo",
+        "qin",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "jimo qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;33m寂寞\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·寂寞\u001b[0m"
+      },
+      "short": "\u001b[37m七玄流银·寂寞\u001b[0m(jimo qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/qin-jueyin",
+      "blueprint_weight": 1000,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "jueyin qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;31m绝音\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·绝音\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 1000,
+      "ids": [
+        "jueyin qin",
+        "jueyin",
+        "qin",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "jueyin qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;31m绝音\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·绝音\u001b[0m"
+      },
+      "short": "\u001b[37m七玄流银·绝音\u001b[0m(jueyin qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/qin-konggu",
+      "blueprint_weight": 1000,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "konggu qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;36m空谷\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·空谷\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 1000,
+      "ids": [
+        "konggu qin",
+        "konggu",
+        "qin",
+        "k"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "konggu qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;36m空谷\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·空谷\u001b[0m"
+      },
+      "short": "\u001b[37m七玄流银·空谷\u001b[0m(konggu qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/qin-tianlai",
+      "blueprint_weight": 1000,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "tianlai qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;32m天籁\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·天籁\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 1000,
+      "ids": [
+        "tianlai qin",
+        "tianlai",
+        "qin",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "tianlai qin",
+        "material": "wood",
+        "long": "\u001b[37m此琴通体泛出银光，耀眼夺目。上刻「\u001b[1;32m天籁\u001b[37m」。\n\u001b[0m",
+        "name": "\u001b[37m七玄流银·天籁\u001b[0m"
+      },
+      "short": "\u001b[37m七玄流银·天籁\u001b[0m(tianlai qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/shixuanqin-zhanguo",
+      "blueprint_weight": 700,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 100000,
+        "unit": "把",
+        "id": "shixuan qin",
+        "material": "wood",
+        "long": "\u001b[33m这是迄今能看到的中国最早的琴类乐器，此\n琴埋于战国曾候乙墓之中，琴长67公分，琴\n面起伏有致。\n\u001b[0m",
+        "name": "\u001b[33m十玄古琴·战国\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 700,
+      "ids": [
+        "shixuan qin",
+        "shixuan",
+        "qin",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100000,
+        "unit": "把",
+        "id": "shixuan qin",
+        "material": "wood",
+        "long": "\u001b[33m这是迄今能看到的中国最早的琴类乐器，此\n琴埋于战国曾候乙墓之中，琴长67公分，琴\n面起伏有致。\n\u001b[0m",
+        "name": "\u001b[33m十玄古琴·战国\u001b[0m"
+      },
+      "short": "\u001b[33m十玄古琴·战国\u001b[0m(shixuan qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/tanhuqin",
+      "blueprint_weight": 800,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "把",
+        "id": "tanmu huqin",
+        "material": "wood",
+        "long": "\u001b[1;33m一把精致的檀木胡琴。\n\u001b[0m",
+        "name": "\u001b[1;33m檀木胡琴\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 800,
+      "ids": [
+        "tanmu huqin",
+        "qin",
+        "huqin",
+        "tanmu",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "把",
+        "id": "tanmu huqin",
+        "material": "wood",
+        "long": "\u001b[1;33m一把精致的檀木胡琴。\n\u001b[0m",
+        "name": "\u001b[1;33m檀木胡琴\u001b[0m"
+      },
+      "short": "\u001b[1;33m檀木胡琴\u001b[0m(tanmu huqin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhongnishi",
+      "blueprint_weight": 500,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 200000,
+        "unit": "把",
+        "id": "zhongni qin",
+        "material": "wood",
+        "long": "\u001b[1;36m此琴体扁身薄，琴体怪异，琴轸右面垂下深\n舌罗汉腿，漆色亮绿，微泛绿光，仲尼式琴\n为元朝主流。\n\u001b[0m",
+        "name": "\u001b[1;36m仲尼式琴·宋朝\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 500,
+      "ids": [
+        "zhongni qin",
+        "zhongni",
+        "qin",
+        "z"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 200000,
+        "unit": "把",
+        "id": "zhongni qin",
+        "material": "wood",
+        "long": "\u001b[1;36m此琴体扁身薄，琴体怪异，琴轸右面垂下深\n舌罗汉腿，漆色亮绿，微泛绿光，仲尼式琴\n为元朝主流。\n\u001b[0m",
+        "name": "\u001b[1;36m仲尼式琴·宋朝\u001b[0m"
+      },
+      "short": "\u001b[1;36m仲尼式琴·宋朝\u001b[0m(zhongni qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhuxiao-liuquan",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "liuquan xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;36m流泉\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·流泉\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "liuquan xiao",
+        "liuquan",
+        "xiao",
+        "l"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "liuquan xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;36m流泉\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·流泉\u001b[0m"
+      },
+      "short": "\u001b[1;32m碧玉洞萧·流泉\u001b[0m(liuquan xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhuxiao-qingyin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "qingyin xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;34m清音\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·清音\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "qingyin xiao",
+        "qingyin",
+        "xiao",
+        "q"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "qingyin xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;34m清音\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·清音\u001b[0m"
+      },
+      "short": "\u001b[1;32m碧玉洞萧·清音\u001b[0m(qingyin xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhuxiao-shuiyun",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "shuiyun xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;37m水云\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·水云\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "shuiyun xiao",
+        "shuiyun",
+        "xiao",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "shuiyun xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;37m水云\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·水云\u001b[0m"
+      },
+      "short": "\u001b[1;32m碧玉洞萧·水云\u001b[0m(shuiyun xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhuxiao-youlan",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "youlan xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;35m幽兰\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·幽兰\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "youlan xiao",
+        "youlan",
+        "xiao",
+        "y"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 5000000,
+        "unit": "把",
+        "id": "youlan xiao",
+        "material": "stone",
+        "long": "\u001b[1;32m一把碧玉所制的洞萧，隐隐泛出绿光。上刻「\u001b[1;35m幽兰\u001b[1;32m」。\n\u001b[0m",
+        "name": "\u001b[1;32m碧玉洞萧·幽兰\u001b[0m"
+      },
+      "short": "\u001b[1;32m碧玉洞萧·幽兰\u001b[0m(youlan xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/hengyang/yueqi/zhuxiao",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 200,
+        "unit": "把",
+        "id": "zhu xiao",
+        "material": "bamboo",
+        "long": "\u001b[32m一把翠竹所制的洞萧，非常普通。\n\u001b[0m",
+        "name": "\u001b[32m普通竹萧\u001b[0m"
+      },
+      "family": "xiao",
+      "weight": 600,
+      "ids": [
+        "zhu xiao",
+        "zhu",
+        "xiao",
+        "z"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 200,
+        "unit": "把",
+        "id": "zhu xiao",
+        "material": "bamboo",
+        "long": "\u001b[32m一把翠竹所制的洞萧，非常普通。\n\u001b[0m",
+        "name": "\u001b[32m普通竹萧\u001b[0m"
+      },
+      "short": "\u001b[32m普通竹萧\u001b[0m(zhu xiao)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/kunlun/obj/jwqin",
+      "blueprint_weight": 600,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 10000,
+        "unit": "台",
+        "id": "jiaowei qin",
+        "material": "wood",
+        "long": "\u001b[31m相传这便是当年蔡文姬从火中所救出的焦木做成的美琴，琴的\n尾端仍可见焦黑色。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[31m焦尾琴\u001b[0m"
+      },
+      "family": "qin",
+      "weight": 600,
+      "ids": [
+        "jiaowei qin",
+        "jiaowei",
+        "qin",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 10000,
+        "unit": "台",
+        "id": "jiaowei qin",
+        "material": "wood",
+        "long": "\u001b[31m相传这便是当年蔡文姬从火中所救出的焦木做成的美琴，琴的\n尾端仍可见焦黑色。\n\u001b[0m",
+        "name": "\u001b[0m\u001b[31m焦尾琴\u001b[0m"
+      },
+      "short": "\u001b[0m\u001b[31m焦尾琴\u001b[0m(jiaowei qin)"
+    },
+    {
+      "uid": "Domain",
+      "blueprint_euid": "Domain",
+      "blueprint_uid": "Domain",
+      "path": "/d/taohua/obj/zhuxiao",
+      "blueprint_weight": 300,
+      "type": "杂物",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 10,
+        "unit": "根",
+        "id": "zhuxiao",
+        "material": "bamboo",
+        "long": "一根普普通通的竹萧，但是也能吹出动人的曲子。\n",
+        "name": "竹萧"
+      },
+      "family": "xiao",
+      "weight": 300,
+      "ids": [
+        "zhuxiao",
+        "z"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 10,
+        "unit": "根",
+        "id": "zhuxiao",
+        "material": "bamboo",
+        "long": "一根普普通通的竹萧，但是也能吹出动人的曲子。\n",
+        "name": "竹萧"
+      },
+      "short": "竹萧(zhuxiao)"
+    }
+  ]
+}

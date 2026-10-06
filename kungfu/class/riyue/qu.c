@@ -82,7 +82,7 @@ void create() {
         if (!environment(ob)) ob->move(this_object());
     }
     carry_object("/d/items/cloth/riyue_jinpao")->wear();
-    set_temp("handing", carry_object("/d/hengyang/npc/obj/zhuxiao"));
+    set_temp("handing", carry_object("/d/items/xiao/zhuxiao"));
 }
 
 void init() {

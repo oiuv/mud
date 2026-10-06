@@ -17,7 +17,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/cloth/pi_beixin2",
         __DIR__ "obj/shield",
-        __DIR__ "obj/muqin",
+        "/d/items/qin/muqin",
         "/d/xiyu/obj/fire",
         "/d/item/obj/chanhs",
         "/clone/misc/wood",

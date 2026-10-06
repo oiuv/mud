@@ -1,0 +1,20 @@
+// Controlled player state; real ITEM movement, commands and storage are inherited.
+inherit "/tests/actor";
+
+private mapping skills = ([]);
+private int busy_seconds;
+private int effects;
+
+void set_skill(string key, int value) { skills[key] = value; }
+varargs int query_skill(string key, int raw) { return skills[key]; }
+int is_busy() { return busy_seconds > 0; }
+void start_busy(int seconds) { busy_seconds = seconds; }
+int query_busy() { return busy_seconds; }
+void record_effect() { effects++; }
+int query_effects() { return effects; }
+
+void create() {
+    ::create();
+    add_action("do_store", "cun");
+    add_action("do_take", "qu");
+}

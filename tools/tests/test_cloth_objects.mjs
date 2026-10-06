@@ -1,3 +1,5 @@
+import * as instrumentMetadata from './instrument_inventory.mjs';
+import { prepareInstrument } from './instrument/fixtures.mjs';
 import * as clubMetadata from './club_inventory.mjs';
 import * as bookMetadata from './book_inventory.mjs';
 import { prepareBook, finishBook } from './book/fixtures.mjs';
@@ -42,6 +44,8 @@ import assert from 'node:assert/strict';
 import { migrateItemRecords } from '../migrate_item_records.mjs';
 
 const boots = process.argv.includes('--boots');
+const instrument = process.argv.includes('--instrument');
+assert.ok(!instrument || !['--book', '--club', '--throwing', '--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--village-startup', '--clone-command'].some(f => process.argv.includes(f)), '--instrument is a separate regression');
 const book = process.argv.includes('--book');
 const headwear = process.argv.includes('--headwear');
 const hands = process.argv.includes('--hands');
@@ -65,11 +69,11 @@ assert.ok(!cloneCommand || !['--club', '--throwing', '--dagger', '--whip', '--st
     .some(flag => process.argv.includes(flag)), '--clone-command is a separate command regression');
 assert.ok(!villageStartup || !['--club', '--throwing', '--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only']
     .some(flag => process.argv.includes(flag)), '--village-startup is a separate startup regression');
-const metadata = book ? bookMetadata : club ? clubMetadata : throwing ? throwingMetadata : dagger ? daggerMetadata : whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
-const label = book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
+const metadata = instrument ? instrumentMetadata : book ? bookMetadata : club ? clubMetadata : throwing ? throwingMetadata : dagger ? daggerMetadata : whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
+const label = instrument ? 'INSTRUMENT' : book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
 const { canonicalGroups, migrationPaths } = metadata;
-const original = book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
-const canonicalBaseline = book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
+const original = instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
+const canonicalBaseline = instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -77,7 +81,7 @@ const copy = file => {
     mkdirSync(dirname(join(sandbox, file)), { recursive: true });
     if (existsSync(join(root, file))) cpSync(join(root, file), join(sandbox, file));
     else {
-        const row = [...bookMetadata.readBaseline().varieties, ...clubMetadata.readBaseline().varieties, ...throwingMetadata.readBaseline().varieties].find(row => row.old_path + '.c' === '/' + file);
+        const row = [...instrumentMetadata.readBaseline().varieties, ...bookMetadata.readBaseline().varieties, ...clubMetadata.readBaseline().varieties, ...throwingMetadata.readBaseline().varieties].find(row => row.old_path + '.c' === '/' + file);
         assert.ok(row, 'Missing unfrozen dependency: ' + file);
         writeFileSync(join(sandbox, file), row.source);
     }
@@ -103,12 +107,17 @@ for (const file of ['d/items/staff.lpc', 'd/items/staff_data.h']) if (existsSync
 for (const file of ['d/items/throwing.lpc', 'd/items/throwing_data.h']) copy(file);
 for (const file of ['d/items/club.lpc', 'd/items/club_data.h']) if (existsSync(join(root, file))) copy(file);
 for (const file of ['d/items/book.lpc', 'd/items/book_data.h']) if (existsSync(join(root, file))) copy(file);
+for (const family of instrumentMetadata.families) for (const suffix of ['.lpc', '_data.h']) {
+    const file = 'd/items/' + family + suffix; if (existsSync(join(root, file))) copy(file);
+}
+if (!instrument) for (const row of instrumentMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 if (!book) for (const row of bookMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 if (!club) for (const row of clubMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 // Earlier snapshots retain historical callers. Restore removed dependencies only in this temporary mudlib.
 if (!throwing) for (const row of throwingMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
 if (book) prepareBook(root, sandbox, copy);
+if (instrument) prepareInstrument(root, sandbox, copy);
 if (equip) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
     cpSync(join(root, 'tools/tests/equip/regression.lpc'), join(sandbox, 'tests/regression.lpc'));
@@ -285,7 +294,7 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
 const rows = villageStartup || cloneCommand ? [] : canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
-    (book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
+    (instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
         hands ? ['jinjie', 'jinjie2', 'shaolin_shoutao', 'jinsi_shoutao'].includes(row.id) :
         headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
         boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
@@ -298,7 +307,7 @@ for (const row of rows) {
     writeFileSync(join(sandbox, path), source);
 }
 if (book) finishBook(sandbox, rows);
-writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
+writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
     ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight),
         ...(equip || liquid ? [Number(!!row.setup)] : [])]
     : [row.old_path, row.new_path])));
@@ -348,10 +357,10 @@ if (process.argv.includes('--bench')) {
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /BOOK|CLUB|THROWING|DAGGER|WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+console.log(result.output.split('\n').filter(line => /INSTRUMENT|BOOK|CLUB|THROWING|DAGGER|WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
+if (instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },
