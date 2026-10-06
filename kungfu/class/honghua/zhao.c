@@ -91,7 +91,7 @@ void create() {
             ob->move(this_object());
             set_temp("handing", ob);
         } else {
-            set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
+            set_temp("handing", carry_object("/d/items/throwing/jinbiao"));
         }
     }
     carry_object("/clone/weapon/changjian")->wield();
@@ -201,7 +201,7 @@ mixed ask_bi() {
     message_vision("$N拿出" HIC "回龙璧" NOR "(Huilong bi)给$n。\n",
         this_object(), me);
     ob->move(me, 1);
-    set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
+    set_temp("handing", carry_object("/d/items/throwing/jinbiao"));
 
     return "既然这样，我这支回龙璧你就暂时拿去用吧。";
 }

@@ -84,7 +84,7 @@ LONG);
     setup();
     carry_object("/clone/weapon/gangzhang")->wield();
     carry_object("/clone/cloth/cloth")->wear();
-    set_temp("handing", carry_object("/d/lingjiu/npc/obj/jinzhen"));
+    set_temp("handing", carry_object("/d/items/throwing/lanwu_zhen"));
 }
 
 int recognize_apprentice(object ob, string skill) {
@@ -182,7 +182,7 @@ mixed ask_me() {
         return "没了，没了！我老底都被你掀干净了。";
 
     add("zhen_count", -1);
-    ob = new("/d/lingjiu/npc/obj/jinzhen");
+    ob = new("/d/items/throwing/lanwu_zhen");
     message_vision("$N拿出五十根" HIR "斓蜈金针" NOR "(Lanwu jinzhen)给$n。\n",
         this_object(), me);
     ob->move(me, 1);

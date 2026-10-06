@@ -127,7 +127,7 @@ LONG);
     }
 
     carry_object("/clone/misc/cloth")->wear();
-    set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
+    set_temp("handing", carry_object("/d/items/throwing/jinbiao"));
 }
 
 int accept_fight(object me) {

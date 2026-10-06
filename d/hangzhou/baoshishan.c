@@ -15,7 +15,7 @@ LONG);
     ]));
     set("objects", ([
         "/d/items/hammer/shitou": 1,
-        __DIR__ "obj/eluanshi": 1,
+        "/d/items/throwing/eluanshi": 1,
     ]));
     set("outdoors", "hangzhou");
     //        set("no_clean_up", 0);

@@ -18,7 +18,7 @@ LONG);
     ]));
     set("objects", ([
         "/d/items/hammer/shitou": 1,
-        "/d/hangzhou/obj/eluanshi": 1,
+        "/d/items/throwing/eluanshi": 1,
     ]));
     //    set("no_clean_up", 0);
     set("outdoors", "huanghe");

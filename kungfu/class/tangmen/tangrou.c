@@ -81,8 +81,8 @@ void create() {
     set("master_ob", 2);
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    set_temp("handing", carry_object("/d/tangmen/obj/jili"));
-    carry_object("/d/tangmen/obj/feidao");
+    set_temp("handing", carry_object("/d/items/throwing/dujili"));
+    carry_object("/d/items/throwing/feidao");
 }
 
 void attempt_apprentice(object ob) {

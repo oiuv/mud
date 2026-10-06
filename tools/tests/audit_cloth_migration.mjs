@@ -1,3 +1,4 @@
+import { afterThrowingMigration } from './throwing_inventory.mjs';
 import { afterDaggerMigration } from './dagger_inventory.mjs';
 import { afterWhipMigration } from './whip_inventory.mjs';
 import { afterStaffMigration } from './staff_inventory.mjs';
@@ -62,7 +63,7 @@ for (const [file, hits] of files) {
     expected = afterNeckMigration(file, expected, semanticTokens);
     expected = afterWristsMigration(file, expected, semanticTokens);
     expected = afterFoodMigration(file, expected, semanticTokens);
-    expected = afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens);
+    expected = afterThrowingMigration(file, afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens), semanticTokens);
     assert.deepEqual(semanticTokens(readFileSync(join(root, file), 'utf8')), semanticTokens(expected),
         'Unexpected non-formatting change: ' + file);
 }

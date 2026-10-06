@@ -19,7 +19,7 @@ LONG);
     ]));
     set("objects", ([
         "/d/hangzhou/obj/shuzhi": 1,
-        "/d/hangzhou/obj/eluanshi": 1,
+        "/d/items/throwing/eluanshi": 1,
     ]));
     setup();
     replace_program(ROOM);

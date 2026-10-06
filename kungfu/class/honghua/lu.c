@@ -102,7 +102,7 @@ void create() {
     }
 
     carry_object("/d/items/cloth/huise_daopao")->wear();
-    set_temp("handing", carry_object("/d/kaifeng/npc/obj/jinzhen"));
+    set_temp("handing", carry_object("/d/items/throwing/furong_zhen"));
 }
 
 void attempt_apprentice(object ob) {
@@ -330,7 +330,7 @@ mixed ask_zhen() {
         return "我又不是卖这个的，哪里带得了这么多。";
 
     add("zhen_count", -1);
-    ob = new("/d/kaifeng/npc/obj/jinzhen");
+    ob = new("/d/items/throwing/furong_zhen");
     message_vision("$N拿出五十根" HIY "芙蓉金针" NOR "(Furong jinzhen)给$n。\n",
         this_object(), me);
     ob->move(me, 1);

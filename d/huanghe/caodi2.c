@@ -16,7 +16,7 @@ LONG);
         "west": __DIR__ "shulin1",
     ]));
     set("objects", ([
-        "/d/hangzhou/obj/eluanshi": 1,
+        "/d/items/throwing/eluanshi": 1,
     ]));
     //    set("no_clean_up", 0);
     set("outdoors", "huanghe");

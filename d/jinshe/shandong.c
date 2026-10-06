@@ -19,7 +19,7 @@ LONG);
         "south": __DIR__ "yongdao2",
     ]));
     set("objects", ([
-        __DIR__ "obj/jinshe-zhui": 1,
+        "/d/items/throwing/jinshe_zhui": 1,
         __DIR__ "obj/skeleton": 1,
     ]));
     set("item_desc", ([

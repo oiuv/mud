@@ -14,7 +14,7 @@ LONG
     ]));
 
     set("objects", ([
-        __DIR__ "obj/qizi": 1,
+        "/d/items/throwing/qizi": 1,
         "/d/items/hammer/tieqipan": 1,
     ]));
 

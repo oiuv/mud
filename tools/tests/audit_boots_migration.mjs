@@ -1,3 +1,4 @@
+import { afterThrowingMigration } from './throwing_inventory.mjs';
 import { afterDaggerMigration } from './dagger_inventory.mjs';
 import { afterWhipMigration } from './whip_inventory.mjs';
 import { afterStaffMigration } from './staff_inventory.mjs';
@@ -35,7 +36,7 @@ for (const file of callers) {
     expected = afterNeckMigration(file, expected, semantic);
     expected = afterWristsMigration(file, expected, semantic);
     expected = afterFoodMigration(file, expected, semantic);
-    expected = afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic);
+    expected = afterThrowingMigration(file, afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expected, semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic);
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expected), 'Unexpected caller change: ' + file);
 }
 assert.equal(callers.size, 15);
@@ -49,7 +50,7 @@ for (const row of baseline.varieties) {
 for (const file of ['d/lanzhou/npc/obj/shoes.c', 'd/lanzhou/obj/shoes.c', 'd/village/npc/obj/shoes.c',
     'd/xiangyang/npc/wuxiuwen.c', 'kungfu/class/shaolin/dao-chen.c'])
     assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
-        semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
+        semantic(afterThrowingMigration(file, afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, afterWristsMigration(file, afterNeckMigration(file, afterHandsMigration(file, renameReferences(original(file)), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic), semantic)), 'Excluded behavior changed: ' + file);
 // The former exclusion is now covered by the separate direct-EQUIP migration.
 const oldShoe = equipBaseline().varieties.find(row => row.old_path === '/d/city/npc/cloth/shoes');
 assert.deepEqual(semantic(oldShoe.source), semantic(original('d/city/npc/cloth/shoes.c')));

@@ -1,3 +1,4 @@
+import { readBaseline as throwingBaseline } from './throwing_inventory.mjs';
 import { readBaseline as daggerBaseline } from './dagger_inventory.mjs';
 import { readBaseline as whipBaseline } from './whip_inventory.mjs';
 // Compile all changed game programs without booting the game or running create().
@@ -32,7 +33,7 @@ const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data
     'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
     'd/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h',
     'd/items/food.lpc', 'd/items/food_data.h', 'd/items/sword.lpc', 'd/items/sword_data.h', 'd/items/liquid.lpc', 'd/items/liquid_data.h',
-    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h', 'd/items/hammer.lpc', 'd/items/hammer_data.h', 'd/items/staff.lpc', 'd/items/staff_data.h', 'd/items/whip.lpc', 'd/items/whip_data.h', 'd/items/dagger.lpc', 'd/items/dagger_data.h']
+    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h', 'd/items/hammer.lpc', 'd/items/hammer_data.h', 'd/items/staff.lpc', 'd/items/staff_data.h', 'd/items/whip.lpc', 'd/items/whip_data.h', 'd/items/dagger.lpc', 'd/items/dagger_data.h', 'd/items/throwing.lpc', 'd/items/throwing_data.h']
     .filter(path => /\.(c|lpc|h)$/.test(path) && !/^(fluffos|tools|data|ai)\//.test(path));
 for (const file of new Set(sources)) {
     if (!existsSync(join(root, file))) continue;
@@ -76,12 +77,15 @@ const food = process.argv.includes('--food');
 const sword = process.argv.includes('--sword');
 const liquid = process.argv.includes('--liquid');
 const blade = process.argv.includes('--blade');
+const throwing = process.argv.includes('--throwing');
 const dagger = process.argv.includes('--dagger');
 const whip = process.argv.includes('--whip');
 const staff = process.argv.includes('--staff');
 const hammer = process.argv.includes('--hammer');
 const equip = process.argv.includes('--equip');
-const files = dagger ? [...new Set([...Object.keys(daggerBaseline().callers), ...daggerBaseline().dynamic.map(h => h.file),
+const files = throwing ? [...new Set([...Object.keys(throwingBaseline().callers), ...throwingBaseline().dynamic.map(h => h.file),
+    ...throwingBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
+    ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing'].map(f => `d/items/${f}.lpc`)])] : dagger ? [...new Set([...Object.keys(daggerBaseline().callers), ...daggerBaseline().dynamic.map(h => h.file),
     ...daggerBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
     ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer', 'staff', 'whip', 'dagger'].map(f => `d/items/${f}.lpc`)])] : whip ? [...new Set([...Object.keys(whipBaseline().callers), ...whipBaseline().dynamic.map(h => h.file),
     ...whipBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
@@ -125,5 +129,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);

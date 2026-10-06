@@ -33,6 +33,15 @@ int same_value(mixed left, mixed right) {
 
 mixed expected_display(object before, object after, string key, mixed text) {
     if (!stringp(text)) return text;
+    if (key == "long" && strsrch(base_name(after), "/d/items/throwing/") == 0) {
+        if (member_array(
+            base_name(before),
+            ({ "/d/chengdu/npc/obj/flower-leaf", "/d/taohua/obj/huaban" })
+        ) >= 0)
+            return replace_string(text, "挂这晶莹", "挂着晶莹");
+        if (base_name(before) == "/d/chengdu/npc/obj/lianzi")
+            return replace_string(text, "沉颠颠", "沉甸甸");
+    }
     if (base_name(before) == "/d/beijing/npc/obj/dagger" &&
         base_name(after) == "/d/items/dagger/bishou" && key == "long")
         return replace_string(text, "看起相当普通", "看起来相当普通");

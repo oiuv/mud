@@ -50,5 +50,5 @@ void create() {
     create_family("少林派", 51, "俗家弟子");
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object(__DIR__ "obj/tiedan");
+    carry_object("/d/items/throwing/tiedan");
 }

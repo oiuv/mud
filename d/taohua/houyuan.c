@@ -19,7 +19,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/shizi": 1,
+        "/d/items/throwing/shizi": 1,
     ]));
     setup();
     replace_program(ROOM);

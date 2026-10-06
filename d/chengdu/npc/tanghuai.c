@@ -28,10 +28,10 @@ void create() {
     set("combat_exp", 50000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        __DIR__ "obj/feihuangshi",
-        __DIR__ "obj/flower-leaf",
+        "/d/items/throwing/feihuangshi2",
+        "/d/items/throwing/huaban",
         __DIR__ "obj/tea-leaf",
-        __DIR__ "obj/tielianzi"
+        "/d/items/throwing/tielianzi2"
     }));
 
     setup();

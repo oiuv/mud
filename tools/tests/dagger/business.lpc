@@ -1,7 +1,7 @@
 // Included by the isolated regression; game methods are supplied by business.mjs.
 void check_qian() {
     object actor, npc, item;
-    string prefix, path, kind, mark;
+    string prefix, path, kind, mark, expected_path;
     mapping branches;
     mixed err;
 
@@ -41,7 +41,8 @@ void check_qian() {
             ({ "feet", "helmet", "body", "waist" })
         ) >= 0 ? "mark/zhenyuan_armor" : "mark/zhenyuan_weapon";
         // Original COMBINED_ITEM move recalculates throwing value from its absent base_value.
-        check(base_name(item) == path && item->query("value") == (kind == "throwing" ? 0 : 50) && item->query("no_sell") &&
+        expected_path = kind == "throwing" && prefix == "" ? "/d/items/throwing/feihuangshi" : path;
+        check(base_name(item) == expected_path && item->query("value") == (kind == "throwing" ? 0 : 50) && item->query("no_sell") &&
             actor->query_temp(mark) == 1 && npc->issued(kind) == 1, "qian other branch " + kind);
         if (kind == "throwing") check(
             item->query_amount() == 20,

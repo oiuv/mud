@@ -2,15 +2,15 @@
 
 ## 范围与口径
 
-核对日期：2026-10-06。以短兵器批次实施后的当前源码为准；用户已反馈 `updateall /` 成功编译 **10,104** 个档案。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
+核对日期：2026-10-06。以普通暗器批次实施后的当前源码为准。用户已反馈本批 `updateall /` 全量编译成功，共 **10,078** 个档案，比上一批短兵器的 10,104 个减少 26。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
 
-覆盖已建立 `d/items/*_data.h` 的 **15 个分类**，按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
+覆盖已建立 `d/items/*_data.h` 的 **16 个分类**，按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
 
-目前共有 **233 个不同实体源码文件**：
+目前共有 **251 个不同实体源码文件**：
 
-- **/d 内 56 个**：原普通物品批次保留的特殊行为或初始化差异，下文逐项记录原因。
-- **其他目录 177 个**：`clone/` 168、`b/` 8、`kungfu/` 1，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
-- 其中 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个），两类表均列出，**分类合计 249 项，去重文件数 233**。
+- **/d 内 62 个**：原普通物品批次保留的特殊行为或初始化差异，下文逐项记录原因。
+- **其他目录 189 个**：`clone/` 179、`b/` 8、`kungfu/` 2，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
+- 其中 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个），两类表均列出，**分类合计 267 项，去重文件数 251**。
 
 “初始化候选”只表示当前文件仅见构造初始化、尚未完成迁移评估，不承诺与现有品种等价；还需检查调用者、属性覆盖、持久记录及跨目录 UID/EUID。特殊物品也不是永久禁止数据化，但不得为塞入普通数据表丢掉玩法或放开克隆限制。
 
@@ -33,6 +33,7 @@
 | 杖类 `STAFF` | 8 | 12 | 20 |
 | 鞭类 `WHIP` | 1 | 13 | 14 |
 | 短兵器 `DAGGER` | 1 | 4 | 5 |
+| 暗器 `THROWING` | 6 | 12 | 18 |
 
 ## 后续维护要求
 
@@ -462,3 +463,36 @@
 | 鹤形笔 | [clone/lonely/hexingbi.c](../../clone/lonely/hexingbi.c) | 克隆自毁；`hit_ob` 额外命中效果。 |
 | 鱼肠剑 | [clone/lonely/yuchang.c](../../clone/lonely/yuchang.c) | 克隆自毁。 |
 | 普通匕首 | [clone/weapon/dagger.c](../../clone/weapon/dagger.c) | 初始化候选。 |
+
+
+## 暗器（THROWING）
+
+### /d 内保留（6）
+
+| 物品名称 | 源码 | 特殊行为与保留原因 |
+| --- | --- | --- |
+| 银针 | [d/beijing/obj/yinzhen.c](../../d/beijing/obj/yinzhen.c) | `init/do_heal` 注册针灸，涉及技能门槛、治疗、针数消耗和失败伤害。 |
+| 茶叶 | [d/chengdu/npc/obj/tea-leaf.c](../../d/chengdu/npc/obj/tea-leaf.c) | `do_effect` 消耗一片、回复精并进入忙状态；唐槐货表继续出售原对象。 |
+| 冰魄银针 | [d/gumu/obj/bingpo-zhen.c](../../d/gumu/obj/bingpo-zhen.c) | 初始化 `daub/*` 临时毒性、余量和来源；普通表不承担毒性状态恢复。 |
+| 玉蜂针 | [d/gumu/obj/yufeng-zhen.c](../../d/gumu/obj/yufeng-zhen.c) | 初始化另一套 `daub/*` 毒性和来源；不得只迁固定属性而丢失临时状态。 |
+| 丧门钉 | [d/kunlun/obj/sangmending.c](../../d/kunlun/obj/sangmending.c) | 初始数量为 `random(5) + 10`，另有原毒性字段；不是固定数量品种。 |
+| 凤尾箭 | [d/mingjiao/yuan/obj/arrow.c](../../d/mingjiao/yuan/obj/arrow.c) | `is_arrow()` 标识、伤害比例及 setup 后实例属性，须按箭矢行为单独验证。 |
+
+### 其他目录待评估（12）
+
+以下仅登记，`/clone` 不在当前迁移范围；名称相同也不意味着与本批品种等价。
+
+| 物品名称 | 源码 | 已发现行为 / 审查线索 |
+| --- | --- | --- |
+| 回龙璧 | [clone/lonely/huilongbi.c](../../clone/lonely/huilongbi.c) | 固定初始化、`no_sell`；本体无克隆自毁，赵半山按唯一蓝图的持有者决定领取与备用暗器，不能仅看 lonely 目录推断克隆限制。 |
+| 羽箭 | [clone/weapon/arrow.c](../../clone/weapon/arrow.c) | `is_arrow()`、wound_percent=80，setup 后写 no_wield；按箭矢行为评估。 |
+| 刺骨箭 | [clone/weapon/ciguarrow.c](../../clone/weapon/ciguarrow.c) | `is_arrow()`、伤害和伤口比例，setup 后写 no_wield。 |
+| 飞蝗石 | [clone/weapon/feihuangshi.c](../../clone/weapon/feihuangshi.c) | 初始化候选；别名、伤害与本批飞石有差异。 |
+| 凤尾箭 | [clone/weapon/fengweiarrow.c](../../clone/weapon/fengweiarrow.c) | `is_arrow()`、伤口比例，setup 后写 no_wield。 |
+| 花瓣 | [clone/weapon/flower_leaf.c](../../clone/weapon/flower_leaf.c) | 初始化候选；保留本文件显示、damage 与材质缺省值，未套用 /d 文案修正。 |
+| 铁蒺藜 | [clone/weapon/jili.c](../../clone/weapon/jili.c) | 初始化候选；“淬毒”描述不等于初始化了毒性状态。 |
+| 铁莲子 | [clone/weapon/lianzi.c](../../clone/weapon/lianzi.c) | 初始化候选；数量 50、base_value=1，须比较实际属性而非同名合并。 |
+| 茶叶 | [clone/weapon/tea-leaf.c](../../clone/weapon/tea-leaf.c) | 仅固定初始化，无 /d 茶叶的 do_effect；不可因同名补入服用功能。 |
+| 铁莲子 | [clone/weapon/tielianzi.c](../../clone/weapon/tielianzi.c) | 初始化候选；数量 30、init_throwing(12)，与其他铁莲子区分。 |
+| 狼牙箭 | [clone/weapon/wolfarrow.c](../../clone/weapon/wolfarrow.c) | `is_arrow()`、wound_percent=90，setup 后写 no_wield。 |
+| 子母回魂镖 | [kungfu/class/tangmen/obj/huihun.c](../../kungfu/class/tangmen/obj/huihun.c) | 固定初始化候选，来源不在 /d；需另核对跨目录身份及技能调用。 |

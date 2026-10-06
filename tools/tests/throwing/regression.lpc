@@ -1,0 +1,336 @@
+#include <weapon.h>
+// Old/new observations run only in the disposable test mudlib.
+inherit "/tests/cloth_regression";
+private mixed *cases;
+private object *empty_stacks = ({});
+
+void clear_inventory(object actor) {
+    object item;
+    foreach (item in all_inventory(actor)) destruct(item);
+}
+
+object stack_in(object owner, string path) {
+    object item;
+    foreach (item in all_inventory(owner))
+        if (base_name(item) == path) return item;
+    return 0;
+}
+
+int quantity(object owner, string path) {
+    object item;
+    item = stack_in(owner, path);
+    return item ? item->query_amount() : 0;
+}
+
+void check_commands(string path) {
+    object room, actor, recipient, bag, item, merged;
+    string id;
+    int result;
+
+    room = new("/tests/throwing_container");
+    actor = new("/tests/throwing_actor"); recipient = new("/tests/throwing_actor");
+    recipient->set_name("接物人", ({ "recipient" }));
+    actor->move(room, 1); recipient->move(room, 1);
+    bag = new("/tests/throwing_container"); bag->move(room, 1);
+    item = new(path); item->set_amount(10); item->move(room, 1); id = item->query("id");
+    check(!"/cmds/std/get"->main(actor, "11 " + id) && quantity(room, path) == 10,
+        "get refuses excessive amount");
+    check("/cmds/std/get"->main(actor, "3 " + id) && quantity(room, path) == 7 &&
+        quantity(actor, path) == 3, "real get splits without refill");
+    check("/cmds/std/get"->main(actor, "7 " + id) && !quantity(room, path) &&
+        quantity(actor, path) == 10, "real get whole remainder merges");
+    item = stack_in(actor, path);
+    check(!"/cmds/std/wield"->do_wield(actor, item) && !item->query("equipped"),
+        "throwing remains non-wieldable");
+    check("/cmds/std/hand"->main(actor, id) && actor->query_temp("handing") == item,
+        "real hand selects stack");
+    "/cmds/std/hand"->main(actor, "none");
+    bag->set_max_encumbrance(1);
+    "/cmds/std/put"->main(actor, "4 " + id + " in fixture bag");
+    check(
+        quantity(actor, path) == 10 && !quantity(bag, path),
+        "failed put movement restores split quantity"
+    );
+    bag->set_max_encumbrance(1000000);
+    "/cmds/std/put"->main(actor, "4 " + id + " in fixture bag");
+    check(quantity(actor, path) == 6 && quantity(bag, path) == 4, "real put partial");
+    "/cmds/std/get"->main(actor, "4 " + id + " from fixture bag");
+    check(quantity(actor, path) == 10 && !quantity(bag, path), "real get from container");
+    recipient->set("test/refuse", 1);
+    "/cmds/std/give"->main(actor, "3 " + id + " to recipient");
+    check(
+        quantity(actor, path) == 10 && !quantity(recipient, path),
+        "give refusal restores quantity"
+    );
+    recipient->delete("test/refuse");
+    "/cmds/std/give"->main(actor, "3 " + id + " to recipient");
+    check(quantity(actor, path) == 7 && quantity(recipient, path) == 3, "real give partial");
+    "/cmds/std/give"->main(actor, "7 " + id + " to recipient");
+    check(!quantity(actor, path) && quantity(recipient, path) == 10, "real give whole merges");
+    item = stack_in(recipient, path); item->move(actor, 1);
+    room->set("no_drop", "此处不可丢弃。");
+    "/cmds/std/drop"->main(actor, "4 " + id);
+    check(quantity(actor, path) == 10 && !quantity(room, path), "drop refusal remerges split");
+    room->delete("no_drop");
+    item = stack_in(actor, path);
+    "/cmds/std/drop"->main(actor, "4 " + id);
+    check(quantity(actor, path) == 6 && quantity(room, path) == (item->query("base_value") ? 4 : 0),
+        "drop preserves old destruction of valueless items");
+    "/cmds/std/put"->main(actor, "6 " + id + " in fixture bag");
+    check(!quantity(actor, path) && quantity(bag, path) == 6, "real put whole stack");
+    item = stack_in(bag, path);
+    check(item->query_weight() == 6 * item->query("base_weight") &&
+        item->query("value") == 6 * item->query("base_value"), "split totals derive correctly");
+    clear_inventory(bag); clear_inventory(actor); clear_inventory(recipient);
+    destruct(actor); destruct(recipient); clear_inventory(room); destruct(room);
+}
+
+void check_skill(string path) {
+    object actor, target, item, room;
+    int n;
+    string key;
+    room = new("/tests/throwing_container");
+    actor = new("/tests/throwing_actor"); target = new("/tests/throwing_actor");
+    actor->move(room, 1); target->move(room, 1);
+    item = new(path); item->set_amount(3); item->move(actor, 1);
+    check(!"/tests/throwing_skill"->perform(actor, target), "skill rejects non-combat");
+    actor->set("test/fighting", 1);
+    check(!"/tests/throwing_skill"->perform(actor, target), "skill requires handing");
+    "/cmds/std/hand"->main(actor, item->query("id"));
+    foreach (key in ({ "tangmen-throwing", "boyun-suowu", "force", "throwing" }))
+        actor->set("test/skills/" + key, 300);
+    actor->set("neili", 149);
+    check(!"/tests/throwing_skill"->perform(actor, target) && item->query_amount() == 3,
+        "skill insufficient energy does not consume");
+    actor->set("neili", 2000);
+    check("/tests/throwing_skill"->perform(actor, target) == 1 &&
+        item->query_amount() == 2 && actor->query("neili") == 1900 &&
+        target->query("qi") == 9800 && target->query("eff_qi") == 9800 &&
+        actor->query_temp("test/busy") == 2, "original skill hit consumes exactly one ordinary projectile");
+    target->set("test/skills/parry", 10000);
+    check("/tests/throwing_skill"->perform(actor, target) == 1 &&
+        item->query_amount() == 2 && environment(item) == room &&
+        target->query("neili") == 1000 && actor->query_temp("test/busy") == 3,
+        "original skill miss moves whole stack without decrement");
+    clear_inventory(actor); clear_inventory(target); destruct(actor); destruct(target);
+    clear_inventory(room); destruct(room);
+}
+
+void check_storage(mixed *pair) {
+    object actor, item;
+    string path, id;
+    mapping result, records, paths;
+    foreach (path in pair[0..1]) {
+        check_refusals(path);
+        actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+        item = new(path); item->set_amount(7); id = item->query("id");
+        item->move(actor, 1); actor->store_item(actor, item, 7);
+        check(!item && actor->depot_records()["item0"]["amount"] == 7, "store exact quantity");
+        actor->run_command("take 1 3");
+        check(quantity(actor, path) == 3 && actor->depot_records()["item0"]["amount"] == 4,
+            "partial take uses saved amount not initial quantity");
+        actor->run_command("take 1 4");
+        check(
+            quantity(actor, path) == 7 && !sizeof(actor->depot_records()),
+            "remaining take merges"
+        );
+        clear_inventory(actor); destruct(actor);
+    }
+    actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    records = ([ "item0": ([
+        "file": pair[0],
+        "amount": 7,
+        "name": "旧暗器",
+        "id": "old throwing"
+    ]) ]);
+    result = "/tests/cloth_records"->convert(save_variable(records), "backpack", paths, ({}));
+    check(result["changes"] == 1, "old throwing record converted");
+    write_file("/data/throwing-restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/throwing-restored"); actor->run_command("take 1 7");
+    check(quantity(actor, pair[1]) == 7 && sizeof(all_inventory(actor)) == 1 &&
+        !sizeof(actor->depot_records()), "converted saved quantity restores rather than initial pile size");
+    check("/tests/cloth_records"->convert(result["value"], "backpack", paths, ({}))["changes"] == 0,
+        "converted throwing record is idempotent");
+    clear_inventory(actor); destruct(actor);
+}
+
+void check_mengzhu_restore() {
+    mixed *pair;
+    mapping paths, data, converted;
+    object before, after, weapon, armor;
+    string saved;
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (pair in cases) {
+        data = ([ "name": "合成盟主", "str": 1000, "dex": 100, "combat_exp": 876543,
+            "weapon": pair[0], "armor": "/d/items/cloth/buyi", "note": pair[0], "gender": "男性" ]);
+        saved = save_variable(data);
+        write_file(
+            "/data/npc/meng-zhu.o",
+            "dbase " + saved + "\n",
+            1
+        ); before = new("/tests/mengzhu");
+        converted = "/tests/cloth_records"->convert(saved, "mengzhu_equipment", paths, ({}));
+        check(converted["changes"] == 1, "mengzhu exact weapon reference converted");
+        write_file(
+            "/data/npc/meng-zhu.o",
+            "dbase " + converted["value"] + "\n",
+            1
+        ); after = new("/tests/mengzhu");
+        weapon = stack_in(after, pair[1]); armor = after->query_temp("armor/cloth");
+        check(objectp(weapon) && weapon->query_amount() == pair[0]->query_amount() &&
+            !weapon->query("equipped") && !after->query_temp("weapon") && !before->query_temp("weapon"),
+            "mengzhu carries throwing without adding wield ability");
+        check(
+            objectp(armor) && armor->query("equipped") == "worn",
+            "mengzhu armor remains equipped"
+        );
+        check(
+            after->query("combat_exp") == 876543 && after->query("note") == pair[0],
+            "mengzhu other data retained"
+        );
+        compare(stack_in(before, pair[0]), weapon, "mengzhu restored throwing parity");
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "mengzhu bonuses unchanged"
+        );
+        check("/tests/cloth_records"->convert(
+            converted["value"],
+            "mengzhu_equipment",
+            paths,
+            ({})
+        )["changes"] == 0,
+            "mengzhu conversion idempotent");
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+
+void check_contracts() {
+    object program, item, first, second, third, room, blueprint;
+    mapping group, definition, props;
+    mixed err;
+    int amount;
+    program = load_object("/d/items/throwing");
+    check(!program->query("name") && !environment(program), "inert provider");
+    err = catch(item = new("/d/items/throwing/missing"));
+    check(!item && !find_object("/d/items/throwing/missing"), "unknown ID rejected");
+    err = catch(new("/d/items/throwing", "jinbiao")); check(!!err, "direct clone rejected");
+    check(!program->valid_variety_path("/d/items/throwing/jinbiao/extra") &&
+        !program->valid_variety_path("/d/items/throwing"), "exact variety validation");
+    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+        blueprint = load_object(group["path"]);
+        check(same_value(blueprint->parse_command_id_list(),
+            group["ids"] + ({ lower_case(group["ids"][0][0..0]) })), "canonical aliases");
+    }
+    definition = program->query_definition("jinbiao"); definition["ids"][0] = "changed";
+    check(program->query_definition("jinbiao")["ids"][0] != "changed", "registry copy isolation");
+    blueprint = load_object("/d/items/throwing/jinbiao");
+    first = new(base_name(blueprint)); second = new(base_name(blueprint));
+    props = first->query("weapon_prop"); props["damage"] = 999;
+    check(second->query("weapon_prop/damage") == 50 && blueprint->query("weapon_prop/damage") == 50,
+        "nested defaults isolated");
+    err = catch(first->set_amount(-1));
+    check(!!err && first->query_amount() == 10, "negative amount original rejection");
+    first->set_amount(0); check(first->query_amount() == 0, "zero quantity immediate");
+    empty_stacks += ({ first }); destruct(second);
+    room = new("/tests/throwing_container");
+    first = new("/d/items/throwing/xiaoli_feidao"); first->move(room, 1);
+    second = new("/d/items/throwing/xiaoli_feidao"); second->move(room, 1);
+    check(!first && second->query_amount() == 2 && sizeof(all_inventory(room)) == 1,
+        "two equivalent historical definitions share merge identity");
+    first = new("/d/items/throwing/jinbiao"); first->move(room, 1);
+    third = new("/d/items/throwing/jinbiao2"); third->move(room, 1);
+    check(objectp(first) && objectp(third) && !first->can_combine_to(third),
+        "different varieties do not merge");
+    clear_inventory(room); destruct(room);
+    first = new("/tests/throwing_actor");
+    second = new("/tests/unknown_throwing/missing");
+    first->store_item(first, second, 1);
+    check(
+        objectp(second) && !sizeof(first->depot_records()),
+        "unregistered virtual throwing cannot be stored"
+    );
+    destruct(second); destruct(first);
+}
+void check_baseline() {
+    mixed *pair, *observations;
+    object blueprint, instance;
+    mapping record, properties, effective;
+    string key;
+
+    observations = ({});
+    foreach (pair in cases) {
+        blueprint = load_object(pair[0]);
+        instance = new(pair[0]);
+        check(blueprint->query_weight() == blueprint->query_amount() * blueprint->query("base_weight") &&
+            instance->query_weight() == instance->query_amount() * instance->query("base_weight"),
+            pair[0] + " original quantity-derived weights");
+        check(blueprint->is_weapon() && instance->is_weapon(), "original weapon identity");
+        check(blueprint->query("skill_type") == "throwing" &&
+            blueprint->query("flag") == 8 && instance->query("flag") == 8, "original throwing initialization");
+        properties = copy(blueprint->query_entire_dbase());
+        properties["actions"] = functionp(blueprint->query(
+            "actions",
+            1
+        )) ? "WEAPON_D query_action" : 0;
+        effective = ([]);
+        foreach (key in keys(properties))
+            effective[key] = key == "actions" ? properties[key] : instance->query(key, 1);
+        record = ([ "path": pair[0], "weight": blueprint->query_weight(),
+            "clone_weight": instance->query_weight(), "amount": blueprint->query_amount(),
+            "clone_amount": instance->query_amount(), "blueprint": properties, "clone": effective,
+            "ids": blueprint->parse_command_id_list(), "uid": getuid(blueprint),
+            "euid": geteuid(blueprint), "clone_uid": getuid(instance), "clone_euid": geteuid(instance) ]);
+        observations += ({ record });
+        destruct(instance);
+    }
+    write_file("/tests/throwing-baseline.json", json_encode(observations), 1);
+}
+
+
+void check_variety(mixed *pair) {
+    object old, item, second, blueprint;
+    int amount;
+    old = new(pair[0]); item = new(pair[1]); second = new(pair[1]);
+    blueprint = load_object(pair[1]);
+    compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
+    compare(old, item, pair[0] + " clone");
+    check(item->query_amount() == old->query_amount(), "independent quantity matches");
+    check(virtualp(item) && clonep(item) && virtualp(blueprint) && !clonep(blueprint) &&
+        item->query_default_object() == blueprint, "final virtual identity");
+    amount = second->query_amount();
+    item->set_amount(3); item->virtual_start();
+    check(item->query_amount() == 3 && second->query_amount() == amount &&
+        blueprint->query_amount() == amount, "independent quantity and idempotent initialization");
+    check(item->query_weight() == 3 * item->query("base_weight") &&
+        item->query("value") == 3 * item->query("base_value"), "quantity derives weight and value");
+    check(master()->setup_count(item) == 1 && master()->setup_count(blueprint) == 1,
+        "setup once after final virtual identity");
+    destruct(old); destruct(item); destruct(second);
+    check_commands(pair[0]); check_commands(pair[1]);
+    check_skill(pair[0]); check_skill(pair[1]);
+    check_storage(pair);
+}
+#include "throwing_business.h"
+private int next_case;
+void finish_checks() {
+    object item;
+    foreach (item in empty_stacks) check(!objectp(item), "zero quantity delayed destruction");
+    master()->finish();
+}
+void run_chunk() {
+    if (next_case < sizeof(cases)) {
+        check_variety(cases[next_case++]); call_out("run_chunk", 0); return;
+    }
+    check_contracts();
+    check_mengzhu_restore();
+    check_actual_shops(); check_actual_rooms(); check_npc_equipment();
+    check_needle_suppliers(); check_unique_suppliers(); check_qian();
+    call_out("finish_checks", 0);
+}
+void run() {
+    cases = json_decode(read_file("/tests/cases.json"));
+    check_baseline();
+    if (file_size("/tests/baseline-only") > 0) { master()->finish(); return; }
+    run_chunk();
+}

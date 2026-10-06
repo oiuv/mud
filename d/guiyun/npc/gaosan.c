@@ -41,6 +41,6 @@ void create() {
     set_temp("apply/attack", 25);
     set_temp("apply/damage", 25);
     setup();
-    carry_object(__DIR__ "obj/shortblade");
+    carry_object("/d/items/throwing/duandao");
     carry_object("/clone/misc/cloth")->wear();
 }

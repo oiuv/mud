@@ -113,7 +113,7 @@ LONG);
         }
     }
     carry_object("clone/misc/cloth")->wear();
-    set_temp("handing", carry_object("/d/meizhuang/obj/qizi"));
+    set_temp("handing", carry_object("/d/items/throwing/qizi"));
 }
 
 void attempt_apprentice(object me) {

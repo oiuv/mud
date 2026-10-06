@@ -95,7 +95,7 @@ LONG);
     setup();
 
     carry_object("/d/items/cloth/riyue_jinpao")->wear();
-    set_temp("handing", carry_object("/d/heimuya/npc/obj/shenzhen"));
+    set_temp("handing", carry_object("/d/items/throwing/heixue_zhen"));
 }
 
 void attempt_apprentice(object ob) {
@@ -145,7 +145,7 @@ mixed ask_me() {
         return "我又不是卖这个的，哪里带得了那么多。";
 
     add("zhen_count", -1);
-    ob = new("/d/heimuya/npc/obj/shenzhen");
+    ob = new("/d/items/throwing/heixue_zhen");
     message_vision("$N拿出五十根" WHT "黑血神针" NOR "(Heixue shenzhen)给$n。\n",
         this_object(), me);
     ob->move(me, 1);

@@ -1,4 +1,5 @@
 import { readBaseline as daggerBaseline, migrationPaths as daggerPaths } from '../dagger_inventory.mjs';
+import { readBaseline as throwingBaseline, migrationPaths as throwingPaths } from '../throwing_inventory.mjs';
 import { readBaseline as whipBaseline, migrationPaths as whipPaths } from '../whip_inventory.mjs';
 // Disposable adapters execute the selected game methods; no live server or saves.
 import assert from 'node:assert/strict';
@@ -18,8 +19,8 @@ export function prepareBusiness(root, sandbox) {
         assert.ok(start >= 0 && end > start, signature);
         return source.slice(start, end);
     };
-    const read = file => readFileSync(join(root, file), 'utf8');
-    put('tests/staff-migration-paths.json', JSON.stringify({ ...staffPaths(), ...whipPaths(), ...daggerPaths() }));
+    const read = file => throwingBaseline().varieties.find(row => row.old_path + '.c' === '/' + file)?.source ?? readFileSync(join(root, file), 'utf8');
+    put('tests/staff-migration-paths.json', JSON.stringify({ ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths() }));
     const actor = join(sandbox, 'tests/actor.lpc');
     writeFileSync(actor, readFileSync(actor, 'utf8') + '\n'
         + 'int return_tool(string id) { return selected_npc->accept_object(this_object(), present(id, this_object())); }\n'
@@ -69,7 +70,7 @@ export function prepareBusiness(root, sandbox) {
     for (let i = 1; i <= 39; i++) {
         if ([6, 7, 8, 9, 11, 12].includes(i)) continue;
         const file = 'd/death/obj/weapon' + i;
-        const frozen = [...staffBaseline().varieties, ...whipBaseline().varieties, ...daggerBaseline().varieties].find(row => row.old_path === '/' + file);
+        const frozen = [...staffBaseline().varieties, ...whipBaseline().varieties, ...daggerBaseline().varieties, ...throwingBaseline().varieties].find(row => row.old_path === '/' + file);
         put(file + '.c', frozen ? frozen.source : read(file + '.c'));
     }
     for (const [name, action] of [['guofu_caidi1', 'chu'], ['guofu_caidi2', 'jiao'], ['guofu_mafang', 'sao']])

@@ -88,7 +88,7 @@ void create() {
     setup();
     carry_object("/clone/cloth/jinduan")->wear();
     carry_object("/d/items/sword/jindi")->wield();
-    set_temp("handing", carry_object("/d/kaifeng/npc/obj/jinzhen"));
+    set_temp("handing", carry_object("/d/items/throwing/furong_zhen"));
 }
 
 void attempt_apprentice(object ob) {

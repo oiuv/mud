@@ -126,7 +126,7 @@ string ask_me() {
         return "你来晚了，没有炼心弹了。\n";
 
     add("dan_count", -1);
-    ob = new("/d/xiyu/obj/lianxindan");
+    ob = new("/d/items/throwing/lianxin_dan");
     ob->move(this_player());
     return "这些练心弹够你用的了吧。\n";
 }

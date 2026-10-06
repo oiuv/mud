@@ -218,7 +218,7 @@ string ask_du1() {
         return "你来晚了，碧磷针都发完了。\n";
 
     add("zhen_count", -1);
-    ob = new("/d/xiyu/obj/bilinzhen");
+    ob = new("/d/items/throwing/bilin_zhen");
     ob->move(this_player());
     return "好吧，那你就先用这些针吧。\n";
 }

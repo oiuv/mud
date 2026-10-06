@@ -1,0 +1,28 @@
+// Character services unrelated to item semantics are explicit test doubles.
+inherit "/tests/actor";
+
+private object selected_npc;
+private string selected_method;
+void select_npc(object npc, string method) { selected_npc = npc; selected_method = method; }
+int call_npc(string arg) { call_other(selected_npc, selected_method, arg); return 1; }
+int give_item(string arg) { return "/cmds/std/give"->main(this_object(), arg); }
+int is_bad() { return !!query("test/bad"); }
+int visible(object other) { return 1; }
+
+int is_fighting(object target) { return !!query("test/fighting"); }
+int is_busy() { return 0; }
+int accept_object(object from, object item) { return !query("test/refuse"); }
+varargs int query_skill(string skill, int raw) { return query("test/skills/" + skill); }
+void receive_damage(string type, int amount, object from) { add(type, -amount); }
+void receive_wound(string type, int amount, object from) { add("eff_" + type, -amount); }
+void start_busy(int seconds) { set_temp("test/busy", seconds); }
+void unconcious(object from) { error("Unique Tang Hua branch outside ordinary-item fixture.\n"); }
+
+void create() {
+    ::create();
+    enable_commands();
+    add_action("call_npc", "testnpc");
+    add_action("give_item", "give");
+    set("max_qi", 10000); set("qi", 10000); set("eff_qi", 10000);
+    set("max_neili", 2000); set("neili", 2000);
+}

@@ -65,6 +65,6 @@ void create() {
     carry_object("/d/items/cloth/baise_changshan")->wear();
     carry_object(__DIR__ "obj/renou");
     carry_object("/d/sky/obj/tianxiadan");
-    set_temp("handing", carry_object(__DIR__ "obj/feidao"));
+    set_temp("handing", carry_object("/d/items/throwing/xiaoli_feidao"));
     add_money("gold", 2);
 }

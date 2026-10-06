@@ -184,7 +184,7 @@ void create() {
             ob->move(this_object());
             set_temp("handing", ob);
         } else {
-            set_temp("handing", carry_object("/d/taohua/obj/huaban"));
+            set_temp("handing", carry_object("/d/items/throwing/taohua_ban"));
         }
     }
     carry_object("/d/items/cloth/qing_bupao")->wear();
@@ -1012,7 +1012,7 @@ mixed ask_yuxiao() {
             return "老夫的玉箫现在落在了" + owner->query("name") + "手中，你去找他索回吧。";
     }
     ob->move(this_object());
-    set_temp("handing", carry_object("/d/taohua/obj/huaban"));
+    set_temp("handing", carry_object("/d/items/throwing/taohua_ban"));
     command("say 念你刻苦用功，今日老夫就将玉箫借给你。");
     command("say 行走江湖万事多加小心，可不要丢了老夫的脸。");
     command("give yu xiao to " + me->query("id"));

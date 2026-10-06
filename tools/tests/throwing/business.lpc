@@ -1,0 +1,368 @@
+// Selected original statements/functions; character services are test doubles.
+void check_actual_shops() {
+    object actor, vendor, item, stock;
+    mapping paths, record;
+    string prefix, path, target, id;
+    string *goods, *original_goods, *expected_goods;
+    int money, requested, count, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+    foreach (record in json_decode(read_file("/tests/throwing-shops.json"))) {
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + record["fixture"]); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                expected_goods = ({});
+                foreach (path in original_goods) expected_goods += ({ paths[path] ? paths[path] : path });
+                check(same_value(goods, expected_goods), "shop full stock and order unchanged");
+            }
+            actor->select_vendor(vendor); tested = 0;
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                stock = load_object(target); id = stock->query("id");
+                check(vendor->is_vendor_good(id) == target, "shop original lookup");
+                check(stock->query("base_value") == path->query("base_value") &&
+                    stock->query("base_unit") == path->query("base_unit"), "shop unit price and unit");
+                foreach (requested in ({ 1, 3 })) {
+                    MONEY_D->pay_player(actor, 999999); money = actor->cash_value();
+                    vendor->enough_rest(); actor->run_command("testbuy " + requested + " " + id);
+                    count = requested == 1 ? stock->query_amount() : requested;
+                    check(
+                        quantity(actor, target) == count,
+                        sprintf(
+                            "dealer quantity %s requested=%d expected=%d actual=%d money=%d->%d",
+                            target,
+                            requested,
+                            count,
+                            quantity(actor, target),
+                            money,
+                            actor->cash_value()
+                        )
+                    );
+                    check(
+                        money - actor->cash_value() == count * stock->query("base_value"),
+                        "shop payment"
+                    );
+                    actor->run_command("testbuy 3 " + id);
+                    check(
+                        quantity(actor, target) == count,
+                        "shop cooldown prevents another purchase"
+                    );
+                    clear_inventory(actor);
+                }
+                vendor->enough_rest(); actor->run_command("testbuy 3 " + id);
+                check(
+                    quantity(actor, target) == (stock->query("base_value") ? 0 : 3),
+                    "no money rejects paid goods but preserves free goods"
+                );
+                clear_inventory(actor); vendor->enough_rest();
+                MONEY_D->pay_player(actor, 999999); money = actor->cash_value();
+                item = new(target); item->set_amount(2); item->move(vendor, 1);
+                actor->run_command("testbuy 3 " + id);
+                check(quantity(vendor, target) == 2 && !quantity(actor, target) &&
+                    actor->cash_value() == money, "insufficient physical stock neither charges nor delivers");
+                actor->run_command("testbuy 2 " + id);
+                check(quantity(actor, target) == 2 && item->query_amount() == 0 &&
+                    money - actor->cash_value() == 2 * stock->query("base_value") * 12 / 10,
+                    "physical stock original surcharge and quantity consumption");
+                clear_inventory(actor); clear_inventory(vendor); tested++;
+            }
+            check(tested == record["count"], "all seven migrated shop entries tested");
+            destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_actual_rooms() {
+    object before, after, room, actor, item;
+    mapping record, old_stock, stock, paths, selected;
+    string path, target;
+    int count, total, stage;
+    int *observed, *expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/throwing_actor");
+    foreach (record in json_decode(read_file("/tests/throwing-rooms.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        old_stock = before->query("objects"); stock = after->query("objects");
+        check(sizeof(old_stock) == sizeof(stock), "room complete stock size");
+        foreach (path, count in old_stock)
+            check(stock[paths[path] ? paths[path] : path] == count, "room original stock counts");
+        foreach (room in ({ before, after })) {
+            selected = ([]); total = 0;
+            foreach (path, count in old_stock) if (paths[path]) {
+                target = room == before ? path : paths[path]; selected[target] = count;
+                total += count * load_object(target)->query_amount();
+            }
+            room->set("objects", selected); room->reset();
+            observed = ({});
+            for (stage = 0; stage < 4; stage++) {
+                count = 0;
+                foreach (item in all_inventory(room)) {
+                    check(!undefinedp(selected[base_name(item)]), "room creates correct identity");
+                    count += item->query_amount();
+                }
+                if (!stage) check(
+                    count == total,
+                    "room original initial quantity including merged piles"
+                );
+                observed += ({ count, sizeof(all_inventory(room)) });
+                if (!stage) { clear_inventory(room); room->reset(); } else if (stage == 1) {
+                    foreach (item in all_inventory(room)) item->move(actor, 1); room->reset();
+                } else if (stage == 2) { clear_inventory(actor); room->reset(); }
+            }
+            if (room == before) expected = observed;
+            else check(
+                same_value(observed, expected),
+                "room destroy/pickup/merge/reset old-new parity"
+            );
+            clear_inventory(room); destruct(room); clear_inventory(actor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, item, replacement;
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/throwing-equipment.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        check(sizeof(all_inventory(before)) == record["count"] &&
+            sizeof(all_inventory(after)) == record["count"], "NPC constructor selected carry count");
+        foreach (item in all_inventory(before)) {
+            replacement = stack_in(after, paths[base_name(item)]);
+            check(
+                objectp(replacement) && replacement->query_amount() == item->query_amount(),
+                "NPC carried identity and amount"
+            );
+            compare(item, replacement, record["file"] + " NPC stack");
+        }
+        check(
+            !!before->query_temp("weapon") == !!after->query_temp("weapon"),
+            "NPC no new wield state"
+        );
+        item = before->query_temp("handing"); replacement = after->query_temp("handing");
+        check(
+            !!item == !!replacement && (!item || paths[base_name(item)] == base_name(replacement)),
+            "NPC handing selected same variety"
+        );
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "NPC bonuses unchanged"
+        );
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+
+void check_needle_suppliers() {
+    object actor, npc;
+    string prefix, file, method, family, skill, path;
+    mixed *entry;
+    int level;
+
+    actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+    foreach (entry in ({
+        ({
+            "/kungfu/class/honghua/lu",
+            "ask_zhen",
+            "红花会",
+            "furong-jinzhen",
+            80,
+            "/d/kaifeng/npc/obj/jinzhen",
+            "/d/items/throwing/furong_zhen"
+        }),
+        ({
+            "/kungfu/class/lingjiu/sang",
+            "ask_me",
+            "灵鹫宫",
+            "pidi-shenzhen",
+            100,
+            "/d/lingjiu/npc/obj/jinzhen",
+            "/d/items/throwing/lanwu_zhen"
+        }),
+        ({
+            "/kungfu/class/riyue/sang",
+            "ask_me",
+            "日月神教",
+            "heixue-shenzhen",
+            140,
+            "/d/heimuya/npc/obj/shenzhen",
+            "/d/items/throwing/heixue_zhen"
+        })
+    })) foreach (prefix in ({ "/tests/old", "" })) {
+        file = entry[0]; method = entry[1]; family = entry[2]; skill = entry[3]; level = entry[4];
+        path = entry[prefix == "" ? 6 : 5]; npc = new(prefix + file);
+        actor->select_npc(npc, method); actor->delete("family"); actor->delete("test/skills");
+        actor->set("shen", -30000); actor->delete("test/bad");
+        actor->run_command("testnpc"); check(
+            npc->query("zhen_count") == 3 && !quantity(actor, path),
+            "needle supplier sect restriction"
+        );
+        actor->set("family/family_name", family);
+        if (family == "灵鹫宫") {
+            actor->set("test/skills/" + skill, level); actor->run_command("testnpc");
+            check(npc->query("zhen_count") == 3, "Sang master restriction");
+            actor->set("family/master_id", "xuzhu zi");
+        }
+        actor->set("test/skills/" + skill, level - 1); actor->run_command("testnpc");
+        check(
+            npc->query("zhen_count") == 3 && !quantity(actor, path),
+            "needle skill exact threshold"
+        );
+        actor->set("test/skills/" + skill, level);
+        if (family == "红花会") {
+            actor->set("test/bad", 1); actor->run_command("testnpc"); actor->delete("test/bad");
+        }
+        if (family == "日月神教") {
+            actor->set("shen", -29999); actor->run_command("testnpc"); actor->set("shen", -30000);
+        }
+        check(npc->query("zhen_count") == 3, "needle morality refusal no stock consumed");
+        actor->run_command("testnpc");
+        check(quantity(actor, path) == 50 && npc->query("zhen_count") == 2, "needle exact reward");
+        if (family == "红花会") actor->set("family/family_name", "武当派");
+        if (family == "灵鹫宫") actor->set("family/family_name", "碧磷洞");
+        actor->run_command("testnpc"); actor->run_command("testnpc"); actor->run_command("testnpc");
+        check(
+            quantity(actor, path) == 150 && npc->query("zhen_count") == 0,
+            "needle alternate sect/merge/exhaustion"
+        );
+        clear_inventory(actor); destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_unique_suppliers() {
+    object actor, holder, npc, unique, held;
+    string prefix, file, path, unique_path, method, family, skill, master_id;
+    mixed *entry;
+    int occupied;
+
+    foreach (entry in ({
+        ({
+            "/kungfu/class/honghua/zhao",
+            "/clone/lonely/huilongbi",
+            "ask_bi",
+            "红花会",
+            "huilong-bifa",
+            "zhao banshan",
+            "/d/beijing/npc/obj/jinbiao",
+            "/d/items/throwing/jinbiao"
+        }),
+        ({
+            "/kungfu/class/taohua/huang",
+            "/clone/lonely/yuxiao",
+            "ask_yuxiao",
+            "桃花岛",
+            "yuxiao-jian",
+            "huang yaoshi",
+            "/d/taohua/obj/huaban",
+            "/d/items/throwing/taohua_ban"
+        })
+    })) foreach (prefix in ({ "/tests/old", "" })) for (occupied = 0; occupied < 2; occupied++) {
+        file = entry[0]; unique_path = entry[1]; method = entry[2]; family = entry[3]; skill = entry[4]; master_id = entry[5];
+        path = entry[prefix == "" ? 7 : 6];
+        actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+        holder = new("/tests/throwing_actor"); unique = load_object(unique_path);
+        if (occupied) unique->move(holder, 1);
+        npc = new(prefix + file); npc->move(this_object(), 1); actor->select_npc(npc, method);
+        held = npc->query_temp("handing");
+        check(
+            objectp(held) && base_name(held) == (occupied ? path : unique_path),
+            "original unique/free versus fallback constructor"
+        );
+        actor->run_command("testnpc"); check(
+            environment(unique) == (occupied ? holder : npc),
+            "unique sect refusal"
+        );
+        actor->set("family/family_name", family); actor->set("family/master_name", "某师父");
+        actor->run_command("testnpc"); check(
+            environment(unique) == (occupied ? holder : npc),
+            "unique master refusal"
+        );
+        actor->set("family/master_id", master_id); actor->set("test/skills/" + skill, 149);
+        actor->run_command("testnpc"); check(
+            environment(unique) == (occupied ? holder : npc),
+            "unique skill refusal"
+        );
+        actor->set("test/skills/" + skill, 150);
+        actor->set("test/skills/chuixiao-jifa", 149); actor->set("shen", 29999);
+        actor->run_command("testnpc"); check(
+            environment(unique) == (occupied ? holder : npc),
+            "unique second threshold refusal"
+        );
+        actor->set("test/skills/chuixiao-jifa", 150); actor->set("shen", 30000);
+        actor->run_command("testnpc");
+        check(
+            environment(unique) == (occupied ? holder : actor),
+            "unique ownership and actual give/move reward"
+        );
+        held = npc->query_temp("handing");
+        check(
+            objectp(held) && base_name(held) == path && held->query_amount() == path->query_amount(),
+            "reward replenishes original ordinary fallback"
+        );
+        actor->run_command("testnpc");
+        check(environment(unique) == (occupied ? holder : actor) && npc->query_temp("handing") == held,
+            "repeat/occupied request cannot duplicate reward or fallback");
+        clear_inventory(npc); destruct(npc); clear_inventory(actor); destruct(actor); clear_inventory(holder); destruct(holder);
+    }
+}
+
+void check_qian() {
+    object actor, npc, item;
+    mapping branches;
+    string prefix, kind, path, mark;
+    mixed err;
+    actor = new("/tests/throwing_actor"); actor->move(this_object(), 1);
+    branches = ([ "sword": "/d/items/sword/changjian", "blade": "/d/items/blade/gangdao", "dagger": "/d/items/dagger/bishou",
+        "hammer": "/d/items/hammer/tiechui", "staff": "/d/items/staff/chanzhang", "whip": "/d/items/whip/pibian",
+        "feet": "/d/items/boots/zhanxue", "helmet": "/d/items/headwear/gangkui", "body": "/d/beijing/npc/obj/body" ]);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        branches["throwing"] = prefix == "" ? "/d/items/throwing/feihuangshi" : "/d/beijing/npc/obj/throwing";
+        foreach (kind, path in branches) {
+            npc = new(prefix + "/d/beijing/npc/qianzhenglun"); actor->select_npc(npc, "do_yao");
+            actor->delete("family"); actor->delete_temp("mark"); actor->run_command("testnpc " + kind);
+            check(
+                !sizeof(all_inventory(actor)) && !npc->issued(kind),
+                "qian sect restriction " + kind
+            );
+            actor->set("family/family_name", "八卦门");
+            mark = member_array(
+                kind,
+                ({ "feet", "helmet", "body", "waist" })
+            ) >= 0 ? "mark/zhenyuan_armor" : "mark/zhenyuan_weapon";
+            actor->set_temp(mark, 3); actor->run_command("testnpc " + kind);
+            check(!npc->issued(kind), "qian three-item quota " + kind); actor->delete_temp(mark);
+            actor->run_command("testnpc " + kind); item = all_inventory(actor)[0];
+            check(base_name(item) == path && item->query("value") == (kind == "throwing" ? 0 : 50) && item->query("no_sell") &&
+                actor->query_temp(mark) == 1 && npc->issued(kind) == 1, "qian original overrides and move " + kind);
+            if (kind == "throwing") check(item->query_amount() == 20, "qian initial quantity");
+            actor->run_command("testnpc " + kind); actor->run_command("testnpc " + kind);
+            check(
+                npc->issued(kind) == 2 && actor->query_temp(mark) == 2,
+                "qian stock exhaustion " + kind
+            );
+            check(
+                kind == "throwing" ? quantity(
+                    actor,
+                    path
+                ) == 40 : sizeof(all_inventory(actor)) == 2,
+                "qian reward counts and merging " + kind
+            );
+            clear_inventory(actor); destruct(npc);
+        }
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun"); actor->select_npc(
+            npc,
+            "do_yao"
+        ); actor->delete_temp("mark");
+        err = catch(actor->run_command("testnpc waist"));
+        check(!!err && npc->issued("waist") == 1 && actor->query_temp("mark/zhenyuan_armor") == 1,
+            "qian preexisting missing waist unchanged"); destruct(npc);
+    }
+    destruct(actor);
+}

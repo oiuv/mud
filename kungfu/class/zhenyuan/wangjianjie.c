@@ -108,7 +108,7 @@ LONG);
     setup();
 
     carry_object("/clone/misc/cloth")->wear();
-    set_temp("handing", carry_object("/d/beijing/npc/obj/jinbiao"));
+    set_temp("handing", carry_object("/d/items/throwing/jinbiao"));
 }
 
 void attempt_apprentice(object me) {
