@@ -91,7 +91,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new("/d/heimuya/npc/obj/bishou");
+            ob = new("/d/items/dagger/yueya_bi");
             ob->move(this_object());
             ob->wield();
         }

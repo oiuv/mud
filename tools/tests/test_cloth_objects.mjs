@@ -1,3 +1,5 @@
+import * as daggerMetadata from './dagger_inventory.mjs';
+import { prepareDagger } from './dagger/fixtures.mjs';
 // Real-driver regression in a disposable mudlib; never boots the live game.
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -42,21 +44,22 @@ const food = process.argv.includes('--food');
 const sword = process.argv.includes('--sword');
 const liquid = process.argv.includes('--liquid');
 const blade = process.argv.includes('--blade');
+const dagger = process.argv.includes('--dagger');
 const whip = process.argv.includes('--whip');
 const staff = process.argv.includes('--staff');
 const hammer = process.argv.includes('--hammer');
 const equip = process.argv.includes('--equip');
 const villageStartup = process.argv.includes('--village-startup');
 const cloneCommand = process.argv.includes('--clone-command');
-assert.ok(!cloneCommand || !['--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only', '--village-startup']
+assert.ok(!cloneCommand || !['--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only', '--village-startup']
     .some(flag => process.argv.includes(flag)), '--clone-command is a separate command regression');
-assert.ok(!villageStartup || !['--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only']
+assert.ok(!villageStartup || !['--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only']
     .some(flag => process.argv.includes(flag)), '--village-startup is a separate startup regression');
-const metadata = whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
-const label = whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
+const metadata = dagger ? daggerMetadata : whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
+const label = dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
 const { canonicalGroups, migrationPaths } = metadata;
-const original = whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
-const canonicalBaseline = whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
+const original = dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
+const canonicalBaseline = dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -76,6 +79,7 @@ for (const file of ['d/items/liquid.lpc', 'd/items/liquid_data.h']) if (existsSy
 for (const file of ['d/items/blade.lpc', 'd/items/blade_data.h']) if (existsSync(join(root, file))) copy(file);
 for (const file of ['d/items/equip.lpc', 'd/items/equip_data.h']) if (existsSync(join(root, file))) copy(file);
 for (const file of ['d/items/hammer.lpc', 'd/items/hammer_data.h']) if (existsSync(join(root, file))) copy(file);
+for (const file of ['d/items/dagger.lpc', 'd/items/dagger_data.h']) if (existsSync(join(root, file))) copy(file);
 for (const file of ['d/items/whip.lpc', 'd/items/whip_data.h']) if (existsSync(join(root, file))) copy(file);
 for (const file of ['d/items/staff.lpc', 'd/items/staff_data.h']) if (existsSync(join(root, file))) copy(file);
 cpSync(join(root, 'tools/tests/cloth'), join(sandbox, 'tests'), { recursive: true });
@@ -113,14 +117,19 @@ if (liquid) {
     if (!process.argv.includes('--baseline-only') && !process.argv.includes('--bench'))
         prepareLiquid(root, sandbox, copy);
 }
-if (sword || blade || hammer || staff || whip) {
+// Historical shop fixtures need removed DAGGER files only inside this disposable copy.
+if (sword || blade || hammer || staff || whip) for (const row of daggerMetadata.readBaseline().varieties) {
+    const target = join(sandbox, row.old_path.slice(1) + '.c');
+    mkdirSync(dirname(target), { recursive: true }); writeFileSync(target, row.source);
+}
+if (sword || blade || hammer || staff || whip || dagger) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
-    cpSync(join(root, `tools/tests/${whip ? 'whip' : staff ? 'staff' : hammer ? 'hammer' : blade ? 'blade' : 'sword'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
+    cpSync(join(root, `tools/tests/${dagger ? 'dagger' : whip ? 'whip' : staff ? 'staff' : hammer ? 'hammer' : blade ? 'blade' : 'sword'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
     for (const file of ['master.lpc', 'benchmark.lpc']) {
         const target = join(sandbox, 'tests', file);
         writeFileSync(target, readFileSync(target, 'utf8').replaceAll('CLOTH', label));
     }
-    (whip ? prepareWhip : staff ? prepareStaff : hammer ? prepareHammer : blade ? prepareBlade : prepareSword)(root, sandbox, copy);
+    (dagger ? prepareDagger : whip ? prepareWhip : staff ? prepareStaff : hammer ? prepareHammer : blade ? prepareBlade : prepareSword)(root, sandbox, copy);
 }
 if (food) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
@@ -250,7 +259,7 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
 const rows = villageStartup || cloneCommand ? [] : canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
-    (whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
+    (dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
         hands ? ['jinjie', 'jinjie2', 'shaolin_shoutao', 'jinsi_shoutao'].includes(row.id) :
         headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
         boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
@@ -262,7 +271,7 @@ for (const row of rows) {
     mkdirSync(dirname(join(sandbox, path)), { recursive: true });
     writeFileSync(join(sandbox, path), source);
 }
-writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
+writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
     ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight),
         ...(equip || liquid ? [Number(!!row.setup)] : [])]
     : [row.old_path, row.new_path])));
@@ -312,10 +321,10 @@ if (process.argv.includes('--bench')) {
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+console.log(result.output.split('\n').filter(line => /DAGGER|WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
+if (dagger || whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },

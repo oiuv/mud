@@ -76,7 +76,7 @@ LONG);
     setup();
 
     carry_object("/d/items/cloth/riyue_jinpao")->wear();
-    carry_object("/d/meizhuang/obj/panguanbi")->wield();
+    carry_object("/d/items/dagger/panguanbi3")->wield();
 }
 
 void attempt_apprentice(object ob) {

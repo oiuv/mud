@@ -30,6 +30,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__ "obj/fenshuici")->wield();
+    carry_object("/d/items/dagger/fenshuici")->wield();
     carry_object("/d/items/cloth/yexing_shuikao")->wear();
 }

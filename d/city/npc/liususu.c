@@ -20,18 +20,18 @@ void create() {
 
     set("vendor_goods", ({
         __DIR__ "shanzi/shan-book",
-        __DIR__ "shanzi/yumao-shan",
-        __DIR__ "shanzi/tuan-shan",
-        __DIR__ "shanzi/zhe-shan",
-        __DIR__ "shanzi/yuban-shan",
-        __DIR__ "shanzi/chouwu-shan",
-        __DIR__ "shanzi/bajiao-shan",
-        __DIR__ "shanzi/tanxiang-shan",
+        "/d/items/dagger/yumao_shan",
+        "/d/items/dagger/tuanshan",
+        "/d/items/dagger/zheshan",
+        "/d/items/dagger/yuban_shan",
+        "/d/items/dagger/chouwu_shan",
+        "/d/items/dagger/bajiao_shan",
+        "/d/items/dagger/tanxiang_shan",
     }));
 
     setup();
     carry_object("/d/items/equip/guihua_shan")->wear();
-    set_temp("handing", carry_object("/d/city/npc/shanzi/tuan-shan"));
+    set_temp("handing", carry_object("/d/items/dagger/tuanshan"));
     add_money("silver", 2);
 }
 

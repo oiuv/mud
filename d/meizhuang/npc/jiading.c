@@ -33,6 +33,6 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/panguan-bi")->wield();
+    carry_object("/d/items/dagger/panguanbi2")->wield();
     carry_object("/d/items/cloth/qingyi2")->wield();
 }

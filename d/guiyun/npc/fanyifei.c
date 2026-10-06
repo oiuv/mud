@@ -41,6 +41,6 @@ void create() {
     set_temp("apply/attack", 25);
     set_temp("apply/damage", 25);
     setup();
-    carry_object("/d/meizhuang/npc/obj/panguan-bi")->wield();
+    carry_object("/d/items/dagger/panguanbi2")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

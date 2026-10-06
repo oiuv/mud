@@ -31,6 +31,6 @@ void create() {
     set("jiali", 50);
 
     setup();
-    carry_object(__DIR__ "obj/bi")->wield();
+    carry_object("/d/items/dagger/panguanbi")->wield();
     carry_object("/d/items/cloth/pi_beixin2")->wear();
 }

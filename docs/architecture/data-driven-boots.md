@@ -27,7 +27,8 @@ ID 只需简洁地识别物品，实际变体可用稳定编号，不拼接所�
 17 处静态调用及钱正伦 `feet`、道相 `sengxie` 动态入口统一使用新路径；
 领取口令、限额、门派条件和领取后属性覆盖不变。吴修文的防具列表无鞋，道尘仅发武器，均不改动。
 3 份麻鞋（`d/lanzhou/npc/obj/shoes.c`、`d/lanzhou/obj/shoes.c`、`d/village/npc/obj/shoes.c`）
-没有 `setup()`；`d/city/npc/cloth/shoes.c` 直接继承 EQUIP，仍保留原实现，不混入本表。
+没有 `setup()`，仍保留原实现；`d/city/npc/cloth/shoes.c` 原来直接继承 EQUIP，已在后续
+EQUIP 批次迁移，不混入 BOOTS 表。当前保留项及其他目录候选统一见[剩余物品清单](data-driven-items-pending.md)。
 
 `node tools/tests/boots_inventory.mjs` 核对每份原源码和哈希；
 `node tools/tests/audit_boots_migration.mjs` 核对调用、数据、排除项及无旧路径入口。

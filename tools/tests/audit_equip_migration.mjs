@@ -1,3 +1,4 @@
+import { afterDaggerMigration } from './dagger_inventory.mjs';
 import { afterWhipMigration } from './whip_inventory.mjs';
 import { afterStaffMigration } from './staff_inventory.mjs';
 import { afterHammerMigration } from './hammer_inventory.mjs';
@@ -42,7 +43,7 @@ for (const o of data.observations) {
 for (const [file, source] of Object.entries(data.callers)) assert.equal(source, original(file), 'Frozen caller: ' + file);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, expectedCaller(file), semantic), semantic), semantic)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic)), file);
         const newPaths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {
             if (!newPaths.has(hit.new_path)) newPaths.set(hit.new_path, new Set());

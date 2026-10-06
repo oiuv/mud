@@ -17,8 +17,8 @@ LONG
 
     set("objects", ([
         CLASS_D("meizhuang") + "/tubi": 1,
-        __DIR__ "obj/maobi": 2,
-        __DIR__ "obj/panguanbi": 1,
+        "/d/items/dagger/maobi": 2,
+        "/d/items/dagger/panguanbi3": 1,
     ]));
 
     set("outdoors", "meizhuang");

@@ -38,6 +38,6 @@ void create() {
 
     setup();
     carry_object("/clone/cloth/jinduan")->wear();
-    carry_object("/d/city/npc/shanzi/zhe-shan")->wield();
+    carry_object("/d/items/dagger/zheshan")->wield();
     add_money("silver", 2);
 }

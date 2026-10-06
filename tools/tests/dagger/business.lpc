@@ -1,0 +1,216 @@
+// Included by the isolated regression; game methods are supplied by business.mjs.
+void check_qian() {
+    object actor, npc, item;
+    string prefix, path, kind, mark;
+    mapping branches;
+    mixed err;
+
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->delete("family"); actor->delete_temp("mark"); actor->select_npc(npc, "do_yao");
+        actor->run_command("testnpc dagger");
+        check(!sizeof(all_inventory(actor)) && !npc->issued("dagger"), "qian sect restriction");
+        actor->set("family/family_name", "八卦门"); actor->set_temp("mark/zhenyuan_weapon", 3);
+        actor->run_command("testnpc dagger"); check(!npc->issued("dagger"), "qian player quota");
+        actor->delete_temp("mark"); actor->run_command("testnpc dagger");
+        path = prefix == "" ? "/d/items/dagger/bishou" : "/d/beijing/npc/obj/dagger";
+        item = present("dagger", actor);
+        check(objectp(item) && base_name(item) == path && item->query("no_sell") && item->query("value") == 50 &&
+            npc->issued("dagger") == 1 && actor->query_temp("mark/zhenyuan_weapon") == 1, "qian issue and instance overrides");
+        check(
+            load_object(path)->query("value") == 50 && !load_object(path)->query("no_sell"),
+            "qian blueprint unchanged"
+        );
+        actor->run_command("testnpc dagger"); actor->run_command("testnpc dagger");
+        check(sizeof(all_inventory(actor)) == 2 && npc->issued("dagger") == 2 && actor->query_temp("mark/zhenyuan_weapon") == 2,
+            "qian exhausted stock does not increment");
+        clear_inventory(actor); destruct(npc);
+    }
+    branches = ([ "sword": "/d/items/sword/changjian", "blade": "/d/items/blade/gangdao",
+        "hammer": "/d/items/hammer/tiechui", "staff": "/d/items/staff/chanzhang",
+        "whip": "/d/items/whip/pibian", "feet": "/d/items/boots/zhanxue",
+        "helmet": "/d/items/headwear/gangkui", "body": "/d/beijing/npc/obj/body",
+        "throwing": "/d/beijing/npc/obj/throwing" ]);
+    foreach (prefix in ({ "/tests/old", "" })) foreach (kind, path in branches) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->select_npc(npc, "do_yao"); actor->delete_temp("mark");
+        actor->run_command("testnpc " + kind); item = all_inventory(actor)[0];
+        mark = member_array(
+            kind,
+            ({ "feet", "helmet", "body", "waist" })
+        ) >= 0 ? "mark/zhenyuan_armor" : "mark/zhenyuan_weapon";
+        // Original COMBINED_ITEM move recalculates throwing value from its absent base_value.
+        check(base_name(item) == path && item->query("value") == (kind == "throwing" ? 0 : 50) && item->query("no_sell") &&
+            actor->query_temp(mark) == 1 && npc->issued(kind) == 1, "qian other branch " + kind);
+        if (kind == "throwing") check(
+            item->query_amount() == 20,
+            "qian throwing quantity unchanged"
+        );
+        actor->set_temp(mark, 3); actor->run_command("testnpc " + kind);
+        check(
+            sizeof(all_inventory(actor)) == 1 && npc->issued(kind) == 1,
+            "qian original quota " + kind
+        );
+        clear_inventory(actor); destruct(npc);
+    }
+    // Existing missing waist object is outside this migration; do not silently repair its behavior.
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->select_npc(npc, "do_yao"); actor->delete_temp("mark");
+        err = catch(actor->run_command("testnpc waist"));
+        check(!!err && !sizeof(all_inventory(actor)) && npc->issued("waist") == 1 &&
+            actor->query_temp("mark/zhenyuan_armor") == 1, "qian preexisting missing waist behavior unchanged");
+        destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_actual_rooms() {
+    mapping record, old_stock, stock, paths, selected;
+    object before, after, room, item, actor;
+    string path, target;
+    int count, expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor");
+    foreach (record in json_decode(read_file("/tests/dagger-rooms.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        old_stock = before->query("objects"); stock = after->query("objects");
+        check(sizeof(old_stock) == sizeof(stock), "room stock mapping size");
+        foreach (path, count in old_stock) {
+            target = paths[path] ? paths[path] : path;
+            check(stock[target] == count, "room original stock count");
+        }
+        foreach (room in ({ before, after })) {
+            selected = ([]); expected = 0;
+            foreach (path, count in old_stock) if (paths[path]) {
+                selected[room == before ? path : paths[path]] = count; expected += count;
+            }
+            room->set("objects", selected); room->reset();
+            check(sizeof(all_inventory(room)) == expected, "actual room reset selected stock");
+            foreach (item in all_inventory(room)) check(
+                !undefinedp(selected[base_name(item)]),
+                "room creates correct identity"
+            );
+            if (!expected) { destruct(room); continue; }
+            item = all_inventory(room)[0]; destruct(item); room->reset();
+            check(sizeof(all_inventory(room)) == expected, "room recreates only destroyed stock");
+            item = all_inventory(room)[0]; item->move(actor, 1); room->reset();
+            check(
+                sizeof(all_inventory(room)) == expected - 1,
+                "room does not duplicate carried stock"
+            );
+            clear_inventory(room); clear_inventory(actor); destruct(room);
+        }
+    }
+    destruct(actor);
+}
+
+void check_actual_shops() {
+    object actor, vendor, item;
+    mapping paths, record;
+    string prefix, path, target, id;
+    string *goods, *original_goods, *expected_goods;
+    int money, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (record in json_decode(read_file("/tests/dagger-shops.json"))) {
+        original_goods = 0;
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + record["fixture"]); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                expected_goods = ({});
+                foreach (path in original_goods) expected_goods += ({ paths[path] ? paths[path] : path });
+                check(same_value(goods, expected_goods), "actual shop stock order unchanged");
+            }
+            actor->select_vendor(vendor); tested = 0;
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                id = load_object(target)->query("id");
+                check(vendor->is_vendor_good(id) == target, "actual shop lookup");
+                MONEY_D->pay_player(
+                    actor,
+                    target->query("value") + 100000
+                ); money = actor->cash_value();
+                vendor->enough_rest(); actor->run_command("testbuy " + id); item = present(
+                    id,
+                    actor
+                );
+                check(objectp(item) && base_name(item) == target, "actual shop delivery");
+                check(
+                    money - actor->cash_value() == target->query("value"),
+                    "actual shop original price"
+                );
+                actor->run_command("testbuy " + id);
+                check(sizeof(filter_array(all_inventory(actor), (: !$1->query("money_id") :))) == 1,
+                    "actual shop cooldown prevents immediate second purchase");
+                clear_inventory(actor); tested++;
+            }
+            check(tested == record["count"], "all selected shop goods exercised");
+            clear_inventory(vendor); destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, weapon;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/dagger-equipment.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        check(sizeof(all_inventory(before)) == 1 && sizeof(all_inventory(after)) == 1,
+            "actual NPC selected inventory count");
+        weapon = all_inventory(before)[0];
+        check(base_name(all_inventory(after)[0]) == paths[base_name(weapon)],
+            record["file"] + " actual carry_object identity");
+        check(!!before->query_temp("weapon") == !!after->query_temp("weapon"),
+            "carried-only dagger does not become wielded");
+        check(!!before->query_temp("handing") == !!after->query_temp("handing"),
+            "handing state preserved");
+        if (record["file"] == "d/city/npc/liususu.c")
+            check(after->query_temp("handing") == all_inventory(after)[0] &&
+                !after->query_temp("weapon"), "Liu only holds the fan");
+        compare(weapon, all_inventory(after)[0], "actual NPC weapon parity");
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "actual NPC weapon bonuses"
+        );
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+
+void check_ying() {
+    object npc, unique, holder, weapon;
+    string prefix, target;
+    int occupied;
+
+    foreach (prefix in ({ "/tests/old", "" })) {
+        for (occupied = 0; occupied < 2; occupied++) {
+            holder = new("/tests/actor");
+            unique = load_object("/clone/lonely/yuchang");
+            if (occupied) unique->move(holder, 1);
+            npc = new(prefix + "/tests/dagger_ying");
+            weapon = npc->query_temp("weapon");
+            target = occupied ? (prefix == "" ? "/d/items/dagger/yueya_bi" :
+                "/d/heimuya/npc/obj/bishou") : "/clone/lonely/yuchang";
+            check(objectp(weapon) && base_name(weapon) == target &&
+                environment(weapon) == npc && weapon->query("equipped") == "wielded",
+                "Ying original unique/backup branch move and wield");
+            check(sizeof(all_inventory(npc)) == 1 &&
+                npc->query_temp("apply/damage") == weapon->query("weapon_prop/damage"),
+                "Ying exactly one weapon and bonus");
+            if (occupied) check(weapon != unique && environment(unique) == holder,
+                "occupied unique weapon remains with owner");
+            else check(weapon == unique && !clonep(weapon), "free unique blueprint is used");
+            clear_inventory(npc); destruct(npc);
+            clear_inventory(holder); destruct(holder);
+        }
+    }
+}

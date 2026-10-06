@@ -1,3 +1,4 @@
+import { afterDaggerMigration } from './dagger_inventory.mjs';
 import { afterWhipMigration } from './whip_inventory.mjs';
 import { afterStaffMigration } from './staff_inventory.mjs';
 // Strict frozen-source/caller/effective-identity audit; no live records.
@@ -15,7 +16,7 @@ assert.equal(data.hits.length, 55); assert.equal(new Set(data.hits.map(h => h.fi
 assert.equal(data.dynamic.length, 6); assert.equal(Object.keys(data.callers).length, 46);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWhipMigration(file, afterStaffMigration(file, expectedCaller(file), semantic), semantic)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, expectedCaller(file), semantic), semantic), semantic)), file);
         assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller: ' + file);
         const paths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {
@@ -35,7 +36,7 @@ if (!process.argv.includes('--baseline-only')) {
         assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special hammer changed: ' + file);
     }
     for (const { file } of data.dynamic) if (!data.callers[file])
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWhipMigration(file, afterStaffMigration(file, original(file), semantic), semantic)), 'Unrelated dynamic clue changed: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, original(file), semantic), semantic), semantic)), 'Unrelated dynamic clue changed: ' + file);
 }
 const normalize = value => Array.isArray(value) ? value.map(normalize) : value && typeof value === 'object'
     ? Object.fromEntries(Object.entries(value).filter(([k]) => k !== 'id').sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => [k, normalize(v)])) : value;

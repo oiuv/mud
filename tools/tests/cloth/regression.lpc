@@ -31,6 +31,20 @@ int same_value(mixed left, mixed right) {
     return save_variable(left) == save_variable(right);
 }
 
+mixed expected_display(object before, object after, string key, mixed text) {
+    if (!stringp(text)) return text;
+    if (base_name(before) == "/d/beijing/npc/obj/dagger" &&
+        base_name(after) == "/d/items/dagger/bishou" && key == "long")
+        return replace_string(text, "看起相当普通", "看起来相当普通");
+    if (base_name(before) == "/d/city/npc/shanzi/tuan-shan" &&
+        base_name(after) == "/d/items/dagger/tuanshan" && key == "long")
+        return replace_string(text, "制作的团宫", "制作的团扇");
+    if (base_name(before) == "/d/jingzhou/obj/dagger" &&
+        base_name(after) == "/d/items/dagger/bishou3" && key == "unwield_msg")
+        return replace_string(text, "放会兜里", "放回兜里");
+    return text;
+}
+
 void compare(object before, object after, string label) {
     mapping properties;
     mixed expected;
@@ -41,7 +55,7 @@ void compare(object before, object after, string label) {
     if (!stringp(before->query("short")))
         expected_short = replace_string(expected_short, "(" + before->query("id") + ")",
             "(" + after->query("id") + ")");
-    expected_long = before->long();
+    expected_long = expected_display(before, after, "long", before->long());
     if (!stringp(before->query("long")))
         expected_long = replace_string(expected_long, before->short(), expected_short);
     check(expected_short == after->short(), label + " short with canonical input ID");
@@ -54,7 +68,7 @@ void compare(object before, object after, string label) {
         if (key == "id")
             check(after->id(before->query("id")), label + " former primary input remains usable");
         else {
-            expected = before->query(key, 1);
+            expected = expected_display(before, after, key, before->query(key, 1));
             // Approved display typo only; old objects and frozen observations stay unchanged.
             if (key == "wield_msg" && stringp(expected) &&
                 strsrch(base_name(before), "/d/death/obj/weapon") == 0 &&

@@ -74,7 +74,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/xueshan/obj/gushan")->wield();
+    carry_object("/d/items/dagger/tiegu_shan")->wield();
     carry_object("/d/items/equip/tuanjin_gua")->wear();
 }
 

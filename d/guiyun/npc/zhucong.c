@@ -62,6 +62,6 @@ void create() {
     ]));
 
     setup();
-    carry_object(__DIR__ "obj/zheshan")->wield();
+    carry_object("/d/items/dagger/zheshan2")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

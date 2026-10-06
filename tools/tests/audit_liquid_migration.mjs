@@ -1,3 +1,4 @@
+import { afterDaggerMigration } from './dagger_inventory.mjs';
 import { afterWhipMigration } from './whip_inventory.mjs';
 import { afterStaffMigration } from './staff_inventory.mjs';
 import { afterHammerMigration } from './hammer_inventory.mjs';
@@ -32,7 +33,7 @@ for (const { file, source_hash } of data.excluded)
     assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special liquid changed: ' + file);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic), semantic)), file);
         assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller: ' + file);
         const paths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {
@@ -48,7 +49,7 @@ if (!process.argv.includes('--baseline-only')) {
         for (const suffix of ['.c', '.lpc']) assert.equal(existsSync(join(root, row.new_path.slice(1) + suffix)), false);
     }
     for (const { file } of data.dynamic) if (!data.callers[file])
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, original(file), semantic), semantic), semantic), semantic), semantic)), 'Unrelated dynamic clue changed: ' + file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDaggerMigration(file, afterWhipMigration(file, afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, original(file), semantic), semantic), semantic), semantic), semantic), semantic)), 'Unrelated dynamic clue changed: ' + file);
 }
 console.log(`LIQUID AUDIT PASS: 74 originals -> ${canonicalGroups().length} effective varieties; 4 setup / 70 no setup; honey unchanged`
     + (process.argv.includes('--baseline-only') ? '; migration not checked' : '; 87 callers, 99 references; no collisions, old files or shells'));
