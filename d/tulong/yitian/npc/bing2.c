@@ -29,7 +29,7 @@ void create() {
     set_temp("apply/armor", 60);
 
     setup();
-    carry_object("/d/tulong/yitian/npc/obj/spear")->wield();
+    carry_object("/d/items/club/bintie_qiang")->wield();
     carry_object("/d/items/cloth/bingfu")->wear();
 }
 void init() {

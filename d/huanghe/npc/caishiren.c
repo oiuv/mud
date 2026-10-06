@@ -16,6 +16,6 @@ void create() {
     set("attitude", "peaceful");
 
     setup();
-    carry_object(__DIR__ "obj/tieqiao")->wield();
+    carry_object("/d/items/club/tieqiao")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

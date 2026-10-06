@@ -31,6 +31,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__ "obj/fork")->wield();
+    carry_object("/d/items/club/sangu_cha")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

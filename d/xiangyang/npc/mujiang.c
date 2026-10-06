@@ -18,7 +18,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/sword/mujian3",
         "/d/items/blade/mudao2",
-        __DIR__ "obj/mugun",
+        "/d/items/club/mugun",
     }));
     setup();
     carry_object("/clone/misc/cloth")->wear();

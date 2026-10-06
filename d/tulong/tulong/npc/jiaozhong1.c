@@ -17,5 +17,5 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/tianying_jiaofu")->wear();
-    carry_object("/d/tulong/tulong/npc/obj/flag")->wield();
+    carry_object("/d/items/club/daqi")->wield();
 }

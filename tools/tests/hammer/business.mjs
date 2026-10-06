@@ -1,3 +1,4 @@
+import { readBaseline as clubBaseline, migrationPaths as clubPaths } from '../club_inventory.mjs';
 import { readBaseline as daggerBaseline, migrationPaths as daggerPaths } from '../dagger_inventory.mjs';
 import { readBaseline as throwingBaseline, migrationPaths as throwingPaths } from '../throwing_inventory.mjs';
 import { readBaseline as whipBaseline, migrationPaths as whipPaths } from '../whip_inventory.mjs';
@@ -19,8 +20,8 @@ export function prepareBusiness(root, sandbox) {
         assert.ok(start >= 0 && end > start, signature);
         return source.slice(start, end);
     };
-    const read = file => throwingBaseline().varieties.find(row => row.old_path + '.c' === '/' + file)?.source ?? readFileSync(join(root, file), 'utf8');
-    put('tests/staff-migration-paths.json', JSON.stringify({ ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths() }));
+    const read = file => [...clubBaseline().varieties, ...throwingBaseline().varieties].find(row => row.old_path + '.c' === '/' + file)?.source ?? readFileSync(join(root, file), 'utf8');
+    put('tests/staff-migration-paths.json', JSON.stringify({ ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths(), ...clubPaths() }));
     const actor = join(sandbox, 'tests/actor.lpc');
     writeFileSync(actor, readFileSync(actor, 'utf8') + '\n'
         + 'int return_tool(string id) { return selected_npc->accept_object(this_object(), present(id, this_object())); }\n'

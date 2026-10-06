@@ -50,6 +50,6 @@ void create() {
 
     setup();
 
-    carry_object("/d/mingjiao/obj/qimeigun")->wield();
+    carry_object("/d/items/club/qimei_gun")->wield();
     carry_object("/d/items/cloth/baipao2")->wear();
 }

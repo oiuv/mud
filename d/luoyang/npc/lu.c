@@ -18,7 +18,7 @@ void create() {
     set("chat_chance", 20);
     set("vendor_goods", ({
         "/clone/weapon/mudao",
-        "/d/shaolin/obj/qimeigun",
+        "/d/items/club/qimei_gun",
         "/clone/weapon/zhujian",
     }));
 

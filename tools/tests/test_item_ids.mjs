@@ -1,3 +1,4 @@
+import * as club from './club_inventory.mjs';
 import * as throwing from './throwing_inventory.mjs';
 import * as dagger from './dagger_inventory.mjs';
 import * as whip from './whip_inventory.mjs';
@@ -29,25 +30,25 @@ const counts = { cloth: 148, boots: 8, headwear: 36 };
 const historicalNames = JSON.parse(execFileSync('git', ['show', 'b081c7ff:tools/tests/cloth/canonical_ids.json'],
     { cwd: root, encoding: 'utf8', windowsHide: true }));
 
-test('all 1195 historical paths resolve to registered varieties in one pass', () => {
-    const all = { ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing };
+test('all 1213 historical paths resolve to registered varieties in one pass', () => {
+    const all = { ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing, club };
     const pairs = Object.values(all).flatMap(m => Object.entries(m.migrationPaths()));
     const paths = Object.fromEntries(pairs);
     const targets = new Set(Object.values(all).flatMap(m => m.canonicalGroups().map(g => g.path)));
-    assert.equal(pairs.length, 1195);
-    assert.equal(Object.keys(paths).length, 1195);
-    assert.equal(targets.size, 722);
+    assert.equal(pairs.length, 1213);
+    assert.equal(Object.keys(paths).length, 1213);
+    assert.equal(targets.size, 739);
     for (const [oldPath, target] of pairs) {
         assert.ok(targets.has(target), oldPath);
         assert.equal(paths[target] ?? target, target, oldPath + ': no second conversion');
     }
 });
 
-test('all sixteen data tables and renderers use natural ID order without changing definitions or history', () => {
+test('all seventeen data tables and renderers use natural ID order without changing definitions or history', () => {
     const idsIn = source => [...source.matchAll(/^        "([a-z][a-z0-9_]*)": \(\[/gm)].map(m => m[1]);
     assert.deepEqual(['chahua10', 'buyi2', 'chahua2', 'buyi', 'chahua13', 'chahua1'].sort(compareItemIds),
         ['buyi', 'buyi2', 'chahua1', 'chahua2', 'chahua10', 'chahua13']);
-    for (const [family, metadata] of Object.entries({ ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing })) {
+    for (const [family, metadata] of Object.entries({ ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing, club })) {
         const snapshot = join(root, `tools/tests/${family}/baseline.json`);
         const savedBytes = readFileSync(snapshot);
         const groupsBefore = metadata.canonicalGroups();
@@ -57,7 +58,7 @@ test('all sixteen data tables and renderers use natural ID order without changin
         const actual = readFileSync(join(root, `d/items/${family}_data.h`), 'utf8');
         assert.deepEqual(idsIn(rendered), expected, family + ' generator order');
         assert.deepEqual(idsIn(actual), expected, family + ' file order');
-        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 70, liquid: 54, blade: 52, equip: 56, hammer: 40, staff: 32, whip: 25, dagger: 22, throwing: 26 })[family]);
+        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 70, liquid: 54, blade: 52, equip: 56, hammer: 40, staff: 32, whip: 25, dagger: 22, throwing: 26, club: 17 })[family]);
         assert.deepEqual(metadata.canonicalGroups(), groupsBefore, family + ' historical group order unchanged');
         assert.deepEqual(metadata.migrationPaths(), pathsBefore, family + ' migration unchanged');
         assert.deepEqual(readFileSync(snapshot), savedBytes, family + ' frozen baseline unchanged');

@@ -34,6 +34,6 @@ void create() {
     set("jiali", 50);
 
     setup();
-    carry_object("/d/hangzhou/honghua/obj/tiejiang")->wield();
+    carry_object("/d/items/club/tiejiang")->wield();
     carry_object("/d/items/cloth/tiejia2")->wear();
 }

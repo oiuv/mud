@@ -51,6 +51,20 @@ mixed expected_display(object before, object after, string key, mixed text) {
     if (base_name(before) == "/d/jingzhou/obj/dagger" &&
         base_name(after) == "/d/items/dagger/bishou3" && key == "unwield_msg")
         return replace_string(text, "放会兜里", "放回兜里");
+    if (strsrch(base_name(after), "/d/items/club/") == 0) {
+        if (key == "long" && member_array(
+            base_name(before),
+            ({ "/d/mingjiao/obj/qimeigun", "/d/shaolin/obj/qimeigun" })
+        ) >= 0)
+            return replace_string(text, "白腊棍", "白蜡棍");
+        if (key == "long" && base_name(before) == "/d/guiyun/npc/obj/gancheng")
+            return replace_string(text, "一杆闹市货物常用的杆秤。", "这是一杆称量货物用的杆秤。");
+        if (key == "wield_msg" && member_array(
+            base_name(before),
+            ({ "/d/death/obj/weapon4", "/d/death/obj/weapon5", "/d/death/obj/weapon10" })
+        ) >= 0)
+            return replace_string(text, "刹时雷声轰鸣", "霎时雷声轰鸣");
+    }
     return text;
 }
 

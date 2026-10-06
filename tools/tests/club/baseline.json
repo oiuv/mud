@@ -1,0 +1,2361 @@
+{
+  "baseline": "f4d88805d088d554fb59cdb60d1fb40f1d596484",
+  "count": 18,
+  "varieties": [
+    {
+      "old_path": "/d/beijing/npc/obj/mace",
+      "key": "beijing_npc_obj_mace",
+      "source_hash": "19949ef02f44ce9065bc38a442c046d7252cb0d349a14c5612178d791bbbcf77",
+      "name": [
+        "\"熟铜锏\"",
+        "({ \"copper mace\", \"mace\", \"coppermace\", \"tongjian\", \"jian\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"copper\""
+        ],
+        [
+          "\"long\"",
+          "\"一柄沉甸甸的熟铜锏，上面铜锈斑斑。\\n\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N举起一柄$n，在地上撞出点点火星。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N抹了抹$n上的锈，把它收了起来。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 0,
+      "id": "tongjian",
+      "new_path": "/d/items/club/tongjian",
+      "source": "#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(\"熟铜锏\", ({ \"copper mace\", \"mace\", \"coppermace\", \"tongjian\", \"jian\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"value\", 2000);\n        set(\"material\", \"copper\");\n        set(\"long\", \"一柄沉甸甸的熟铜锏，上面铜锈斑斑。\\n\");\n        set(\"wield_msg\", \"$N举起一柄$n，在地上撞出点点火星。\\n\");\n        set(\"unwield_msg\", \"$N抹了抹$n上的锈，把它收了起来。\\n\");\n    }\n\n    init_club(25);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon1",
+      "key": "death_obj_weapon1",
+      "source_hash": "99db5b82e7858fa0c746229e251295b73f7611b9c6a9ad1f4829e400b3e44dc8",
+      "name": [
+        "HIY \"如意盘龙棍\" NOR",
+        "({ \"panlong gun\", \"gun\", \"panlong\" })"
+      ],
+      "weight": "8000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "250000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"一根沉甸甸雕着盘龙的长棍。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 50,
+      "flags": 0,
+      "id": "panlong_gun",
+      "new_path": "/d/items/club/panlong_gun",
+      "source": "#include <ansi.h>\n\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIY \"如意盘龙棍\" NOR, ({ \"panlong gun\", \"gun\", \"panlong\" }));\n    set_weight(8000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 250000);\n        set(\"material\", \"steel\");\n        set(\"long\", \"一根沉甸甸雕着盘龙的长棍。\\n\");\n    }\n    init_club(50);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon10",
+      "key": "death_obj_weapon10",
+      "source_hash": "8dec7007684bea0c54a9ccbc9edbb026cde7129aa50c0482edd22447d32f6668",
+      "name": [
+        "HIC \"定海神针·破九域\" NOR",
+        "({ \"po jiuyu\", \"club\", \"gun\", \"shenzhen\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"支\""
+        ],
+        [
+          "\"value\"",
+          "3400000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n定海神针·破九域乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 220,
+      "flags": 0,
+      "id": "dinghai_zhen",
+      "new_path": "/d/items/club/dinghai_zhen",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIC \"定海神针·破九域\" NOR, ({ \"po jiuyu\", \"club\", \"gun\", \"shenzhen\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"支\");\n        set(\"value\", 3400000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n定海神针·破九域乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR);\n    }\n    init_club(220);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon2",
+      "key": "death_obj_weapon2",
+      "source_hash": "0a70cc6c83db49a21b8101c46f74c4c95ba965b2f33194950890fe01bb814a62",
+      "name": [
+        "HIR \"方天画戟\" NOR",
+        "({ \"fangtian huaji\", \"huaji\", \"ji\" })"
+      ],
+      "weight": "15000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"value\"",
+          "500000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"一杆玄铁打制的方天画戟，传说是三国名将吕布所用过的武器。\\n\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N提起$n握在手中，威风凛凛。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 75,
+      "flags": 0,
+      "id": "fangtian_ji",
+      "new_path": "/d/items/club/fangtian_ji",
+      "source": "#include <ansi.h>\n\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIR \"方天画戟\" NOR, ({ \"fangtian huaji\", \"huaji\", \"ji\" }));\n    set_weight(15000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"value\", 500000);\n        set(\"material\", \"steel\");\n        set(\"long\", \"一杆玄铁打制的方天画戟，传说是三国名将吕布所用过的武器。\\n\");\n        set(\"wield_msg\", \"$N提起$n握在手中，威风凛凛。\\n\");\n    }\n    init_club(75);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon3",
+      "key": "death_obj_weapon3",
+      "source_hash": "1281f776f9ecc5ce0b0c13f66feb856f8b083273ee0434f4c328a4c15204dba7",
+      "name": [
+        "HIR \"天雷神挡\" NOR",
+        "({ \"tianlei shendang\", \"tianlei\", \"shendang\", \"dang\" })"
+      ],
+      "weight": "10000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"value\"",
+          "1200000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"一杆上古神木所铸造的棍子，乃不世之神兵。\\n\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N提起$n握在手中，威风凛凛。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 120,
+      "flags": 0,
+      "id": "tianlei_dang",
+      "new_path": "/d/items/club/tianlei_dang",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIR \"天雷神挡\" NOR, ({ \"tianlei shendang\", \"tianlei\", \"shendang\", \"dang\" }));\n    set_weight(10000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"value\", 1200000);\n        set(\"material\", \"steel\");\n        set(\"long\", \"一杆上古神木所铸造的棍子，乃不世之神兵。\\n\");\n        set(\"wield_msg\", \"$N提起$n握在手中，威风凛凛。\\n\");\n    }\n    init_club(120);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon4",
+      "key": "death_obj_weapon4",
+      "source_hash": "15044dff6508a994f8fd4c25150af58334f767e2595c744ee3cd8fa39927b9a0",
+      "name": [
+        "WHT \"玄天棍·鬼虐\" NOR",
+        "({ \"gui nue\", \"club\", \"gun\", \"xuantian gun\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"value\"",
+          "3000000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n玄天棍·鬼虐乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 200,
+      "flags": 0,
+      "id": "xuantian_gun",
+      "new_path": "/d/items/club/xuantian_gun",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(WHT \"玄天棍·鬼虐\" NOR, ({ \"gui nue\", \"club\", \"gun\", \"xuantian gun\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"value\", 3000000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n玄天棍·鬼虐乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR);\n    }\n    init_club(200);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon5",
+      "key": "death_obj_weapon5",
+      "source_hash": "1856b219ca732f9bba24fc9868e841af74a56d27a7acdcf7e52a0c854a37a825",
+      "name": [
+        "HIW \"如意棍·千钧\" NOR",
+        "({ \"qian jun\", \"ruyi gun\", \"club\", \"gun\" })"
+      ],
+      "weight": "20000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"value\"",
+          "2400000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n如意棍·千钧乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 160,
+      "flags": 0,
+      "id": "ruyi_gun",
+      "new_path": "/d/items/club/ruyi_gun",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIW \"如意棍·千钧\" NOR, ({ \"qian jun\", \"ruyi gun\", \"club\", \"gun\" }));\n    set_weight(20000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"value\", 2400000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n如意棍·千钧乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直慑九霄。\\n\" NOR);\n    }\n    init_club(160);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/guiyun/npc/obj/gancheng",
+      "key": "guiyun_npc_obj_gancheng",
+      "source_hash": "ff0fabf25fc0f15f0250b2e1ef19842e773deab33addeca6c7b89b57c86265bb",
+      "name": [
+        "\"杆秤\"",
+        "({ \"gan cheng\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"long\"",
+          "\"一杆闹市货物常用的杆秤。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1500"
+        ],
+        [
+          "\"rigidity\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一杆$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 5,
+      "flags": 0,
+      "id": "gancheng",
+      "new_path": "/d/items/club/gancheng",
+      "source": "// gancheng.c\n\n#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"杆秤\", ({ \"gan cheng\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"long\", \"一杆闹市货物常用的杆秤。\\n\");\n        set(\"value\", 1500);\n        set(\"rigidity\", 100);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一杆$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n    }\n    init_club(5);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/hangzhou/honghua/obj/tiejiang",
+      "key": "hangzhou_honghua_obj_tiejiang",
+      "source_hash": "6f72b11688adb340f4f529e189d4995eda7a5965a30f1eb973505d1a1fb294b8",
+      "name": [
+        "\"铁桨\"",
+        "({ \"tie jiang\", \"jiang\" })"
+      ],
+      "weight": "3000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根铁桨，举可齐眉，看来很是沉重，可攻击大片敌人。\\n\""
+        ],
+        [
+          "\"value\"",
+          "200"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 30,
+      "flags": 0,
+      "id": "tiejiang",
+      "new_path": "/d/items/club/tiejiang",
+      "source": "// tiejiang.c\n#include <weapon.h>\n#include <ansi.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"铁桨\", ({ \"tie jiang\", \"jiang\" }));\n    set_weight(3000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根铁桨，举可齐眉，看来很是沉重，可攻击大片敌人。\\n\");\n        set(\"value\", 200);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n    }\n    init_club(30);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/heimuya/npc/obj/shutonggun",
+      "key": "heimuya_npc_obj_shutonggun",
+      "source_hash": "5e06843f9102cd9897a72f275c4aa0c5a2bc2686c3cb4894a7e4f63d237337b6",
+      "name": [
+        "HIY \"熟铜棍\" NOR",
+        "({ \"shutong gun\", \"shutong\", \"gun\", \"club\" })"
+      ],
+      "weight": "2000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"long\"",
+          "HIY \"一杆十分灵便的熟铜棍。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "HIY \"$N\" HIY \"回手从身后抽出一杆熟铜棍。\\n\" NOR"
+        ],
+        [
+          "\"unwield_msg\"",
+          "HIY \"$N\" HIY \"手往后一扣，把熟铜棍放在身后。\\n\" NOR"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 60,
+      "flags": 0,
+      "id": "shutong_gun",
+      "new_path": "/d/items/club/shutong_gun",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIY \"熟铜棍\" NOR, ({ \"shutong gun\", \"shutong\", \"gun\", \"club\" }));\n    set_weight(2000);\n\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"long\", HIY \"一杆十分灵便的熟铜棍。\\n\" NOR);\n        set(\"value\", 1000);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", HIY \"$N\" HIY \"回手从身后抽出一杆熟铜棍。\\n\" NOR);\n        set(\"unwield_msg\", HIY \"$N\" HIY \"手往后一扣，把熟铜棍放在身后。\\n\" NOR);\n    }\n    init_club(60);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/huanghe/npc/obj/fork",
+      "key": "huanghe_npc_obj_fork",
+      "source_hash": "40f05b4cd8a87e5466d66696b2ba4c1206e38c4b9fd12baeaf4573fab94146ea",
+      "name": [
+        "\"三股叉\"",
+        "({ \"sangu cha\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一杆三尖开刃的三股叉。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1500"
+        ],
+        [
+          "\"rigidity\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N掣出一杆$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n反别身后。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 15,
+      "flags": 0,
+      "id": "sangu_cha",
+      "new_path": "/d/items/club/sangu_cha",
+      "source": "// fork.c\n\n#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"三股叉\", ({ \"sangu cha\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"long\", \"这是一杆三尖开刃的三股叉。\\n\");\n        set(\"value\", 1500);\n        set(\"rigidity\", 100);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N掣出一杆$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n反别身后。\\n\");\n    }\n    init_club(15);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/huanghe/npc/obj/tieqiao",
+      "key": "huanghe_npc_obj_tieqiao",
+      "source_hash": "2e0d842f450d18fe6f1719b095ebc148958bbc2869c17e5ee929cc1c7d3525d6",
+      "name": [
+        "\"铁锹\"",
+        "({ \"tie qiao\", \"qiao\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把挖矿的铁锹。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回后腰。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 2,
+      "flags": 0,
+      "id": "tieqiao",
+      "new_path": "/d/items/club/tieqiao",
+      "source": "// tieqiao.c\n\n#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"铁锹\", ({ \"tie qiao\", \"qiao\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一把挖矿的铁锹。\\n\");\n        set(\"value\", 1000);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N「唰」的一声抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回后腰。\\n\");\n    }\n    init_club(2);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/lingjiu/npc/obj/diaogan",
+      "key": "lingjiu_npc_obj_diaogan",
+      "source_hash": "09d92b555c76dd611cdf4deb5980b1c11b5bf29d25031fba8b0c11d37a01151c",
+      "name": [
+        "\"钓竿\"",
+        "({ \"diao gan\", \"diao\", \"gan\" })"
+      ],
+      "weight": "3000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根桦木制的钓竿，制作得颇为奇特。\\n\""
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 35,
+      "flags": 0,
+      "id": "diaogan",
+      "new_path": "/d/items/club/diaogan",
+      "source": "#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"钓竿\", ({ \"diao gan\", \"diao\", \"gan\" }));\n    set_weight(3000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根桦木制的钓竿，制作得颇为奇特。\\n\");\n        set(\"value\", 50);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n        set(\"shaolin\", 1);\n    }\n    init_club(35);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/qimeigun",
+      "key": "mingjiao_obj_qimeigun",
+      "source_hash": "6d54fb58458de6d7d43a78b99fe25931201decfd1854aed56436871046a02c29",
+      "name": [
+        "\"齐眉棍\"",
+        "({ \"qimei gun\", \"gun\" })"
+      ],
+      "weight": "3000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\\n\""
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 15,
+      "flags": 0,
+      "id": "qimei_gun",
+      "new_path": "/d/items/club/qimei_gun",
+      "source": "#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"齐眉棍\", ({ \"qimei gun\", \"gun\" }));\n    set_weight(3000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\\n\");\n        set(\"value\", 50);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n        set(\"shaolin\", 1);\n    }\n    init_club(15);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "key": "shaolin_obj_qimeigun",
+      "source_hash": "6d54fb58458de6d7d43a78b99fe25931201decfd1854aed56436871046a02c29",
+      "name": [
+        "\"齐眉棍\"",
+        "({ \"qimei gun\", \"gun\" })"
+      ],
+      "weight": "3000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\\n\""
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ],
+        [
+          "\"shaolin\"",
+          "1"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 15,
+      "flags": 0,
+      "id": "qimei_gun",
+      "new_path": "/d/items/club/qimei_gun",
+      "source": "#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"齐眉棍\", ({ \"qimei gun\", \"gun\" }));\n    set_weight(3000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\\n\");\n        set(\"value\", 50);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n        set(\"shaolin\", 1);\n    }\n    init_club(15);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/tulong/tulong/npc/obj/flag",
+      "key": "tulong_tulong_npc_obj_flag",
+      "source_hash": "637796303dddfad020cb824f6866d940cd9aed7ab2307fee80e1f82ba7a079fc",
+      "name": [
+        "HIY \"大旗\" NOR",
+        "({ \"flag\", \"qi\" })"
+      ],
+      "weight": "15000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"面\""
+        ],
+        [
+          "\"long\"",
+          "\"旗上绣着一头大鹰，双翅伸展，甚是威武。\\n\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"material\"",
+          "\"silk\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N拿出一面$n，挥舞示意。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N放下手中的$n。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 10,
+      "flags": 0,
+      "id": "daqi",
+      "new_path": "/d/items/club/daqi",
+      "source": "#include <weapon.h>\n#include <ansi.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIY \"大旗\" NOR, ({ \"flag\", \"qi\" }));\n    set_weight(15000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"面\");\n        set(\"long\", \"旗上绣着一头大鹰，双翅伸展，甚是威武。\\n\");\n        set(\"value\", 300);\n        set(\"material\", \"silk\");\n        set(\"wield_msg\", \"$N拿出一面$n，挥舞示意。\\n\");\n        set(\"unwield_msg\", \"$N放下手中的$n。\\n\");\n    }\n    init_club(10);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/tulong/yitian/npc/obj/spear",
+      "key": "tulong_yitian_npc_obj_spear",
+      "source_hash": "cd982f6727a6f330458508688f6ee9c31f1e38a3022ad10edeafd600ae0e686e",
+      "name": [
+        "HIW \"镔铁长枪\" NOR",
+        "({ \"chang qiang\", \"qiang\", \"spear\" })"
+      ],
+      "weight": "15000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"支\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"material\"",
+          "\"silk\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 10,
+      "flags": 0,
+      "id": "bintie_qiang",
+      "new_path": "/d/items/club/bintie_qiang",
+      "source": "#include <weapon.h>\n#include <ansi.h>\n\ninherit CLUB;\n\nvoid create() {\n    set_name(HIW \"镔铁长枪\" NOR, ({ \"chang qiang\", \"qiang\", \"spear\" }));\n    set_weight(15000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"支\");\n        set(\"value\", 300);\n        set(\"material\", \"silk\");\n    }\n    init_club(10);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/xiangyang/npc/obj/mugun",
+      "key": "xiangyang_npc_obj_mugun",
+      "source_hash": "0e6cb6690353088f71d9377b03787e304059a84620318d10719feb4a7b0760d4",
+      "name": [
+        "\"木棍\"",
+        "({ \"mu gun\", \"club\", \"gun\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一杆木匠做的木棍，手工相当精细。\\n\""
+        ],
+        [
+          "\"value\"",
+          "50"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N从腰带里抽出一杆$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰带上。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 3,
+      "flags": 0,
+      "id": "mugun",
+      "new_path": "/d/items/club/mugun",
+      "source": "// mugun.c\n\n#include <weapon.h>\ninherit CLUB;\n\nvoid create() {\n    set_name(\"木棍\", ({ \"mu gun\", \"club\", \"gun\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"long\", \"这是一杆木匠做的木棍，手工相当精细。\\n\");\n        set(\"value\", 50);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N从腰带里抽出一杆$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰带上。\\n\");\n    }\n    init_club(3);\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 30,
+      "start": 752,
+      "end": 774,
+      "expression": "\"/d/death/obj/weapon1\"",
+      "old_path": "/d/death/obj/weapon1",
+      "new_path": "/d/items/club/panlong_gun"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 31,
+      "start": 784,
+      "end": 806,
+      "expression": "\"/d/death/obj/weapon2\"",
+      "old_path": "/d/death/obj/weapon2",
+      "new_path": "/d/items/club/fangtian_ji"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 32,
+      "start": 816,
+      "end": 838,
+      "expression": "\"/d/death/obj/weapon3\"",
+      "old_path": "/d/death/obj/weapon3",
+      "new_path": "/d/items/club/tianlei_dang"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 33,
+      "start": 848,
+      "end": 870,
+      "expression": "\"/d/death/obj/weapon4\"",
+      "old_path": "/d/death/obj/weapon4",
+      "new_path": "/d/items/club/xuantian_gun"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 34,
+      "start": 880,
+      "end": 902,
+      "expression": "\"/d/death/obj/weapon5\"",
+      "old_path": "/d/death/obj/weapon5",
+      "new_path": "/d/items/club/ruyi_gun"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 39,
+      "start": 1069,
+      "end": 1092,
+      "expression": "\"/d/death/obj/weapon10\"",
+      "old_path": "/d/death/obj/weapon10",
+      "new_path": "/d/items/club/dinghai_zhen"
+    },
+    {
+      "file": "d/guiyun/npc/quanjinfa.c",
+      "line": 61,
+      "start": 1513,
+      "end": 1535,
+      "expression": "__DIR__ \"obj/gancheng\"",
+      "old_path": "/d/guiyun/npc/obj/gancheng",
+      "new_path": "/d/items/club/gancheng"
+    },
+    {
+      "file": "d/hangzhou/honghua/jiang.c",
+      "line": 51,
+      "start": 1245,
+      "end": 1267,
+      "expression": "__DIR__ \"obj/tiejiang\"",
+      "old_path": "/d/hangzhou/honghua/obj/tiejiang",
+      "new_path": "/d/items/club/tiejiang"
+    },
+    {
+      "file": "d/huanghe/npc/caishiren.c",
+      "line": 19,
+      "start": 350,
+      "end": 371,
+      "expression": "__DIR__ \"obj/tieqiao\"",
+      "old_path": "/d/huanghe/npc/obj/tieqiao",
+      "new_path": "/d/items/club/tieqiao"
+    },
+    {
+      "file": "d/huanghe/npc/hou.c",
+      "line": 34,
+      "start": 786,
+      "end": 804,
+      "expression": "__DIR__ \"obj/fork\"",
+      "old_path": "/d/huanghe/npc/obj/fork",
+      "new_path": "/d/items/club/sangu_cha"
+    },
+    {
+      "file": "d/huanghe/npc/sha.c",
+      "line": 37,
+      "start": 859,
+      "end": 893,
+      "expression": "\"/d/hangzhou/honghua/obj/tiejiang\"",
+      "old_path": "/d/hangzhou/honghua/obj/tiejiang",
+      "new_path": "/d/items/club/tiejiang"
+    },
+    {
+      "file": "d/luoyang/npc/lu.c",
+      "line": 21,
+      "start": 506,
+      "end": 531,
+      "expression": "\"/d/shaolin/obj/qimeigun\"",
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    },
+    {
+      "file": "d/mingjiao/npc/wensong.c",
+      "line": 53,
+      "start": 1267,
+      "end": 1293,
+      "expression": "\"/d/mingjiao/obj/qimeigun\"",
+      "old_path": "/d/mingjiao/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    },
+    {
+      "file": "d/tulong/tulong/npc/jiaozhong1.c",
+      "line": 20,
+      "start": 567,
+      "end": 598,
+      "expression": "\"/d/tulong/tulong/npc/obj/flag\"",
+      "old_path": "/d/tulong/tulong/npc/obj/flag",
+      "new_path": "/d/items/club/daqi"
+    },
+    {
+      "file": "d/tulong/tulong/npc/jiaozhong2.c",
+      "line": 20,
+      "start": 567,
+      "end": 598,
+      "expression": "\"/d/tulong/tulong/npc/obj/flag\"",
+      "old_path": "/d/tulong/tulong/npc/obj/flag",
+      "new_path": "/d/items/club/daqi"
+    },
+    {
+      "file": "d/tulong/yitian/npc/bing1.c",
+      "line": 24,
+      "start": 618,
+      "end": 650,
+      "expression": "\"/d/tulong/yitian/npc/obj/spear\"",
+      "old_path": "/d/tulong/yitian/npc/obj/spear",
+      "new_path": "/d/items/club/bintie_qiang"
+    },
+    {
+      "file": "d/tulong/yitian/npc/bing2.c",
+      "line": 32,
+      "start": 867,
+      "end": 899,
+      "expression": "\"/d/tulong/yitian/npc/obj/spear\"",
+      "old_path": "/d/tulong/yitian/npc/obj/spear",
+      "new_path": "/d/items/club/bintie_qiang"
+    },
+    {
+      "file": "d/xiangyang/npc/mujiang.c",
+      "line": 21,
+      "start": 467,
+      "end": 486,
+      "expression": "__DIR__ \"obj/mugun\"",
+      "old_path": "/d/xiangyang/npc/obj/mugun",
+      "new_path": "/d/items/club/mugun"
+    },
+    {
+      "file": "kungfu/class/duan/fu.c",
+      "line": 65,
+      "start": 1708,
+      "end": 1739,
+      "expression": "\"/d/heimuya/npc/obj/shutonggun\"",
+      "old_path": "/d/heimuya/npc/obj/shutonggun",
+      "new_path": "/d/items/club/shutong_gun"
+    },
+    {
+      "file": "kungfu/class/lingjiu/li.c",
+      "line": 73,
+      "start": 1718,
+      "end": 1746,
+      "expression": "\"/d/lingjiu/npc/obj/diaogan\"",
+      "old_path": "/d/lingjiu/npc/obj/diaogan",
+      "new_path": "/d/items/club/diaogan"
+    },
+    {
+      "file": "kungfu/class/riyue/feng.c",
+      "line": 100,
+      "start": 2569,
+      "end": 2600,
+      "expression": "\"/d/heimuya/npc/obj/shutonggun\"",
+      "old_path": "/d/heimuya/npc/obj/shutonggun",
+      "new_path": "/d/items/club/shutong_gun"
+    },
+    {
+      "file": "kungfu/class/riyue/feng.c",
+      "line": 202,
+      "start": 5232,
+      "end": 5263,
+      "expression": "\"/d/heimuya/npc/obj/shutonggun\"",
+      "old_path": "/d/heimuya/npc/obj/shutonggun",
+      "new_path": "/d/items/club/shutong_gun"
+    },
+    {
+      "file": "kungfu/class/riyue/yun.c",
+      "line": 82,
+      "start": 2116,
+      "end": 2147,
+      "expression": "\"/d/heimuya/npc/obj/shutonggun\"",
+      "old_path": "/d/heimuya/npc/obj/shutonggun",
+      "new_path": "/d/items/club/shutong_gun"
+    },
+    {
+      "file": "kungfu/class/shaolin/cheng-ji.c",
+      "line": 64,
+      "start": 1412,
+      "end": 1437,
+      "expression": "\"/d/shaolin/obj/qimeigun\"",
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    },
+    {
+      "file": "kungfu/class/shaolin/cheng-ling.c",
+      "line": 60,
+      "start": 1282,
+      "end": 1307,
+      "expression": "\"/d/shaolin/obj/qimeigun\"",
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    },
+    {
+      "file": "kungfu/class/shaolin/hui-jie.c",
+      "line": 62,
+      "start": 1341,
+      "end": 1366,
+      "expression": "\"/d/shaolin/obj/qimeigun\"",
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    },
+    {
+      "file": "kungfu/class/shaolin/hui-xu.c",
+      "line": 63,
+      "start": 1376,
+      "end": 1401,
+      "expression": "\"/d/shaolin/obj/qimeigun\"",
+      "old_path": "/d/shaolin/obj/qimeigun",
+      "new_path": "/d/items/club/qimei_gun"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "line": 121,
+      "expression": "obj = new(__DIR__ \"obj/\" + arg);"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 85,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 99,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 107,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "callers": {
+    "d/death/npc/wangfangping.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"王方平\", ({ \"wang fangping\", \"wang\", \"fangping\" }));\n    set(\"title\", HIR \"冥府地藏王殿前\" NOR);\n    set(\"nickname\", WHT \"鬼王\" NOR);\n    set(\"shen_type\", 1);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 475);\n    set(\"long\", \"王方平本是山中道士，后在丰都山修炼成仙，御封「鬼王」。\\n\");\n\n    set_skill(\"unarmed\", 500);\n    set_skill(\"dodge\", 500);\n    set_skill(\"force\", 500);\n    set_skill(\"parry\", 500);\n    set_skill(\"magic\", 500);\n    set_temp(\"apply/damage\", 2000);\n    set_temp(\"apply/parry\", 2000);\n    set_temp(\"apply/dodge\", 2000);\n    set_temp(\"apply/attack\", 2000);\n    set_temp(\"apply/force\", 2000);\n\n    set(\"combat_exp\", 20000000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/death/obj/weapon1\",\n        \"/d/death/obj/weapon2\",\n        \"/d/death/obj/weapon3\",\n        \"/d/death/obj/weapon4\",\n        \"/d/death/obj/weapon5\",\n        \"/d/items/hammer/qixing_chui1\",\n        \"/d/items/hammer/qixing_chui2\",\n        \"/d/items/hammer/qixing_chui3\",\n        \"/d/items/hammer/poyu_chui\",\n        \"/d/death/obj/weapon10\",\n        \"/d/items/hammer/tianluo_chui\",\n        \"/d/items/hammer/dingyao_chui\",\n        \"/d/items/staff/panlong_zhang\",\n        \"/d/items/staff/jiuhuang_zhang\",\n        \"/d/items/staff/tianya_guai\",\n        \"/d/items/staff/baxian_zhang\",\n        \"/d/items/staff/qixing_zhang1\",\n        \"/d/items/staff/qixing_zhang2\",\n        \"/d/items/staff/qixing_zhang3\",\n        \"/d/items/staff/qixing_zhang4\",\n        \"/d/items/staff/laojun_zhang\",\n        \"/d/items/throwing/xianhe_zhen\",\n        \"/d/items/throwing/tianqiong_zhen\",\n        \"/d/items/throwing/longxiang_zhen\",\n        \"/d/items/throwing/leiting_zhen\",\n        \"/d/items/whip/chanhun_si\",\n        \"/d/items/whip/panlong_suo\",\n        \"/d/items/whip/liehuo_bian\",\n        \"/d/items/whip/qilin_bian\",\n        \"/d/items/whip/huntun_suo\",\n        \"/d/items/whip/xuanbing_suo\",\n        \"/d/items/whip/shenjiao_si1\",\n        \"/d/items/whip/shenjiao_si2\",\n        \"/d/items/whip/shenjiao_si3\",\n        \"/d/items/whip/shenjiao_si4\",\n        \"/d/items/whip/wulong_si\",\n        \"/d/items/dagger/yuchang_jian\",\n        \"/d/items/dagger/dulingzi\",\n        \"/d/items/dagger/qingyang_bi\",\n        \"/d/items/blade/queyue_ren\",\n        \"/d/items/blade/chanyi_dao\",\n        \"/d/items/blade/qiwang_dao\",\n        \"/d/items/blade/fenghuang_jue\",\n        \"/d/items/blade/yingdao\",\n        \"/d/items/blade/qinglong_ya\",\n        \"/d/items/blade/qingdiao_yuzhuo\",\n        \"/d/items/blade/wugui_ren\",\n        \"/d/items/blade/qisha_ren\",\n        \"/d/items/blade/jinyang_dao\",\n        \"/d/items/blade/bihai_jue\",\n        \"/d/items/blade/qing_tianyu1\",\n        \"/d/items/blade/qing_tianyu2\",\n        \"/d/items/blade/qing_tianyu3\",\n        \"/d/items/blade/xuanjin_zhan1\",\n        \"/d/items/blade/xuanjin_zhan2\",\n        \"/d/items/blade/xuanjin_zhan3\",\n        \"/d/items/blade/qiankun_dao1\",\n        \"/d/items/blade/qiankun_dao2\",\n        \"/d/items/blade/dizang_zhan\",\n        \"/d/items/sword/tianzun_jian\",\n        \"/d/items/sword/xuanyuan_jian\",\n        \"/d/items/sword/cangqiong_jian\",\n        \"/d/items/sword/guilong\",\n        \"/d/items/sword/taia\",\n        \"/d/items/sword/qilinjin1\",\n        \"/d/items/sword/qilinjin2\",\n        \"/d/items/sword/qilinjin3\",\n        \"/d/items/sword/longhuang_jian\",\n        \"/d/items/sword/fenghuang_qin\",\n        \"/d/items/sword/yanyang_chi\",\n        \"/d/items/sword/liangtian_chi\",\n        \"/d/items/sword/panlong_jian\",\n        \"/d/items/sword/qingsha_jian\",\n        \"/d/items/sword/tianyue_jian\",\n        \"/d/items/sword/qiyun_jian\",\n        \"/d/items/sword/gusong_jian\",\n        \"/d/items/sword/wuyang_jian\",\n        \"/d/items/sword/huanglong_jian\",\n        \"/d/items/sword/wugou_jian\",\n        \"/d/items/sword/guxing_jian\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/guiwang_pao\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/guiyun/npc/quanjinfa.c": "// quanjinfa.c\n#include <ansi.h>\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"全金发\", ({ \"quan jinfa\", \"quan\" }));\n    set(\"title\", \"江南七侠\");\n    set(\"nickname\", HIC \"闹市侠隐\" NOR);\n    set(\"long\", \"那人五短身材，头戴小毡帽，白净面皮，手里提了一杆秤，一\n个竹篓，似是个小商贩。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 25);\n    set(\"attitude\", \"peaceful\");\n    set(\"class\", \"fighter\");\n    set(\"shen_type\", 1);\n    set(\"per\", 18);\n    set(\"str\", 28);\n    set(\"int\", 28);\n    set(\"con\", 28);\n    set(\"dex\", 28);\n\n    set(\"max_qi\", 1200);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1200);\n    set(\"max_neili\", 1200);\n    set(\"jiali\", 20);\n    set(\"combat_exp\", 250000);\n    set(\"score\", 6000);\n\n    set_skill(\"force\", 65);\n    set_skill(\"taixuan-gong\", 65);\n    set_skill(\"dodge\", 65);\n    set_skill(\"lingxu-bu\", 65);\n    set_skill(\"unarmed\", 65);\n    set_skill(\"changquan\", 65);\n    set_skill(\"club\", 65);\n    set_skill(\"zhongping-qiang\", 65);\n\n    map_skill(\"force\", \"taixuan-gong\");\n    map_skill(\"dodge\", \"lingxu-bu\");\n    map_skill(\"unarmed\", \"changquan\");\n    map_skill(\"club\", \"zhongping-qiang\");\n    map_skill(\"parry\", \"zhongping-qiang\");\n\n    set(\"inquiry\", ([\n        \"郭靖\": \"靖儿是我们的乖徒儿！\\n\",\n        \"江南七侠\": \"七侠可不敢当，我们七兄妹江湖上有个匪号叫江南七怪！\\n\",\n        \"江南七怪\": \"七怪也是你叫的？！\\n\",\n        \"丘处机\": \"丘道长豪侠仗义，是条汉子！\\n\",\n        \"柯镇恶\": \"那是我大哥。\\n\",\n        \"朱聪\": \"那是我二哥。\\n\",\n        \"韩宝驹\": \"那是我三哥。\\n\",\n        \"南希仁\": \"那是我四哥。\\n\",\n        \"张阿生\": \"那是我五哥。\\n\",\n        \"全金发\": \"就是我了。\\n\",\n        \"韩小莹\": \"那是我七妹。\\n\",\n    ]));\n\n    setup();\n    carry_object(__DIR__ \"obj/gancheng\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/hangzhou/honghua/jiang.c": "// jiang.c 蒋四根\n\n#include <ansi.h>\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"蒋四根\", ({ \"jiang sigen\", \"jiang\", \"sigen\" }));\n    set(\"title\", HIR \"红花会\" HIG \"十三当家\" NOR);\n    set(\"nickname\", HIY \"铜头鳄鱼\" NOR);\n    set(\"long\",\n        \"铜头鳄鱼蒋四根在会中坐第十三把交椅，兵器是铁桨。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"class\", \"fighter\");\n    set(\"age\", 21);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"per\", 20);\n    set(\"str\", 30);\n    set(\"int\", 30);\n    set(\"con\", 30);\n    set(\"dex\", 30);\n\n    set(\"max_qi\", 1100);\n    set(\"max_jing\", 800);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 150000);\n\n    set_skill(\"force\", 80);\n    set_skill(\"dodge\", 80);\n    set_skill(\"unarmed\", 80);\n    set_skill(\"parry\", 80);\n    set_skill(\"club\", 80);\n    set_skill(\"houquan\", 80);\n    set_skill(\"yunlong-shengong\", 80);\n    set_skill(\"zui-gun\", 100);\n    set_skill(\"yunlong-shenfa\", 80);\n\n    map_skill(\"dodge\", \"yunlong-shenfa\");\n    map_skill(\"force\", \"yunlong-shengong\");\n    map_skill(\"unarmed\", \"houquan\");\n    map_skill(\"club\", \"zui-gun\");\n    map_skill(\"parry\", \"zui-gun\");\n    set(\"env/wimpy\", 20);\n\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n    carry_object(__DIR__ \"obj/tiejiang\")->wield();\n}\n",
+    "d/huanghe/npc/caishiren.c": "// caishiren.c\n\ninherit NPC;\n\n\nvoid create() {\n    set_name(\"采石人\", ({ \"caishi ren\", \"ren\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 22);\n    set(\"str\", 25);\n    set(\"dex\", 16);\n    set(\"per\", 20);\n    set(\"long\", \"这是一个精壮汉子。\\n\");\n    set(\"combat_exp\", 6000);\n    set(\"shen_type\", 1);\n    set(\"attitude\", \"peaceful\");\n\n    setup();\n    carry_object(__DIR__ \"obj/tieqiao\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/huanghe/npc/hou.c": "// hou.c\n\ninherit NPC;\n#include <ansi.h>\nvoid create() {\n    set_name(\"侯通海\", ({ \"hou tonghai\", \"hou\", \"tonghai\" }));\n    set(\"gender\", \"男性\");\n    set(\"nickname\", HIC \"三头蛟\" NOR);\n    set(\"age\", 43);\n    set(\"str\", 25);\n    set(\"dex\", 16);\n    set(\"per\", 11);\n    set(\"long\", \"侯通海是个青脸瘦子，面颊极长，额角上肿起了三个大肉瘤，非\n常难看。\\n\");\n    set(\"combat_exp\", 100000);\n    set(\"shen_type\", -1);\n    set(\"attitude\", \"peaceful\");\n\n    set_skill(\"unarmed\", 60);\n    set_skill(\"force\", 60);\n    set_skill(\"club\", 60);\n    set_skill(\"dodge\", 60);\n    set_skill(\"parry\", 60);\n    set_temp(\"apply/attack\", 50);\n    set_temp(\"apply/defense\", 50);\n    set_temp(\"apply/armor\", 50);\n    set_temp(\"apply/damage\", 30);\n\n    set(\"neili\", 400);\n    set(\"max_neili\", 400);\n    set(\"jiali\", 10);\n\n    setup();\n    carry_object(__DIR__ \"obj/fork\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/huanghe/npc/sha.c": "// sha.c\n\ninherit NPC;\n\n#include <ansi.h>\nvoid create() {\n    set_name(\"沙通天\", ({ \"sha tongtian\", \"sha\", \"tongtian\" }));\n    set(\"gender\", \"男性\");\n    set(\"title\", HIY \"黄河帮帮主\" NOR);\n    set(\"nickname\", HIC \"鬼门龙王\" NOR);\n    set(\"age\", 43);\n    set(\"str\", 25);\n    set(\"dex\", 16);\n    set(\"per\", 12);\n    set(\"long\", \"沙通天是个秃子，头上油光光地没半根头发，双目布满红丝，眼\n珠突出，生就一副异相。性子暴躁，武功却是出奇地高，江湖上\n无人不晓。\\n\");\n    set(\"combat_exp\", 200000);\n    set(\"shen_type\", -1);\n    set(\"attitude\", \"peaceful\");\n\n    set_skill(\"unarmed\", 60);\n    set_skill(\"force\", 60);\n    set_skill(\"club\", 60);\n    set_skill(\"dodge\", 60);\n    set_skill(\"parry\", 60);\n    set_temp(\"apply/attack\", 100);\n    set_temp(\"apply/defense\", 100);\n    set_temp(\"apply/armor\", 100);\n    set_temp(\"apply/damage\", 100);\n\n    set(\"neili\", 800);\n    set(\"max_neili\", 800);\n    set(\"jiali\", 50);\n\n    setup();\n    carry_object(\"/d/hangzhou/honghua/obj/tiejiang\")->wield();\n    carry_object(\"/d/items/cloth/tiejia2\")->wear();\n}\n",
+    "d/luoyang/npc/lu.c": "inherit NPC;\ninherit F_VENDOR;\n\nvoid create() {\n    set_name(\"鲁开\", ({ \"lu kai\", \"lu\", \"kai\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 32);\n    set(\"long\", \"这就是木匠铺老板鲁开，他一手绝活扬名洛阳。\\n\");\n    set(\"shen_type\", 1);\n    set(\"combat_exp\", 10000);\n    set(\"str\", 17);\n    set(\"dex\", 20);\n    set(\"con\", 17);\n    set(\"int\", 22);\n    set(\"attitude\", \"peaceful\");\n    set_skill(\"dodge\", 20);\n    set_skill(\"unarmed\", 20);\n    set(\"chat_chance\", 20);\n    set(\"vendor_goods\", ({\n        \"/clone/weapon/mudao\",\n        \"/d/shaolin/obj/qimeigun\",\n        \"/clone/weapon/zhujian\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/buyi\")->wear();\n    add_money(\"coin\", 100);\n}\n\nvoid init() {\n    ::init();\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n",
+    "d/mingjiao/npc/wensong.c": "// WenSong.c\n// pal 1997.05.11\n#include <ansi.h>\ninherit NPC;\ninherit F_UNIQUE;\n\nvoid create() {\n    set_name(\"闻苍松\", ({ \"wen cangsong\", \"wen\", \"cangsong\", }));\n    set(\"long\",\n        \"他是一位高大魁伟的中年男子，身穿一件白布长袍。\\n\"\n        \"他天生神力，手中的两头狼牙棒有万夫不当之勇，真是一条威风凛凛的汉子。\\n\"\n    );\n\n    set(\"title\", HIR \"明教\" HIC \"巨木旗\" NOR \"掌旗使\");\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"fighter\");\n\n    set(\"age\", 48);\n    set(\"shen_type\", 1);\n    set(\"str\", 25);\n    set(\"int\", 25);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n    set(\"max_qi\", 1000);\n    set(\"max_jing\", 1000);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 100000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 85);\n    set_skill(\"hunyuan-yiqi\", 85);\n    set_skill(\"dodge\", 85);\n    set_skill(\"shaolin-shenfa\", 85);\n    set_skill(\"cuff\", 95);\n    set_skill(\"jingang-quan\", 95);\n    set_skill(\"parry\", 85);\n    set_skill(\"buddhism\", 85);\n    set_skill(\"literate\", 85);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"cuff\", \"jingang-quan\");\n    map_skill(\"parry\", \"jingang-quan\");\n\n    prepare_skill(\"cuff\", \"jingang-quan\");\n    create_family(\"明教\", 3, \"巨木旗掌旗使\");\n\n    setup();\n\n    carry_object(\"/d/mingjiao/obj/qimeigun\")->wield();\n    carry_object(\"/d/items/cloth/baipao2\")->wear();\n}\n",
+    "d/tulong/tulong/npc/jiaozhong1.c": "#include <ansi.h>\ninherit NPC;\nvoid create() {\n    set_name(\"教众\", ({ \"jiao zhong\", \"jiao\", \"zhong\" }));\n    set(\"long\", \"一个天鹰教的教众，手中挥舞着一面大旗。\\n\");\n    set(\"attitude\", \"heroism\");\n    set(\"title\", HIR \"天鹰教朱雀坛\" NOR);\n\n    set(\"combat_exp\", 200000 + random(200000));\n\n    set_skill(\"unarmed\", 100 + random(20));\n    set_skill(\"club\", 100 + random(20));\n    set_skill(\"parry\", 100 + random(20));\n    set_skill(\"dodge\", 100 + random(20));\n    set_skill(\"force\", 100 + random(20));\n\n    setup();\n\n    carry_object(\"/d/items/cloth/tianying_jiaofu\")->wear();\n    carry_object(\"/d/tulong/tulong/npc/obj/flag\")->wield();\n}\n",
+    "d/tulong/tulong/npc/jiaozhong2.c": "#include <ansi.h>\ninherit NPC;\nvoid create() {\n    set_name(\"教众\", ({ \"jiao zhong\", \"jiao\", \"zhong\" }));\n    set(\"long\", \"一个天鹰教的教众，手中挥舞着一面大旗。\\n\");\n    set(\"attitude\", \"heroism\");\n    set(\"title\", HIW \"天鹰教玄武坛\" NOR);\n\n    set(\"combat_exp\", 200000 + random(200000));\n\n    set_skill(\"unarmed\", 100 + random(20));\n    set_skill(\"club\", 100 + random(20));\n    set_skill(\"parry\", 100 + random(20));\n    set_skill(\"dodge\", 100 + random(20));\n    set_skill(\"force\", 100 + random(20));\n\n    setup();\n\n    carry_object(\"/d/items/cloth/tianying_jiaofu\")->wear();\n    carry_object(\"/d/tulong/tulong/npc/obj/flag\")->wield();\n}\n",
+    "d/tulong/yitian/npc/bing1.c": "inherit NPC;\nvoid create() {\n    set_name(\"蒙古官兵\", ({ \"guan bing\", \"bing\" }));\n    set(\"age\", 22);\n    set(\"gender\", \"男性\");\n    set(\"long\", \"蒙古汝阳王手下精兵，一个个\\n\"\n        \"体格健壮，神情严肃。\\n\");\n    set(\"attitude\", \"peaceful\");\n    set(\"str\", 25);\n    set(\"dex\", 20);\n    set(\"combat_exp\", 20000);\n    set(\"shen_type\", 1);\n    set_skill(\"unarmed\", 40);\n    set_skill(\"dodge\", 40);\n    set_skill(\"parry\", 40);\n    set_skill(\"club\", 40);\n    set_skill(\"force\", 40);\n    set_temp(\"apply/attack\", 40);\n    set_temp(\"apply/defense\", 40);\n    set_temp(\"apply/damage\", 20);\n    set_temp(\"apply/armor\", 40);\n\n    setup();\n    carry_object(\"/d/tulong/yitian/npc/obj/spear\")->wield();\n    carry_object(\"/d/items/cloth/bingfu\")->wear();\n}\nvoid init() {\n    object ob;\n    ::init();\n    if (interactive(ob = this_player()) &&\n        (int)ob->query_condition(\"killer\")) {\n        remove_call_out(\"kill_ob\");\n        call_out(\"kill_ob\", 1, ob);\n    }\n}\n\nint accept_fight(object me) {\n    command(\"say 大爷我正想找人杀呐，今天算你倒霉。\\n\");\n    me->apply_condition(\"killer\", 500);\n    kill_ob(me);\n    return 1;\n}\n",
+    "d/tulong/yitian/npc/bing2.c": "inherit NPC;\nvoid create() {\n    set_name(\"千夫长\", ({ \"qianfu zhang\", \"qianfu\", \"zhang\" }));\n    set(\"age\", 32);\n    set(\"gender\", \"男性\");\n    set(\"long\", \"蒙古汝阳王手下精兵的头领，\\n\"\n        \"体格健壮，神情严肃。\\n\");\n    set(\"attitude\", \"peaceful\");\n    set(\"str\", 25);\n    set(\"dex\", 20);\n    set(\"combat_exp\", 20000);\n    set(\"shen_type\", 1);\n    set_skill(\"unarmed\", 90);\n    set_skill(\"dodge\", 90);\n    set_skill(\"parry\", 90);\n    set_skill(\"club\", 90);\n    set_skill(\"force\", 90);\n    set_skill(\"zhongping-qiang\", 90);\n    set_skill(\"feiyan-zoubi\", 90);\n    set_skill(\"huntian-qigong\", 90);\n\n    map_skill(\"dodge\", \"feiyan-zoubi\");\n    map_skill(\"force\", \"huntian-qigong\");\n    map_skill(\"club\", \"zhongping-qiang\");\n\n    set_temp(\"apply/attack\", 60);\n    set_temp(\"apply/defense\", 60);\n    set_temp(\"apply/damage\", 60);\n    set_temp(\"apply/armor\", 60);\n\n    setup();\n    carry_object(\"/d/tulong/yitian/npc/obj/spear\")->wield();\n    carry_object(\"/d/items/cloth/bingfu\")->wear();\n}\nvoid init() {\n    object ob;\n    ::init();\n    if (interactive(ob = this_player()) &&\n        (int)ob->query_condition(\"killer\")) {\n        remove_call_out(\"kill_ob\");\n        call_out(\"kill_ob\", 1, ob);\n    }\n}\n\nint accept_fight(object me) {\n    command(\"say 大爷我正想找人杀呐，今天算你倒霉。\\n\");\n    me->apply_condition(\"killer\", 500);\n    kill_ob(me);\n    return 1;\n}\n",
+    "d/xiangyang/npc/mujiang.c": "// mujiang.c\n\ninherit NPC;\ninherit F_VENDOR;\n\nvoid create() {\n    set_name(\"木匠\", ({ \"mu jiang\", \"mu\", \"jiang\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 32);\n    set(\"long\",\n        \"这位木匠正在埋头工作，因为发现你在注视着他，就抬起头来微笑了一下。\\n\");\n    set(\"combat_exp\", 300);\n    set(\"str\", 17);\n    set(\"dex\", 20);\n    set(\"con\", 17);\n    set(\"int\", 22);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/items/sword/mujian3\",\n        \"/d/items/blade/mudao2\",\n        __DIR__ \"obj/mugun\",\n    }));\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n    add_money(\"coin\", 100);\n}\nvoid init() {\n    ::init();\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n",
+    "d/xiangyang/npc/wuxiuwen.c": "// wuxiuwen.c\n\n#include <ansi.h>\n\ninherit NPC;\nstring ask_me_1(string name);\nstring ask_me_2(string name);\nvoid create() {\n    set_name(\"武修文\", ({ \"wu xiuwen\", \"wu\", \"xiuwen\" }));\n    set(\"title\", HIY \"郭靖二弟子\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 21);\n    set(\"long\", \"他是郭靖的二弟子，精明强干，专门负责后勤。\\n\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"per\", 23);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 30);\n    set(\"dex\", 25);\n\n    set(\"inquiry\", ([\n        \"黄蓉\": \"那是我师母。\\n\",\n        \"郭靖\": \"那是我师父。\\n\",\n    ]));\n\n    set(\"qi\", 1000);\n    set(\"max_qi\", 1000);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n\n    set(\"combat_exp\", 80000);\n    set(\"score\", 20000);\n\n    set(\"huju_count\", 20);\n    set(\"beixin_count\", 2);\n\n    set_skill(\"force\", 50);\n    set_skill(\"quanzhen-xinfa\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"changquan\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"jinyan-gong\", 50);\n    set_skill(\"parry\", 50);\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    map_skill(\"force\", \"quanzhen-xinfa\");\n    map_skill(\"unarmed\", \"changquana\");\n    map_skill(\"dodge\", \"jinyan-gong\");\n    map_skill(\"parry\", \"changquana\");\n\n    setup();\n\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\nstring ask_me_1(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n",
+    "kungfu/class/duan/fu.c": "#include <ansi.h>\n#include \"duan.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"傅思归\", ({ \"fu sigui\", \"fu\", \"sigui\" }));\n    set(\"title\", \"大理国护卫\");\n    set(\"long\", \"他是大理国四大护卫之一。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 40);\n    set(\"class\", \"officer\");\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 30);\n    set(\"int\", 20);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n\n    set(\"max_qi\", 1800);\n    set(\"max_jing\", 1000);\n    set(\"neili\", 2200);\n    set(\"max_neili\", 2200);\n    set(\"jiali\", 50);\n    set(\"combat_exp\", 500000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 120);\n    set_skill(\"duanshi-xinfa\", 120);\n    set_skill(\"dodge\", 120);\n    set_skill(\"tiannan-bu\", 120);\n    set_skill(\"cuff\", 120);\n    set_skill(\"jinyu-quan\", 120);\n    set_skill(\"strike\", 120);\n    set_skill(\"wuluo-zhang\", 120);\n    set_skill(\"club\", 140);\n    set_skill(\"jinyuan-gun\", 140);\n    set_skill(\"parry\", 120);\n    set_skill(\"literate\", 80);\n    set_skill(\"martial-cognize\", 140);\n\n    map_skill(\"force\", \"duanshi-xinfa\");\n    map_skill(\"dodge\", \"tiannan-bu\");\n    map_skill(\"cuff\", \"jinyu-quan\");\n    map_skill(\"strike\", \"wuluo-zhang\");\n    map_skill(\"club\", \"jinyuan-gun\");\n    map_skill(\"parry\", \"jinyuan-gun\");\n\n    prepare_skill(\"cuff\", \"jinyu-quan\");\n    prepare_skill(\"strike\", \"wuluo-zhang\");\n\n    create_family(\"段氏皇族\", 15, \"家臣\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"club.qian\" :),\n        (: perform_action, \"cuff.man\" :),\n        (: perform_action, \"strike.bian\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/huangyi_junfu\")->wear();\n    carry_object(\"/d/heimuya/npc/obj/shutonggun\")->wield();\n    add_money(\"silver\", 10);\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"ah\");\n    command(\"say 世子殿下何需如此，只要有事吩咐在下一声便是。\");\n    return;\n}\n",
+    "kungfu/class/lingjiu/li.c": "#include <ansi.h>\n#include \"etc.h\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_QUESTER;\n\nmixed ask_skill();\nmixed ask_skill2();\n\nvoid create() {\n    set_name(\"黎夫人\", ({ \"li furen\", \"li\", \"furen\" }));\n    set(\"gender\", \"女性\");\n    set(\"title\", \"南海椰花岛岛主\");\n    set(\"age\", 37);\n    set(\"long\", @LONG\n这便是南海椰花岛岛主黎夫人，只见她不过中\n年，但头发已是班白，手持一根形状颇为奇特\n的钓竿，不知究为何物。\nLONG);\n    set(\"attitude\", \"peaceful\");\n    set(\"str\", 30);\n    set(\"int\", 30);\n    set(\"con\", 30);\n    set(\"dex\", 30);\n\n    set(\"qi\", 3600);\n    set(\"max_qi\", 3600);\n    set(\"jing\", 2000);\n    set(\"max_jing\", 2000);\n    set(\"neili\", 3200);\n    set(\"max_neili\", 3200);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 1400000);\n\n    set_skill(\"force\", 180);\n    set_skill(\"linji-zhuang\", 180);\n    set_skill(\"dodge\", 180);\n    set_skill(\"caiyan-gong\", 180);\n    set_skill(\"hand\", 180);\n    set_skill(\"jieshou-jiushi\", 180);\n    set_skill(\"parry\", 180);\n    set_skill(\"club\", 180);\n    set_skill(\"literate\", 160);\n    set_skill(\"martial-cognize\", 160);\n    set_skill(\"mahayana\", 180);\n\n    map_skill(\"force\", \"linji-zhuang\");\n    map_skill(\"dodge\", \"caiyan-gong\");\n    map_skill(\"club\", \"caiyan-gong\");\n    map_skill(\"parry\", \"caiyan-gong\");\n    map_skill(\"hand\", \"jieshou-jiushi\");\n\n    prepare_skill(\"hand\", \"jieshou-jiushi\");\n\n    set(\"inquiry\", ([\n        \"云霞幻生\": (: ask_skill :),\n        \"截筋断脉\": (: ask_skill2 :),\n        \"虚竹\": \"他是我们灵鹫宫新的主公，我们全部听他号令。\",\n        \"虚竹子\": \"他是我们灵鹫宫新的主公，我们全部听他号令。\",\n    ]));\n\n    create_family(\"椰花岛\", 11, \"岛主\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"club.huan\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n    carry_object(\"/d/lingjiu/npc/obj/diaogan\")->wield();\n    carry_object(\"/d/items/equip/wucai_qun\")->wear();\n}\n\nint recognize_apprentice(object ob, string skill) {\n    if (ob->query(\"family/family_name\") != \"灵鹫宫\") {\n        command(\"hmm\");\n        command(\"say 给老娘滚开。\");\n        return -1;\n    }\n\n    if (ob->query(\"family/master_id\") != \"xuzhu zi\") {\n        command(\"heng\");\n        command(\"say 找你师父去，没大没小，缺乏管教。\");\n        return -1;\n\n    }\n\n    if (skill != \"caiyan-gong\" && skill != \"club\") {\n        command(\"say 我只能教你一些棍法功夫，不学就算了。\");\n        return -1;\n    }\n\n    if (!ob->query_temp(\"can_learn/lifuren\")) {\n        command(\"nod2\");\n        command(\"say 既然你是主公的弟子，我就教你好了。\");\n        ob->set_temp(\"can_learn/lifuren\", 1);\n    }\n    return 1;\n}\n\nmixed ask_skill() {\n    object me;\n\n    me = this_player();\n    if (me->query(\"can_perform/caiyan-gong/huan\"))\n        return \"你不是已经学会了吗？何故来消遣老娘！\";\n\n    if (me->query(\"family/family_name\") != \"灵鹫宫\" &&\n        me->query(\"family/family_name\") != \"椰花岛\")\n        return \"还不给老娘滚开！\";\n\n    if (me->query_skill(\"caiyan-gong\", 1) < 1)\n        return \"你采燕功都未曾练过，还谈什么绝招。\";\n\n    if (me->query(\"family/family_name\") == \"灵鹫宫\" &&\n        me->query(\"gongxian\") < 500)\n        return \"主公有令，不得传功给无功劳的弟子。\";\n\n    if (me->query_skill(\"dodge\") < 180)\n        return \"你的轻功火候未到，学不了这招。\";\n\n    if (me->query_skill(\"caiyan-gong\", 1) < 120)\n        return \"你的采燕功火候还差得远，再回去练练！\";\n\n    message_vision(HIY \"$n\" HIY \"点了点头，喝道：“看好了！”说完\"\n        \"单手一抖，已抽\\n出背负在背上的钓竿，随即急速舞\"\n        \"动，顿时只见钓竿由一变\\n二，由二变四，由四变八\"\n        \"，由八变十六……幻出无数竿影连\\n连刺出，全全笼\"\n        \"罩$N\" HIY \"四周各个方位。\\n\" NOR, me,\n        this_object());\n    command(\"sweat\");\n    command(\"say 这招看起来复杂，其实却并不难练习。\");\n    tell_object(me, HIC \"你学会了「云霞幻生」。\\n\" NOR);\n    if (me->can_improve_skill(\"dodge\"))\n        me->improve_skill(\"dodge\", 1500000);\n    if (me->can_improve_skill(\"club\"))\n        me->improve_skill(\"club\", 1500000);\n    if (me->can_improve_skill(\"caiyan-gong\"))\n        me->improve_skill(\"caiyan-gong\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/caiyan-gong/huan\", 1);\n    if (me->query(\"family/family_name\") == \"灵鹫宫\")\n        me->add(\"gongxian\", -500);\n    return 1;\n}\n\nmixed ask_skill2() {\n    object me;\n\n    me = this_player();\n    if (me->query(\"can_perform/jieshou-jiushi/jie\"))\n        return \"这招我不是已经教过你了吗？自己下去多练吧！\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return \"你是哪里来的？快给我滚开！\";\n\n    if (me->query_skill(\"jieshou-jiushi\", 1) < 1)\n        return \"你连截手九式都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 300)\n        return \"哼，你在本派中碌碌无为，这一招我暂时还不能传你。\";\n\n    if (me->query(\"max_neili\") < 850)\n        return \"你的内力修行太浅，尚且学不了这一招。\";\n\n    if (me->query_skill(\"force\") < 120)\n        return \"你的内功修行太浅，尚且学不了这一招。\";\n\n    if (me->query_skill(\"jieshou-jiushi\", 1) < 100)\n        return \"你的截手九式火候未到，尚且学不了这一招。\";\n\n    message_sort(HIY \"\\n$n\" HIY \"甚喜，对$N\" HIY \"点头道：“不错，不\"\n        \"错。你这孩子，真不亏了我平时的教诲。”说完将$N\" HIY\n        \"招至跟前，细说良久。\\n\\n\" NOR, me, this_object());\n\n    command(\"say 这招也是峨眉派的绝学，你可不能外传。\");\n    tell_object(me, HIC \"你学会了「截筋断脉」。\\n\" NOR);\n\n    if (me->can_improve_skill(\"hand\"))\n        me->improve_skill(\"hand\", 1500000);\n    if (me->can_improve_skill(\"jieshou-jiushi\"))\n        me->improve_skill(\"jieshou-jiushi\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/jieshou-jiushi/jie\", 1);\n    me->add(\"gongxian\", -300);\n    return 1;\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"en\");\n    command(\"say 好吧，既然你想闹着玩，老娘就收下你好了！\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n\nvoid unconcious() {\n    die();\n}\n",
+    "kungfu/class/riyue/feng.c": "#include <ansi.h>\n#include \"riyue.h\"\n\n#define SHENMU    \"/clone/lonely/shenmu\"\n\ninherit NPC;\ninherit F_MASTER;\n\nmixed ask_back();\nmixed ask_gun();\nmixed ask_skill1();\n\nvoid create() {\n    object ob;\n    set_name(\"张乘风\", ({ \"zhang chengfeng\", \"zhang\", \"chengfeng\", \"feng\" }));\n    set(\"nickname\", HIY \"金猴神魔\" NOR);\n    set(\"title\", \"日月神教前辈长老\");\n    set(\"long\", @LONG\n金猴神魔张乘风是日月神教的前辈长老，武功\n高强，位尊无比。曾一度扫除五岳剑派联盟。\nLONG);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"scholar\");\n    set(\"age\", 61);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", -1);\n    set(\"str\", 36);\n    set(\"int\", 36);\n    set(\"con\", 36);\n    set(\"dex\", 36);\n\n    set(\"max_qi\", 5400);\n    set(\"max_jing\", 4000);\n    set(\"neili\", 7000);\n    set(\"max_neili\", 7000);\n    set(\"jiali\", 220);\n    set(\"combat_exp\", 3000000);\n    set(\"score\", 50000);\n\n    set_skill(\"force\", 260);\n    set_skill(\"tianhuan-shenjue\", 260);\n    set_skill(\"riyue-xinfa\", 220);\n    set_skill(\"dodge\", 220);\n    set_skill(\"juechen-shenfa\", 220);\n    set_skill(\"cuff\", 240);\n    set_skill(\"zhenyu-quan\", 240);\n    set_skill(\"claw\", 240);\n    set_skill(\"poyue-zhao\", 240);\n    set_skill(\"parry\", 240);\n    set_skill(\"hammer\", 220);\n    set_skill(\"pangu-qishi\", 220);\n    set_skill(\"club\", 260);\n    set_skill(\"jinyuan-gun\", 260);\n    set_skill(\"martial-cognize\", 240);\n    set_skill(\"literate\", 180);\n\n    map_skill(\"dodge\", \"juechen-shenfa\");\n    map_skill(\"force\", \"tianhuan-shenjue\");\n    map_skill(\"hammer\", \"pangu-qishi\");\n    map_skill(\"club\", \"jinyuan-gun\");\n    map_skill(\"parry\", \"jinyuan-gun\");\n    map_skill(\"cuff\", \"zhenyu-quan\");\n    map_skill(\"claw\", \"poyue-zhao\");\n\n    prepare_skill(\"claw\", \"poyue-zhao\");\n    prepare_skill(\"cuff\", \"zhenyu-quan\");\n\n    create_family(\"日月神教\", 7, \"前辈长老\");\n\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    set(\"inquiry\", ([\n        \"南海神木\": (: ask_gun :),\n        \"乾坤一击\": (: ask_skill1 :),\n        \"上崖\": (: ask_back :),\n        \"回崖\": (: ask_back :),\n        \"回去\": (: ask_back :),\n    ]));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"club.qian\" :),\n        (: perform_action, \"cuff.tong\" :),\n        (: perform_action, \"claw.duan\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    setup();\n\n    if (clonep()) {\n        ob = find_object(SHENMU);\n        if (!ob) ob = load_object(SHENMU);\n        if (!environment(ob)) {\n            ob->move(this_object());\n            ob->wield();\n        } else {\n            ob = new(\"/d/heimuya/npc/obj/shutonggun\");\n            ob->move(this_object());\n            ob->wield();\n        }\n        set(\"startroom\", \"/d/heimuya/up1\");\n    }\n    carry_object(\"/d/items/cloth/riyue_jinpao\")->wear();\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"say 走开，我不收徒。\");\n}\n\nint recognize_apprentice(object ob, string skill) {\n    if (ob->query(\"family/family_name\") != \"日月神教\") {\n        command(\"killair\");\n        command(\"say 给我滚开，少在老夫面前说三道四！\");\n        return -1;\n    }\n\n    if (ob->query(\"family/master_id\") != \"ren woxing\"\n        && ob->query(\"family/master_id\") != \"xiang wentian\") {\n        command(\"sneer\");\n        command(\"say 你还不配。\");\n        return -1;\n    }\n\n    if ((int)ob->query(\"shen\") > -60000) {\n        command(\"hmm\");\n        command(\"say 老夫生平最痛恨的就是你这样的假仁假义之徒！\");\n        return -1;\n    }\n\n    if (skill != \"club\" && skill != \"jinyuan-gun\") {\n        command(\"hmm\");\n        command(\"say 我只传授你这套棍法，其余的找你师父学去。\");\n        return -1;\n    }\n\n    if (skill == \"club\" && ob->query_skill(\"club\", 1) > 179) {\n        command(\"say 你棍法的造诣已经非同凡响了，剩下就自己去练吧。\");\n        return -1;\n    }\n\n    if (!ob->query_temp(\"can_learn/zhangchengfeng\")) {\n        command(\"nod\");\n        command(\"say 念在你有心为本教出力，我就传你这套金猿棍法。\");\n        ob->set_temp(\"can_learn/zhangchengfeng\", 1);\n    }\n    return 1;\n}\n\nmixed ask_gun() {\n    object me;\n    object ob;\n    object owner;\n\n    me = this_player();\n\n    if (me->query(\"family/family_name\") != \"日月神教\")\n        return \"给我滚开！\";\n\n    if (me->query(\"family/master_id\") != \"ren woxing\"\n        && me->query(\"family/master_id\") != \"xiang wentian\")\n        return \"你还不配！\";\n\n    if (me->query(\"shen\") > -80000)\n        return \"你这样心慈手软，拿了神木又有什么用？\";\n\n    if (me->query_skill(\"jinyuan-gun\", 1) < 120)\n        return \"你连金猿棍法都没学好，就算神兵在手又有何用？\";\n\n    ob = find_object(SHENMU);\n    if (!ob) ob = load_object(SHENMU);\n    owner = environment(ob);\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"南海神木现在不就在你手里吗？\";\n\n    if (objectp(owner) && owner != this_object()) {\n        if (!owner->is_character())\n            return \"你来晚了一步，南海神木我已经借出去了。\";\n\n        if (owner->query(\"family/family_name\") == \"日月神教\")\n            return \"老夫的南海神木现在是\" + owner->query(\"name\") + \"在用，你要用就去找他吧。\";\n        else\n            return \"老夫的南海神木现在落入了\" + owner->query(\"name\") + \"之手，你去把它取回来吧！\";\n    }\n    ob->move(this_object());\n\n    command(\"say 既然这样，老夫这根南海神木你就拿去。\");\n    command(\"say 你用它多杀几个正派人士，扬扬咋们日月神教的威风。\");\n    command(\"give nanhai shenmu to \" + me->query(\"id\"));\n\n    ob = new(\"/d/heimuya/npc/obj/shutonggun\");\n    ob->move(this_object());\n    ob->wield();\n    return 1;\n}\n\nmixed ask_skill1() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/jinyuan-gun/qian\"))\n        return \"这一招我不是已经教过你了吗？\";\n\n    if (me->query(\"family/family_name\") != \"日月神教\")\n        return \"你又不是我日月神教的，跑来捣什么乱？\";\n\n    if (me->query_skill(\"jinyuan-gun\", 1) < 1)\n        return \"你连金猿棍法都没学，还谈什么绝招可言？\";\n\n    if (me->query(\"gongxian\") < 800)\n        return \"你在教内甚无作为，这招我暂时还不能传你。\";\n\n    if (me->query(\"shen\") > -100000)\n        return \"你这样心慈手软，就算学会这招又有什么用？\";\n\n    if (me->query_skill(\"force\") < 180)\n        return \"你的内功火候尚需提高，练好了再来找我吧。\";\n\n    if (me->query_skill(\"jinyuan-gun\", 1) < 120)\n        return \"你的金猿棍法还练得不到家，自己下去练练再来吧！\";\n\n    message_sort(HIY \"\\n$n\" HIY \"咳嗽一声，对$N\" HIY \"点了点头道：“看\"\n        \"好了！”说完便大步上前，怒吼一声，手中熟铜棍急速舞动\"\n        \"，霎时间飞沙走石，罡气激荡。便在那狂沙飓风中，$n\" HIY\n        \"忽然高高跃起，迎头一棒猛然劈落。数招一气呵成，连贯之\"\n        \"极，煞为壮观。\\n\\n\" NOR, me, this_object());\n\n    command(\"nod2\");\n    command(\"say 看懂了么？\");\n    tell_object(me, HIC \"你学会了「乾坤一击」。\\n\" NOR);\n    if (me->can_improve_skill(\"club\"))\n        me->improve_skill(\"club\", 1500000);\n    if (me->can_improve_skill(\"jinyuan-gun\"))\n        me->improve_skill(\"jinyuan-gun\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/jinyuan-gun/qian\", 1);\n    me->add(\"gongxian\", -800);\n\n    return 1;\n}\n\nmixed ask_back() {\n    object me, myenv;\n    me = this_player();\n\n    if (find_object(query(\"startroom\")) != environment())\n        return \"咦？…嗯…这个…这…你还是自己看着办吧。\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return \"他奶奶的，你找死么？\";\n\n    command(\"nod\");\n    message_vision(HIW \"张乘风咳嗽一声，陡然纵声长啸，崖上顿时落下一个大吊篮。\\n\\n\"\n        NOR + HIY \"$N\" HIY \"一弯腰进了吊篮，吊篮缓缓地铰上崖去……\\n\\n\", me);\n    myenv = environment(me);\n    me->move(\"/d/heimuya/basket\");\n    me->start_call_out((: call_other, __FILE__, \"up1\", me :), 3);\n    return 1;\n}\n\nvoid up1(object me) {\n    tell_object(me, HIW \"\\n你乘座的吊篮急速上升，篮外的朵朵白云向下冲去。\\n\\n\" NOR);\n    me->start_call_out((: call_other, __FILE__, \"up2\", me :), 3);\n}\n\nvoid up2(object me) {\n    tell_object(me, HIW \"\\n你眼前一亮，一幢幢白色建筑屹立眼前，霎是辉煌。\\n\\n\" NOR);\n    me->move(\"/d/heimuya/shanya3\");\n    message_vision(HIC \"\\n$N\" HIC \"乘坐吊篮上了黑木崖。\\n\\n\" NOR, me);\n}\n",
+    "kungfu/class/riyue/yun.c": "#include <ansi.h>\n#include \"riyue.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"张乘云\", ({ \"zhang chengyun\", \"zhang\", \"chengyun\", \"yun\" }));\n    set(\"nickname\", WHT \"白猿神魔\" NOR);\n    set(\"title\", \"日月神教前辈长老\");\n    set(\"long\", @LONG\n白猿神魔张乘云是日月神教的前辈长老，武功\n高强，位尊无比。曾一度扫除五岳剑派联盟。\nLONG);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"scholar\");\n    set(\"age\", 61);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", -1);\n    set(\"str\", 36);\n    set(\"int\", 36);\n    set(\"con\", 36);\n    set(\"dex\", 36);\n\n    set(\"max_qi\", 5400);\n    set(\"max_jing\", 4000);\n    set(\"neili\", 7000);\n    set(\"max_neili\", 7000);\n    set(\"jiali\", 220);\n    set(\"combat_exp\", 3000000);\n    set(\"score\", 50000);\n\n    set_skill(\"force\", 260);\n    set_skill(\"tianhuan-shenjue\", 260);\n    set_skill(\"riyue-xinfa\", 220);\n    set_skill(\"dodge\", 220);\n    set_skill(\"juechen-shenfa\", 220);\n    set_skill(\"cuff\", 240);\n    set_skill(\"zhenyu-quan\", 240);\n    set_skill(\"claw\", 240);\n    set_skill(\"poyue-zhao\", 240);\n    set_skill(\"parry\", 240);\n    set_skill(\"hammer\", 220);\n    set_skill(\"pangu-qishi\", 220);\n    set_skill(\"club\", 260);\n    set_skill(\"jinyuan-gun\", 260);\n    set_skill(\"martial-cognize\", 240);\n    set_skill(\"literate\", 180);\n\n    map_skill(\"dodge\", \"juechen-shenfa\");\n    map_skill(\"force\", \"tianhuan-shenjue\");\n    map_skill(\"hammer\", \"pangu-qishi\");\n    map_skill(\"club\", \"jinyuan-gun\");\n    map_skill(\"parry\", \"jinyuan-gun\");\n    map_skill(\"cuff\", \"zhenyu-quan\");\n    map_skill(\"claw\", \"poyue-zhao\");\n\n    prepare_skill(\"claw\", \"poyue-zhao\");\n    prepare_skill(\"cuff\", \"zhenyu-quan\");\n\n    create_family(\"日月神教\", 7, \"前辈长老\");\n\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n\n    set(\"inquiry\", ([\n        \"乾坤一击\": \"你去让我师兄教你吧。\",\n    ]));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"club.qian\" :),\n        (: perform_action, \"cuff.tong\" :),\n        (: perform_action, \"claw.duan\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    setup();\n\n    carry_object(\"/d/heimuya/npc/obj/shutonggun\")->wield();\n    carry_object(\"/d/items/cloth/riyue_jinpao\")->wear();\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"say 走开，我不收徒。\");\n}\n\n\nint recognize_apprentice(object ob, string skill) {\n    if (ob->query(\"family/family_name\") != \"日月神教\") {\n        command(\"killair\");\n        command(\"say 给我滚开，少在老夫面前说三道四！\");\n        return -1;\n    }\n\n    if (ob->query(\"family/master_id\") != \"ren woxing\"\n        && ob->query(\"family/master_id\") != \"xiang wentian\") {\n        command(\"sneer\");\n        command(\"say 你还不配。\");\n        return -1;\n    }\n\n    if ((int)ob->query(\"shen\") > -60000) {\n        command(\"hmm\");\n        command(\"say 老夫生平最痛恨的就是你这样的假仁假义之徒！\");\n        return -1;\n    }\n\n    if (skill != \"club\" && skill != \"jinyuan-gun\") {\n        command(\"hmm\");\n        command(\"say 我只传授你这套棍法，其余的找你师父学去。\");\n        return -1;\n    }\n\n    if (skill == \"club\" && ob->query_skill(\"club\", 1) > 179) {\n        command(\"say 你棍法的造诣已经非同凡响了，剩下就自己去练吧。\");\n        return -1;\n    }\n\n    if (!ob->query_temp(\"can_learn/zhangchengfeng\")) {\n        command(\"nod\");\n        command(\"say 念在你有心为本教出力，我就传你这套金猿棍法。\");\n        ob->set_temp(\"can_learn/zhangchengfeng\", 1);\n    }\n    return 1;\n}\n",
+    "kungfu/class/shaolin/cheng-ji.c": "// Npc: /kungfu/class/shaolin/cheng-ji.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\n\nvoid create() {\n    set_name(\"澄寂\", ({\n        \"chengji luohan\",\n        \"chengji\",\n        \"zhihui\",\n        \"luohan\",\n    }));\n    set(\"long\",\n        \"他是一位须发花白的老僧，身穿一袭金边黑布袈裟。他身材瘦高，\\n\"\n        \"太阳穴高高鼓起，似乎身怀绝世武功。\\n\"\n    );\n\n\n    set(\"nickname\", \"智慧罗汉\");\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 60);\n    set(\"shen_type\", 1);\n    set(\"str\", 25);\n    set(\"int\", 25);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n    set(\"max_qi\", 1000);\n    set(\"max_jing\", 1000);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 100000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 85);\n    set_skill(\"hunyuan-yiqi\", 85);\n    set_skill(\"shaolin-xinfa\", 85);\n    set_skill(\"dodge\", 85);\n    set_skill(\"shaolin-shenfa\", 85);\n    set_skill(\"club\", 95);\n    set_skill(\"staff\", 95);\n    set_skill(\"weituo-gun\", 95);\n    set_skill(\"parry\", 85);\n    set_skill(\"buddhism\", 85);\n    set_skill(\"literate\", 85);\n    set_skill(\"weituo-chu\", 80);\n    set_skill(\"yecha-gun\", 80);\n    set_skill(\"luohan-gun\", 80);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"club\", \"weituo-gun\");\n    map_skill(\"parry\", \"weituo-gun\");\n\n    create_family(\"少林派\", 37, \"弟子\");\n\n    setup();\n\n    carry_object(\"/d/shaolin/obj/qimeigun\")->wield();\n    carry_object(\"/d/items/cloth/heise_jiasha2\")->wear();\n}\n\n\n#include \"/kungfu/class/shaolin/cheng.h\"\n",
+    "kungfu/class/shaolin/cheng-ling.c": "// Npc: /kungfu/class/shaolin/cheng-ling.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\n\nvoid create() {\n    set_name(\"澄灵\", ({\n        \"chengling luohan\",\n        \"chengling\",\n        \"riyue\",\n        \"luohan\",\n    }));\n    set(\"long\",\n        \"他是一位须发花白的老僧，身穿一袭金边黑布袈裟。他身材瘦高，\\n\"\n        \"太阳穴高高鼓起，似乎身怀绝世武功。\\n\"\n    );\n\n\n    set(\"nickname\", \"日月罗汉\");\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 60);\n    set(\"shen_type\", 1);\n    set(\"str\", 25);\n    set(\"int\", 25);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n    set(\"max_qi\", 1000);\n    set(\"max_jing\", 1000);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 100000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 85);\n    set_skill(\"hunyuan-yiqi\", 85);\n    set_skill(\"shaolin-xinfa\", 85);\n    set_skill(\"dodge\", 85);\n    set_skill(\"shaolin-shenfa\", 85);\n    set_skill(\"club\", 90);\n    set_skill(\"zui-gun\", 95);\n    set_skill(\"parry\", 85);\n    set_skill(\"buddhism\", 85);\n    set_skill(\"literate\", 85);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"club\", \"zui-gun\");\n    map_skill(\"parry\", \"zui-gun\");\n\n    create_family(\"少林派\", 37, \"弟子\");\n\n    setup();\n\n    carry_object(\"/d/shaolin/obj/qimeigun\")->wield();\n    carry_object(\"/d/items/cloth/heise_jiasha2\")->wear();\n\n}\n\n\n#include \"/kungfu/class/shaolin/cheng.h\"\n",
+    "kungfu/class/shaolin/dao-chen.c": "// Npc: /kungfu/class/shaolin/dao-chen.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道尘禅师\", ({\n        \"daochen chanshi\",\n        \"daochen\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"齐眉棍\": (: ask_me, \"qimeigun\" :),\n        \"戒刀\": (: ask_me, \"jiedao\" :),\n        \"禅杖\": (: ask_me, \"chanzhang\" :),\n        \"长剑\": (: ask_me, \"changjian\" :),\n        \"皮鞭\": (: ask_me, \"changbian\" :),\n    ]));\n\n    set(\"wuqi_count\", 15);\n\n    setup();\n\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"wuqi_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    if (name == \"changjian\")\n        ob = new(\"/d/items/sword/changjian5\");\n    else if (name == \"jiedao\")\n        ob = new(\"/d/items/blade/jiedao2\");\n    else if (name == \"chanzhang\")\n        ob = new(\"/d/items/staff/chanzhang2\");\n    else if (name == \"changbian\")\n        ob = new(\"/d/items/whip/changbian2\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"wuqi_count\", -1);\n\n    message_vision(\"道尘给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，武器只可防身练武，不可凭此杀害生灵。\";\n}\n",
+    "kungfu/class/shaolin/dao-xiang.c": "// Npc: /kungfu/class/shaolin/dao-xiang.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me_1(string name);\nstring ask_me_2(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道相禅师\", ({\n        \"daoxiang chanshi\",\n        \"daoxiang\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"sword\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"sword\", \"damo-jian\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"僧鞋\": (: ask_me_1, \"sengxie\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    set(\"huju_count\", 50);\n    set(\"beixin_count\", 5);\n\n    setup();\n\n    carry_object(\"/d/items/sword/changjian5\")->wield();\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me_1(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else if (name == \"sengxie\")\n        ob = new(\"/d/items/boots/shaolin_sengxie\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n",
+    "kungfu/class/shaolin/hui-jie.c": "// Npc: /kungfu/class/shaolin/hui-jie.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\n#include \"hui.h\"\n\nvoid create() {\n    set_name(\"慧洁尊者\", ({\n        \"huijie zunzhe\",\n        \"huijie\",\n        \"zunzhe\",\n    }));\n    set(\"long\",\n        \"他是一位两鬓斑白的老僧，身穿一袭青布镶边袈裟。他身材略高，\\n\"\n        \"太阳穴微凸，双目炯炯有神。\\n\"\n    );\n\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 50);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 450);\n    set(\"max_jing\", 300);\n    set(\"neili\", 600);\n    set(\"max_neili\", 600);\n    set(\"jiali\", 50);\n    set(\"combat_exp\", 50000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 70);\n    set_skill(\"hunyuan-yiqi\", 70);\n    set_skill(\"shaolin-xinfa\", 70);\n    set_skill(\"dodge\", 70);\n    set_skill(\"shaolin-shenfa\", 70);\n    set_skill(\"blade\", 75);\n    set_skill(\"cibei-dao\", 75);\n    set_skill(\"club\", 77);\n    set_skill(\"weituo-gun\", 77);\n    set_skill(\"parry\", 70);\n    set_skill(\"buddhism\", 70);\n    set_skill(\"literate\", 70);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"blade\", \"cibei-dao\");\n    map_skill(\"club\", \"weituo-gun\");\n    map_skill(\"parry\", \"weituo-gun\");\n\n    create_family(\"少林派\", 38, \"弟子\");\n\n    setup();\n\n    carry_object(\"/d/shaolin/obj/qimeigun\")->wield();\n    carry_object(\"/d/items/cloth/qingse_jiasha2\")->wear();\n}\n",
+    "kungfu/class/shaolin/hui-xu.c": "// Npc: /kungfu/class/shaolin/hui-xu.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\n#include \"hui.h\"\n\nvoid create() {\n    set_name(\"慧虚尊者\", ({\n        \"huixu zunzhe\",\n        \"huixu\",\n        \"zunzhe\",\n    }));\n    set(\"long\",\n        \"他是一位两鬓斑白的老僧，身穿一袭青布镶边袈裟。他身材略高，\\n\"\n        \"太阳穴微凸，双目炯炯有神。\\n\"\n    );\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 50);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 450);\n    set(\"max_jing\", 300);\n    set(\"neili\", 600);\n    set(\"max_neili\", 600);\n    set(\"jiali\", 50);\n    set(\"combat_exp\", 50000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 70);\n    set_skill(\"hunyuan-yiqi\", 70);\n    set_skill(\"shaolin-xinfa\", 70);\n    set_skill(\"dodge\", 70);\n    set_skill(\"shaolin-shenfa\", 70);\n    set_skill(\"hand\", 69);\n    set_skill(\"fengyun-shou\", 69);\n    set_skill(\"club\", 78);\n    set_skill(\"zui-gun\", 78);\n    set_skill(\"parry\", 70);\n    set_skill(\"buddhism\", 70);\n    set_skill(\"literate\", 70);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"hand\", \"fengyun-shou\");\n    map_skill(\"club\", \"zui-gun\");\n    map_skill(\"parry\", \"zui-gun\");\n\n    prepare_skill(\"hand\", \"fengyun-shou\");\n\n    create_family(\"少林派\", 38, \"弟子\");\n\n    setup();\n\n    carry_object(\"/d/shaolin/obj/qimeigun\")->wield();\n    carry_object(\"/d/items/cloth/qingse_jiasha2\")->wear();\n}\n"
+  },
+  "excluded": [
+    {
+      "file": "d/luoyang/npc/obj/club1.c",
+      "source_hash": "f8e73a8e112c189c18b169da4b9fa58ca45fe8a3ef67f816dfde1c54d73d9b93"
+    },
+    {
+      "file": "clone/lonely/shenmu.c",
+      "source_hash": "a6949ae65ea3ed909c5e45759dc9f92436c02962d48bbde945a7006a7518350c"
+    },
+    {
+      "file": "clone/weapon/changqiang.c",
+      "source_hash": "4cd1bdf50b5a35d476117447a78ee37b3307e5129b3ea8b6d026853fec3de01e"
+    },
+    {
+      "file": "clone/weapon/qimeigun.c",
+      "source_hash": "66860d9bff630a9dc4775da15f119ed0104a314ad0d8703bba9f67348cddc8b5"
+    },
+    {
+      "file": "clone/weapon/qishiji.c",
+      "source_hash": "d4eda84f131fb967bccc814a8031f8f456cc3557cd049d6da5678ed4582b47bb"
+    },
+    {
+      "file": "clone/weapon/tiegun.c",
+      "source_hash": "e0549a5a24dd20d77aa6f5eaf35330ccee1d6a9524121593f8a05391344b11ca"
+    },
+    {
+      "file": "b/tulong/npc/obj/flag.c",
+      "source_hash": "c49a62057562ba2c7b440523198b8a0852c19a13ab2fae3452956ef03e24d3c7"
+    },
+    {
+      "file": "b/yitian/npc/obj/spear.c",
+      "source_hash": "cd982f6727a6f330458508688f6ee9c31f1e38a3022ad10edeafd600ae0e686e"
+    },
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "source_hash": "e65f3ade684aa461d37d7b51224e386459c8d33ae420b4ce3906cbdfc6e6022c"
+    }
+  ],
+  "observations": [
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/beijing/npc/obj/mace",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 2000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 20,
+        "id": "copper mace",
+        "unit": "柄",
+        "material": "copper",
+        "long": "一柄沉甸甸的熟铜锏，上面铜锈斑斑。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N抹了抹$n上的锈，把它收了起来。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -1
+        },
+        "name": "熟铜锏",
+        "wield_msg": "$N举起一柄$n，在地上撞出点点火星。\n"
+      },
+      "weight": 5000,
+      "ids": [
+        "copper mace",
+        "mace",
+        "coppermace",
+        "tongjian",
+        "jian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 2000,
+        "skill_type": "club",
+        "stable": 20,
+        "unit": "柄",
+        "id": "copper mace",
+        "material": "copper",
+        "long": "一柄沉甸甸的熟铜锏，上面铜锈斑斑。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N抹了抹$n上的锈，把它收了起来。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -1
+        },
+        "name": "熟铜锏",
+        "wield_msg": "$N举起一柄$n，在地上撞出点点火星。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon1",
+      "clone_weight": 8000,
+      "blueprint": {
+        "value": 250000,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "panlong gun",
+        "unit": "根",
+        "material": "steel",
+        "long": "一根沉甸甸雕着盘龙的长棍。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 50,
+          "dodge": -2
+        },
+        "name": "\u001b[1;33m如意盘龙棍\u001b[0m"
+      },
+      "weight": 8000,
+      "ids": [
+        "panlong gun",
+        "gun",
+        "panlong",
+        "p"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 250000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "根",
+        "id": "panlong gun",
+        "material": "steel",
+        "long": "一根沉甸甸雕着盘龙的长棍。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 50,
+          "dodge": -2
+        },
+        "name": "\u001b[1;33m如意盘龙棍\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon10",
+      "clone_weight": 20000,
+      "blueprint": {
+        "value": 3400000,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "po jiuyu",
+        "unit": "支",
+        "material": "steel",
+        "long": "\u001b[1;37m\n定海神针·破九域乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 220,
+          "dodge": -6
+        },
+        "name": "\u001b[1;36m定海神针·破九域\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "weight": 20000,
+      "ids": [
+        "po jiuyu",
+        "club",
+        "gun",
+        "shenzhen",
+        "p"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "value": 3400000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "支",
+        "id": "po jiuyu",
+        "material": "steel",
+        "long": "\u001b[1;37m\n定海神针·破九域乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 220,
+          "dodge": -6
+        },
+        "name": "\u001b[1;36m定海神针·破九域\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon2",
+      "clone_weight": 15000,
+      "blueprint": {
+        "value": 500000,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "fangtian huaji",
+        "unit": "杆",
+        "material": "steel",
+        "long": "一杆玄铁打制的方天画戟，传说是三国名将吕布所用过的武器。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 75,
+          "dodge": -5
+        },
+        "name": "\u001b[1;31m方天画戟\u001b[0m",
+        "wield_msg": "$N提起$n握在手中，威风凛凛。\n"
+      },
+      "weight": 15000,
+      "ids": [
+        "fangtian huaji",
+        "huaji",
+        "ji",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "value": 500000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "fangtian huaji",
+        "material": "steel",
+        "long": "一杆玄铁打制的方天画戟，传说是三国名将吕布所用过的武器。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 75,
+          "dodge": -5
+        },
+        "name": "\u001b[1;31m方天画戟\u001b[0m",
+        "wield_msg": "$N提起$n握在手中，威风凛凛。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon3",
+      "clone_weight": 10000,
+      "blueprint": {
+        "value": 1200000,
+        "armor_prop": {
+          "dodge": -3
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "tianlei shendang",
+        "unit": "杆",
+        "material": "steel",
+        "long": "一杆上古神木所铸造的棍子，乃不世之神兵。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 120,
+          "dodge": -3
+        },
+        "name": "\u001b[1;31m天雷神挡\u001b[0m",
+        "wield_msg": "$N提起$n握在手中，威风凛凛。\n"
+      },
+      "weight": 10000,
+      "ids": [
+        "tianlei shendang",
+        "tianlei",
+        "shendang",
+        "dang",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -3
+        },
+        "value": 1200000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "tianlei shendang",
+        "material": "steel",
+        "long": "一杆上古神木所铸造的棍子，乃不世之神兵。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 120,
+          "dodge": -3
+        },
+        "name": "\u001b[1;31m天雷神挡\u001b[0m",
+        "wield_msg": "$N提起$n握在手中，威风凛凛。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon4",
+      "clone_weight": 20000,
+      "blueprint": {
+        "value": 3000000,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "gui nue",
+        "unit": "杆",
+        "material": "steel",
+        "long": "\u001b[1;37m\n玄天棍·鬼虐乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 200,
+          "dodge": -6
+        },
+        "name": "\u001b[37m玄天棍·鬼虐\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "weight": 20000,
+      "ids": [
+        "gui nue",
+        "club",
+        "gun",
+        "xuantian gun",
+        "g"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "value": 3000000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "gui nue",
+        "material": "steel",
+        "long": "\u001b[1;37m\n玄天棍·鬼虐乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 200,
+          "dodge": -6
+        },
+        "name": "\u001b[37m玄天棍·鬼虐\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon5",
+      "clone_weight": 20000,
+      "blueprint": {
+        "value": 2400000,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "qian jun",
+        "unit": "杆",
+        "material": "steel",
+        "long": "\u001b[1;37m\n如意棍·千钧乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 160,
+          "dodge": -6
+        },
+        "name": "\u001b[1;37m如意棍·千钧\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "weight": 20000,
+      "ids": [
+        "qian jun",
+        "ruyi gun",
+        "club",
+        "gun",
+        "q"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -6
+        },
+        "value": 2400000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "qian jun",
+        "material": "steel",
+        "long": "\u001b[1;37m\n如意棍·千钧乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 160,
+          "dodge": -6
+        },
+        "name": "\u001b[1;37m如意棍·千钧\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直慑九霄。\n\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/guiyun/npc/obj/gancheng",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "gan cheng",
+        "long": "一杆闹市货物常用的杆秤。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一杆$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -1
+        },
+        "name": "杆秤"
+      },
+      "weight": 5000,
+      "ids": [
+        "gan cheng",
+        "g"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "gan cheng",
+        "long": "一杆闹市货物常用的杆秤。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一杆$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -1
+        },
+        "name": "杆秤"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/hangzhou/honghua/obj/tiejiang",
+      "clone_weight": 3000,
+      "blueprint": {
+        "value": 200,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "tie jiang",
+        "unit": "根",
+        "material": "steel",
+        "long": "这是一根铁桨，举可齐眉，看来很是沉重，可攻击大片敌人。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -1
+        },
+        "name": "铁桨",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "weight": 3000,
+      "ids": [
+        "tie jiang",
+        "jiang",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 200,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "根",
+        "id": "tie jiang",
+        "material": "steel",
+        "long": "这是一根铁桨，举可齐眉，看来很是沉重，可攻击大片敌人。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -1
+        },
+        "name": "铁桨",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/heimuya/npc/obj/shutonggun",
+      "clone_weight": 2000,
+      "blueprint": {
+        "value": 1000,
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "shutong gun",
+        "unit": "杆",
+        "material": "steel",
+        "long": "\u001b[1;33m一杆十分灵便的熟铜棍。\n\u001b[0m",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "\u001b[1;33m$N\u001b[1;33m手往后一扣，把熟铜棍放在身后。\n\u001b[0m",
+        "weapon_prop": {
+          "damage": 60
+        },
+        "name": "\u001b[1;33m熟铜棍\u001b[0m",
+        "wield_msg": "\u001b[1;33m$N\u001b[1;33m回手从身后抽出一杆熟铜棍。\n\u001b[0m"
+      },
+      "weight": 2000,
+      "ids": [
+        "shutong gun",
+        "shutong",
+        "gun",
+        "club",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "shutong gun",
+        "material": "steel",
+        "long": "\u001b[1;33m一杆十分灵便的熟铜棍。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "\u001b[1;33m$N\u001b[1;33m手往后一扣，把熟铜棍放在身后。\n\u001b[0m",
+        "weapon_prop": {
+          "damage": 60
+        },
+        "name": "\u001b[1;33m熟铜棍\u001b[0m",
+        "wield_msg": "\u001b[1;33m$N\u001b[1;33m回手从身后抽出一杆熟铜棍。\n\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/huanghe/npc/obj/fork",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "sangu cha",
+        "long": "这是一杆三尖开刃的三股叉。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n反别身后。\n",
+        "wield_msg": "$N掣出一杆$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "三股叉"
+      },
+      "weight": 5000,
+      "ids": [
+        "sangu cha",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "sangu cha",
+        "long": "这是一杆三尖开刃的三股叉。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n反别身后。\n",
+        "wield_msg": "$N掣出一杆$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "三股叉"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/huanghe/npc/obj/tieqiao",
+      "clone_weight": 7000,
+      "blueprint": {
+        "value": 1000,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "tie qiao",
+        "unit": "柄",
+        "material": "steel",
+        "long": "这是一把挖矿的铁锹。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回后腰。\n",
+        "weapon_prop": {
+          "damage": 2,
+          "dodge": -2
+        },
+        "name": "铁锹",
+        "wield_msg": "$N「唰」的一声抽出一柄$n握在手中。\n"
+      },
+      "weight": 7000,
+      "ids": [
+        "tie qiao",
+        "qiao",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 1000,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "柄",
+        "id": "tie qiao",
+        "material": "steel",
+        "long": "这是一把挖矿的铁锹。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回后腰。\n",
+        "weapon_prop": {
+          "damage": 2,
+          "dodge": -2
+        },
+        "name": "铁锹",
+        "wield_msg": "$N「唰」的一声抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/lingjiu/npc/obj/diaogan",
+      "clone_weight": 3000,
+      "blueprint": {
+        "value": 50,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "diao gan",
+        "unit": "根",
+        "material": "steel",
+        "long": "这是一根桦木制的钓竿，制作得颇为奇特。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "shaolin": 1,
+        "weapon_prop": {
+          "damage": 35,
+          "dodge": -1
+        },
+        "name": "钓竿",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "weight": 3000,
+      "ids": [
+        "diao gan",
+        "diao",
+        "gan",
+        "d"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 50,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "根",
+        "id": "diao gan",
+        "material": "steel",
+        "long": "这是一根桦木制的钓竿，制作得颇为奇特。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "weapon_prop": {
+          "damage": 35,
+          "dodge": -1
+        },
+        "shaolin": 1,
+        "name": "钓竿",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/mingjiao/obj/qimeigun",
+      "clone_weight": 3000,
+      "blueprint": {
+        "value": 50,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "qimei gun",
+        "unit": "根",
+        "material": "steel",
+        "long": "这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "shaolin": 1,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "齐眉棍",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "weight": 3000,
+      "ids": [
+        "qimei gun",
+        "gun",
+        "q"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 50,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "根",
+        "id": "qimei gun",
+        "material": "steel",
+        "long": "这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "shaolin": 1,
+        "name": "齐眉棍",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/qimeigun",
+      "clone_weight": 3000,
+      "blueprint": {
+        "value": 50,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "qimei gun",
+        "unit": "根",
+        "material": "steel",
+        "long": "这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "shaolin": 1,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "齐眉棍",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "weight": 3000,
+      "ids": [
+        "qimei gun",
+        "gun",
+        "q"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 50,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "根",
+        "id": "qimei gun",
+        "material": "steel",
+        "long": "这是一根桦木白腊棍，举可齐眉，轻重合宜，可攻击大片敌人。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "shaolin": 1,
+        "name": "齐眉棍",
+        "wield_msg": "$N抽出一根$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/tulong/tulong/npc/obj/flag",
+      "clone_weight": 15000,
+      "blueprint": {
+        "value": 300,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 50,
+        "id": "flag",
+        "unit": "面",
+        "material": "silk",
+        "long": "旗上绣着一头大鹰，双翅伸展，甚是威武。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 10,
+          "dodge": -5
+        },
+        "name": "\u001b[1;33m大旗\u001b[0m",
+        "wield_msg": "$N拿出一面$n，挥舞示意。\n"
+      },
+      "weight": 15000,
+      "ids": [
+        "flag",
+        "qi",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "value": 300,
+        "skill_type": "club",
+        "stable": 50,
+        "unit": "面",
+        "id": "flag",
+        "material": "silk",
+        "long": "旗上绣着一头大鹰，双翅伸展，甚是威武。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 10,
+          "dodge": -5
+        },
+        "name": "\u001b[1;33m大旗\u001b[0m",
+        "wield_msg": "$N拿出一面$n，挥舞示意。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/tulong/yitian/npc/obj/spear",
+      "clone_weight": 15000,
+      "blueprint": {
+        "value": 300,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 50,
+        "id": "chang qiang",
+        "unit": "支",
+        "material": "silk",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 10,
+          "dodge": -5
+        },
+        "name": "\u001b[1;37m镔铁长枪\u001b[0m"
+      },
+      "weight": 15000,
+      "ids": [
+        "chang qiang",
+        "qiang",
+        "spear",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -5
+        },
+        "value": 300,
+        "skill_type": "club",
+        "stable": 50,
+        "unit": "支",
+        "id": "chang qiang",
+        "material": "silk",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "weapon_prop": {
+          "damage": 10,
+          "dodge": -5
+        },
+        "name": "\u001b[1;37m镔铁长枪\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/xiangyang/npc/obj/mugun",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 50,
+        "no_clean_up": 1,
+        "skill_type": "club",
+        "stable": 37,
+        "id": "mu gun",
+        "unit": "杆",
+        "material": "steel",
+        "long": "这是一杆木匠做的木棍，手工相当精细。\n",
+        "flag": 16,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰带上。\n",
+        "weapon_prop": {
+          "damage": 3
+        },
+        "name": "木棍",
+        "wield_msg": "$N从腰带里抽出一杆$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "mu gun",
+        "club",
+        "gun",
+        "m"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 50,
+        "skill_type": "club",
+        "stable": 37,
+        "unit": "杆",
+        "id": "mu gun",
+        "material": "steel",
+        "long": "这是一杆木匠做的木棍，手工相当精细。\n",
+        "consistence": 100,
+        "verbs": [
+          "bash",
+          "crush",
+          "slam"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 16,
+        "unwield_msg": "$N将手中的$n插回腰带上。\n",
+        "weapon_prop": {
+          "damage": 3
+        },
+        "name": "木棍",
+        "wield_msg": "$N从腰带里抽出一杆$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    }
+  ]
+}

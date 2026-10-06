@@ -61,7 +61,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/shaolin/obj/qimeigun")->wield();
+    carry_object("/d/items/club/qimei_gun")->wield();
     carry_object("/d/items/cloth/heise_jiasha2")->wear();
 }
 

@@ -1,0 +1,7 @@
+// Only generic character services are doubles; movement/equipment/give are real.
+inherit "/tests/actor";
+
+int visible(object ob) { return 1; }
+int is_busy() { return 0; }
+int accept_object(object from, object item) { return 1; }
+varargs int query_skill(string skill, int raw) { return query("test/skills/" + skill); }

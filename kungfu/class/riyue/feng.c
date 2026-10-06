@@ -97,7 +97,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new("/d/heimuya/npc/obj/shutonggun");
+            ob = new("/d/items/club/shutong_gun");
             ob->move(this_object());
             ob->wield();
         }
@@ -196,10 +196,10 @@ mixed ask_gun() {
     ob->move(this_object());
 
     command("say 既然这样，老夫这根南海神木你就拿去。");
-    command("say 你用它多杀几个正派人士，扬扬咋们日月神教的威风。");
+    command("say 你用它多杀几个正派人士，扬扬咱们日月神教的威风。");
     command("give nanhai shenmu to " + me->query("id"));
 
-    ob = new("/d/heimuya/npc/obj/shutonggun");
+    ob = new("/d/items/club/shutong_gun");
     ob->move(this_object());
     ob->wield();
     return 1;

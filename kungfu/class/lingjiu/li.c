@@ -70,7 +70,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/lingjiu/npc/obj/diaogan")->wield();
+    carry_object("/d/items/club/diaogan")->wield();
     carry_object("/d/items/equip/wucai_qun")->wear();
 }
 

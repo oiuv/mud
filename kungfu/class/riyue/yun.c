@@ -79,7 +79,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/heimuya/npc/obj/shutonggun")->wield();
+    carry_object("/d/items/club/shutong_gun")->wield();
     carry_object("/d/items/cloth/riyue_jinpao")->wear();
 }
 

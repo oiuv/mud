@@ -1,3 +1,4 @@
+import { migrationPaths as clubPaths, canonicalGroups as clubGroups } from './club_inventory.mjs';
 import { migrationPaths as throwingPaths, canonicalGroups as throwingGroups } from './throwing_inventory.mjs';
 import { migrationPaths as daggerPaths, canonicalGroups as daggerGroups } from './dagger_inventory.mjs';
 import { migrationPaths as whipPaths, canonicalGroups as whipGroups } from './whip_inventory.mjs';
@@ -171,18 +172,20 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['whip', whipPaths, whipGroups, 32, 25],
     ['dagger', daggerPaths, daggerGroups, 23, 22],
     ['throwing', throwingPaths, throwingGroups, 27, 26],
+    ['club', clubPaths, clubGroups, 18, 17],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
     const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan', '/d/guanwai/obj/mantou': '/d/items/food/mantou',
-        ...(['liquid', 'blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
-        ...(['blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
-        ...(['equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing'].includes(family) ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}),
-        ...(['hammer', 'staff', 'whip', 'dagger', 'throwing'].includes(family) ? { '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'] } : {}),
-        ...(['staff', 'whip', 'dagger', 'throwing'].includes(family) ? { '/d/beijing/npc/obj/hammer': hammerPaths()['/d/beijing/npc/obj/hammer'] } : {}),
-        ...(['whip', 'dagger', 'throwing'].includes(family) ? { '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'] } : {}),
-        ...(['dagger', 'throwing'].includes(family) ? { '/d/beijing/npc/obj/whip': whipPaths()['/d/beijing/npc/obj/whip'] } : {}),
-        ...(family === 'throwing' ? { '/d/beijing/npc/obj/dagger': daggerPaths()['/d/beijing/npc/obj/dagger'] } : {}) });
+        ...(['liquid', 'blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
+        ...(['blade', 'equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
+        ...(['equip', 'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}),
+        ...(['hammer', 'staff', 'whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'] } : {}),
+        ...(['staff', 'whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/hammer': hammerPaths()['/d/beijing/npc/obj/hammer'] } : {}),
+        ...(['whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'] } : {}),
+        ...(['dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/whip': whipPaths()['/d/beijing/npc/obj/whip'] } : {}),
+        ...(['throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/dagger': daggerPaths()['/d/beijing/npc/obj/dagger'] } : {}),
+        ...(family === 'club' ? { '/d/beijing/npc/obj/throwing': throwingPaths()['/d/beijing/npc/obj/throwing'] } : {}) });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};

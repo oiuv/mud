@@ -27,16 +27,16 @@ void create() {
     set("combat_exp", 20000000);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/death/obj/weapon1",
-        "/d/death/obj/weapon2",
-        "/d/death/obj/weapon3",
-        "/d/death/obj/weapon4",
-        "/d/death/obj/weapon5",
+        "/d/items/club/panlong_gun",
+        "/d/items/club/fangtian_ji",
+        "/d/items/club/tianlei_dang",
+        "/d/items/club/xuantian_gun",
+        "/d/items/club/ruyi_gun",
         "/d/items/hammer/qixing_chui1",
         "/d/items/hammer/qixing_chui2",
         "/d/items/hammer/qixing_chui3",
         "/d/items/hammer/poyu_chui",
-        "/d/death/obj/weapon10",
+        "/d/items/club/dinghai_zhen",
         "/d/items/hammer/tianluo_chui",
         "/d/items/hammer/dingyao_chui",
         "/d/items/staff/panlong_zhang",

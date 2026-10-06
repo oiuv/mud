@@ -1,0 +1,289 @@
+// Execute original supplier methods; no new inquiry keys or item aliases.
+void check_qian() {
+    object actor, npc;
+    string prefix, key;
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    actor->set("family/family_name", "八卦门");
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->select_npc(npc, "do_yao");
+        foreach (key in ({ "mace", "club" })) {
+            actor->run_command("testnpc " + key);
+            check(!sizeof(all_inventory(actor)) && !npc->issued(key) &&
+                !actor->query_temp("mark/zhenyuan_weapon"), "Qian does not offer CLUB");
+        }
+        destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_dynamic() {
+    object actor, npc, item, blocker;
+    mapping paths;
+    string prefix, file, stock, method, target, key;
+    mixed *branches, *branch;
+    int has_family;
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (file in ({
+        "/kungfu/class/shaolin/dao-chen",
+        "/kungfu/class/shaolin/dao-xiang",
+        "/d/xiangyang/npc/wuxiuwen"
+    })) {
+        stock = file == "/kungfu/class/shaolin/dao-chen" ? "wuqi_count" : "huju_count";
+        method = stock == "wuqi_count" ? "ask_me" : "ask_me_1";
+        has_family = file != "/d/xiangyang/npc/wuxiuwen";
+        foreach (prefix in ({ "/tests/old", "" })) {
+            npc = new(prefix + file); actor->select_npc(npc, method); actor->delete("family");
+            if (has_family) {
+                actor->run_command("testnpc qimeigun");
+                check(
+                    !sizeof(all_inventory(actor)) && npc->query(stock) == 2,
+                    "original sect restriction"
+                );
+                actor->set("family/family_name", "少林派");
+            }
+            blocker = new("/tests/vendor");
+            blocker->set_name("持有检查夹具", ({ "qimeigun" })); blocker->move(actor, 1);
+            actor->run_command("testnpc qimeigun");
+            check(
+                sizeof(all_inventory(actor)) == 1 && npc->query(stock) == 2,
+                "original present argument check"
+            );
+            destruct(blocker);
+            target = prefix == "" ? paths["/d/shaolin/obj/qimeigun"] : "/d/shaolin/obj/qimeigun";
+            actor->run_command("testnpc qimeigun"); item = present(target->query("id"), actor);
+            check(
+                objectp(item) && base_name(item) == target && npc->query(stock) == 1,
+                "original/public qimeigun branch"
+            );
+            // The old primary aliases do NOT contain qimeigun: preserve its duplicate-check behavior.
+            check(!item->id("qimeigun"), "no invented qimeigun input alias");
+            actor->run_command("testnpc qimeigun");
+            check(
+                sizeof(all_inventory(actor)) == 2 && !npc->query(stock),
+                "old alias mismatch preserved"
+            );
+            clear_inventory(actor); actor->run_command("testnpc qimeigun");
+            check(!sizeof(all_inventory(actor)) && !npc->query(stock), "stock exhaustion");
+            branches = stock == "wuqi_count" ? ({ ({
+                "changjian",
+                "/d/items/sword/changjian5"
+            }), ({ "jiedao", "/d/items/blade/jiedao2" }),
+                ({
+                    "chanzhang",
+                    "/d/items/staff/chanzhang2"
+                }), ({
+                    "changbian",
+                    "/d/items/whip/changbian2"
+                }) }) : ({ ({
+                "huwan",
+                "/d/items/wrists/shaolin_huwan"
+            }), ({ "weibo", "/d/items/neck/shaolin_weibo" }),
+                ({
+                    "shoutao",
+                    "/d/items/hands/shaolin_shoutao"
+                }), ({ "zhitao", "/d/items/hands/shaolin_zhitao" }) });
+            if (file == "/kungfu/class/shaolin/dao-xiang")
+                branches += ({ ({ "sengxie", "/d/items/boots/shaolin_sengxie" }) });
+            foreach (branch in branches) {
+                npc->set(stock, 1); key = branch[0]; target = branch[1];
+                actor->run_command("testnpc " + key); item = present(target->query("id"), actor);
+                check(
+                    objectp(item) && base_name(item) == target && !npc->query(stock),
+                    "other original branch " + key
+                );
+                clear_inventory(actor);
+            }
+            destruct(npc);
+        }
+    }
+    destruct(actor);
+}
+
+void check_actual_shops() {
+    object actor, vendor, item, display;
+    mapping paths, record;
+    string prefix, path, target, id, listing;
+    string *goods, *original_goods, *expected_goods;
+    int money, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (record in json_decode(read_file("/tests/club-shops.json"))) {
+        original_goods = 0;
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + record["fixture"]); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                expected_goods = ({});
+                foreach (path in original_goods) expected_goods += ({ paths[path] ? paths[path] : path });
+                check(same_value(goods, expected_goods), "actual shop stock order unchanged");
+            }
+            actor->select_vendor(vendor); tested = 0;
+            display = new("/tests/club_vendor");
+            display->set(
+                "vendor_goods",
+                goods
+            ); display->do_list(0); listing = display->query_display();
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                id = load_object(target)->query("id");
+                check(vendor->is_vendor_good(id) == target, "actual shop lookup");
+                check(strsrch(listing, target->name(1)) >= 0 &&
+                    strsrch(listing, MONEY_D->price_str(target->query("value"))) >= 0,
+                    "complete actual shop listing contains original name and price");
+                vendor->enough_rest(); actor->run_command("testbuy " + id);
+                check(
+                    !sizeof(all_inventory(actor)) && !actor->cash_value(),
+                    "actual shop insufficient payment refused"
+                );
+                MONEY_D->pay_player(
+                    actor,
+                    target->query("value") + 100000
+                ); money = actor->cash_value();
+                vendor->enough_rest(); actor->run_command("testbuy 2 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "ordinary CLUB cannot be bulk purchased"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy 101 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "original shop quantity maximum"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy " + id); item = present(
+                    id,
+                    actor
+                );
+                check(objectp(item) && base_name(item) == target, "actual shop delivery");
+                check(
+                    money - actor->cash_value() == target->query("value"),
+                    "actual shop original price"
+                );
+                actor->run_command("testbuy " + id);
+                check(sizeof(filter_array(all_inventory(actor), (: !$1->query("money_id") :))) == 1,
+                    "actual shop cooldown prevents immediate second purchase");
+                clear_inventory(actor); tested++;
+            }
+            check(tested == record["count"], "all selected shop goods exercised");
+            destruct(display);
+            clear_inventory(vendor); destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_feng() {
+    object actor, npc, second, unique, owner, bag, weapon;
+    string prefix, backup, master_id;
+
+    actor = new("/tests/club_actor"); actor->move(this_object(), 1);
+    foreach (prefix in ({ "/tests/old", "" })) {
+        unique = find_object("/clone/lonely/shenmu"); if (unique) destruct(unique);
+        npc = new(prefix + "/kungfu/class/riyue/feng"); npc->move(this_object(), 1);
+        unique = find_object("/clone/lonely/shenmu");
+        check(environment(unique) == npc && npc->query_temp("weapon") == unique,
+            "Feng original unowned unique acquisition and wield");
+        second = new(prefix + "/kungfu/class/riyue/feng");
+        backup = prefix == "" ? "/d/items/club/shutong_gun" : "/d/heimuya/npc/obj/shutonggun";
+        check(base_name(second->query_temp("weapon")) == backup &&
+            second->query_temp("armor/cloth") && second->query("startroom") == "/d/heimuya/up1",
+            "Feng owned unique uses backup and original clothing/startroom");
+        clear_inventory(second); destruct(second);
+        actor->select_npc(npc, "ask_gun");
+        actor->delete("family"); actor->run_command("testnpc");
+        check(actor->query_temp("last_reply") == "给我滚开！", "Feng sect gate");
+        actor->set("family/family_name", "日月神教"); actor->run_command("testnpc");
+        check(actor->query_temp("last_reply") == "你还不配！", "Feng teacher gate");
+        actor->set("family/master_id", "ren woxing"); actor->set("shen", -79999);
+        actor->run_command("testnpc");
+        check(
+            actor->query_temp("last_reply") == "你这样心慈手软，拿了神木又有什么用？",
+            "Feng negative shen boundary"
+        );
+        actor->set("shen", -80000); actor->set("test/skills/jinyuan-gun", 119);
+        actor->run_command("testnpc");
+        check(actor->query_temp("last_reply") == "你连金猿棍法都没学好，就算神兵在手又有何用？", "Feng skill boundary");
+        actor->set("test/skills/jinyuan-gun", 120);
+        foreach (master_id in ({ "ren woxing", "xiang wentian" })) {
+            actor->set("family/master_id", master_id);
+            actor->run_command("testnpc");
+            check(actor->query_temp("last_reply") == 1 && environment(unique) == actor,
+                "Feng real give succeeds for accepted master");
+            weapon = npc->query_temp("weapon");
+            check(objectp(weapon) && base_name(weapon) == backup && weapon->query("equipped") == "wielded",
+                "Feng backup clone equipped after gift");
+            actor->run_command("testnpc");
+            check(
+                actor->query_temp("last_reply") == "南海神木现在不就在你手里吗？",
+                "Feng player already owns unique"
+            );
+            destruct(weapon); unique->move(npc, 1);
+        }
+        owner = new("/tests/club_actor"); owner->set_name("持有人", ({ "holder" }));
+        bag = new("/tests/vendor"); bag->set_max_encumbrance(1000000); bag->move(owner, 1);
+        unique->move(bag, 1);
+        owner->set("family/family_name", "日月神教"); actor->run_command("testnpc");
+        check(
+            actor->query_temp("last_reply") == "老夫的南海神木现在是持有人在用，你要用就去找他吧。",
+            "Feng nested same-sect owner"
+        );
+        owner->delete("family"); actor->run_command("testnpc");
+        check(
+            actor->query_temp("last_reply") == "老夫的南海神木现在落入了持有人之手，你去把它取回来吧！",
+            "Feng other-sect owner"
+        );
+        bag->move(this_object(), 1); actor->run_command("testnpc");
+        check(
+            actor->query_temp("last_reply") == "你来晚了一步，南海神木我已经借出去了。",
+            "Feng non-character outer owner"
+        );
+        destruct(unique); clear_inventory(owner); destruct(owner); destruct(bag);
+        actor->run_command("testnpc"); unique = find_object("/clone/lonely/shenmu");
+        check(actor->query_temp("last_reply") == 1 && environment(unique) == actor,
+            "Feng reloads absent unique and gives it");
+        clear_inventory(npc); destruct(npc); clear_inventory(actor);
+    }
+    destruct(actor);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, weapon, match, candidate;
+    string expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/club-equipment.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        check(
+            sizeof(all_inventory(before)) == sizeof(all_inventory(after)),
+            "NPC full equipment count"
+        );
+        foreach (weapon in all_inventory(before)) {
+            expected = paths[base_name(weapon)] ? paths[base_name(weapon)] : base_name(weapon);
+            match = 0;
+            foreach (candidate in all_inventory(after))
+                if (base_name(candidate) == expected) match = candidate;
+            check(objectp(match), record["file"] + " full inventory identity " + expected);
+            if (match) {
+                compare(weapon, match, "NPC original clothing and weapon");
+                check(
+                    weapon->query("equipped") == match->query("equipped"),
+                    "NPC original equipment slot"
+                );
+            }
+        }
+        check(
+            base_name(after->query_temp("weapon")) == paths[base_name(before->query_temp("weapon"))],
+            "NPC canonical club wielded"
+        );
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "NPC full equipment bonuses"
+        );
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}

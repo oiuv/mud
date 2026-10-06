@@ -58,6 +58,6 @@ void create() {
     ]));
 
     setup();
-    carry_object(__DIR__ "obj/gancheng")->wield();
+    carry_object("/d/items/club/gancheng")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

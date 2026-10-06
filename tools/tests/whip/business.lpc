@@ -108,7 +108,7 @@ void check_dynamic() {
         check(!sizeof(all_inventory(actor)) && !npc->query("wuqi_count"), "dao stock exhaustion");
         other_paths = ([ "changjian": "/d/items/sword/changjian5",
             "jiedao": "/d/items/blade/jiedao2", "chanzhang": "/d/items/staff/chanzhang2",
-            "qimeigun": "/d/shaolin/obj/qimeigun" ]);
+            "qimeigun": prefix == "" ? "/d/items/club/qimei_gun" : "/d/shaolin/obj/qimeigun" ]);
         foreach (request_name, target in other_paths) {
             npc->set("wuqi_count", 1);
             actor->run_command("testnpc " + request_name);
