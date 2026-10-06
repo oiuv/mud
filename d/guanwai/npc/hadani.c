@@ -19,7 +19,7 @@ void create() {
 
     set("vendor_goods", ({
         "/d/guanwai/obj/saw",
-        "/d/guanwai/obj/axe",
+        "/d/items/axe/futou",
     }));
 
     set("inquiry", ([

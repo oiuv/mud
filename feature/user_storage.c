@@ -242,6 +242,9 @@ int store_item(object me, object ob, int amount) {
         !"/d/items/dagger"->valid_variety_path(base_name(ob)) &&
         !"/d/items/throwing"->valid_variety_path(base_name(ob)) &&
         !"/d/items/club"->valid_variety_path(base_name(ob)) &&
+        !"/d/items/axe"->valid_variety_path(base_name(ob)) &&
+        !"/d/items/fork"->valid_variety_path(base_name(ob)) &&
+        !"/d/items/pin"->valid_variety_path(base_name(ob)) &&
         !"/d/items/book"->valid_variety_path(base_name(ob)) &&
         !"/d/items/qin"->valid_variety_path(base_name(ob)) &&
         !"/d/items/xiao"->valid_variety_path(base_name(ob)) &&

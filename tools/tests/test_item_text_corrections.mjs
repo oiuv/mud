@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { tokens, root } from './cloth_inventory.mjs';
 import { correctedItemText } from './item_text_corrections.mjs';
 import { original } from './whip_inventory.mjs';
+import { readBaseline as clubBaseline, canonicalGroups, correctedClubText, renderDefinitions } from './club_inventory.mjs';
 
 const oldText = '一股杀气直聂九霄';
 const newText = '一股杀气直慑九霄';
@@ -34,13 +35,16 @@ test('all 38 migrated messages use corrected text without rewriting historical d
     }
 });
 
-test('three remaining physical weapons change only the typo, not gameplay tokens', () => {
+test('three formerly physical weapons retain the approved correction after CLUB migration', () => {
     for (const number of [4, 5, 10]) {
         const file = `d/death/obj/weapon${number}.c`;
         const before = original(file);
-        const current = readFileSync(join(root, file), 'utf8');
-        assert.equal(current.includes(oldText), false, file);
-        assert.equal(current.split(newText).length - 1, 1, file);
-        assert.deepEqual(semantic(current), semantic(before.replaceAll(oldText, newText)), file);
+        const row = clubBaseline().varieties.find(r => r.old_path + '.c' === '/' + file);
+        assert.ok(row, file);
+        assert.deepEqual(semantic(row.source), semantic(before.replaceAll(oldText, newText)), 'frozen pre-CLUB typo correction');
+        const group = canonicalGroups().find(g => g.rows.some(r => r.old_path === row.old_path));
+        const message = group.representative.properties.find(([key]) => key === '"wield_msg"')[1];
+        assert.ok(correctedClubText(group.id, '"wield_msg"', message).includes(newText));
     }
+    assert.deepEqual(semantic(readFileSync(join(root, 'd/items/club_data.h'), 'utf8')), semantic(renderDefinitions()));
 });

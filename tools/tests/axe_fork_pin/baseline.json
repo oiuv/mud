@@ -1,0 +1,1172 @@
+{
+  "baseline": "3c7bd13cd324fe61c580c57bc865ce63fe91143a",
+  "count": 9,
+  "varieties": [
+    {
+      "old_path": "/d/beijing/npc/obj/axe",
+      "key": "beijing_npc_obj_axe",
+      "source_hash": "e3f32e0662f6362fe1fb2a0267002b77fc8f2870c6934ab5c91d31193bc57309",
+      "name": [
+        "\"大板斧\"",
+        "({ \"bigaxe\", \"axe\" })"
+      ],
+      "weight": "6000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1100"
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N拿出一把$n，握在手中当作武器。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N放下手中的$n。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 1,
+      "family": "axe",
+      "id": "dabanfu",
+      "new_path": "/d/items/axe/dabanfu",
+      "source": "// bigaxe.c\n\n#include <weapon.h>\n\ninherit AXE;\n\nvoid create() {\n    set_name(\"大板斧\", ({ \"bigaxe\", \"axe\" }));\n    set_weight(6000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"material\", \"steel\");\n        set(\"long\", \"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\");\n        set(\"value\", 1100);\n        set(\"wield_msg\", \"$N拿出一把$n，握在手中当作武器。\\n\");\n        set(\"unwield_msg\", \"$N放下手中的$n。\\n\");\n    }\n    init_axe(25, TWO_HANDED);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/beijing/npc/obj/fork",
+      "key": "beijing_npc_obj_fork",
+      "source_hash": "76f8a8f312678f3e04ed5a4c1cdc24d8879c69116aa6e458bb114a21546a49fd",
+      "name": [
+        "\"钢叉\"",
+        "({ \"gangcha\", \"cha\", \"fork\" })"
+      ],
+      "weight": "8000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"iron\""
+        ],
+        [
+          "\"long\"",
+          "\"一柄锋利的钢叉。\\n\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抄起一柄$n，还拿衣服擦了擦叉尖。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 0,
+      "family": "fork",
+      "id": "gangcha",
+      "new_path": "/d/items/fork/gangcha",
+      "source": "// gangcha.c\n\n#include <weapon.h>\n\ninherit FORK;\n\nvoid create() {\n    set_name(\"钢叉\", ({ \"gangcha\", \"cha\", \"fork\" }));\n    set_weight(8000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"value\", 1000);\n        set(\"material\", \"iron\");\n        set(\"long\", \"一柄锋利的钢叉。\\n\");\n        set(\"wield_msg\", \"$N抄起一柄$n，还拿衣服擦了擦叉尖。\\n\");\n    }\n    init_fork(25);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/axe",
+      "key": "changan_npc_obj_axe",
+      "source_hash": "b28465eeb97f25b0661aa53e1ddc2aa689499e8f4f36418cc49afde50df4d3a6",
+      "name": [
+        "\"板斧\"",
+        "({ \"axe\", \"axe\" })"
+      ],
+      "weight": "6000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N拿出一把$n，握在手中当作武器。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N放下手中的$n。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 1,
+      "family": "axe",
+      "id": "banfu",
+      "new_path": "/d/items/axe/banfu",
+      "source": "//axe.c\n\n#include <weapon.h>\n\ninherit AXE;\n\nvoid create() {\n    set_name(\"板斧\", ({ \"axe\", \"axe\" }));\n    set_weight(6000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"material\", \"steel\");\n        set(\"long\", \"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\");\n        set(\"value\", 500);\n        set(\"wield_msg\", \"$N拿出一把$n，握在手中当作武器。\\n\");\n        set(\"unwield_msg\", \"$N放下手中的$n。\\n\");\n    }\n    init_axe(25, TWO_HANDED);\n\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/guanwai/obj/axe",
+      "key": "guanwai_obj_axe",
+      "source_hash": "33158c8806c0aba4ede29bfe9b749b04fe9c8d6edc3f58feb88cd973b10cacf3",
+      "name": [
+        "\"斧头\"",
+        "({ \"axe\", \"fu tou\" })"
+      ],
+      "weight": "10000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把斧头，颇为沉重，是伐树的好工具。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抓起一把斧头，握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的斧头收了回来。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 30,
+      "flags": 1,
+      "family": "axe",
+      "id": "futou",
+      "new_path": "/d/items/axe/futou",
+      "source": "// axe.c\n\n#include <weapon.h>\n\ninherit AXE;\n\nvoid create() {\n    set_name(\"斧头\", ({ \"axe\", \"fu tou\" }));\n    set_weight(10000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"long\", \"这是一把斧头，颇为沉重，是伐树的好工具。\\n\");\n        set(\"value\", 1000);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抓起一把斧头，握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的斧头收了回来。\\n\");\n    }\n    init_axe(30, TWO_HANDED);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/guiyun/npc/obj/axe",
+      "key": "guiyun_npc_obj_axe",
+      "source_hash": "b7f066cf9b7a429f83d4bea61b6ad243a35fc26f70ee82ae77292fde6002aa17",
+      "name": [
+        "\"砍柴斧\"",
+        "({ \"fu\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"一柄砍柴用的短斧，斧刃上有几个缺口。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1500"
+        ],
+        [
+          "\"rigidity\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 5,
+      "flags": 0,
+      "family": "axe",
+      "id": "kanchai_fu",
+      "new_path": "/d/items/axe/kanchai_fu",
+      "source": "// axe.c\n\n#include <weapon.h>\ninherit AXE;\n\nvoid create() {\n    set_name(\"砍柴斧\", ({ \"fu\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"一柄砍柴用的短斧，斧刃上有几个缺口。\\n\");\n        set(\"value\", 1500);\n        set(\"rigidity\", 100);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n    }\n    init_axe(5);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/huanghe/npc/obj/axe",
+      "key": "huanghe_npc_obj_axe",
+      "source_hash": "c8bd4259d3d881a0cd9cfc406db06fc8aeaeac93f5dd41b1f7de4a8486133dba",
+      "name": [
+        "\"丧门斧\"",
+        "({ \"sangmen fu\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"杆\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一杆三尖开刃的三股叉。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1500"
+        ],
+        [
+          "\"rigidity\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N掣出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n反别腰后。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 15,
+      "flags": 0,
+      "family": "axe",
+      "id": "sangmen_fu",
+      "new_path": "/d/items/axe/sangmen_fu",
+      "source": "// axe.c\n\n#include <weapon.h>\ninherit AXE;\n\nvoid create() {\n    set_name(\"丧门斧\", ({ \"sangmen fu\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"杆\");\n        set(\"long\", \"这是一杆三尖开刃的三股叉。\\n\");\n        set(\"value\", 1500);\n        set(\"rigidity\", 100);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N掣出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n反别腰后。\\n\");\n    }\n    init_axe(15);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/huanghe/npc/obj/futou",
+      "key": "huanghe_npc_obj_futou",
+      "source_hash": "d182d88c56a2d7adbaf233bc2fb50b0ffc2632bf4fe4affcb20456ac93e74a83",
+      "name": [
+        "\"大斧头\"",
+        "({ \"futou\", \"da futou\" })"
+      ],
+      "weight": "7000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把砍柴的大斧头。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回后腰。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 5,
+      "flags": 0,
+      "family": "axe",
+      "id": "da_futou",
+      "new_path": "/d/items/axe/da_futou",
+      "source": "// futou.c\n\n#include <weapon.h>\ninherit AXE;\n\nvoid create() {\n    set_name(\"大斧头\", ({ \"futou\", \"da futou\" }));\n    set_weight(7000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一把砍柴的大斧头。\\n\");\n        set(\"value\", 1000);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N「唰」的一声抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回后腰。\\n\");\n    }\n    init_axe(5);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhou/obj/xiuhua",
+      "key": "quanzhou_obj_xiuhua",
+      "source_hash": "15f3b30d88590ba46475c87af07932531ddc898f983606955bfdb35958de46f9",
+      "name": [
+        "\"绣花针\"",
+        "({ \"xiuhua zhen\", \"zhen\", \"needle\" })"
+      ],
+      "weight": "5",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根精钢细磨的绣花针，是绣花用的绝佳工具。\\n\""
+        ],
+        [
+          "\"value\"",
+          "80"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N用拇指和食指从鬓间拈出一根$n。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回鬓间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 10,
+      "flags": 0,
+      "family": "pin",
+      "id": "xiuhua_zhen",
+      "new_path": "/d/items/pin/xiuhua_zhen",
+      "source": "// weapon: xiuhua.c 绣花针\n// Jay 4/7/96\n\n#include <weapon.h>\ninherit PIN;\n\nvoid create() {\n    set_name(\"绣花针\", ({ \"xiuhua zhen\", \"zhen\", \"needle\" }));\n    set_weight(5);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根精钢细磨的绣花针，是绣花用的绝佳工具。\\n\");\n        set(\"value\", 80);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N用拇指和食指从鬓间拈出一根$n。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回鬓间。\\n\");\n    }\n    init_pin(10);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/tiezhang/obj/axe",
+      "key": "tiezhang_obj_axe",
+      "source_hash": "84b2694a0fd9af30d404f50bb56bb2f9ebaca819eab03e27430e101f6fe11ebf",
+      "name": [
+        "\"大板斧\"",
+        "({ \"bigaxe\", \"axe\" })"
+      ],
+      "weight": "6000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"把\""
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N拿出一把$n，握在手中当作武器。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N放下手中的$n。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 35,
+      "flags": 1,
+      "family": "axe",
+      "id": "dabanfu2",
+      "new_path": "/d/items/axe/dabanfu2",
+      "source": "#include <weapon.h>\n\ninherit AXE;\n\nvoid create() {\n    set_name(\"大板斧\", ({ \"bigaxe\", \"axe\" }));\n    set_weight(6000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"把\");\n        set(\"material\", \"steel\");\n        set(\"long\", \"这是一把沉重的大板斧，砍起东西来非常顺手。\\n\");\n        set(\"value\", 500);\n        set(\"wield_msg\", \"$N拿出一把$n，握在手中当作武器。\\n\");\n        set(\"unwield_msg\", \"$N放下手中的$n。\\n\");\n    }\n    init_axe(35, TWO_HANDED);\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/beijing/npc/hu.c",
+      "line": 23,
+      "start": 543,
+      "end": 567,
+      "expression": "\"/d/quanzhou/obj/xiuhua\"",
+      "old_path": "/d/quanzhou/obj/xiuhua",
+      "new_path": "/d/items/pin/xiuhua_zhen"
+    },
+    {
+      "file": "d/guanwai/npc/hadani.c",
+      "line": 22,
+      "start": 499,
+      "end": 519,
+      "expression": "\"/d/guanwai/obj/axe\"",
+      "old_path": "/d/guanwai/obj/axe",
+      "new_path": "/d/items/axe/futou"
+    },
+    {
+      "file": "d/guiyun/npc/nanxiren.c",
+      "line": 66,
+      "start": 1649,
+      "end": 1666,
+      "expression": "__DIR__ \"obj/axe\"",
+      "old_path": "/d/guiyun/npc/obj/axe",
+      "new_path": "/d/items/axe/kanchai_fu"
+    },
+    {
+      "file": "d/huanghe/npc/qian.c",
+      "line": 35,
+      "start": 823,
+      "end": 840,
+      "expression": "__DIR__ \"obj/axe\"",
+      "old_path": "/d/huanghe/npc/obj/axe",
+      "new_path": "/d/items/axe/sangmen_fu"
+    },
+    {
+      "file": "d/huanghe/npc/qiaofu.c",
+      "line": 19,
+      "start": 342,
+      "end": 361,
+      "expression": "__DIR__ \"obj/futou\"",
+      "old_path": "/d/huanghe/npc/obj/futou",
+      "new_path": "/d/items/axe/da_futou"
+    },
+    {
+      "file": "d/quanzhou/npc/chen.c",
+      "line": 27,
+      "start": 574,
+      "end": 598,
+      "expression": "\"/d/quanzhou/obj/xiuhua\"",
+      "old_path": "/d/quanzhou/obj/xiuhua",
+      "new_path": "/d/items/pin/xiuhua_zhen"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "line": 121,
+      "expression": "obj = new(__DIR__ \"obj/\" + arg);"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 74,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    }
+  ],
+  "callers": {
+    "d/beijing/npc/hu.c": "inherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"胡掌柜\", ({ \"hu zhanggui\", \"hu\" }));\n    set(\"title\", \"杂货铺老板\");\n    set(\"shen_type\", 1);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"long\",\n        \"别看胡掌柜整天懒洋洋的，他心里可盘算得精着呢。\\n\" +\n        \"在这北京城能混出个样儿来，再怎么也得有几分本事。\\n\");\n    set_skill(\"unarmed\", 60);\n    set_skill(\"parry\", 60);\n    set_skill(\"dodge\", 60);\n    set_temp(\"apply/damage\", 25);\n\n    set(\"combat_exp\", 50000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/items/cloth/pi_beixin2\",\n        \"/d/quanzhou/obj/xiuhua\",\n        \"/d/items/boots/xiuhuaxie\",\n        \"/d/items/cloth/fenhong_choushan\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/buyi\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/changan/npc/fujiang.c": "//fujiang.c\n\ninherit NPC;\n\nstring weapon_file, skill, special_skill;\nstring *first_name = ({ \"赵\", \"钱\", \"孙\", \"李\", \"周\", \"吴\", \"郑\", \"王\", \"樊\", \"陈\", \"祝\",\n    \"魏\", \"蒋\", \"沈\", \"韩\", \"杨\", \"刘\", \"张\", \"林\", \"朱\", \"欧阳\",\n    \"司马\", \"慕容\", \"诸葛\" });\nstring *name_words = ({ \"顺\", \"昌\", \"振\", \"发\", \"财\", \"俊\", \"彦\", \"良\", \"志\", \"忠\",\n    \"孝\", \"雄\", \"益\", \"添\", \"金\", \"辉\", \"长\", \"盛\", \"胜\", \"进\", \"安\", \"福\", \"同\", \"满\",\n    \"富\", \"万\", \"龙\", \"隆\", \"祥\", \"栋\", \"国\", \"亿\", \"寿\", \"思\", \"霖\", \"雷\", \"鹏\", \"平\",\n    \"轼\", \"甫\", \"维\", \"龄\", \"桥\", \"溪\", \"声\", \"谷\", \"山\", \"舟\", \"岩\", \"泉\", \"游\", \"逊\", });\n\nvoid determine_data() {\n    switch (random(5)) {\n        case 0:\n            weapon_file = \"changjian\";\n            skill = \"sword\";\n            break;\n        case 1:\n            weapon_file = \"gangdao\";\n            skill = \"blade\";\n            break;\n        case 2:\n            weapon_file = \"gangzhang\";\n            skill = \"staff\";\n            break;\n        case 3:\n            weapon_file = \"changbian\";\n            skill = \"whip\";\n            break;\n        case 4:\n            weapon_file = \"axe\";\n            skill = \"axe\";\n            break;\n    }\n}\n\nvoid create() {\n    string name;\n    name = first_name[random(sizeof(first_name))];\n    name += name_words[random(sizeof(name_words))];\n    if (random(10) > 2) name += name_words[random(sizeof(name_words))];\n    set_name(name, ({ \"fu jiang\", \"fu\", \"jiang\", \"general\", \"fujiang\" }));\n    set(\"long\", @LONG\n一名战功累累的副将。如今太平了，便练练兵，以防边疆有变。\nLONG);\n    determine_data();\n    set(\"title\", \"副将\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 20 + random(30));\n    set(\"combat_exp\", 300000 + random(100000));\n    set_skill(skill, 120);\n    set_skill(\"dodge\", 120);\n    set_skill(\"parry\", 120);\n    set_skill(\"unarmed\", 120);\n    set_skill(\"force\", 120);\n    set(\"max_qi\", 700);\n    set(\"max_jing\", 700);\n    set(\"max_neli\", 800);\n    set(\"force\", 1000);\n    set(\"jiali\", 25);\n\n    setup();\n    if (weapon_file == \"changjian\")\n        carry_object(\"/d/items/sword/changjian3\")->wield();\n    else if (weapon_file == \"gangdao\")\n        carry_object(\"/d/items/blade/gangdao4\")->wield();\n    else if (weapon_file == \"gangzhang\")\n        carry_object(\"/d/items/staff/gangzhang\")->wield();\n    else if (weapon_file == \"changbian\")\n        carry_object(\"/d/items/whip/changbian\")->wield();\n    else\n        carry_object(__DIR__ \"obj/\" + weapon_file)->wield();\n    carry_object(\"/d/items/cloth/zhanjia\")->wear();\n}\n",
+    "d/guanwai/npc/hadani.c": "// hadani.c\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"哈达尼\", ({ \"ha dani\", \"dani\", \"ha\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 28);\n    set(\"long\",\n        \"这是一位年轻的小伙子，靠打造出售铁器为生。\\n\");\n    set(\"title\", \"铁匠\");\n    set(\"combat_exp\", 30000);\n    set(\"attitude\", \"friendly\");\n    set_temp(\"apply/attack\", 30);\n    set_temp(\"apply/defense\", 30);\n    set_temp(\"apply/armor\", 50);\n    set_temp(\"apply/damage\", 30);\n\n    set(\"vendor_goods\", ({\n        \"/d/guanwai/obj/saw\",\n        \"/d/guanwai/obj/axe\",\n    }));\n\n    set(\"inquiry\", ([\n        \"钢锯\": \"我这里有上好的钢锯，你要不要买一条？\",\n        \"锯\": \"我这里有上好的钢锯，你要不要买一条？\",\n        \"斧头\": \"我这儿有，来一把吧。\",\n        \"斧子\": \"我这儿有，来一把吧。\",\n    ]));\n\n    setup();\n    carry_object(\"/clone/cloth/cuttonp\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n",
+    "d/guiyun/npc/nanxiren.c": "// nanxiren.c\n#include <ansi.h>\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"南希仁\", ({ \"nan xiren\", \"nan\" }));\n    set(\"title\", \"江南七侠\");\n    set(\"nickname\", HIG \"南山樵子\" NOR);\n    set(\"long\", \"\n他是个挑柴模样的汉子，三十岁上下年纪，一身青布衣裤，腰里\n束了根粗草绳，足穿草鞋，粗手大脚，神请木讷。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 30);\n    set(\"attitude\", \"peaceful\");\n    set(\"class\", \"fighter\");\n    set(\"shen_type\", 1);\n    set(\"per\", 15);\n    set(\"str\", 28);\n    set(\"int\", 28);\n    set(\"con\", 28);\n    set(\"dex\", 28);\n\n    set(\"max_qi\", 1200);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1200);\n    set(\"max_neili\", 1200);\n    set(\"jiali\", 20);\n    set(\"combat_exp\", 300000);\n    set(\"score\", 6000);\n\n    set_skill(\"force\", 70);\n    set_skill(\"taixuan-gong\", 70);\n    set_skill(\"dodge\", 70);\n    set_skill(\"lingxu-bu\", 70);\n    set_skill(\"unarmed\", 70);\n    set_skill(\"changquan\", 70);\n    set_skill(\"staff\", 70);\n    set_skill(\"juemen-gun\", 70);\n    set_skill(\"axe\", 70);\n    set_skill(\"duanyun-fu\", 70);\n\n    map_skill(\"force\", \"taixuan-gong\");\n    map_skill(\"dodge\", \"lingxu-bu\");\n    map_skill(\"unarmed\", \"changquan\");\n    map_skill(\"staff\", \"juemen-gun\");\n    map_skill(\"parry\", \"juemen-gun\");\n    map_skill(\"axe\", \"duanyun-fu\");\n\n    set(\"inquiry\", ([\n        \"郭靖\": \"靖儿是我们的乖徒儿！\\n\",\n        \"江南七侠\": \"七侠可不敢当，我们七兄妹江湖上有个匪号叫江南七怪！\\n\",\n        \"江南七怪\": \"七怪也是你叫的？！\\n\",\n        \"丘处机\": \"丘道长豪侠仗义，是条汉子！\\n\",\n        \"柯镇恶\": \"那是我大哥。\\n\",\n        \"朱聪\": \"那是我二哥。\\n\",\n        \"韩宝驹\": \"那是我三哥。\\n\",\n        \"南希仁\": \"就是我了。\\n\",\n        \"张阿生\": \"那是我五弟。\\n\",\n        \"全金发\": \"那是我六弟。\\n\",\n        \"韩小莹\": \"那是我七妹。\\n\",\n    ]));\n\n    setup();\n    carry_object(\"/d/items/staff/biandan\");\n    carry_object(__DIR__ \"obj/axe\")->wield();\n    carry_object(\"/d/items/cloth/qing_buyi\")->wear();\n}\n",
+    "d/huanghe/npc/qian.c": "// qian.c\n\ninherit NPC;\n#include <ansi.h>\nvoid create() {\n    set_name(\"钱青健\", ({ \"qian qingjian\", \"qian\", \"qingjian\" }));\n    set(\"gender\", \"男性\");\n    set(\"title\", HIY \"黄河四鬼老四\" NOR);\n    set(\"nickname\", HIC \"丧门斧\" NOR);\n    set(\"age\", 32);\n    set(\"str\", 25);\n    set(\"dex\", 16);\n    set(\"per\", 16);\n    set(\"long\", \"钱青健是黄河四鬼的老四，是鬼门龙王沙通天的四弟子，擅\n于斧法。\\n\");\n    set(\"combat_exp\", 20000);\n    set(\"shen_type\", -1);\n    set(\"attitude\", \"peaceful\");\n\n    set_skill(\"unarmed\", 30);\n    set_skill(\"force\", 30);\n    set_skill(\"axe\", 30);\n    set_skill(\"dodge\", 30);\n    set_skill(\"parry\", 30);\n    set_temp(\"apply/attack\", 50);\n    set_temp(\"apply/defense\", 50);\n    set_temp(\"apply/armor\", 50);\n    set_temp(\"apply/damage\", 30);\n\n    set(\"neili\", 400);\n    set(\"max_neili\", 400);\n    set(\"jiali\", 10);\n\n    setup();\n    carry_object(__DIR__ \"obj/axe\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/huanghe/npc/qiaofu.c": "// qiaofu.c\n\ninherit NPC;\n\n\nvoid create() {\n    set_name(\"樵夫\", ({ \"qiao fu\", \"fu\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 52);\n    set(\"str\", 25);\n    set(\"dex\", 16);\n    set(\"per\", 21);\n    set(\"long\", \"这是一个精壮老汉。\\n\");\n    set(\"combat_exp\", 5000);\n    set(\"shen_type\", 1);\n    set(\"attitude\", \"peaceful\");\n\n    setup();\n    carry_object(__DIR__ \"obj/futou\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/quanzhou/npc/chen.c": "// chen.c\n// Jay 5/7/96\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"陈阿婆\", ({ \"chen apo\", \"chen\", \"apo\" }));\n    set(\"title\", \"杂货铺老板娘\");\n    set(\"shen_type\", 1);\n\n    set(\"str\", 20);\n    set(\"gender\", \"女性\");\n    set(\"age\", 55);\n    set(\"long\",\n        \"陈阿婆久居泉州城，据说她年轻时很有几分风韵，福威镖局\\n\"\n        \"当时的少镖头林震南还追求过她。\\n\");\n    set(\"combat_exp\", 800);\n    set(\"attitude\", \"friendly\");\n    set(\"inquiry\", ([\n        \"林震南\": \"阿南生着那俊，那会琢一个河南七子婆，唉。\\n\",\n        \"name\": \"婆婆我夫家姓陈。陈林半边天嘛。\\n\",\n        \"here\": \"泉州是个港口，会行船的人很多。\\n\",\n    ]));\n\n    set(\"vendor_goods\", ({\n        \"/d/quanzhou/obj/xiuhua\",\n        \"/d/items/boots/xiuhuaxie\",\n        \"/d/items/cloth/fenhong_choushan\",\n        \"/d/items/hands/jinjie\",\n        \"/d/items/neck/jinxianglian\",\n    }));\n\n    setup();\n    //carry_object(\"/d/city/obj/flower_shoe\")->wear();\n}\n\nvoid init() {\n    object ob;\n\n    ::init();\n    if (interactive(ob = this_player()) && !is_fighting()) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, ob);\n    }\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n\nvoid greeting(object ob) {\n    if (!ob || environment(ob) != environment())\n        return;\n    switch (random(2)) {\n        case 0:\n            say(\"陈阿婆笑眯眯地说道：人客来坐。\\n\");\n            break;\n        case 1:\n            say(\"陈阿婆说道：可嘴的，你要买什？\\n\");\n            break;\n    }\n}\n"
+  },
+  "excluded": [
+    {
+      "file": "clone/lonely/kuihuazhen.c",
+      "source_hash": "fe927a618360fd6a8f3126361dff8ad01df68a9dce8221f68b3d245c743d1628"
+    },
+    {
+      "file": "clone/misc/pin.c",
+      "source_hash": "3dbdcbc259134b15c1ced48859a02d784f04912af9d7a94504055e0542e567c8"
+    },
+    {
+      "file": "clone/misc/spin.c",
+      "source_hash": "ffca9a9908d118161026b3276f662c2a39e0e5f5dabf71793bc9a6291080f0fe"
+    },
+    {
+      "file": "clone/tattoo/npc_item2.c",
+      "source_hash": "e5f4b99b4ae5d925d21f11366187bffe9a1094963a1b6e5027646b127a599b3c"
+    },
+    {
+      "file": "kungfu/class/riyue/dongfang/zhen.c",
+      "source_hash": "eac36f33bc36f1e758096222717f85d81d2ce485de7e0a0075f76d286524f56e"
+    },
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "source_hash": "e65f3ade684aa461d37d7b51224e386459c8d33ae420b4ce3906cbdfc6e6022c"
+    },
+    {
+      "file": "d/guanwai/famu.c",
+      "source_hash": "606072e409448c96888e5dc0e19ae677eb06018c5325329d069b96588531af86"
+    },
+    {
+      "file": "inherit/weapon/axe.c",
+      "source_hash": "44570a657fb34a2733321e5165ee8df8239655f43e3030b0c97011bb73c39585"
+    },
+    {
+      "file": "inherit/weapon/fork.c",
+      "source_hash": "7c493396b2c7c70e172709d9c610201ac95544397c7df64cd0dbb68a9a1125b3"
+    },
+    {
+      "file": "inherit/weapon/pin.c",
+      "source_hash": "f9bce63b3f093633e9533ab067889f31411fd823e1efc3a43ff84043ccfa1ab8"
+    },
+    {
+      "file": "adm/daemons/combatd.c",
+      "source_hash": "038b259e0e6a3c940e12150446093100c99a78bac8223dd5648311dba48c5765"
+    },
+    {
+      "file": "d/items/club.lpc",
+      "source_hash": "bb19d3732ec33a0b1c4aeff86416605ef20f9948fce681919b97fb61c880868c"
+    },
+    {
+      "file": "d/items/club_data.h",
+      "source_hash": "7d5e98d1f408b5d416272ddb411e57fb38991dd4ab2413ada14cb613c0d564cf"
+    },
+    {
+      "file": "clone/weapon/changqiang.c",
+      "source_hash": "4cd1bdf50b5a35d476117447a78ee37b3307e5129b3ea8b6d026853fec3de01e"
+    },
+    {
+      "file": "b/yitian/npc/obj/spear.c",
+      "source_hash": "cd982f6727a6f330458508688f6ee9c31f1e38a3022ad10edeafd600ae0e686e"
+    }
+  ],
+  "observations": [
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/beijing/npc/obj/axe",
+      "clone_weight": 6000,
+      "blueprint": {
+        "value": 1100,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "id": "bigaxe",
+        "unit": "把",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "flag": 5,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "大板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "weight": 6000,
+      "ids": [
+        "bigaxe",
+        "axe",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 1100,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "把",
+        "id": "bigaxe",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "consistence": 100,
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 5,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "大板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/beijing/npc/obj/fork",
+      "clone_weight": 8000,
+      "blueprint": {
+        "value": 1000,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "fork",
+        "stable": 22,
+        "id": "gangcha",
+        "unit": "柄",
+        "material": "iron",
+        "long": "一柄锋利的钢叉。\n",
+        "flag": 8,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "thrust"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "钢叉",
+        "wield_msg": "$N抄起一柄$n，还拿衣服擦了擦叉尖。\n"
+      },
+      "weight": 8000,
+      "ids": [
+        "gangcha",
+        "cha",
+        "fork",
+        "g"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 1000,
+        "skill_type": "fork",
+        "stable": 22,
+        "unit": "柄",
+        "id": "gangcha",
+        "material": "iron",
+        "long": "一柄锋利的钢叉。\n",
+        "consistence": 100,
+        "verbs": [
+          "thrust"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 8,
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "钢叉",
+        "wield_msg": "$N抄起一柄$n，还拿衣服擦了擦叉尖。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/changan/npc/obj/axe",
+      "clone_weight": 6000,
+      "blueprint": {
+        "value": 500,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "id": "axe",
+        "unit": "把",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "flag": 5,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "weight": 6000,
+      "ids": [
+        "axe",
+        "axe",
+        "a"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 500,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "把",
+        "id": "axe",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "consistence": 100,
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 5,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 25,
+          "dodge": -2
+        },
+        "name": "板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/guanwai/obj/axe",
+      "clone_weight": 10000,
+      "blueprint": {
+        "value": 1000,
+        "armor_prop": {
+          "dodge": -3
+        },
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "id": "axe",
+        "unit": "把",
+        "material": "steel",
+        "long": "这是一把斧头，颇为沉重，是伐树的好工具。\n",
+        "flag": 5,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的斧头收了回来。\n",
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -3
+        },
+        "name": "斧头",
+        "wield_msg": "$N抓起一把斧头，握在手中。\n"
+      },
+      "weight": 10000,
+      "ids": [
+        "axe",
+        "fu tou",
+        "a"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -3
+        },
+        "value": 1000,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "把",
+        "id": "axe",
+        "material": "steel",
+        "long": "这是一把斧头，颇为沉重，是伐树的好工具。\n",
+        "consistence": 100,
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 5,
+        "unwield_msg": "$N将手中的斧头收了回来。\n",
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -3
+        },
+        "name": "斧头",
+        "wield_msg": "$N抓起一把斧头，握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/guiyun/npc/obj/axe",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "fu",
+        "long": "一柄砍柴用的短斧，斧刃上有几个缺口。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一根$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "柄",
+        "material": "steel",
+        "flag": 4,
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -1
+        },
+        "name": "砍柴斧"
+      },
+      "weight": 5000,
+      "ids": [
+        "fu",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "fu",
+        "long": "一柄砍柴用的短斧，斧刃上有几个缺口。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一根$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "柄",
+        "material": "steel",
+        "flag": 4,
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -1
+        },
+        "name": "砍柴斧"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/huanghe/npc/obj/axe",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "sangmen fu",
+        "long": "这是一杆三尖开刃的三股叉。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n反别腰后。\n",
+        "wield_msg": "$N掣出一柄$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 4,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "丧门斧"
+      },
+      "weight": 5000,
+      "ids": [
+        "sangmen fu",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "sangmen fu",
+        "long": "这是一杆三尖开刃的三股叉。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n反别腰后。\n",
+        "wield_msg": "$N掣出一柄$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "杆",
+        "material": "steel",
+        "flag": 4,
+        "weapon_prop": {
+          "damage": 15,
+          "dodge": -1
+        },
+        "name": "丧门斧"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/huanghe/npc/obj/futou",
+      "clone_weight": 7000,
+      "blueprint": {
+        "value": 1000,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "id": "futou",
+        "unit": "柄",
+        "material": "steel",
+        "long": "这是一把砍柴的大斧头。\n",
+        "flag": 4,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回后腰。\n",
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -2
+        },
+        "name": "大斧头",
+        "wield_msg": "$N「唰」的一声抽出一柄$n握在手中。\n"
+      },
+      "weight": 7000,
+      "ids": [
+        "futou",
+        "da futou",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 1000,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "柄",
+        "id": "futou",
+        "material": "steel",
+        "long": "这是一把砍柴的大斧头。\n",
+        "consistence": 100,
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 4,
+        "unwield_msg": "$N将手中的$n插回后腰。\n",
+        "weapon_prop": {
+          "damage": 5,
+          "dodge": -2
+        },
+        "name": "大斧头",
+        "wield_msg": "$N「唰」的一声抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/quanzhou/obj/xiuhua",
+      "clone_weight": 5,
+      "blueprint": {
+        "value": 80,
+        "no_clean_up": 1,
+        "skill_type": "pin",
+        "stable": 37,
+        "id": "xiuhua zhen",
+        "unit": "根",
+        "material": "steel",
+        "long": "这是一根精钢细磨的绣花针，是绣花用的绝佳工具。\n",
+        "flag": 4,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "thrust"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回鬓间。\n",
+        "weapon_prop": {
+          "damage": 10
+        },
+        "name": "绣花针",
+        "wield_msg": "$N用拇指和食指从鬓间拈出一根$n。\n"
+      },
+      "weight": 5,
+      "ids": [
+        "xiuhua zhen",
+        "zhen",
+        "needle",
+        "x"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 80,
+        "skill_type": "pin",
+        "stable": 37,
+        "unit": "根",
+        "id": "xiuhua zhen",
+        "material": "steel",
+        "long": "这是一根精钢细磨的绣花针，是绣花用的绝佳工具。\n",
+        "consistence": 100,
+        "verbs": [
+          "thrust"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 4,
+        "unwield_msg": "$N将手中的$n插回鬓间。\n",
+        "weapon_prop": {
+          "damage": 10
+        },
+        "name": "绣花针",
+        "wield_msg": "$N用拇指和食指从鬓间拈出一根$n。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/tiezhang/obj/axe",
+      "clone_weight": 6000,
+      "blueprint": {
+        "value": 500,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "no_clean_up": 1,
+        "skill_type": "axe",
+        "stable": 37,
+        "id": "bigaxe",
+        "unit": "把",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "flag": 5,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 35,
+          "dodge": -2
+        },
+        "name": "大板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "weight": 6000,
+      "ids": [
+        "bigaxe",
+        "axe",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -2
+        },
+        "value": 500,
+        "skill_type": "axe",
+        "stable": 37,
+        "unit": "把",
+        "id": "bigaxe",
+        "material": "steel",
+        "long": "这是一把沉重的大板斧，砍起东西来非常顺手。\n",
+        "consistence": 100,
+        "verbs": [
+          "chop",
+          "slice",
+          "hack"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": 5,
+        "unwield_msg": "$N放下手中的$n。\n",
+        "weapon_prop": {
+          "damage": 35,
+          "dodge": -2
+        },
+        "name": "大板斧",
+        "wield_msg": "$N拿出一把$n，握在手中当作武器。\n"
+      },
+      "clone_uid": "Domain"
+    }
+  ]
+}

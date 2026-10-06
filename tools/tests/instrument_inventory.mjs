@@ -1,3 +1,4 @@
+import { afterWeaponMigration } from './axe_fork_pin_inventory.mjs';
 // Ordinary ITEM musical instruments. Only repository sources and explicit test artifacts.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -176,9 +177,9 @@ export function expectedCaller(file) {
 }
 export function afterInstrumentMigration(file, expected, compare) {
     const data = readBaseline();
-    if (!data.callers[file]) return expected;
+    if (!data.callers[file]) return afterWeaponMigration(file, expected, compare);
     assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected instrument overlap: ' + file);
-    return expectedCaller(file);
+    return afterWeaponMigration(file, expectedCaller(file), compare);
 }
 export function renderDefinitions(family) {
     assert.ok(families.includes(family));

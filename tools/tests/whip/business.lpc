@@ -128,7 +128,7 @@ void check_dynamic() {
         master()->select_whip_branch(branch);
         before = new("/tests/old/d/changan/npc/fujiang");
         after = new("/d/changan/npc/fujiang");
-        target = branch == 3 ? paths[weapons[branch]] : weapons[branch];
+        target = branch == 4 ? "/d/items/axe/banfu" : branch == 3 ? paths[weapons[branch]] : weapons[branch];
         check(base_name(before->query_temp("weapon")) == weapons[branch] &&
             base_name(after->query_temp("weapon")) == target, "fujiang actual selection branch");
         check(before->query_skill_name() == skills[branch] && after->query_skill_name() == skills[branch],

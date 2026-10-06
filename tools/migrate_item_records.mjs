@@ -1,3 +1,4 @@
+import { migrationPaths as weaponPaths, baseline as weaponBaseline } from './tests/axe_fork_pin_inventory.mjs';
 import { migrationPaths as instrumentPaths, baseline as instrumentBaseline } from './tests/instrument_inventory.mjs';
 import { migrationPaths as clubPaths, baseline as clubBaseline } from './tests/club_inventory.mjs';
 import { migrationPaths as bookPaths, baseline as bookBaseline } from './tests/book_inventory.mjs';
@@ -124,7 +125,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths(), ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths(), ...clubPaths(), ...bookPaths(), ...instrumentPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths(), ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths(), ...clubPaths(), ...bookPaths(), ...instrumentPaths(), ...weaponPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -174,7 +175,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     if (results.length !== files.length) throw new Error('Incomplete conversion result');
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
         input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o', mengzhuFile] : 'listed_files_only',
-        baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
+        baseline: baseline.baseline, axe_fork_pin_baseline: weaponBaseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
         hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, liquid_baseline: liquidBaseline, blade_baseline: bladeBaseline, equip_baseline: equipBaseline, hammer_baseline: hammerBaseline, staff_baseline: staffBaseline, whip_baseline: whipBaseline, dagger_baseline: daggerBaseline, throwing_baseline: throwingBaseline, club_baseline: clubBaseline, book_baseline: bookBaseline, instrument_baseline: instrumentBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];

@@ -1,0 +1,197 @@
+// Execute original supplier methods; no new inquiry keys or item aliases.
+void check_qian() {
+    object actor, npc;
+    string prefix, key;
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    actor->set("family/family_name", "八卦门");
+    foreach (prefix in ({ "/tests/old", "" })) {
+        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
+        actor->select_npc(npc, "do_yao");
+        foreach (key in ({ "axe", "fork" })) {
+            actor->run_command("testnpc " + key);
+            check(!sizeof(all_inventory(actor)) && !npc->issued(key) &&
+                !actor->query_temp("mark/zhenyuan_weapon"), "Qian does not offer weapon");
+        }
+        destruct(npc);
+    }
+    destruct(actor);
+}
+
+void check_actual_shops() {
+    object actor, vendor, item, display;
+    mapping paths, record;
+    string prefix, path, target, id, listing;
+    string *goods, *original_goods, *expected_goods;
+    int money, tested;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    actor = new("/tests/actor"); actor->move(this_object(), 1);
+    foreach (record in json_decode(read_file("/tests/axe_fork_pin-shops.json"))) {
+        original_goods = 0;
+        foreach (prefix in ({ "/tests/old", "" })) {
+            vendor = new(prefix + record["fixture"]); vendor->move(this_object(), 1);
+            goods = vendor->query("vendor_goods");
+            if (prefix != "") original_goods = goods;
+            else {
+                expected_goods = ({});
+                foreach (path in original_goods) expected_goods += ({ paths[path] ? paths[path] : path });
+                check(same_value(goods, expected_goods), "actual shop stock order unchanged");
+            }
+            actor->select_vendor(vendor); tested = 0;
+            display = new("/tests/axe_fork_pin_vendor");
+            display->set(
+                "vendor_goods",
+                goods
+            ); display->do_list(0); listing = display->query_display();
+            foreach (path in original_goods) {
+                if (!paths[path]) continue;
+                target = prefix == "" ? paths[path] : path;
+                id = load_object(target)->query("id");
+                check(vendor->is_vendor_good(id) == target, "actual shop lookup");
+                check(strsrch(listing, target->name(1)) >= 0 &&
+                    strsrch(listing, MONEY_D->price_str(target->query("value"))) >= 0,
+                    "complete actual shop listing contains original name and price");
+                vendor->enough_rest(); actor->run_command("testbuy " + id);
+                check(
+                    !sizeof(all_inventory(actor)) && !actor->cash_value(),
+                    "actual shop insufficient payment refused"
+                );
+                MONEY_D->pay_player(
+                    actor,
+                    target->query("value") + 100000
+                ); money = actor->cash_value();
+                vendor->enough_rest(); actor->run_command("testbuy 2 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "ordinary weapon cannot be bulk purchased"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy 101 " + id);
+                check(
+                    !present(id, actor) && actor->cash_value() == money,
+                    "original shop quantity maximum"
+                );
+                vendor->enough_rest(); actor->run_command("testbuy " + id); item = present(
+                    id,
+                    actor
+                );
+                check(objectp(item) && base_name(item) == target, "actual shop delivery");
+                check(
+                    money - actor->cash_value() == target->query("value"),
+                    "actual shop original price"
+                );
+                actor->run_command("testbuy " + id);
+                check(sizeof(filter_array(all_inventory(actor), (: !$1->query("money_id") :))) == 1,
+                    "actual shop cooldown prevents immediate second purchase");
+                clear_inventory(actor); tested++;
+            }
+            check(tested == record["count"], "all selected shop goods exercised");
+            destruct(display);
+            clear_inventory(vendor); destruct(vendor);
+        }
+    }
+    destruct(actor);
+}
+
+void check_npc_equipment() {
+    mapping record, paths;
+    object before, after, weapon, match, candidate;
+    string expected;
+
+    paths = json_decode(read_file("/tests/migration_paths.json"));
+    foreach (record in json_decode(read_file("/tests/axe_fork_pin-equipment.json"))) {
+        before = new("/tests/old" + record["fixture"]); after = new(record["fixture"]);
+        check(
+            sizeof(all_inventory(before)) == sizeof(all_inventory(after)),
+            "NPC full equipment count"
+        );
+        foreach (weapon in all_inventory(before)) {
+            expected = paths[base_name(weapon)] ? paths[base_name(weapon)] : base_name(weapon);
+            match = 0;
+            foreach (candidate in all_inventory(after))
+                if (base_name(candidate) == expected) match = candidate;
+            check(objectp(match), record["file"] + " full inventory identity " + expected);
+            if (match) {
+                compare(weapon, match, "NPC original clothing and weapon");
+                check(
+                    weapon->query("equipped") == match->query("equipped"),
+                    "NPC original equipment slot"
+                );
+            }
+        }
+        check(
+            base_name(after->query_temp("weapon")) == paths[base_name(before->query_temp("weapon"))],
+            "NPC canonical axe_fork_pin wielded"
+        );
+        check(
+            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            "NPC full equipment bonuses"
+        );
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+void check_dynamic() {
+    object before, after, weapon;
+    string *families, *paths;
+    int branch;
+
+    families = ({ "sword", "blade", "staff", "whip", "axe" });
+    paths = ({ "/d/items/sword/changjian3", "/d/items/blade/gangdao4",
+        "/d/items/staff/gangzhang", "/d/items/whip/changbian", "/d/items/axe/banfu" });
+    for (branch = 0; branch < 5; branch++) {
+        master()->set_branch(branch);
+        before = new("/tests/old/d/changan/npc/fujiang");
+        after = new("/d/changan/npc/fujiang");
+        weapon = after->query_temp("weapon");
+        check(
+            objectp(weapon) && base_name(weapon) == paths[branch],
+            "fujiang deterministic branch identity"
+        );
+        check(after->query("fixture_skills/" + families[branch]) == 120 &&
+            same_value(
+                before->query("fixture_skills"),
+                after->query("fixture_skills")
+            ), "fujiang skill selection unchanged");
+        compare(before->query_temp("weapon"), weapon, "fujiang original/new equipment");
+        check(sizeof(all_inventory(before)) == 2 && sizeof(all_inventory(after)) == 2 &&
+            same_value(
+                before->query_temp("apply"),
+                after->query_temp("apply")
+            ), "fujiang all clothing and bonuses retained");
+        clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);
+    }
+}
+
+void check_famu() {
+    object room, me, partner, saw, weapon;
+    string path;
+    mixed *pair;
+    int owner;
+
+    room = load_object("/tests/famu");
+    foreach (pair in cases) foreach (path in pair[0..1]) {
+        me = new("/tests/famu_actor"); partner = new("/tests/famu_actor");
+        me->move(this_object(), 1); partner->move(this_object(), 1);
+        saw = new("/d/guanwai/obj/saw"); me->set_temp("handing", saw);
+        weapon = new(path);
+        for (owner = 0; owner < 2; owner++) {
+            me->delete_temp("job"); partner->delete_temp("job");
+            me->delete_temp("weapon"); partner->delete_temp("weapon");
+            (owner ? me : partner)->set_temp("weapon", weapon);
+            if (pair[4] != "axe") {
+                check(!room->start_work(partner, me), "famu rejects non-axe");
+                continue;
+            }
+            check(room->start_work(partner, me) && me->query_temp("job/coagent") == partner,
+                "famu accepts old/new axe and finds saw holder");
+            me->set_temp("job/step", 8);
+            check(room->working(me) && me->query_temp("job/step") == 9,
+                "famu step eight recognizes either axe holder");
+            me->delete_temp("weapon"); partner->delete_temp("weapon");
+            me->set_temp("job/step", 8);
+            check(!room->working(me) && !me->query_temp("job") && !partner->query_temp("job"),
+                "famu missing axe stops both actors");
+            check(!room->start_work(me, partner), "famu cannot start without axe");
+        }
+        destruct(weapon); destruct(saw); destruct(me); destruct(partner);
+    }
+}

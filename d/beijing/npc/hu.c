@@ -20,7 +20,7 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/items/cloth/pi_beixin2",
-        "/d/quanzhou/obj/xiuhua",
+        "/d/items/pin/xiuhua_zhen",
         "/d/items/boots/xiuhuaxie",
         "/d/items/cloth/fenhong_choushan",
     }));

@@ -1,3 +1,5 @@
+import * as weaponMetadata from './axe_fork_pin_inventory.mjs';
+import { prepareWeapons } from './axe_fork_pin/fixtures.mjs';
 import * as instrumentMetadata from './instrument_inventory.mjs';
 import { prepareInstrument } from './instrument/fixtures.mjs';
 import * as clubMetadata from './club_inventory.mjs';
@@ -43,6 +45,8 @@ import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { migrateItemRecords } from '../migrate_item_records.mjs';
 
+const weapons = process.argv.includes('--axe-fork-pin');
+assert.ok(!weapons || !process.argv.some(a => /^--(?:instrument|book|club|throwing|dagger|whip|staff|hammer|equip|blade|liquid|sword|food|boots|headwear|hands|neck|wrists|village-startup|clone-command)$/.test(a)), '--axe-fork-pin is a separate regression');
 const boots = process.argv.includes('--boots');
 const instrument = process.argv.includes('--instrument');
 assert.ok(!instrument || !['--book', '--club', '--throwing', '--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--village-startup', '--clone-command'].some(f => process.argv.includes(f)), '--instrument is a separate regression');
@@ -69,11 +73,11 @@ assert.ok(!cloneCommand || !['--club', '--throwing', '--dagger', '--whip', '--st
     .some(flag => process.argv.includes(flag)), '--clone-command is a separate command regression');
 assert.ok(!villageStartup || !['--club', '--throwing', '--dagger', '--whip', '--staff', '--hammer', '--equip', '--blade', '--liquid', '--sword', '--food', '--boots', '--headwear', '--hands', '--neck', '--wrists', '--bench', '--baseline-only']
     .some(flag => process.argv.includes(flag)), '--village-startup is a separate startup regression');
-const metadata = instrument ? instrumentMetadata : book ? bookMetadata : club ? clubMetadata : throwing ? throwingMetadata : dagger ? daggerMetadata : whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
-const label = instrument ? 'INSTRUMENT' : book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
+const metadata = weapons ? weaponMetadata : instrument ? instrumentMetadata : book ? bookMetadata : club ? clubMetadata : throwing ? throwingMetadata : dagger ? daggerMetadata : whip ? whipMetadata : staff ? staffMetadata : hammer ? hammerMetadata : equip ? equipMetadata : blade ? bladeMetadata : liquid ? liquidMetadata : sword ? swordMetadata : food ? foodMetadata : wrists ? wristsMetadata : neck ? neckMetadata : hands ? handsMetadata : headwear ? headwearMetadata : boots ? bootsMetadata : clothMetadata;
+const label = weapons ? 'AXE_FORK_PIN' : instrument ? 'INSTRUMENT' : book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH';
 const { canonicalGroups, migrationPaths } = metadata;
-const original = instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
-const canonicalBaseline = instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
+const original = weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.original : clothOriginal;
+const canonicalBaseline = weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists || neck || hands || headwear || boots ? metadata.readBaseline : clothMetadata.canonicalBaseline;
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-'));
 console.log('Isolated cloth regression: ' + sandbox);
@@ -81,7 +85,7 @@ const copy = file => {
     mkdirSync(dirname(join(sandbox, file)), { recursive: true });
     if (existsSync(join(root, file))) cpSync(join(root, file), join(sandbox, file));
     else {
-        const row = [...instrumentMetadata.readBaseline().varieties, ...bookMetadata.readBaseline().varieties, ...clubMetadata.readBaseline().varieties, ...throwingMetadata.readBaseline().varieties].find(row => row.old_path + '.c' === '/' + file);
+        const row = [...weaponMetadata.readBaseline().varieties, ...instrumentMetadata.readBaseline().varieties, ...bookMetadata.readBaseline().varieties, ...clubMetadata.readBaseline().varieties, ...throwingMetadata.readBaseline().varieties].find(row => row.old_path + '.c' === '/' + file);
         assert.ok(row, 'Missing unfrozen dependency: ' + file);
         writeFileSync(join(sandbox, file), row.source);
     }
@@ -110,6 +114,10 @@ for (const file of ['d/items/book.lpc', 'd/items/book_data.h']) if (existsSync(j
 for (const family of instrumentMetadata.families) for (const suffix of ['.lpc', '_data.h']) {
     const file = 'd/items/' + family + suffix; if (existsSync(join(root, file))) copy(file);
 }
+for (const family of weaponMetadata.families) for (const suffix of ['.lpc', '_data.h']) {
+    const file = 'd/items/' + family + suffix; if (existsSync(join(root, file))) copy(file);
+}
+if (!weapons) for (const row of weaponMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 if (!instrument) for (const row of instrumentMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 if (!book) for (const row of bookMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
 if (!club) for (const row of clubMetadata.readBaseline().varieties) copy(row.old_path.slice(1) + '.c');
@@ -157,14 +165,14 @@ if (sword || blade || hammer || staff || whip) for (const row of daggerMetadata.
     const target = join(sandbox, row.old_path.slice(1) + '.c');
     mkdirSync(dirname(target), { recursive: true }); writeFileSync(target, row.source);
 }
-if (club || sword || blade || hammer || staff || whip || dagger || throwing) {
+if (weapons || club || sword || blade || hammer || staff || whip || dagger || throwing) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
-    cpSync(join(root, `tools/tests/${club ? 'club' : throwing ? 'throwing' : dagger ? 'dagger' : whip ? 'whip' : staff ? 'staff' : hammer ? 'hammer' : blade ? 'blade' : 'sword'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
+    cpSync(join(root, `tools/tests/${weapons ? 'axe_fork_pin' : club ? 'club' : throwing ? 'throwing' : dagger ? 'dagger' : whip ? 'whip' : staff ? 'staff' : hammer ? 'hammer' : blade ? 'blade' : 'sword'}/regression.lpc`), join(sandbox, 'tests/regression.lpc'));
     for (const file of ['master.lpc', 'benchmark.lpc']) {
         const target = join(sandbox, 'tests', file);
         writeFileSync(target, readFileSync(target, 'utf8').replaceAll('CLOTH', label));
     }
-    (club ? prepareClub : throwing ? prepareThrowing : dagger ? prepareDagger : whip ? prepareWhip : staff ? prepareStaff : hammer ? prepareHammer : blade ? prepareBlade : prepareSword)(root, sandbox, copy);
+    (weapons ? prepareWeapons : club ? prepareClub : throwing ? prepareThrowing : dagger ? prepareDagger : whip ? prepareWhip : staff ? prepareStaff : hammer ? prepareHammer : blade ? prepareBlade : prepareSword)(root, sandbox, copy);
 }
 if (food) {
     cpSync(join(sandbox, 'tests/regression.lpc'), join(sandbox, 'tests/cloth_regression.lpc'));
@@ -294,7 +302,7 @@ for (const signature of ['public string do_stock(', 'public string do_unstock(',
 writeFileSync(join(sandbox, 'tests/shop_transactions.c'), transactions);
 const sample = new Set(['baituo_obj_baipao', 'baituo_obj_qingpao', 'baituo_obj_shepi', 'city_npc_obj_junfu', 'shaolin_obj_beixin', 'beijing_npc_obj_cloth', 'changan_npc_obj_linen']);
 const rows = villageStartup || cloneCommand ? [] : canonicalBaseline().varieties.filter(row => process.argv.includes('--all') || process.argv.includes('--bench') ||
-    (instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
+    (weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || wrists ? true : neck ? ['jinxianglian', 'jinxianglian2', 'shaolin_weibo', 'yupei'].includes(row.id) :
         hands ? ['jinjie', 'jinjie2', 'shaolin_shoutao', 'jinsi_shoutao'].includes(row.id) :
         headwear ? ['gangkui', 'chahua1', 'hei_mudan', 'shaolin_toukui'].includes(row.id) :
         boots ? ['beijing_npc_obj_feet', 'city_npc_obj_caoxie', 'city_npc_obj_flower_shoe'].includes(row.key) : sample.has(row.key)));
@@ -307,8 +315,9 @@ for (const row of rows) {
     writeFileSync(join(sandbox, path), source);
 }
 if (book) finishBook(sandbox, rows);
-writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
+writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
     ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight),
+        ...(weapons ? [row.family, row.flags | (row.family === 'fork' ? 8 : 4)] : []),
         ...(equip || liquid ? [Number(!!row.setup)] : [])]
     : [row.old_path, row.new_path])));
 if (process.argv.includes('--baseline-only')) writeFileSync(join(sandbox, 'tests/baseline-only'), '1');
@@ -357,10 +366,10 @@ if (process.argv.includes('--bench')) {
 }
 const result = await runDriver();
 writeFileSync(join(sandbox, 'driver-output.txt'), result.output);
-console.log(result.output.split('\n').filter(line => /INSTRUMENT|BOOK|CLUB|THROWING|DAGGER|WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
+console.log(result.output.split('\n').filter(line => /AXE_FORK_PIN|INSTRUMENT|BOOK|CLUB|THROWING|DAGGER|WHIP|STAFF|HAMMER|EQUIP|BLADE|LIQUID|SWORD|FOOD|WRISTS|NECK|HANDS|HEADWEAR|BOOTS|CLOTH|FAIL:|error:|Error|Undefined|syntax/.test(line)).join('\n'));
 if (result.code !== 0 || !result.output.includes(label + ' PASS'))
     throw new Error('Driver regression failed; see ' + join(sandbox, 'driver-output.txt'));
-if (instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
+if (weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || boots || headwear || hands || neck || wrists || villageStartup || cloneCommand) process.exit(0);
 const manifest = { files: [
     { file: 'backpack.o', kind: 'backpack' }, { file: 'shop.o', kind: 'shop' },
     { file: 'dbased.o', kind: 'legacy_bags', bag_objects: ['/test/legacy_bag'] },

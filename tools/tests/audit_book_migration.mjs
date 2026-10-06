@@ -21,8 +21,12 @@ for (const row of data.varieties) {
     if (!process.argv.includes('--before-removal')) assert.ok(!existsSync(join(root, row.old_path.slice(1) + '.c')), row.old_path);
     for (const suffix of ['.c', '.lpc']) assert.ok(!existsSync(join(root, row.new_path.slice(1) + suffix)), 'No forwarding files');
 }
-for (const { file, source_hash } of data.excluded)
-    assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Retained: ' + file);
+for (const { file, source_hash } of data.excluded) {
+    const frozen = original(file);
+    assert.equal(createHash('sha256').update(frozen).digest('hex'), source_hash, 'Frozen retained: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
+        semantic(afterWeaponMigration(file, frozen, semantic)), 'Retained or explicitly migrated: ' + file);
+}
 assert.equal(readFileSync(join(root, 'cmds/skill/du.alias'), 'utf8').trim(), 'study');
 for (const row of data.observations) {
     assert.equal(row.uid, 'Domain'); assert.equal(row.euid, 'Domain');
@@ -33,3 +37,4 @@ for (const row of data.observations) {
 }
 console.log('BOOK AUDIT PASS: 36 originals -> 28 varieties; 20 consumers; retained hashes/du alias/odd legacy fields verified'
     + (process.argv.includes('--before-removal') ? '; removal pending' : '; no old files or forwarding aliases'));
+import { afterWeaponMigration } from './axe_fork_pin_inventory.mjs';

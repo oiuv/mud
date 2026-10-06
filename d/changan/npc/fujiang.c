@@ -70,6 +70,8 @@ LONG);
         carry_object("/d/items/staff/gangzhang")->wield();
     else if (weapon_file == "changbian")
         carry_object("/d/items/whip/changbian")->wield();
+    else if (weapon_file == "axe")
+        carry_object("/d/items/axe/banfu")->wield();
     else
         carry_object(__DIR__ "obj/" + weapon_file)->wield();
     carry_object("/d/items/cloth/zhanjia")->wear();

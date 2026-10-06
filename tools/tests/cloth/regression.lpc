@@ -65,6 +65,12 @@ mixed expected_display(object before, object after, string key, mixed text) {
         ) >= 0)
             return replace_string(text, "刹时雷声轰鸣", "霎时雷声轰鸣");
     }
+    if (base_name(before) == "/d/huanghe/npc/obj/axe" &&
+        base_name(after) == "/d/items/axe/sangmen_fu" && key == "long")
+        return replace_string(text, "这是一杆三尖开刃的三股叉。", "这是一柄锋利的丧门斧。");
+    if (base_name(before) == "/d/guiyun/npc/obj/axe" &&
+        base_name(after) == "/d/items/axe/kanchai_fu" && key == "wield_msg")
+        return replace_string(text, "$N抽出一根$n握在手中。", "$N抽出一柄$n握在手中。");
     return text;
 }
 

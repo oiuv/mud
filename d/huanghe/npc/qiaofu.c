@@ -16,6 +16,6 @@ void create() {
     set("attitude", "peaceful");
 
     setup();
-    carry_object(__DIR__ "obj/futou")->wield();
+    carry_object("/d/items/axe/da_futou")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

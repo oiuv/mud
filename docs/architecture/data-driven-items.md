@@ -4,11 +4,11 @@
 
 后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。BLADE 批次将 61 个普通刀定义归为 **52 个规范品种**。
 
-直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。WHIP 批次将 32 份普通鞭类定义归为 **25 个规范品种**。DAGGER 批次将 23 份普通短兵器定义归为 **22 个规范品种**。THROWING 批次将 27 份固定暗器定义归为 **26 个规范品种**。CLUB 批次将 18 份普通棍类定义归为 **17 个规范品种**。普通研读物批次将 36 份 ITEM 定义归为 **28 个品种**，详见[书籍维护说明](data-driven-books.md)。普通乐器批次将 24 份 ITEM 乐器集中为 **24 个品种**，按琴、箫、筝使用三个处理程序，见[乐器维护说明](data-driven-instruments.md)。二十一类保持各自继承和行为，共用以下离线迁移与部署流程；累计 992 个旧定义集中为 42 个共用程序/数据文件，定义文件净减少 **950 个**（不含工具、测试及文档）。
+直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。WHIP 批次将 32 份普通鞭类定义归为 **25 个规范品种**。DAGGER 批次将 23 份普通短兵器定义归为 **22 个规范品种**。THROWING 批次将 27 份固定暗器定义归为 **26 个规范品种**。CLUB 批次将 18 份普通棍类定义归为 **17 个规范品种**。普通研读物批次将 36 份 ITEM 定义归为 **28 个品种**，详见[书籍维护说明](data-driven-books.md)。普通乐器批次将 24 份 ITEM 乐器集中为 **24 个品种**，按琴、箫、筝使用三个处理程序，见[乐器维护说明](data-driven-instruments.md)。AXE/FORK/PIN 批次将 9 份定义集中为 **9 个品种**（7 斧、1 叉、1 针），保留原父类。二十四类保持各自继承和行为，共用以下离线迁移与部署流程；累计 1,001 个旧定义集中为 48 个共用程序/数据文件，定义文件净减少 **953 个**（不含工具、测试及文档）。
 
 ## 未迁移物品与维护台账
 
-已迁移分类并不表示该类别所有物品都已数据化。[剩余物品清单](data-driven-items-pending.md) 按二十一个分类列出当前仍保留的实体物品名称、路径、特殊行为及暂缓原因，并区分 `/d` 内保留项与其他目录尚未纳入范围的候选。涉及多类的物品交叉登记、按文件去重统计，不把同名 ITEM 或共享基类算作待迁移装备。
+已迁移分类并不表示该类别所有物品都已数据化。[剩余物品清单](data-driven-items-pending.md) 按二十四个分类列出当前仍保留的实体物品名称、路径、特殊行为及暂缓原因，并区分 `/d` 内保留项与其他目录尚未纳入范围的候选。涉及多类的物品交叉登记、按文件去重统计，不把同名 ITEM 或共享基类算作待迁移装备。
 
 后续每批迁移必须同步维护该清单：补充新分类的保留项，移出已完成项并在批次记录/离线映射中保存去向，更新数量、原因和源码链接。重点检查回调、额外继承、头文件注入、初始化差异、自动携带和存档状态；“特殊”不是永久禁止迁移，但须有保持旧行为的独立验证，不能只迁固定属性。历史快照和归档报告保持原样。
 
@@ -177,7 +177,7 @@ fresh = new(base_name(drink));
 
 ## 存储边界
 
-背包入口识别十七张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余十五类（含直接 EQUIP、HAMMER、STAFF、WHIP、DAGGER、THROWING 和 CLUB）的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
+背包入口识别二十四张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余类别（含普通装备、研读物及乐器）的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -194,7 +194,7 @@ fresh = new(base_name(drink));
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。`whip/baseline.json` 保存 `da702704` 的 32 份鞭类原文、29 处静态引用、三个动态入口、赤金鞭 hash 及真实驱动观测。`dagger/baseline.json` 保存 `6ad10eee` 的 23 份短兵器原文、25 处静态引用、钱正伦动态入口、赤金匕首 hash 及真实驱动观测。`throwing/baseline.json` 保存 `55f5e073` 的 27 份暗器原文、41 处静态引用、钱正伦动态入口、6 份特殊对象 hash 及真实驱动观测。`club/baseline.json` 保存 `f4d88805` 的 18 份棍类原文、27 处静态引用、三个动态函数、8 个保留物品及钱正伦 hash 和真实驱动观测。`book/baseline.json` 保存 `ea5f6afd` 的 36 份 ITEM 研读物、19 处静态引用、20 个实际消费者、随机数据池、保留项 hash 和真实驱动观测。`instrument/baseline.json` 保存 `aab4cff1` 的 24 份 ITEM 乐器、27 处引用、11 个消费者、保留项 hash 和真实驱动观测。一次转换覆盖 **1,273 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37、WHIP 32、DAGGER 23、THROWING 27、CLUB 18、BOOK 36、乐器 24），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读二十一张品种表，共 **791 个品种**，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。`whip/baseline.json` 保存 `da702704` 的 32 份鞭类原文、29 处静态引用、三个动态入口、赤金鞭 hash 及真实驱动观测。`dagger/baseline.json` 保存 `6ad10eee` 的 23 份短兵器原文、25 处静态引用、钱正伦动态入口、赤金匕首 hash 及真实驱动观测。`throwing/baseline.json` 保存 `55f5e073` 的 27 份暗器原文、41 处静态引用、钱正伦动态入口、6 份特殊对象 hash 及真实驱动观测。`club/baseline.json` 保存 `f4d88805` 的 18 份棍类原文、27 处静态引用、三个动态函数、8 个保留物品及钱正伦 hash 和真实驱动观测。`book/baseline.json` 保存 `ea5f6afd` 的 36 份 ITEM 研读物、19 处静态引用、20 个实际消费者、随机数据池、保留项 hash 和真实驱动观测。`instrument/baseline.json` 保存 `aab4cff1` 的 24 份 ITEM 乐器、27 处引用、11 个消费者、保留项 hash 和真实驱动观测。`axe_fork_pin/baseline.json` 保存 `3c7bd13c` 的 9 份兵器原文、6 处静态引用、7 个消费者、保留项 hash 及真实驱动观测。一次转换覆盖 **1,282 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37、WHIP 32、DAGGER 23、THROWING 27、CLUB 18、BOOK 36、乐器 24、AXE 7、FORK 1、PIN 1），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读二十四张品种表，共 **800 个品种**，不读取历史映射。
 
 食物和饮具通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予存放资格，也不补录原来没有保存的液体余量或毒效；新建满液体不代表恢复了旧实例。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -425,3 +425,34 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --club --bench
 `d/items/qin.lpc`、`xiao.lpc`、`zheng.lpc` 分别维护 15、7、2 个品种，各自继承原 ITEM 与对应 MI，不扩展成多类乐器或武器。固定数据自然排序，原 `play`、技能效果、一次 setup、交易/刷新与存取规则保持。完整维护和部署约定见[乐器说明](data-driven-instruments.md)。
 
 基线 `aab4cff1`；`--instrument --all` 覆盖逐品种与相关业务，`--instrument --bench` 比较 24 份来源和 480 个实例。7 件特殊武器乐器保留，另核对未具备演奏能力的外观物品，不修改 `/clone`。结果及测试替身边界见 [INSTRUMENT 验证报告](../../openspec/changes/refactor-data-driven-instruments/validation.md)。
+
+## 普通斧、叉、针（AXE / FORK / PIN）
+
+分别使用 `d/items/axe.lpc`、`fork.lpc`、`pin.lpc` 和对应 `*_data.h`，不添加武器类型解释器。示例：
+
+```c
+new("/d/items/axe/dabanfu");
+new("/d/items/fork/gangcha");
+new("/d/items/pin/xiuhua_zhen");
+```
+
+字段为 `name/ids/weight/damage/properties`，有附加标志的斧写 `flags`；表按 ID 自然排序。两个大板斧 `dabanfu/dabanfu2` 的伤害、价值不同，不能合并；针和剑类的同名绣花针也不能跨父类合并。
+
+四种双手斧仍受 TWO_HANDED 限制，其他品种不增加双手要求。AXE/PIN 保留 EDGED、FORK 保留 POINTED；PIN 仍是非叠加兵器、`skill_type=pin`，战斗中的原 pin→sword 处理不改。只纠正丧门斧误写为叉的描述及砍柴斧持用量词，不改原单位、数值、商店条件或钱正伦领取范围。
+
+长安副将只替换 axe 分支路径，五种随机装备和技能配置不变。关外伐木任务函数原已整段注释；本批仅在隔离夹具调用历史函数验证斧类判断，不恢复任务入口。公共程序、虚拟身份、未知品种、实例隔离及存取遵守前述约定。
+
+旧记录继续使用统一转换工具；本批增加 9 条精确路径映射，无运行期旧别名。部署前对停服备份预览，按需转换，并将代码及同批记录一起切换或回退。`/clone`、武器父类和战斗精灵均未修改。
+
+```powershell
+node tools/tests/axe_fork_pin_inventory.mjs
+node --test tools/tests/test_axe_fork_pin_inventory.mjs
+node tools/tests/audit_axe_fork_pin_migration.mjs
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --axe-fork-pin --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --axe-fork-pin --bench
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --axe-fork-pin
+```
+
+真实结果与替身边界见 [AXE/FORK/PIN 验证记录](../../openspec/changes/refactor-data-driven-axes-forks-pins/validation.md)。本批三个公共程序替代九个旧程序，净减少 6 个可编译文件；若连数据头文件一起计数，净减少 3 个定义文件，两种口径不混用。
+
+装备类继续优先，下一步评估 ARMOR、WAIST、SURCOAT、SHIELD，再按台账处理特殊装备。后续独立规划 **FORK → SPEAR**：核对宏、父类、武学激发、NPC/玩家技能及存档后再决定枪、矛、叉的归属，本批不实施，也不修改 CLUB 下的枪。

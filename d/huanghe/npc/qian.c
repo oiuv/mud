@@ -32,6 +32,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object(__DIR__ "obj/axe")->wield();
+    carry_object("/d/items/axe/sangmen_fu")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

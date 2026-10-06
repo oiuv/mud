@@ -22,8 +22,8 @@ import { migrationPaths as staff } from './staff_inventory.mjs';
 import { migrationPaths as hammer } from './hammer_inventory.mjs';
 
 test('all migrated historical item paths are absent, including root paths without slash', () => {
-    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip(), ...hammer(), ...staff(), ...whip(), ...dagger(), ...throwing(), ...club() };
-    assert.equal(Object.keys(paths).length, 1213);
+    const paths = { ...cloth(), ...boots(), ...headwear(), ...hands(), ...neck(), ...wrists(), ...food(), ...sword(), ...liquid(), ...blade(), ...equip(), ...hammer(), ...staff(), ...whip(), ...dagger(), ...throwing(), ...club(), ...book(), ...instrument(), ...weapons() };
+    assert.equal(Object.keys(paths).length, 1282);
     const rows = Object.entries(paths).map(([old_path, new_path]) => ({ old_path, new_path }));
     assert.deepEqual(references(rows).hits, []);
 });
@@ -65,3 +65,6 @@ test('root-relative dynamic prefixes are reported as clues, never exact replacem
     assert.equal(result.dynamic.length, 1);
     assert.equal(result.dynamic[0].file, 'd/village/npc/test.c');
 });
+import { migrationPaths as weapons } from './axe_fork_pin_inventory.mjs';
+import { migrationPaths as book } from './book_inventory.mjs';
+import { migrationPaths as instrument } from './instrument_inventory.mjs';

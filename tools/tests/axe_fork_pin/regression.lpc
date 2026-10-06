@@ -1,8 +1,9 @@
-// Real-driver BLADE baseline and parity checks in an isolated mudlib.
+#include <weapon.h>
+// Real-driver AXE_FORK_PIN baseline and parity checks in an isolated mudlib.
 inherit "/tests/cloth_regression";
 
 private mixed *cases;
-private int next_blade;
+private int next_axe_fork_pin;
 
 void clear_inventory(object actor) {
     object item;
@@ -23,6 +24,17 @@ void check_equipment(string path) {
     item->set("consistence", 0); check(!item->wield(), "broken weapon refuses wield");
     item->set("consistence", 100); item->set("no_wield", "先歇一歇。\n");
     check(!item->wield(), "no_wield refuses wield"); item->delete("no_wield");
+    actor->set_temp("handing", other);
+    check(!!item->wield() == !(item->query("flag") & TWO_HANDED),
+        "original held-object restriction");
+    if (item->query("equipped")) item->unequip();
+    actor->delete_temp("handing");
+    if (item->query("flag") & TWO_HANDED) {
+        actor->set_temp("secondary_weapon", other);
+        check(!item->wield(), "two-handed axe requires vacant secondary slot");
+        actor->delete_temp("secondary_weapon");
+    }
+    actor->delete_temp("action_resets");
     actor->set_temp("handing", item);
     props = copy(item->query("weapon_prop"));
     check("/cmds/std/wield"->do_wield(actor, item) == 1 &&
@@ -48,7 +60,10 @@ void check_equipment(string path) {
         "bonus not doubled"
     );
     action = item->query("actions");
-    check(mapp(action) && member_array(action["damage_type"], ({ "割伤", "劈伤", "刺伤" })) >= 0 &&
+    check(mapp(action) && member_array(
+        action["damage_type"],
+        ({ item->query("skill_type") == "axe" ? "劈伤" : "刺伤" })
+    ) >= 0 &&
         stringp(action["action"]), "actual WEAPON_D action callback");
     check("/cmds/std/unwield"->main(actor, item->query("id")) == 1 &&
         !actor->query_temp("weapon") && !item->query("equipped"), "real unwield clears references");
@@ -64,21 +79,39 @@ void check_equipment(string path) {
         "stable",
         2
     ); item->set("consistence", 2); item->set("material", "steel"); item->wield();
-    "/tests/blade_durability"->reduce_consistence(item);
+    "/tests/axe_fork_pin_durability"->reduce_consistence(item);
     check(
         item->query("consistence") == 1 && item->query("equipped") == "wielded",
         "normal wear keeps wield"
     );
-    "/tests/blade_durability"->reduce_consistence(item);
+    "/tests/axe_fork_pin_durability"->reduce_consistence(item);
     check(!item->query("consistence") && !actor->query_temp("weapon") && !item->query("equipped"),
         "damage to zero automatically unwields");
     item->set("consistence", 2); item->set("stable", 1);
-    "/tests/blade_durability"->reduce_consistence(item);
+    "/tests/axe_fork_pin_durability"->reduce_consistence(item);
     check(item->query("consistence") == 2, "low stable bypass preserved");
     item->set("stable", 2); item->set("material", "tian jing");
-    "/tests/blade_durability"->reduce_consistence(item);
+    "/tests/axe_fork_pin_durability"->reduce_consistence(item);
     check(item->query("consistence") == 2 && other->query("consistence") == 100,
         "material exception and instance durability isolation");
+    // Test both explicit TWO_HANDED axes and ordinary offhand switching.
+    item->set("consistence", 100); item->set("material", "steel");
+    other->set("flag", SECONDARY); other->wield();
+    if (item->query("flag") & TWO_HANDED) {
+        check(!item->wield() && actor->query_temp("weapon") == other,
+            "two-handed axe rejects occupied primary/offhand switch");
+        other->unequip();
+        check(item->wield(), "two-handed axe works with free hands");
+    } else
+        check(item->wield() && actor->query_temp("weapon") == item &&
+            actor->query_temp("secondary_weapon") == other, "ordinary primary/offhand switch");
+    foreach (key in keys(props))
+        check(actor->query_temp("apply/" + key) == props[key], "offhand adds no weapon bonus");
+    item->unequip(); other->unequip();
+    foreach (key in keys(props)) check(
+        !actor->query_temp("apply/" + key),
+        "switch cleanup restores bonuses"
+    );
     clear_inventory(actor); destruct(actor);
 }
 
@@ -101,7 +134,7 @@ void check_storage(mixed *pair) {
                 objectp(item) && base_name(item) == path && !sizeof(actor->depot_records()),
                 "take reconstructs identity"
             );
-            compare(load_object(path), item, "restored blade");
+            compare(load_object(path), item, "restored axe_fork_pin");
         }
         clear_inventory(actor); if (item) destruct(item);
         item = new(path); item->move(actor, 1); item->wield(); actor->store_item(actor, item, 1);
@@ -111,11 +144,16 @@ void check_storage(mixed *pair) {
     actor = new("/tests/actor"); actor->move(this_object(), 1);
     converter = load_object("/tests/cloth_records");
     paths = json_decode(read_file("/tests/migration_paths.json"));
-    records = ([ "item0": ([ "file": pair[0], "amount": 2, "name": "旧剑", "id": "old blade" ]) ]);
+    records = ([ "item0": ([
+        "file": pair[0],
+        "amount": 2,
+        "name": "旧兵器",
+        "id": "old axe_fork_pin"
+    ]) ]);
     result = converter->convert(save_variable(records), "backpack", paths, ({}));
-    check(result["changes"] == 1, "old blade record converted");
-    write_file("/data/blade-restored.o", "my_depot " + result["value"] + "\n", 1);
-    actor->load_backup("/data/blade-restored"); actor->run_command("take 1 2");
+    check(result["changes"] == 1, "old axe_fork_pin record converted");
+    write_file("/data/axe_fork_pin-restored.o", "my_depot " + result["value"] + "\n", 1);
+    actor->load_backup("/data/axe_fork_pin-restored"); actor->run_command("take 1 2");
     check(
         sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
         "converted quantity restored"
@@ -133,37 +171,44 @@ void check_contracts() {
     mixed err;
     mixed *nested;
     string *ids;
+    string family, sample;
 
-    program = load_object("/d/items/blade");
-    check(!program->query("name") && !environment(program), "inert shared program");
-    err = catch(item = new("/d/items/blade/missing"));
-    check(!item && !find_object("/d/items/blade/missing"), "unknown variety rejected");
-    err = catch(new(
-        "/d/items/blade",
-        "gangdao"
-    )); check(!!err, "direct parameter construction rejected");
-    check(!program->valid_variety_path("/d/items/blade/gangdao/extra") &&
-        !program->valid_variety_path("/tests/blade") && !program->valid_variety_path("/d/beijing/npc/obj/blade"), "exact registered paths only");
-    foreach (group in json_decode(read_file("/tests/canonical.json"))) {
-        ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
-        check(
-            same_value(load_object(group["path"])->parse_command_id_list(), ids),
-            "canonical aliases"
+    foreach (family in ({ "axe", "fork", "pin" })) {
+        sample = family == "axe" ? "dabanfu" : family == "fork" ? "gangcha" : "xiuhua_zhen";
+        program = load_object("/d/items/" + family);
+        check(!program->query("name") && !environment(program), "inert shared program");
+        err = catch(item = new("/d/items/" + family + "/missing"));
+        check(!item && !find_object("/d/items/" + family + "/missing"), "unknown variety rejected");
+        err = catch(new(
+            "/d/items/" + family,
+            sample
+        )); check(!!err, "direct parameter construction rejected");
+        check(!program->valid_variety_path("/d/items/" + family + "/" + sample + "/extra") &&
+            !program->valid_variety_path("/tests/axe_fork_pin") && !program->valid_variety_path("/d/beijing/npc/obj/axe"), "exact registered paths only");
+        foreach (group in json_decode(read_file("/tests/canonical.json"))) {
+            ids = group["ids"] + ({ lower_case(group["ids"][0][0..0]) });
+            check(
+                same_value(load_object(group["path"])->parse_command_id_list(), ids),
+                "canonical aliases"
+            );
+        }
+        definition = program->query_definition(sample); definition["ids"][0] = "mutated";
+        check(program->query_definition(sample)["ids"][0] != "mutated", "registry copy isolated");
+        item = load_object("/d/items/" + family + "/" + sample); item->set(
+            "fixture",
+            ({ ([ "value": 1 ]) })
         );
+        first = new(base_name(item)); second = new(base_name(item));
+        nested = first->query("fixture"); nested[0]["value"] = 2;
+        check(second->query("fixture")[0]["value"] == 1 && item->query("fixture")[0]["value"] == 1,
+            "nested compound defaults isolated");
+        item->delete("fixture"); destruct(first); destruct(second);
     }
-    definition = program->query_definition("gangdao"); definition["ids"][0] = "mutated";
-    check(program->query_definition("gangdao")["ids"][0] != "mutated", "registry copy isolated");
-    item = load_object("/d/items/blade/gangdao"); item->set("fixture", ({ ([ "value": 1 ]) }));
-    first = new(base_name(item)); second = new(base_name(item));
-    nested = first->query("fixture"); nested[0]["value"] = 2;
-    check(second->query("fixture")[0]["value"] == 1 && item->query("fixture")[0]["value"] == 1,
-        "nested compound defaults isolated");
-    item->delete("fixture"); destruct(first); destruct(second);
     actor = new("/tests/actor");
     foreach (item in ({
         new("/d/items/food/mantou"),
         new("/d/shaolin/obj/qingshui-hulu"),
-        new("/tests/unknown_blade/one"),
+        new("/tests/unknown_axe_fork_pin/one"),
         new("/tests/vendor")
     })) {
         actor->store_item(actor, item, 1);
@@ -176,80 +221,7 @@ void check_contracts() {
     destruct(actor);
 }
 
-void check_suppliers() {
-    object actor, npc, item;
-    string prefix, path;
-    string *weapons;
-    int choice;
 
-    actor = new("/tests/actor"); actor->move(this_object(), 1);
-    foreach (prefix in ({ "/tests/old", "" })) {
-        npc = new(prefix + "/d/beijing/npc/qianzhenglun");
-        actor->delete("family"); actor->delete_temp("mark"); actor->select_npc(npc, "do_yao");
-        actor->run_command("testnpc blade");
-        check(!sizeof(all_inventory(actor)) && !npc->issued("blade"), "qian sect restriction");
-        actor->set("family/family_name", "八卦门"); actor->set_temp("mark/zhenyuan_weapon", 3);
-        actor->run_command("testnpc blade"); check(!npc->issued("blade"), "qian player limit");
-        actor->delete_temp("mark"); actor->run_command("testnpc blade");
-        path = prefix == "" ? "/d/items/blade/gangdao" : "/d/beijing/npc/obj/blade";
-        item = present("gang dao", actor);
-        check(objectp(item) && base_name(item) == path && item->query("no_sell") && item->query("value") == 50 &&
-            npc->issued("blade") == 1 && actor->query_temp("mark/zhenyuan_weapon") == 1, "qian stock mark and instance overrides");
-        check(
-            load_object(path)->query("value") != 50 && !load_object(path)->query("no_sell"),
-            "supplier overrides do not mutate defaults"
-        );
-        actor->run_command("testnpc blade"); actor->run_command("testnpc blade");
-        check(sizeof(all_inventory(actor)) == 2 && npc->issued("blade") == 2 &&
-            actor->query_temp("mark/zhenyuan_weapon") == 2, "qian stock exhausted without increment");
-        clear_inventory(actor); destruct(npc);
-        npc = new(prefix + "/kungfu/class/shaolin/dao-chen"); npc->set("wuqi_count", 2);
-        actor->select_npc(npc, "ask_me"); actor->run_command("testnpc jiedao");
-        check(
-            !sizeof(all_inventory(actor)) && npc->query("wuqi_count") == 2,
-            "daochen sect restriction"
-        );
-        actor->set("family/family_name", "少林派"); actor->run_command("testnpc jiedao");
-        path = prefix == "" ? "/d/items/blade/jiedao2" : "/d/shaolin/obj/jiedao";
-        item = present("jie dao", actor);
-        check(
-            objectp(item) && base_name(item) == path && npc->query("wuqi_count") == 1,
-            "daochen weapon issued"
-        );
-        item->set_name("戒刀", ({ "jie dao", "jiedao" }));
-        actor->run_command("testnpc jiedao");
-        check(
-            sizeof(all_inventory(actor)) == 1 && npc->query("wuqi_count") == 1,
-            "daochen held-name check when an exact alias is present"
-        );
-        item->set_name("戒刀", ({ "jie dao", "dao", "blade" }));
-        actor->run_command("testnpc jiedao");
-        check(sizeof(all_inventory(actor)) == 2 && !npc->query("wuqi_count"),
-            "historical jie dao versus jiedao mismatch preserved");
-        npc->set("wuqi_count", 1);
-        clear_inventory(actor); actor->run_command("testnpc qimeigun");
-        check(
-            objectp(present("qimei gun", actor)) && !npc->query("wuqi_count"),
-            "other weapon branch unchanged"
-        );
-        clear_inventory(actor); actor->run_command("testnpc jiedao");
-        check(!sizeof(all_inventory(actor)), "daochen exhausted stock"); destruct(npc);
-        npc = new(prefix + "/d/changan/npc/fujiang");
-        weapons = ({ "/d/items/sword/changjian3",
-            prefix == "" ? "/d/items/blade/gangdao4" : "/d/changan/npc/obj/gangdao",
-            prefix == "" ? "/d/items/staff/gangzhang" : "/d/changan/npc/obj/gangzhang", prefix == "" ? "/d/items/whip/changbian" : "/d/changan/npc/obj/changbian", prefix == "" ? "/d/items/axe/banfu" : "/d/changan/npc/obj/axe" });
-        for (choice = 0; choice < 5; choice++) {
-            foreach (item in all_inventory(npc)) {
-                if (item->query("equipped")) item->unequip(); destruct(item);
-            }
-            npc->select_case(choice); item = npc->query_temp("weapon");
-            check(objectp(item) && base_name(item) == weapons[choice] && item->query("equipped") == "wielded" &&
-                objectp(npc->query_temp("armor/cloth")), "fujiang real five-choice constructor");
-        }
-        clear_inventory(npc); destruct(npc);
-    }
-    destruct(actor);
-}
 
 void check_baseline() {
     mixed *pair, *observations;
@@ -266,8 +238,8 @@ void check_baseline() {
         check(blueprint->is_weapon() && instance->is_weapon(), "original weapon identity");
         check(master()->setup_count(blueprint) == 1 && master()->setup_count(instance) == 1,
             "original setup once");
-        check(blueprint->query("skill_type") == "blade" &&
-            instance->query("flag") == blueprint->query("flag"), "original blade initialization");
+        check(blueprint->query("skill_type") == pair[4] &&
+            blueprint->query("flag") == pair[5] && instance->query("flag") == pair[5], "original axe_fork_pin initialization");
         properties = copy(blueprint->query_entire_dbase());
         properties["actions"] = functionp(blueprint->query(
             "actions",
@@ -283,7 +255,7 @@ void check_baseline() {
         observations += ({ record });
         destruct(instance);
     }
-    write_file("/tests/blade-baseline.json", json_encode(observations), 1);
+    write_file("/tests/axe_fork_pin-baseline.json", json_encode(observations), 1);
 }
 
 void check_variety(mixed *pair) {
@@ -294,6 +266,11 @@ void check_variety(mixed *pair) {
 
     before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
     blueprint = load_object(pair[1]);
+    check(after->query("flag") == pair[5] && after->query("skill_type") == pair[4] && !after->is_combined() && !after->is_food() && !after->is_liquid() &&
+        !function_exists(
+            "do_play",
+            after
+        ), "original family and flags without stacking or unrelated abilities");
     compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
     compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
     check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
@@ -306,7 +283,7 @@ void check_variety(mixed *pair) {
     check(second->query("weapon_prop/damage") == damage && blueprint->query("weapon_prop/damage") == damage,
         "weapon mapping isolated");
     props["damage"] = damage;
-    original_long = second->long(); after->set("long", "刀身新添一道痕迹。\n");
+    original_long = second->long(); after->set("long", "兵器上新添一道痕迹。\n");
     check(
         second->long() == original_long && blueprint->long() == original_long,
         "description isolated"
@@ -327,7 +304,7 @@ void check_shop_display(mixed *pair) {
     string before, after;
     int price;
 
-    vendor = new("/tests/blade_vendor");
+    vendor = new("/tests/axe_fork_pin_vendor");
     foreach (price in ({ 0, 321 })) {
         vendor->set("vendor_goods", ([ pair[0]: price ]));
         check(vendor->do_list(0) == 1, "old dealer listing"); before = vendor->query_display();
@@ -369,7 +346,7 @@ void check_mengzhu_restore() {
         after = new("/tests/mengzhu");
         weapon = after->query_temp("weapon"); armor = after->query_temp("armor/cloth");
         check(objectp(weapon) && base_name(weapon) == pair[1] && weapon->query("equipped") == "wielded",
-            "mengzhu restored canonical blade equipped");
+            "mengzhu restored canonical axe_fork_pin equipped");
         check(objectp(armor) && base_name(armor) == "/d/items/cloth/buyi" && armor->query("equipped") == "worn",
             "mengzhu restored canonical armor equipped");
         check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
@@ -388,48 +365,19 @@ void check_mengzhu_restore() {
     }
 }
 
-void check_tulong_break() {
-    object actor, blade, sword, item;
-    string prefix, path;
-    string *products;
 
-    actor = new("/tests/actor"); actor->move(this_object(), 1);
-    foreach (prefix in ({ "/tests/old", "" })) {
-        blade = new(prefix + "/tests/tulong"); blade->move(actor, 1);
-        actor->select_npc(blade, "do_open"); actor->set("jiali", 161);
-        actor->run_command("testnpc yitian sword");
-        check(objectp(blade) && sizeof(all_inventory(actor)) == 1, "duikan requires held sword");
-        sword = new("/tests/tulong_target"); sword->move(actor, 1);
-        actor->run_command("testnpc other");
-        check(objectp(blade) && objectp(sword) && sizeof(all_inventory(actor)) == 2,
-            "duikan wrong argument preserves both objects");
-        actor->set("jiali", 160); actor->run_command("testnpc yitian sword");
-        check(objectp(blade) && objectp(sword) && sizeof(all_inventory(actor)) == 2,
-            "duikan power threshold preserves both objects");
-        actor->set("jiali", 161); actor->run_command("testnpc yitian sword");
-        check(!blade && !sword && sizeof(all_inventory(actor)) == 5,
-            "real duikan destroys originals and creates five products");
-        products = ({ "/d/items/sword/duan_yitian",
-            prefix == "" ? "/d/items/blade/duan_tulong" : "/d/tulong/obj/duan2",
-            "/d/tulong/obj/zhenjing", "/d/tulong/obj/miji", "/d/tulong/obj/yishu" });
-        foreach (path in products) {
-            item = 0;
-            foreach (blade in all_inventory(actor)) if (base_name(blade) == path) item = blade;
-            check(objectp(item) && environment(item) == actor, "duikan delivers " + path);
-        }
-        clear_inventory(actor);
-    }
-    destruct(actor);
-}
+
+#include "axe_fork_pin_business.h"
 
 void run_chunk() {
-    if (next_blade < sizeof(cases)) {
-        check_shop_display(cases[next_blade]);
-        check_variety(cases[next_blade++]);
+    if (next_axe_fork_pin < sizeof(cases)) {
+        check_shop_display(cases[next_axe_fork_pin]);
+        check_variety(cases[next_axe_fork_pin++]);
         call_out("run_chunk", 0);
         return;
     }
-    check_contracts(); check_suppliers(); check_mengzhu_restore(); check_tulong_break(); master()->finish();
+    check_contracts(); check_mengzhu_restore(); check_qian(); check_dynamic();
+    check_actual_shops(); check_npc_equipment(); check_famu(); master()->finish();
 }
 
 void run() {

@@ -1,3 +1,4 @@
+import { readBaseline as weaponBaseline, families as weaponFamilies } from './axe_fork_pin_inventory.mjs';
 import { readBaseline as instrumentBaseline } from './instrument_inventory.mjs';
 import { readBaseline as clubBaseline } from './club_inventory.mjs';
 import { readBaseline as bookBaseline } from './book_inventory.mjs';
@@ -32,7 +33,7 @@ const sandbox = mkdtempSync(join(tmpdir(), 'mud-cloth-compile-'));
 console.log('Compile-only cloth migration: ' + sandbox);
 const core = execFileSync('git', ['-C', join(root, 'mudcore'), 'ls-files', '-z'], { encoding: 'utf8' })
     .split('\0').filter(Boolean).map(path => 'mudcore/' + path);
-const sources = [...['qin', 'xiao', 'zheng'].flatMap(f => ['d/items/' + f + '.lpc', 'd/items/' + f + '_data.h']), ...tracked(), ...core, 'd/items/book.lpc', 'd/items/book_data.h', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
+const sources = [...[...weaponFamilies, 'qin', 'xiao', 'zheng'].flatMap(f => ['d/items/' + f + '.lpc', 'd/items/' + f + '_data.h']), ...tracked(), ...core, 'd/items/book.lpc', 'd/items/book_data.h', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'd/items/boots.lpc', 'd/items/boots_data.h',
     'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
     'd/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h',
     'd/items/food.lpc', 'd/items/food_data.h', 'd/items/sword.lpc', 'd/items/sword_data.h', 'd/items/liquid.lpc', 'd/items/liquid_data.h',
@@ -124,14 +125,17 @@ let files = club ? [...new Set([...Object.keys(clubBaseline().callers), ...clubB
     'feature/user_storage.c', 'd/items/cloth.lpc'])].filter(path => /\.(c|lpc)$/.test(path));
 if (book) files = [...Object.keys(bookBaseline().callers), ...bookBaseline().excluded.map(e => e.file), 'feature/user_storage.c', 'd/items/book.lpc'];
 if (instrument) files = [...Object.keys(instrumentBaseline().callers), ...instrumentBaseline().excluded.map(e => e.file).filter(f => /\.(c|lpc)$/.test(f)), 'feature/user_storage.c', ...['qin', 'xiao', 'zheng'].map(f => 'd/items/' + f + '.lpc')];
+if (process.argv.includes('--axe-fork-pin')) files = [...Object.keys(weaponBaseline().callers),
+    ...weaponBaseline().excluded.map(e => e.file).filter(f => /\.(c|lpc)$/.test(f)),
+    'feature/user_storage.c', ...weaponFamilies.map(f => 'd/items/' + f + '.lpc')];
 if (process.argv.includes('--all-migrations')) {
-    const snapshots = [readBaseline, bootsBaseline, headwearBaseline, handsBaseline, neckBaseline, wristsBaseline,
+    const snapshots = [weaponBaseline, readBaseline, bootsBaseline, headwearBaseline, handsBaseline, neckBaseline, wristsBaseline,
         foodBaseline, swordBaseline, liquidBaseline, bladeBaseline, equipBaseline, hammerBaseline, staffBaseline,
         whipBaseline, daggerBaseline, throwingBaseline, clubBaseline, bookBaseline, instrumentBaseline].map(read => read());
     files = [...new Set([...files, ...supplementalCallers, 'd/village/shop.c',
         ...snapshots.flatMap(data => [...Object.keys(data.callers ?? {}), ...data.hits.map(h => h.file)]),
         ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip',
-            'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club', 'book', 'qin', 'xiao', 'zheng'].map(f => `d/items/${f}.lpc`)])
+            'hammer', 'staff', 'whip', 'dagger', 'throwing', 'club', 'book', 'qin', 'xiao', 'zheng', ...weaponFamilies].map(f => `d/items/${f}.lpc`)])
     ];
 }
 const result = await new Promise((done, reject) => {
@@ -148,5 +152,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${process.argv.includes('--all-migrations') ? 'ALL' : book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${process.argv.includes('--all-migrations') ? 'ALL' : process.argv.includes('--axe-fork-pin') ? 'AXE_FORK_PIN' : book ? 'BOOK' : club ? 'CLUB' : throwing ? 'THROWING' : dagger ? 'DAGGER' : whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);
