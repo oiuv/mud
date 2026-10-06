@@ -63,7 +63,7 @@ private mapping sword_definitions() {
                 ({ "value", 3800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n苍穹神剑乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "changjian": ([
@@ -283,7 +283,7 @@ private mapping sword_definitions() {
                 ({ "value", 3000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n凤凰琴乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "ganggou": ([
@@ -377,7 +377,7 @@ private mapping sword_definitions() {
                 ({ "value", 3700000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n金刚剑·鬼龙乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "gusong_jian": ([
@@ -479,7 +479,7 @@ private mapping sword_definitions() {
                 ({ "value", 2200000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n量天尺乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "longhuang_jian": ([
@@ -492,7 +492,7 @@ private mapping sword_definitions() {
                 ({ "value", 3100000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n龙凰紫珠乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "longquan_jian": ([
@@ -591,7 +591,7 @@ private mapping sword_definitions() {
                 ({ "value", 2000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n盘龙七刹剑乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qilinjin1": ([
@@ -604,7 +604,7 @@ private mapping sword_definitions() {
                 ({ "value", 3500000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n麒麟金·破乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qilinjin2": ([
@@ -617,7 +617,7 @@ private mapping sword_definitions() {
                 ({ "value", 3500000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n麒麟金·曦乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qilinjin3": ([
@@ -630,7 +630,7 @@ private mapping sword_definitions() {
                 ({ "value", 3400000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n麒麟金·鲸吞乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qingsha_jian": ([
@@ -679,7 +679,7 @@ private mapping sword_definitions() {
                 ({ "value", 3600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n太阿乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "taomu_jian": ([
@@ -717,7 +717,7 @@ private mapping sword_definitions() {
                 ({ "value", 4500000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n九仪天尊剑乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "tiedi": ([
@@ -836,7 +836,7 @@ private mapping sword_definitions() {
                 ({ "value", 4000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n轩辕神剑乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "yanyang_chi": ([
@@ -849,7 +849,7 @@ private mapping sword_definitions() {
                 ({ "value", 2800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n九天艳阳尺乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "yitian_jian": ([

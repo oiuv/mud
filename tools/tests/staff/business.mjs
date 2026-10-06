@@ -1,3 +1,4 @@
+import { readBaseline as whipBaseline } from '../whip_inventory.mjs';
 // Disposable adapters execute the selected game methods; no live server or saves.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'node:fs';
@@ -59,7 +60,11 @@ export function prepareBusiness(root, sandbox) {
             else if (value.startsWith('obj/')) extras.add(dirname(shop.file).replaceAll('\\', '/') + '/' + value + '.c');
         }
     }
-    for (const file of extras) if (existsSync(join(root, file))) put(file, read(file));
+    for (const file of extras) {
+        const frozen = whipBaseline().varieties.find(row => row.old_path + '.c' === '/' + file);
+        if (frozen) put(file, frozen.source);
+        else if (existsSync(join(root, file))) put(file, read(file));
+    }
     // Extract unchanged real room stock statements, then test only this migration's entries.
     const rooms = [];
     for (const [file, frozen] of Object.entries(data.callers)) {

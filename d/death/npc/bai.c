@@ -62,7 +62,7 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/wuchang_pao")->wear();
-    carry_object(__DIR__ "obj/suolian")->wield();
+    carry_object("/d/items/whip/suolian")->wield();
     set_temp("handing", carry_object(__DIR__ "obj/book"));
 }
 

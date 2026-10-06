@@ -89,7 +89,7 @@ LONG);
     }));
 
     setup();
-    carry_object("/d/quanzhou/obj/fuchen");
+    carry_object("/d/items/whip/fuchen2");
     carry_object("/d/items/cloth/qing_daopao3")->wear();
 
 }

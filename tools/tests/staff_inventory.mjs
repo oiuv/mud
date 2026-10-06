@@ -1,5 +1,6 @@
 // Ordinary STAFF inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { correctedItemText } from './item_text_corrections.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -130,7 +131,7 @@ export function renderDefinitions() {
             + `            "weight": ${g.representative.weight},\n            "damage": ${g.representative.damage},\n`
             + (g.representative.flags ? `            "flags": ${g.representative.flags},\n` : '')
             + '            "properties": ({\n'
-            + g.representative.properties.map(([key, value]) => `                ({ ${key}, ${value} }),`).join('\n')
+            + g.representative.properties.map(([key, value]) => `                ({ ${key}, ${correctedItemText(key, value)} }),`).join('\n')
             + '\n            }),\n        ]),').join('\n') + '\n    ]);\n}\n';
 }
 

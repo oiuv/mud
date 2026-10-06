@@ -202,7 +202,7 @@ private mapping hammer_definitions() {
                 ({ "value", 3800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n冥王破狱锤乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_chui1": ([
@@ -215,7 +215,7 @@ private mapping hammer_definitions() {
                 ({ "value", 2600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星锤·镇邪乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_chui2": ([
@@ -228,7 +228,7 @@ private mapping hammer_definitions() {
                 ({ "value", 2800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星锤·紫苍乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_chui3": ([
@@ -241,7 +241,7 @@ private mapping hammer_definitions() {
                 ({ "value", 3600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星锤·刹神乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "saozhou": ([

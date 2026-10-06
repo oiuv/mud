@@ -37,7 +37,7 @@ LONG);
     set_temp("apply/damage", 300);
 
     setup();
-    carry_object(__DIR__ "obj/liuxingchui")->wield();
+    carry_object("/d/items/whip/liuxing_chui")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }
 

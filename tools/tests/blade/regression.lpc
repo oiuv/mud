@@ -237,7 +237,7 @@ void check_suppliers() {
         npc = new(prefix + "/d/changan/npc/fujiang");
         weapons = ({ "/d/items/sword/changjian3",
             prefix == "" ? "/d/items/blade/gangdao4" : "/d/changan/npc/obj/gangdao",
-            prefix == "" ? "/d/items/staff/gangzhang" : "/d/changan/npc/obj/gangzhang", "/d/changan/npc/obj/changbian", "/d/changan/npc/obj/axe" });
+            prefix == "" ? "/d/items/staff/gangzhang" : "/d/changan/npc/obj/gangzhang", prefix == "" ? "/d/items/whip/changbian" : "/d/changan/npc/obj/changbian", "/d/changan/npc/obj/axe" });
         for (choice = 0; choice < 5; choice++) {
             foreach (item in all_inventory(npc)) {
                 if (item->query("equipped")) item->unequip(); destruct(item);

@@ -122,7 +122,7 @@ LONG);
             ob1->move(this_object());
             ob1->wield();
         } else {
-            ob1 = new("/d/shaolin/obj/changbian");
+            ob1 = new("/d/items/whip/changbian2");
             ob1->move(this_object());
             ob1->wield();
         }

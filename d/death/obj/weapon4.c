@@ -13,7 +13,7 @@ void create() {
         set("value", 3000000);
         set("material", "steel");
         set("long", HIW "\n玄天棍·鬼虐乃九穹七狱神兵之一。\n" NOR);
-        set("wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR);
+        set("wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR);
     }
     init_club(200);
     setup();

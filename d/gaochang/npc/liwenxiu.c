@@ -46,7 +46,7 @@ void create() {
     set_temp("apply/damage", 200);
 
     setup();
-    carry_object(__DIR__ "obj/liuxingchui")->wield();
+    carry_object("/d/items/whip/liuxing_chui")->wield();
     carry_object("/d/items/equip/yingzi_mao")->wear();
     carry_object("/d/items/equip/yangpi_xue")->wear();
     carry_object("/d/items/equip/xuanse_ao")->wear();

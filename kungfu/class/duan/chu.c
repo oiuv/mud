@@ -77,7 +77,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/huangyi_junfu")->wear();
-    carry_object("/d/dali/npc/obj/diaogan")->wield();
+    carry_object("/d/items/whip/diaogan")->wield();
 }
 
 void attempt_apprentice(object ob) {

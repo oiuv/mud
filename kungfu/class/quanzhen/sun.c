@@ -79,7 +79,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/beijing/npc/obj/fuchen")->wield();
+    carry_object("/d/items/whip/fuchen")->wield();
     carry_object("/d/items/cloth/huise_daopao2")->wear();
 }
 

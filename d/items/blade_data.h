@@ -11,7 +11,7 @@ private mapping blade_definitions() {
                 ({ "value", 1700000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n碧海残镢乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "caidao": ([
@@ -161,7 +161,7 @@ private mapping blade_definitions() {
                 ({ "value", 4500000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七狱地藏斩乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "duan_tulong": ([
@@ -466,7 +466,7 @@ private mapping blade_definitions() {
                 ({ "value", 3600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n乾坤刀·乾坤乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qiankun_dao2": ([
@@ -479,7 +479,7 @@ private mapping blade_definitions() {
                 ({ "value", 4000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n乾坤刀·逆乾坤乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qing_tianyu1": ([
@@ -492,7 +492,7 @@ private mapping blade_definitions() {
                 ({ "value", 2200000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n青天羽·七重天乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qing_tianyu2": ([
@@ -505,7 +505,7 @@ private mapping blade_definitions() {
                 ({ "value", 2500000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n青天羽·九重天乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qing_tianyu3": ([
@@ -518,7 +518,7 @@ private mapping blade_definitions() {
                 ({ "value", 2800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n青天羽·十二重天乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "qingdiao_yuzhuo": ([
@@ -625,7 +625,7 @@ private mapping blade_definitions() {
                 ({ "value", 3000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n玄金斩·九馄阳乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "xuanjin_zhan2": ([
@@ -638,7 +638,7 @@ private mapping blade_definitions() {
                 ({ "value", 3200000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n玄金斩·披靡一阳乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "xuanjin_zhan3": ([
@@ -651,7 +651,7 @@ private mapping blade_definitions() {
                 ({ "value", 3300000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n玄金斩·虚空乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" }),
             }),
         ]),
         "yingdao": ([

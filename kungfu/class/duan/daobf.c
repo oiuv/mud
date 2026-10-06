@@ -82,7 +82,7 @@ LONG);
 
     setup();
     carry_object("/d/items/cloth/qing_daopao")->wear();
-    carry_object("/d/dali/obj/fuchen")->wield();
+    carry_object("/d/items/whip/fuchen2")->wield();
     add_money("silver", 10);
 }
 

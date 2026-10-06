@@ -1,3 +1,4 @@
+import { readBaseline as whipBaseline } from './whip_inventory.mjs';
 // Compile all changed game programs without booting the game or running create().
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -30,7 +31,7 @@ const sources = [...tracked(), ...core, 'd/items/cloth.lpc', 'd/items/cloth_data
     'd/items/headwear.lpc', 'd/items/headwear_data.h', 'd/items/hands.lpc', 'd/items/hands_data.h',
     'd/items/neck.lpc', 'd/items/neck_data.h', 'd/items/wrists.lpc', 'd/items/wrists_data.h',
     'd/items/food.lpc', 'd/items/food_data.h', 'd/items/sword.lpc', 'd/items/sword_data.h', 'd/items/liquid.lpc', 'd/items/liquid_data.h',
-    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h', 'd/items/hammer.lpc', 'd/items/hammer_data.h', 'd/items/staff.lpc', 'd/items/staff_data.h']
+    'd/items/blade.lpc', 'd/items/blade_data.h', 'd/items/equip.lpc', 'd/items/equip_data.h', 'd/items/hammer.lpc', 'd/items/hammer_data.h', 'd/items/staff.lpc', 'd/items/staff_data.h', 'd/items/whip.lpc', 'd/items/whip_data.h']
     .filter(path => /\.(c|lpc|h)$/.test(path) && !/^(fluffos|tools|data|ai)\//.test(path));
 for (const file of new Set(sources)) {
     if (!existsSync(join(root, file))) continue;
@@ -74,10 +75,13 @@ const food = process.argv.includes('--food');
 const sword = process.argv.includes('--sword');
 const liquid = process.argv.includes('--liquid');
 const blade = process.argv.includes('--blade');
+const whip = process.argv.includes('--whip');
 const staff = process.argv.includes('--staff');
 const hammer = process.argv.includes('--hammer');
 const equip = process.argv.includes('--equip');
-const files = staff ? [...new Set([...Object.keys(staffBaseline().callers), ...staffBaseline().dynamic.map(h => h.file),
+const files = whip ? [...new Set([...Object.keys(whipBaseline().callers), ...whipBaseline().dynamic.map(h => h.file),
+    ...whipBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
+    ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer', 'staff', 'whip'].map(f => `d/items/${f}.lpc`)])] : staff ? [...new Set([...Object.keys(staffBaseline().callers), ...staffBaseline().dynamic.map(h => h.file),
     ...staffBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
     ...['cloth', 'boots', 'headwear', 'hands', 'neck', 'wrists', 'food', 'sword', 'liquid', 'blade', 'equip', 'hammer', 'staff'].map(f => `d/items/${f}.lpc`)])] : hammer ? [...new Set([...Object.keys(hammerBaseline().callers), ...hammerBaseline().dynamic.map(h => h.file),
     ...hammerBaseline().excluded.map(e => e.file), 'feature/user_storage.c',
@@ -117,5 +121,5 @@ const result = await new Promise((done, reject) => {
 writeFileSync(join(sandbox, 'compiler-output.txt'), result.output);
 const passed = result.output.split('\n').filter(line => line.startsWith('PASS /')).length;
 console.log(result.output.split('\n').filter(line => /error:|^FAIL |Fail to load/.test(line)).join('\n'));
-console.log(`${hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
+console.log(`${whip ? 'WHIP' : staff ? 'STAFF' : hammer ? 'HAMMER' : equip ? 'EQUIP' : blade ? 'BLADE' : liquid ? 'LIQUID' : sword ? 'SWORD' : food ? 'FOOD' : wrists ? 'WRISTS' : neck ? 'NECK' : hands ? 'HANDS' : headwear ? 'HEADWEAR' : boots ? 'BOOTS' : 'CLOTH'} COMPILE: ${passed}/${files.length} programs; create bodies compiled but not executed`);
 if (result.code !== 0 || passed !== files.length) throw new Error('Compile failed; see ' + sandbox);

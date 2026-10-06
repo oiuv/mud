@@ -4,7 +4,7 @@
 
 后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。BLADE 批次将 61 个普通刀定义归为 **52 个规范品种**。
 
-直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。十三类保持各自继承和行为，共用以下离线迁移与部署流程；累计 832 个旧定义集中为 26 个共用程序/数据文件，定义文件净减少 **806 个**（不含工具、测试及文档）。
+直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。WHIP 批次将 32 份普通鞭类定义归为 **25 个规范品种**。十四类保持各自继承和行为，共用以下离线迁移与部署流程；累计 864 个旧定义集中为 28 个共用程序/数据文件，定义文件净减少 **836 个**（不含工具、测试及文档）。
 
 ## 创建与维护
 
@@ -23,6 +23,8 @@
 同品种共用蓝图，每件衣物仍是独立克隆，通过 `set_default_object()` 读取品种默认值，并非驱动自动复制所有属性。名称缓存和重量按现有接口初始化，可变复合属性由实例持有独立副本；实例 `set("long", ...)` 可覆盖默认描述而不影响其他物品，`delete("long")` 恢复蓝图默认值。原 28 份在重量设置前写入的 `long` 均为固定字符串（含 ANSI 文本），已统一并入蓝图，未保留历史初始化位置造成的额外数据层。需要随机或专用初始化的新行为应按实际需求实现，不预设通用实例属性层。
 
 保留有实际意义的 0/未设置、ANSI 颜色、描述与初始化次序差异。本轮只确认普通布衣 `value=0` 与未设置在现有交易链中等价；不推广为全库零值归一规则。
+
+纯展示文案中的明确错别字和病句可以随维护修正，保持原意，不改变身份、输入别名、存档字段或玩法；例如持用提示中的“一股杀气直聂九霄”已修正为“一股杀气直慑九霄”。生成器同步采用修正文案，历史源码与驱动观测快照不重写；回归仅对已确认的字段和文本差异调整预期，不忽略其他属性。
 
 带独有回调、F_NOCLONE 或不同父类的物品不套进此表。特别是直接 EQUIP 衣物不会因此获得 CLOTH 的撕布和洗涤行为。后续优先评估无回调、固定初始化的防具或兵器；食物、饮具、书籍分别按消耗、容量、阅读行为分组，先验证代表，不承诺一次迁完所有类别。
 
@@ -109,6 +111,16 @@ second = new(base_name(sword));
 
 钱正伦、道尘的资格、配额、库存、原持有检查及实例覆盖不变；副将五种兵器的选择分支和技能不变。南希仁仍只携带扁担，不额外持用。商店沿用原货表顺序和交易方法，房间沿用原陈设及刷新，不增加玩家玩法。部署前仍须预览备份，按需转换旧身份后配套冷启动，不仅是替换源码。
 
+## 普通鞭类物品
+
+`d/items/whip.lpc` 直接继承原 `WHIP`，固定数据在自然排序的 `whip_data.h`。32 份旧定义按完整蓝图/克隆观测归并为 25 个品种；例如 `new("/d/items/whip/shebian")` 创建蛇鞭，`load_object("/d/items/whip/fuchen2")` 查询拂尘蓝图，`new(base_name(ob))` 重建同品种。公共程序不是商品，未知 ID 和外部直接带参克隆均拒绝。
+
+短 ID 如 `fuchen2`、`changbian2`、`shenjiao_si1` 使用稳定品种编号，不拼接旧地区。六份相同拂尘、三份相同长鞭分别共用品种；重量或伤害不同的三种拂尘、两种长鞭仍分开。字段沿用 `name`、`ids`、`weight`、`damage`、`properties`，不增加实例数据层。
+
+最终虚拟蓝图设置属性后调用原 `init_whip(damage, flags)` 及一次 setup；本批 flags 省略，以零传入，**不附加 STAFF 的 LONG 或剑刀的 EDGED**。克隆绑定蓝图、隔离复合默认值并执行一次 setup；重复初始化不刷新耐久。流星锤、钓杆仍为 WHIP，原“馄饨灵索”名称、九节鞭 `material="steal"`、黑索 `no_sell/stable` 和钓杆 `rigidity` 保持，不借迁移修改旧数据。
+
+王方平十一件商品、两处房间和十三处普通 NPC 携物语句只改物品路径；李莫愁仍只携带拂尘、不持用。钱正伦、道尘和副将的原资格、库存、选择及实例覆盖不变；三渡仅在各自独特黑索被占用时改用规范普通长鞭，独特物品规则不变。洛阳赤金鞭死亡销毁回调留在原文件。此批不新增玩法，部署仍须预览备份并按需转换旧记录后配套冷启动。
+
 ## 普通饮具
 
 `d/items/liquid.lpc` 继承原 `ITEM + F_LIQUID`，数据在 `liquid_data.h`，包含茶、水、酒、汤及其饮具，不按显示名称改变原类型。74 份旧定义经真实驱动核对后归为 54 个品种，保留原别名、描述、容量、初始余量、效果字段和 UID/EUID。玉蜂蜜的解毒回调留在 `d/gumu/obj/fengmi.c`，不纳入普通表。
@@ -146,7 +158,7 @@ fresh = new(base_name(drink));
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。一次转换覆盖 **1,113 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十三张品种表，共 **649 个品种**，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。`whip/baseline.json` 保存 `da702704` 的 32 份鞭类原文、29 处静态引用、三个动态入口、赤金鞭 hash 及真实驱动观测。一次转换覆盖 **1,145 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37、WHIP 32），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十四张品种表，共 **674 个品种**，不读取历史映射。
 
 食物和饮具通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予存放资格，也不补录原来没有保存的液体余量或毒效；新建满液体不代表恢复了旧实例。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -301,3 +313,15 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --staff --bench
 ```
 
 需要 Git 历史 `32f587a5`。功能测试覆盖 37 个来源、三个动态入口、九个商店、五处房间及 27 处携带/持用语句；商店与房间按原语句顺序在隔离角色上执行，复用实际 F_DEALER/ROOM 方法，其他 NPC 基础设施由测试替身隔离，不代表完整战斗和任务系统验收。性能在其余测试结束后单独运行，按同样来源各创建 20 次，共 740 实例，三组新旧交替；不启动正式服、不读取正式存档。实际结果见 [STAFF 验证报告](../../openspec/changes/refactor-data-driven-staves/validation.md)。
+
+鞭类回归复用相同入口：
+
+```sh
+node --test tools/tests/test_whip_inventory.mjs
+node tools/tests/audit_whip_migration.mjs
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --whip
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --whip --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --whip --bench
+```
+
+需要 Git 历史 `da702704`。功能回归覆盖全部 32 个来源、实际装备与存取、王方平十一件商品、两处房间、十三处携物语句、三个动态入口及三渡的两条武器获取分支。三渡只执行原武器获取代码，独特黑索本体和无关 NPC 基础设施使用临时替身，不代表完整战斗或独特装备验收。旧类别所需历史长鞭/货表源码仅恢复到临时副本，不修改旧快照或恢复运行期旧入口。性能按 32 个来源各创建 20 次，共 640 实例，三组独立驱动新旧交替。实际结果见 [WHIP 验证报告](../../openspec/changes/refactor-data-driven-whips/validation.md)。

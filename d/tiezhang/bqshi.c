@@ -16,7 +16,7 @@ LONG);
         "/d/items/blade/gangdao6": 1,
         "/d/items/sword/gangjian3": 1,
         "/d/items/staff/gangzhang2": 1,
-        __DIR__ "obj/changbian": 1,
+        "/d/items/whip/changbian2": 1,
     ]));
     set("no_clean_up", 0);
 

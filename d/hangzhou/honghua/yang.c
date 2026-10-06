@@ -54,5 +54,5 @@ void create() {
 
     setup();
     carry_object("/clone/misc/cloth")->wear();
-    carry_object(__DIR__ "obj/tiebian")->wield();
+    carry_object("/d/items/whip/tiebian")->wield();
 }

@@ -60,7 +60,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/shaolin/obj/changbian")->wield();
+    carry_object("/d/items/whip/changbian2")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
 
     add_money("silver", 20);

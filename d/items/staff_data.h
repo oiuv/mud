@@ -186,7 +186,7 @@ private mapping staff_definitions() {
                 ({ "value", 4000000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n老君绝灭杖·三味火乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "mugun": ([
@@ -238,7 +238,7 @@ private mapping staff_definitions() {
                 ({ "value", 1600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星杖·轮回乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_zhang2": ([
@@ -251,7 +251,7 @@ private mapping staff_definitions() {
                 ({ "value", 1800000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星杖·诛天乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_zhang3": ([
@@ -264,7 +264,7 @@ private mapping staff_definitions() {
                 ({ "value", 2600000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星杖·寂灭乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "qixing_zhang4": ([
@@ -277,7 +277,7 @@ private mapping staff_definitions() {
                 ({ "value", 3200000 }),
                 ({ "material", "steel" }),
                 ({ "long", HIW "\n七星杖·麒麟火乃九穹七狱神兵之一。\n" NOR }),
-                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直聂九霄。\n" NOR }),
+                ({ "wield_msg", HIR "$N轻轻抖出$n" HIR "，刹时雷声轰鸣，一股杀气直慑九霄。\n" NOR }),
             }),
         ]),
         "senggun": ([

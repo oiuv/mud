@@ -11,7 +11,7 @@ void create() {
 LONG);
     set("objects", ([
         CLASS_D("emei") + "/feng": 1,
-        __DIR__ "obj/fuchen": 1,
+        "/d/items/whip/fuchen2": 1,
         "/d/items/sword/zhujian1": 1,
         __DIR__ "obj/yaodai": 1,
     ]));

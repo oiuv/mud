@@ -41,7 +41,7 @@ void create() {
         "人长得挺美，唉，只可惜被韦小宝骗去了。\n",
     ]));
     setup();
-    carry_object("/d/beijing/npc/obj/fuchen")->wield();
+    carry_object("/d/items/whip/fuchen")->wield();
     carry_object("/d/items/cloth/baise_changshan")->wear();
     add_money("silver", 2);
 }

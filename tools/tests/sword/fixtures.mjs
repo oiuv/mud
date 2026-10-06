@@ -1,3 +1,4 @@
+import { original as whipOriginal } from '../whip_inventory.mjs';
 // Disposable shells execute the real supplier methods and constructor.
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -36,10 +37,11 @@ export function prepareSword(root, sandbox, copy) {
     put('adm/daemons/rankd.c', 'string query_respect(object who) { return "这位朋友"; }\n');
     // Old supplier branches still reference the physical drink in this disposable fixture.
     put('d/shaolin/obj/qingshui-hulu.c', liquidOriginal('d/shaolin/obj/qingshui-hulu.c'));
+    put('d/changan/npc/obj/changbian.c', whipOriginal('d/changan/npc/obj/changbian.c'));
     // Historical dynamic branch exists only in this disposable old-version fixture.
     put('d/changan/npc/obj/gangzhang.c', staffOriginal('d/changan/npc/obj/gangzhang.c'));
     for (const file of ['cmds/std/wield.c', 'cmds/std/unwield.c',
-        'd/changan/npc/obj/changbian.c', 'd/changan/npc/obj/axe.c',
+        'd/changan/npc/obj/axe.c',
         'd/shaolin/obj/qimeigun.c']) copy(file);
     for (const file of ['d/changan/npc/obj/gangdao.c', 'd/beijing/npc/obj/blade.c'])
         put(file, bladeOriginal(file));

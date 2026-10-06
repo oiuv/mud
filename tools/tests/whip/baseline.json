@@ -1,0 +1,3565 @@
+{
+  "baseline": "da7027046add7e68a2ca38f04611c3c0cd745498",
+  "count": 32,
+  "varieties": [
+    {
+      "old_path": "/d/baituo/obj/shebian",
+      "key": "baituo_obj_shebian",
+      "source_hash": "c1d9ae6f4ed0cb243a85538b9bb16b38d0912838ec4527681638861919eb4da9",
+      "name": [
+        "\"蛇鞭\"",
+        "({ \"shebian\", \"bian\" })"
+      ],
+      "weight": "700",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄蛇皮长鞭。\\n\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 30,
+      "flags": 0,
+      "id": "shebian",
+      "new_path": "/d/items/whip/shebian",
+      "source": "//shebian.c\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"蛇鞭\", ({ \"shebian\", \"bian\" }));\n    set_weight(700);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄蛇皮长鞭。\\n\");\n        set(\"value\", 300);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(30);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/beijing/npc/obj/fuchen",
+      "key": "beijing_npc_obj_fuchen",
+      "source_hash": "39ec2b127c4f2fb0e17d6d7e2614c9d4b10f5c97987e7ae7d16d65b41c2405ae",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fu chen\", \"fu\", \"chen\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄普通的拂尘。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen",
+      "new_path": "/d/items/whip/fuchen",
+      "source": "// fuchen.c 拂尘\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fu chen\", \"fu\", \"chen\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄普通的拂尘。\\n\");\n        set(\"value\", 100);\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/beijing/npc/obj/whip",
+      "key": "beijing_npc_obj_whip",
+      "source_hash": "cf492042de3a7b6542c262c98532fa23242f11e5c58610a7392d2d2fe32174c0",
+      "name": [
+        "\"皮鞭\"",
+        "({ \"pi bian\", \"pibian\", \"bian\", \"whip\" })"
+      ],
+      "weight": "1000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"long\"",
+          "\"一条长长的皮鞭．\\n\""
+        ],
+        [
+          "\"unit\"",
+          "\"条\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 15,
+      "flags": 0,
+      "id": "pibian",
+      "new_path": "/d/items/whip/pibian",
+      "source": "// 神话世界·西游记·版本４．５０\n/* <SecCrypt CPL V3R05> */\n\n// blade.c\n\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(\"皮鞭\", ({ \"pi bian\", \"pibian\", \"bian\", \"whip\" }));\n    set_weight(1000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"long\", \"一条长长的皮鞭．\\n\");\n        set(\"unit\", \"条\");\n        set(\"value\", 500);\n    }\n    init_whip(15);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/changbian",
+      "key": "changan_npc_obj_changbian",
+      "source_hash": "f8d1f4ad2a585f7097bf858f2b54d650edd45bca251976486d423eb7e83accf9",
+      "name": [
+        "\"长鞭\"",
+        "({ \"changbian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄普通的长鞭，由水牛精工编织而成。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 0,
+      "id": "changbian",
+      "new_path": "/d/items/whip/changbian",
+      "source": "//changbian.c\n\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(\"长鞭\", ({ \"changbian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄普通的长鞭，由水牛精工编织而成。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n\n    init_whip(25);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/city/npc/obj/hlbian",
+      "key": "city_npc_obj_hlbian",
+      "source_hash": "c11ab737c44f3c326297a005d539319eea0bfbc0dcfbb512ac25c48edae9f4e4",
+      "name": [
+        "\"黑龙鞭\"",
+        "({ \"heilong bian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄墨黑长鞭，坚韧无比。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 35,
+      "flags": 0,
+      "id": "heilong_bian",
+      "new_path": "/d/items/whip/heilong_bian",
+      "source": "// 黑龙鞭\n\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(\"黑龙鞭\", ({ \"heilong bian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄墨黑长鞭，坚韧无比。\\n\");\n        set(\"value\", 1000);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(35);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/dali/npc/obj/diaogan",
+      "key": "dali_npc_obj_diaogan",
+      "source_hash": "a55ec0d65aebca75565b3c1d4fd8be47d0dc618bd71b1b1fe2beb9701d8eb3a2",
+      "name": [
+        "\"钓杆\"",
+        "({ \"diao gan\", \"diao\", \"gan\" })"
+      ],
+      "weight": "5000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根细长的铁杆，猛然一看不过是根普通钓鱼用的吊杆。\\n\""
+        ],
+        [
+          "\"value\"",
+          "1500"
+        ],
+        [
+          "\"rigidity\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N抽出一根$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n插回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 30,
+      "flags": 0,
+      "id": "diaogan",
+      "new_path": "/d/items/whip/diaogan",
+      "source": "#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"钓杆\", ({ \"diao gan\", \"diao\", \"gan\" }));\n    set_weight(5000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根细长的铁杆，猛然一看不过是根普通钓鱼用的吊杆。\\n\");\n        set(\"value\", 1500);\n        set(\"rigidity\", 100);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", \"$N抽出一根$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n插回腰间。\\n\");\n    }\n    init_whip(30);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/dali/obj/fuchen",
+      "key": "dali_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/npc/obj/suolian",
+      "key": "death_npc_obj_suolian",
+      "source_hash": "df536dd75a6628c0ccfb41e7a7d459f36dbf9e3bee971a861cd6ff7358b4221c",
+      "name": [
+        "HIW \"锁链\" NOR",
+        "({ \"suo lian\", \"suo\", \"lian\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 50,
+      "flags": 0,
+      "id": "suolian",
+      "new_path": "/d/items/whip/suolian",
+      "source": "#include <ansi.h>\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(HIW \"锁链\" NOR, ({ \"suo lian\", \"suo\", \"lian\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n    }\n    init_whip(50);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon26",
+      "key": "death_obj_weapon26",
+      "source_hash": "cf0526577d9aadf8c36a975793752a72cac3a4b835b3457957a5578d0d500b0d",
+      "name": [
+        "HIW \"缠魂丝\" NOR",
+        "({ \"chanhun si\", \"si\", \"chanhun\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "230000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 50,
+      "flags": 0,
+      "id": "chanhun_si",
+      "new_path": "/d/items/whip/chanhun_si",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIW \"缠魂丝\" NOR, ({ \"chanhun si\", \"si\", \"chanhun\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 230000);\n        set(\"material\", \"steel\");\n    }\n    init_whip(50);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon27",
+      "key": "death_obj_weapon27",
+      "source_hash": "ccc2ca2bc2776a558cc81be81fb4cb6a48f2eb69407e5b110c6f92ea7b516bc0",
+      "name": [
+        "HIR \"盘龙索\" NOR",
+        "({ \"panlong suo\", \"suo\", \"panlong\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "360000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 55,
+      "flags": 0,
+      "id": "panlong_suo",
+      "new_path": "/d/items/whip/panlong_suo",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIR \"盘龙索\" NOR, ({ \"panlong suo\", \"suo\", \"panlong\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 360000);\n        set(\"material\", \"steel\");\n    }\n    init_whip(55);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon28",
+      "key": "death_obj_weapon28",
+      "source_hash": "0d15cb8860f21c8a0bbcfaa5cd20fcd7512af80bfb891fb2ccfcd475b2c062a8",
+      "name": [
+        "HIR \"烈火神鞭\" NOR",
+        "({ \"liehuo bian\", \"bian\", \"liehuo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "420000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 60,
+      "flags": 0,
+      "id": "liehuo_bian",
+      "new_path": "/d/items/whip/liehuo_bian",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIR \"烈火神鞭\" NOR, ({ \"liehuo bian\", \"bian\", \"liehuo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 420000);\n        set(\"material\", \"steel\");\n    }\n    init_whip(60);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon29",
+      "key": "death_obj_weapon29",
+      "source_hash": "1798873b4ea79f56c22f98422c2e24704264a4c0ce8afb8d9e0d822501f1d325",
+      "name": [
+        "RED \"麒麟鞭\" NOR",
+        "({ \"qilin bian\", \"qilin\", \"bian\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "650000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 70,
+      "flags": 0,
+      "id": "qilin_bian",
+      "new_path": "/d/items/whip/qilin_bian",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(RED \"麒麟鞭\" NOR, ({ \"qilin bian\", \"qilin\", \"bian\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 650000);\n        set(\"material\", \"steel\");\n    }\n    init_whip(70);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon30",
+      "key": "death_obj_weapon30",
+      "source_hash": "cf62443a560dad9a88e9881986038ccf1c2bd70a20ba9f73fb50eeea0b892e1a",
+      "name": [
+        "WHT \"馄饨灵索\" NOR",
+        "({ \"huntun suo\", \"huntun\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "1200000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 90,
+      "flags": 0,
+      "id": "huntun_suo",
+      "new_path": "/d/items/whip/huntun_suo",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(WHT \"馄饨灵索\" NOR, ({ \"huntun suo\", \"huntun\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 1200000);\n        set(\"material\", \"steel\");\n    }\n    init_whip(90);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon31",
+      "key": "death_obj_weapon31",
+      "source_hash": "d0672b391f623315f60b46de80e46da41e500b459e36e7ffcd6e99ac6cac5f04",
+      "name": [
+        "HIW \"玄冰索\" NOR",
+        "({ \"xuanbing suo\", \"xuanbing\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "1200000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n玄冰索乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 110,
+      "flags": 0,
+      "id": "xuanbing_suo",
+      "new_path": "/d/items/whip/xuanbing_suo",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIW \"玄冰索\" NOR, ({ \"xuanbing suo\", \"xuanbing\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 1200000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n玄冰索乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(110);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon32",
+      "key": "death_obj_weapon32",
+      "source_hash": "9d1a22437222fab4c55297af162811c716ad64c1682e87cc805b3924f5d6ffff",
+      "name": [
+        "HIW \"神蛟丝·天残\" NOR",
+        "({ \"tian can\", \"shenjiaosi\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "1600000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n神蛟丝·天残乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 140,
+      "flags": 0,
+      "id": "shenjiao_si1",
+      "new_path": "/d/items/whip/shenjiao_si1",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIW \"神蛟丝·天残\" NOR, ({ \"tian can\", \"shenjiaosi\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 1600000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n神蛟丝·天残乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(140);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon33",
+      "key": "death_obj_weapon33",
+      "source_hash": "1b28c96fcb95e84c19a4ad4689e4c984bf117e2de76b6a257736da9070d9fedf",
+      "name": [
+        "HIW \"神蛟丝·天缺\" NOR",
+        "({ \"tian que\", \"shenjiaosi\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "2300000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n神蛟丝·天缺乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 160,
+      "flags": 0,
+      "id": "shenjiao_si2",
+      "new_path": "/d/items/whip/shenjiao_si2",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIW \"神蛟丝·天缺\" NOR, ({ \"tian que\", \"shenjiaosi\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 2300000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n神蛟丝·天缺乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(160);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon34",
+      "key": "death_obj_weapon34",
+      "source_hash": "71cc829d0d50847836030f5fedb196fdd7d927d26707600416aa90369d0f1722",
+      "name": [
+        "HIY \"神蛟丝·噬月\" NOR",
+        "({ \"shi yue\", \"shenjiaosi\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "3200000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n神蛟丝·噬月乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 180,
+      "flags": 0,
+      "id": "shenjiao_si3",
+      "new_path": "/d/items/whip/shenjiao_si3",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIY \"神蛟丝·噬月\" NOR, ({ \"shi yue\", \"shenjiaosi\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 3200000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n神蛟丝·噬月乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(180);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon35",
+      "key": "death_obj_weapon35",
+      "source_hash": "3641c9748c5e0060a4efcffb36d01691a8139bd0f37e13dbf1d9b019701a85a4",
+      "name": [
+        "HIR \"神蛟丝·吞日\" NOR",
+        "({ \"tun ri\", \"shenjiaosi\", \"suo\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "3600000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n神蛟丝·吞日乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 200,
+      "flags": 0,
+      "id": "shenjiao_si4",
+      "new_path": "/d/items/whip/shenjiao_si4",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(HIR \"神蛟丝·吞日\" NOR, ({ \"tun ri\", \"shenjiaosi\", \"suo\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 3600000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n神蛟丝·吞日乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(200);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/death/obj/weapon36",
+      "key": "death_obj_weapon36",
+      "source_hash": "05778b1b92f17d6a7bbdf7dc8662b3136bb91cd0efbcd79a2c55c6f4baa8e648",
+      "name": [
+        "CYN \"乌龙神蛟丝\" NOR",
+        "({ \"wulong si\", \"shenjiaosi\", \"si\", \"whip\" })"
+      ],
+      "weight": "4000",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"value\"",
+          "3900000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"long\"",
+          "HIW \"\\n乌龙神蛟丝乃九穹七狱神兵之一。\\n\" NOR"
+        ],
+        [
+          "\"wield_msg\"",
+          "HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 220,
+      "flags": 0,
+      "id": "wulong_si",
+      "new_path": "/d/items/whip/wulong_si",
+      "source": "#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(CYN \"乌龙神蛟丝\" NOR, ({ \"wulong si\", \"shenjiaosi\", \"si\", \"whip\" }));\n    set_weight(4000);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"value\", 3900000);\n        set(\"material\", \"steel\");\n        set(\"long\", HIW \"\\n乌龙神蛟丝乃九穹七狱神兵之一。\\n\" NOR);\n        set(\"wield_msg\", HIR \"$N轻轻抖出$n\" HIR \"，刹时雷声轰鸣，一股杀气直聂九霄。\\n\");\n    }\n    init_whip(220);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/emei/obj/fuchen",
+      "key": "emei_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/fuzhou/npc/obj/fuchen",
+      "key": "fuzhou_npc_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/fuzhou/obj/fuchen",
+      "key": "fuzhou_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/gaochang/npc/obj/liuxingchui",
+      "key": "gaochang_npc_obj_liuxingchui",
+      "source_hash": "9a11def5fbabfa2fe7fbdf1b8425c03271cec3d9a1d91a352e01a057d4fe0698",
+      "name": [
+        "HIY \"流星锤\" NOR",
+        "({ \"liuxing chui\", \"liuxing\", \"chui\" })"
+      ],
+      "weight": "4500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "HIY \"一柄金光闪闪的流星锤。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "2000"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 40,
+      "flags": 0,
+      "id": "liuxing_chui",
+      "new_path": "/d/items/whip/liuxing_chui",
+      "source": "#include <weapon.h>\n#include <ansi.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(HIY \"流星锤\" NOR, ({ \"liuxing chui\", \"liuxing\", \"chui\" }));\n    set_weight(4500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", HIY \"一柄金光闪闪的流星锤。\\n\" NOR);\n        set(\"value\", 2000);\n        set(\"material\", \"leather\");\n    }\n    init_whip(40);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/guiyun/npc/obj/jiujiebian",
+      "key": "guiyun_npc_obj_jiujiebian",
+      "source_hash": "4595ac1de68cb3addd8c0dd16c95ea3089c682b25c0f8a8dbda93aa6c843cb67",
+      "name": [
+        "\"九节鞭\"",
+        "({ \"jiujie bian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一条九节鞭，由精钢铸就而成。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"steal\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 25,
+      "flags": 0,
+      "id": "jiujiebian",
+      "new_path": "/d/items/whip/jiujiebian",
+      "source": "// jiujiebian.c\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"九节鞭\", ({ \"jiujie bian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一条九节鞭，由精钢铸就而成。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"steal\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(25);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/hangzhou/honghua/obj/tiebian",
+      "key": "hangzhou_honghua_obj_tiebian",
+      "source_hash": "87bb6235b3f7a480e54c480d6809633f2e29b9ede377ca544ef58e3c2271789a",
+      "name": [
+        "\"铁鞭\"",
+        "({ \"changbian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄粗大的铁鞭，总有三十来斤重。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 40,
+      "flags": 0,
+      "id": "tiebian",
+      "new_path": "/d/items/whip/tiebian",
+      "source": "// tiebian.c 铁鞭\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"铁鞭\", ({ \"changbian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄粗大的铁鞭，总有三十来斤重。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回腰间。\\n\");\n    }\n    init_whip(40);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/kunlun/obj/fuchen",
+      "key": "kunlun_obj_fuchen",
+      "source_hash": "42b8507b2de902a29f01d6608cbf52b4967afa147d9aa1a1a508ee125c8d6253",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 50,
+      "flags": 0,
+      "id": "fuchen3",
+      "new_path": "/d/items/whip/fuchen3",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(50);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/changbian",
+      "key": "mingjiao_obj_changbian",
+      "source_hash": "4c7a1df45ca1ff667c56281a427cd889ffa57231b4b72da348393da3557cb629",
+      "name": [
+        "\"长鞭\"",
+        "({ \"changbian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄普通的长鞭，由水牛精工编织而成。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "changbian2",
+      "new_path": "/d/items/whip/changbian2",
+      "source": "// longsword.c 长鞭\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"长鞭\", ({ \"changbian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄普通的长鞭，由水牛精工编织而成。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhou/npc/obj/fuchen",
+      "key": "quanzhou_npc_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhou/obj/fuchen",
+      "key": "quanzhou_obj_fuchen",
+      "source_hash": "2c9d1e3db75c56f0e1e2d5d3f3350a53d8ac12be7b57466e02e66e52cc9fe5ca",
+      "name": [
+        "\"拂尘\"",
+        "({ \"fuchen\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n别回颈中。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "fuchen2",
+      "new_path": "/d/items/whip/fuchen2",
+      "source": "// Jay May 27, 96\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"拂尘\", ({ \"fuchen\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄拂尘，做工精细，是很阴毒的兵器。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声从颈中抽出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n别回颈中。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/changbian",
+      "key": "shaolin_obj_changbian",
+      "source_hash": "4c7a1df45ca1ff667c56281a427cd889ffa57231b4b72da348393da3557cb629",
+      "name": [
+        "\"长鞭\"",
+        "({ \"changbian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄普通的长鞭，由水牛精工编织而成。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "changbian2",
+      "new_path": "/d/items/whip/changbian2",
+      "source": "// longsword.c 长鞭\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"长鞭\", ({ \"changbian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄普通的长鞭，由水牛精工编织而成。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/heisuo",
+      "key": "shaolin_obj_heisuo",
+      "source_hash": "13e52d686d065fe4131a021ae29619c5f39a879c1e3203eba4b8d8db930212a9",
+      "name": [
+        "\"黑索\"",
+        "({ \"black whip\", \"hei suo\", \"suo\", \"whip\" })"
+      ],
+      "weight": "800",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"根\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一根漆黑的长鞭，毫不起眼，但是入手沉重，且\\n\"\n            \"不失柔韧，实在是千锤百炼之物。\\n\""
+        ],
+        [
+          "\"no_sell\"",
+          "\"这是啥破玩艺，上吊用的？\\n\""
+        ],
+        [
+          "\"value\"",
+          "50000"
+        ],
+        [
+          "\"material\"",
+          "\"steel\""
+        ],
+        [
+          "\"wield_msg\"",
+          "BLK \"$N\" BLK \"一伸手，悄无声息的将$n握在手中。\\n\" NOR"
+        ],
+        [
+          "\"unwield_msg\"",
+          "WHT \"$N\" WHT \"将手中的$n卷起收好。\\n\" NOR"
+        ],
+        [
+          "\"stable\"",
+          "70"
+        ]
+      ],
+      "after_branch": [],
+      "damage": 120,
+      "flags": 0,
+      "id": "heisuo",
+      "new_path": "/d/items/whip/heisuo",
+      "source": "// 黑索\n\n#include <ansi.h>\n#include <weapon.h>\n\ninherit WHIP;\n\nvoid create() {\n    set_name(\"黑索\", ({ \"black whip\", \"hei suo\", \"suo\", \"whip\" }));\n    set_weight(800);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"根\");\n        set(\"long\", \"这是一根漆黑的长鞭，毫不起眼，但是入手沉重，且\\n\"\n            \"不失柔韧，实在是千锤百炼之物。\\n\");\n        set(\"no_sell\", \"这是啥破玩艺，上吊用的？\\n\");\n        set(\"value\", 50000);\n        set(\"material\", \"steel\");\n        set(\"wield_msg\", BLK \"$N\" BLK \"一伸手，悄无声息的将$n握在手中。\\n\" NOR);\n        set(\"unwield_msg\", WHT \"$N\" WHT \"将手中的$n卷起收好。\\n\" NOR);\n        set(\"stable\", 70);\n    }\n\n    init_whip(120);\n    setup();\n}\n"
+    },
+    {
+      "old_path": "/d/tiezhang/obj/changbian",
+      "key": "tiezhang_obj_changbian",
+      "source_hash": "4c7a1df45ca1ff667c56281a427cd889ffa57231b4b72da348393da3557cb629",
+      "name": [
+        "\"长鞭\"",
+        "({ \"changbian\", \"bian\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"柄\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一柄普通的长鞭，由水牛精工编织而成。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"leather\""
+        ],
+        [
+          "\"wield_msg\"",
+          "\"$N「唰」的一声抖出一柄$n握在手中。\\n\""
+        ],
+        [
+          "\"unwield_msg\"",
+          "\"$N将手中的$n卷回腰间。\\n\""
+        ]
+      ],
+      "after_branch": [],
+      "damage": 20,
+      "flags": 0,
+      "id": "changbian2",
+      "new_path": "/d/items/whip/changbian2",
+      "source": "// longsword.c 长鞭\n\n#include <weapon.h>\ninherit WHIP;\n\nvoid create() {\n    set_name(\"长鞭\", ({ \"changbian\", \"bian\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"柄\");\n        set(\"long\", \"这是一柄普通的长鞭，由水牛精工编织而成。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"leather\");\n        set(\"wield_msg\", \"$N「唰」的一声抖出一柄$n握在手中。\\n\");\n        set(\"unwield_msg\", \"$N将手中的$n卷回腰间。\\n\");\n    }\n    init_whip(20);\n    setup();\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/beijing/npc/dubi.c",
+      "line": 44,
+      "start": 1139,
+      "end": 1166,
+      "expression": "\"/d/beijing/npc/obj/fuchen\"",
+      "old_path": "/d/beijing/npc/obj/fuchen",
+      "new_path": "/d/items/whip/fuchen"
+    },
+    {
+      "file": "d/death/npc/bai.c",
+      "line": 65,
+      "start": 1791,
+      "end": 1812,
+      "expression": "__DIR__ \"obj/suolian\"",
+      "old_path": "/d/death/npc/obj/suolian",
+      "new_path": "/d/items/whip/suolian"
+    },
+    {
+      "file": "d/death/npc/hei.c",
+      "line": 65,
+      "start": 1799,
+      "end": 1820,
+      "expression": "__DIR__ \"obj/suolian\"",
+      "old_path": "/d/death/npc/obj/suolian",
+      "new_path": "/d/items/whip/suolian"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 55,
+      "start": 1671,
+      "end": 1694,
+      "expression": "\"/d/death/obj/weapon26\"",
+      "old_path": "/d/death/obj/weapon26",
+      "new_path": "/d/items/whip/chanhun_si"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 56,
+      "start": 1704,
+      "end": 1727,
+      "expression": "\"/d/death/obj/weapon27\"",
+      "old_path": "/d/death/obj/weapon27",
+      "new_path": "/d/items/whip/panlong_suo"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 57,
+      "start": 1737,
+      "end": 1760,
+      "expression": "\"/d/death/obj/weapon28\"",
+      "old_path": "/d/death/obj/weapon28",
+      "new_path": "/d/items/whip/liehuo_bian"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 58,
+      "start": 1770,
+      "end": 1793,
+      "expression": "\"/d/death/obj/weapon29\"",
+      "old_path": "/d/death/obj/weapon29",
+      "new_path": "/d/items/whip/qilin_bian"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 59,
+      "start": 1803,
+      "end": 1826,
+      "expression": "\"/d/death/obj/weapon30\"",
+      "old_path": "/d/death/obj/weapon30",
+      "new_path": "/d/items/whip/huntun_suo"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 60,
+      "start": 1836,
+      "end": 1859,
+      "expression": "\"/d/death/obj/weapon31\"",
+      "old_path": "/d/death/obj/weapon31",
+      "new_path": "/d/items/whip/xuanbing_suo"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 61,
+      "start": 1869,
+      "end": 1892,
+      "expression": "\"/d/death/obj/weapon32\"",
+      "old_path": "/d/death/obj/weapon32",
+      "new_path": "/d/items/whip/shenjiao_si1"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 62,
+      "start": 1902,
+      "end": 1925,
+      "expression": "\"/d/death/obj/weapon33\"",
+      "old_path": "/d/death/obj/weapon33",
+      "new_path": "/d/items/whip/shenjiao_si2"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 63,
+      "start": 1935,
+      "end": 1958,
+      "expression": "\"/d/death/obj/weapon34\"",
+      "old_path": "/d/death/obj/weapon34",
+      "new_path": "/d/items/whip/shenjiao_si3"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 64,
+      "start": 1968,
+      "end": 1991,
+      "expression": "\"/d/death/obj/weapon35\"",
+      "old_path": "/d/death/obj/weapon35",
+      "new_path": "/d/items/whip/shenjiao_si4"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 65,
+      "start": 2001,
+      "end": 2024,
+      "expression": "\"/d/death/obj/weapon36\"",
+      "old_path": "/d/death/obj/weapon36",
+      "new_path": "/d/items/whip/wulong_si"
+    },
+    {
+      "file": "d/emei/chuwujian.c",
+      "line": 14,
+      "start": 285,
+      "end": 305,
+      "expression": "__DIR__ \"obj/fuchen\"",
+      "old_path": "/d/emei/obj/fuchen",
+      "new_path": "/d/items/whip/fuchen2"
+    },
+    {
+      "file": "d/gaochang/npc/liwenxiu.c",
+      "line": 49,
+      "start": 1268,
+      "end": 1293,
+      "expression": "__DIR__ \"obj/liuxingchui\"",
+      "old_path": "/d/gaochang/npc/obj/liuxingchui",
+      "new_path": "/d/items/whip/liuxing_chui"
+    },
+    {
+      "file": "d/gaochang/npc/waer.c",
+      "line": 40,
+      "start": 854,
+      "end": 879,
+      "expression": "__DIR__ \"obj/liuxingchui\"",
+      "old_path": "/d/gaochang/npc/obj/liuxingchui",
+      "new_path": "/d/items/whip/liuxing_chui"
+    },
+    {
+      "file": "d/guiyun/npc/fengliang.c",
+      "line": 43,
+      "start": 1031,
+      "end": 1055,
+      "expression": "__DIR__ \"obj/jiujiebian\"",
+      "old_path": "/d/guiyun/npc/obj/jiujiebian",
+      "new_path": "/d/items/whip/jiujiebian"
+    },
+    {
+      "file": "d/hangzhou/honghua/yang.c",
+      "line": 57,
+      "start": 1468,
+      "end": 1489,
+      "expression": "__DIR__ \"obj/tiebian\"",
+      "old_path": "/d/hangzhou/honghua/obj/tiebian",
+      "new_path": "/d/items/whip/tiebian"
+    },
+    {
+      "file": "d/tiezhang/bqshi.c",
+      "line": 19,
+      "start": 448,
+      "end": 471,
+      "expression": "__DIR__ \"obj/changbian\"",
+      "old_path": "/d/tiezhang/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    },
+    {
+      "file": "kungfu/class/duan/chu.c",
+      "line": 80,
+      "start": 2136,
+      "end": 2161,
+      "expression": "\"/d/dali/npc/obj/diaogan\"",
+      "old_path": "/d/dali/npc/obj/diaogan",
+      "new_path": "/d/items/whip/diaogan"
+    },
+    {
+      "file": "kungfu/class/duan/daobf.c",
+      "line": 85,
+      "start": 2195,
+      "end": 2215,
+      "expression": "\"/d/dali/obj/fuchen\"",
+      "old_path": "/d/dali/obj/fuchen",
+      "new_path": "/d/items/whip/fuchen2"
+    },
+    {
+      "file": "kungfu/class/gumu/li.c",
+      "line": 92,
+      "start": 2430,
+      "end": 2454,
+      "expression": "\"/d/quanzhou/obj/fuchen\"",
+      "old_path": "/d/quanzhou/obj/fuchen",
+      "new_path": "/d/items/whip/fuchen2"
+    },
+    {
+      "file": "kungfu/class/quanzhen/sun.c",
+      "line": 82,
+      "start": 2072,
+      "end": 2099,
+      "expression": "\"/d/beijing/npc/obj/fuchen\"",
+      "old_path": "/d/beijing/npc/obj/fuchen",
+      "new_path": "/d/items/whip/fuchen"
+    },
+    {
+      "file": "kungfu/class/shaolin/du-e.c",
+      "line": 128,
+      "start": 3460,
+      "end": 3486,
+      "expression": "\"/d/shaolin/obj/changbian\"",
+      "old_path": "/d/shaolin/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    },
+    {
+      "file": "kungfu/class/shaolin/du-jie.c",
+      "line": 126,
+      "start": 3426,
+      "end": 3452,
+      "expression": "\"/d/shaolin/obj/changbian\"",
+      "old_path": "/d/shaolin/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    },
+    {
+      "file": "kungfu/class/shaolin/du-nan.c",
+      "line": 125,
+      "start": 3423,
+      "end": 3449,
+      "expression": "\"/d/shaolin/obj/changbian\"",
+      "old_path": "/d/shaolin/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    },
+    {
+      "file": "kungfu/class/wudu/cenqisi.c",
+      "line": 63,
+      "start": 1579,
+      "end": 1605,
+      "expression": "\"/d/shaolin/obj/changbian\"",
+      "old_path": "/d/shaolin/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    },
+    {
+      "file": "kungfu/class/yunlong/ma.c",
+      "line": 79,
+      "start": 2253,
+      "end": 2279,
+      "expression": "\"/d/shaolin/obj/changbian\"",
+      "old_path": "/d/shaolin/obj/changbian",
+      "new_path": "/d/items/whip/changbian2"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/beijing/npc/qianzhenglun.c",
+      "line": 115,
+      "expression": "obj = new(__DIR__ \"obj/\" + arg);"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 72,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 31,
+      "expression": "\"/d/death/obj/weapon2\","
+    },
+    {
+      "file": "d/death/npc/wangfangping.c",
+      "line": 32,
+      "expression": "\"/d/death/obj/weapon3\","
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 85,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 97,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 107,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "callers": {
+    "d/beijing/npc/dubi.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_MASTER;\nint do_skills(string arg);\n\nvoid create() {\n    set_name(\"独臂神尼\", ({ \"dubi shenni\", \"dubi\" }));\n    set(\"gender\", \"女性\");\n    set(\"age\", 44);\n    set(\"str\", 25);\n    set(\"dex\", 20);\n    set(\"long\", \"这是一位白衣女尼，手握拂尘，目视前方。\\n\" +\n        \"一只长袖空空如也，显是断了一臂，尽管如此，\\n\" +\n        \"仍然掩不住她迷人的风采。\\n\");\n    set(\"combat_exp\", 200000);\n    set(\"shen_type\", 1);\n    set(\"attitude\", \"peaceful\");\n\n    set_skill(\"whip\", 150);\n    set_skill(\"force\", 90);\n    set_skill(\"unarmed\", 90);\n    set_skill(\"dodge\", 150);\n    set_skill(\"parry\", 90);\n    set_skill(\"qiufeng-chenfa\", 150);\n    set_skill(\"shenxing-baibian\", 150);\n    map_skill(\"whip\", \"qiufeng-chenfa\");\n    map_skill(\"parry\", \"qiufeng-chenfa\");\n    map_skill(\"dodge\", \"shenxing-baibian\");\n\n    set_temp(\"apply/attack\", 100);\n    set_temp(\"apply/defense\", 100);\n    set_temp(\"apply/armor\", 40);\n    set_temp(\"apply/damage\", 100);\n    set(\"neili\", 1500);\n    set(\"max_neili\", 1500);\n    set(\"jiali\", 100);\n    set(\"inquiry\", ([\n        \"阿珂\": \"神尼叹了一口气，说道：她是我的得意弟子，\\n\"\n        \"人长得挺美，唉，只可惜被韦小宝骗去了。\\n\",\n    ]));\n    setup();\n    carry_object(\"/d/beijing/npc/obj/fuchen\")->wield();\n    carry_object(\"/d/items/cloth/baise_changshan\")->wear();\n    add_money(\"silver\", 2);\n}\n\nvoid init() {\n    ::init();\n    if (this_player()->query(\"id\") == \"la ma\") {\n        delete_temp(\"saved_by_others\");\n    } else if (interactive(this_player())) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, this_player());\n    }\n}\n\nint recognize_apprentice(object ob) {\n    if (!ob->query(\"can_learn/dubi/shenxing-baibian\")) {\n        message_vision(\"$N摇了摇头。\\n\", this_object());\n        command(\"say 你我素不相识，为什么我一定要教你呢？\");\n        return -1;\n    }\n    return 1;\n}\n\nvoid greeting(object ob) {\n    object man;\n\n    if (!ob || environment(ob) != environment()) return;\n\n    man = this_object();\n    if (!present(\"la ma\")) {\n        message_vision(HIC \"$N踏进屋来，只见地上尸体横陈，一个女\"\n            \"尼喘息不止。\\n\" NOR, ob);\n        if (!query_temp(\"saved_by_others\")) {\n            set_temp(\"saved_by_others\", 1);\n            ob->set(\"can_learn/dubi/shenxing-baibian\", 1);\n            message_vision(\"\\n白衣女尼对$N说道：“多谢这位\" +\n                RANK_D->query_respect(ob) +\n                \"拔刀相助，贫尼感激不尽，无以为报。\\n\"\n                \"这里有一套神行百变身法，你若愿学，贫\"\n                \"尼定倾囊以授。”\\n\", ob);\n            if (ob->query(\"weiwang\") < 60) {\n                ob->add(\"weiwang\", 10);\n                message_vision(HIC \"$N的江湖威望提高了！\\n\" NOR, ob);\n                return;\n            }\n            return;\n        }\n        message_vision(HIC \"白衣女尼对$N微微一笑。\\n\" NOR, ob);\n    }\n}\n",
+    "d/beijing/npc/qianzhenglun.c": "// qianzhenglun.c 钱正伦\n\n#include <ansi.h>\n\ninherit NPC;\n\nint total = random(15);\nmapping my_count = ([]);\n\nvoid create() {\n    set_name(\"钱正伦\", ({ \"qian zhenglun\", \"qian\", \"zhenglun\" }));\n    set(\"long\", \"镇远镖局的镖师，常年来勤勤恳恳的打理着镖\\n\"\n        \"局的事务，任劳任怨，忠心耿耿。他的鬓角已\\n\"\n        \"微见白发，皮肤黝黑，身材魁梧，腰粗臂长，\\n\"\n        \"双眼有神。\\n\");\n    set(\"title\", \"镇远镖局镖师\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"shen_type\", 1);\n    set(\"class\", \"fighter\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"str\", 40);\n    set(\"int\", 30);\n    set(\"dex\", 30);\n    set(\"con\", 35);\n    set(\"per\", 19);\n\n    set(\"qi\", 600);\n    set(\"max_qi\", 600);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1500);\n    set(\"max_neili\", 1500);\n    set(\"jiali\", 75);\n\n    set(\"combat_exp\", 200000);\n    set(\"score\", 50000);\n\n    set_skill(\"literate\", 40);\n    set_skill(\"parry\", 60);\n    set_skill(\"force\", 60);\n    set_skill(\"dodge\", 60);\n    set_skill(\"bagua-bu\", 40);\n    set_skill(\"bagua-dao\", 40);\n    set_skill(\"nei-bagua\", 30);\n    set_skill(\"blade\", 60);\n\n    map_skill(\"parry\", \"bagua-dao\");\n    map_skill(\"blade\", \"bagua-dao\");\n    map_skill(\"dodge\", \"bagua-bu\");\n    map_skill(\"force\", \"nei-bagua\");\n\n    setup();\n\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_yao\", \"yao\");\n}\n\nint do_yao(string arg) {\n    object me = this_player(), obj;\n\n    if (!arg) {\n        tell_object(me, CYN \"钱正伦道：你要什么东西？\\n\" NOR);\n        return 1;\n    }\n\n    if ((string)me->query(\"family/family_name\") != \"八卦门\")\n        return notify_fail(CYN \"钱正伦道：对不起，只有镖局里\"\n            \"的人才能领取兵器。\\n\" NOR);\n\n    if (arg != \"blade\" && arg != \"sword\" && arg != \"dagger\"\n        && arg != \"hammer\" && arg != \"staff\" && arg != \"throwing\"\n        && arg != \"whip\" && arg != \"body\" && arg != \"helmet\"\n        && arg != \"feet\" && arg != \"waist\")\n        return notify_fail(CYN \"钱正伦对你摇头道：对不起，你要的\"\n            \"东西我这里没有。\\n\" NOR);\n\n    if (my_count[arg] >= total)\n        return notify_fail(CYN \"钱正伦道：对不起，你要的东西我都\"\n            \"已经发完了。\\n\" NOR);\n\n    if (arg == \"body\" || arg == \"helmet\"\n        || arg == \"feet\" || arg == \"waist\") {\n        if (me->query_temp(\"mark/zhenyuan_armor\") >= 3)\n            return notify_fail(CYN \"钱正伦怒骂道：你要了这么\"\n                \"多件护甲，还不够？\\n\" NOR);\n\n        me->add_temp(\"mark/zhenyuan_armor\", 1);\n    } else {\n        if (me->query_temp(\"mark/zhenyuan_weapon\") >= 3)\n            return notify_fail(CYN \"钱正伦怒骂道：你要了这么\"\n                \"多件兵器，还不够？\\n\" NOR);\n\n        me->add_temp(\"mark/zhenyuan_weapon\", 1);\n    }\n\n    my_count[arg] += 1;\n    if (arg == \"sword\")\n        obj = new(\"/d/items/sword/changjian\");\n    else if (arg == \"blade\")\n        obj = new(\"/d/items/blade/gangdao\");\n    else if (arg == \"hammer\")\n        obj = new(\"/d/items/hammer/tiechui\");\n    else if (arg == \"staff\")\n        obj = new(\"/d/items/staff/chanzhang\");\n    else if (arg == \"feet\")\n        obj = new(\"/d/items/boots/zhanxue\");\n    else if (arg == \"helmet\")\n        obj = new(\"/d/items/headwear/gangkui\");\n    else\n        obj = new(__DIR__ \"obj/\" + arg);\n    obj->set(\"no_sell\", \"这不是镇远镖局里的东西么？我可不敢收购。\");\n    obj->set(\"value\", 50);\n    command(\"say 这位\" + RANK_D->query_respect(me) + \"，\" +\n        obj->query(\"name\") + \"为数不多，千万别随便扔。\");\n    message_vision(HIC \"钱正伦给了$N\" HIC \"一\" + obj->query(\"unit\")\n        +obj->query(\"name\") + HIC \"。\\n\" NOR, me);\n    obj->move(me);\n    return 1;\n}\n",
+    "d/changan/npc/fujiang.c": "//fujiang.c\n\ninherit NPC;\n\nstring weapon_file, skill, special_skill;\nstring *first_name = ({ \"赵\", \"钱\", \"孙\", \"李\", \"周\", \"吴\", \"郑\", \"王\", \"樊\", \"陈\", \"祝\",\n    \"魏\", \"蒋\", \"沈\", \"韩\", \"杨\", \"刘\", \"张\", \"林\", \"朱\", \"欧阳\",\n    \"司马\", \"慕容\", \"诸葛\" });\nstring *name_words = ({ \"顺\", \"昌\", \"振\", \"发\", \"财\", \"俊\", \"彦\", \"良\", \"志\", \"忠\",\n    \"孝\", \"雄\", \"益\", \"添\", \"金\", \"辉\", \"长\", \"盛\", \"胜\", \"进\", \"安\", \"福\", \"同\", \"满\",\n    \"富\", \"万\", \"龙\", \"隆\", \"祥\", \"栋\", \"国\", \"亿\", \"寿\", \"思\", \"霖\", \"雷\", \"鹏\", \"平\",\n    \"轼\", \"甫\", \"维\", \"龄\", \"桥\", \"溪\", \"声\", \"谷\", \"山\", \"舟\", \"岩\", \"泉\", \"游\", \"逊\", });\n\nvoid determine_data() {\n    switch (random(5)) {\n        case 0:\n            weapon_file = \"changjian\";\n            skill = \"sword\";\n            break;\n        case 1:\n            weapon_file = \"gangdao\";\n            skill = \"blade\";\n            break;\n        case 2:\n            weapon_file = \"gangzhang\";\n            skill = \"staff\";\n            break;\n        case 3:\n            weapon_file = \"changbian\";\n            skill = \"whip\";\n            break;\n        case 4:\n            weapon_file = \"axe\";\n            skill = \"axe\";\n            break;\n    }\n}\n\nvoid create() {\n    string name;\n    name = first_name[random(sizeof(first_name))];\n    name += name_words[random(sizeof(name_words))];\n    if (random(10) > 2) name += name_words[random(sizeof(name_words))];\n    set_name(name, ({ \"fu jiang\", \"fu\", \"jiang\", \"general\", \"fujiang\" }));\n    set(\"long\", @LONG\n一名战功累累的副将。如今太平了，便练练兵，以防边疆有变。\nLONG);\n    determine_data();\n    set(\"title\", \"副将\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 20 + random(30));\n    set(\"combat_exp\", 300000 + random(100000));\n    set_skill(skill, 120);\n    set_skill(\"dodge\", 120);\n    set_skill(\"parry\", 120);\n    set_skill(\"unarmed\", 120);\n    set_skill(\"force\", 120);\n    set(\"max_qi\", 700);\n    set(\"max_jing\", 700);\n    set(\"max_neli\", 800);\n    set(\"force\", 1000);\n    set(\"jiali\", 25);\n\n    setup();\n    if (weapon_file == \"changjian\")\n        carry_object(\"/d/items/sword/changjian3\")->wield();\n    else if (weapon_file == \"gangdao\")\n        carry_object(\"/d/items/blade/gangdao4\")->wield();\n    else if (weapon_file == \"gangzhang\")\n        carry_object(\"/d/items/staff/gangzhang\")->wield();\n    else\n        carry_object(__DIR__ \"obj/\" + weapon_file)->wield();\n    carry_object(\"/d/items/cloth/zhanjia\")->wear();\n}\n",
+    "d/death/npc/bai.c": "#include <ansi.h>\n#include <command.h>\n#include <login.h>\n\ninherit NPC;\n\nstring *death_msg = ({\n    HIW \"白无常说道：喂！新来的，你叫什么名字？\\n\\n\" NOR,\n    HIW \"白无常用奇异的眼光盯著你，好像要看穿你的一切似的。\\n\\n\" NOR,\n    HIW \"白无常「哼」的一声，从袖中掏出一本像帐册的东西翻看著。\\n\\n\" NOR,\n    HIW \"白无常合上册子，说道：咦？阳寿未尽？怎么可能？\\n\\n\" NOR,\n    HIW \"白无常搔了搔头，叹道：罢了罢了，你走吧。\\n\\n\"\n    \"一股阴冷的浓雾突然出现，很快地包围了你。\\n\\n\" NOR,\n});\n\nvoid create() {\n    set_name(\"白无常\", ({ \"bai wuchang\", \"bai\", \"wuchang\" }));\n    set(\"title\", HIR \"冥府地藏王殿前\" NOR);\n    set(\"long\", \"\\n白无常瞪著你，焦黄的脸上看不出任何喜怒哀乐。\\n\");\n    set(\"attitude\", \"peaceful\");\n    set(\"chat_chance\", 15);\n    set(\"chat_msg\", ({\n        CYN \"白无常狠狠的敲了敲你的脑袋，你觉得头晕晕的。\\n\", NOR,\n        CYN \"白无常嘿嘿奸笑两声。\\n\" NOR,\n    }));\n    set(\"age\", 217);\n\n    set(\"max_qi\", 9999);\n    set(\"max_jing\", 9999);\n    set(\"neili\", 9999);\n    set(\"max_neili\", 9999);\n    set(\"jiali\", 250);\n\n    set(\"combat_exp\", 50000000);\n\n    set_skill(\"unarmed\", 500);\n    set_skill(\"sword\", 500);\n    set_skill(\"blade\", 500);\n    set_skill(\"staff\", 500);\n    set_skill(\"hammer\", 500);\n    set_skill(\"club\", 500);\n    set_skill(\"whip\", 500);\n    set_skill(\"dagger\", 500);\n    set_skill(\"throwing\", 500);\n    set_skill(\"parry\", 500);\n    set_skill(\"dodge\", 500);\n    set_skill(\"force\", 500);\n    set_skill(\"never-defeated\", 1000);\n    set_skill(\"magic\", 1000);\n\n    map_skill(\"sword\", \"never-defeated\");\n    map_skill(\"blade\", \"never-defeated\");\n    map_skill(\"staff\", \"never-defeated\");\n    map_skill(\"hammer\", \"never-defeated\");\n    map_skill(\"club\", \"never-defeated\");\n    map_skill(\"whip\", \"never-defeated\");\n    map_skill(\"dagger\", \"never-defeated\");\n    map_skill(\"parry\", \"never-defeated\");\n    map_skill(\"dodge\", \"never-defeated\");\n    map_skill(\"force\", \"never-defeated\");\n\n    setup();\n\n    carry_object(\"/d/items/cloth/wuchang_pao\")->wear();\n    carry_object(__DIR__ \"obj/suolian\")->wield();\n    set_temp(\"handing\", carry_object(__DIR__ \"obj/book\"));\n}\n\nvoid init() {\n    ::init();\n    if (!previous_object() ||\n        !userp(previous_object()) ||\n        !previous_object()->is_ghost() ||\n        wizardp(previous_object()))\n        return;\n    call_out(\"death_stage\", 5, previous_object(), 0);\n}\n\nvoid death_stage(object ob, int stage) {\n    int i;\n    object *inv;\n\n    if (!ob || !present(ob))\n        return;\n\n    tell_object(ob, death_msg[stage]);\n    if (++stage < sizeof(death_msg)) {\n        call_out(\"death_stage\", 5, ob, stage);\n        return;\n    } else\n        ob->reincarnate();\n\n    if (!wizardp(ob)) {\n        inv = all_inventory(ob);\n        for (i = 0; i < sizeof(inv); i++)\n            DROP_CMD->do_drop(ob, inv[i]);\n    }\n\n    ob->move(REVIVE_ROOM);\n    ob->set(\"startroom\", REVIVE_ROOM);\n    message(\"vision\", HIW \"你忽然发现前面多了一个人影，不过那人影又好像已经在那里\\n\"\n        \"很久了，只是你一直没发觉。\\n\" NOR,\n        environment(ob), ob);\n}\n",
+    "d/death/npc/hei.c": "#include <ansi.h>\n#include <command.h>\n#include <login.h>\n\ninherit NPC;\n\nstring *death_msg = ({\n    HIW \"黑无常说道：喂！新来的，你叫什么名字？\\n\\n\" NOR,\n    HIW \"黑无常用奇异的眼光盯著你，好像要看穿你的一切似的。\\n\\n\" NOR,\n    HIW \"黑无常「哼」的一声，从袖中掏出一本像帐册的东西翻看著。\\n\\n\" NOR,\n    HIW \"黑无常合上册子，说道：咦？阳寿未尽？怎么可能？\\n\\n\" NOR,\n    HIW \"黑无常搔了搔头，叹道：罢了罢了，你走吧。\\n\\n\"\n    \"一股阴冷的浓雾突然出现，很快地包围了你。\\n\\n\" NOR,\n});\n\nvoid create() {\n    set_name(\"黑无常\", ({ \"hei wuchang\", \"hei\", \"wuchang\" }));\n    set(\"title\", HIR \"冥府地藏王殿前\" NOR);\n    set(\"long\", \"\\n黑无常瞪著你，焦黄的脸上看不出任何喜怒哀乐。\\n\");\n    set(\"attitude\", \"peaceful\");\n    set(\"chat_chance\", 15);\n    set(\"chat_msg\", ({\n        CYN \"黑无常嘿嘿干笑数声：你可终于落到我的手里了……\\n\" NOR,\n        CYN \"黑无常东张西望，不知道在打什么主意。\\n\" NOR,\n    }));\n    set(\"age\", 217);\n\n    set(\"max_qi\", 9999);\n    set(\"max_jing\", 9999);\n    set(\"neili\", 9999);\n    set(\"max_neili\", 9999);\n    set(\"jiali\", 250);\n\n    set(\"combat_exp\", 50000000);\n\n    set_skill(\"unarmed\", 500);\n    set_skill(\"sword\", 500);\n    set_skill(\"blade\", 500);\n    set_skill(\"staff\", 500);\n    set_skill(\"hammer\", 500);\n    set_skill(\"club\", 500);\n    set_skill(\"whip\", 500);\n    set_skill(\"dagger\", 500);\n    set_skill(\"throwing\", 500);\n    set_skill(\"parry\", 500);\n    set_skill(\"dodge\", 500);\n    set_skill(\"force\", 500);\n    set_skill(\"never-defeated\", 1000);\n    set_skill(\"magic\", 1000);\n\n    map_skill(\"sword\", \"never-defeated\");\n    map_skill(\"blade\", \"never-defeated\");\n    map_skill(\"staff\", \"never-defeated\");\n    map_skill(\"hammer\", \"never-defeated\");\n    map_skill(\"club\", \"never-defeated\");\n    map_skill(\"whip\", \"never-defeated\");\n    map_skill(\"dagger\", \"never-defeated\");\n    map_skill(\"parry\", \"never-defeated\");\n    map_skill(\"dodge\", \"never-defeated\");\n    map_skill(\"force\", \"never-defeated\");\n\n    setup();\n\n    carry_object(\"/d/items/cloth/wuchang_pao\")->wear();\n    carry_object(__DIR__ \"obj/suolian\")->wield();\n    set_temp(\"handing\", carry_object(__DIR__ \"obj/bi\"));\n}\n\nvoid init() {\n    ::init();\n    if (!previous_object() ||\n        !userp(previous_object()) ||\n        !previous_object()->is_ghost() ||\n        wizardp(previous_object())) return;\n    call_out(\"death_stage\", 5, previous_object(), 0);\n}\n\nvoid death_stage(object ob, int stage) {\n    int i;\n    object *inv;\n    if (!ob || !present(ob)) return;\n\n    tell_object(ob, death_msg[stage]);\n    if (++stage < sizeof(death_msg)) {\n        call_out(\"death_stage\", 5, ob, stage);\n        return;\n    } else\n        ob->reincarnate();\n\n    if (!wizardp(ob)) {\n        inv = all_inventory(ob);\n        for (i = 0; i < sizeof(inv); i++)\n            DROP_CMD->do_drop(ob, inv[i]);\n    }\n\n    ob->move(REVIVE_ROOM);\n    ob->set(\"startroom\", REVIVE_ROOM);\n    message(\"vision\", HIW \"你忽然发现前面多了一个人影，不过那人影又好像已经在那里\\n\"\n        \"很久了，只是你一直没发觉。\\n\" NOR, environment(ob), ob);\n}\n",
+    "d/death/npc/wangfangping.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"王方平\", ({ \"wang fangping\", \"wang\", \"fangping\" }));\n    set(\"title\", HIR \"冥府地藏王殿前\" NOR);\n    set(\"nickname\", WHT \"鬼王\" NOR);\n    set(\"shen_type\", 1);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 475);\n    set(\"long\", \"王方平本是山中道士，后在丰都山修炼成仙，御封「鬼王」。\\n\");\n\n    set_skill(\"unarmed\", 500);\n    set_skill(\"dodge\", 500);\n    set_skill(\"force\", 500);\n    set_skill(\"parry\", 500);\n    set_skill(\"magic\", 500);\n    set_temp(\"apply/damage\", 2000);\n    set_temp(\"apply/parry\", 2000);\n    set_temp(\"apply/dodge\", 2000);\n    set_temp(\"apply/attack\", 2000);\n    set_temp(\"apply/force\", 2000);\n\n    set(\"combat_exp\", 20000000);\n    set(\"attitude\", \"friendly\");\n    set(\"vendor_goods\", ({\n        \"/d/death/obj/weapon1\",\n        \"/d/death/obj/weapon2\",\n        \"/d/death/obj/weapon3\",\n        \"/d/death/obj/weapon4\",\n        \"/d/death/obj/weapon5\",\n        \"/d/items/hammer/qixing_chui1\",\n        \"/d/items/hammer/qixing_chui2\",\n        \"/d/items/hammer/qixing_chui3\",\n        \"/d/items/hammer/poyu_chui\",\n        \"/d/death/obj/weapon10\",\n        \"/d/items/hammer/tianluo_chui\",\n        \"/d/items/hammer/dingyao_chui\",\n        \"/d/items/staff/panlong_zhang\",\n        \"/d/items/staff/jiuhuang_zhang\",\n        \"/d/items/staff/tianya_guai\",\n        \"/d/items/staff/baxian_zhang\",\n        \"/d/items/staff/qixing_zhang1\",\n        \"/d/items/staff/qixing_zhang2\",\n        \"/d/items/staff/qixing_zhang3\",\n        \"/d/items/staff/qixing_zhang4\",\n        \"/d/items/staff/laojun_zhang\",\n        \"/d/death/obj/weapon22\",\n        \"/d/death/obj/weapon23\",\n        \"/d/death/obj/weapon24\",\n        \"/d/death/obj/weapon25\",\n        \"/d/death/obj/weapon26\",\n        \"/d/death/obj/weapon27\",\n        \"/d/death/obj/weapon28\",\n        \"/d/death/obj/weapon29\",\n        \"/d/death/obj/weapon30\",\n        \"/d/death/obj/weapon31\",\n        \"/d/death/obj/weapon32\",\n        \"/d/death/obj/weapon33\",\n        \"/d/death/obj/weapon34\",\n        \"/d/death/obj/weapon35\",\n        \"/d/death/obj/weapon36\",\n        \"/d/death/obj/weapon37\",\n        \"/d/death/obj/weapon38\",\n        \"/d/death/obj/weapon39\",\n        \"/d/items/blade/queyue_ren\",\n        \"/d/items/blade/chanyi_dao\",\n        \"/d/items/blade/qiwang_dao\",\n        \"/d/items/blade/fenghuang_jue\",\n        \"/d/items/blade/yingdao\",\n        \"/d/items/blade/qinglong_ya\",\n        \"/d/items/blade/qingdiao_yuzhuo\",\n        \"/d/items/blade/wugui_ren\",\n        \"/d/items/blade/qisha_ren\",\n        \"/d/items/blade/jinyang_dao\",\n        \"/d/items/blade/bihai_jue\",\n        \"/d/items/blade/qing_tianyu1\",\n        \"/d/items/blade/qing_tianyu2\",\n        \"/d/items/blade/qing_tianyu3\",\n        \"/d/items/blade/xuanjin_zhan1\",\n        \"/d/items/blade/xuanjin_zhan2\",\n        \"/d/items/blade/xuanjin_zhan3\",\n        \"/d/items/blade/qiankun_dao1\",\n        \"/d/items/blade/qiankun_dao2\",\n        \"/d/items/blade/dizang_zhan\",\n        \"/d/items/sword/tianzun_jian\",\n        \"/d/items/sword/xuanyuan_jian\",\n        \"/d/items/sword/cangqiong_jian\",\n        \"/d/items/sword/guilong\",\n        \"/d/items/sword/taia\",\n        \"/d/items/sword/qilinjin1\",\n        \"/d/items/sword/qilinjin2\",\n        \"/d/items/sword/qilinjin3\",\n        \"/d/items/sword/longhuang_jian\",\n        \"/d/items/sword/fenghuang_qin\",\n        \"/d/items/sword/yanyang_chi\",\n        \"/d/items/sword/liangtian_chi\",\n        \"/d/items/sword/panlong_jian\",\n        \"/d/items/sword/qingsha_jian\",\n        \"/d/items/sword/tianyue_jian\",\n        \"/d/items/sword/qiyun_jian\",\n        \"/d/items/sword/gusong_jian\",\n        \"/d/items/sword/wuyang_jian\",\n        \"/d/items/sword/huanglong_jian\",\n        \"/d/items/sword/wugou_jian\",\n        \"/d/items/sword/guxing_jian\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/guiwang_pao\")->wear();\n}\n\nvoid init() {\n    add_action(\"do_list\", \"list\");\n    add_action(\"do_buy\", \"buy\");\n}\n",
+    "d/emei/chuwujian.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"储物间\");\n    set(\"long\", @LONG\n这里便是峨嵋华藏庵的储物间，四周都是架子。一个架上\n放满了各样兵器，有长剑，拂尘，长鞭等，琳琅满目。另一个\n架上放了各种防具。还有一个架上摆了许多小柜子，原来是装\n满药品的药柜。一位师太负责管理这里的物品，正忙碌着整理\n防具。后面好象有个小楼梯。门外就是斋堂了。\nLONG);\n    set(\"objects\", ([\n        CLASS_D(\"emei\") + \"/feng\": 1,\n        __DIR__ \"obj/fuchen\": 1,\n        \"/d/items/sword/zhujian1\": 1,\n        __DIR__ \"obj/yaodai\": 1,\n    ]));\n    set(\"exits\", ([\n        \"up\": __DIR__ \"cangjingge\",\n        \"north\": __DIR__ \"hcazhaitang\",\n    ]));\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/gaochang/npc/liwenxiu.c": "#include <ansi.h>\ninherit NPC;\n\nint ask_supu();\nint ask_parent();\nint ask_gaochang();\n\nvoid create() {\n    set_name(\"李文秀\", ({ \"li wenxiu\", \"li\", \"wenxiu\" }));\n    set(\"gender\", \"女性\");\n    set(\"age\", 18);\n    set(\"long\", \"她长得清纯脱秀，嫣然一笑，不禁让人怦然心动。\\n\");\n    set(\"combat_exp\", 300000);\n    set(\"shen_type\", 1);\n\n    set(\"max_qi\", 1500);\n    set(\"max_neili\", 1000);\n    set(\"neili\", 1000);\n    set(\"jiali\", 100);\n    set_skill(\"force\", 150);\n    set_skill(\"whip\", 150);\n    set_skill(\"unarmed\", 150);\n    set_skill(\"dodge\", 150);\n    set_skill(\"parry\", 150);\n    set_skill(\"liuxing-chui\", 150);\n    set_skill(\"yan-fly\", 150);\n    map_skill(\"whip\", \"liuxing-chui\");\n    map_skill(\"parry\", \"liuxing-chui\");\n    map_skill(\"dodge\", \"yan-fly\");\n    set(\"chat_chance\", 3);\n    set(\"chat_msg\", ({\n        CYN \"李文秀忧郁地看着远方，轻叹道：也不知何时才能再见到苏普……\\n\" NOR,\n        CYN \"李文秀恨恨地道：父母之仇，我一定要血债血还。\\n\" NOR,\n    }));\n\n    set(\"inquiry\", ([\n        \"苏普\": (: ask_supu :),\n        \"父母\": (: ask_parent :),\n        \"父母之仇\": (: ask_parent :),\n        \"高昌迷宫\": (: ask_gaochang :),\n        \"高昌地图\": (: ask_gaochang :),\n        \"白马李三\": \"他是我父亲，可是在我懂事之前，父母便都已去世了。\",\n    ]));\n    set_temp(\"apply/attack\", 150);\n    set_temp(\"apply/defense\", 150);\n    set_temp(\"apply/damage\", 200);\n\n    setup();\n    carry_object(__DIR__ \"obj/liuxingchui\")->wield();\n    carry_object(\"/d/items/equip/yingzi_mao\")->wear();\n    carry_object(\"/d/items/equip/yangpi_xue\")->wear();\n    carry_object(\"/d/items/equip/xuanse_ao\")->wear();\n}\n\nvoid init() {\n    object me;\n\n    ::init();\n\n    if (interactive(me = this_player()) && !is_fighting()) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, me);\n    }\n}\n\nvoid greeting(object me) {\n    if (!me || environment(me) != environment()) return;\n\n    if ((string)me->query(\"gender\") == \"男性\")\n        command(\"sigh \" + me->query(\"id\"));\n    else\n        command(\"look \" + me->query(\"id\"));\n    return;\n}\n\nint ask_supu() {\n    say(CYN \"李文秀黯然道：我自幼父母双亡，苏普是我儿时的伙伴。\\n\" NOR);\n    this_player()->set_temp(\"marks/李1\", 1);\n    return 1;\n}\n\nint ask_parent() {\n    if ((int)this_player()->query_temp(\"marks/李1\")) {\n        say(CYN \"李文秀哽咽道：我父母是被觊觎我家高昌地图的奸人所害。\\n\"\n            \"李文秀接着道：我一定要手刃仇人，为我父母报仇！\\n\" NOR);\n        this_player()->set_temp(\"marks/李2\", 1);\n        return 1;\n    } else {\n        say(CYN \"李文秀说道：父母之仇，不共戴天。\\n\" NOR);\n        return 1;\n    }\n}\n\nint ask_gaochang() {\n    object map, me = this_player();\n    int exp, pot, sc;\n\n    exp = 300 + random(200);\n    pot = 150 + random(200);\n    sc = 15 + random(20);\n\n    if (me->query_temp(\"marks/李3\")) {\n        command(\"hmm \" + me->query(\"id\"));\n        command(\"say 我不是已经把地图给过你了吗？\");\n        return 1;\n    } else if (me->query_temp(\"marks/李2\") && me->query(\"combat_exp\") < 10000) {\n        command(\"shake \" + me->query(\"id\"));\n        command(\"say 你的江湖经验太浅，何必去惹事上身？\");\n        return 1;\n    } else if (me->query_temp(\"marks/李2\")) {\n        say(CYN \"李文秀叹道：高昌迷宫里其实什么都没有，这地图你要就拿去好了。\\n\" NOR);\n        map = new(\"/d/gaochang/obj/map\");\n        map->move(me, 1);\n        message_vision(\"李文秀拿出\" YEL \"高昌迷宫地图\" NOR \"(map)给$N。\\n\", me);\n        if (!(int)me->query(\"skybook/baima/map\")) {\n            me->add(\"combat_exp\", exp);\n            me->add(\"potential\", pot);\n            me->add(\"score\", sc);\n            tell_object(me, HIW \"\\n你成功的得到了高昌迷宫地图！\\n\" NOR + HIC \"通\"\n                \"过这次的历练，你获得了\" + chinese_number(exp) + \"点\"\n                \"经验、\" + chinese_number(pot) + \"点潜能以及\" +\n                chinese_number(sc) + \"点江湖阅历。\\n\\n\" NOR);\n            me->set(\"skybook/baima/map\", 1);\n        }\n        me->set_temp(\"marks/李3\", 1);\n    } else {\n        message(\"vision\", HIR \"李文秀勃然大怒，喝道：你也窥视我父母的高昌地\"\n            \"图，我跟你拼了！\\n\" NOR, environment());\n        kill_ob(me);\n    }\n    return 1;\n}\n",
+    "d/gaochang/npc/waer.c": "#include <ansi.h>\ninherit NPC;\n\nint ask_back();\n\nvoid create() {\n    set_name(\"瓦耳拉齐\", ({ \"waer laqi\", \"waer\", \"laqi\" }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 45);\n    set(\"long\", @LONG\n他就是装神弄鬼的瓦耳拉齐。只见他面容枯槁，\n由于长期不见阳光，皮肤惨白。\nLONG);\n\n    set(\"combat_exp\", 50000);\n    set(\"shen_type\", -1);\n    set(\"max_qi\", 800);\n    set(\"max_neili\", 500);\n    set(\"neili\", 500);\n    set(\"jiali\", 10);\n\n    set_skill(\"force\", 120);\n    set_skill(\"whip\", 120);\n    set_skill(\"unarmed\", 120);\n    set_skill(\"dodge\", 120);\n    set_skill(\"parry\", 120);\n\n    set(\"inquiry\", ([\n        \"回去\": (: ask_back :),\n        \"宝藏\": \"高昌迷宫一无所有，这一个房间是我住的。\\n\",\n        \"李文秀\": \"她是一个好姑娘，也不知何时才能再见到她。\\n\",\n        \"高昌迷宫\": \"高昌迷宫一无所有，这一个房间是我住的。\\n\",\n    ]));\n\n    set_temp(\"apply/attack\", 150);\n    set_temp(\"apply/defense\", 150);\n    set_temp(\"apply/damage\", 300);\n\n    setup();\n    carry_object(__DIR__ \"obj/liuxingchui\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n\nvoid init() {\n    object me;\n    ::init();\n\n    if (interactive(me = this_player()) && !is_fighting()) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, me);\n    }\n}\n\nvoid greeting(object me) {\n    if (!me || environment(me) != environment()) return;\n\n    if (present(\"map\", me)) {\n        message(\"vision\", HIR \"瓦耳拉齐喝道：居然敢到这里来撒野，给我受死\"\n            \"吧！\\n\" NOR, environment());\n        kill_ob(me);\n    } else\n        command(\"sneer \" + me->query(\"id\"));\n    return;\n}\n\nint ask_back() {\n    //      object ob;\n    object me = this_player();\n\n    if (!me->query_temp(\"marks/back\")) {\n        say(CYN \"瓦耳拉齐冷笑道：好吧，这次我送你回去，下次再进来就别怪我\"\n            \"不客气了。\\n\" NOR);\n        message_vision(HIY \"只见瓦耳拉齐拉着$N\" HIY \"，在迷宫内兜了几个圈\"\n            \"子，快步奔出。\\n\" NOR, me);\n        me->move(\"/d/gaochang/entrance\");\n        tell_object(me, HIC \"\\n你跟随瓦耳拉齐来到了高昌迷宫外。\\n\" NOR);\n        me->set_temp(\"marks/back\", 1);\n        return 1;\n    } else {\n        say(CYN \"瓦耳拉齐冷笑道：你是自作自受，在这陪我一辈子吧！\\n\" NOR);\n        return 1;\n    }\n    return 1;\n}\n\nvoid unconcious() {\n    die();\n}\n",
+    "d/guiyun/npc/fengliang.c": "// fengliang.c\n#include <ansi.h>\n\ninherit F_UNIQUE;\ninherit NPC;\n\nvoid create() {\n    set_name(\"风良\", ({ \"feng liang\", \"feng\" }));\n    set(\"title\", HIG \"青龙门掌门人\" NOR);\n    set(\"long\", \"他是个高大的中年汉子，腰里缠九节鞭。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 41);\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n    set(\"per\", 22);\n    set(\"str\", 15);\n    set(\"int\", 25);\n    set(\"con\", 25);\n    set(\"dex\", 30);\n\n    set(\"max_qi\", 1000);\n    set(\"max_jing\", 200);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 50);\n    set(\"combat_exp\", 50000 + random(10000));\n    set(\"score\", 20000);\n\n    set_skill(\"force\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"whip\", 50);\n    set_skill(\"riyue-bian\", 50);\n    set_skill(\"lingxu-bu\", 50);\n    map_skill(\"dodge\", \"lingxu-bu\");\n    map_skill(\"parry\", \"riyue-bian\");\n    map_skill(\"whip\", \"riyue-bian\");\n\n    set_temp(\"apply/attack\", 25);\n    set_temp(\"apply/attack\", 25);\n    set_temp(\"apply/damage\", 25);\n    setup();\n    carry_object(__DIR__ \"obj/jiujiebian\")->wield();\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\n",
+    "d/hangzhou/honghua/yang.c": "// yang.c 杨成协\n\n#include <ansi.h>\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"杨成协\", ({ \"yang chengxie\", \"yang\", \"chengxie\" }));\n    set(\"title\", HIR \"红花会\" HIG \"八当家\" NOR);\n    set(\"nickname\", CYN \"铁塔\" NOR);\n    set(\"long\",\n        \"他又肥又高，手执钢鞭，鞭身甚是粗重，看模样少说也有三十来斤。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"class\", \"fighter\");\n    set(\"age\", 26);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"per\", 20);\n    set(\"str\", 30);\n    set(\"int\", 30);\n    set(\"con\", 30);\n    set(\"dex\", 30);\n\n    set(\"max_qi\", 1500);\n    set(\"max_jing\", 900);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 300000);\n\n    set_skill(\"force\", 100);\n    set_skill(\"dodge\", 100);\n    set_skill(\"parry\", 100);\n    set_skill(\"whip\", 100);\n    set_skill(\"hand\", 100);\n    set_skill(\"claw\", 100);\n    set_skill(\"yunlong-shengong\", 100);\n    set_skill(\"yunlong-shenfa\", 100);\n    set_skill(\"yunlong-bian\", 100);\n    set_skill(\"yunlong-shou\", 100);\n    set_skill(\"yunlong-zhua\", 100);\n\n    map_skill(\"dodge\", \"yunlong-shenfa\");\n    map_skill(\"force\", \"yunlong-shengong\");\n    map_skill(\"hand\", \"yunlong-shou\");\n    map_skill(\"parry\", \"yunlong-bian\");\n    map_skill(\"claw\", \"yunlong-zhua\");\n    map_skill(\"whip\", \"yunlong-bian\");\n\n    prepare_skill(\"hand\", \"yunlong-shou\");\n    prepare_skill(\"claw\", \"yunlong-zhua\");\n    set(\"env/wimpy\", 20);\n\n    setup();\n    carry_object(\"/clone/misc/cloth\")->wear();\n    carry_object(__DIR__ \"obj/tiebian\")->wield();\n}\n",
+    "d/tiezhang/bqshi.c": "// Room: /u/zqb/tiezhang/bqshi.c\n\ninherit ROOM;\n\nvoid create() {\n    set(\"short\", \"兵器室\");\n    set(\"long\", @LONG\n铁掌帮虽是以掌法、轻功著称，但帮中仍存有大量的兵器。以供武功不\n够的帮众使用。屋内两侧排列的都是兵器架，上面刀、枪、剑、戟、斧、钺\n钩、叉应有尽有。\nLONG);\n    set(\"exits\", ([ /* sizeof() == 1 */\n        \"south\": __DIR__ \"zoulang-1\",\n    ]));\n    set(\"objects\", ([ /* sizeof() == 4 */\n        \"/d/items/blade/gangdao6\": 1,\n        \"/d/items/sword/gangjian3\": 1,\n        \"/d/items/staff/gangzhang2\": 1,\n        __DIR__ \"obj/changbian\": 1,\n    ]));\n    set(\"no_clean_up\", 0);\n\n    setup();\n    replace_program(ROOM);\n}\n",
+    "kungfu/class/duan/chu.c": "#include <ansi.h>\n#include \"duan.h\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_GUARDER;\n\nvoid create() {\n    set_name(\"褚万里\", ({ \"chu wanli\", \"chu\" }));\n    set(\"title\", \"大理国护卫\");\n    set(\"long\", \"他是大理国四大护卫之一，英气逼人。\\n\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 40);\n    set(\"class\", \"officer\");\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 30);\n    set(\"int\", 20);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n\n    set(\"max_qi\", 1800);\n    set(\"max_jing\", 1000);\n    set(\"neili\", 2200);\n    set(\"max_neili\", 2200);\n    set(\"jiali\", 50);\n    set(\"combat_exp\", 500000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 120);\n    set_skill(\"duanshi-xinfa\", 120);\n    set_skill(\"dodge\", 120);\n    set_skill(\"tiannan-bu\", 120);\n    set_skill(\"cuff\", 120);\n    set_skill(\"jinyu-quan\", 120);\n    set_skill(\"strike\", 120);\n    set_skill(\"wuluo-zhang\", 120);\n    set_skill(\"whip\", 140);\n    set_skill(\"feifeng-bian\", 140);\n    set_skill(\"parry\", 120);\n    set_skill(\"literate\", 80);\n    set_skill(\"martial-cognize\", 140);\n\n    map_skill(\"force\", \"duanshi-xinfa\");\n    map_skill(\"dodge\", \"tiannan-bu\");\n    map_skill(\"cuff\", \"jinyu-quan\");\n    map_skill(\"strike\", \"wuluo-zhang\");\n    map_skill(\"whip\", \"feifeng-bian\");\n    map_skill(\"parry\", \"feifeng-bian\");\n\n    prepare_skill(\"cuff\", \"jinyu-quan\");\n    prepare_skill(\"strike\", \"wuluo-zhang\");\n\n    set(\"coagents\", ({\n        ([ \"startroom\": \"/d/dali/neitang\",\n            \"id\": \"duan zhengchun\", ]),\n    }));\n\n    set(\"guarder\", ([\n        \"refuse_home\": CYN \"$N\" CYN \"拦住$n\" CYN \"道：对不\"\n        \"起！王爷有令，出了段家就莫回来。\\n\" NOR,\n        \"refuse_other\": CYN \"$N\" CYN \"一把拦住$n\" CYN \"，喝\"\n        \"道：闲杂人等，不能入内。\\n\" NOR,\n        \"refuse_carry\": CYN \"$N\" CYN \"陪着笑脸对$n\" CYN \"道\"\n        \"：可否将…你背的人放下再进王府？\\n\" NOR,\n    ]));\n\n    create_family(\"段氏皇族\", 15, \"家臣\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"whip.xi\" :),\n        (: perform_action, \"cuff.man\" :),\n        (: perform_action, \"strike.bian\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/huangyi_junfu\")->wear();\n    carry_object(\"/d/dali/npc/obj/diaogan\")->wield();\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"shake\");\n    command(\"say 世子殿下何需如此，只要有事吩咐在下一声便是。\");\n    return;\n}\n",
+    "kungfu/class/duan/daobf.c": "#include <ansi.h>\n#include \"duan.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nmixed ask_skill1();\n\nvoid create() {\n    set_name(\"刀白凤\", ({ \"dao baifeng\", \"dao\", \"baifeng\" }));\n    set(\"title\", \"大理国镇南王妃\");\n    set(\"nickname\", CYN \"玉虚散人\" NOR);\n    set(\"gender\", \"女性\");\n    set(\"long\", @LONG\n这是个容貌秀丽的中年道姑，是个摆夷族女子，颇\n有雍容气质。她本是大理国皇帝段正淳的正房原配\n夫人。因恼丈夫风流不羁，沾花惹草，一怒之下跑\n到这里出了家。\nLONG);\n    set(\"age\", 35);\n    set(\"class\", \"royal\");\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 25);\n    set(\"int\", 25);\n    set(\"con\", 25);\n    set(\"dex\", 25);\n\n    set(\"max_qi\", 2500);\n    set(\"max_jing\", 1200);\n    set(\"neili\", 3000);\n    set(\"max_neili\", 3000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 800000);\n    set(\"score\", 8000);\n\n    set_skill(\"force\", 160);\n    set_skill(\"duanshi-xinfa\", 100);\n    set_skill(\"kurong-changong\", 160);\n    set_skill(\"dodge\", 160);\n    set_skill(\"tiannan-bu\", 160);\n    set_skill(\"cuff\", 140);\n    set_skill(\"jinyu-quan\", 140);\n    set_skill(\"strike\", 140);\n    set_skill(\"wuluo-zhang\", 140);\n    set_skill(\"sword\", 120);\n    set_skill(\"duanjia-jian\", 120);\n    set_skill(\"whip\", 160);\n    set_skill(\"feifeng-bian\", 160);\n    set_skill(\"finger\", 120);\n    set_skill(\"qiantian-zhi\", 120);\n    set_skill(\"parry\", 240);\n    set_skill(\"buddhism\", 200);\n    set_skill(\"literate\", 200);\n    set_skill(\"martial-cognize\", 140);\n\n    map_skill(\"force\", \"kurong-changong\");\n    map_skill(\"dodge\", \"tiannan-bu\");\n    map_skill(\"finger\", \"qiantian-zhi\");\n    map_skill(\"cuff\", \"jinyu-quan\");\n    map_skill(\"strike\", \"wuluo-zhang\");\n    map_skill(\"whip\", \"feifeng-bian\");\n    map_skill(\"sword\", \"duanjia-jian\");\n    map_skill(\"parry\", \"feifeng-bian\");\n\n    prepare_skill(\"cuff\", \"jinyu-quan\");\n    prepare_skill(\"strike\", \"wuluo-zhang\");\n\n    set(\"inquiry\", ([\n        \"凤栖于梧\": (: ask_skill1 :),\n    ]));\n\n    create_family(\"段氏皇族\", 15, \"王妃\");\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"whip.xi\" :),\n        (: perform_action, \"cuff.man\" :),\n        (: perform_action, \"strike.bian\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/qing_daopao\")->wear();\n    carry_object(\"/d/dali/obj/fuchen\")->wield();\n    add_money(\"silver\", 10);\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    command(\"sigh\");\n    command(\"say 我早已看破红尘，你又来烦我做甚？\");\n\n    if (ob->query(\"gender\") == \"女性\")\n        command(\"say 待他日你功力深厚，我倒是可以传你一套鞭法。\");\n\n    return;\n}\n\nint recognize_apprentice(object ob, string skill) {\n    if (ob->query(\"family/family_name\") != \"段氏皇族\") {\n        command(\"?\");\n        command(\"say 我与阁下素不相识，不知阁下此番是何用意？\");\n        return -1;\n    }\n\n    if (ob->query(\"gender\") != \"女性\") {\n        command(\"sigh\");\n        command(\"say 我这点微末功夫算什么，你还是去跟你爹爹学吧。\");\n        return -1;\n    }\n\n    if (ob->query(\"combat_exp\") < 30000) {\n        command(\"say 你现在经验尚浅，过段时间再来找我吧。\\n\");\n        return -1;\n    }\n\n    if (skill != \"feifeng-bian\" && skill != \"whip\") {\n        command(\"say 我只传授你这套飞凤鞭法，其余的还是去找你爹爹学吧。\");\n        return -1;\n    }\n\n    if (!ob->query_temp(\"can_learn/daobaifeng\")) {\n        command(\"sigh\");\n        command(\"say 既然你还念念不忘娘亲，今日我就教你好了。\");\n        ob->set_temp(\"can_learn/daobaifeng\", 1);\n    }\n    return 1;\n}\n\nmixed ask_skill1() {\n    object me;\n\n    me = this_player();\n    if (me->query(\"can_perform/feifeng-bian/xi\"))\n        return \"我不是已经教给你了吗？还有什么不懂就自己研究。\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return RANK_D->query_respect(me) + \"和我素无瓜葛，何出此言？\";\n\n    if (me->query_skill(\"feifeng-bian\", 1) < 1)\n        return \"你连我飞凤鞭法都未学，怎么来绝招一说？\";\n\n    if (me->query(\"shen\") < 0)\n        return \"哼，你还嫌你在外面惹的祸事不够么？\";\n\n    if (me->query(\"gongxian\") < 300)\n        return \"你在族里碌碌无为，叫我如何信得过你？\";\n\n    if (me->query_skill(\"force\") < 150)\n        return \"你的内功修为太差，学不了这一招。\";\n\n    if ((int)me->query(\"max_neili\", 1) < 1200)\n        return \"你的内力弱成这样，怎么学习这一招？\";\n\n    if (me->query_skill(\"feifeng-bian\", 1) < 120)\n        return \"你飞凤鞭法的火候还不够，回去练练再来。\";\n\n    message_sort(HIY \"\\n$n\" HIY \"对$N\" HIY \"点了点头，随即取出腰\"\n        \"间拂尘，力贯梢柄，急速挥舞，拂尘顿时画出一个又\"\n        \"一个的圈子，紧逼$N\" HIY \"而去，招式变化甚为精巧\"\n        \"。\\n\\n\" NOR, me, this_object());\n\n    command(\"nod\");\n    command(\"say 这招看似花巧，其实并不难练，下去后仍需勤加练习。\");\n    tell_object(me, HIC \"你学会了「凤栖于梧」。\\n\" NOR);\n    if (me->can_improve_skill(\"whip\"))\n        me->improve_skill(\"whip\", 1500000);\n    if (me->can_improve_skill(\"feifeng-bian\"))\n        me->improve_skill(\"feifeng-bian\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/feifeng-bian/xi\", 1);\n    me->add(\"gongxian\", -300);\n    return 1;\n}\n",
+    "kungfu/class/gumu/li.c": "#include <ansi.h>\n#include \"gumu.h\"\n\ninherit NPC;\ninherit F_MASTER;\ninherit F_QUESTER;\n\nstring ask_zhen();\n\nvoid create() {\n    set_name(\"李莫愁\", ({ \"li mochou\", \"li\", \"mochou\" }));\n    set(\"long\", @LONG\n她生得极为美貌，但冰冷的目光让人不寒而栗。\nLONG);\n    set(\"nickname\", HIM \"赤练仙子\" NOR);\n    set(\"gender\", \"女性\");\n    set(\"rank_info/respect\", \"道姑\");\n    set(\"age\", 27);\n    set(\"attitude\", \"heroism\");\n    set(\"str\", 30);\n    set(\"dex\", 35);\n    set(\"con\", 17);\n    set(\"int\", 25);\n    set(\"shen_type\", -1);\n\n    create_family(\"古墓派\", 3, \"弟子\");\n\n    set_skill(\"unarmed\", 220);\n    set_skill(\"force\", 220);\n    set_skill(\"suxin-jue\", 220);\n    set_skill(\"yunv-xinjing\", 220);\n    set_skill(\"dodge\", 220);\n    set_skill(\"yunv-shenfa\", 220);\n    set_skill(\"qixing-bu\", 220);\n    set_skill(\"whip\", 240);\n    set_skill(\"yunzhou-fufa\", 240);\n    set_skill(\"sanwu-shou\", 240);\n    set_skill(\"strike\", 220);\n    set_skill(\"chilian-shenzhang\", 220);\n    set_skill(\"wudu-shenzhang\", 220);\n    set_skill(\"sword\", 220);\n    set_skill(\"yunv-jian\", 220);\n    set_skill(\"unarmed\", 220);\n    set_skill(\"meinv-quan\", 220);\n    set_skill(\"throwing\", 240);\n    set_skill(\"bingpo-shenzhen\", 240);\n    set_skill(\"literate\", 220);\n    set_skill(\"martial-cognize\", 220);\n\n    set(\"jiali\", 150);\n\n    map_skill(\"force\", \"yunv-xinjing\");\n    map_skill(\"strike\", \"wudu-shenzhang\");\n    map_skill(\"whip\", \"sanwu-shou\");\n    map_skill(\"dodge\", \"qixing-bu\");\n    map_skill(\"parry\", \"wudu-shenzhang\");\n    map_skill(\"sword\", \"yunv-jian\");\n    map_skill(\"throwing\", \"bingpo-shenzhen\");\n    map_skill(\"unarmed\", \"meinv-quan\");\n    set(\"combat_exp\", 400000);\n\n    set(\"max_qi\", 6900);\n    set(\"max_jing\", 1400);\n    set(\"neili\", 5000);\n    set(\"max_neili\", 5000);\n\n    prepare_skill(\"strike\", \"wudu-shenzhang\");\n    prepare_skill(\"unarmed\", \"meinv-quan\");\n\n    set(\"bingpo-zhen\", 3);\n\n    set(\"inquiry\", ([\n        \"小龙女\": \"那是我的师妹。你问她想干什么？\",\n        \"林朝英\": \"那是我的师祖，不该你问的你别问，小心我宰了你。\",\n        \"冰魄银针\": (: ask_zhen :),\n    ]));\n\n    set_temp(\"apply/attack\", 150);\n    set_temp(\"apply/defense\", 150);\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/unarmed_damage\", 100);\n    set_temp(\"apply/armor\", 200);\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"strike.huan\" :),\n        (: perform_action, \"strike.shi\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    setup();\n    carry_object(\"/d/quanzhou/obj/fuchen\");\n    carry_object(\"/d/items/cloth/qing_daopao3\")->wear();\n\n}\n\nint do_look(string target) {\n    object me;\n\n    me = this_player();\n\n    if (!id(target))\n        return notify_fail(\"你要看什么？\");\n\n    if ((string)me->query(\"gender\") != \"女性\") {\n        message_vision(HIR \"李莫愁大怒，喝道：我最恨你们这\"\n            \"些薄情的臭男人，去死吧！\\n\" NOR, me);\n        kill_ob(this_player());\n    }\n    return 1;\n}\n\nvoid attempt_apprentice(object ob) {\n    object me = this_player();\n\n    if (!permit_recruit(ob))\n        return;\n\n    if ((string)me->query(\"gender\") == \"男性\") {\n        command(\"say 我李莫愁可不收臭男人做徒弟。\");\n        return;\n    }\n\n    if ((int)me->query(\"shen\") > -70000) {\n        command(\"heng\");\n        command(\"say 我李莫愁可不收心慈手软的人做徒弟。\");\n        return;\n    }\n\n    if ((int)me->query(\"combat_exp\") < 400000) {\n        command(\"heng\");\n        command(\"say 你这点能力怎能继承我的衣钵？\");\n        return;\n    }\n    if ((int)me->query_skill(\"force\") < 160) {\n        command(\"say 要学我五毒神掌，得先将内功练扎实。\");\n        return;\n    }\n\n    if ((int)me->query_skill(\"strike\", 1) < 120) {\n        command(\"say 要学我的五毒神掌，需要精湛的掌法作基础，\"\n            \"我看你在那上面下的工夫还不够啊。\");\n        return;\n    }\n\n    command(\"nod\");\n    command(\"say 好吧，我就收下你这个徒弟了。\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n\nint accept_ask(object me, string topic) {\n    switch (topic) {\n        case \"历练\":\n        case \"历炼\":\n        case \"锻炼\":\n            return QUEST_D->accept_ask(this_object(), me, topic);\n            break;\n\n        case \"风魔舞\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/yunzhou-fufa/feng\",\n                    \"name\": \"风魔舞\",\n                    \"sk1\": \"yunzhou-fufa\",\n                    \"lv1\": 50,\n                    \"gongxian\": 50,\n                    \"shen\": -75000, ]));\n            break;\n\n        case \"寒冰针\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/bingpo-shenzhen/bing\",\n                    \"name\": \"寒冰针\",\n                    \"sk1\": \"bingpo-shenzhen\",\n                    \"lv1\": 110,\n                    \"force\": 140,\n                    \"gongxian\": 400,\n                    \"shen\": -80000, ]));\n            break;\n\n        case \"无所不为\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/sanwu-shou/wei\",\n                    \"name\": \"无所不为\",\n                    \"sk1\": \"sanwu-shou\",\n                    \"lv1\": 60,\n                    \"gongxian\": 300,\n                    \"shen\": -80000, ]));\n            break;\n\n        case \"赤心连环决\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/chilian-shenzhang/lian\",\n                    \"name\": \"赤心连环决\",\n                    \"sk1\": \"chilian-shenzhang\",\n                    \"lv1\": 110,\n                    \"force\": 140,\n                    \"gongxian\": 400,\n                    \"shen\": -85000, ]));\n            break;\n\n        case \"千幻神诀\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/wudu-shenzhang/huan\",\n                    \"name\": \"千幻神诀\",\n                    \"sk1\": \"wudu-shenzhang\",\n                    \"lv1\": 90,\n                    \"dodge\": 140,\n                    \"gongxian\": 500,\n                    \"shen\": -90000, ]));\n            break;\n\n        case \"无所不至\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/sanwu-shou/zhi\",\n                    \"name\": \"无所不至\",\n                    \"sk1\": \"sanwu-shou\",\n                    \"lv1\": 90,\n                    \"dodge\": 100,\n                    \"gongxian\": 400,\n                    \"shen\": -95000, ]));\n            break;\n\n        case \"无孔不入\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/sanwu-shou/kong\",\n                    \"name\": \"无孔不入\",\n                    \"sk1\": \"sanwu-shou\",\n                    \"lv1\": 120,\n                    \"force\": 160,\n                    \"gongxian\": 600,\n                    \"shen\": -110000, ]));\n            break;\n\n        case \"万毒噬心\":\n            return MASTER_D->teach_pfm(me, this_object(),\n                ([ \"perform\": \"can_perform/wudu-shenzhang/shi\",\n                    \"name\": \"万毒噬心\",\n                    \"sk1\": \"wudu-shenzhang\",\n                    \"lv1\": 140,\n                    \"force\": 180,\n                    \"gongxian\": 800,\n                    \"shen\": -120000, ]));\n            break;\n        default:\n            return 0;\n    }\n}\n\nstring ask_zhen() {\n    object me;\n    object ob;\n    // mapping fam;\n\n    me = this_player();\n\n    if (me->query(\"family/master_name\") != \"李莫愁\")\n        return RANK_D->query_respect(me) + \"与我毫无瓜葛，何以问\"\n            \"起我的暗器？\\n\";\n\n    if (me->query_skill(\"bingpo-zhen\", 1) < 100)\n        return RANK_D->query_respect(me) + \"的冰魄神针手法火候还不到家\"\n            \"，拿了冰魄银针也没有什么用。\\n\";\n\n    if (query(\"bingpo-zhen\") < 1)\n        return \"你来晚了，我手头的冰魄银针已经发完了。\\n\";\n\n    add(\"bingpo-zhen\", -1);\n\n    message_vision(HIY \"$N拿出一根\" HIW \"冰魄银针\" HIY \"递给$n。\\n\" NOR, this_object(), me);\n\n    ob = new(\"/d/gumu/obj/bingpo-zhen\");\n    ob->move(me, 1);\n\n    return \"好吧，这根冰魄银针你先拿去用吧。\\n\";\n}\n\nvoid reset() {\n    set(\"bingpo-zhen\", 4 + random(2));\n}\n",
+    "kungfu/class/quanzhen/sun.c": "#include <ansi.h>\n#include \"quanzhen.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nmixed ask_skill1();\n\nvoid create() {\n    set_name(\"孙不二\", ({ \"sun buer\", \"sun\", \"buer\" }));\n    set(\"long\", @LONG\n她就是全真教二代弟子中唯一的女弟子孙不二\n孙真人。她本是马钰入道前的妻子，道袍上绣\n着一个骷髅头。\nLONG);\n    set(\"nickname\", CYN \"清净散人\" NOR);\n    set(\"title\", \"全真七子\");\n    set(\"gender\", \"女性\");\n    set(\"age\", 33);\n    set(\"class\", \"taoist\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n    set(\"str\", 30);\n    set(\"int\", 29);\n    set(\"con\", 29);\n    set(\"dex\", 29);\n\n    set(\"max_qi\", 3500);\n    set(\"max_jing\", 2800);\n    set(\"neili\", 4200);\n    set(\"max_neili\", 4200);\n    set(\"jiali\", 150);\n\n    set(\"combat_exp\", 1500000);\n\n    set_skill(\"force\", 200);\n    set_skill(\"quanzhen-xinfa\", 200);\n    set_skill(\"xuanmen-neigong\", 200);\n    set_skill(\"sword\", 180);\n    set_skill(\"qixing-jian\", 180);\n    set_skill(\"dodge\", 200);\n    set_skill(\"tianshan-feidu\", 200);\n    set_skill(\"parry\", 200);\n    set_skill(\"strike\", 180);\n    set_skill(\"chongyang-shenzhang\", 180);\n    set_skill(\"finger\", 180);\n    set_skill(\"zhongnan-zhi\", 180);\n    set_skill(\"whip\", 200);\n    set_skill(\"tiangang-chenfa\", 200);\n    set_skill(\"literate\", 180);\n    set_skill(\"taoism\", 180);\n    set_skill(\"martial-cognize\", 160);\n\n    map_skill(\"force\", \"xuanmen-neigong\");\n    map_skill(\"sword\", \"qixing-jian\");\n    map_skill(\"dodge\", \"tianshan-feidu\");\n    map_skill(\"whip\", \"tiangang-chenfa\");\n    map_skill(\"parry\", \"tiangang-chenfa\");\n    map_skill(\"finger\", \"zhongnan-zhi\");\n    map_skill(\"strike\", \"chongyang-shenzhang\");\n\n    prepare_skill(\"finger\", \"zhongnan-zhi\");\n    prepare_skill(\"strike\", \"chongyang-shenzhang\");\n\n    create_family(\"全真教\", 2, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"朝拜天罡\": (: ask_skill1 :),\n    ]));\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"whip.bai\" :),\n        (: perform_action, \"finger.zhi\" :),\n        (: perform_action, \"strike.lian\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"recover\" :),\n    }));\n\n    setup();\n\n    carry_object(\"/d/beijing/npc/obj/fuchen\")->wield();\n    carry_object(\"/d/items/cloth/huise_daopao2\")->wear();\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if (ob->query(\"gender\") == \"男性\") {\n        command(\"say 我不收男徒，你还是去拜我几位师兄为师吧。\\n\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"xuanmen-neigong\", 1) < 60\n        && (int)ob->query_skill(\"quanzhen-xinfa\", 1) < 60) {\n        command(\"say 你的本门内功心法火候不足，难以领略更高深的武功。\");\n        return;\n    }\n\n    if ((int)ob->query_skill(\"taoism\", 1) < 60) {\n        command(\"say 你在修身养性方面还需多加锻炼，等你道学心法够高后再来吧。\");\n        return;\n    }\n\n    if ((int)ob->query(\"shen\") < 8000) {\n        command(\"say 你这人行侠仗义的事情做得太少！\\n\");\n        return;\n    }\n\n    command(\"nod\");\n    command(\"say 好吧，我就收下你了。\");\n    command(\"recruit \" + ob->query(\"id\"));\n}\n\nmixed ask_skill1() {\n    object me;\n\n    me = this_player();\n\n    if (me->query(\"can_perform/tiangang-chenfa/bai\"))\n        return \"这招我不是已经教会你了吗？\";\n\n    if (me->query(\"family/family_name\") != query(\"family/family_name\"))\n        return \"阁下与贫道素不相识，不知此话从何说起？\";\n\n    if (me->query_skill(\"tiangang-chenfa\", 1) < 1)\n        return \"你连天罡尘法都没学，何谈绝招可言？\";\n\n    if (me->query(\"gongxian\") < 150)\n        return \"你在我全真教内甚无作为，这招我暂时还不能传你。\";\n\n    if (me->query(\"shen\") < 10000)\n        return \"你的侠义正事还做得不够，这招我暂时还不能传你。\";\n\n    if (me->query_skill(\"tiangang-chenfa\", 1) < 120)\n        return \"你的天罡尘法不够娴熟，练高点再来吧。\";\n\n    if (me->query(\"max_neili\") < 1500)\n        return \"你的内力修为不够，修炼高后再来找我吧。\";\n\n    message_sort(HIY \"\\n$n\" HIY \"微微一笑，忽地站起身，右手一抖，手\"\n        \"中拂尘顿时窜动不已，接连变幻了数种招式，分袭$N\" HIY\n        \"各处要害，招式煞为巧妙，令人叹为观止。\\n\\n\" NOR,\n        me, this_object());\n\n    command(\"nod\");\n    command(\"say 招式我都已经教你了，自己下去领悟吧。\");\n    tell_object(me, HIC \"你学会了「朝拜天罡」。\\n\" NOR);\n    if (me->can_improve_skill(\"whip\"))\n        me->improve_skill(\"whip\", 1500000);\n    if (me->can_improve_skill(\"tiangang-chenfa\"))\n        me->improve_skill(\"tiangang-chenfa\", 1500000);\n    me->improve_skill(\"martial-cognize\", 1500000);\n    me->set(\"can_perform/tiangang-chenfa/bai\", 1);\n    me->add(\"gongxian\", -150);\n\n    return 1;\n}\n",
+    "kungfu/class/shaolin/dao-chen.c": "// Npc: /kungfu/class/shaolin/dao-chen.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道尘禅师\", ({\n        \"daochen chanshi\",\n        \"daochen\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"齐眉棍\": (: ask_me, \"qimeigun\" :),\n        \"戒刀\": (: ask_me, \"jiedao\" :),\n        \"禅杖\": (: ask_me, \"chanzhang\" :),\n        \"长剑\": (: ask_me, \"changjian\" :),\n        \"皮鞭\": (: ask_me, \"changbian\" :),\n    ]));\n\n    set(\"wuqi_count\", 15);\n\n    setup();\n\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"wuqi_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    if (name == \"changjian\")\n        ob = new(\"/d/items/sword/changjian5\");\n    else if (name == \"jiedao\")\n        ob = new(\"/d/items/blade/jiedao2\");\n    else if (name == \"chanzhang\")\n        ob = new(\"/d/items/staff/chanzhang2\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"wuqi_count\", -1);\n\n    message_vision(\"道尘给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，武器只可防身练武，不可凭此杀害生灵。\";\n}\n",
+    "kungfu/class/shaolin/du-e.c": "inherit NPC;\ninherit F_MASTER;\n\n#include \"/kungfu/class/shaolin/du.h\"\n\n#define HEISUO          \"/clone/lonely/heisuo1\"\n#define JIUHUAN         \"/clone/lonely/jiuhuan\"\n\nmixed ask_me();\n\nvoid create() {\n    object ob1, ob2;\n    set_name(\"渡厄\", ({ \"du e\", \"du\", \"e\" }));\n    set(\"long\", @LONG\n这是一个面颊深陷，瘦骨零丁的老僧，只见他\n脸色枯黄，如同一段枯木。\nLONG);\n    set(\"age\", 90);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"bonze\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n\n    set(\"str\", 34);\n    set(\"int\", 36);\n    set(\"con\", 35);\n    set(\"dex\", 33);\n    set(\"max_qi\", 8000);\n    set(\"max_jing\", 6000);\n    set(\"neili\", 8500);\n    set(\"max_neili\", 8500);\n    set(\"jiali\", 300);\n    set(\"combat_exp\", 3500000);\n    set(\"score\", 500000);\n\n    create_family(\"少林派\", 35, \"长老\");\n    assign_apprentice(\"弟子\", 0);\n\n    set_skill(\"force\", 340);\n    set_skill(\"shaolin-jiuyang\", 340);\n    set_skill(\"hunyuan-yiqi\", 340);\n    set_skill(\"luohan-fumogong\", 320);\n    set_skill(\"shaolin-xinfa\", 320);\n    set_skill(\"ruying-suixingtui\", 320);\n    set_skill(\"dodge\", 320);\n    set_skill(\"shaolin-shenfa\", 320);\n    set_skill(\"whip\", 340);\n    set_skill(\"riyue-bian\", 340);\n    set_skill(\"parry\", 340);\n    set_skill(\"finger\", 320);\n    set_skill(\"nianhua-zhi\", 320);\n    set_skill(\"jingang-zhi\", 320);\n\n\n    set_skill(\"strike\", 320);\n    set_skill(\"sanhua-zhang\", 320);\n    set_skill(\"medical\", 280);\n    set_skill(\"shaolin-yishu\", 280);\n    set_skill(\"buddhism\", 400);\n    set_skill(\"literate\", 300);\n    set_skill(\"martial-cognize\", 340);\n    set_skill(\"unarmed\", 320);\n    set_skill(\"jiasha-fumogong\", 320);\n\n    set_skill(\"claw\", 320);\n    set_skill(\"strike\", 320);\n    set_skill(\"hand\", 320);\n    set_skill(\"sword\", 320);\n    set_skill(\"xumishan-zhang\", 320);\n    set_skill(\"dacidabei-shou\", 320);\n    set_skill(\"yintuoluo-zhua\", 280);\n    set_skill(\"blade\", 320);\n    set_skill(\"ranmu-daofa\", 290);\n    set_skill(\"longxing-jian\", 290);\n\n    set_skill(\"club\", 290);\n    set_skill(\"qujing-gunfa\", 290);\n    set_skill(\"qixing-gun\", 290);\n    set_skill(\"shenfeng-bian\", 280);\n    set_skill(\"qingyun-bian\", 300);\n    set_skill(\"yiwei-dujiang\", 300);\n\n    map_skill(\"force\", \"shaolin-jiuyang\");\n    map_skill(\"whip\", \"riyue-bian\");\n    map_skill(\"parry\", \"riyue-bian\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"finger\", \"nianhua-zhi\");\n    map_skill(\"strike\", \"sanhua-zhang\");\n\n    prepare_skill(\"finger\", \"nianhua-zhi\");\n    prepare_skill(\"strike\", \"sanhua-zhang\");\n\n    set(\"no_teach\", ([\n        \"shaolin-jiuyang\": \"还是安心学习少林基础功夫吧。\",\n        // \"yijinjing\"     : \"还是安心学习少林基础功夫吧。\",\n        //    \"luohan-fumogong\"     : \"还是安心学习少林基础功夫吧。\",\n    ]));\n\n    set(\"inquiry\", ([\n        \"九环锡杖\": (: ask_me :),\n    ]));\n\n    set_temp(\"apply/attack\", 200);\n    set_temp(\"apply/defense\", 200);\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 200);\n    set_temp(\"apply/armor\", 300);\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n        (: perform_action, \"whip.chan\" :),\n        (: perform_action, \"whip.he\" :),\n        (: perform_action, \"whip.shang\" :),\n    }));\n\n    setup();\n\n    if (clonep()) {\n        ob1 = find_object(HEISUO);\n        if (!ob1) ob1 = load_object(HEISUO);\n        if (!environment(ob1)) {\n            ob1->move(this_object());\n            ob1->wield();\n        } else {\n            ob1 = new(\"/d/shaolin/obj/changbian\");\n            ob1->move(this_object());\n            ob1->wield();\n        }\n\n        ob2 = find_object(JIUHUAN);\n        if (!ob2) ob2 = load_object(JIUHUAN);\n        if (!environment(ob2)) {\n            ob2->move(this_object());\n            set_temp(\"handing\", ob2);\n        }\n    }\n    carry_object(\"/d/items/cloth/hufa_jiasha2\")->wear();\n}\n\nmixed ask_me() {\n    object ob;\n    object me;\n    object owner;\n\n    me = this_player();\n\n    if (!me->query_temp(\"valid_in_fumoquan\")) {\n        command(\"say 大胆鼠辈，竟敢偷入金刚伏魔圈，且让老衲来超度与你！\");\n        kill_ob(me);\n        return 1;\n    }\n\n    if (me->query_temp(\"valid_in_fumoquan\") != 1) {\n        command(\"heng\");\n        return 1;\n    }\n\n    if (me->query(\"combat_exp\") < 1000000)\n        return \"你这点微末本事，打听达摩祖师留下的利器作甚？\";\n\n    ob = find_object(JIUHUAN);\n    if (!ob) ob = load_object(JIUHUAN);\n\n    owner = environment(ob);\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"东西不已经给你了么？你还打算怎的？\";\n\n    if (owner == environment(me)) {\n        command(\"sneer\");\n        command(\"get \" + ob->query(\"id\"));\n        return \"百年来还没人敢愚弄老衲，滚开！\";\n    }\n\n    if (objectp(owner) && owner != this_object())\n        return \"此时九环锡杖并不在老衲手中。\";\n\n    ob->move(this_object());\n\n    command(\"buddhi\");\n    command(\"give jiuhuan xizhang to \" + me->query(\"id\"));\n    return 1;\n}\n\nint accept_object(object me, object ob) {\n    if (base_name(ob) != HEISUO\n        && base_name(ob) != JIUHUAN) {\n        command(\"say 你给我这种东西干什么？\");\n        return 0;\n    }\n\n    command(\"nod\");\n    command(\"say 甚好，甚好。\");\n    destruct(ob);\n    return 1;\n}\n",
+    "kungfu/class/shaolin/du-jie.c": "inherit NPC;\ninherit F_MASTER;\n\n#include \"/kungfu/class/shaolin/du.h\"\n\n#define HEISUO          \"/clone/lonely/heisuo3\"\n#define JINLAN          \"/clone/lonely/jinlan\"\n\nmixed ask_me();\n\nvoid create() {\n    object ob1, ob2;\n    set_name(\"渡劫\", ({ \"du jie\", \"du\", \"jie\" }));\n    set(\"long\", @LONG\n这是一个面颊深陷，瘦骨零丁的老僧，只见他\n脸色惨白，象一张纸一样。\nLONG);\n    set(\"age\", 90);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"bonze\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n\n    set(\"str\", 34);\n    set(\"int\", 36);\n    set(\"con\", 35);\n    set(\"dex\", 33);\n    set(\"max_qi\", 8000);\n    set(\"max_jing\", 6000);\n    set(\"neili\", 8500);\n    set(\"max_neili\", 8500);\n    set(\"jiali\", 300);\n    set(\"combat_exp\", 3500000);\n    set(\"score\", 500000);\n\n    create_family(\"少林派\", 35, \"长老\");\n    assign_apprentice(\"弟子\", 0);\n\n    set_skill(\"force\", 340);\n    set_skill(\"shaolin-jiuyang\", 340);\n    set_skill(\"hunyuan-yiqi\", 340);\n    set_skill(\"luohan-fumogong\", 320);\n    set_skill(\"shaolin-xinfa\", 320);\n    set_skill(\"ruying-suixingtui\", 320);\n    set_skill(\"dodge\", 320);\n    set_skill(\"shaolin-shenfa\", 320);\n    set_skill(\"whip\", 340);\n    set_skill(\"riyue-bian\", 340);\n    set_skill(\"parry\", 340);\n    set_skill(\"finger\", 320);\n    set_skill(\"nianhua-zhi\", 320);\n    set_skill(\"strike\", 320);\n    set_skill(\"sanhua-zhang\", 320);\n    set_skill(\"medical\", 280);\n    set_skill(\"shaolin-yishu\", 280);\n    set_skill(\"buddhism\", 400);\n    set_skill(\"literate\", 300);\n    set_skill(\"martial-cognize\", 340);\n\n    set_skill(\"unarmed\", 320);\n    set_skill(\"jiasha-fumogong\", 320);\n\n    set_skill(\"claw\", 320);\n    set_skill(\"strike\", 320);\n    set_skill(\"hand\", 320);\n    set_skill(\"sword\", 320);\n    set_skill(\"xumishan-zhang\", 320);\n    set_skill(\"dacidabei-shou\", 320);\n    set_skill(\"yintuoluo-zhua\", 280);\n    set_skill(\"blade\", 320);\n    set_skill(\"ranmu-daofa\", 290);\n    set_skill(\"longxing-jian\", 290);\n\n    set_skill(\"club\", 290);\n    set_skill(\"qujing-gunfa\", 290);\n    set_skill(\"qixing-gun\", 290);\n    set_skill(\"shenfeng-bian\", 280);\n    set_skill(\"qingyun-bian\", 300);\n    set_skill(\"yiwei-dujiang\", 300);\n\n    map_skill(\"force\", \"shaolin-jiuyang\");\n    map_skill(\"whip\", \"riyue-bian\");\n    map_skill(\"parry\", \"riyue-bian\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"finger\", \"nianhua-zhi\");\n    map_skill(\"strike\", \"sanhua-zhang\");\n\n    prepare_skill(\"finger\", \"nianhua-zhi\");\n    prepare_skill(\"strike\", \"sanhua-zhang\");\n\n    set(\"no_teach\", ([\n        \"shaolin-jiuyang\": \"还是安心学习少林基础功夫吧。\",\n        // \"yijinjing\"     : \"还是安心学习少林基础功夫吧。\",\n        //   \"luohan-fumogong\"     : \"还是安心学习少林基础功夫吧。\",\n    ]));\n\n    set(\"inquiry\", ([\n        \"锦襕袈裟\": (: ask_me :),\n    ]));\n\n    set_temp(\"apply/attack\", 200);\n    set_temp(\"apply/defense\", 200);\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 200);\n    set_temp(\"apply/armor\", 300);\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n        (: perform_action, \"whip.chan\" :),\n        (: perform_action, \"whip.he\" :),\n        (: perform_action, \"whip.shang\" :),\n    }));\n\n    setup();\n\n    if (clonep()) {\n        ob1 = find_object(HEISUO);\n        if (!ob1) ob1 = load_object(HEISUO);\n        if (!environment(ob1)) {\n            ob1->move(this_object());\n            ob1->wield();\n        } else {\n            ob1 = new(\"/d/shaolin/obj/changbian\");\n            ob1->move(this_object());\n            ob1->wield();\n        }\n\n        ob2 = find_object(JINLAN);\n        if (!ob2) ob2 = load_object(JINLAN);\n        if (!environment(ob2)) {\n            ob2->move(this_object());\n            ob2->wear();\n        } else {\n            ob2 = new(\"/d/items/cloth/hufa_jiasha2\");\n            ob2->move(this_object());\n            ob2->wear();\n        }\n    }\n}\n\nmixed ask_me() {\n    object ob;\n    object me;\n    object owner;\n\n    me = this_player();\n\n    if (!me->query_temp(\"valid_in_fumoquan\")) {\n        command(\"say 大胆鼠辈，竟敢偷入金刚伏魔圈，且让老衲来超度与你！\");\n        kill_ob(me);\n        return 1;\n    }\n\n    if (me->query_temp(\"valid_in_fumoquan\") != 1) {\n        command(\"heng\");\n        return 1;\n    }\n\n    if (me->query(\"combat_exp\") < 1000000)\n        return \"你这点微末本事，打听达摩祖师留下的利器作甚？\";\n\n    ob = find_object(JINLAN);\n    if (!ob) ob = load_object(JINLAN);\n\n    owner = environment(ob);\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"东西不已经给你了么？你还打算怎的？\";\n\n    if (owner == environment(me)) {\n        command(\"sneer\");\n        command(\"get \" + ob->query(\"id\"));\n        return \"百年来还没人敢愚弄老衲，滚开！\";\n    }\n\n    if (objectp(owner) && owner != this_object())\n        return \"此时锦襕袈裟并不在老衲手中。\";\n\n    ob->move(this_object());\n\n    command(\"disapp1\");\n    command(\"give jinlan jiasha to \" + me->query(\"id\"));\n\n    if (!query_temp(\"armor/cloth\")) {\n        ob = new(\"/d/items/cloth/hufa_jiasha2\");\n        ob->move(this_object());\n        ob->wear();\n    }\n    return 1;\n}\n\nint accept_object(object me, object ob) {\n    if (base_name(ob) != HEISUO\n        && base_name(ob) != JINLAN) {\n        command(\"say 你给我这种东西干什么？\");\n        return 0;\n    }\n\n    command(\"nod\");\n    command(\"say 甚好，甚好。\");\n    destruct(ob);\n    return 1;\n}\n",
+    "kungfu/class/shaolin/du-nan.c": "inherit NPC;\ninherit F_MASTER;\n\n#include \"/kungfu/class/shaolin/du.h\"\n\n#define HEISUO          \"/clone/lonely/heisuo2\"\n#define CAOJIE          \"/clone/lonely/caojie\"\n\nmixed ask_me();\n\nvoid create() {\n    object ob1, ob2;\n    set_name(\"渡难\", ({ \"du nan\", \"du\", \"nan\" }));\n    set(\"long\", @LONG\n这是一个面颊深陷，瘦骨零丁的老僧，只见他\n脸色漆黑，象是生铁铸成。\nLONG);\n    set(\"age\", 90);\n    set(\"gender\", \"男性\");\n    set(\"class\", \"bonze\");\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n\n    set(\"str\", 34);\n    set(\"int\", 36);\n    set(\"con\", 35);\n    set(\"dex\", 33);\n    set(\"max_qi\", 8000);\n    set(\"max_jing\", 6000);\n    set(\"neili\", 8500);\n    set(\"max_neili\", 8500);\n    set(\"jiali\", 300);\n    set(\"combat_exp\", 3500000);\n    set(\"score\", 500000);\n\n    create_family(\"少林派\", 35, \"长老\");\n    assign_apprentice(\"弟子\", 0);\n\n    set_skill(\"force\", 340);\n    set_skill(\"hunyuan-yiqi\", 340);\n    set_skill(\"shaolin-jiuyang\", 340);\n    set_skill(\"luohan-fumogong\", 320);\n    set_skill(\"shaolin-xinfa\", 320);\n    set_skill(\"ruying-suixingtui\", 320);\n    set_skill(\"dodge\", 320);\n    set_skill(\"shaolin-shenfa\", 320);\n    set_skill(\"whip\", 340);\n    set_skill(\"riyue-bian\", 340);\n    set_skill(\"parry\", 340);\n    set_skill(\"finger\", 320);\n    set_skill(\"nianhua-zhi\", 320);\n    set_skill(\"strike\", 320);\n    set_skill(\"sanhua-zhang\", 320);\n    set_skill(\"medical\", 280);\n    set_skill(\"shaolin-yishu\", 280);\n    set_skill(\"buddhism\", 400);\n    set_skill(\"literate\", 300);\n    set_skill(\"martial-cognize\", 340);\n    set_skill(\"unarmed\", 320);\n    set_skill(\"jiasha-fumogong\", 320);\n\n    set_skill(\"claw\", 320);\n    set_skill(\"strike\", 320);\n    set_skill(\"hand\", 320);\n    set_skill(\"sword\", 320);\n    set_skill(\"xumishan-zhang\", 320);\n    set_skill(\"dacidabei-shou\", 320);\n    set_skill(\"yintuoluo-zhua\", 280);\n    set_skill(\"blade\", 320);\n    set_skill(\"ranmu-daofa\", 290);\n    set_skill(\"longxing-jian\", 290);\n\n    set_skill(\"club\", 290);\n    set_skill(\"qujing-gunfa\", 290);\n    set_skill(\"qixing-gun\", 290);\n    set_skill(\"shenfeng-bian\", 280);\n    set_skill(\"qingyun-bian\", 300);\n    set_skill(\"yiwei-dujiang\", 300);\n\n    map_skill(\"force\", \"shaolin-jiuyang\");\n    map_skill(\"whip\", \"riyue-bian\");\n    map_skill(\"parry\", \"riyue-bian\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"finger\", \"nianhua-zhi\");\n    map_skill(\"strike\", \"sanhua-zhang\");\n\n    prepare_skill(\"finger\", \"nianhua-zhi\");\n    prepare_skill(\"strike\", \"sanhua-zhang\");\n\n    set(\"no_teach\", ([\n        \"shaolin-jiuyang\": \"还是安心学习少林基础功夫吧。\",\n        //\"yijinjing\"     : \"还是安心学习少林基础功夫吧。\",\n        //   \"luohan-fumogong\"     : \"还是安心学习少林基础功夫吧。\",\n    ]));\n\n    set(\"inquiry\", ([\n        \"神草结\": (: ask_me :),\n    ]));\n\n    set_temp(\"apply/attack\", 200);\n    set_temp(\"apply/defense\", 200);\n    set_temp(\"apply/damage\", 200);\n    set_temp(\"apply/unarmed_damage\", 200);\n    set_temp(\"apply/armor\", 300);\n\n    set(\"chat_chance_combat\", 120);\n    set(\"chat_msg_combat\", ({\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n        (: perform_action, \"whip.chan\" :),\n        (: perform_action, \"whip.he\" :),\n        (: perform_action, \"whip.shang\" :),\n    }));\n\n    setup();\n\n    if (clonep()) {\n        ob1 = find_object(HEISUO);\n        if (!ob1) ob1 = load_object(HEISUO);\n        if (!environment(ob1)) {\n            ob1->move(this_object());\n            ob1->wield();\n        } else {\n            ob1 = new(\"/d/shaolin/obj/changbian\");\n            ob1->move(this_object());\n            ob1->wield();\n        }\n\n        ob2 = find_object(CAOJIE);\n        if (!ob2) ob2 = load_object(CAOJIE);\n        if (!environment(ob2)) {\n            ob2->move(this_object());\n            ob2->wear();\n        }\n    }\n    carry_object(\"/d/items/cloth/hufa_jiasha2\")->wear();\n}\n\nmixed ask_me() {\n    object ob;\n    object me;\n    object owner;\n\n    me = this_player();\n\n    if (!me->query_temp(\"valid_in_fumoquan\")) {\n        command(\"say 大胆鼠辈，竟敢偷入金刚伏魔圈，且让老衲来超度与你！\");\n        kill_ob(me);\n        return 1;\n    }\n\n    if (me->query_temp(\"valid_in_fumoquan\") != 1) {\n        command(\"heng\");\n        return 1;\n    }\n\n    if (me->query(\"combat_exp\") < 1000000)\n        return \"你这点微末本事，打听达摩祖师留下的利器作甚？\";\n\n    ob = find_object(CAOJIE);\n    if (!ob) ob = load_object(CAOJIE);\n\n    owner = environment(ob);\n    while (owner) {\n        if (owner->is_character() || !environment(owner))\n            break;\n        owner = environment(owner);\n    }\n\n    if (owner == me)\n        return \"东西不已经给你了么？你还打算怎的？\";\n\n    if (owner == environment(me)) {\n        command(\"sneer\");\n        command(\"get \" + ob->query(\"id\"));\n        return \"百年来还没人敢愚弄老衲，滚开！\";\n    }\n\n    if (objectp(owner) && owner != this_object())\n        return \"此时神草结并不在老衲手中。\";\n\n    ob->move(this_object());\n\n    command(\"sigh\");\n    command(\"give shen caojie to \" + me->query(\"id\"));\n    return 1;\n}\n\nint accept_object(object me, object ob) {\n    if (base_name(ob) != HEISUO\n        && base_name(ob) != CAOJIE) {\n        command(\"say 你给我这种东西干什么？\");\n        return 0;\n    }\n\n    command(\"nod\");\n    command(\"say 甚好，甚好。\");\n    destruct(ob);\n    return 1;\n}\n",
+    "kungfu/class/wudu/cenqisi.c": "#include <ansi.h>\n#include \"wudu.h\"\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"岑其斯\", ({ \"cen qisi\", \"cen\", \"qisi\" }));\n    set(\"nickname\", HIR \"五毒秀士\" NOR);\n    set(\"long\", @LONG\n他就是五毒教的右护法，人称五毒秀士的岑其斯。\n经常装扮成一个白衣秀士的模样，没事总爱附庸风\n雅。\nLONG);\n    set(\"title\", \"五毒教护法\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 38);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", -1);\n    set(\"str\", 20);\n    set(\"int\", 40);\n    set(\"con\", 30);\n    set(\"dex\", 30);\n    set(\"max_qi\", 3000);\n    set(\"max_jing\", 3000);\n    set(\"neili\", 3000);\n    set(\"max_neili\", 3000);\n    set(\"jiali\", 100);\n    set(\"combat_exp\", 500000);\n    set(\"score\", 5000);\n\n    set_skill(\"force\", 120);\n    set_skill(\"wudu-xinfa\", 120);\n    set_skill(\"dodge\", 110);\n    set_skill(\"jinshe-youshenbu\", 110);\n    set_skill(\"strike\", 110);\n    set_skill(\"tianchan-zhang\", 110);\n    set_skill(\"claw\", 110);\n    set_skill(\"wusheng-zhao\", 110);\n    set_skill(\"parry\", 120);\n    set_skill(\"whip\", 120);\n    set_skill(\"xiewei-bian\", 120);\n    set_skill(\"literate\", 60);\n    set_skill(\"poison\", 120);\n    set_skill(\"wudu-qishu\", 120);\n    set_skill(\"martial-cognize\", 100);\n\n    map_skill(\"force\", \"wudu-xinfa\");\n    map_skill(\"dodge\", \"jinshe-youshenbu\");\n    map_skill(\"strike\", \"tianchan-zhang\");\n    map_skill(\"claw\", \"wusheng-zhao\");\n    map_skill(\"parry\", \"xiewei-bian\");\n    map_skill(\"whip\", \"xiewei-bian\");\n    map_skill(\"poison\", \"wudu-qishu\");\n\n    prepare_skill(\"strike\", \"tianchan-zhang\");\n    prepare_skill(\"claw\", \"wusheng-zhao\");\n\n    create_family(\"五毒教\", 12, \"护法\");\n\n    setup();\n\n    carry_object(\"/d/shaolin/obj/changbian\")->wield();\n    carry_object(\"/d/items/cloth/buyi\")->wear();\n\n    add_money(\"silver\", 20);\n}\n\nvoid attempt_apprentice(object ob) {\n    if (!permit_recruit(ob))\n        return;\n\n    if ((int)ob->query(\"shen\") > -5000) {\n        command(\"say 做我五毒教弟子必须心狠手辣。\");\n        return;\n    }\n    if ((int)ob->query_skill(\"wudu-xinfa\", 1) < 40) {\n        command(\"say 你的五毒心法还学的不够啊。\");\n        return;\n    }\n    if ((int)ob->query_skill(\"wudu-qishu\", 1) < 30) {\n        command(\"say 我五毒教弟子以毒杀人，修习毒技是首要的。\");\n        command(\"say 你是否还应该多多钻研本门的绝学？\");\n        return;\n    }\n\n    command(\"nod\");\n    command(\"say 不错，不错。\");\n    command(\"recruit \" + ob->query(\"id\"));\n    return;\n}\n",
+    "kungfu/class/yunlong/ma.c": "// ma.c 马超兴\n\n#include <ansi.h>\n\ninherit NPC;\ninherit F_MASTER;\n\nvoid create() {\n    set_name(\"马超兴\", ({ \"ma chaoxing\", \"ma\" }));\n    set(\"title\", HIR \"天地会\" HIW \"家后堂香主\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"long\", \"\\n他就是天地会家后堂香主，矮矮胖胖的个，善使一柄大刀。\\n\");\n    set(\"class\", \"fighter\");\n    set(\"age\", 45);\n\n    set(\"int\", 30);\n    set(\"qi\", 1500);\n    set(\"max_qi\", 1500);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"shen_type\", 1);\n\n    set(\"combat_exp\", 250000);\n    set(\"attitude\", \"friendly\");\n\n    set_skill(\"force\", 80);\n    set_skill(\"unarmed\", 80);\n    set_skill(\"parry\", 80);\n    set_skill(\"dodge\", 80);\n    set_skill(\"sword\", 70);\n    set_skill(\"blade\", 100);\n    set_skill(\"whip\", 70);\n    set_skill(\"yunlong-shengong\", 70);\n    set_skill(\"yunlong-shenfa\", 70);\n    set_skill(\"wuhu-duanmendao\", 80);\n    set_skill(\"houquan\", 50);\n    set_skill(\"yunlong-jian\", 50);\n    set_skill(\"yunlong-bian\", 50);\n    set_temp(\"apply/attack\", 25);\n    set_temp(\"apply/defense\", 25);\n    set_temp(\"apply/damage\", 25);\n\n    map_skill(\"force\", \"yunlong-shengong\");\n    map_skill(\"dodge\", \"yunlong-shenfa\");\n    map_skill(\"parry\", \"wuhu-duanmendao\");\n    map_skill(\"blade\", \"wuhu-duanmendao\");\n    map_skill(\"sword\", \"yunlong-jian\");\n    map_skill(\"whip\", \"yunlong-bian\");\n    map_skill(\"unarmed\", \"houquan\");\n\n    create_family(\"云龙门\", 2, \"弟子\");\n    set(\"book_count\", 1);\n    set(\"inquiry\", ([\n        \"陈近南\": \"这是我们的总舵主！\",\n        \"天地会\": \"只要是英雄好汉，都可以入我天地会(join tiandihui)。\",\n        \"入会\": \"加入天地会，一同反清复明！\",\n        \"反清复明\": \"去药铺和棺材店仔细瞧瞧吧！\",\n    ]));\n\n    set(\"chat_chance_combat\", 50);\n    set(\"chat_msg_combat\", ({\n        (: command(\"chat 这位\" + RANK_D->query_respect(this_player()) +\n            \"，你我无冤无仇，何必如此？\") :),\n        (: command(\"unwield changjian\") :),\n        (: command(\"wield changjian\") :),\n        (: command(\"wield bian\") :),\n        (: perform_action, \"sword.xian\" :),\n        (: perform_action, \"whip.chan\" :),\n        (: perform_action, \"blade.duan\" :),\n        (: perform_action, \"unarmed.zhen\" :),\n        (: exert_function, \"recover\" :),\n        (: exert_function, \"recover\" :),\n        (: command(\"unwield bian\") :),\n        (: command(\"wield blade\") :),\n        (: command(\"unwield blade\") :),\n    }));\n\n    setup();\n    carry_object(\"/d/shaolin/obj/changbian\")->wield();\n    carry_object(\"/clone/weapon/changjian\");\n    carry_object(\"/clone/weapon/dadao\");\n    carry_object(\"/clone/cloth/cloth\")->wear();\n    add_money(\"silver\", 20);\n}\n\nvoid init() {\n    ::init();\n    // remove_call_out(\"greeting\");\n    add_action(\"do_join\", \"join\");\n}\n\nvoid greeting(object ob) {\n    if (!objectp(ob) || environment(ob) != environment())\n        return;\n\n    if (random(5) < 2)\n        say(\"马超兴笑道：这位\" + RANK_D->query_respect(ob) +\n            \"，可有什么不平之事么？\\n\");\n}\n\nvoid reset() {\n    set(\"book_count\", 1);\n}\n\n#include \"/kungfu/class/yunlong/tiandihui.h\"\n"
+  },
+  "excluded": [
+    {
+      "file": "d/luoyang/npc/obj/whip1.c",
+      "source_hash": "1e898ea4c4454094f8de4366080264488252d1c204ab4f77ddd2e92162f41db4"
+    }
+  ],
+  "observations": [
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/baituo/obj/shebian",
+      "clone_weight": 700,
+      "blueprint": {
+        "value": 300,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "shebian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄蛇皮长鞭。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 30
+        },
+        "name": "蛇鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 700,
+      "ids": [
+        "shebian",
+        "bian",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 300,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "shebian",
+        "material": "leather",
+        "long": "这是一柄蛇皮长鞭。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 30
+        },
+        "name": "蛇鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/beijing/npc/obj/fuchen",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fu chen",
+        "unit": "柄",
+        "long": "这是一柄普通的拂尘。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "fu chen",
+        "fu",
+        "chen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fu chen",
+        "long": "这是一柄普通的拂尘。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/beijing/npc/obj/whip",
+      "clone_weight": 1000,
+      "blueprint": {
+        "value": 500,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "pi bian",
+        "unit": "条",
+        "long": "一条长长的皮鞭．\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 15
+        },
+        "name": "皮鞭"
+      },
+      "weight": 1000,
+      "ids": [
+        "pi bian",
+        "pibian",
+        "bian",
+        "whip",
+        "p"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "条",
+        "id": "pi bian",
+        "long": "一条长长的皮鞭．\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 15
+        },
+        "name": "皮鞭"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/changan/npc/obj/changbian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "changbian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 25
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "changbian",
+        "bian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "changbian",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 25
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/city/npc/obj/hlbian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 1000,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "heilong bian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄墨黑长鞭，坚韧无比。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 35
+        },
+        "name": "黑龙鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "heilong bian",
+        "bian",
+        "h"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "heilong bian",
+        "material": "leather",
+        "long": "这是一柄墨黑长鞭，坚韧无比。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 35
+        },
+        "name": "黑龙鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/dali/npc/obj/diaogan",
+      "clone_weight": 5000,
+      "blueprint": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "diao gan",
+        "long": "这是一根细长的铁杆，猛然一看不过是根普通钓鱼用的吊杆。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一根$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -1
+        },
+        "name": "钓杆"
+      },
+      "weight": 5000,
+      "ids": [
+        "diao gan",
+        "diao",
+        "gan",
+        "d"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 1500,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "rigidity": 100,
+        "id": "diao gan",
+        "long": "这是一根细长的铁杆，猛然一看不过是根普通钓鱼用的吊杆。\n",
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n插回腰间。\n",
+        "wield_msg": "$N抽出一根$n握在手中。\n",
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 30,
+          "dodge": -1
+        },
+        "name": "钓杆"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/dali/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/npc/obj/suolian",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "suo lian",
+        "unit": "根",
+        "material": "leather",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 50
+        },
+        "name": "\u001b[1;37m锁链\u001b[0m"
+      },
+      "weight": 300,
+      "ids": [
+        "suo lian",
+        "suo",
+        "lian",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "根",
+        "id": "suo lian",
+        "material": "leather",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 50
+        },
+        "name": "\u001b[1;37m锁链\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon26",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 230000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "chanhun si",
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 50,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m缠魂丝\u001b[0m"
+      },
+      "weight": 4000,
+      "ids": [
+        "chanhun si",
+        "si",
+        "chanhun",
+        "whip",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 230000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "chanhun si",
+        "material": "steel",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 50,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m缠魂丝\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon27",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 360000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "panlong suo",
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 55,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m盘龙索\u001b[0m"
+      },
+      "weight": 4000,
+      "ids": [
+        "panlong suo",
+        "suo",
+        "panlong",
+        "whip",
+        "p"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 360000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "panlong suo",
+        "material": "steel",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 55,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m盘龙索\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon28",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 420000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "liehuo bian",
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 60,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m烈火神鞭\u001b[0m"
+      },
+      "weight": 4000,
+      "ids": [
+        "liehuo bian",
+        "bian",
+        "liehuo",
+        "whip",
+        "l"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 420000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "liehuo bian",
+        "material": "steel",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 60,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m烈火神鞭\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon29",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 650000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "qilin bian",
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 70,
+          "dodge": -1
+        },
+        "name": "\u001b[31m麒麟鞭\u001b[0m"
+      },
+      "weight": 4000,
+      "ids": [
+        "qilin bian",
+        "qilin",
+        "bian",
+        "whip",
+        "q"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 650000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "qilin bian",
+        "material": "steel",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 70,
+          "dodge": -1
+        },
+        "name": "\u001b[31m麒麟鞭\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon30",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 1200000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "huntun suo",
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 90,
+          "dodge": -1
+        },
+        "name": "\u001b[37m馄饨灵索\u001b[0m"
+      },
+      "weight": 4000,
+      "ids": [
+        "huntun suo",
+        "huntun",
+        "suo",
+        "whip",
+        "h"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 1200000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "huntun suo",
+        "material": "steel",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 90,
+          "dodge": -1
+        },
+        "name": "\u001b[37m馄饨灵索\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon31",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 1200000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "xuanbing suo",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n玄冰索乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 110,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m玄冰索\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "xuanbing suo",
+        "xuanbing",
+        "suo",
+        "whip",
+        "x"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 1200000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "xuanbing suo",
+        "material": "steel",
+        "long": "\u001b[1;37m\n玄冰索乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 110,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m玄冰索\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon32",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 1600000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "tian can",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·天残乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 140,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m神蛟丝·天残\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "tian can",
+        "shenjiaosi",
+        "suo",
+        "whip",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 1600000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "tian can",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·天残乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 140,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m神蛟丝·天残\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon33",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 2300000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "tian que",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·天缺乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 160,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m神蛟丝·天缺\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "tian que",
+        "shenjiaosi",
+        "suo",
+        "whip",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 2300000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "tian que",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·天缺乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 160,
+          "dodge": -1
+        },
+        "name": "\u001b[1;37m神蛟丝·天缺\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon34",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 3200000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "shi yue",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·噬月乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 180,
+          "dodge": -1
+        },
+        "name": "\u001b[1;33m神蛟丝·噬月\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "shi yue",
+        "shenjiaosi",
+        "suo",
+        "whip",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 3200000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "shi yue",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·噬月乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 180,
+          "dodge": -1
+        },
+        "name": "\u001b[1;33m神蛟丝·噬月\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon35",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 3600000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "tun ri",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·吞日乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 200,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m神蛟丝·吞日\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "tun ri",
+        "shenjiaosi",
+        "suo",
+        "whip",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 3600000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "tun ri",
+        "material": "steel",
+        "long": "\u001b[1;37m\n神蛟丝·吞日乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 200,
+          "dodge": -1
+        },
+        "name": "\u001b[1;31m神蛟丝·吞日\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/death/obj/weapon36",
+      "clone_weight": 4000,
+      "blueprint": {
+        "value": 3900000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 37,
+        "id": "wulong si",
+        "unit": "根",
+        "material": "steel",
+        "long": "\u001b[1;37m\n乌龙神蛟丝乃九穹七狱神兵之一。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 220,
+          "dodge": -1
+        },
+        "name": "\u001b[36m乌龙神蛟丝\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "weight": 4000,
+      "ids": [
+        "wulong si",
+        "shenjiaosi",
+        "si",
+        "whip",
+        "w"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 3900000,
+        "skill_type": "whip",
+        "stable": 37,
+        "unit": "根",
+        "id": "wulong si",
+        "material": "steel",
+        "long": "\u001b[1;37m\n乌龙神蛟丝乃九穹七狱神兵之一。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 220,
+          "dodge": -1
+        },
+        "name": "\u001b[36m乌龙神蛟丝\u001b[0m",
+        "wield_msg": "\u001b[1;31m$N轻轻抖出$n\u001b[1;31m，刹时雷声轰鸣，一股杀气直聂九霄。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/emei/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/fuzhou/npc/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/fuzhou/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/gaochang/npc/obj/liuxingchui",
+      "clone_weight": 4500,
+      "blueprint": {
+        "value": 2000,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "liuxing chui",
+        "unit": "柄",
+        "material": "leather",
+        "long": "\u001b[1;33m一柄金光闪闪的流星锤。\n\u001b[0m",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "weapon_prop": {
+          "damage": 40,
+          "dodge": -1
+        },
+        "name": "\u001b[1;33m流星锤\u001b[0m"
+      },
+      "weight": 4500,
+      "ids": [
+        "liuxing chui",
+        "liuxing",
+        "chui",
+        "l"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "armor_prop": {
+          "dodge": -1
+        },
+        "value": 2000,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "liuxing chui",
+        "material": "leather",
+        "long": "\u001b[1;33m一柄金光闪闪的流星锤。\n\u001b[0m",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 40,
+          "dodge": -1
+        },
+        "name": "\u001b[1;33m流星锤\u001b[0m"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/guiyun/npc/obj/jiujiebian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "jiujie bian",
+        "unit": "柄",
+        "material": "steal",
+        "long": "这是一条九节鞭，由精钢铸就而成。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 25
+        },
+        "name": "九节鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "jiujie bian",
+        "bian",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "jiujie bian",
+        "material": "steal",
+        "long": "这是一条九节鞭，由精钢铸就而成。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 25
+        },
+        "name": "九节鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/hangzhou/honghua/obj/tiebian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "changbian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄粗大的铁鞭，总有三十来斤重。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回腰间。\n",
+        "weapon_prop": {
+          "damage": 40
+        },
+        "name": "铁鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "changbian",
+        "bian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "changbian",
+        "material": "leather",
+        "long": "这是一柄粗大的铁鞭，总有三十来斤重。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回腰间。\n",
+        "weapon_prop": {
+          "damage": 40
+        },
+        "name": "铁鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/kunlun/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 50
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 50
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/mingjiao/obj/changbian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "changbian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "changbian",
+        "bian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "changbian",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/quanzhou/npc/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/quanzhou/obj/fuchen",
+      "clone_weight": 300,
+      "blueprint": {
+        "value": 30,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "fuchen",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "weight": 300,
+      "ids": [
+        "fuchen",
+        "f"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "fuchen",
+        "material": "leather",
+        "long": "这是一柄拂尘，做工精细，是很阴毒的兵器。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n别回颈中。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "拂尘",
+        "wield_msg": "$N「唰」的一声从颈中抽出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/changbian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "changbian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "changbian",
+        "bian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "changbian",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/heisuo",
+      "clone_weight": 800,
+      "blueprint": {
+        "value": 50000,
+        "id": "black whip",
+        "long": "这是一根漆黑的长鞭，毫不起眼，但是入手沉重，且\n不失柔韧，实在是千锤百炼之物。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "unwield_msg": "\u001b[37m$N\u001b[37m将手中的$n卷起收好。\n\u001b[0m",
+        "wield_msg": "\u001b[30m$N\u001b[30m一伸手，悄无声息的将$n握在手中。\n\u001b[0m",
+        "no_sell": "这是啥破玩艺，上吊用的？\n",
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 70,
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 120
+        },
+        "name": "黑索"
+      },
+      "weight": 800,
+      "ids": [
+        "black whip",
+        "hei suo",
+        "suo",
+        "whip",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "value": 50000,
+        "id": "black whip",
+        "long": "这是一根漆黑的长鞭，毫不起眼，但是入手沉重，且\n不失柔韧，实在是千锤百炼之物。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "unwield_msg": "\u001b[37m$N\u001b[37m将手中的$n卷起收好。\n\u001b[0m",
+        "wield_msg": "\u001b[30m$N\u001b[30m一伸手，悄无声息的将$n握在手中。\n\u001b[0m",
+        "no_sell": "这是啥破玩艺，上吊用的？\n",
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 70,
+        "unit": "根",
+        "material": "steel",
+        "flag": null,
+        "weapon_prop": {
+          "damage": 120
+        },
+        "name": "黑索"
+      },
+      "clone_uid": "Domain"
+    },
+    {
+      "clone_euid": "Domain",
+      "uid": "Domain",
+      "path": "/d/tiezhang/obj/changbian",
+      "clone_weight": 500,
+      "blueprint": {
+        "value": 100,
+        "no_clean_up": 1,
+        "skill_type": "whip",
+        "stable": 50,
+        "id": "changbian",
+        "unit": "柄",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "flag": null,
+        "actions": "WEAPON_D query_action",
+        "verbs": [
+          "whip"
+        ],
+        "consistence": 100,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "weight": 500,
+      "ids": [
+        "changbian",
+        "bian",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "skill_type": "whip",
+        "stable": 50,
+        "unit": "柄",
+        "id": "changbian",
+        "material": "leather",
+        "long": "这是一柄普通的长鞭，由水牛精工编织而成。\n",
+        "consistence": 100,
+        "verbs": [
+          "whip"
+        ],
+        "actions": "WEAPON_D query_action",
+        "flag": null,
+        "unwield_msg": "$N将手中的$n卷回腰间。\n",
+        "weapon_prop": {
+          "damage": 20
+        },
+        "name": "长鞭",
+        "wield_msg": "$N「唰」的一声抖出一柄$n握在手中。\n"
+      },
+      "clone_uid": "Domain"
+    }
+  ]
+}

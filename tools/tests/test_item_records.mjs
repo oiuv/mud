@@ -1,3 +1,4 @@
+import { migrationPaths as whipPaths, canonicalGroups as whipGroups } from './whip_inventory.mjs';
 // Only synthetic backups in an OS temporary directory. No live records or game service.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -165,15 +166,17 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['equip', equipPaths, equipGroups, 56, 56],
     ['hammer', hammerPaths, hammerGroups, 43, 40],
     ['staff', staffPaths, staffGroups, 37, 32],
+    ['whip', whipPaths, whipGroups, 32, 25],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
     const pairs = Object.entries({ ...familyPaths(), [oldCloth]: cloth, [oldBoot]: boot, [oldHead]: head, '/d/city/obj/shoutao': '/d/items/hands/shoutao', '/d/city/npc/obj/necklace': '/d/items/neck/jinxianglian', '/d/shaolin/obj/huwan': '/d/items/wrists/shaolin_huwan', '/d/guanwai/obj/mantou': '/d/items/food/mantou',
-        ...(['liquid', 'blade', 'equip', 'hammer', 'staff'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
-        ...(['blade', 'equip', 'hammer', 'staff'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
-        ...(['equip', 'hammer', 'staff'].includes(family) ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}),
-        ...(['hammer', 'staff'].includes(family) ? { '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'] } : {}),
-        ...(family === 'staff' ? { '/d/beijing/npc/obj/hammer': hammerPaths()['/d/beijing/npc/obj/hammer'] } : {}) });
+        ...(['liquid', 'blade', 'equip', 'hammer', 'staff', 'whip'].includes(family) ? { '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'] } : {}),
+        ...(['blade', 'equip', 'hammer', 'staff', 'whip'].includes(family) ? { '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'] } : {}),
+        ...(['equip', 'hammer', 'staff', 'whip'].includes(family) ? { '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'] } : {}),
+        ...(['hammer', 'staff', 'whip'].includes(family) ? { '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'] } : {}),
+        ...(['staff', 'whip'].includes(family) ? { '/d/beijing/npc/obj/hammer': hammerPaths()['/d/beijing/npc/obj/hammer'] } : {}),
+        ...(family === 'whip' ? { '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'] } : {}) });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};

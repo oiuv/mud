@@ -33,6 +33,7 @@ int same_value(mixed left, mixed right) {
 
 void compare(object before, object after, string label) {
     mapping properties;
+    mixed expected;
     string key, alias, expected_short, expected_long;
 
     check(before->name() == after->name(), label + " name");
@@ -53,10 +54,16 @@ void compare(object before, object after, string label) {
         if (key == "id")
             check(after->id(before->query("id")), label + " former primary input remains usable");
         else {
-            if (!same_value(before->query(key, 1), after->query(key, 1)))
+            expected = before->query(key, 1);
+            // Approved display typo only; old objects and frozen observations stay unchanged.
+            if (key == "wield_msg" && stringp(expected) &&
+                strsrch(base_name(before), "/d/death/obj/weapon") == 0 &&
+                strsrch(base_name(after), "/d/items/") == 0)
+                expected = replace_string(expected, "一股杀气直聂九霄", "一股杀气直慑九霄");
+            if (!same_value(expected, after->query(key, 1)))
                 debug_message(sprintf("COMPARE %s %s: %O / %O\n", label, key,
-                    before->query(key, 1), after->query(key, 1)));
-            check(same_value(before->query(key, 1), after->query(key, 1)),
+                    expected, after->query(key, 1)));
+            check(same_value(expected, after->query(key, 1)),
                 label + " property " + key);
         }
     }
