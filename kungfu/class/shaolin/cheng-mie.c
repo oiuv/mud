@@ -58,7 +58,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/shaolin/obj/chanzhang")->wield();
+    carry_object("/d/items/staff/chanzhang2")->wield();
     carry_object("/d/items/cloth/heise_jiasha2")->wear();
 
 }

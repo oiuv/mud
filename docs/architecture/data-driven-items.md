@@ -4,7 +4,7 @@
 
 后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。BLADE 批次将 61 个普通刀定义归为 **52 个规范品种**。
 
-直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。十二类保持各自继承和行为，共用以下离线迁移与部署流程；累计 795 个旧定义集中为 24 个共用程序/数据文件，定义文件净减少 **771 个**（不含工具、测试及文档）。
+直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。十三类保持各自继承和行为，共用以下离线迁移与部署流程；累计 832 个旧定义集中为 26 个共用程序/数据文件，定义文件净减少 **806 个**（不含工具、测试及文档）。
 
 ## 创建与维护
 
@@ -99,6 +99,16 @@ second = new(base_name(sword));
 
 钱正伦的门派、配额、个人计数和领取后的价格/禁售覆盖不变；武馆仍使用原工具别名、工作和归还条件；冯铁匠及王方平的货表、售价和交易冷却不变。黑白子、范松仅替换普通备用兵器路径，独特兵器规则保持原样。本批不新增玩家玩法。
 
+## 普通杖类物品
+
+`d/items/staff.lpc` 直接继承原 `STAFF`，`staff_data.h` 按 ID 自然排序。37 份旧定义经蓝图、克隆的全部有效属性和显示核对后归为 32 个品种；例如 `new("/d/items/staff/chanzhang")`、`load_object("/d/items/staff/shouzhang")`、`new(base_name(ob))`。短 ID 如 `zhubang2`、`qixing_zhang1` 表示稳定品种，不带旧目录信息；相同名称但重量、伤害、材质或描述不同的物品不合并。
+
+字段为 `name`、`ids`、`weight`、`damage` 和 `properties`，固定描述及持用消息留在蓝图。最终虚拟蓝图调用原 `init_staff(damage, flags)`，其自动附加 `LONG` 长兵器标志；本批省略 flags，不等于有效标志为零，也不另加 EDGED。实例绑定该蓝图、隔离复合属性并执行一次 setup；未知 ID、外部直接带参克隆和重复初始化规则与其他类别一致。
+
+火枪、铁鞭、柴禾、吹火管仍保留原杖类行为，不按名称添加射击、鞭法、点火或吸烟能力。原材质、少林标记和数值照旧。两种化蛇杖、三处可燃树枝、烟筒、死亡销毁杖及伏魔杖共 8 份特殊对象保留原文件。
+
+钱正伦、道尘的资格、配额、库存、原持有检查及实例覆盖不变；副将五种兵器的选择分支和技能不变。南希仁仍只携带扁担，不额外持用。商店沿用原货表顺序和交易方法，房间沿用原陈设及刷新，不增加玩家玩法。部署前仍须预览备份，按需转换旧身份后配套冷启动，不仅是替换源码。
+
 ## 普通饮具
 
 `d/items/liquid.lpc` 继承原 `ITEM + F_LIQUID`，数据在 `liquid_data.h`，包含茶、水、酒、汤及其饮具，不按显示名称改变原类型。74 份旧定义经真实驱动核对后归为 54 个品种，保留原别名、描述、容量、初始余量、效果字段和 UID/EUID。玉蜂蜜的解毒回调留在 `d/gumu/obj/fengmi.c`，不纳入普通表。
@@ -119,7 +129,7 @@ fresh = new(base_name(drink));
 
 ## 存储边界
 
-背包入口识别十二张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余十类（含直接 EQUIP 和 HAMMER）的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
+背包入口识别十三张表已登记的精确虚拟路径，但这不等于存放资格。FOOD、LIQUID 继续给出原“食物饮水存背包里会变质”的提示并拒存，`store all` 也排除食物和饮具。其余十一类（含直接 EQUIP、HAMMER 和 STAFF）的穿戴/持用中、临时状态、`no_put/no_store`、独特物品、装有其他物品等拒存条件不变。不会无条件接纳虚拟对象或所有 `.lpc` 文件。存取沿用旧物品重建行为，不新增磨损或附魔状态快照，也不借迁移修订原存储规则。
 
 普通 CLOTH 未开启自动加载。旧乾坤袋的 `store/take` 命令本来已禁用，本次不重新启用；只为管理员确认需要保留的历史袋记录提供离线转换。
 
@@ -136,7 +146,7 @@ fresh = new(base_name(drink));
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。一次转换覆盖 **1,076 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十二张品种表，共 **617 个品种**，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。一次转换覆盖 **1,113 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十三张品种表，共 **649 个品种**，不读取历史映射。
 
 食物和饮具通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予存放资格，也不补录原来没有保存的液体余量或毒效；新建满液体不代表恢复了旧实例。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -279,3 +289,15 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --hammer --bench
 直接防具使用 `--equip --all` 对照全部 56 份定义及穿脱、交易、存取和盟主恢复；`--equip --bench` 独立对照 56 个来源、1,120 个实例，三轮旧新交替。此批还需 Git 历史 `beef12ea`。曾柔采用实际构造函数、货表和交易方法；其余 NPC 在隔离角色上按原顺序执行 40 条实际配装语句及原性别/初始加成，不代表无关任务或战斗完整验收。旧鞋靴夹具只在临时副本恢复冻结源码，现行能力检查改用 `/d/items/equip/xiuhuaxie`，仍断言无洗涤/撕布；旧审计按批次逐层核对调用，不改写历史快照。结果见 [EQUIP 验证报告](../../openspec/changes/refactor-data-driven-equipment/validation.md)。
 
 锤类使用 `--hammer --all` 对照全部 43 个来源及持用、交易、存取、实际消费者和盟主恢复；`--hammer --bench` 对照 43 个来源、860 个实例，三轮旧新交替。需 Git 历史 `95537906`。房间测试按原顺序执行实际陈设语句（保留后续覆盖），再调用原 ROOM 刷新；商店使用实际构造函数与 F_DEALER。武馆实际领取/作业/归还方法在可见测试角色上运行，随机数固定；独特兵器本体及命令派发使用测试替身，不声称完整战斗或独特兵器系统验收。实际结果见 [HAMMER 验证报告](../../openspec/changes/refactor-data-driven-hammers/validation.md)。
+
+杖类回归复用相同入口：
+
+```sh
+node --test tools/tests/test_staff_inventory.mjs
+node tools/tests/audit_staff_migration.mjs
+node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --staff
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --staff --all
+node tools/tests/test_cloth_objects.mjs bin/driver.exe --staff --bench
+```
+
+需要 Git 历史 `32f587a5`。功能测试覆盖 37 个来源、三个动态入口、九个商店、五处房间及 27 处携带/持用语句；商店与房间按原语句顺序在隔离角色上执行，复用实际 F_DEALER/ROOM 方法，其他 NPC 基础设施由测试替身隔离，不代表完整战斗和任务系统验收。性能在其余测试结束后单独运行，按同样来源各创建 20 次，共 740 实例，三组新旧交替；不启动正式服、不读取正式存档。实际结果见 [STAFF 验证报告](../../openspec/changes/refactor-data-driven-staves/validation.md)。

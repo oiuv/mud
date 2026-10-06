@@ -19,6 +19,7 @@ import { migrationPaths as liquidPaths, baseline as liquidBaseline } from './tes
 import { migrationPaths as bladePaths, baseline as bladeBaseline } from './tests/blade_inventory.mjs';
 import { migrationPaths as equipPaths, baseline as equipBaseline } from './tests/equip_inventory.mjs';
 
+import { migrationPaths as staffPaths, baseline as staffBaseline } from './tests/staff_inventory.mjs';
 import { migrationPaths as hammerPaths, baseline as hammerBaseline } from './tests/hammer_inventory.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -117,7 +118,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths(), ...staffPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -168,7 +169,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
         input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o', mengzhuFile] : 'listed_files_only',
         baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
-        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, liquid_baseline: liquidBaseline, blade_baseline: bladeBaseline, equip_baseline: equipBaseline, hammer_baseline: hammerBaseline, sandbox, files: [] };
+        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, liquid_baseline: liquidBaseline, blade_baseline: bladeBaseline, equip_baseline: equipBaseline, hammer_baseline: hammerBaseline, staff_baseline: staffBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')

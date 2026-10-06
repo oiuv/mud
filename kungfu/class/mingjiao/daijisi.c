@@ -86,7 +86,7 @@ void create() {
     }));
     setup();
     carry_object("/d/items/cloth/baipao2")->wear();
-    carry_object("/d/mingjiao/obj/muzhang")->wield();
+    carry_object("/d/items/staff/muzhang")->wield();
 
 }
 

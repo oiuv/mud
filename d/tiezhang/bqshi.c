@@ -15,7 +15,7 @@ LONG);
     set("objects", ([ /* sizeof() == 4 */
         "/d/items/blade/gangdao6": 1,
         "/d/items/sword/gangjian3": 1,
-        __DIR__ "obj/gangzhang": 1,
+        "/d/items/staff/gangzhang2": 1,
         __DIR__ "obj/changbian": 1,
     ]));
     set("no_clean_up", 0);

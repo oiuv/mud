@@ -54,7 +54,7 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/hongse_jiasha2")->wear();
-    carry_object("/d/tulong/yitian/npc/obj/tiezhang")->wield();
+    carry_object("/d/items/staff/jingtie_zhang")->wield();
 }
 void init() {
     object ob;

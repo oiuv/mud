@@ -54,7 +54,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/zhongzhou/npc/obj/zhaohun")->wield();
+    carry_object("/d/items/staff/zhaohun_fan")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 15);
 }

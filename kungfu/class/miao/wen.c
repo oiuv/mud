@@ -69,7 +69,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/zhongzhou/npc/obj/lingpai")->wield();
+    carry_object("/d/items/staff/tie_lingpai")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 15);
 }

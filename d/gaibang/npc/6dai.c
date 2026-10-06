@@ -66,6 +66,6 @@ void create() {
 
     setup();
 
-    carry_object(__DIR__ "obj/staff")->wield();
+    carry_object("/d/items/staff/zhubang3")->wield();
     carry_object("/d/items/cloth/po_buyi")->wear();
 }

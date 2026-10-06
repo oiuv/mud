@@ -25,7 +25,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/buyi")->wear();
-    carry_object("/d/quanzhen/npc/obj/stick")->wield();
+    carry_object("/d/items/staff/shouzhang")->wield();
 }
 
 string ask_me() {

@@ -1,3 +1,4 @@
+import { afterStaffMigration } from './staff_inventory.mjs';
 import { afterHammerMigration } from './hammer_inventory.mjs';
 import { afterEquipMigration } from "./equip_inventory.mjs";
 import { afterBladeMigration } from "./blade_inventory.mjs";
@@ -16,7 +17,7 @@ const data = readBaseline();
 assert.equal(data.varieties.length, 167); assert.equal(data.excluded.length, 17);
 assert.equal(data.hits.length, 186); assert.equal(Object.keys(data.callers).length, 100);
 for (const file of Object.keys(data.callers)) {
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic)), file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, expectedCaller(file), semantic), semantic), semantic), semantic), semantic), semantic)), file);
     assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller at baseline: ' + file);
     const paths = new Map();
     for (const hit of data.hits.filter(h => h.file === file)) {
@@ -35,7 +36,7 @@ for (const row of data.varieties) {
 for (const { file, source_hash } of data.excluded)
     assert.equal(createHash('sha256').update(readFileSync(join(root, file))).digest('hex'), source_hash, 'Special food changed: ' + file);
 for (const { file } of data.dynamic) if (!data.callers[file])
-    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, original(file), semantic), semantic), semantic), semantic), semantic)), 'Dynamic clue changed: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, afterBladeMigration(file, afterLiquidMigration(file, afterSwordMigration(file, original(file), semantic), semantic), semantic), semantic), semantic), semantic)), 'Dynamic clue changed: ' + file);
 assert.equal(canonicalGroups().length, 119);
 for (const group of canonicalGroups()) {
     const identity = row => {

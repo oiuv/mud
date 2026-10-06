@@ -12,7 +12,7 @@ LONG);
     ]));
     set("objects", ([
         "/d/gaibang/npc/5dai": 1,
-        "/d/gaibang/npc/obj/staff": 3,
+        "/d/items/staff/zhubang3": 3,
         "/clone/weapon/changjian": 2,
         "/clone/weapon/gangdao": 2,
     ]));

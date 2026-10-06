@@ -23,6 +23,6 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/hufa_jiasha")->wear();
-    carry_object(__DIR__ "obj/chuihuo")->wield();
+    carry_object("/d/items/staff/chuihuo_guan")->wield();
     add_money("coin", 50);
 }

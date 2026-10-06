@@ -19,7 +19,7 @@ void create() {
     set("vendor_goods", ({
         "/d/shaolin/obj/map",
         "/d/shaolin/obj/guide",
-        "/d/village/npc/obj/stick",
+        "/d/items/staff/shouzhang",
         "/d/village/npc/obj/shoes",
         "/d/items/liquid/shuihu2",
     }));

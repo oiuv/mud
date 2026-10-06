@@ -118,10 +118,13 @@ void check_actual_shops() {
     object actor, vendor, item;
     string prefix, name, path, target, id;
     string *goods, *original_goods;
-    mapping paths;
+    mapping paths, stock_paths;
     int before, tested;
 
     paths = json_decode(read_file("/tests/migration_paths.json"));
+    // Only the stock identity comparison includes the later STAFF migration.
+    // Purchase coverage below remains this HAMMER batch's original six goods.
+    stock_paths = paths + json_decode(read_file("/tests/staff-migration-paths.json"));
     actor = new("/tests/actor"); actor->move(this_object(), 1);
     foreach (name in ({ "smith", "wang" })) {
         original_goods = 0;
@@ -132,7 +135,7 @@ void check_actual_shops() {
             else {
                 check(sizeof(goods) == sizeof(original_goods), "real shop stock size unchanged");
                 foreach (path in original_goods) check(
-                    member_array(paths[path] ? paths[path] : path, goods) >= 0,
+                    member_array(stock_paths[path] ? stock_paths[path] : path, goods) >= 0,
                     "real shop stock identities"
                 );
             }

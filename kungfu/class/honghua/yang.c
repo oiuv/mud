@@ -75,7 +75,7 @@ void create() {
     setup();
 
     carry_object("/clone/misc/cloth")->wear();
-    carry_object("/d/kaifeng/npc/obj/tiebian")->wield();
+    carry_object("/d/items/staff/tiebian")->wield();
 }
 
 void attempt_apprentice(object me) {

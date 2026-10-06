@@ -1,3 +1,4 @@
+import { afterStaffMigration } from './staff_inventory.mjs';
 import { afterHammerMigration } from './hammer_inventory.mjs';
 // Strict frozen-source/caller/effective-identity audit; no live records.
 import assert from 'node:assert/strict';
@@ -15,7 +16,7 @@ assert.equal(data.hits.length, 102); assert.equal(new Set(data.hits.map(h => h.f
 assert.equal(data.dynamic.length, 7); assert.equal(Object.keys(data.callers).length, 85);
 if (!process.argv.includes('--baseline-only')) {
     for (const file of Object.keys(data.callers)) {
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterHammerMigration(file, afterEquipMigration(file, expectedCaller(file), semantic), semantic)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterStaffMigration(file, afterHammerMigration(file, afterEquipMigration(file, expectedCaller(file), semantic), semantic), semantic)), file);
         assert.deepEqual(semantic(data.callers[file]), semantic(original(file)), 'Frozen caller: ' + file);
         const paths = new Map();
         for (const hit of data.hits.filter(h => h.file === file)) {

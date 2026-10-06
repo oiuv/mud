@@ -13,7 +13,7 @@ LONG);
     set("objects", ([
         "/clone/weapon/zhujian": random(2),
         "/clone/weapon/gangdao": random(2),
-        __DIR__ "obj/mugun": random(2),
+        "/d/items/staff/mugun": random(2),
         "/d/items/hammer/falun": random(2),
     ]));
     setup();

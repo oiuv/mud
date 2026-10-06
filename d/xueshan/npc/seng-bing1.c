@@ -44,7 +44,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/xueshan/obj/senggun")->wield();
+    carry_object("/d/items/staff/senggun")->wield();
     carry_object("/d/items/cloth/heise_jiasha")->wear();
 }
 

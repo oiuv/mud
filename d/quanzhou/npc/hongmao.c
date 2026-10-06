@@ -21,7 +21,7 @@ void create() {
     set_temp("apply/damage", 30);
 
     setup();
-    carry_object(__DIR__ "obj/huoqiang")->wield();
+    carry_object("/d/items/staff/huoqiang")->wield();
 }
 
 void init() {

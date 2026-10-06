@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname, posix } from 'node:path';
 import { original, dynamicCallers } from '../blade_inventory.mjs';
 import { original as clothOriginal } from '../cloth_inventory.mjs';
+import { original as staffOriginal } from '../staff_inventory.mjs';
 import { original as liquidOriginal } from '../liquid_inventory.mjs';
 
 export function prepareBlade(root, sandbox, copy) {
@@ -34,8 +35,9 @@ export function prepareBlade(root, sandbox, copy) {
     put('adm/daemons/rankd.c', 'string query_respect(object who) { return "这位朋友"; }\n');
     // Old supplier branches still reference the physical drink in this disposable fixture.
     put('d/shaolin/obj/qingshui-hulu.c', liquidOriginal('d/shaolin/obj/qingshui-hulu.c'));
+    // Historical dynamic branch exists only in this disposable old-version fixture.
+    put('d/changan/npc/obj/gangzhang.c', staffOriginal('d/changan/npc/obj/gangzhang.c'));
     for (const file of ['cmds/std/wield.c', 'cmds/std/unwield.c',
-        'd/changan/npc/obj/gangzhang.c',
         'd/changan/npc/obj/changbian.c', 'd/changan/npc/obj/axe.c',
         'd/shaolin/obj/qimeigun.c']) copy(file);
     const actor = join(sandbox, 'tests/actor.lpc');

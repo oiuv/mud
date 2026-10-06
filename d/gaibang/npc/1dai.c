@@ -52,7 +52,7 @@ void create() {
     setup();
 
     if (random(3) > 1)
-        carry_object(__DIR__ "obj/staff")->wield();
+        carry_object("/d/items/staff/zhubang3")->wield();
 
     carry_object("/d/items/cloth/po_buyi")->wear();
 }

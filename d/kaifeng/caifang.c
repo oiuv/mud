@@ -9,7 +9,7 @@ void create() {
 LONG);
 
     set("objects", ([
-        __DIR__ "npc/obj/chaihe1": 1,
+        "/d/items/staff/chaihe": 1,
     ]));
 
     set("no_clean_up", 0);

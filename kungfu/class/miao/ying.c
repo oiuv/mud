@@ -54,7 +54,7 @@ LONG);
 
     setup();
 
-    carry_object("/d/zhongzhou/npc/obj/kusang")->wield();
+    carry_object("/d/items/staff/kusang_bang")->wield();
     carry_object("/clone/misc/cloth")->wear();
     add_money("silver", 15);
 }

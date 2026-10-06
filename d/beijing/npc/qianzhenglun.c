@@ -105,6 +105,8 @@ int do_yao(string arg) {
         obj = new("/d/items/blade/gangdao");
     else if (arg == "hammer")
         obj = new("/d/items/hammer/tiechui");
+    else if (arg == "staff")
+        obj = new("/d/items/staff/chanzhang");
     else if (arg == "feet")
         obj = new("/d/items/boots/zhanxue");
     else if (arg == "helmet")

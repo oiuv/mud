@@ -18,7 +18,7 @@ void create() {
     set("attitude", "friendly");
     set("vendor_goods", ({
         "/d/xiyu/obj/fire",
-        "/d/quanzhen/npc/obj/stick",
+        "/d/items/staff/shouzhang",
         "/d/items/liquid/shuihu2",
         "/d/items/food/chayedan",
     }));

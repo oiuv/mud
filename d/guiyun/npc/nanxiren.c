@@ -62,7 +62,7 @@ void create() {
     ]));
 
     setup();
-    carry_object(__DIR__ "obj/biandan");
+    carry_object("/d/items/staff/biandan");
     carry_object(__DIR__ "obj/axe")->wield();
     carry_object("/d/items/cloth/qing_buyi")->wear();
 }

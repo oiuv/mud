@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync, cpSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { original, readBaseline } from '../hammer_inventory.mjs';
+import { readBaseline as staffBaseline, migrationPaths as staffPaths } from '../staff_inventory.mjs';
 import { tokens } from '../cloth_inventory.mjs';
 
 export function prepareBusiness(root, sandbox) {
@@ -16,6 +17,7 @@ export function prepareBusiness(root, sandbox) {
         return source.slice(start, end);
     };
     const read = file => readFileSync(join(root, file), 'utf8');
+    put('tests/staff-migration-paths.json', JSON.stringify(staffPaths()));
     const actor = join(sandbox, 'tests/actor.lpc');
     writeFileSync(actor, readFileSync(actor, 'utf8') + '\n'
         + 'int return_tool(string id) { return selected_npc->accept_object(this_object(), present(id, this_object())); }\n'
@@ -64,7 +66,9 @@ export function prepareBusiness(root, sandbox) {
     put('d/meizhuang/obj/qizi.c', read('d/meizhuang/obj/qizi.c'));
     for (let i = 1; i <= 39; i++) {
         if ([6, 7, 8, 9, 11, 12].includes(i)) continue;
-        put('d/death/obj/weapon' + i + '.c', read('d/death/obj/weapon' + i + '.c'));
+        const file = 'd/death/obj/weapon' + i;
+        const frozen = staffBaseline().varieties.find(row => row.old_path === '/' + file);
+        put(file + '.c', frozen ? frozen.source : read(file + '.c'));
     }
     for (const [name, action] of [['guofu_caidi1', 'chu'], ['guofu_caidi2', 'jiao'], ['guofu_mafang', 'sao']])
         put('tests/' + action + '.lpc', '#include <ansi.h>\ninherit ITEM;\n#define random(n) 0\n'
