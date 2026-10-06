@@ -16,8 +16,8 @@ void create() {
     set("attitude", "friendly");
     set("per", 25);
     set("vendor_goods", ({
-        __DIR__ "obj/book_blade",
-        __DIR__ "obj/book_unarmed",
+        "/d/items/book/daofa_jianjie",
+        "/d/items/book/quanfa_jianjie",
     }));
 
     setup();

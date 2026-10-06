@@ -1,5 +1,6 @@
 // Ordinary CLUB inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { afterBookMigration } from './book_inventory.mjs';
 import { correctedItemText } from './item_text_corrections.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -79,9 +80,11 @@ export function expectedCaller(file) {
 }
 export function afterClubMigration(file, expected, compare) {
     const data = readBaseline();
-    if (!data.callers[file]) return expected;
-    assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected CLUB baseline overlap: ' + file);
-    return expectedCaller(file);
+    if (data.callers[file]) {
+        assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected CLUB baseline overlap: ' + file);
+        expected = expectedCaller(file);
+    }
+    return afterBookMigration(file, expected, compare);
 }
 export function correctedClubText(id, key, value) {
     if (key === '"long"' && id === 'qimei_gun') return value.replace('白腊棍', '白蜡棍');

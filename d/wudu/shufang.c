@@ -12,7 +12,7 @@ LONG);
     ]));
 
     set("objects", ([
-        __DIR__ "obj/book2": 1,
+        "/d/items/book/chaizhao_mishu": 1,
     ]));
 
     setup();

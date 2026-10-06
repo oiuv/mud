@@ -1,8 +1,8 @@
 inherit ROOM;
 string *books = ({
-    __DIR__ "obj/book-bamboo",
-    __DIR__ "obj/book-silk",
-    __DIR__ "obj/book-stone",
+    "/d/items/book/zhu_pian",
+    "/d/items/book/bojuan",
+    "/d/items/book/shiban",
     __DIR__ "obj/book-iron",
 });
 

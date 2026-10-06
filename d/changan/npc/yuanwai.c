@@ -121,6 +121,6 @@ void cry_daughter(object me, object xiangxiang, object who, object yupei) {
         "救我儿湘湘逃出魔掌！老夫这里有一本书，\n是"
         "祖上传下来的，就送给" + RANK_D->query_respect(who) +
         "吧！\n");
-    carry_object(__DIR__ "obj/book");
+    carry_object("/d/items/book/baibian_shentong");
     command("give book to " + who->query("id"));
 }

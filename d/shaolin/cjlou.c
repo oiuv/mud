@@ -18,8 +18,8 @@ LONG);
     set("objects", ([
         CLASS_D("shaolin") + "/dao-yi": 1,
         CLASS_D("shaolin") + "/wuming": 1,
-        "d/shaolin/obj/fojing1" + random(2): 1,
-        "d/shaolin/obj/fojing2" + random(2): 1,
+        ({ "/d/items/book/fojing1", "/d/items/book/fojing1" })[random(2)]: 1,
+        ({ "/d/items/book/fojing5", "/d/items/book/fojing5" })[random(2)]: 1,
     ]));
     setup();
 }

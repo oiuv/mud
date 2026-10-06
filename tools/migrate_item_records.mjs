@@ -1,4 +1,5 @@
 import { migrationPaths as clubPaths, baseline as clubBaseline } from './tests/club_inventory.mjs';
+import { migrationPaths as bookPaths, baseline as bookBaseline } from './tests/book_inventory.mjs';
 import { migrationPaths as throwingPaths, baseline as throwingBaseline } from './tests/throwing_inventory.mjs';
 import { migrationPaths as daggerPaths, baseline as daggerBaseline } from './tests/dagger_inventory.mjs';
 import { migrationPaths as whipPaths, baseline as whipBaseline } from './tests/whip_inventory.mjs';
@@ -122,7 +123,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
         return { entry, path, bytes, text, match, value: match?.[1] ?? '0' };
     });
     const baseline = JSON.parse(readFileSync(join(root, 'tools/tests/cloth/baseline.json'), 'utf8'));
-    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths(), ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths(), ...clubPaths() };
+    const paths = { ...clothPaths(), ...bootsPaths(), ...headwearPaths(), ...handsPaths(), ...neckPaths(), ...wristsPaths(), ...foodPaths(), ...swordPaths(), ...liquidPaths(), ...bladePaths(), ...equipPaths(), ...hammerPaths(), ...staffPaths(), ...whipPaths(), ...daggerPaths(), ...throwingPaths(), ...clubPaths(), ...bookPaths() };
     // No game config, sockets, player objects, or runtime data are loaded here.
     const sandbox = mkdtempSync(join(tmpdir(), 'mud-item-migration-'));
     mkdirSync(join(sandbox, 'log'));
@@ -173,7 +174,7 @@ async function convertRecords(manifest, input, driver, output, inputMode) {
     const report = { mode: output ? 'copy' : 'preview', status: 'checked',
         input_mode: inputMode, input, coverage: inputMode === 'backup_root' ? ['user/**/*.o', 'shop/**/*.o', mengzhuFile] : 'listed_files_only',
         baseline: baseline.baseline, boots_baseline: bootsBaseline, headwear_baseline: headwearBaseline,
-        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, liquid_baseline: liquidBaseline, blade_baseline: bladeBaseline, equip_baseline: equipBaseline, hammer_baseline: hammerBaseline, staff_baseline: staffBaseline, whip_baseline: whipBaseline, dagger_baseline: daggerBaseline, throwing_baseline: throwingBaseline, club_baseline: clubBaseline, sandbox, files: [] };
+        hands_baseline: handsBaseline, neck_baseline: neckBaseline, wrists_baseline: wristsBaseline, food_baseline: foodBaseline, sword_baseline: swordBaseline, liquid_baseline: liquidBaseline, blade_baseline: bladeBaseline, equip_baseline: equipBaseline, hammer_baseline: hammerBaseline, staff_baseline: staffBaseline, whip_baseline: whipBaseline, dagger_baseline: daggerBaseline, throwing_baseline: throwingBaseline, club_baseline: clubBaseline, book_baseline: bookBaseline, sandbox, files: [] };
     const converted = files.map((file, i) => {
         const value = results[i];
         if (!Number.isSafeInteger(value.changes) || value.changes < 0 || typeof value.value !== 'string')

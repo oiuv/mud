@@ -81,7 +81,7 @@ string ask_me() {
         return "你来晚了，道德经已经被人取走了。";
 
     add("book_count", -1);
-    ob = new(__DIR__ "obj/daodejing-i");
+    ob = new("/d/items/book/daodejing1");
     ob->move(this_player());
     return "好吧，这本「道德经」你拿去好好研读，不懂的地方可以来问我。";
 

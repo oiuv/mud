@@ -10,8 +10,8 @@ void create() {
 LONG);
     set("objects", ([
         CLASS_D("emei") + "/daoming": 1,
-        __DIR__ "obj/fojing1" + random(2): 1,
-        __DIR__ "obj/fojing2" + random(2): 1,
+        ({ "/d/items/book/fojing1", "/d/items/book/fojing2" })[random(2)]: 1,
+        ({ "/d/items/book/fojing3", "/d/items/book/fojing4" })[random(2)]: 1,
     ]));
     set("exits", ([
         "south": __DIR__ "dxdian",

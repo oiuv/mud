@@ -21,7 +21,7 @@ LONG);
     set("valid_startroom", 1);
     set("objects", ([
         CLASS_D("shaolin") + "/qing-yuan": 1,
-        "d/shaolin/obj/fojing1" + random(2): 1,
+        ({ "/d/items/book/fojing1", "/d/items/book/fojing1" })[random(2)]: 1,
     ]));
     //    set("no_clean_up", 0);
     setup();

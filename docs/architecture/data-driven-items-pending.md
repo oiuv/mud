@@ -2,15 +2,15 @@
 
 ## 范围与口径
 
-核对日期：2026-10-06。以普通棍类批次实施后的当前源码为准。用户已反馈本批 `updateall /` 全量编译成功，共 **10,061** 个档案，比上一批暗器的 10,078 个减少 17。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
+核对日期：2026-10-06。以普通研读物批次实施后的源码为准。本批离线全库编译为 **10,023/10,023，零 LPC 警告/错误**；用户另反馈游戏内 `updateall /` 成功，共 **10,026** 个档案，两种扫描计数分别记录。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
 
-覆盖已建立 `d/items/*_data.h` 的 **17 个分类**，按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
+覆盖已建立 `d/items/*_data.h` 的 **18 个分类**，按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
 
-目前共有 **259 个不同实体源码文件**：
+目前共有 **461 个不同实体源码文件**：
 
-- **/d 内 63 个**：原普通物品批次保留的特殊行为或初始化差异，下文逐项记录原因。
-- **其他目录 196 个**：`clone/` 184、`b/` 10、`kungfu/` 2，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
-- 其中 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个），两类表均列出，**分类合计 275 项，去重文件数 259**。
+- **/d 内 78 个**：原普通物品批次保留的特殊行为或初始化差异，以及本批补充识别的自定义研读物，下文逐项记录原因。
+- **其他目录 383 个**：`clone/` 366、`b/` 10、`kungfu/` 2、`u/` 5，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
+- 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个）；另有 17 件研读物交叉属于 CLOTH（5）、HANDS（2）或 SWORD（10），其中 /d 内 2 件、clone 内 15 件。各表均登记，**分类合计 494 项，去重文件数 461**。
 
 “初始化候选”只表示当前文件仅见构造初始化、尚未完成迁移评估，不承诺与现有品种等价；还需检查调用者、属性覆盖、持久记录及跨目录 UID/EUID。特殊物品也不是永久禁止数据化，但不得为塞入普通数据表丢掉玩法或放开克隆限制。
 
@@ -35,6 +35,7 @@
 | 短兵器 `DAGGER` | 1 | 4 | 5 |
 | 暗器 `THROWING` | 6 | 12 | 18 |
 | 棍类 `CLUB` | 1 | 7 | 8 |
+| 研读物 `ITEM / BOOK / 自定义阅读` | 17 | 202 | 219 |
 
 ## 后续维护要求
 
@@ -519,3 +520,245 @@
 | 齐眉棍 | [clone/weapon/qimeigun.c](../../clone/weapon/qimeigun.c) | 初始化候选，value=200，不等同本批 value=50 的 qimei_gun。 |
 | 圣骑士戟 | [clone/weapon/qishiji.c](../../clone/weapon/qishiji.c) | 初始化候选，银材质、重量 30000，保留真实差异。 |
 | 铁棍 | [clone/weapon/tiegun.c](../../clone/weapon/tiegun.c) | 初始化候选，实际直接 CLUB；注释中的 STAFF 不计作继承。 |
+
+## 研读物（ITEM / BOOK / 自定义阅读）
+
+本批只迁移 36 份普通 ITEM 定义，归为 28 个品种。剩余扫描不仅查 `skill` 属性，还覆盖 BOOK、MEDICAL_BOOK、`do_read/do_du/do_study`、本地头文件及静态继承，避免漏掉天书、医书和穿戴式秘籍。扫描入口为 `node tools/tests/book_remaining_inventory.mjs`；它只读源码，不读取存档或调用模型。
+
+### /d 内保留（17）
+
+前期 skill 属性初筛明确保留的 5 件物品：
+
+| 物品名称 | 源码 | 特殊行为 / 暂缓原因 |
+| --- | --- | --- |
+| 千字文 | [d/city/npc/obj/lbook3.c](../../d/city/npc/obj/lbook3.c) | `query_autoload()` 自动携带；普通 ITEM 表不新增自动保存生命周期。 |
+| 「紫盖剑谱」 | [d/hengyang/obj/zigai-book.c](../../d/hengyang/obj/zigai-book.c) | 创建克隆立即自毁，不能迁成可任意克隆的普通剑谱。 |
+| 两仪剑心得 | [d/kunlun/obj/lyj-book.c](../../d/kunlun/obj/lyj-book.c) | `init/do_study` 自定义研读和精力、技能进步公式。 |
+| 铁手掌 | [d/lingxiao/obj/book-iron.c](../../d/lingxiao/obj/book-iron.c) | HANDS 装备兼作研读物；`init/do_study` 在战斗中学习，已在手部装备交叉登记。 |
+| 「毒经上篇」 | [d/wudu/obj/dujing1.c](../../d/wudu/obj/dujing1.c) | `init/do_read` 展示药方；不是只有 skill 属性的普通书籍。 |
+
+补充阅读入口清点发现另 12 件，均有自定义阅读、研究、唯一物品或装备行为；只补台账，不扩大本批迁移范围：
+
+| 物品名称 | 源码 | 特殊行为 / 暂缓原因 |
+| --- | --- | --- |
+| 「扇赏」 | [d/city/npc/shanzi/shan-book.c](../../d/city/npc/shanzi/shan-book.c) | `init / do_read`。 |
+| 「狐仙」 | [d/hengyang/yueqi/huxian-book.c](../../d/hengyang/yueqi/huxian-book.c) | `init / do_read`。 |
+| 「古乐谱篇」 | [d/hengyang/yueqi/yuepu-book.c](../../d/hengyang/yueqi/yuepu-book.c) | `init / do_read`。 |
+| 「古乐器篇」 | [d/hengyang/yueqi/yueqi-book.c](../../d/hengyang/yueqi/yueqi-book.c) | `init / do_read`。 |
+| 「武穆遗书」 | [d/tiezhang/obj/wumu-yishu.c](../../d/tiezhang/obj/wumu-yishu.c) | `init / do_du`。 |
+| 铁掌掌谱 | [d/tiezhang/obj/zhangpu.c](../../d/tiezhang/obj/zhangpu.c) | `setup / init / do_du`。 |
+| 降龙十八掌秘笈 | [d/tulong/obj/miji.c](../../d/tulong/obj/miji.c) | `F_UNIQUE`；`setup / init / do_du`。 |
+| 武穆遗书 | [d/tulong/obj/yishu.c](../../d/tulong/obj/yishu.c) | `F_UNIQUE`；`setup / init / do_du`。 |
+| 九阴真经 | [d/tulong/obj/zhenjing.c](../../d/tulong/obj/zhenjing.c) | `F_UNIQUE`；`setup / init / do_du`。 |
+| 圣火令 | [d/tulong/tulong/obj/ling1.c](../../d/tulong/tulong/obj/ling1.c) | `SWORD`；`init / do_du`。 |
+| 千蛛万毒手秘笈 | [d/wudu/obj/qianzhumiji.c](../../d/wudu/obj/qianzhumiji.c) | `F_UNIQUE`；`setup / init / do_du / do_yanjiu / suck / zhugu / wan`。 |
+| 铜牌 | [d/wudu/obj/tongpai.c](../../d/wudu/obj/tongpai.c) | `setup / init / do_read`。 |
+
+### 其他目录待评估（202）
+
+`clone/` 197 件、`u/` 5 件，均不纳入当前迁移。普通初始化候选也不等于相同物品，须分别核对学习、展示及恢复。医书通过 `<medical.h>` 继承 `/inherit/item/medical-book`，其 setup、药方阅读和学习状态不能只搬属性；`u/` 经典阅读物还包含 HTTP/socket 查询，需单独评估。下表注明可见回调，未据此宣称全部运行路径已验收。
+
+| 物品名称 | 源码 | 特殊行为 / 暂缓原因 |
+| --- | --- | --- |
+| 十八泥偶 | [clone/book/18niou.c](../../clone/book/18niou.c) | BOOK 父类显示/研读能力；含自毁路径；`init / do_nie`。 |
+| 刀法详解 | [clone/book/advance-blade.c](../../clone/book/advance-blade.c) | BOOK 父类显示/研读能力。 |
+| 短兵详解 | [clone/book/advance-dagger.c](../../clone/book/advance-dagger.c) | BOOK 父类显示/研读能力。 |
+| 轻功详解 | [clone/book/advance-dodge.c](../../clone/book/advance-dodge.c) | BOOK 父类显示/研读能力。 |
+| 内功详解 | [clone/book/advance-force.c](../../clone/book/advance-force.c) | BOOK 父类显示/研读能力。 |
+| 招架详解 | [clone/book/advance-parry.c](../../clone/book/advance-parry.c) | BOOK 父类显示/研读能力。 |
+| 杖法详解 | [clone/book/advance-staff.c](../../clone/book/advance-staff.c) | BOOK 父类显示/研读能力。 |
+| 剑法详解 | [clone/book/advance-sword.c](../../clone/book/advance-sword.c) | BOOK 父类显示/研读能力。 |
+| 暗器详解 | [clone/book/advance-throwing.c](../../clone/book/advance-throwing.c) | BOOK 父类显示/研读能力。 |
+| 拳脚详解 | [clone/book/advance-unarmed.c](../../clone/book/advance-unarmed.c) | BOOK 父类显示/研读能力。 |
+| 鞭法详解 | [clone/book/advance-whip.c](../../clone/book/advance-whip.c) | BOOK 父类显示/研读能力。 |
+| 「河图」 | [clone/book/bagua0.c](../../clone/book/bagua0.c) | BOOK 父类显示/研读能力。 |
+| 「洛书」 | [clone/book/bagua1.c](../../clone/book/bagua1.c) | BOOK 父类显示/研读能力。 |
+| 刀法入门 | [clone/book/basic-blade.c](../../clone/book/basic-blade.c) | BOOK 父类显示/研读能力。 |
+| 短兵入门 | [clone/book/basic-dagger.c](../../clone/book/basic-dagger.c) | BOOK 父类显示/研读能力。 |
+| 轻功入门 | [clone/book/basic-dodge.c](../../clone/book/basic-dodge.c) | BOOK 父类显示/研读能力。 |
+| 内功入门 | [clone/book/basic-force.c](../../clone/book/basic-force.c) | BOOK 父类显示/研读能力。 |
+| 招架入门 | [clone/book/basic-parry.c](../../clone/book/basic-parry.c) | BOOK 父类显示/研读能力。 |
+| 杖法入门 | [clone/book/basic-staff.c](../../clone/book/basic-staff.c) | BOOK 父类显示/研读能力。 |
+| 剑法入门 | [clone/book/basic-sword.c](../../clone/book/basic-sword.c) | BOOK 父类显示/研读能力。 |
+| 暗器入门 | [clone/book/basic-throwing.c](../../clone/book/basic-throwing.c) | BOOK 父类显示/研读能力。 |
+| 拳脚入门 | [clone/book/basic-unarmed.c](../../clone/book/basic-unarmed.c) | BOOK 父类显示/研读能力。 |
+| 鞭法入门 | [clone/book/basic-whip.c](../../clone/book/basic-whip.c) | BOOK 父类显示/研读能力。 |
+| 胡家刀谱 | [clone/book/blade-book.c](../../clone/book/blade-book.c) | BOOK 父类显示/研读能力。 |
+| 帛卷 | [clone/book/bojuan.c](../../clone/book/bojuan.c) | BOOK 父类显示/研读能力；`init / do_study`。 |
+| 旧竹片 | [clone/book/book-bamboo.c](../../clone/book/book-bamboo.c) | BOOK 父类显示/研读能力。 |
+| 铁手掌 | [clone/book/book-iron.c](../../clone/book/book-iron.c) | HANDS 复合身份；`init / do_study`。 |
+| 易筋经文学篇 | [clone/book/book-paper.c](../../clone/book/book-paper.c) | BOOK 父类显示/研读能力。 |
+| 薄绢 | [clone/book/book-silk.c](../../clone/book/book-silk.c) | BOOK 父类显示/研读能力。 |
+| 石板 | [clone/book/book-stone.c](../../clone/book/book-stone.c) | BOOK 父类显示/研读能力。 |
+| 意形步法 | [clone/book/bufa.c](../../clone/book/bufa.c) | BOOK 父类显示/研读能力。 |
+| 道德经「上卷」 | [clone/book/daodejing-i.c](../../clone/book/daodejing-i.c) | BOOK 父类显示/研读能力。 |
+| 道德经「下卷」 | [clone/book/daodejing-ii.c](../../clone/book/daodejing-ii.c) | BOOK 父类显示/研读能力。 |
+| 道德经 | [clone/book/daodejing.c](../../clone/book/daodejing.c) | BOOK 父类显示/研读能力。 |
+| 斗转星移 | [clone/book/douzhuan-book.c](../../clone/book/douzhuan-book.c) | BOOK 父类显示/研读能力。 |
+| 『星宿毒经〖上册〗』 | [clone/book/dujing_1.c](../../clone/book/dujing_1.c) | BOOK 父类显示/研读能力。 |
+| 『星宿毒经〖下册〗』 | [clone/book/dujing_2.c](../../clone/book/dujing_2.c) | BOOK 父类显示/研读能力。 |
+| 刀法秘要 | [clone/book/expert-blade.c](../../clone/book/expert-blade.c) | BOOK 父类显示/研读能力。 |
+| 短兵秘要 | [clone/book/expert-dagger.c](../../clone/book/expert-dagger.c) | BOOK 父类显示/研读能力。 |
+| 轻功秘要 | [clone/book/expert-dodge.c](../../clone/book/expert-dodge.c) | BOOK 父类显示/研读能力。 |
+| 内功秘要 | [clone/book/expert-force.c](../../clone/book/expert-force.c) | BOOK 父类显示/研读能力。 |
+| 招架秘要 | [clone/book/expert-parry.c](../../clone/book/expert-parry.c) | BOOK 父类显示/研读能力。 |
+| 杖法秘要 | [clone/book/expert-staff.c](../../clone/book/expert-staff.c) | BOOK 父类显示/研读能力。 |
+| 剑法秘要 | [clone/book/expert-sword.c](../../clone/book/expert-sword.c) | BOOK 父类显示/研读能力。 |
+| 暗器秘要 | [clone/book/expert-throwing.c](../../clone/book/expert-throwing.c) | BOOK 父类显示/研读能力。 |
+| 拳脚秘要 | [clone/book/expert-unarmed.c](../../clone/book/expert-unarmed.c) | BOOK 父类显示/研读能力。 |
+| 鞭法秘要 | [clone/book/expert-whip.c](../../clone/book/expert-whip.c) | BOOK 父类显示/研读能力。 |
+| 太极十三式 | [clone/book/force_book.c](../../clone/book/force_book.c) | BOOK 父类显示/研读能力。 |
+| 鬼谷神算 | [clone/book/guigu.c](../../clone/book/guigu.c) | BOOK 父类显示/研读能力。 |
+| 手法总谱 | [clone/book/hand_book.c](../../clone/book/hand_book.c) | BOOK 父类显示/研读能力。 |
+| 胡家刀谱总决 | [clone/book/hujia-book.c](../../clone/book/hujia-book.c) | BOOK 父类显示/研读能力。 |
+| 「金蛇秘芨」上册 | [clone/book/jinshe1.c](../../clone/book/jinshe1.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「金蛇秘芨」中册 | [clone/book/jinshe2.c](../../clone/book/jinshe2.c) | BOOK 父类显示/研读能力；`F_UNIQUE`；`setup`。 |
+| 「金蛇秘芨」下册 | [clone/book/jinshe3.c](../../clone/book/jinshe3.c) | BOOK 父类显示/研读能力；`F_UNIQUE`；`setup`。 |
+| 金雁图谱 | [clone/book/jinyantu.c](../../clone/book/jinyantu.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「九阳真经」 | [clone/book/jiuyang-book.c](../../clone/book/jiuyang-book.c) | BOOK 父类显示/研读能力；`F_UNIQUE`；`query_autoload`。 |
+| 「九阴真经」上册 | [clone/book/jiuyin1.c](../../clone/book/jiuyin1.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「九阴真经」下册 | [clone/book/jiuyin2.c](../../clone/book/jiuyin2.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「九阴真经」残本 | [clone/book/jiuyin3.c](../../clone/book/jiuyin3.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「九章算术」 | [clone/book/jiuzhang.c](../../clone/book/jiuzhang.c) | BOOK 父类显示/研读能力。 |
+| 「葵花宝典」 | [clone/book/kuihua.c](../../clone/book/kuihua.c) | CLOTH 复合身份；含自毁路径；`init / do_du`。 |
+| 道德经「第一章」 | [clone/book/laozi1.c](../../clone/book/laozi1.c) | BOOK 父类显示/研读能力。 |
+| 道德经「第十三章」 | [clone/book/laozi13.c](../../clone/book/laozi13.c) | BOOK 父类显示/研读能力。 |
+| 道德经「第十六章」 | [clone/book/laozi16.c](../../clone/book/laozi16.c) | BOOK 父类显示/研读能力。 |
+| 道德经「第十八章」 | [clone/book/laozi18.c](../../clone/book/laozi18.c) | BOOK 父类显示/研读能力。 |
+| 道德经「第二章」 | [clone/book/laozi2.c](../../clone/book/laozi2.c) | BOOK 父类显示/研读能力。 |
+| 道德经「第八章」 | [clone/book/laozi8.c](../../clone/book/laozi8.c) | BOOK 父类显示/研读能力。 |
+| 「唐诗选辑」 | [clone/book/lbook0.c](../../clone/book/lbook0.c) | BOOK 父类显示/研读能力。 |
+| 「三字经」 | [clone/book/lbook1.c](../../clone/book/lbook1.c) | BOOK 父类显示/研读能力。 |
+| 「百家姓」 | [clone/book/lbook2.c](../../clone/book/lbook2.c) | BOOK 父类显示/研读能力。 |
+| 「千字文」 | [clone/book/lbook3.c](../../clone/book/lbook3.c) | BOOK 父类显示/研读能力。 |
+| 「论语」 | [clone/book/lbook4.c](../../clone/book/lbook4.c) | BOOK 父类显示/研读能力。 |
+| 「子张心得」 / 「子路心得」 / 「子贡心得」 / 「子夏心得」 | [clone/book/lbook5.c](../../clone/book/lbook5.c) | BOOK 父类显示/研读能力。 |
+| 圣火令 | [clone/book/ling1.c](../../clone/book/ling1.c) | `SWORD`；含自毁路径。 |
+| 圣火令 | [clone/book/ling2.c](../../clone/book/ling2.c) | `F_UNIQUE`；`SWORD`；含自毁路径。 |
+| 圣火令 | [clone/book/ling3.c](../../clone/book/ling3.c) | `F_UNIQUE`；`SWORD`；含自毁路径。 |
+| 天山六阳掌法图上册 | [clone/book/liuyang_book1.c](../../clone/book/liuyang_book1.c) | BOOK 父类显示/研读能力。 |
+| 天山六阳掌法图下册 | [clone/book/liuyang_book2.c](../../clone/book/liuyang_book2.c) | BOOK 父类显示/研读能力。 |
+| 「本草纲目」 | [clone/book/mbook1.c](../../clone/book/mbook1.c) | BOOK 父类显示/研读能力。 |
+| 「黄帝内经」 | [clone/book/mbook2.c](../../clone/book/mbook2.c) | BOOK 父类显示/研读能力。 |
+| 「华佗内昭图」 | [clone/book/mbook3.c](../../clone/book/mbook3.c) | BOOK 父类显示/研读能力。 |
+| 「千金方」 | [clone/book/mbook4.c](../../clone/book/mbook4.c) | BOOK 父类显示/研读能力。 |
+| 「千斤翼」 | [clone/book/mbook5.c](../../clone/book/mbook5.c) | BOOK 父类显示/研读能力。 |
+| 「外台秘要」 | [clone/book/mbook6.c](../../clone/book/mbook6.c) | BOOK 父类显示/研读能力。 |
+| 「孟子」 | [clone/book/mengzi.c](../../clone/book/mengzi.c) | BOOK 父类显示/研读能力。 |
+| 密宗心经 | [clone/book/mizong_book.c](../../clone/book/mizong_book.c) | BOOK 父类显示/研读能力。 |
+| 招架入门 | [clone/book/parry_book.c](../../clone/book/parry_book.c) | BOOK 父类显示/研读能力。 |
+| 辟邪剑谱 | [clone/book/pixie_book.c](../../clone/book/pixie_book.c) | BOOK 父类显示/研读能力；`query_autoload`。 |
+| 羊皮 | [clone/book/qiankun_book.c](../../clone/book/qiankun_book.c) | BOOK 父类显示/研读能力；`setup`。 |
+| 天羽奇剑剑谱 | [clone/book/qijianpu.c](../../clone/book/qijianpu.c) | BOOK 父类显示/研读能力。 |
+| 琴谱 | [clone/book/qin.c](../../clone/book/qin.c) | BOOK 父类显示/研读能力。 |
+| 拳脚总诀 | [clone/book/quanpu.c](../../clone/book/quanpu.c) | BOOK 父类显示/研读能力。 |
+| 群星璀璨图 | [clone/book/qunxing-tu.c](../../clone/book/qunxing-tu.c) | BOOK 父类显示/研读能力。 |
+| 神照经 | [clone/book/shenzhaojing.c](../../clone/book/shenzhaojing.c) | BOOK 父类显示/研读能力。 |
+| 神龙八式手法 | [clone/book/shoufa.c](../../clone/book/shoufa.c) | BOOK 父类显示/研读能力。 |
+| 淑女剑谱 | [clone/book/shunv_book.c](../../clone/book/shunv_book.c) | BOOK 父类显示/研读能力。 |
+| 六脉神剑谱 | [clone/book/six_book.c](../../clone/book/six_book.c) | BOOK 父类显示/研读能力；`skl_name`。 |
+| 羊皮卷轴 | [clone/book/skin-hammer.c](../../clone/book/skin-hammer.c) | BOOK 父类显示/研读能力。 |
+| 羊皮书 | [clone/book/skin.c](../../clone/book/skin.c) | BOOK 父类显示/研读能力。 |
+| 杖法通解 | [clone/book/staff_book.c](../../clone/book/staff_book.c) | BOOK 父类显示/研读能力。 |
+| 掌法总谱 | [clone/book/strike_book.c](../../clone/book/strike_book.c) | BOOK 父类显示/研读能力。 |
+| 一阳指诀 | [clone/book/sun_book.c](../../clone/book/sun_book.c) | BOOK 父类显示/研读能力。 |
+| 华山剑谱 | [clone/book/sword_book.c](../../clone/book/sword_book.c) | BOOK 父类显示/研读能力。 |
+| 华山剑谱 | [clone/book/sword_book2.c](../../clone/book/sword_book2.c) | BOOK 父类显示/研读能力。 |
+| 桃花药术 | [clone/book/taohua.c](../../clone/book/taohua.c) | MEDICAL_BOOK 医书行为。 |
+| 天山器法 | [clone/book/throw_book.c](../../clone/book/throw_book.c) | BOOK 父类显示/研读能力。 |
+| 天魔诀 | [clone/book/tianmo_book.c](../../clone/book/tianmo_book.c) | BOOK 父类显示/研读能力。 |
+| 风云手手法 / 如来千叶手手法 / 大金刚拳法 / 罗汉拳法 / 般若掌法 / 散花掌法 | [clone/book/wuji1.c](../../clone/book/wuji1.c) | BOOK 父类显示/研读能力。 |
+| 龙爪功法 / 鹰爪功法 / 拈花指法 / 一指禅功 / 慈悲刀法 / 修罗刀法 | [clone/book/wuji2.c](../../clone/book/wuji2.c) | BOOK 父类显示/研读能力。 |
+| 韦陀棍法 / 醉棍棍法 / 无常杖法 / 普渡杖法 / 伏魔剑法 / 达摩剑法 | [clone/book/wuji3.c](../../clone/book/wuji3.c) | BOOK 父类显示/研读能力。 |
+| 修罗指法 / 神掌八打 / 无相指法 / 多罗叶指 / 一拍两散 | [clone/book/wuji4.c](../../clone/book/wuji4.c) | BOOK 父类显示/研读能力。 |
+| 箫谱 | [clone/book/xiaopu.c](../../clone/book/xiaopu.c) | BOOK 父类显示/研读能力。 |
+| 洗髓经 | [clone/book/xisuijing.c](../../clone/book/xisuijing.c) | BOOK 父类显示/研读能力；`init / do_study`。 |
+| 旋风扫叶腿法 | [clone/book/xuanfeng_book.c](../../clone/book/xuanfeng_book.c) | BOOK 父类显示/研读能力。 |
+| 血刀秘籍 | [clone/book/xuedao-book.c](../../clone/book/xuedao-book.c) | BOOK 父类显示/研读能力。 |
+| 血刀经 | [clone/book/xuedao-jing.c](../../clone/book/xuedao-jing.c) | BOOK 父类显示/研读能力。 |
+| 拓本 | [clone/book/xx-book.c](../../clone/book/xx-book.c) | BOOK 父类显示/研读能力。 |
+| 药王神篇 | [clone/book/yaowang.c](../../clone/book/yaowang.c) | MEDICAL_BOOK 医书行为。 |
+| 「易经序卦篇」 | [clone/book/yijing0.c](../../clone/book/yijing0.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「易经说卦篇」 | [clone/book/yijing1.c](../../clone/book/yijing1.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「易经杂卦篇」 | [clone/book/yijing2.c](../../clone/book/yijing2.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 「易经系辞篇」 | [clone/book/yijing3.c](../../clone/book/yijing3.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 易筋经 | [clone/book/yijinjing.c](../../clone/book/yijinjing.c) | BOOK 父类显示/研读能力；`book_name / need_level / need_exp`。 |
+| 云龙鞭法 | [clone/book/ylbian.c](../../clone/book/ylbian.c) | BOOK 父类显示/研读能力。 |
+| 云龙剑谱 | [clone/book/yljian.c](../../clone/book/yljian.c) | BOOK 父类显示/研读能力。 |
+| 云龙剑谱 | [clone/book/yljianpu.c](../../clone/book/yljianpu.c) | BOOK 父类显示/研读能力。 |
+| 云龙经 | [clone/book/yljing.c](../../clone/book/yljing.c) | BOOK 父类显示/研读能力。 |
+| 云龙经「上卷」 | [clone/book/yljing1.c](../../clone/book/yljing1.c) | BOOK 父类显示/研读能力。 |
+| 云龙经「下卷」 | [clone/book/yljing2.c](../../clone/book/yljing2.c) | BOOK 父类显示/研读能力。 |
+| 玉女剑谱 | [clone/book/yunu_book.c](../../clone/book/yunu_book.c) | BOOK 父类显示/研读能力。 |
+| 玉女心经上册 | [clone/book/yunvjing1.c](../../clone/book/yunvjing1.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 玉女心经下册 | [clone/book/yunvjing2.c](../../clone/book/yunvjing2.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 昊天掌法谱 | [clone/book/zhangfapu.c](../../clone/book/zhangfapu.c) | BOOK 父类显示/研读能力；`F_UNIQUE`。 |
+| 血棋衣 | [clone/book/zhanyi.c](../../clone/book/zhanyi.c) | CLOTH 复合身份。 |
+| 天山折梅手法图上卷 | [clone/book/zhemei_book1.c](../../clone/book/zhemei_book1.c) | BOOK 父类显示/研读能力。 |
+| 天山折梅手法图下卷 | [clone/book/zhemei_book2.c](../../clone/book/zhemei_book2.c) | BOOK 父类显示/研读能力。 |
+| 筝谱 | [clone/book/zhengpu.c](../../clone/book/zhengpu.c) | BOOK 父类显示/研读能力。 |
+| 正气吟 | [clone/book/zhengqi_book.c](../../clone/book/zhengqi_book.c) | BOOK 父类显示/研读能力。 |
+| 紫徽心法 | [clone/book/zihui-book.c](../../clone/book/zihui-book.c) | BOOK 父类显示/研读能力。 |
+| 紫霞密芨 | [clone/book/zixia_book.c](../../clone/book/zixia_book.c) | BOOK 父类显示/研读能力。 |
+| 「忘情天书」 | [clone/fam/max/tianshu1.c](../../clone/fam/max/tianshu1.c) | 含自毁路径；`init / do_read / query_autoload`。 |
+| 「无字天书」 | [clone/fam/max/tianshu2.c](../../clone/fam/max/tianshu2.c) | 含自毁路径；`init / do_read / query_autoload`。 |
+| 剑典残篇 | [clone/fam/skpaper/skpaper.c](../../clone/fam/skpaper/skpaper.c) | 含自毁路径；`init / long / do_read / query_autoload`。 |
+| 「广陵散曲谱」 | [clone/item/xiaoao/guanglingsan.c](../../clone/item/xiaoao/guanglingsan.c) | 含自毁路径。 |
+| 「呕血谱」 | [clone/item/xiaoao/ouxuepu.c](../../clone/item/xiaoao/ouxuepu.c) | 含自毁路径。 |
+| 「率意帖」 | [clone/item/xiaoao/shuaiyitie.c](../../clone/item/xiaoao/shuaiyitie.c) | 含自毁路径。 |
+| 「溪山行旅图」 | [clone/item/xiaoao/xinglvtu.c](../../clone/item/xiaoao/xinglvtu.c) | 含自毁路径。 |
+| 十八木偶 | [clone/lonely/book/18muou.c](../../clone/lonely/book/18muou.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「毒经中篇」 | [clone/lonely/book/dujing2.c](../../clone/lonely/book/dujing2.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「毒经下篇」 | [clone/lonely/book/dujing3.c](../../clone/lonely/book/dujing3.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「多罗叶指」 | [clone/lonely/book/duoluoyezhi.c](../../clone/lonely/book/duoluoyezhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「峨嵋九阳功」 | [clone/lonely/book/emeijy-book.c](../../clone/lonely/book/emeijy-book.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「河图」 | [clone/lonely/book/hetu.c](../../clone/lonely/book/hetu.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「胡家拳经」 | [clone/lonely/book/hujia1.c](../../clone/lonely/book/hujia1.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「胡家刀谱」 | [clone/lonely/book/hujia2.c](../../clone/lonely/book/hujia2.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「王叔和脉经」 | [clone/lonely/book/jingluoxue1.c](../../clone/lonely/book/jingluoxue1.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「玉颧神脉经」 | [clone/lonely/book/jingluoxue2.c](../../clone/lonely/book/jingluoxue2.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「金蛇秘芨」 | [clone/lonely/book/jinshe.c](../../clone/lonely/book/jinshe.c) | BOOK 父类显示/研读能力；`F_UNIQUE`；`setup / init / do_du`。 |
+| 袈裟 | [clone/lonely/book/kuihua1.c](../../clone/lonely/book/kuihua1.c) | CLOTH 复合身份；含自毁路径；`init / do_du / do_yanjiu`。 |
+| 袈裟 | [clone/lonely/book/kuihua2.c](../../clone/lonely/book/kuihua2.c) | CLOTH 复合身份；含自毁路径；`init / do_du / do_yanjiu`。 |
+| 袈裟 | [clone/lonely/book/kuihua3.c](../../clone/lonely/book/kuihua3.c) | CLOTH 复合身份；含自毁路径；`init / do_du / do_yanjiu`。 |
+| 「莲花指」 | [clone/lonely/book/lianhuazhi.c](../../clone/lonely/book/lianhuazhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「六脉神剑谱」 | [clone/lonely/book/liumai-shenjian.c](../../clone/lonely/book/liumai-shenjian.c) | 含自毁路径；`init / do_du`。 |
+| 「洛书」 | [clone/lonely/book/luoshu.c](../../clone/lonely/book/luoshu.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「苗家剑谱」上册 | [clone/lonely/book/miaojia1.c](../../clone/lonely/book/miaojia1.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「苗家剑谱」下册 | [clone/lonely/book/miaojia2.c](../../clone/lonely/book/miaojia2.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「祁连五绝指」 | [clone/lonely/book/qilian.c](../../clone/lonely/book/qilian.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「七星指」 | [clone/lonely/book/qixingzhi.c](../../clone/lonely/book/qixingzhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「桃花药理」 | [clone/lonely/book/taohua.c](../../clone/lonely/book/taohua.c) | MEDICAL_BOOK 医书行为；含自毁路径。 |
+| 「大天龙指」 | [clone/lonely/book/tianlongzhi.c](../../clone/lonely/book/tianlongzhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「天竺拂指」 | [clone/lonely/book/tianzhuzhi.c](../../clone/lonely/book/tianzhuzhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「武当药理」 | [clone/lonely/book/wudang.c](../../clone/lonely/book/wudang.c) | MEDICAL_BOOK 医书行为；含自毁路径。 |
+| 「箫谱」 | [clone/lonely/book/xiaopu.c](../../clone/lonely/book/xiaopu.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「修罗指法」 | [clone/lonely/book/xiuluozhi.c](../../clone/lonely/book/xiuluozhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「旋风扫叶腿法」 | [clone/lonely/book/xuanfengtui.c](../../clone/lonely/book/xuanfengtui.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「血刀经」 | [clone/lonely/book/xuedao.c](../../clone/lonely/book/xuedao.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「迅雷剑经」 | [clone/lonely/book/xunleijian.c](../../clone/lonely/book/xunleijian.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「药王神篇」 | [clone/lonely/book/yaowang_book.c](../../clone/lonely/book/yaowang_book.c) | MEDICAL_BOOK 医书行为；含自毁路径。 |
+| 「幽冥指」 | [clone/lonely/book/youmingzhi.c](../../clone/lonely/book/youmingzhi.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 「破书残章」 | [clone/lonely/book/zhaobook.c](../../clone/lonely/book/zhaobook.c) | BOOK 父类显示/研读能力；`F_UNIQUE`；`setup / init / do_du / do_yanjiu`。 |
+| 「九阴真经」 | [clone/lonely/book/zhenjing.c](../../clone/lonely/book/zhenjing.c) | 含自毁路径；`init / do_du`。 |
+| 「九阴真经」上册 | [clone/lonely/book/zhenjing1.c](../../clone/lonely/book/zhenjing1.c) | 含自毁路径；`init / do_du`。 |
+| 「九阴真经」下册 | [clone/lonely/book/zhenjing2.c](../../clone/lonely/book/zhenjing2.c) | 含自毁路径；`init / do_du`。 |
+| 「九阴真经」拓本 | [clone/lonely/book/zhenjing3.c](../../clone/lonely/book/zhenjing3.c) | BOOK 父类显示/研读能力。 |
+| 「中平枪谱」 | [clone/lonely/book/zhongping.c](../../clone/lonely/book/zhongping.c) | BOOK 父类显示/研读能力；含自毁路径；`init / do_yanjiu`。 |
+| 竹简 | [clone/lonely/book/zhujian1.c](../../clone/lonely/book/zhujian1.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 竹简 | [clone/lonely/book/zhujian2.c](../../clone/lonely/book/zhujian2.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 竹简 | [clone/lonely/book/zhujian3.c](../../clone/lonely/book/zhujian3.c) | BOOK 父类显示/研读能力；含自毁路径。 |
+| 残阳宝剑 | [clone/lonely/canyang.c](../../clone/lonely/canyang.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 龙象袈裟 | [clone/lonely/jiasha.c](../../clone/lonely/jiasha.c) | `F_DBSAVE`；`ARMOR`；含自毁路径；`init / do_force / valid_damage / save_dbase_data / receive_dbase_data`。 |
+| 圣火令 | [clone/lonely/ling1.c](../../clone/lonely/ling1.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 圣火令 | [clone/lonely/ling2.c](../../clone/lonely/ling2.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 圣火令 | [clone/lonely/ling3.c](../../clone/lonely/ling3.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 玄铁重剑 | [clone/lonely/xuantiejian.c](../../clone/lonely/xuantiejian.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 药王神篇 | [clone/lonely/yaowang_book.c](../../clone/lonely/yaowang_book.c) | MEDICAL_BOOK 医书行为；含自毁路径。 |
+| 镇岳尚方 | [clone/lonely/zhenyue.c](../../clone/lonely/zhenyue.c) | `SWORD`；含自毁路径；`hit_ob`。 |
+| 武林外传 | [clone/misc/newbie_book.c](../../clone/misc/newbie_book.c) | `init / do_du`。 |
+| 弟子规 | [u/mudren/obj/dizigui_book.c](../../u/mudren/obj/dizigui_book.c) | `init / do_read`。 |
+| 成语词典 | [u/mudren/obj/idiom_book.c](../../u/mudren/obj/idiom_book.c) | `init / do_search / do_read / response`。 |
+| 诗词精选 | [u/mudren/obj/poem_book.c](../../u/mudren/obj/poem_book.c) | `init / do_read / write_data / receive_data / receive_callback / socket_shutdown`。 |
+| 千家诗 | [u/mudren/obj/qianjiashi_book.c](../../u/mudren/obj/qianjiashi_book.c) | `init / do_read`。 |
+| 诗经 | [u/mudren/obj/shijing_book.c](../../u/mudren/obj/shijing_book.c) | `init / do_read`。 |

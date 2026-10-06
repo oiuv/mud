@@ -1,0 +1,33 @@
+// Controlled character state; actual study, custom book actions and storage run unchanged.
+inherit "/tests/actor";
+
+private mapping skills = ([]);
+private mapping gains = ([]);
+private object target;
+private string method;
+
+varargs int query_skill(string name, int raw) { return skills[name]; }
+void set_skill(string name, int level) { skills[name] = level; }
+varargs void improve_skill(string name, int amount, int raw) { gains[name] += amount; }
+int gained(string name) { return gains[name]; }
+int query_int() { return query("int"); }
+int can_improve_skill(string name) { return !query("test/deny_improve"); }
+int is_busy() { return query("test/busy"); }
+int is_fighting() { return query("test/fighting"); }
+int receive_damage(string name, int amount) { add(name, -amount); return amount; }
+void select_target(object ob, string name) { target = ob; method = name; }
+int invoke_target(string arg) {
+    set_temp("last_reply", call_other(target, method, arg));
+    set_temp("last_notice", query_notify_fail());
+    return 1;
+}
+int study_book(string arg) {
+    set_temp("last_reply", "/cmds/skill/study"->main(this_object(), arg)); return 1;
+}
+void create() {
+    ::create();
+    add_action("study_book", "teststudy");
+    add_action("invoke_target", "testinvoke");
+    add_action("do_store", "cun");
+    add_action("do_take", "qu");
+}

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { original, dynamicCallers, excluded } from '../neck_inventory.mjs';
+import { readBaseline as bookBaseline } from '../book_inventory.mjs';
 
 export function prepareNeck(root, sandbox, copy) {
     const put = (file, source) => {
@@ -32,7 +33,7 @@ export function prepareNeck(root, sandbox, copy) {
         const xiangSource = old ? original(xiang) : readFileSync(join(root, xiang), 'utf8');
         put(prefix + xiang, parent + method(xiangSource, 'int check_rescure(object who) {')
             .replace(/\bcommand\(/g, 'record_command('));
-        put(prefix + 'd/changan/npc/obj/book.c', readFileSync(join(root, 'd/changan/npc/obj/book.c'), 'utf8'));
+        put(prefix + 'd/changan/npc/obj/book.c', bookBaseline().varieties.find(row => row.old_path === '/d/changan/npc/obj/book').source);
         if (old) put(prefix + 'd/changan/npc/obj/yupei.c', original('d/changan/npc/obj/yupei.c'));
     }
     for (const file of [...excluded, 'd/shaolin/obj/huyao.c']) copy(file);

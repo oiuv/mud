@@ -1,4 +1,5 @@
 import { migrationPaths as clubPaths, canonicalGroups as clubGroups } from './club_inventory.mjs';
+import { migrationPaths as bookPaths, canonicalGroups as bookGroups } from './book_inventory.mjs';
 import { migrationPaths as throwingPaths, canonicalGroups as throwingGroups } from './throwing_inventory.mjs';
 import { migrationPaths as daggerPaths, canonicalGroups as daggerGroups } from './dagger_inventory.mjs';
 import { migrationPaths as whipPaths, canonicalGroups as whipGroups } from './whip_inventory.mjs';
@@ -173,6 +174,7 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
     ['dagger', daggerPaths, daggerGroups, 23, 22],
     ['throwing', throwingPaths, throwingGroups, 27, 26],
     ['club', clubPaths, clubGroups, 18, 17],
+    ['book', bookPaths, bookGroups, 36, 28],
 ]) test(`all ${oldCount} ${family} paths and mixed-family backups: CLI, stock merging, state, bags, rollback and conflicts`, async () => {
     const input = join(sandbox, family + '-input');
     mkdirSync(join(input, 'user'), { recursive: true }); mkdirSync(join(input, 'shop'));
@@ -185,9 +187,21 @@ for (const [family, familyPaths, familyGroups, oldCount, groupCount] of [
         ...(['whip', 'dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'] } : {}),
         ...(['dagger', 'throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/whip': whipPaths()['/d/beijing/npc/obj/whip'] } : {}),
         ...(['throwing', 'club'].includes(family) ? { '/d/beijing/npc/obj/dagger': daggerPaths()['/d/beijing/npc/obj/dagger'] } : {}),
-        ...(family === 'club' ? { '/d/beijing/npc/obj/throwing': throwingPaths()['/d/beijing/npc/obj/throwing'] } : {}) });
+        ...(['club', 'book'].includes(family) ? { '/d/beijing/npc/obj/throwing': throwingPaths()['/d/beijing/npc/obj/throwing'] } : {}),
+        ...(family === 'book' ? {
+            '/d/shaolin/obj/changjian': swordPaths()['/d/shaolin/obj/changjian'],
+            '/d/shaolin/obj/qingshui-hulu': liquidPaths()['/d/shaolin/obj/qingshui-hulu'],
+            '/d/shaolin/obj/jiedao': bladePaths()['/d/shaolin/obj/jiedao'],
+            '/d/city/npc/cloth/belt': equipPaths()['/d/city/npc/cloth/belt'],
+            '/d/beijing/npc/obj/hammer': hammerPaths()['/d/beijing/npc/obj/hammer'],
+            '/d/beijing/npc/obj/staff': staffPaths()['/d/beijing/npc/obj/staff'],
+            '/d/beijing/npc/obj/whip': whipPaths()['/d/beijing/npc/obj/whip'],
+            '/d/beijing/npc/obj/dagger': daggerPaths()['/d/beijing/npc/obj/dagger'],
+            '/d/beijing/npc/obj/mace': clubPaths()['/d/beijing/npc/obj/mace'],
+        } : {}) });
     assert.equal(Object.keys(familyPaths()).length, oldCount);
     assert.equal(familyGroups().length, groupCount);
+    for (const [oldPath, path] of pairs) assert.equal(typeof path, 'string', 'Missing fixture mapping: ' + oldPath);
     const items = {}, goods = {}, amounts = {}, expectedCounts = {};
     for (const [i, [oldPath, path]] of pairs.entries()) {
         items['item' + i * 2] = { file: oldPath, amount: 2, name: '旧物' + i, unknown_field: 'state-' + i };

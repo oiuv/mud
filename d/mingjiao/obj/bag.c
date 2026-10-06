@@ -41,7 +41,7 @@ int do_open(string arg) {
         "面原来是一本薄薄的经书，只因油布\n包得紧"
         "密，虽长期藏在猿腹之中，书页仍然完好无损"
         "。\n", me);
-    book = new("/d/mingjiao/obj/jing");
+    book = new("/d/items/book/lengjia_jing");
     book->move(me);
     add("book_count", -1);
     return 1;

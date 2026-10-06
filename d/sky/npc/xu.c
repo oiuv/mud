@@ -58,7 +58,7 @@ void create() {
 
     carry_object("/d/items/cloth/baise_changshan")->wear();
     carry_object("/d/items/hands/canxue_shoutao")->wear();
-    carry_object("/d/sky/obj/yishu");
+    carry_object("/d/items/book/yueshan_yishu");
     carry_object("/d/sky/obj/sheli");
 }
 

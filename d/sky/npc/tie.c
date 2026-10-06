@@ -59,6 +59,6 @@ void create() {
 
     setup();
 
-    carry_object("/d/sky/obj/miji1");
+    carry_object("/d/items/book/tiexian_quan");
     carry_object("/clone/cloth/cloth")->wear();
 }

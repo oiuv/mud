@@ -59,7 +59,7 @@ void create() {
     carry_object("/d/items/cloth/longwen_pao")->wear();
     carry_object(__DIR__ "obj/jingzhongyue")->wield();
     carry_object("/d/sky/obj/heshibi");
-    carry_object("/d/sky/obj/jue");
+    carry_object("/d/items/book/changsheng_jue");
 }
 
 void kill_ob(object ob) {

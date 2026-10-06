@@ -9,10 +9,10 @@ void create() {
 有佛力。
 LONG);
     set("objects", ([
-        __DIR__ "npc/obj/jing4": 1,
-        __DIR__ "npc/obj/jing3": 1,
-        __DIR__ "npc/obj/jing2": 1,
-        __DIR__ "npc/obj/jing1": 1,
+        "/d/items/book/boluomi_jing": 1,
+        "/d/items/book/jingang_jing": 1,
+        "/d/items/book/niepan_jing": 1,
+        "/d/items/book/wuliang_jing": 1,
     ]));
 
     set("no_clean_up", 0);

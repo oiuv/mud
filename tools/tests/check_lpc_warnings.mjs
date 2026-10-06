@@ -11,9 +11,11 @@ const compiler = resolve(process.argv[2] || join(root, 'bin/lpcc.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-warning-check-'));
 const tracked = directory => execFileSync('git', ['-C', directory, 'ls-files', '-z'], { encoding: 'utf8' })
     .split('\0').filter(Boolean);
+const untracked = execFileSync('git', ['-C', root, 'ls-files', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' })
+    .split('\0').filter(Boolean);
 // Match updateall's non-game exclusions; also omit development tools and fixtures.
 const excluded = /^(?:backup|bin|binaries|data|doc|docs|dump|fluffos|grant|help|log|ai|openspec|temp|version|www|tools)\//;
-const sources = [...tracked(root), ...tracked(join(root, 'mudcore')).map(file => 'mudcore/' + file)]
+const sources = [...new Set([...tracked(root), ...untracked, ...tracked(join(root, 'mudcore')).map(file => 'mudcore/' + file)])]
     .filter(file => /\.(?:c|lpc|h)$/.test(file) && !excluded.test(file)
         && !file.split('/').some(part => part === 'tests' || part.startsWith('.'))
         && existsSync(join(root, file)));
@@ -64,7 +66,7 @@ const requested = process.argv.slice(3).map(file => file.replaceAll('\\', '/').r
 const programs = sources.filter(file => /\.(?:c|lpc)$/.test(file));
 const files = requested.length ? requested : programs;
 assert.ok(files.length > 0, 'No programs selected');
-for (const file of files) assert.ok(programs.includes(file), 'Not a tracked game program: ' + file);
+for (const file of files) assert.ok(programs.includes(file), 'Not an included game program: ' + file);
 const result = await new Promise((done, reject) => {
     const child = spawn(compiler, ['--batch', 'driver.cfg'], { cwd: sandbox, windowsHide: true });
     let output = '';

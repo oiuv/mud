@@ -1,0 +1,3399 @@
+{
+  "baseline": "ea5f6afd1d95f22c5dc47fe23081a927ee64e11a",
+  "count": 36,
+  "varieties": [
+    {
+      "old_path": "/d/changan/npc/obj/book",
+      "key": "changan_npc_obj_book",
+      "source_hash": "2e8d5b70296a168c630923a0508eefa3c6ce23a7988adf1a44f8d4bd8ef706c4",
+      "name": [
+        "HIB \"〖\" HIY + \"百变神通\" HIB + \"〗\" NOR",
+        "({ \"book\", \"shu\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"long\"",
+          "\"一本可以学习易容术的书。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"pretending\",\n            \"exp_required\": 1000,\n            \"jing_cost\": 20,\n            \"difficulty\": 30,\n            \"max_skill\": 200,\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "baibian_shentong",
+      "new_path": "/d/items/book/baibian_shentong",
+      "source": "//book.c\n\n#include <ansi.h>\ninherit ITEM;\n\nvoid create() {\n    set_name(HIB \"〖\" HIY + \"百变神通\" HIB + \"〗\" NOR, ({ \"book\", \"shu\" }));\n    set_weight(600);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"value\", 1000);\n        set(\"material\", \"paper\");\n        set(\"long\",\n            \"一本可以学习易容术的书。\\n\");\n        set(\"value\", 100);\n        set(\"skill\", ([\n            \"name\": \"pretending\",\n            \"exp_required\": 1000,\n            \"jing_cost\": 20,\n            \"difficulty\": 30,\n            \"max_skill\": 200,\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/book_blade",
+      "key": "changan_npc_obj_book_blade",
+      "source_hash": "140273121b7455f6f3d153778027027834c0ccbcd04b1410b40f3d32c0e66da3",
+      "name": [
+        "\"〖刀法简介〗\"",
+        "({ \"blade book\", \"book\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"blade\",\n            \"exp_required\": 100,\n            \"sen_cost\": 20,\n            \"difficulty\": 20,\n            \"max_skill\": 20,\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "daofa_jianjie",
+      "new_path": "/d/items/book/daofa_jianjie",
+      "source": "//book_blade.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"〖刀法简介〗\", ({ \"blade book\", \"book\" }));\n    set_weight(600);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"value\", 1000);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"blade\",\n            \"exp_required\": 100,\n            \"sen_cost\": 20,\n            \"difficulty\": 20,\n            \"max_skill\": 20,\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/changan/npc/obj/book_unarmed",
+      "key": "changan_npc_obj_book_unarmed",
+      "source_hash": "6407c3c31dc647e5614b2f482a12d727efca184732967c8db2e1e66060e8462e",
+      "name": [
+        "\"〖拳法简介〗\"",
+        "({ \"unarmed book\", \"book\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"〖拳法简介〗\\n\""
+        ],
+        [
+          "\"value\"",
+          "1000"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"unarmed\",\n            \"exp_required\": 100,\n            \"sen_cost\": 20,\n            \"difficulty\": 20,\n            \"max_skill\": 20,\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "quanfa_jianjie",
+      "new_path": "/d/items/book/quanfa_jianjie",
+      "source": "//book_unarmed.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"〖拳法简介〗\", ({ \"unarmed book\", \"book\" }));\n    set_weight(600);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"〖拳法简介〗\\n\");\n        set(\"value\", 1000);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"unarmed\",\n            \"exp_required\": 100,\n            \"sen_cost\": 20,\n            \"difficulty\": 20,\n            \"max_skill\": 20,\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/obj/jue",
+      "key": "death_sky_obj_jue",
+      "source_hash": "9c9c42608cfe0c968ab599ab8a673688ce55b689a807350a9db73bc53f348dde",
+      "name": [
+        "HIW \"长生决\" NOR",
+        "({ \"changsheng jue\", \"book\", \"jue\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\\n\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"changsheng-jue\",        // name of the skill\n            \"exp_required\": 100000,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 250      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "changsheng_jue",
+      "new_path": "/d/items/book/changsheng_jue",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(HIW \"长生决\" NOR, ({ \"changsheng jue\", \"book\", \"jue\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\\n\");\n        set(\"value\", 300);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"changsheng-jue\",        // name of the skill\n            \"exp_required\": 100000,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 250      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/obj/miji1",
+      "key": "death_sky_obj_miji1",
+      "source_hash": "320788aae9fa541b71c3bc5acf40c75f22dc90d621aff9fdef39f67f6ee49158",
+      "name": [
+        "CYN \"铁线拳密芨\" NOR",
+        "({ \"miji\", \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一本薄薄的小册，上面记载了不少精妙的拳法。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"tiexian-quan\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "tiexian_quan",
+      "new_path": "/d/items/book/tiexian_quan",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(CYN \"铁线拳密芨\" NOR, ({ \"miji\", \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一本薄薄的小册，上面记载了不少精妙的拳法。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"tiexian-quan\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/obj/miji2",
+      "key": "death_sky_obj_miji2",
+      "source_hash": "f041a53f84a6d19442a8a3ecf21d9072ce5c17474cc7964cc1353687798a6ec1",
+      "name": [
+        "HIC \"四季剑法\" NOR",
+        "({ \"jianfa miji\", \"book\", \"miji\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一本薄薄的小册，上面记载了四季剑法的奥决。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"siji-jianfa\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "siji_jianfa",
+      "new_path": "/d/items/book/siji_jianfa",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(HIC \"四季剑法\" NOR, ({ \"jianfa miji\", \"book\", \"miji\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一本薄薄的小册，上面记载了四季剑法的奥决。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"siji-jianfa\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/obj/miji3",
+      "key": "death_sky_obj_miji3",
+      "source_hash": "f83437025ca93b53abec00911b45a624d72f80732022a94c8e6354cc3a9401e9",
+      "name": [
+        "YEL \"飞龙探云秘芨\" NOR",
+        "({ \"tanyun miji\", \"book\", \"miji\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"李逍遥的家传绝学。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"feilong-shou\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 100,     // jing cost every time study this\n            \"difficulty\": 100,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "feilong_tanyun",
+      "new_path": "/d/items/book/feilong_tanyun",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(YEL \"飞龙探云秘芨\" NOR, ({ \"tanyun miji\", \"book\", \"miji\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"李逍遥的家传绝学。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"feilong-shou\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 100,     // jing cost every time study this\n            \"difficulty\": 100,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/death/sky/obj/yishu",
+      "key": "death_sky_obj_yishu",
+      "source_hash": "a736205b4ce317d0b1e2eed757a664012fbbbb614b20637ab34616969b50af4e",
+      "name": [
+        "WHT \"岳山遗书\" NOR",
+        "({ \"yishu\", \"shu\", \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"badao-daofa\",        // name of the skill\n            \"exp_required\": 500000,      // minimum combat experience required\n            \"jing_cost\": 80,     // jing cost every time study this\n            \"difficulty\": 80,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "yueshan_yishu",
+      "new_path": "/d/items/book/yueshan_yishu",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(WHT \"岳山遗书\" NOR, ({ \"yishu\", \"shu\", \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"badao-daofa\",        // name of the skill\n            \"exp_required\": 500000,      // minimum combat experience required\n            \"jing_cost\": 80,     // jing cost every time study this\n            \"difficulty\": 80,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/emei/obj/fojing10",
+      "key": "emei_obj_fojing10",
+      "source_hash": "7bfd97f7e97d22798cb037524e014cda837fef6b569d03b210c79ed0276a8397",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "般若经",
+        "维摩经",
+        "法华经",
+        "华严经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing1",
+      "new_path": "/d/items/book/fojing1",
+      "source": "// fojing10.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"般若经\",\n    \"维摩经\",\n    \"法华经\",\n    \"华严经\",\n    //    \"无量寿经\",\n    //    \"大般涅磐经\",\n    //    \"阿含经\",\n    //    \"金刚经\",\n    //    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/emei/obj/fojing11",
+      "key": "emei_obj_fojing11",
+      "source_hash": "e3a887b8aca8b7e4657cf4e0de4ace8cd69faf1156775d73e4b07fd5c920c7a1",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "般若经",
+        "维摩经",
+        "法华经",
+        "华严经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing2",
+      "new_path": "/d/items/book/fojing2",
+      "source": "// fojing11.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"般若经\",\n    \"维摩经\",\n    \"法华经\",\n    \"华严经\",\n    //    \"无量寿经\",\n    //    \"大般涅磐经\",\n    //    \"阿含经\",\n    //    \"金刚经\",\n    //    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/emei/obj/fojing20",
+      "key": "emei_obj_fojing20",
+      "source_hash": "afd99bec343474739f48bb01cb3ca8e30877b934ba9b65613fefe3796a72a002",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"mahayana\",  // name of the skill\n            \"exp_required\": 0,  // minimum combat experience required\n            \"jing_cost\": 10,     // jing cost every time study this\n            \"difficulty\": 10,     // the base int to learn this skill\n            \"max_skill\": 50     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "无量寿经",
+        "大般涅磐经",
+        "阿含经",
+        "金刚经",
+        "波罗蜜多心经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing3",
+      "new_path": "/d/items/book/fojing3",
+      "source": "// fojing20.c\n\ninherit ITEM;\n\nstring *titles = ({\n    //      \"般若经\",\n    //      \"维摩经\",\n    //      \"法华经\",\n    //      \"华严经\",\n    \"无量寿经\",\n    \"大般涅磐经\",\n    \"阿含经\",\n    \"金刚经\",\n    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"mahayana\",  // name of the skill\n            \"exp_required\": 0,  // minimum combat experience required\n            \"jing_cost\": 10,     // jing cost every time study this\n            \"difficulty\": 10,     // the base int to learn this skill\n            \"max_skill\": 50     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/emei/obj/fojing21",
+      "key": "emei_obj_fojing21",
+      "source_hash": "c743f10474178d888cc9dd9813a41f65e29cf3159af3622384f76462c7f89e12",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"mahayana\",  // name of the skill\n            \"exp_required\": 0,  // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "无量寿经",
+        "大般涅磐经",
+        "阿含经",
+        "金刚经",
+        "波罗蜜多心经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing4",
+      "new_path": "/d/items/book/fojing4",
+      "source": "// fojing20.c\n\ninherit ITEM;\n\nstring *titles = ({\n    //      \"般若经\",\n    //      \"维摩经\",\n    //      \"法华经\",\n    //      \"华严经\",\n    \"无量寿经\",\n    \"大般涅磐经\",\n    \"阿含经\",\n    \"金刚经\",\n    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"mahayana\",  // name of the skill\n            \"exp_required\": 0,  // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/jingzhou/obj/xuedao-jing",
+      "key": "jingzhou_obj_xuedao-jing",
+      "source_hash": "ab4fc2c94fb5d721bbc6bff62033a42658da7b0060a7d5696e25445dcc2068a7",
+      "name": [
+        "HIR \"【血刀刀谱】\" NOR",
+        "({ \"book\", \"shu\" })"
+      ],
+      "weight": "600",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"封面上写著 \" + HIR \"【血刀刀谱】\" NOR + \"，还画着一些奇形怪状的倒立人形。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"blade\",        // name of the skill\n            \"exp_required\": 1000,            // minimum combat experience required\n            // to learn this skill.\n            \"jing_cost\": 20,                // jing cost every time study this\n            \"difficulty\": 20,                // the base int to learn this skill\n            // modify is jing_cost's (difficulty - int)*5%\n            \"max_skill\": 40                // the maximum level you can learn\n            // from this object.\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "xuedao_jing",
+      "new_path": "/d/items/book/xuedao_jing",
+      "source": "// xdblade_book.c\n\n#include <ansi.h>\n#include <weapon.h>\n\ninherit ITEM;\n\nvoid create() {\n    set_name(HIR \"【血刀刀谱】\" NOR, ({ \"book\", \"shu\" }));\n    set_weight(600);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\",\n            \"封面上写著 \" + HIR \"【血刀刀谱】\" NOR + \"，还画着一些奇形怪状的倒立人形。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"blade\",        // name of the skill\n            \"exp_required\": 1000,            // minimum combat experience required\n            // to learn this skill.\n            \"jing_cost\": 20,                // jing cost every time study this\n            \"difficulty\": 20,                // the base int to learn this skill\n            // modify is jing_cost's (difficulty - int)*5%\n            \"max_skill\": 40                // the maximum level you can learn\n            // from this object.\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/kaifeng/npc/obj/jing1",
+      "key": "kaifeng_npc_obj_jing1",
+      "source_hash": "80f80d20f47f9d8d5c173024327bcd2175d322d926490e4cb943fee4293a3e45",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "无量寿经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "wuliang_jing",
+      "new_path": "/d/items/book/wuliang_jing",
+      "source": "inherit ITEM;\n\nstring *titles = ({\n    \"无量寿经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/kaifeng/npc/obj/jing2",
+      "key": "kaifeng_npc_obj_jing2",
+      "source_hash": "51d33968d34801de85d89c3a39afc0a5f964cb9f34361e7058b063105e1c62dd",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "大般涅磐经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "niepan_jing",
+      "new_path": "/d/items/book/niepan_jing",
+      "source": "inherit ITEM;\n\nstring *titles = ({\n    \"大般涅磐经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/kaifeng/npc/obj/jing3",
+      "key": "kaifeng_npc_obj_jing3",
+      "source_hash": "c28675af9051df5d40fb7ef31ec701120c19a89ac5b755676a377cb7f167869b",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "金刚经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "jingang_jing",
+      "new_path": "/d/items/book/jingang_jing",
+      "source": "inherit ITEM;\n\nstring *titles = ({\n    \"金刚经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/kaifeng/npc/obj/jing4",
+      "key": "kaifeng_npc_obj_jing4",
+      "source_hash": "c6f23a60743d6449dc2d86eeabbe8664eb97d98578345cb017726766b003f00f",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "波罗蜜多心经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "boluomi_jing",
+      "new_path": "/d/items/book/boluomi_jing",
+      "source": "inherit ITEM;\n\nstring *titles = ({\n    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",     // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/kunlun/obj/force-book",
+      "key": "kunlun_obj_force-book",
+      "source_hash": "45fcf907cf9fb0b819e792c06dfe9f30c6e92060505f699a01eb1374cbd705a1",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是昆仑派内功心法的秘籍。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"force\",     // name of the skill\n            \"exp_required\": 1000,      // minimum combat experience required\n            \"jing_cost\": 15,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 41      // the maximum level you learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "昆仑派秘籍"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "kunlun_miji",
+      "new_path": "/d/items/book/kunlun_miji",
+      "source": "// force-book.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"昆仑派秘籍\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是昆仑派内功心法的秘籍。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"force\",     // name of the skill\n            \"exp_required\": 1000,      // minimum combat experience required\n            \"jing_cost\": 15,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 41      // the maximum level you learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/lingxiao/obj/book-bamboo",
+      "key": "lingxiao_obj_book-bamboo",
+      "source_hash": "4db186acaa055cbaa780f3498322641fc1f14da4014139790be8fad3316a6362",
+      "name": [
+        "\"旧竹片\"",
+        "({ \"bamboo\", \"shu\", \"book\" })"
+      ],
+      "weight": "100",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"片\""
+        ],
+        [
+          "\"long\"",
+          "\"易筋经轻功篇\\n\"\n            \"这是一片两边去皮的旧竹片，正面和背面都画了无数个飞翔纵跃的小图形。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"bamboo\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"dodge\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 99    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "zhu_pian",
+      "new_path": "/d/items/book/zhu_pian",
+      "source": "// book2.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"旧竹片\", ({ \"bamboo\", \"shu\", \"book\" }));\n    set_weight(100);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"片\");\n        set(\"long\",\n            \"易筋经轻功篇\\n\"\n            \"这是一片两边去皮的旧竹片，正面和背面都画了无数个飞翔纵跃的小图形。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"bamboo\");\n        set(\"skill\", ([\n            \"name\": \"dodge\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 99    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/lingxiao/obj/book-silk",
+      "key": "lingxiao_obj_book-silk",
+      "source_hash": "b70a53636fa0390127160bd140531f23df995ea62ed7dc6eaed618cef742ffc7",
+      "name": [
+        "\"薄绢\"",
+        "({ \"silk\", \"shu\", \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"束\""
+        ],
+        [
+          "\"long\"",
+          "\"这是小册易筋经修行篇\\n\"\n            \"由一束薄绢钉成，里面密密麻麻的画了不少打坐吐呐的姿势。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"silk\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"force\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 99    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "bojuan",
+      "new_path": "/d/items/book/bojuan",
+      "source": "// book-silk.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"薄绢\", ({ \"silk\", \"shu\", \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"束\");\n        set(\"long\",\n            \"这是小册易筋经修行篇\\n\"\n            \"由一束薄绢钉成，里面密密麻麻的画了不少打坐吐呐的姿势。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"silk\");\n        set(\"skill\", ([\n            \"name\": \"force\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 99    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/lingxiao/obj/book-stone",
+      "key": "lingxiao_obj_book-stone",
+      "source_hash": "12c2778bb0f1399c78c92e031a38ca1067026a101923608d660f243b220e7961",
+      "name": [
+        "\"石板\"",
+        "({ \"stone\", \"shu\", \"book\" })"
+      ],
+      "weight": "500",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"块\""
+        ],
+        [
+          "\"long\"",
+          "\"易筋经拳法篇\\n\"\n            \"这是一块园园的石板，似乎用手指刻划了数个指印。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"stone\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"BOOK_RANDOM_SKILL\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 49    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [
+        "finger",
+        "claw",
+        "strike",
+        "cuff",
+        "hand"
+      ],
+      "jing_cost_random": 0,
+      "id": "shiban",
+      "new_path": "/d/items/book/shiban",
+      "source": "// book-stone.c\n\ninherit ITEM;\n\nstring *skills = ({\n    \"finger\",\n    \"claw\",\n    \"strike\",\n    \"cuff\",\n    \"hand\",\n});\n\nvoid create() {\n    int i = random(sizeof(skills));\n\n    set_name(\"石板\", ({ \"stone\", \"shu\", \"book\" }));\n    set_weight(500);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"块\");\n        set(\"long\",\n            \"易筋经拳法篇\\n\"\n            \"这是一块园园的石板，似乎用手指刻划了数个指印。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"stone\");\n        set(\"skill\", ([\n            \"name\": skills[i],    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 49    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/mingjiao/obj/jing",
+      "key": "mingjiao_obj_jing",
+      "source_hash": "604b01a68718ef60cc017e3dab23f5e82ffa61e1fd091a3e33dea11843b1c097",
+      "name": [
+        "YEL \"「楞伽经」\" NOR",
+        "({ \"lengjia jing\", \"jing\", \"book\" })"
+      ],
+      "weight": "300",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "YEL \"这是一本薄薄的经书，只因油布包得紧密，虽长期\\n\"\n            \"藏在猿腹之中，书页仍然完好无损。书面上写著几\\n\"\n            \"个弯弯曲曲的文字，你却是一个也不识得。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "10"
+        ],
+        [
+          "\"material\"",
+          "\"silk\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",\n            \"exp_required\": 1000,\n            \"jing_cost\": 10,\n            \"difficulty\": 10,\n            \"max_skill\": 50,\n            \"min_skill\": 0,\n            \"need\": ([ \"sanscrit\": 500 ]),\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "lengjia_jing",
+      "new_path": "/d/items/book/lengjia_jing",
+      "source": "#include <ansi.h>\n\ninherit ITEM;\n\nvoid create() {\n    set_name(YEL \"「楞伽经」\" NOR, ({ \"lengjia jing\", \"jing\", \"book\" }));\n    set_weight(300);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", YEL \"这是一本薄薄的经书，只因油布包得紧密，虽长期\\n\"\n            \"藏在猿腹之中，书页仍然完好无损。书面上写著几\\n\"\n            \"个弯弯曲曲的文字，你却是一个也不识得。\\n\" NOR);\n        set(\"value\", 10);\n        set(\"material\", \"silk\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",\n            \"exp_required\": 1000,\n            \"jing_cost\": 10,\n            \"difficulty\": 10,\n            \"max_skill\": 50,\n            \"min_skill\": 0,\n            \"need\": ([ \"sanscrit\": 500 ]),\n        ]));\n\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhen/npc/obj/daodejing-i",
+      "key": "quanzhen_npc_obj_daodejing-i",
+      "source_hash": "8a35ffceeefc41b3c4f379976e3afe633bf5b2adf5be1f3eca541812dc70c04e",
+      "name": [
+        "\"道德经「上卷」\"",
+        "({ \"jing\", \"daode jing\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册道德经「上卷」，由体道第一始至去用第四十止。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"taoism\",       // name of the skill\n            \"exp_required\": 50000,      // minimum combat experience required\n            \"jing_cost\": 20,  // jing cost every time study this\n            \"difficulty\": 25,     // the base int to learn this skill\n            \"max_skill\": 99,     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 10,
+      "id": "daodejing1",
+      "new_path": "/d/items/book/daodejing1",
+      "source": "// daodejing-i.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"道德经「上卷」\", ({ \"jing\", \"daode jing\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册道德经「上卷」，由体道第一始至去用第四十止。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"taoism\",       // name of the skill\n            \"exp_required\": 50000,      // minimum combat experience required\n            \"jing_cost\": 20 + random(10),  // jing cost every time study this\n            \"difficulty\": 25,     // the base int to learn this skill\n            \"max_skill\": 99,     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/quanzhen/npc/obj/daodejing-ii",
+      "key": "quanzhen_npc_obj_daodejing-ii",
+      "source_hash": "bc526763bf3d3f1d19937e7df7b68980cf1dc92509dea035b093eb7f52a79d57",
+      "name": [
+        "\"道德经「下卷」\"",
+        "({ \"jing\", \"daode jing\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册道德经「下卷」，由同异第四十一始至显质第八十一止。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"taoism\",       // name of the skill\n            \"exp_required\": 150000,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 35,     // the base int to learn this skill\n            \"max_skill\": 179,    // the maximum level you can learn\n            \"min_skill\": 100,\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 20,
+      "id": "daodejing2",
+      "new_path": "/d/items/book/daodejing2",
+      "source": "// daodejing-ii.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"道德经「下卷」\", ({ \"jing\", \"daode jing\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册道德经「下卷」，由同异第四十一始至显质第八十一止。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"taoism\",       // name of the skill\n            \"exp_required\": 150000,      // minimum combat experience required\n            \"jing_cost\": 20 + random(20),     // jing cost every time study this\n            \"difficulty\": 35,     // the base int to learn this skill\n            \"max_skill\": 179,    // the maximum level you can learn\n            \"min_skill\": 100,\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/fojing10",
+      "key": "shaolin_obj_fojing10",
+      "source_hash": "7bfd97f7e97d22798cb037524e014cda837fef6b569d03b210c79ed0276a8397",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "般若经",
+        "维摩经",
+        "法华经",
+        "华严经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing1",
+      "new_path": "/d/items/book/fojing1",
+      "source": "// fojing10.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"般若经\",\n    \"维摩经\",\n    \"法华经\",\n    \"华严经\",\n    //    \"无量寿经\",\n    //    \"大般涅磐经\",\n    //    \"阿含经\",\n    //    \"金刚经\",\n    //    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/fojing11",
+      "key": "shaolin_obj_fojing11",
+      "source_hash": "27a97971c5c31f489310f20e588f0d9dc647633700c5584e4ebfb40d8f753f93",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "般若经",
+        "维摩经",
+        "法华经",
+        "华严经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing1",
+      "new_path": "/d/items/book/fojing1",
+      "source": "// fojing11.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"般若经\",\n    \"维摩经\",\n    \"法华经\",\n    \"华严经\",\n    //    \"无量寿经\",\n    //    \"大般涅磐经\",\n    //    \"阿含经\",\n    //    \"金刚经\",\n    //    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 10,    // jing cost every time study this\n            \"difficulty\": 10,    // the base int to learn this skill\n            \"max_skill\": 50    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/fojing20",
+      "key": "shaolin_obj_fojing20",
+      "source_hash": "850356139671f5b202bc949a3ff085948c07130e7078e289af552d338e113160",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "无量寿经",
+        "大般涅磐经",
+        "阿含经",
+        "金刚经",
+        "波罗蜜多心经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing5",
+      "new_path": "/d/items/book/fojing5",
+      "source": "// fojing20.c\n\ninherit ITEM;\n\nstring *titles = ({\n    //    \"般若经\",\n    //    \"维摩经\",\n    //    \"法华经\",\n    //    \"华严经\",\n    \"无量寿经\",\n    \"大般涅磐经\",\n    \"阿含经\",\n    \"金刚经\",\n    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/shaolin/obj/fojing21",
+      "key": "shaolin_obj_fojing21",
+      "source_hash": "c9cb80ad2a61f86193917e0d4d764a6583664f0404070ed1410ad63d74aadef8",
+      "name": [
+        "\"BOOK_RANDOM_NAME\"",
+        "({ \"shu\", \"book\" })"
+      ],
+      "weight": "200",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一册佛经。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [
+        "无量寿经",
+        "大般涅磐经",
+        "阿含经",
+        "金刚经",
+        "波罗蜜多心经"
+      ],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "fojing5",
+      "new_path": "/d/items/book/fojing5",
+      "source": "// fojing21.c\n\ninherit ITEM;\n\nstring *titles = ({\n    \"无量寿经\",\n    \"大般涅磐经\",\n    \"阿含经\",\n    \"金刚经\",\n    \"波罗蜜多心经\",\n});\n\nvoid create() {\n    set_name(titles[random(sizeof(titles))], ({ \"shu\", \"book\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一册佛经。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"buddhism\",    // name of the skill\n            \"exp_required\": 0,    // minimum combat experience required\n            \"jing_cost\": 20,    // jing cost every time study this\n            \"difficulty\": 20,    // the base int to learn this skill\n            \"max_skill\": 100    // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/sky/obj/jue",
+      "key": "sky_obj_jue",
+      "source_hash": "9c9c42608cfe0c968ab599ab8a673688ce55b689a807350a9db73bc53f348dde",
+      "name": [
+        "HIW \"长生决\" NOR",
+        "({ \"changsheng jue\", \"book\", \"jue\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\\n\""
+        ],
+        [
+          "\"value\"",
+          "300"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"changsheng-jue\",        // name of the skill\n            \"exp_required\": 100000,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 250      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "changsheng_jue",
+      "new_path": "/d/items/book/changsheng_jue",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(HIW \"长生决\" NOR, ({ \"changsheng jue\", \"book\", \"jue\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\\n\");\n        set(\"value\", 300);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"changsheng-jue\",        // name of the skill\n            \"exp_required\": 100000,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 250      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/sky/obj/miji1",
+      "key": "sky_obj_miji1",
+      "source_hash": "320788aae9fa541b71c3bc5acf40c75f22dc90d621aff9fdef39f67f6ee49158",
+      "name": [
+        "CYN \"铁线拳密芨\" NOR",
+        "({ \"miji\", \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一本薄薄的小册，上面记载了不少精妙的拳法。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"tiexian-quan\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "tiexian_quan",
+      "new_path": "/d/items/book/tiexian_quan",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(CYN \"铁线拳密芨\" NOR, ({ \"miji\", \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一本薄薄的小册，上面记载了不少精妙的拳法。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"tiexian-quan\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/sky/obj/miji2",
+      "key": "sky_obj_miji2",
+      "source_hash": "f041a53f84a6d19442a8a3ecf21d9072ce5c17474cc7964cc1353687798a6ec1",
+      "name": [
+        "HIC \"四季剑法\" NOR",
+        "({ \"jianfa miji\", \"book\", \"miji\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一本薄薄的小册，上面记载了四季剑法的奥决。\\n\""
+        ],
+        [
+          "\"value\"",
+          "30"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"siji-jianfa\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "siji_jianfa",
+      "new_path": "/d/items/book/siji_jianfa",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(HIC \"四季剑法\" NOR, ({ \"jianfa miji\", \"book\", \"miji\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一本薄薄的小册，上面记载了四季剑法的奥决。\\n\");\n        set(\"value\", 30);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"siji-jianfa\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 50,     // jing cost every time study this\n            \"difficulty\": 50,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/sky/obj/miji3",
+      "key": "sky_obj_miji3",
+      "source_hash": "f83437025ca93b53abec00911b45a624d72f80732022a94c8e6354cc3a9401e9",
+      "name": [
+        "YEL \"飞龙探云秘芨\" NOR",
+        "({ \"tanyun miji\", \"book\", \"miji\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"李逍遥的家传绝学。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"feilong-shou\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 100,     // jing cost every time study this\n            \"difficulty\": 100,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "feilong_tanyun",
+      "new_path": "/d/items/book/feilong_tanyun",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(YEL \"飞龙探云秘芨\" NOR, ({ \"tanyun miji\", \"book\", \"miji\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"李逍遥的家传绝学。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"feilong-shou\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 100,     // jing cost every time study this\n            \"difficulty\": 100,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/sky/obj/yishu",
+      "key": "sky_obj_yishu",
+      "source_hash": "a736205b4ce317d0b1e2eed757a664012fbbbb614b20637ab34616969b50af4e",
+      "name": [
+        "WHT \"岳山遗书\" NOR",
+        "({ \"yishu\", \"shu\", \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\\n\""
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"badao-daofa\",        // name of the skill\n            \"exp_required\": 500000,      // minimum combat experience required\n            \"jing_cost\": 80,     // jing cost every time study this\n            \"difficulty\": 80,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "yueshan_yishu",
+      "new_path": "/d/items/book/yueshan_yishu",
+      "source": "#include <ansi.h>\ninherit ITEM;\nvoid create() {\n    set_name(WHT \"岳山遗书\" NOR, ({ \"yishu\", \"shu\", \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\\n\");\n        set(\"value\", 100);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"badao-daofa\",        // name of the skill\n            \"exp_required\": 500000,      // minimum combat experience required\n            \"jing_cost\": 80,     // jing cost every time study this\n            \"difficulty\": 80,     // the base int to learn this skill\n            \"max_skill\": 150      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/wudu/obj/book2",
+      "key": "wudu_obj_book2",
+      "source_hash": "67e318d9acc5b4c1c44bc409e024d587b16dbc38c80aa39f23fe2976cfc77b3c",
+      "name": [
+        "\"拆招秘术\"",
+        "({ \"book\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"这是一本薄薄的小册，上面绘了许多互相打斗的人像。\\n\""
+        ],
+        [
+          "\"value\"",
+          "0"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"parry\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 50      // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "chaizhao_mishu",
+      "new_path": "/d/items/book/chaizhao_mishu",
+      "source": "inherit ITEM;\n\nvoid create() {\n    set_name(\"拆招秘术\", ({ \"book\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", \"这是一本薄薄的小册，上面绘了许多互相打斗的人像。\\n\");\n        set(\"value\", 0);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"parry\",        // name of the skill\n            \"exp_required\": 0,      // minimum combat experience required\n            \"jing_cost\": 20,     // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 50      // the maximum level you can learn\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/wudu/obj/dujing2",
+      "key": "wudu_obj_dujing2",
+      "source_hash": "a568a60300c3e5162e48622d7f817d58f5a2b5b5baf3df1f73342954c1ff9b28",
+      "name": [
+        "YEL \"「毒经中篇」\" NOR",
+        "({ \"du jing2\", \"jing2\", \"book2\" })"
+      ],
+      "weight": "50",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "YEL \"这是一本薄薄的小册，上面密密麻麻的记满\"\n            \"了各种用毒的法门。\\n\" NOR"
+        ],
+        [
+          "\"value\"",
+          "100"
+        ],
+        [
+          "\"no_sell\"",
+          "\"我…我的天…连五毒教的东西你都敢拿来卖？\""
+        ],
+        [
+          "\"material\"",
+          "\"silk\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"poison\",\n            \"exp_required\": 100000,\n            \"jing_cost\": 40,\n            \"difficulty\": 40,\n            \"min_skill\": 50,\n            \"max_skill\": 99,\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "dujing2",
+      "new_path": "/d/items/book/dujing2",
+      "source": "#include <ansi.h>\ninherit ITEM;\n\nvoid create() {\n    set_name(YEL \"「毒经中篇」\" NOR, ({ \"du jing2\", \"jing2\", \"book2\" }));\n    set_weight(50);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\", YEL \"这是一本薄薄的小册，上面密密麻麻的记满\"\n            \"了各种用毒的法门。\\n\" NOR);\n        set(\"value\", 100);\n        set(\"no_sell\", \"我…我的天…连五毒教的东西你都敢拿来卖？\");\n        set(\"material\", \"silk\");\n        set(\"skill\", ([\n            \"name\": \"poison\",\n            \"exp_required\": 100000,\n            \"jing_cost\": 40,\n            \"difficulty\": 40,\n            \"min_skill\": 50,\n            \"max_skill\": 99,\n        ]));\n    }\n}\n"
+    },
+    {
+      "old_path": "/d/yanziwu/obj/dodgebook",
+      "key": "yanziwu_obj_dodgebook",
+      "source_hash": "7a9fac919da4f868be6dc6485eced3f1a9825e7efba80af19142b763fad41a11",
+      "name": [
+        "\"轻功篇\"",
+        "({ \"dodgebook\", \"shu\", \"book\" })"
+      ],
+      "weight": "100",
+      "before_weight": [],
+      "before_branch": [],
+      "properties": [
+        [
+          "\"unit\"",
+          "\"本\""
+        ],
+        [
+          "\"long\"",
+          "\"轻功篇\\n\"\n            \"这是一本还施水阁的轻功藏本，书色泛黄，有不少的批注。\\n\""
+        ],
+        [
+          "\"value\"",
+          "500"
+        ],
+        [
+          "\"material\"",
+          "\"paper\""
+        ],
+        [
+          "\"skill\"",
+          "([\n            \"name\": \"dodge\",        // name of the skill\n            \"exp_required\": 10000,  // minimum combat experience required\n            \"jing_cost\": 1,      // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ])"
+        ]
+      ],
+      "after_branch": [],
+      "name_choices": [],
+      "skill_choices": [],
+      "jing_cost_random": 0,
+      "id": "qinggong_pian",
+      "new_path": "/d/items/book/qinggong_pian",
+      "source": "// dodogbook.c\n\ninherit ITEM;\n\nvoid create() {\n    set_name(\"轻功篇\", ({ \"dodgebook\", \"shu\", \"book\" }));\n    set_weight(100);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"本\");\n        set(\"long\",\n            \"轻功篇\\n\"\n            \"这是一本还施水阁的轻功藏本，书色泛黄，有不少的批注。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"paper\");\n        set(\"skill\", ([\n            \"name\": \"dodge\",        // name of the skill\n            \"exp_required\": 10000,  // minimum combat experience required\n            \"jing_cost\": 1,      // jing cost every time study this\n            \"difficulty\": 20,     // the base int to learn this skill\n            \"max_skill\": 100     // the maximum level you can learn\n        ]));\n    }\n}\n"
+    }
+  ],
+  "hits": [
+    {
+      "file": "d/changan/npc/shuchi.c",
+      "line": 19,
+      "start": 412,
+      "end": 436,
+      "expression": "__DIR__ \"obj/book_blade\"",
+      "old_path": "/d/changan/npc/obj/book_blade",
+      "new_path": "/d/items/book/daofa_jianjie"
+    },
+    {
+      "file": "d/changan/npc/shuchi.c",
+      "line": 20,
+      "start": 446,
+      "end": 472,
+      "expression": "__DIR__ \"obj/book_unarmed\"",
+      "old_path": "/d/changan/npc/obj/book_unarmed",
+      "new_path": "/d/items/book/quanfa_jianjie"
+    },
+    {
+      "file": "d/changan/npc/yuanwai.c",
+      "line": 124,
+      "start": 3218,
+      "end": 3236,
+      "expression": "__DIR__ \"obj/book\"",
+      "old_path": "/d/changan/npc/obj/book",
+      "new_path": "/d/items/book/baibian_shentong"
+    },
+    {
+      "file": "d/kaifeng/cangjing2.c",
+      "line": 12,
+      "start": 204,
+      "end": 227,
+      "expression": "__DIR__ \"npc/obj/jing4\"",
+      "old_path": "/d/kaifeng/npc/obj/jing4",
+      "new_path": "/d/items/book/boluomi_jing"
+    },
+    {
+      "file": "d/kaifeng/cangjing2.c",
+      "line": 13,
+      "start": 240,
+      "end": 263,
+      "expression": "__DIR__ \"npc/obj/jing3\"",
+      "old_path": "/d/kaifeng/npc/obj/jing3",
+      "new_path": "/d/items/book/jingang_jing"
+    },
+    {
+      "file": "d/kaifeng/cangjing2.c",
+      "line": 14,
+      "start": 276,
+      "end": 299,
+      "expression": "__DIR__ \"npc/obj/jing2\"",
+      "old_path": "/d/kaifeng/npc/obj/jing2",
+      "new_path": "/d/items/book/niepan_jing"
+    },
+    {
+      "file": "d/kaifeng/cangjing2.c",
+      "line": 15,
+      "start": 312,
+      "end": 335,
+      "expression": "__DIR__ \"npc/obj/jing1\"",
+      "old_path": "/d/kaifeng/npc/obj/jing1",
+      "new_path": "/d/items/book/wuliang_jing"
+    },
+    {
+      "file": "d/lingxiao/book.c",
+      "line": 3,
+      "start": 37,
+      "end": 62,
+      "expression": "__DIR__ \"obj/book-bamboo\"",
+      "old_path": "/d/lingxiao/obj/book-bamboo",
+      "new_path": "/d/items/book/zhu_pian"
+    },
+    {
+      "file": "d/lingxiao/book.c",
+      "line": 4,
+      "start": 68,
+      "end": 91,
+      "expression": "__DIR__ \"obj/book-silk\"",
+      "old_path": "/d/lingxiao/obj/book-silk",
+      "new_path": "/d/items/book/bojuan"
+    },
+    {
+      "file": "d/lingxiao/book.c",
+      "line": 5,
+      "start": 97,
+      "end": 121,
+      "expression": "__DIR__ \"obj/book-stone\"",
+      "old_path": "/d/lingxiao/obj/book-stone",
+      "new_path": "/d/items/book/shiban"
+    },
+    {
+      "file": "d/mingjiao/obj/bag.c",
+      "line": 44,
+      "start": 925,
+      "end": 947,
+      "expression": "\"/d/mingjiao/obj/jing\"",
+      "old_path": "/d/mingjiao/obj/jing",
+      "new_path": "/d/items/book/lengjia_jing"
+    },
+    {
+      "file": "d/quanzhen/npc/zhangjing.c",
+      "line": 84,
+      "start": 1902,
+      "end": 1927,
+      "expression": "__DIR__ \"obj/daodejing-i\"",
+      "old_path": "/d/quanzhen/npc/obj/daodejing-i",
+      "new_path": "/d/items/book/daodejing1"
+    },
+    {
+      "file": "d/quanzhen/npc/zhangli.c",
+      "line": 82,
+      "start": 1864,
+      "end": 1890,
+      "expression": "__DIR__ \"obj/daodejing-ii\"",
+      "old_path": "/d/quanzhen/npc/obj/daodejing-ii",
+      "new_path": "/d/items/book/daodejing2"
+    },
+    {
+      "file": "d/sky/npc/hua.c",
+      "line": 62,
+      "start": 1655,
+      "end": 1673,
+      "expression": "\"/d/sky/obj/miji2\"",
+      "old_path": "/d/sky/obj/miji2",
+      "new_path": "/d/items/book/siji_jianfa"
+    },
+    {
+      "file": "d/sky/npc/kou.c",
+      "line": 62,
+      "start": 1629,
+      "end": 1645,
+      "expression": "\"/d/sky/obj/jue\"",
+      "old_path": "/d/sky/obj/jue",
+      "new_path": "/d/items/book/changsheng_jue"
+    },
+    {
+      "file": "d/sky/npc/li2.c",
+      "line": 62,
+      "start": 1625,
+      "end": 1643,
+      "expression": "\"/d/sky/obj/miji3\"",
+      "old_path": "/d/sky/obj/miji3",
+      "new_path": "/d/items/book/feilong_tanyun"
+    },
+    {
+      "file": "d/sky/npc/tie.c",
+      "line": 62,
+      "start": 1480,
+      "end": 1498,
+      "expression": "\"/d/sky/obj/miji1\"",
+      "old_path": "/d/sky/obj/miji1",
+      "new_path": "/d/items/book/tiexian_quan"
+    },
+    {
+      "file": "d/sky/npc/xu.c",
+      "line": 61,
+      "start": 1582,
+      "end": 1600,
+      "expression": "\"/d/sky/obj/yishu\"",
+      "old_path": "/d/sky/obj/yishu",
+      "new_path": "/d/items/book/yueshan_yishu"
+    },
+    {
+      "file": "d/wudu/shufang.c",
+      "line": 15,
+      "start": 232,
+      "end": 251,
+      "expression": "__DIR__ \"obj/book2\"",
+      "old_path": "/d/wudu/obj/book2",
+      "new_path": "/d/items/book/chaizhao_mishu"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "line": 74,
+      "expression": "carry_object(__DIR__ \"obj/\" + weapon_file)->wield();"
+    },
+    {
+      "file": "d/emei/cangjingge.c",
+      "line": 12,
+      "expression": "__DIR__ \"obj/fojing1\" + random(2): 1,"
+    },
+    {
+      "file": "d/emei/cangjingge.c",
+      "line": 13,
+      "expression": "__DIR__ \"obj/fojing2\" + random(2): 1,"
+    },
+    {
+      "file": "d/emei/cangjinglou.c",
+      "line": 13,
+      "expression": "__DIR__ \"obj/fojing1\" + random(2): 1,"
+    },
+    {
+      "file": "d/emei/cangjinglou.c",
+      "line": 14,
+      "expression": "__DIR__ \"obj/fojing2\" + random(2): 1,"
+    },
+    {
+      "file": "d/shaolin/cjlou.c",
+      "line": 21,
+      "expression": "\"d/shaolin/obj/fojing1\" + random(2): 1,"
+    },
+    {
+      "file": "d/shaolin/cjlou.c",
+      "line": 22,
+      "expression": "\"d/shaolin/obj/fojing2\" + random(2): 1,"
+    },
+    {
+      "file": "d/shaolin/jianyu.c",
+      "line": 24,
+      "expression": "\"d/shaolin/obj/fojing1\" + random(2): 1,"
+    },
+    {
+      "file": "d/xiangyang/npc/wuxiuwen.c",
+      "line": 87,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-chen.c",
+      "line": 101,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    },
+    {
+      "file": "kungfu/class/shaolin/dao-xiang.c",
+      "line": 109,
+      "expression": "ob = new(\"/d/shaolin/obj/\" + name);"
+    }
+  ],
+  "callers": {
+    "d/changan/npc/shuchi.c": "//shuci.c\n\ninherit NPC;\ninherit F_DEALER;\n\nvoid create() {\n    set_name(\"书痴\", ({ \"shu chi\", \"chi\", }));\n    set(\"gender\", \"男性\");\n    set(\"age\", 40);\n    set(\"title\", \"汇文阁老板\");\n    set(\"combat_exp\", 50000);\n    set_skill(\"dodge\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"literate\", 100);\n    set(\"attitude\", \"friendly\");\n    set(\"per\", 25);\n    set(\"vendor_goods\", ({\n        __DIR__ \"obj/book_blade\",\n        __DIR__ \"obj/book_unarmed\",\n    }));\n\n    setup();\n    carry_object(\"/d/items/cloth/choupao\")->wear();\n}\n\nvoid init() {\n    object ob;\n    ::init();\n    if (interactive(ob = this_player()) && !is_fighting()) {\n        remove_call_out(\"greeting\");\n        call_out(\"greeting\", 1, ob);\n    }\n    add_action(\"do_buy\", \"buy\");\n    add_action(\"do_list\", \"list\");\n}\n\nvoid greeting(object ob) {\n    if (!ob || !visible(ob) || environment(ob) != environment())\n        return;\n    command(\"say 这位\" + RANK_D->query_respect(ob) + \"快请进，快请进。\");\n}\n",
+    "d/changan/npc/yuanwai.c": "//yuanwai.c\n\ninherit NPC;\n\nvoid create() {\n    set_name(\"萧员外\", ({ \"xiao yuanwai\", \"xiao\", \"yuanwai\" }));\n    set(\"gender\", \"男性\");\n    set(\"rank_info/respect\", \"老员外\");\n    set(\"age\", 50);\n    set(\"attitude\", \"peaceful\");\n    set(\"shen_type\", 1);\n    set(\"per\", 40);\n    set(\"int\", 40);\n    set(\"max_kee\", 800);\n    set(\"max_gin\", 800);\n    set(\"max_sen\", 800);\n    set(\"force\", 900);\n    set(\"max_force\", 900);\n    set(\"force_factor\", 60);\n    set(\"max_mana\", 900);\n    set(\"mana\", 900);\n    set(\"mana_factor\", 40);\n    set(\"combat_exp\", 300000);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"force\", 50);\n\n    setup();\n    carry_object(\"/d/items/cloth/choupao\")->wear();\n}\nvoid check_daughter(object me);\n\nvoid init() {\n    ::init();\n    check_daughter(this_object());\n}\n\nint accept_object(object who, object ob) {\n    object me = this_object();\n    object room = environment(me);\n    if (room->query(\"short\") != \"萧家大厅\")\n        return 0;\n\n    if (ob->query(\"id\") == \"xin\") {\n        remove_call_out(\"read_letter\");\n        call_out(\"read_letter\", 3, me, who, ob);\n        return 1;\n    }\n    return 0;\n}\n\nvoid read_letter(object me, object who, object ob) {\n    destruct(ob);\n    reset_eval_cost();\n\n    message_vision(\"$N看完信，不由得涕泪俱下。\\n\"\n        \"$N道：这些天我差人寻遍长安城，也没找\"\n        \"到我那孩儿，\\n原来竟被人拐卖到了青楼之中。\\n\\n\",\n        me);\n\n    message_vision(\"$N对$n道：若非这位\" +\n        RANK_D->query_respect(who) +\n        \"前来相告，我可能今生就见不到我的女儿了，\\n\" +\n        RANK_D->query_respect(who) +\n        \"这份恩德叫老夫如何报答啊！\\n\", me, who);\n\n    remove_call_out(\"send_to_fight\");\n    call_out(\"send_to_fight\", 3, me, who);\n}\n\nvoid send_to_fight(object me, object who) {\n    object yupei = new(\"/d/items/neck/yupei\");\n    yupei->move(who);\n    message_vision(\"$N对$n说道：还请这位\" +\n        RANK_D->query_respect(who) +\n        \"再帮帮忙，将我女儿搭救出来！\\n\\n\",\n        me, who);\n\n    message_vision(\"$N从衣袋内取出一块玉佩交给$n，道\"\n        \"“这是我家传玉佩，湘湘见到会认得的！\\n\",\n        me, who);\n    message_vision(\"$N给$n一块玉佩。\\n\", me, who);\n    who->save();\n}\n\nvoid check_daughter(object me) {\n    object room = environment(me);\n    object xiangxiang = present(\"xiangxiang\", room);\n    object who;\n    object yupei;\n    reset_eval_cost();\n    if (room->query(\"short\") != \"萧家大厅\")\n        return;\n\n    if (!xiangxiang || !xiangxiang->query(\"leader\"))\n        return;\n    if (!(who = present(xiangxiang->query(\"leader\"), room)))\n        return;\n    if (!(yupei = present(\"yu pei\", who)))\n        return;\n    xiangxiang->set_leader(0);\n    xiangxiang->set_temp(\"no_return\", 0);\n    remove_call_out(\"cry_daughter\");\n    call_out(\"cry_daughter\", 2, me, xiangxiang, who);\n    remove_call_out(\"announce_success\");\n    call_out(\"announce_success\", 4, me, who);\n}\n\nvoid cry_daughter(object me, object xiangxiang, object who, object yupei) {\n    //      object book;\n    message_vision(\"$N见了$n一愣，然后老泪纵横地将$n拉过去。\\n\",\n        me, xiangxiang);\n    destruct(xiangxiang);\n\n    yupei = present(\"yu pei\", who);\n    yupei->move(me);\n    destruct(yupei);\n    command(\"thank \" + who->query(\"id\"));\n    command(\"say 这位\" + RANK_D->query_respect(who) +\n        \"救我儿湘湘逃出魔掌！老夫这里有一本书，\\n是\"\n        \"祖上传下来的，就送给\" + RANK_D->query_respect(who) +\n        \"吧！\\n\");\n    carry_object(__DIR__ \"obj/book\");\n    command(\"give book to \" + who->query(\"id\"));\n}\n",
+    "d/emei/cangjingge.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"藏经阁\");\n    set(\"long\", @LONG\n小阁楼上便是峨嵋派的藏经阁了。这里都是密密麻麻，高\n及顶棚的书架。窗口下有张大桌子，桌上放了几本佛经。有个\n小师太正在向静道师太借书。\nLONG);\n    set(\"objects\", ([\n        CLASS_D(\"emei\") + \"/dao\": 1,\n        __DIR__ \"obj/fojing1\" + random(2): 1,\n        __DIR__ \"obj/fojing2\" + random(2): 1,\n    ]));\n\n    set(\"exits\", ([\n        \"down\": __DIR__ \"chuwujian\",\n    ]));\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/emei/cangjinglou.c": "#include <ansi.h>\ninherit ROOM;\n\nvoid create() {\n    set(\"short\", \"藏经楼\");\n    set(\"long\", @LONG\n这里是报国寺藏经楼。阁楼上密密麻麻排了好多书架，架\n上摆满了经书。有两个身穿白衣的小师太正在一角静静地读着\n经书。\nLONG);\n    set(\"objects\", ([\n        CLASS_D(\"emei\") + \"/daoming\": 1,\n        __DIR__ \"obj/fojing1\" + random(2): 1,\n        __DIR__ \"obj/fojing2\" + random(2): 1,\n    ]));\n    set(\"exits\", ([\n        \"south\": __DIR__ \"dxdian\",\n    ]));\n    setup();\n}\n\nint valid_leave(object me, string dir) {\n    me = this_player();\n\n    if (dir == \"south\"\n        && present(\"shu\", me)\n        && objectp(present(\"dao ming\", environment(me))))\n        return notify_fail(CYN \"道明小师父见你想把经书拿走，上前轻\"\n            \"声说道：本阁经书恕不外借。\\n\" NOR);\n\n    return ::valid_leave(me, dir);\n}\n",
+    "d/kaifeng/cangjing2.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"藏经楼二层\");\n    set(\"long\", @LONG\n小楼的四个角落中放着石灰包，用来吸收空气中的水份隔\n段时间，寺庙中的和尚会把收藏在盒中的佛经放到外面去晒以\n防日久被虫子蛀了，用来晾晒佛经的石头就称为晒经石，据说\n有佛力。\nLONG);\n    set(\"objects\", ([\n        __DIR__ \"npc/obj/jing4\": 1,\n        __DIR__ \"npc/obj/jing3\": 1,\n        __DIR__ \"npc/obj/jing2\": 1,\n        __DIR__ \"npc/obj/jing1\": 1,\n    ]));\n\n    set(\"no_clean_up\", 0);\n    set(\"exits\", ([\n        \"down\": __DIR__ \"cangjing\",\n    ]));\n\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/lingxiao/book.c": "inherit ROOM;\nstring *books = ({\n    __DIR__ \"obj/book-bamboo\",\n    __DIR__ \"obj/book-silk\",\n    __DIR__ \"obj/book-stone\",\n    __DIR__ \"obj/book-iron\",\n});\n\nvoid create() {\n    set(\"short\", \"书房\");\n    set(\"long\", @LONG\n这里是白自在的书房，一室之内，放满了各类书籍。白自在\n虽然狂妄自大，但说到他学问，却当真也是饱读诗书，学富五车。\n这里的书架，大大小小，总有十几个吧。白自在的书童正在这为\n他整理。\nLONG);\n    set(\"exits\", ([\n        \"north\": __DIR__ \"weideju\",\n        \"south\": __DIR__ \"bridge\",\n    ]));\n    set(\"objects\", ([\n        __DIR__ \"npc/su\": 1,\n        books[random(sizeof(books))]: 1,\n        books[random(sizeof(books))]: 1,\n    ]));\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/mingjiao/obj/bag.c": "#include <ansi.h>\ninherit ITEM;\n\nvoid create() {\n    set_name(\"油布包\", ({ \"bag\", \"bao\" }));\n    set_weight(200);\n    if (clonep())\n        set_default_object(__FILE__);\n    else {\n        set(\"unit\", \"个\");\n        set(\"long\", \"这是一个油布包裹。\\n\");\n        set(\"value\", 500);\n        set(\"material\", \"cloth\");\n    }\n    set(\"book_count\", 1);\n}\n\nvoid init() {\n    if (this_player() == environment()) {\n        add_action(\"do_open\", \"open\");\n        add_action(\"do_open\", \"unpack\");\n        add_action(\"do_open\", \"dakai\");\n    }\n}\n\nint do_open(string arg) {\n    object me, book;\n    object where;\n\n    if (!arg || !id(arg))\n        return 0;\n\n    if (query(\"book_count\") < 1) {\n        write(\"油布包里面什么也没有了。\\n\");\n        return 1;\n    }\n\n    me = this_player();\n    where = environment(me);\n    message_vision(YEL \"\\n$N\" YEL \"轻轻地把油布包来看时，里\"\n        \"面原来是一本薄薄的经书，只因油布\\n包得紧\"\n        \"密，虽长期藏在猿腹之中，书页仍然完好无损\"\n        \"。\\n\", me);\n    book = new(\"/d/mingjiao/obj/jing\");\n    book->move(me);\n    add(\"book_count\", -1);\n    return 1;\n}\n",
+    "d/quanzhen/npc/zhangjing.c": "#include <ansi.h>\ninherit NPC;\n\nstring ask_me();\n\nvoid create() {\n    set_name(\"掌经道长\", ({ \"zhangjing daozhang\", \"zhangjing\", \"daozhang\" }));\n    set(\"long\", @LONG\n这位是全真教里掌管经书的道长。他以前是长\n安镇上一个私塾的夫子，因为仰慕大道，才拜\n到了全真门下。不过毕竟因为年岁大了，功夫\n的根基扎得不牢，这也正合他意，可以安安心\n心地研读经书了。\nLONG);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 36);\n    set(\"class\", \"taoist\");\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 18);\n    set(\"int\", 18);\n    set(\"con\", 20);\n    set(\"dex\", 21);\n\n    set(\"qi\", 500);\n    set(\"max_qi\", 500);\n    set(\"jing\", 350);\n    set(\"max_jing\", 350);\n    set(\"neili\", 900);\n    set(\"max_neili\", 900);\n    set(\"jiali\", 0);\n\n    set(\"combat_exp\", 20000);\n    set(\"score\", 15000);\n\n    set_skill(\"force\", 40);\n    set_skill(\"quanzhen-xinfa\", 40);\n    set_skill(\"sword\", 40);\n    set_skill(\"quanzhen-jian\", 40);\n    set_skill(\"dodge\", 50);\n    set_skill(\"jinyan-gong\", 40);\n    set_skill(\"parry\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"haotian-zhang\", 50);\n    set_skill(\"literate\", 100);\n    set_skill(\"taoism\", 80);\n\n    map_skill(\"force\", \"quanzhen-xinfa\");\n    map_skill(\"sword\", \"quanzhen-jian\");\n    map_skill(\"dodge\", \"jinyan-gong\");\n    map_skill(\"parry\", \"quanzhen-jian\");\n    map_skill(\"strike\", \"haotian-zhang\");\n    prepare_skill(\"strike\", \"haotian-zhang\");\n\n    create_family(\"全真教\", 4, \"弟子\");\n\n    set(\"book_count\", 1);\n    set(\"inquiry\", ([\n        \"全真教\": \"我全真教是天下道家玄门正宗。\\n\",\n        \"道德经\": (: ask_me :),\n    ]));\n\n    setup();\n\n    carry_object(\"/clone/weapon/changjian\")->wield();\n    carry_object(\"/d/items/cloth/huise_daopao2\")->wear();\n\n}\n\nstring ask_me() {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\"))\n        || fam[\"family_name\"] != \"全真教\")\n        return \"阁下与本教毫无瓜葛，你这话可叫我弄不明白了。\";\n\n    if (query(\"book_count\") < 1)\n        return \"你来晚了，道德经已经被人取走了。\";\n\n    add(\"book_count\", -1);\n    ob = new(__DIR__ \"obj/daodejing-i\");\n    ob->move(this_player());\n    return \"好吧，这本「道德经」你拿去好好研读，不懂的地方可以来问我。\";\n\n}\n",
+    "d/quanzhen/npc/zhangli.c": "#include <ansi.h>\ninherit NPC;\n\nstring ask_me();\n\nvoid create() {\n    set_name(\"掌理道长\", ({ \"zhangli daozhang\", \"zhangli\", \"daozhang\" }));\n    set(\"long\", @LONG\n这是一位年纪很轻的道人，他精明能干，是全\n真教第四代弟子中出类拔瘁的人物，前辈真人\n们分派他来掌理全教上下的杂务。\nLONG);\n\n    set(\"gender\", \"男性\");\n    set(\"age\", 22);\n    set(\"class\", \"taoist\");\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 22);\n    set(\"int\", 22);\n    set(\"con\", 22);\n    set(\"dex\", 22);\n\n    set(\"qi\", 600);\n    set(\"max_qi\", 600);\n    set(\"jing\", 400);\n    set(\"max_jing\", 400);\n    set(\"neili\", 1200);\n    set(\"max_neili\", 1200);\n    set(\"jiali\", 0);\n\n    set(\"combat_exp\", 30000);\n    set(\"score\", 20000);\n\n    set_skill(\"force\", 60);\n    set_skill(\"quanzhen-xinfa\", 50);\n    set_skill(\"sword\", 60);\n    set_skill(\"quanzhen-jian\", 60);\n    set_skill(\"dodge\", 50);\n    set_skill(\"jinyan-gong\", 50);\n    set_skill(\"parry\", 60);\n    set_skill(\"unarmed\", 60);\n    set_skill(\"strike\", 60);\n    set_skill(\"haotian-zhang\", 50);\n    set_skill(\"literate\", 50);\n    set_skill(\"taoism\", 40);\n\n    map_skill(\"force\", \"quanzhen-xinfa\");\n    map_skill(\"sword\", \"quanzhen-jian\");\n    map_skill(\"dodge\", \"jinyan-gong\");\n    map_skill(\"parry\", \"quanzhen-jian\");\n    map_skill(\"strike\", \"haotian-zhang\");\n    prepare_skill(\"strike\", \"haotian-zhang\");\n\n    create_family(\"全真教\", 4, \"弟子\");\n\n    set(\"book_count\", 1);\n    set(\"inquiry\", ([\n        \"全真教\": \"我全真教是天下道家玄门正宗。\\n\",\n        \"道德经\": (: ask_me :),\n    ]));\n\n    setup();\n\n    carry_object(\"/clone/weapon/changjian\")->wield();\n    carry_object(\"/d/items/cloth/huise_daopao2\")->wear();\n\n}\n\nstring ask_me() {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\"))\n        || fam[\"family_name\"] != \"全真教\")\n        return \"阁下与本教毫无瓜葛，你这话可叫我弄不明白了。\";\n\n    if (query(\"book_count\") < 1)\n        return \"你来晚了，道德经已经被人取走了。\";\n\n    add(\"book_count\", -1);\n    ob = new(__DIR__ \"obj/daodejing-ii\");\n    ob->move(this_player());\n    return \"好吧，这本「道德经」你拿去好好研读，不懂的地方可以来问我。\";\n\n}\n",
+    "d/shaolin/cjlou.c": "// Room: /d/shaolin/cjlou.c\n// Date: YZC 96/01/19\n\ninherit ROOM;\n\nvoid create() {\n    set(\"short\", \"藏经阁一楼\");\n    set(\"long\", @LONG\n不愧为中原佛法的总源，少林寺此处藏经之富，天下罕有其\n匹。这里都是密密麻麻，高及顶棚的书架，书架间仅有容身一人\n通行的空隙。几排大书架中间，间隔地放着数丈长的书桌。目光\n及处，你看到桌上放了几本佛经。\nLONG);\n    set(\"exits\", ([\n        \"east\": __DIR__ \"zhulin5\",\n        \"up\": __DIR__ \"cjlou1\",\n    ]));\n    set(\"objects\", ([\n        CLASS_D(\"shaolin\") + \"/dao-yi\": 1,\n        CLASS_D(\"shaolin\") + \"/wuming\": 1,\n        \"d/shaolin/obj/fojing1\" + random(2): 1,\n        \"d/shaolin/obj/fojing2\" + random(2): 1,\n    ]));\n    setup();\n}\n\nint valid_leave(object me, string dir) {\n    if (!present(\"shou yu\", this_player()) &&\n        (objectp(present(\"daoyi chanshi\", environment(me))))) {\n        if (dir == \"up\") {\n            return notify_fail(\"道一说道: 你未经许可，不能上二楼。\\n\");\n        }\n    }\n    return ::valid_leave(me, dir);\n}\n",
+    "d/shaolin/jianyu.c": "// Room: /d/shaolin/jianyu.c\n// Date: YZC 96/02/06\n\n#include <ansi.h>\n\ninherit ROOM;\n\nvoid create() {\n    set(\"short\", \"监狱\");\n    set(\"long\", @LONG\n这里黑沉沉的，即无一丝光亮，也无半分声息。黑暗中依稀\n可以看到身边似乎有几个人影，看到你转过头去，他们立刻屏住\n呼吸，紧张地瞪着你。四壁摸上去冰凉，且极硬，似乎都是钢铁\n铸成，只有南北面各有一道小门，门上开了个巴掌大的洞，象是\n送饭用的。脚边有一堆东西踢上去克剌剌地散了开来，细看却是\n一具白得发亮的枯骨。\nLONG);\n    set(\"exits\", ([\n        \"south\": __DIR__ \"jianyu1\",\n    ]));\n    set(\"valid_startroom\", 1);\n    set(\"objects\", ([\n        CLASS_D(\"shaolin\") + \"/qing-yuan\": 1,\n        \"d/shaolin/obj/fojing1\" + random(2): 1,\n    ]));\n    //    set(\"no_clean_up\", 0);\n    setup();\n}\n\nvoid init() {\n    object ob = this_player();\n\n    if ((int)ob->query_condition(\"bonze_jail\") <= 0) {\n        message(\"vision\",\n            HIY \"只听牢房铁门匡地一响，一个昏昏沉沉的家伙被扔了进来！\\n\\n\" NOR,\n            environment(ob), ob);\n\n        tell_object(ob, \"狱卒嘿嘿地笑着：今儿个你可落在我手里了...！\\n\");\n\n        ob->set(\"startroom\", \"/d/shaolin/jianyu\");\n        ob->apply_condition(\"bonze_jail\", 60);\n    }\n}\n",
+    "d/sky/npc/hua.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"华英雄\", ({ \"hua yingxiong\", \"hua\", \"yingxiong\" }));\n    set(\"long\", \"一个俊俏的中年男子，衣着长衫，他就是华英雄。\\n\"\n        \"传说他命犯天煞孤星，一生漂泊，落于异地。尔后\\n\"\n        \"习得一身绝技，兼修炼「中华傲决」，大败「东洋\\n\"\n        \"战神」无敌。\\n\");\n    set(\"nickname\", HIW \"中华英雄\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 26);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 40);\n    set(\"int\", 40);\n    set(\"con\", 40);\n    set(\"dex\", 40);\n    set(\"per\", 40);\n\n    set(\"max_qi\", 8000);\n    set(\"max_jing\", 6000);\n    set(\"max_neili\", 12000);\n    set(\"neili\", 12000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 10000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.aojue\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n    }));\n\n    set_skill(\"dodge\", 460);\n    set_skill(\"strike\", 460);\n    set_skill(\"parry\", 460);\n    set_skill(\"unarmed\", 460);\n    set_skill(\"force\", 460);\n    set_skill(\"sword\", 460);\n    set_skill(\"siji-jianfa\", 460);\n    set_skill(\"zhonghua-aojue\", 460);\n    set_skill(\"literate\", 200);\n\n    map_skill(\"force\", \"zhonghua-aojue\");\n    map_skill(\"sword\", \"zhonghua-aojue\");\n    map_skill(\"dodge\", \"zhonghua-aojue\");\n    map_skill(\"parry\", \"zhonghua-aojue\");\n    map_skill(\"strike\", \"zhonghua-aojue\");\n    map_skill(\"unarmed\", \"zhonghua-aojue\");\n\n    prepare_skill(\"strike\", \"zhonghua-aojue\");\n\n    setup();\n\n    carry_object(\"/d/items/cloth/qingse_changshan\")->wear();\n    carry_object(\"/d/items/sword/chijian\")->wield();\n    carry_object(\"/d/sky/obj/miji2\");\n}\n",
+    "d/sky/npc/kou.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"寇仲\", ({ \"kou zhong\", \"kou\", \"zhong\" }));\n    set(\"long\", \"一个身着龙袍的魁梧少年，他就是少帅军的统帅寇仲。\\n\");\n    set(\"nickname\", HIR \"大唐双龙\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 27);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 35);\n    set(\"int\", 35);\n    set(\"con\", 35);\n    set(\"dex\", 35);\n    set(\"per\", 35);\n\n    set(\"max_qi\", 7000);\n    set(\"max_jing\", 5000);\n    set(\"max_neili\", 9000);\n    set(\"neili\", 9000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 8000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"blade.bafa\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n    }));\n\n    set_skill(\"dodge\", 320);\n    set_skill(\"parry\", 320);\n    set_skill(\"hand\", 240);\n    set_skill(\"unarmed\", 240);\n    set_skill(\"shou-yin\", 240);\n    set_skill(\"wudu-shu\", 320);\n    set_skill(\"force\", 400);\n    set_skill(\"changsheng-jue\", 400);\n    set_skill(\"blade\", 320);\n    set_skill(\"jingzhong-bafa\", 320);\n    set_skill(\"literate\", 100);\n\n    map_skill(\"force\", \"changsheng-jue\");\n    map_skill(\"blade\", \"jingzhong-bafa\");\n    map_skill(\"dodge\", \"wudu-shu\");\n    map_skill(\"parry\", \"jingzhong-bafa\");\n    map_skill(\"hand\", \"shou-yin\");\n    map_skill(\"unarmed\", \"shou-yin\");\n\n    prepare_skill(\"hand\", \"shou-yin\");\n\n    setup();\n\n    carry_object(\"/d/items/cloth/longwen_pao\")->wear();\n    carry_object(__DIR__ \"obj/jingzhongyue\")->wield();\n    carry_object(\"/d/sky/obj/heshibi\");\n    carry_object(\"/d/sky/obj/jue\");\n}\n\nvoid kill_ob(object ob) {\n    object me = this_object();\n    object where = environment(me);\n    object guard = present(\"xu ziling\", where);\n\n    set_temp(\"my_killer\", ob);\n    ::kill_ob(ob);\n    if (guard && !guard->is_fighting()) {\n        message_vision(CYN \"$N大怒道：阁下欺人太甚，别怪我无情！\\n\" NOR, guard);\n        guard->kill_ob(ob);\n    }\n}\n",
+    "d/sky/npc/li2.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"李逍遥\", ({ \"li xiaoyao\", \"li\", \"xiaoyao\" }));\n    set(\"long\", \"仙剑奇侠传中的传奇人物，少年得蜀山剑派\\n\"\n        \"高人授艺，兼习家传绝学飞龙探云手以及冰\\n\"\n        \"心决，乃一代不世的剑侠。\\n\");\n    set(\"nickname\", HIW \"蜀山剑神\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 24);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 50);\n    set(\"int\", 50);\n    set(\"con\", 50);\n    set(\"dex\", 50);\n\n    set(\"max_qi\", 9000);\n    set(\"max_jing\", 6000);\n    set(\"max_neili\", 12000);\n    set(\"neili\", 12000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 10000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"sword.fei\" :),\n        (: exert_function, \"freeze\" :),\n        (: exert_function, \"powerup\" :),\n    }));\n\n    set_skill(\"dodge\", 460);\n    set_skill(\"parry\", 460);\n    set_skill(\"unarmed\", 460);\n    set_skill(\"hand\", 460);\n    set_skill(\"sword\", 460);\n    set_skill(\"yujian-shu\", 460);\n    set_skill(\"feilong-shou\", 460);\n    set_skill(\"zuixian-bu\", 460);\n    set_skill(\"force\", 460);\n    set_skill(\"bingxin-jue\", 460);\n    set_skill(\"literate\", 200);\n\n    map_skill(\"force\", \"bingxin-jue\");\n    map_skill(\"dodge\", \"zuixian-bu\");\n    map_skill(\"parry\", \"yujian-shu\");\n    map_skill(\"sword\", \"yujian-shu\");\n    map_skill(\"unarmed\", \"feilong-shou\");\n    map_skill(\"hand\", \"feilong-shou\");\n\n    prepare_skill(\"hand\", \"feilong-shou\");\n\n    setup();\n\n    carry_object(__DIR__ \"obj/pangukai\")->wear();\n    carry_object(\"/d/items/sword/xuanchi_jian\")->wield();\n    carry_object(\"/d/sky/obj/miji3\");\n    set_temp(\"handing\", carry_object(\"/d/sky/obj/shenjiu\"));\n}\n",
+    "d/sky/npc/tie.c": "#include <ansi.h>\ninherit NPC;\ninherit F_GUARDER;\n\nvoid create() {\n    set_name(\"铁传甲\", ({ \"tie chuanjia\", \"tie\", \"chuanjia\" }));\n    set(\"nickname\", WHT \"铁甲金刚\" NOR);\n    set(\"title\", \"忠心护卫\");\n    set(\"gender\", \"男性\");\n    set(\"age\", 42);\n    set(\"long\", \"一个身材魁梧的汉子。\\n\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"str\", 40);\n    set(\"con\", 30);\n    set(\"int\", 20);\n    set(\"dex\", 30);\n\n    set(\"max_qi\", 4000);\n    set(\"max_jing\", 3000);\n    set(\"neili\", 5000);\n    set(\"max_neili\", 5000);\n    set(\"jiali\", 150);\n\n    set(\"combat_exp\", 1800000);\n    set(\"shen_type\", 1);\n    set(\"score\", 5000);\n\n    set(\"chat_chance_combat\", 80);\n    set(\"chat_msg_combat\", ({\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"recover\" :)\n    }));\n\n    set_skill(\"unarmed\", 220);\n    set_skill(\"force\", 220);\n    set_skill(\"parry\", 180);\n    set_skill(\"dodge\", 180);\n    set_skill(\"cuff\", 220);\n    set_skill(\"literate\", 100);\n    set_skill(\"yijinjing\", 220);\n    set_skill(\"tiexian-quan\", 220);\n    set_skill(\"feiyan-huixiang\", 180);\n\n    map_skill(\"parry\", \"tiexian-quan\");\n    map_skill(\"force\", \"yijinjing\");\n    map_skill(\"unarmed\", \"tiexian-quan\");\n    map_skill(\"cuff\", \"tiexian-quan\");\n    map_skill(\"dodge\", \"feiyan-huixiang\");\n\n    set_temp(\"apply/damage\", 100);\n    set_temp(\"apply/armor\", 200);\n    set(\"apply/dodge\", 100);\n\n    set(\"coagents\", ({\n        ([ \"startroom\": \"/d/sky/tianmen\",\n            \"id\": \"li xunhuan\" ]),\n    }));\n\n    setup();\n\n    carry_object(\"/d/sky/obj/miji1\");\n    carry_object(\"/clone/cloth/cloth\")->wear();\n}\n",
+    "d/sky/npc/xu.c": "#include <ansi.h>\n\ninherit NPC;\ninherit F_UNIQUE;\ninherit F_COAGENT;\n\nvoid create() {\n    set_name(\"徐子陵\", ({ \"xu ziling\", \"xu\", \"ziling\" }));\n    set(\"long\", \"一个俊俏的白衣少年，他就是名震天下的徐子陵。\\n\");\n    set(\"nickname\", HIR \"大唐双龙\" NOR);\n    set(\"title\", HIY \"大宗师\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 26);\n    set(\"attitude\", \"friendly\");\n    set(\"shen_type\", 1);\n    set(\"str\", 35);\n    set(\"int\", 35);\n    set(\"con\", 35);\n    set(\"dex\", 35);\n    set(\"per\", 35);\n\n    set(\"max_qi\", 7000);\n    set(\"max_jing\", 5000);\n    set(\"max_neili\", 9000);\n    set(\"neili\", 9000);\n    set(\"jiali\", 250);\n    set(\"combat_exp\", 8000000);\n\n    set(\"chat_chance_combat\", 100);\n    set(\"chat_msg_combat\", ({\n        (: perform_action, \"hand.jie\" :),\n        (: exert_function, \"powerup\" :),\n        (: exert_function, \"shield\" :),\n    }));\n\n    set_skill(\"dodge\", 320);\n    set_skill(\"hand\", 320);\n    set_skill(\"parry\", 320);\n    set_skill(\"unarmed\", 320);\n    set_skill(\"shou-yin\", 320);\n    set_skill(\"wudu-shu\", 320);\n    set_skill(\"force\", 400);\n    set_skill(\"changsheng-jue\", 400);\n    set_skill(\"blade\", 240);\n    set_skill(\"badao-daofa\", 240);\n    set_skill(\"literate\", 100);\n\n    map_skill(\"force\", \"changsheng-jue\");\n    map_skill(\"blade\", \"badao-daofa\");\n    map_skill(\"dodge\", \"wudu-shu\");\n    map_skill(\"parry\", \"shou-yin\");\n    map_skill(\"hand\", \"shou-yin\");\n    map_skill(\"unarmed\", \"shou-yin\");\n\n    prepare_skill(\"hand\", \"shou-yin\");\n\n    setup();\n\n    carry_object(\"/d/items/cloth/baise_changshan\")->wear();\n    carry_object(\"/d/items/hands/canxue_shoutao\")->wear();\n    carry_object(\"/d/sky/obj/yishu\");\n    carry_object(\"/d/sky/obj/sheli\");\n}\n\nvoid kill_ob(object ob) {\n    object me = this_object();\n    object where = environment(me);\n    object guard = present(\"kou zhong\", where);\n\n    set_temp(\"my_killer\", ob);\n    ::kill_ob(ob);\n    if (guard && !guard->is_fighting()) {\n        message_vision(CYN \"$N大怒道：阁下欺人太甚，别怪我无情！\\n\" NOR, guard);\n        guard->kill_ob(ob);\n    }\n}\n",
+    "d/wudu/shufang.c": "inherit ROOM;\n\nvoid create() {\n    set(\"short\", \"书房\");\n    set(\"long\", @LONG\n这里便是教主平时日内看书的地方，房间不大，只靠窗摆着一张\n书案，案边放了几本书，看来是教主经常翻看的。\nLONG);\n\n    set(\"exits\", ([\n        \"south\": __DIR__ \"dating\",\n    ]));\n\n    set(\"objects\", ([\n        __DIR__ \"obj/book2\": 1,\n    ]));\n\n    setup();\n    replace_program(ROOM);\n}\n",
+    "d/xiangyang/npc/wuxiuwen.c": "// wuxiuwen.c\n\n#include <ansi.h>\n\ninherit NPC;\nstring ask_me_1(string name);\nstring ask_me_2(string name);\nvoid create() {\n    set_name(\"武修文\", ({ \"wu xiuwen\", \"wu\", \"xiuwen\" }));\n    set(\"title\", HIY \"郭靖二弟子\" NOR);\n    set(\"gender\", \"男性\");\n    set(\"age\", 21);\n    set(\"long\", \"他是郭靖的二弟子，精明强干，专门负责后勤。\\n\");\n    set(\"attitude\", \"peaceful\");\n\n    set(\"per\", 23);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 30);\n    set(\"dex\", 25);\n\n    set(\"inquiry\", ([\n        \"黄蓉\": \"那是我师母。\\n\",\n        \"郭靖\": \"那是我师父。\\n\",\n    ]));\n\n    set(\"qi\", 1000);\n    set(\"max_qi\", 1000);\n    set(\"jing\", 500);\n    set(\"max_jing\", 500);\n    set(\"neili\", 1000);\n    set(\"max_neili\", 1000);\n\n    set(\"combat_exp\", 80000);\n    set(\"score\", 20000);\n\n    set(\"huju_count\", 20);\n    set(\"beixin_count\", 2);\n\n    set_skill(\"force\", 50);\n    set_skill(\"quanzhen-xinfa\", 50);\n    set_skill(\"unarmed\", 50);\n    set_skill(\"changquan\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"jinyan-gong\", 50);\n    set_skill(\"parry\", 50);\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    map_skill(\"force\", \"quanzhen-xinfa\");\n    map_skill(\"unarmed\", \"changquana\");\n    map_skill(\"dodge\", \"jinyan-gong\");\n    map_skill(\"parry\", \"changquana\");\n\n    setup();\n\n    carry_object(\"/clone/misc/cloth\")->wear();\n}\nstring ask_me_1(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    //    mapping fam;\n    object ob;\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"武修文给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n",
+    "kungfu/class/shaolin/dao-chen.c": "// Npc: /kungfu/class/shaolin/dao-chen.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道尘禅师\", ({\n        \"daochen chanshi\",\n        \"daochen\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"齐眉棍\": (: ask_me, \"qimeigun\" :),\n        \"戒刀\": (: ask_me, \"jiedao\" :),\n        \"禅杖\": (: ask_me, \"chanzhang\" :),\n        \"长剑\": (: ask_me, \"changjian\" :),\n        \"皮鞭\": (: ask_me, \"changbian\" :),\n    ]));\n\n    set(\"wuqi_count\", 15);\n\n    setup();\n\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样武器吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"wuqi_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    if (name == \"changjian\")\n        ob = new(\"/d/items/sword/changjian5\");\n    else if (name == \"jiedao\")\n        ob = new(\"/d/items/blade/jiedao2\");\n    else if (name == \"chanzhang\")\n        ob = new(\"/d/items/staff/chanzhang2\");\n    else if (name == \"changbian\")\n        ob = new(\"/d/items/whip/changbian2\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"wuqi_count\", -1);\n\n    message_vision(\"道尘给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，武器只可防身练武，不可凭此杀害生灵。\";\n}\n",
+    "kungfu/class/shaolin/dao-xiang.c": "// Npc: /kungfu/class/shaolin/dao-xiang.c\n// Date: YZC 96/01/19\n\ninherit NPC;\ninherit F_MASTER;\n\nstring ask_me_1(string name);\nstring ask_me_2(string name);\n\n#include \"dao.h\"\n\nvoid create() {\n    set_name(\"道相禅师\", ({\n        \"daoxiang chanshi\",\n        \"daoxiang\",\n        \"chanshi\",\n    }));\n    set(\"long\",\n        \"他是一位身材高大的中年僧人，两臂粗壮，膀阔腰圆。他手持兵\\n\"\n        \"刃，身穿一袭灰布镶边袈裟，似乎有一身武艺。\\n\"\n    );\n\n    set(\"gender\", \"男性\");\n    set(\"attitude\", \"friendly\");\n    set(\"class\", \"bonze\");\n\n    set(\"age\", 40);\n    set(\"shen_type\", 1);\n    set(\"str\", 20);\n    set(\"int\", 20);\n    set(\"con\", 20);\n    set(\"dex\", 20);\n    set(\"max_qi\", 400);\n    set(\"max_jing\", 300);\n    set(\"neili\", 450);\n    set(\"max_neili\", 450);\n    set(\"jiali\", 40);\n    set(\"combat_exp\", 10000);\n    set(\"score\", 100);\n\n    set_skill(\"force\", 50);\n    set_skill(\"hunyuan-yiqi\", 50);\n    set_skill(\"shaolin-xinfa\", 50);\n    set_skill(\"dodge\", 50);\n    set_skill(\"shaolin-shenfa\", 50);\n    set_skill(\"strike\", 50);\n    set_skill(\"banruo-zhang\", 50);\n    set_skill(\"parry\", 50);\n    set_skill(\"sword\", 50);\n    set_skill(\"damo-jian\", 50);\n    set_skill(\"buddhism\", 50);\n    set_skill(\"literate\", 50);\n\n    map_skill(\"force\", \"hunyuan-yiqi\");\n    map_skill(\"dodge\", \"shaolin-shenfa\");\n    map_skill(\"strike\", \"banruo-zhang\");\n    map_skill(\"sword\", \"damo-jian\");\n    map_skill(\"parry\", \"damo-jian\");\n\n    prepare_skill(\"strike\", \"banruo-zhang\");\n\n    create_family(\"少林派\", 39, \"弟子\");\n\n    set(\"inquiry\", ([\n        \"铁护腕\": (: ask_me_1, \"huwan\" :),\n        \"铁护腰\": (: ask_me_1, \"huyao\" :),\n        \"皮手套\": (: ask_me_1, \"shoutao\" :),\n        \"皮围脖\": (: ask_me_1, \"weibo\" :),\n        \"铁指套\": (: ask_me_1, \"zhitao\" :),\n        \"僧鞋\": (: ask_me_1, \"sengxie\" :),\n        \"铁背心\": (: ask_me_2, \"beixin\" :)\n    ]));\n\n    set(\"huju_count\", 50);\n    set(\"beixin_count\", 5);\n\n    setup();\n\n    carry_object(\"/d/items/sword/changjian5\")->wield();\n    carry_object(\"/d/items/cloth/hui_jiasha\")->wear();\n}\n\nstring ask_me_1(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (present(name, this_player()))\n        return RANK_D->query_respect(this_player()) + \"你现在身上不是有这样防具吗，怎麽又来要了？ 真是贪得无餍！\";\n\n    if (query(\"huju_count\") < 1)\n        return \"抱歉，你来得不是时候，防具已经发完了。\";\n\n    if (name == \"huwan\")\n        ob = new(\"/d/items/wrists/shaolin_huwan\");\n    else if (name == \"weibo\")\n        ob = new(\"/d/items/neck/shaolin_weibo\");\n    else if (name == \"shoutao\")\n        ob = new(\"/d/items/hands/shaolin_shoutao\");\n    else if (name == \"zhitao\")\n        ob = new(\"/d/items/hands/shaolin_zhitao\");\n    else if (name == \"sengxie\")\n        ob = new(\"/d/items/boots/shaolin_sengxie\");\n    else if (name == \"qimeigun\")\n        ob = new(\"/d/items/club/qimei_gun\");\n    else\n        ob = new(\"/d/shaolin/obj/\" + name);\n    ob->move(this_player());\n\n    add(\"huju_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，防具只可防身练武，不可凭此妨害他人。\";\n}\n\nstring ask_me_2(string name) {\n    mapping fam;\n    object ob;\n\n    if (!(fam = this_player()->query(\"family\")) || fam[\"family_name\"] != \"少林派\")\n        return RANK_D->query_respect(this_player()) + \"与本派素无来往，不知此话从何谈起？\";\n\n    if (query(\"beixin_count\") < 1)\n        return \"抱歉，你来得不是时候，武器已经发完了。\";\n\n    ob = new(\"/d/items/cloth/tie_beixin2\");\n    ob->move(this_player());\n\n    add(\"beixin_count\", -1);\n\n    message_vision(\"道相给$N一件\" + ob->query(\"name\") + \"。\\n\", this_player());\n\n    return \"拿去吧。不过要记住，铁背心乃是防身宝物，不可凭此妨害他人。\";\n}\n"
+  },
+  "excluded": [
+    {
+      "file": "d/city/npc/obj/lbook3.c",
+      "source_hash": "9eefdaa7f4a070cebfc85e818ee8569216c26cffb85578c956d21401215bc414"
+    },
+    {
+      "file": "d/hengyang/obj/zigai-book.c",
+      "source_hash": "d9bad2a505001587d23185e1f9a46ac369e5c2ab7112f1356f4ce8a601ad3e87"
+    },
+    {
+      "file": "d/kunlun/obj/lyj-book.c",
+      "source_hash": "918473afa9e158ed3921e4858a71392aa625ad758a7db89dffce00d5884aa63b"
+    },
+    {
+      "file": "d/lingxiao/obj/book-iron.c",
+      "source_hash": "45703a38b10920554d73e2d901bea2a6844ce6879dd244e3509d9cd635a8b17d"
+    },
+    {
+      "file": "d/wudu/obj/dujing1.c",
+      "source_hash": "b12148f5ce16ed1bcfee7b846eeefd2fd4a1181dd55fd406d03ae582ed9a110e"
+    },
+    {
+      "file": "d/changan/npc/fujiang.c",
+      "source_hash": "0f957b429efc77a01699e93f6dabb57012700143ca3b80d57d443201d19be209"
+    }
+  ],
+  "observations": [
+    {
+      "uid": "Domain",
+      "path": "/d/changan/npc/obj/book",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "一本可以学习易容术的书。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 200,
+          "difficulty": 30,
+          "exp_required": 1000,
+          "name": "pretending"
+        },
+        "name": "\u001b[1;34m〖\u001b[1;33m百变神通\u001b[1;34m〗\u001b[0m"
+      },
+      "weight": 600,
+      "ids": [
+        "book",
+        "shu",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "一本可以学习易容术的书。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 200,
+          "difficulty": 30,
+          "exp_required": 1000,
+          "name": "pretending"
+        },
+        "name": "\u001b[1;34m〖\u001b[1;33m百变神通\u001b[1;34m〗\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/changan/npc/obj/book_blade",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "本",
+        "id": "blade book",
+        "material": "paper",
+        "skill": {
+          "sen_cost": 20,
+          "max_skill": 20,
+          "difficulty": 20,
+          "exp_required": 100,
+          "name": "blade"
+        },
+        "name": "〖刀法简介〗"
+      },
+      "weight": 600,
+      "ids": [
+        "blade book",
+        "book",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "本",
+        "id": "blade book",
+        "material": "paper",
+        "skill": {
+          "sen_cost": 20,
+          "max_skill": 20,
+          "difficulty": 20,
+          "exp_required": 100,
+          "name": "blade"
+        },
+        "name": "〖刀法简介〗"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/changan/npc/obj/book_unarmed",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "本",
+        "id": "unarmed book",
+        "material": "paper",
+        "long": "〖拳法简介〗\n",
+        "skill": {
+          "sen_cost": 20,
+          "max_skill": 20,
+          "difficulty": 20,
+          "exp_required": 100,
+          "name": "unarmed"
+        },
+        "name": "〖拳法简介〗"
+      },
+      "weight": 600,
+      "ids": [
+        "unarmed book",
+        "book",
+        "u"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 1000,
+        "unit": "本",
+        "id": "unarmed book",
+        "material": "paper",
+        "long": "〖拳法简介〗\n",
+        "skill": {
+          "sen_cost": 20,
+          "max_skill": 20,
+          "difficulty": 20,
+          "exp_required": 100,
+          "name": "unarmed"
+        },
+        "name": "〖拳法简介〗"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/death/sky/obj/jue",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 300,
+        "unit": "本",
+        "id": "changsheng jue",
+        "material": "paper",
+        "long": "这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 250,
+          "difficulty": 50,
+          "exp_required": 100000,
+          "name": "changsheng-jue"
+        },
+        "name": "\u001b[1;37m长生决\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "changsheng jue",
+        "book",
+        "jue",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 300,
+        "unit": "本",
+        "id": "changsheng jue",
+        "material": "paper",
+        "long": "这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 250,
+          "difficulty": 50,
+          "exp_required": 100000,
+          "name": "changsheng-jue"
+        },
+        "name": "\u001b[1;37m长生决\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/death/sky/obj/miji1",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了不少精妙的拳法。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 150,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "tiexian-quan"
+        },
+        "name": "\u001b[36m铁线拳密芨\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "miji",
+        "book",
+        "m"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了不少精妙的拳法。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 150,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "tiexian-quan"
+        },
+        "name": "\u001b[36m铁线拳密芨\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/death/sky/obj/miji2",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 30,
+        "unit": "本",
+        "id": "jianfa miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了四季剑法的奥决。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 150,
+          "difficulty": 50,
+          "exp_required": 0,
+          "name": "siji-jianfa"
+        },
+        "name": "\u001b[1;36m四季剑法\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "jianfa miji",
+        "book",
+        "miji",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "unit": "本",
+        "id": "jianfa miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了四季剑法的奥决。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 150,
+          "difficulty": 50,
+          "exp_required": 0,
+          "name": "siji-jianfa"
+        },
+        "name": "\u001b[1;36m四季剑法\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/death/sky/obj/miji3",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "tanyun miji",
+        "material": "paper",
+        "long": "李逍遥的家传绝学。\n",
+        "skill": {
+          "jing_cost": 100,
+          "max_skill": 150,
+          "difficulty": 100,
+          "exp_required": 0,
+          "name": "feilong-shou"
+        },
+        "name": "\u001b[33m飞龙探云秘芨\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "tanyun miji",
+        "book",
+        "miji",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "tanyun miji",
+        "material": "paper",
+        "long": "李逍遥的家传绝学。\n",
+        "skill": {
+          "jing_cost": 100,
+          "max_skill": 150,
+          "difficulty": 100,
+          "exp_required": 0,
+          "name": "feilong-shou"
+        },
+        "name": "\u001b[33m飞龙探云秘芨\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/death/sky/obj/yishu",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "yishu",
+        "material": "paper",
+        "long": "这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\n",
+        "skill": {
+          "jing_cost": 80,
+          "max_skill": 150,
+          "difficulty": 80,
+          "exp_required": 500000,
+          "name": "badao-daofa"
+        },
+        "name": "\u001b[37m岳山遗书\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "yishu",
+        "shu",
+        "book",
+        "y"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "yishu",
+        "material": "paper",
+        "long": "这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\n",
+        "skill": {
+          "jing_cost": 80,
+          "max_skill": 150,
+          "difficulty": 80,
+          "exp_required": 500000,
+          "name": "badao-daofa"
+        },
+        "name": "\u001b[37m岳山遗书\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/emei/obj/fojing10",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "般若经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "般若经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/emei/obj/fojing11",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "法华经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "般若经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/emei/obj/fojing20",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "mahayana"
+        },
+        "name": "阿含经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "mahayana"
+        },
+        "name": "波罗蜜多心经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/emei/obj/fojing21",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "mahayana"
+        },
+        "name": "波罗蜜多心经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "mahayana"
+        },
+        "name": "金刚经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/jingzhou/obj/xuedao-jing",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "封面上写著 \u001b[1;31m【血刀刀谱】\u001b[0m，还画着一些奇形怪状的倒立人形。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 40,
+          "difficulty": 20,
+          "exp_required": 1000,
+          "name": "blade"
+        },
+        "name": "\u001b[1;31m【血刀刀谱】\u001b[0m"
+      },
+      "weight": 600,
+      "ids": [
+        "book",
+        "shu",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "封面上写著 \u001b[1;31m【血刀刀谱】\u001b[0m，还画着一些奇形怪状的倒立人形。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 40,
+          "difficulty": 20,
+          "exp_required": 1000,
+          "name": "blade"
+        },
+        "name": "\u001b[1;31m【血刀刀谱】\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/kaifeng/npc/obj/jing1",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "无量寿经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "无量寿经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/kaifeng/npc/obj/jing2",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "大般涅磐经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "大般涅磐经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/kaifeng/npc/obj/jing3",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "金刚经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "金刚经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/kaifeng/npc/obj/jing4",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "波罗蜜多心经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "波罗蜜多心经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/kunlun/obj/force-book",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是昆仑派内功心法的秘籍。\n",
+        "skill": {
+          "jing_cost": 15,
+          "max_skill": 41,
+          "difficulty": 20,
+          "exp_required": 1000,
+          "name": "force"
+        },
+        "name": "昆仑派秘籍"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是昆仑派内功心法的秘籍。\n",
+        "skill": {
+          "jing_cost": 15,
+          "max_skill": 41,
+          "difficulty": 20,
+          "exp_required": 1000,
+          "name": "force"
+        },
+        "name": "昆仑派秘籍"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/lingxiao/obj/book-bamboo",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "片",
+        "id": "bamboo",
+        "material": "bamboo",
+        "long": "易筋经轻功篇\n这是一片两边去皮的旧竹片，正面和背面都画了无数个飞翔纵跃的小图形。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 99,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "dodge"
+        },
+        "name": "旧竹片"
+      },
+      "weight": 100,
+      "ids": [
+        "bamboo",
+        "shu",
+        "book",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "片",
+        "id": "bamboo",
+        "material": "bamboo",
+        "long": "易筋经轻功篇\n这是一片两边去皮的旧竹片，正面和背面都画了无数个飞翔纵跃的小图形。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 99,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "dodge"
+        },
+        "name": "旧竹片"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/lingxiao/obj/book-silk",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "束",
+        "id": "silk",
+        "material": "silk",
+        "long": "这是小册易筋经修行篇\n由一束薄绢钉成，里面密密麻麻的画了不少打坐吐呐的姿势。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 99,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "force"
+        },
+        "name": "薄绢"
+      },
+      "weight": 50,
+      "ids": [
+        "silk",
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "束",
+        "id": "silk",
+        "material": "silk",
+        "long": "这是小册易筋经修行篇\n由一束薄绢钉成，里面密密麻麻的画了不少打坐吐呐的姿势。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 99,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "force"
+        },
+        "name": "薄绢"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/lingxiao/obj/book-stone",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "块",
+        "id": "stone",
+        "material": "stone",
+        "long": "易筋经拳法篇\n这是一块园园的石板，似乎用手指刻划了数个指印。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 49,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "strike"
+        },
+        "name": "石板"
+      },
+      "weight": 500,
+      "ids": [
+        "stone",
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "块",
+        "id": "stone",
+        "material": "stone",
+        "long": "易筋经拳法篇\n这是一块园园的石板，似乎用手指刻划了数个指印。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 49,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "strike"
+        },
+        "name": "石板"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/mingjiao/obj/jing",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 10,
+        "unit": "本",
+        "id": "lengjia jing",
+        "material": "silk",
+        "long": "\u001b[33m这是一本薄薄的经书，只因油布包得紧密，虽长期\n藏在猿腹之中，书页仍然完好无损。书面上写著几\n个弯弯曲曲的文字，你却是一个也不识得。\n\u001b[0m",
+        "skill": {
+          "jing_cost": 10,
+          "min_skill": 0,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 1000,
+          "need": {
+            "sanscrit": 500
+          },
+          "name": "buddhism"
+        },
+        "name": "\u001b[33m「楞伽经」\u001b[0m"
+      },
+      "weight": 300,
+      "ids": [
+        "lengjia jing",
+        "jing",
+        "book",
+        "l"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 10,
+        "unit": "本",
+        "id": "lengjia jing",
+        "material": "silk",
+        "long": "\u001b[33m这是一本薄薄的经书，只因油布包得紧密，虽长期\n藏在猿腹之中，书页仍然完好无损。书面上写著几\n个弯弯曲曲的文字，你却是一个也不识得。\n\u001b[0m",
+        "skill": {
+          "jing_cost": 10,
+          "min_skill": 0,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 1000,
+          "need": {
+            "sanscrit": 500
+          },
+          "name": "buddhism"
+        },
+        "name": "\u001b[33m「楞伽经」\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/quanzhen/npc/obj/daodejing-i",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "jing",
+        "material": "paper",
+        "long": "这是一册道德经「上卷」，由体道第一始至去用第四十止。\n",
+        "skill": {
+          "jing_cost": 22,
+          "max_skill": 99,
+          "difficulty": 25,
+          "exp_required": 50000,
+          "name": "taoism"
+        },
+        "name": "道德经「上卷」"
+      },
+      "weight": 200,
+      "ids": [
+        "jing",
+        "daode jing",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "jing",
+        "material": "paper",
+        "long": "这是一册道德经「上卷」，由体道第一始至去用第四十止。\n",
+        "skill": {
+          "jing_cost": 22,
+          "max_skill": 99,
+          "difficulty": 25,
+          "exp_required": 50000,
+          "name": "taoism"
+        },
+        "name": "道德经「上卷」"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/quanzhen/npc/obj/daodejing-ii",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "jing",
+        "material": "paper",
+        "long": "这是一册道德经「下卷」，由同异第四十一始至显质第八十一止。\n",
+        "skill": {
+          "jing_cost": 38,
+          "min_skill": 100,
+          "max_skill": 179,
+          "difficulty": 35,
+          "exp_required": 150000,
+          "name": "taoism"
+        },
+        "name": "道德经「下卷」"
+      },
+      "weight": 200,
+      "ids": [
+        "jing",
+        "daode jing",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "jing",
+        "material": "paper",
+        "long": "这是一册道德经「下卷」，由同异第四十一始至显质第八十一止。\n",
+        "skill": {
+          "jing_cost": 38,
+          "min_skill": 100,
+          "max_skill": 179,
+          "difficulty": 35,
+          "exp_required": 150000,
+          "name": "taoism"
+        },
+        "name": "道德经「下卷」"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/fojing10",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "维摩经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "维摩经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/fojing11",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "法华经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 10,
+          "max_skill": 50,
+          "difficulty": 10,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "华严经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/fojing20",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "阿含经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "大般涅磐经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/shaolin/obj/fojing21",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "阿含经"
+      },
+      "weight": 200,
+      "ids": [
+        "shu",
+        "book",
+        "s"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "shu",
+        "material": "paper",
+        "long": "这是一册佛经。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "buddhism"
+        },
+        "name": "大般涅磐经"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/sky/obj/jue",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 300,
+        "unit": "本",
+        "id": "changsheng jue",
+        "material": "paper",
+        "long": "这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 250,
+          "difficulty": 50,
+          "exp_required": 100000,
+          "name": "changsheng-jue"
+        },
+        "name": "\u001b[1;37m长生决\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "changsheng jue",
+        "book",
+        "jue",
+        "c"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 300,
+        "unit": "本",
+        "id": "changsheng jue",
+        "material": "paper",
+        "long": "这便是四大奇书之一的长生决，传说可以修炼至高无上的武学。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 250,
+          "difficulty": 50,
+          "exp_required": 100000,
+          "name": "changsheng-jue"
+        },
+        "name": "\u001b[1;37m长生决\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/sky/obj/miji1",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了不少精妙的拳法。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 150,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "tiexian-quan"
+        },
+        "name": "\u001b[36m铁线拳密芨\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "miji",
+        "book",
+        "m"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了不少精妙的拳法。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 150,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "tiexian-quan"
+        },
+        "name": "\u001b[36m铁线拳密芨\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/sky/obj/miji2",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 30,
+        "unit": "本",
+        "id": "jianfa miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了四季剑法的奥决。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 150,
+          "difficulty": 50,
+          "exp_required": 0,
+          "name": "siji-jianfa"
+        },
+        "name": "\u001b[1;36m四季剑法\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "jianfa miji",
+        "book",
+        "miji",
+        "j"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 30,
+        "unit": "本",
+        "id": "jianfa miji",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面记载了四季剑法的奥决。\n",
+        "skill": {
+          "jing_cost": 50,
+          "max_skill": 150,
+          "difficulty": 50,
+          "exp_required": 0,
+          "name": "siji-jianfa"
+        },
+        "name": "\u001b[1;36m四季剑法\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/sky/obj/miji3",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "tanyun miji",
+        "material": "paper",
+        "long": "李逍遥的家传绝学。\n",
+        "skill": {
+          "jing_cost": 100,
+          "max_skill": 150,
+          "difficulty": 100,
+          "exp_required": 0,
+          "name": "feilong-shou"
+        },
+        "name": "\u001b[33m飞龙探云秘芨\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "tanyun miji",
+        "book",
+        "miji",
+        "t"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "tanyun miji",
+        "material": "paper",
+        "long": "李逍遥的家传绝学。\n",
+        "skill": {
+          "jing_cost": 100,
+          "max_skill": 150,
+          "difficulty": 100,
+          "exp_required": 0,
+          "name": "feilong-shou"
+        },
+        "name": "\u001b[33m飞龙探云秘芨\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/sky/obj/yishu",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "yishu",
+        "material": "paper",
+        "long": "这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\n",
+        "skill": {
+          "jing_cost": 80,
+          "max_skill": 150,
+          "difficulty": 80,
+          "exp_required": 500000,
+          "name": "badao-daofa"
+        },
+        "name": "\u001b[37m岳山遗书\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "yishu",
+        "shu",
+        "book",
+        "y"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "yishu",
+        "material": "paper",
+        "long": "这便是当年「霸刀」岳山临死前的遗书，上面记载了他对刀法的体会。\n",
+        "skill": {
+          "jing_cost": 80,
+          "max_skill": 150,
+          "difficulty": 80,
+          "exp_required": 500000,
+          "name": "badao-daofa"
+        },
+        "name": "\u001b[37m岳山遗书\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/wudu/obj/book2",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面绘了许多互相打斗的人像。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 50,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "parry"
+        },
+        "name": "拆招秘术"
+      },
+      "weight": 50,
+      "ids": [
+        "book",
+        "b"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 0,
+        "unit": "本",
+        "id": "book",
+        "material": "paper",
+        "long": "这是一本薄薄的小册，上面绘了许多互相打斗的人像。\n",
+        "skill": {
+          "jing_cost": 20,
+          "max_skill": 50,
+          "difficulty": 20,
+          "exp_required": 0,
+          "name": "parry"
+        },
+        "name": "拆招秘术"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/wudu/obj/dujing2",
+      "blueprint": {
+        "no_sell": "我…我的天…连五毒教的东西你都敢拿来卖？",
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "du jing2",
+        "material": "silk",
+        "long": "\u001b[33m这是一本薄薄的小册，上面密密麻麻的记满了各种用毒的法门。\n\u001b[0m",
+        "skill": {
+          "jing_cost": 40,
+          "min_skill": 50,
+          "max_skill": 99,
+          "difficulty": 40,
+          "exp_required": 100000,
+          "name": "poison"
+        },
+        "name": "\u001b[33m「毒经中篇」\u001b[0m"
+      },
+      "weight": 50,
+      "ids": [
+        "du jing2",
+        "jing2",
+        "book2",
+        "d"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_sell": "我…我的天…连五毒教的东西你都敢拿来卖？",
+        "no_clean_up": 1,
+        "value": 100,
+        "unit": "本",
+        "id": "du jing2",
+        "material": "silk",
+        "long": "\u001b[33m这是一本薄薄的小册，上面密密麻麻的记满了各种用毒的法门。\n\u001b[0m",
+        "skill": {
+          "jing_cost": 40,
+          "min_skill": 50,
+          "max_skill": 99,
+          "difficulty": 40,
+          "exp_required": 100000,
+          "name": "poison"
+        },
+        "name": "\u001b[33m「毒经中篇」\u001b[0m"
+      }
+    },
+    {
+      "uid": "Domain",
+      "path": "/d/yanziwu/obj/dodgebook",
+      "blueprint": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "dodgebook",
+        "material": "paper",
+        "long": "轻功篇\n这是一本还施水阁的轻功藏本，书色泛黄，有不少的批注。\n",
+        "skill": {
+          "jing_cost": 1,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 10000,
+          "name": "dodge"
+        },
+        "name": "轻功篇"
+      },
+      "weight": 100,
+      "ids": [
+        "dodgebook",
+        "shu",
+        "book",
+        "d"
+      ],
+      "euid": "Domain",
+      "clone": {
+        "no_clean_up": 1,
+        "value": 500,
+        "unit": "本",
+        "id": "dodgebook",
+        "material": "paper",
+        "long": "轻功篇\n这是一本还施水阁的轻功藏本，书色泛黄，有不少的批注。\n",
+        "skill": {
+          "jing_cost": 1,
+          "max_skill": 100,
+          "difficulty": 20,
+          "exp_required": 10000,
+          "name": "dodge"
+        },
+        "name": "轻功篇"
+      }
+    }
+  ]
+}

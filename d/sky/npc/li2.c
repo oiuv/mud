@@ -59,6 +59,6 @@ void create() {
 
     carry_object(__DIR__ "obj/pangukai")->wear();
     carry_object("/d/items/sword/xuanchi_jian")->wield();
-    carry_object("/d/sky/obj/miji3");
+    carry_object("/d/items/book/feilong_tanyun");
     set_temp("handing", carry_object("/d/sky/obj/shenjiu"));
 }

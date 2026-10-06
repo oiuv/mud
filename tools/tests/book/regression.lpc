@@ -1,0 +1,127 @@
+// Frozen ITEM books and current virtual books in an isolated real driver.
+inherit "/tests/cloth_regression";
+
+private mixed *books;
+private mixed *observations = ({});
+private int next_book;
+
+mapping effective(object ob) {
+    mapping result;
+    string key;
+
+    result = copy(load_object(base_name(ob))->query_entire_dbase()) + ob->query_entire_dbase();
+    foreach (key in keys(result)) result[key] = copy(ob->query(key, 1));
+    return result;
+}
+
+void check_random(object ob, mapping row) {
+    mapping skill;
+
+    skill = ob->query("skill");
+    check(mapp(skill), "skill mapping " + row["old_path"]);
+    if (sizeof(row["name_choices"]))
+        check(member_array(ob->name(), row["name_choices"]) >= 0, "name within original pool");
+    if (sizeof(row["skill_choices"]))
+        check(member_array(skill["name"], row["skill_choices"]) >= 0, "skill within original pool");
+    if (row["jing_cost_random"])
+        check(skill["jing_cost"] >= 20 && skill["jing_cost"] < 20 + row["jing_cost_random"],
+            "cost within original half-open range");
+    check(!ob->is_book() && !ob->extra_long(), "ITEM without BOOK capabilities");
+    check(!master()->setup_count(ob), "no setup introduced");
+    check(ob->query_weight() == row["weight"], "original weight");
+}
+
+mapping normalized(object ob, mapping row, int fix_text) {
+    mapping data;
+
+    data = effective(ob);
+    if (sizeof(row["name_choices"])) data["name"] = "RANDOM_NAME";
+    if (sizeof(row["skill_choices"])) data["skill"]["name"] = "RANDOM_SKILL";
+    if (row["jing_cost_random"]) data["skill"]["jing_cost"] = 20;
+    if (fix_text) {
+        if (row["id"] == "siji_jianfa") data["long"] = replace_string(data["long"], "奥决", "奥诀");
+        if (row["id"] == "bojuan") data["long"] = replace_string(data["long"], "吐呐", "吐纳");
+        if (row["id"] == "shiban") data["long"] = replace_string(data["long"], "园园的石板", "圆圆的石板");
+    }
+    return data;
+}
+
+#include "book_checks.h"
+#include "book_business.h"
+
+void check_pair(mapping row) {
+    object old_bp, old, new_bp, item, other;
+    mapping before, after, saved;
+    string alias;
+
+    old_bp = load_object(row["old_path"]); old = new(row["old_path"]);
+    check_random(old_bp, row); check_random(old, row);
+    check(
+        same_value(old->query("skill"), old_bp->query("skill")),
+        "old clone uses blueprint skill"
+    );
+    observations += ({ ([ "path": row["old_path"], "blueprint": effective(old_bp),
+        "clone": effective(old), "ids": old->parse_command_id_list(),
+        "uid": getuid(old), "euid": geteuid(old), "weight": old->query_weight() ]) });
+    check_study(row["old_path"]);
+    if (file_size("/tests/baseline-only") >= 0) { destruct(old); return; }
+    new_bp = load_object(row["new_path"]); item = new(row["new_path"]); other = new(row["new_path"]);
+    check_random(new_bp, row); check_random(item, row);
+    check(
+        virtualp(new_bp) && !clonep(new_bp) && virtualp(item) && clonep(item),
+        "driver virtual identities"
+    );
+    check(
+        item->query_default_object() == new_bp && other->query_default_object() == new_bp,
+        "canonical defaults"
+    );
+    check(getuid(item) == getuid(old) && geteuid(item) == geteuid(old), "UID/EUID unchanged");
+    before = normalized(old, row, 1); after = normalized(item, row, 0);
+    check(same_value(before, after), "all effective clone properties " + row["old_path"]);
+    check(
+        same_value(normalized(old_bp, row, 1), normalized(new_bp, row, 0)),
+        "all blueprint properties " + row["old_path"]
+    );
+    foreach (alias in old->parse_command_id_list()) check(
+        item->id(alias),
+        "original input alias " + alias
+    );
+    saved = effective(item); item->virtual_start();
+    check(same_value(saved, effective(item)), "repeated virtual_start cannot reroll");
+    check(
+        same_value(item->query("skill"), new_bp->query("skill")),
+        "new clone uses blueprint skill"
+    );
+    saved = copy(new_bp->query("skill"));
+    item->set("skill/max_skill", -1);
+    check(
+        same_value(saved, new_bp->query("skill")) && same_value(saved, other->query("skill")),
+        "nested skill isolation"
+    );
+    if (mapp(saved["need"])) {
+        item->set("skill/need/sanscrit", -1);
+        check(same_value(saved, other->query("skill")), "nested requirements isolation");
+    }
+    destruct(old); destruct(item); destruct(other);
+    check_study(row["new_path"]);
+    check_book_storage(row);
+    check_boundaries(row);
+}
+
+void next_case() {
+    if (next_book < sizeof(books)) {
+        check_pair(books[next_book++]);
+        call_out("next_case", 0);
+        return;
+    }
+    write_file("/tests/book-baseline.json", json_encode(observations), 1);
+    check_retained();
+    if (file_size("/tests/baseline-only") < 0) check_book_contracts();
+    check_book_business();
+    master()->finish();
+}
+
+void run() {
+    books = json_decode(read_file("/tests/book_cases.json"));
+    next_case();
+}

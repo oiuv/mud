@@ -97,6 +97,14 @@ string ask_me(string name) {
         ob = new("/d/items/whip/changbian2");
     else if (name == "qimeigun")
         ob = new("/d/items/club/qimei_gun");
+    else if (name == "fojing10")
+        ob = new("/d/items/book/fojing1");
+    else if (name == "fojing11")
+        ob = new("/d/items/book/fojing1");
+    else if (name == "fojing20")
+        ob = new("/d/items/book/fojing5");
+    else if (name == "fojing21")
+        ob = new("/d/items/book/fojing5");
     else
         ob = new("/d/shaolin/obj/" + name);
     ob->move(this_player());

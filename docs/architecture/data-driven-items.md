@@ -1,14 +1,14 @@
-# 数据化物品：普通装备、食物与饮具
+# 数据化物品：普通装备、食物、饮具与研读物
 
 本批将 `/d` 下 202 个只有普通 CLOTH 初始化的服装文件归并为 **148 个规范品种**，共用一个行为程序和就近数据表。54 个重复定义不再单独维护；旧文件全部删除，不提供旧路径转发或运行期别名。架构升级兼容实际功能和数据，不保留历史目录造成的重复身份。
 
 后续 BOOTS 批次将 19 个标准鞋靴定义归为 **8 个规范品种**，详见[鞋靴维护说明](data-driven-boots.md)。HEAD 批次将 39 个普通头饰定义归为 **36 个规范品种**，详见[头饰维护说明](data-driven-headwear.md)。HANDS 批次将 28 个初始化定义归为 **20 个规范品种**，详见[手部装备维护说明](data-driven-hands.md)。NECK 批次将 15 个初始化定义归为 **10 个规范品种**，详见[颈饰维护说明](data-driven-neck.md)。WRISTS 批次将 6 个初始化定义归为 **4 个规范品种**，详见[护腕维护说明](data-driven-wrists.md)。FOOD 批次将 167 个普通食物定义归为 **119 个规范品种**。SWORD 批次将 85 个普通剑定义归为 **70 个规范品种**。LIQUID 批次将 74 个普通饮具定义归为 **54 个规范品种**。BLADE 批次将 61 个普通刀定义归为 **52 个规范品种**。
 
-直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。WHIP 批次将 32 份普通鞭类定义归为 **25 个规范品种**。DAGGER 批次将 23 份普通短兵器定义归为 **22 个规范品种**。THROWING 批次将 27 份固定暗器定义归为 **26 个规范品种**。CLUB 批次将 18 份普通棍类定义归为 **17 个规范品种**。十七类保持各自继承和行为，共用以下离线迁移与部署流程；累计 932 个旧定义集中为 34 个共用程序/数据文件，定义文件净减少 **898 个**（不含工具、测试及文档）。
+直接 EQUIP 批次将 56 份普通防具定义集中为 **56 个规范品种**，复用原 EQUIP 行为；本批实际属性均有差异，不因同名而合并。HAMMER 批次将 43 份普通锤类定义归为 **40 个规范品种**。STAFF 批次将 37 份普通杖类定义归为 **32 个规范品种**。WHIP 批次将 32 份普通鞭类定义归为 **25 个规范品种**。DAGGER 批次将 23 份普通短兵器定义归为 **22 个规范品种**。THROWING 批次将 27 份固定暗器定义归为 **26 个规范品种**。CLUB 批次将 18 份普通棍类定义归为 **17 个规范品种**。普通研读物批次将 36 份 ITEM 定义归为 **28 个品种**，详见[书籍维护说明](data-driven-books.md)。十八类保持各自继承和行为，共用以下离线迁移与部署流程；累计 968 个旧定义集中为 36 个共用程序/数据文件，定义文件净减少 **932 个**（不含工具、测试及文档）。
 
 ## 未迁移物品与维护台账
 
-已迁移分类并不表示该类别所有物品都已数据化。[剩余物品清单](data-driven-items-pending.md) 按十七个分类列出当前仍保留的实体物品名称、路径、特殊行为及暂缓原因，并区分 `/d` 内保留项与其他目录尚未纳入范围的候选。涉及多类的物品交叉登记、按文件去重统计，不把同名 ITEM 或共享基类算作待迁移装备。
+已迁移分类并不表示该类别所有物品都已数据化。[剩余物品清单](data-driven-items-pending.md) 按十八个分类列出当前仍保留的实体物品名称、路径、特殊行为及暂缓原因，并区分 `/d` 内保留项与其他目录尚未纳入范围的候选。涉及多类的物品交叉登记、按文件去重统计，不把同名 ITEM 或共享基类算作待迁移装备。
 
 后续每批迁移必须同步维护该清单：补充新分类的保留项，移出已完成项并在批次记录/离线映射中保存去向，更新数量、原因和源码链接。重点检查回调、额外继承、头文件注入、初始化差异、自动携带和存档状态；“特殊”不是永久禁止迁移，但须有保持旧行为的独立验证，不能只迁固定属性。历史快照和归档报告保持原样。
 
@@ -194,7 +194,7 @@ fresh = new(base_name(drink));
 
 工具：`tools/migrate_item_records.mjs`，已取代旧 `migrate_cloth_records.mjs`，不保留旧命令壳。`tools/tests/cloth/baseline.json` 保留源码基线 `ed10c535` 的 202 份原定义、哈希与第一版路径；`boots/baseline.json` 保存 `09e371bb` 的 19 份鞋靴，`headwear/baseline.json` 保存 `b081c7ff` 的 39 份头饰。原始快照和旧报告不改写，当前规范 ID 由离线元数据映射。
 
-此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。`whip/baseline.json` 保存 `da702704` 的 32 份鞭类原文、29 处静态引用、三个动态入口、赤金鞭 hash 及真实驱动观测。`dagger/baseline.json` 保存 `6ad10eee` 的 23 份短兵器原文、25 处静态引用、钱正伦动态入口、赤金匕首 hash 及真实驱动观测。`throwing/baseline.json` 保存 `55f5e073` 的 27 份暗器原文、41 处静态引用、钱正伦动态入口、6 份特殊对象 hash 及真实驱动观测。`club/baseline.json` 保存 `f4d88805` 的 18 份棍类原文、27 处静态引用、三个动态函数、8 个保留物品及钱正伦 hash 和真实驱动观测。一次转换覆盖 **1,213 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37、WHIP 32、DAGGER 23、THROWING 27、CLUB 18），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十七张品种表，共 **739 个品种**，不读取历史映射。
+此前对 192 个已迁移品种审查后精简 79 个 ID（CLOTH 57、BOOTS 3、HEAD 19），其余 113 个保持。完整对应表为 `tools/tests/item_id_renames.json`，只用于离线迁移与测试，不是运行期别名。`hands/baseline.json` 另保留 `0265d361` 的 28 份原手部装备及哈希，`neck/baseline.json` 保留 `57f106f8` 的 15 份颈饰及哈希。`wrists/baseline.json` 保留 `61abfde3` 的 6 份护腕及哈希，`food/baseline.json` 保留 `1c35e24c` 的 167 份食物原文、哈希、实际属性及规范身份。`sword/baseline.json` 保留 `3c572f18` 的 85 份普通剑、134 处静态引用、动态线索、特殊对象哈希及真实驱动属性。`liquid/baseline.json` 保存 `719a96ec` 的 74 份普通饮具、99 处引用、setup 差异、玉蜂蜜哈希和真实驱动观测。`blade/baseline.json` 保存 `b5e94cd0` 的 61 份普通刀、102 处静态引用、三处动态调用、六份特殊对象哈希及真实驱动观测。`equip/baseline.json` 保存 `beef12ea` 的 56 份直接 EQUIP 防具、64 处引用、setup 选择及真实驱动观测。`hammer/baseline.json` 保存 `95537906` 的 43 份锤类原文、55 处静态引用、钱正伦动态分支、17 份排除对象 hash 和真实驱动观测。`staff/baseline.json` 保存 `32f587a5` 的 37 份杖类原文、49 处静态引用、三个动态入口、8 份排除对象 hash 及真实驱动观测。`whip/baseline.json` 保存 `da702704` 的 32 份鞭类原文、29 处静态引用、三个动态入口、赤金鞭 hash 及真实驱动观测。`dagger/baseline.json` 保存 `6ad10eee` 的 23 份短兵器原文、25 处静态引用、钱正伦动态入口、赤金匕首 hash 及真实驱动观测。`throwing/baseline.json` 保存 `55f5e073` 的 27 份暗器原文、41 处静态引用、钱正伦动态入口、6 份特殊对象 hash 及真实驱动观测。`club/baseline.json` 保存 `f4d88805` 的 18 份棍类原文、27 处静态引用、三个动态函数、8 个保留物品及钱正伦 hash 和真实驱动观测。`book/baseline.json` 保存 `ea5f6afd` 的 36 份 ITEM 研读物、19 处静态引用、20 个实际消费者、随机数据池、保留项 hash 和真实驱动观测。一次转换覆盖 **1,249 条历史路径**（CLOTH 461、BOOTS 22、HEAD 58、HANDS 28、NECK 15、WRISTS 6、FOOD 167、SWORD 85、LIQUID 74、BLADE 61、EQUIP 56、HAMMER 43、STAFF 37、WHIP 32、DAGGER 23、THROWING 27、CLUB 18、BOOK 36），全部直接到达最终路径，不需逐版本转换；未选特殊物品不转换。游戏只读十八张品种表，共 **767 个品种**，不读取历史映射。
 
 食物和饮具通常不能存入背包，但不据此假定历史存档没有引用。记录转换保留原字段、状态和数量，不赋予存放资格，也不补录原来没有保存的液体余量或毒效；新建满液体不代表恢复了旧实例。先预览显式备份，受影响才转换；不能仅拉取新代码便认定无需迁移。转换器会按选定批次的请求大小配置临时驱动的 JSON 解析容量，不修改正式服配置。
 
@@ -413,3 +413,9 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --club --bench
 ```
 
 基线 `f4d88805`；全部检查在临时 MUDLIB/合成备份运行，NPC 基础设施与神木战斗行为使用明确替身。实际范围、结果和性能见 [CLUB 验证报告](../../openspec/changes/refactor-data-driven-clubs/validation.md)。
+
+## 普通研读物（ITEM）
+
+`d/items/book.lpc` 与 `book_data.h` 提供 28 个规范品种，继续继承 ITEM，不新增 BOOK 行为或 setup。每实例书名、石板蓝图技能、道德经蓝图精力消耗分别保留原随机生命周期；字段、调用、精确存取及旧记录转换见[书籍维护说明](data-driven-books.md)。
+
+验证使用 `--book --all`、`--book --bench`，冻结基线为 `ea5f6afd`。36 份旧定义删除，保留的特殊研读物与范围外书籍均已逐项写入[未迁移台账](data-driven-items-pending.md)；不迁移 `/clone`，不补运行期旧路径入口。实际结果见 [BOOK 验证报告](../../openspec/changes/refactor-data-driven-books/validation.md)。
