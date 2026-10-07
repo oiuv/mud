@@ -34,7 +34,7 @@ int perform(object me, object target) {
     if (me->query_skill_mapped("blade") != "hujia-daofa")
         return notify_fail("你没有激发胡家刀法，难以施展" CANG "。\n");
 
-    if ((int)me->query("neili") < 200)
+    if ((int)me->query("neili") < 220)
         return notify_fail("你的真气不够，难以施展" CANG "。\n");
 
     if (!living(target))

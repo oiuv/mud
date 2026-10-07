@@ -1,7 +1,9 @@
 // Controlled effect inputs at the Skill boundary. Command dispatch and busy state are production code.
 inherit SKILL;
 
-int valid_enable(string usage) { return usage == "unarmed" || usage == "force"; }
+int valid_enable(string usage) {
+    return usage == "unarmed" || usage == "force" || usage == "blade";
+}
 
 int perform_action(object me, string action) {
     mixed duration, handler;

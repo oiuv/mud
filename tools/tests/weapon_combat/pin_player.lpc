@@ -1,0 +1,13 @@
+// A disposable local connection supplies a real once-interactive object (userp == 1).
+// No login daemon, accounts, password, save/restore or production data are involved.
+inherit "/tests/actor";
+
+void begin_checks() { master()->run(); }
+
+int logon() {
+    set_heart_beat(0);
+    call_out("begin_checks", 0);
+    return 1;
+}
+
+void net_dead() {}

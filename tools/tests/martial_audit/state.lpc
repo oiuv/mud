@@ -1,0 +1,264 @@
+// State/resource boundary checks reuse the real actors and existing suite host.
+private object suite;
+
+void check(int ok, string label) { master()->check(ok, label); }
+
+void cold_yuxiao() {
+    object skill;
+    mixed err;
+
+    check(!this_player(), "yuxiao cold load has no command player");
+    err = catch(skill = load_object("/kungfu/skill/yuxiao-jian"));
+    check(!err && objectp(skill), "yuxiao cold load succeeds without a player");
+    if (objectp(skill)) destruct(skill);
+}
+
+int load_yuxiao(object loader) {
+    loader->set_temp("test/loaded", load_object("/kungfu/skill/yuxiao-jian"));
+    return 1;
+}
+
+mapping extreme(object skill, object who, int high) {
+    mapping result;
+    int force, sword, dodge, parry;
+    int *expected, *limits, *selection;
+    string *fields;
+    int i;
+
+    force = who->query_skill("force");
+    sword = who->query_skill("sword");
+    dodge = who->query_skill("dodge");
+    parry = who->query_skill("parry");
+    "/tests/control"->select_action(-1);
+    "/tests/control"->reset(high, ({}));
+    result = skill->query_action(who, 0);
+    fields = ({ "force", "attack", "dodge", "parry", "damage" });
+    limits = ({ force, sword / 2, force / 3, parry / 3, sword / 3 });
+    expected = ({ force / 2, sword / 4, dodge / 4, parry / 4, force / 3 });
+    check(mapp(result) && result["skill_name"] == "极意", "yuxiao selects extreme action");
+    for (i = 0; i < sizeof(fields); i++)
+        check(result[fields[i]] == expected[i] + (high ? limits[i] - 1 : 0),
+            "yuxiao current actor formula " + fields[i]);
+    check(save_variable(limits) == save_variable("/tests/control"->query_limits()),
+        "yuxiao recomputes all five original random ranges");
+    selection = "/tests/control"->query_selection();
+    check(save_variable(selection) == save_variable(({ 13, 20,
+        who->query_skill("yuxiao-jian", 1) / 5 })), "yuxiao preserves selector parameters");
+    return result;
+}
+
+void check_yuxiao() {
+    object a, b, loader, skill, who;
+    mapping first, result;
+    string snapshot;
+    int round, i, j;
+    string *fields;
+    mixed *ordinary;
+
+    a = suite->actor(); b = suite->actor();
+    foreach (who in ({ a, b })) {
+        who->set_skill("yuxiao-jian", 201);
+        who->map_skill("sword", "yuxiao-jian");
+        who->map_skill("parry", "yuxiao-jian");
+    }
+    a->set_skill("force", 802); a->set_skill("sword", 606);
+    a->set_skill("dodge", 414); a->set_skill("parry", 518);
+    b->set_skill("force", 1606); b->set_skill("sword", 1014);
+    b->set_skill("dodge", 822); b->set_skill("parry", 1226);
+    for (round = 0; round < 2; round++) {
+        skill = find_object("/kungfu/skill/yuxiao-jian");
+        if (objectp(skill)) destruct(skill);
+        loader = round ? b : a;
+        "/tests/control"->reset(0, ({}));
+        check(loader->invoke((: load_yuxiao, loader :)), "yuxiao loads in selected actor context");
+        skill = loader->query_temp("test/loaded");
+        first = extreme(skill, a, 0);
+        snapshot = save_variable(first);
+        extreme(skill, b, 1);
+        check(
+            save_variable(first) == snapshot,
+            "yuxiao later actor preserves earlier returned action"
+        );
+        a->set_skill("force", a->query_skill("force", 1) + 100);
+        a->add_temp("apply/sword", 17);
+        extreme(skill, a, 1);
+        check(
+            save_variable(first) == snapshot,
+            "yuxiao skill changes preserve earlier returned action"
+        );
+    }
+
+    // Numeric action definitions from the frozen pre-fix source, not from the new result.
+    fields = ({ "force", "attack", "parry", "dodge", "damage" });
+    ordinary = ({ ({ 120, 41, 40, 31, 10 }), ({ 140, 52, 41, 42, 12 }),
+        ({ 150, 58, 45, 43, 20 }), ({ 170, 61, 48, 48, 25 }), ({ 190, 68, 51, 50, 30 }),
+        ({ 200, 71, 55, 55, 35 }), ({ 230, 78, 60, 62, 40 }), ({ 250, 81, 64, 65, 70 }),
+        ({ 280, 84, 68, 75, 69 }), ({ 300, 88, 70, 78, 80 }), ({ 330, 91, 72, 85, 88 }),
+        ({ 350, 94, 72, 85, 100 }) });
+    for (i = 0; i < sizeof(ordinary); i++) {
+        "/tests/control"->select_action(i);
+        "/tests/control"->reset(0, ({}));
+        result = skill->query_action(a, 0);
+        for (j = 0; j < sizeof(fields); j++)
+            check(result[fields[j]] == ordinary[i][j],
+                sprintf("yuxiao ordinary action %d %s unchanged", i, fields[j]));
+        check(
+            !sizeof("/tests/control"->query_limits()),
+            "yuxiao ordinary action has no dynamic draws"
+        );
+    }
+    a->set_skill("yuxiao-jian", 200);
+    "/tests/control"->select_action(-1);
+    result = skill->query_action(a, 0);
+    check(result["skill_name"] == "箫声响毕情两断", "yuxiao level 200 excludes extreme action");
+    check(save_variable("/tests/control"->query_selection()) == save_variable(({ 12, 20, 40 })),
+        "yuxiao level 200 retains original selection range");
+    a->set_skill("yuxiao-jian", 201);
+    extreme(skill, a, 0);
+}
+
+object weapon(string type) {
+    object ob;
+
+    ob = suite->actor();
+    ob->set("skill_type", type);
+    return ob;
+}
+
+void check_yuxiao_practice() {
+    object who, skill;
+
+    who = suite->actor();
+    skill = load_object("/kungfu/skill/yuxiao-jian");
+    who->set_temp("weapon", weapon("sword"));
+    who->set("qi", 60); who->set("neili", 69);
+    check(!skill->practice_skill(who) && who->query("qi") == 60 && who->query("neili") == 69,
+        "yuxiao original energy threshold has no partial charge");
+    check(query_fail_msg() == "你的内力不够练玉箫剑法。\n", "yuxiao energy failure names neili");
+    who->set("qi", 59); who->set("neili", 70);
+    check(!skill->practice_skill(who) && who->query("qi") == 59 && who->query("neili") == 70,
+        "yuxiao original vitality threshold has no partial charge");
+    who->set("qi", 60);
+    check(skill->practice_skill(who) && who->query("qi") == 15 && who->query("neili") == 4,
+        "yuxiao original practice cost remains qi 45 neili 66");
+    who->set("max_neili", 1199);
+    check(!skill->valid_learn(who) && query_fail_msg() == "你的内力修为不够，无法学习玉箫剑法。\n",
+        "yuxiao learning threshold and corrected name");
+}
+
+object cang_actor(object target) {
+    object who;
+
+    who = suite->actor();
+    who->set_skill("hujia-daofa", 180); who->set_skill("blade", 600);
+    who->map_skill("blade", "hujia-daofa");
+    who->set_temp("weapon", weapon("blade"));
+    who->set_temp("apply/attack", 17);
+    suite->fight(who, target);
+    return who;
+}
+
+void check_cang() {
+    object who, target, skill;
+    int amount, high, ok, mode;
+
+    skill = load_object("/kungfu/skill/hujia-daofa/cang");
+    foreach (high in ({ 0, 1 })) foreach (amount in ({ 200, 219, 220, 221 })) {
+        target = suite->actor(); who = cang_actor(target);
+        who->set("neili", amount);
+        "/tests/control"->reset(high, ({}));
+        ok = skill->perform(who, target);
+        check(ok == (amount >= 220), "cang resource boundary " + amount);
+        check(who->query("neili") == (amount >= 220 ? amount - 220 : amount),
+            "cang direct cost only after full payment is possible");
+        check(who->query_temp("apply/attack") == 17, "cang preserves unrelated attack bonus");
+        if (amount < 220) {
+            check(!who->query_temp("test/attacks") && !who->is_busy() && !target->is_busy(),
+                "cang insufficient energy has no attacks or busy");
+            check(!sizeof("/tests/control"->query_limits()) && target->query("qi") == 100000,
+                "cang insufficient energy has no random or target effects");
+        } else {
+            check(who->query_temp("test/attacks") == 8, "cang retains eight attack limit");
+            check(who->query_temp("test/in_effect")[2] == 17 + (high ? 45 : 0),
+                "cang original conditional bonus applies during attacks");
+            check(who->query_busy() == (high ? 8 : 1), "cang original busy range");
+        }
+    }
+    target = suite->actor(); who = cang_actor(target);
+    who->set_temp("test/stop_after", 3);
+    "/tests/control"->reset(0, ({ 300, 1 }));
+    check(skill->perform(who, target) && who->query_temp("test/attacks") == 3,
+        "cang stops attacking when combat ends");
+    check(who->query_temp("apply/attack") == 17 && target->query_busy() == 1,
+        "cang early stop cleans its bonus and preserves original target busy");
+
+    for (mode = 0; mode < 6; mode++) {
+        target = suite->actor(); who = cang_actor(target);
+        switch (mode) {
+            case 0: who->set_temp("weapon", weapon("sword")); break;
+            case 1: who->set_skill("force", 498); break;
+            case 2: who->set_skill("hujia-daofa", 179); break;
+            case 3: who->map_skill("blade"); break;
+            case 4: who->remove_enemy(target); break;
+            case 5: target->disable_player(); break;
+        }
+        check(!skill->perform(who, target), "cang original qualification rejects " + mode);
+        check(who->query("neili") == 10000 && !who->is_busy()
+            && !who->query_temp("test/attacks") && who->query_temp("apply/attack") == 17,
+            "cang rejected qualification is side effect free " + mode);
+    }
+}
+
+void check_luoyan() {
+    object who, skill;
+    int neili, qi, ok, expected;
+    mapping move;
+    string text;
+
+    who = suite->actor();
+    skill = load_object("/kungfu/skill/luoyan-jian");
+    who->set_temp("weapon", weapon("sword"));
+    foreach (neili in ({ 30, 49, 50, 51, 100 })) foreach (qi in ({ 35, 39, 40, 41, 100 })) {
+        who->set("neili", neili); who->set("qi", qi);
+        expected = neili >= 50 && qi >= 40;
+        ok = skill->practice_skill(who);
+        check(ok == expected, sprintf("luoyan practice boundary %d/%d", neili, qi));
+        check(who->query("neili") == neili - (expected ? 50 : 0)
+            && who->query("qi") == qi - (expected ? 40 : 0),
+            "luoyan resource charge is complete or absent");
+    }
+    who->set("neili", 100); who->set("qi", 80);
+    check(
+        skill->practice_skill(who) && skill->practice_skill(who),
+        "luoyan permits two funded practices"
+    );
+    check(who->query("neili") == 0 && who->query("qi") == 0
+        && !skill->practice_skill(who) && who->query("neili") == 0 && who->query("qi") == 0,
+        "luoyan exact zero is preserved and next practice refuses");
+    who->set("neili", 100); who->set("qi", 100);
+    who->set_temp("weapon", weapon("blade"));
+    check(!skill->practice_skill(who) && who->query("neili") == 100 && who->query("qi") == 100,
+        "luoyan rejects wrong weapon without payment");
+    who->set_skill("luoyan-jian", 150);
+    "/tests/control"->select_action(2);
+    move = skill->query_action(who, 0);
+    text = replace_string(move["action"], "$N", "甲");
+    text = replace_string(text, "$n", "乙");
+    text = replace_string(text, "$w", "长剑");
+    text = replace_string(text, "$l", "右肩");
+    check(text == "甲纵身跃起，使出一招「落剑式」，陡见长剑从半空直指乙右肩",
+        "luoyan action describes attacking opponent rather than self");
+    "/tests/control"->select_action(4);
+    move = skill->query_action(who, 0);
+    check(strsrch(move["action"], "剑锋") >= 0 && strsrch(move["action"], "剑峰") < 0,
+        "luoyan corrects blade edge wording");
+}
+
+void run(string group, object host) {
+    suite = host;
+    switch (group) {
+        case "yuxiao": check_yuxiao(); check_yuxiao_practice(); break;
+        case "cang": check_cang(); break;
+        case "luoyan": check_luoyan(); break;
+    }
+}

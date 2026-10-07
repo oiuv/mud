@@ -1,0 +1,147 @@
+#include <combat.h>
+
+inherit ROOM;
+
+private object player, target;
+
+void check(int ok, string label) { master()->check(ok, "pin " + label); }
+
+// Reset only synthetic state between real command invocations.
+void ready(string type) {
+    object ob;
+    string category;
+
+    player->remove_all_enemy(1);
+    foreach (ob in all_inventory(player)) {
+        ob->unequip();
+        destruct(ob);
+    }
+    if (objectp(target)) destruct(target);
+    player->restore_busy(({ 0, 0 }));
+    player->set_heart_beat(0);
+    player->delete_temp("no_perform"); player->delete_temp("eff/jiuyin-shengong/xin");
+    player->delete_temp("action_flag"); player->delete_temp("pin");
+    player->set_skill("kuihua-mogong", 220);
+    player->set_skill("zuoyou-hubo", 0);
+    player->set_skill("count", 0);
+    foreach (category in ({ "sword", "unarmed", "force", "blade" })) {
+        player->set_skill(category, 500);
+        player->map_skill(category);
+    }
+    player->map_skill("sword", "kuihua-mogong");
+    player->map_skill("force", "kuihua-mogong");
+    player->map_skill("unarmed", "kuihua-mogong");
+    player->prepare_skill("unarmed", "kuihua-mogong");
+    player->set("max_neili", 10000); player->set("neili", 10000);
+    player->set("can_perform/kuihua-mogong/tian", 1);
+    player->set("qi", 1000000); player->set("eff_qi", 1000000);
+    player->set_temp("apply/attack", 17);
+    player->set_temp("apply/damage", 19);
+    player->set_temp("apply/unarmed_damage", 23);
+    if (type != "unarmed") {
+        ob = new("/tests/audit_weapon");
+        ob->set("skill_type", type);
+        ob->move(player);
+        check(ob->wield(), "fixture wields " + type);
+    }
+    target = new("/tests/actor"); target->move(this_object()); target->set_heart_beat(0);
+    target->set_name("试招弟子", ({ "pin_target" }));
+    target->set_skill("dodge", 1); target->set_skill("parry", 1);
+    player->fight_ob(target); target->fight_ob(player);
+    "/tests/control"->set_attributes(99);
+}
+
+mixed *perform_case(string type, string command) {
+    int ok, qi, energy, attack, damage, unarmed_damage;
+    object held;
+    mixed *result;
+
+    ready(type);
+    held = player->query_temp("weapon");
+    qi = target->query("qi"); energy = player->query("neili");
+    attack = player->query_temp("apply/attack"); damage = player->query_temp("apply/damage");
+    unarmed_damage = player->query_temp("apply/unarmed_damage");
+    ok = player->force_me(command);
+    result = ({ ok, energy - player->query("neili"), qi - target->query("qi"),
+        player->query_busy(), target->query_busy() });
+    check(player->query_temp("apply/attack") == attack && player->query_temp("apply/damage") == damage
+        && player->query_temp("apply/unarmed_damage") == unarmed_damage,
+        "real tian clears temporary bonuses " + command);
+    check(player->query_temp("weapon") == held, "dispatch preserves equipped object " + command);
+    return result;
+}
+
+void run() {
+    object ob;
+    mixed *implicit, *explicit;
+    string mode, command;
+    int energy, qi, ok;
+
+    player = find_object("/tests/pin_player");
+    check(objectp(player) && userp(player) && interactive(player), "uses real interactive player");
+    player->move(this_object()); player->set_heart_beat(0);
+    implicit = perform_case("pin", "perform tian pin_target");
+    explicit = perform_case("pin", "perform sword.tian pin_target");
+    check(explicit[0] && explicit[1] == 240 && explicit[2] > 0 && explicit[3] == 3,
+        "explicit sword reaches real tian and combat with original cost/busy");
+    check(save_variable(implicit) == save_variable(explicit), "default and explicit sword agree");
+    implicit = perform_case("sword", "perform tian pin_target");
+    check(
+        save_variable(implicit) == save_variable(explicit),
+        "changing to sword preserves real performance"
+    );
+    implicit = perform_case("unarmed", "perform tian pin_target");
+    check(
+        implicit[0] && implicit[1] == 240 && implicit[2] > 0,
+        "unarmed default still reaches prepared skill"
+    );
+    implicit = perform_case("pin", "perform tian pin_target twice");
+    check(
+        !implicit[0] && !implicit[1] && !implicit[2],
+        "dual performance requires original qualification"
+    );
+    ready("pin"); player->set_skill("zuoyou-hubo", 360);
+    check(player->force_me("perform tian pin_target twice") && player->query("neili") == 9520,
+        "qualified dual needle performance executes both real skills");
+
+    foreach (command in ({ "perform tian pin_target", "perform sword.tian pin_target" })) {
+        foreach (mode in ({ "unlearned", "energy", "level", "force", "capacity", "mapping",
+            "busy", "disabled", "xin", "target", "not_fighting", "weapon" })) {
+            ready("pin");
+            switch (mode) {
+                case "unlearned": player->delete("can_perform/kuihua-mogong/tian"); break;
+                case "energy": player->set("neili", 339); break;
+                case "level": player->set_skill("kuihua-mogong", 219); break;
+                case "force": player->map_skill("force"); break;
+                case "capacity": player->set("max_neili", 3399); break;
+                case "mapping": player->map_skill("sword"); break;
+                case "busy": player->start_busy(5); break;
+                case "disabled": player->set_temp("no_perform", 1); break;
+                case "xin": player->set_temp("eff/jiuyin-shengong/xin", 1); break;
+                case "target": target->disable_player("昏迷"); break;
+                case "not_fighting": player->remove_all_enemy(1); break;
+                case "weapon": player->query_temp("weapon")->set("skill_type", "blade"); break;
+            }
+            energy = player->query("neili"); qi = target->query("qi");
+            ok = player->force_me(command);
+            check(!ok && player->query("neili") == energy && target->query("qi") == qi,
+                "original qualification rejects " + mode + " " + command);
+        }
+    }
+    ready("pin");
+    check(!player->force_me("perform pin.tian pin_target") && player->query("neili") == 10000,
+        "explicit pin is not silently rewritten or given a new mapping");
+    ready("blade");
+    player->set_skill("audit_skill", 300); player->map_skill("blade", "audit_skill");
+    player->set_temp("audit/first", 5);
+    check(player->force_me("perform first") && player->query_temp("audit/calls") == 1,
+        "other weapon default uses its own mapping");
+    ready("pin"); player->delete_temp("audit");
+    player->map_skill("blade", "audit_skill"); player->set_temp("audit/first", 5);
+    check(player->force_me("perform blade.first") && player->query_temp("audit/calls") == 1,
+        "explicit other category remains authoritative while holding a needle");
+    player->remove_all_enemy(1); destruct(target);
+    foreach (ob in all_inventory(player)) destruct(ob);
+    player->restore_busy(({ 0, 0 })); player->set_heart_beat(0);
+    "/tests/control"->set_case("hit", 0);
+}

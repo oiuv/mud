@@ -390,7 +390,7 @@ void create() { set("short", "隔离演武场"); set("no_fight", 0); }
 int run_checks() {
     string before;
 
-    before = read_file("/tests/before.txt");
+    before = read_file("/tests/group.txt");
     if (stringp(before) && before != "") {
         switch (before) {
             case "freeze": check_freeze(); break;
@@ -400,18 +400,28 @@ int run_checks() {
             case "energy": check_energy(); break;
             case "recovery": check_recovery(); break;
             case "timing": check_timing(); return 1;
+            case "yuxiao":
+            case "cang":
+            case "luoyan": "/tests/state"->run(before, this_object()); break;
         }
         master()->finish();
         return 1;
     }
     check_freeze(); check_canhe(); check_taixuan(); check_tao_and_ruying();
+    "/tests/state"->run("yuxiao", this_object());
+    "/tests/state"->run("cang", this_object());
+    "/tests/state"->run("luoyan", this_object());
     check_energy(); check_recovery(); check_timing();
     return 1;
 }
 
 void run() {
     object controller;
+    string group;
 
+    group = read_file("/tests/group.txt");
+    if (!group || group == "" || group == "yuxiao")
+        "/tests/state"->cold_yuxiao();
     controller = actor();
     check(controller->invoke((: run_checks :)), "regression runs in a real command context");
 }

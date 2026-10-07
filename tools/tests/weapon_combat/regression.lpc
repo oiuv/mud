@@ -535,6 +535,7 @@ void run() {
     string *groups;
 
     groups = json_decode(read_file("/tests/groups.json"));
+    if (member_array("pin", groups) != -1) "/tests/pin"->run();
     if (member_array("equipment", groups) != -1) equipment();
     if (member_array("callbacks", groups) != -1) callbacks();
     if (member_array("attributes", groups) != -1) attributes();

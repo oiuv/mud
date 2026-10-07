@@ -113,7 +113,7 @@ mapping *action = ({
         "skill_name": "随音而舞笑开颜"
     ]),
     ([ "action": "$N左手食指疾点$w，一招「箫音有情人无情」，剑身发出一声龙吟，余音缭\n"
-        "绕，$n只觉得的胸前一闷，一阵刚猛的劲气迫向自己",
+        "绕，$n只觉得胸前一闷，一阵刚猛的劲气迫向自己",
         "force": 330,
         "attack": 91,
         "parry": 72,
@@ -134,12 +134,7 @@ mapping *action = ({
         "damage_type": "刺伤",
         "skill_name": "箫声响毕情两断"
     ]),
-    ([ "action": "$N凝神静气，使出极招" RED " 玉萧剑法之极意 " NOR "",
-        "force": (int)this_player()->query_skill("force") / 2 + random((int)this_player()->query_skill("force")),
-        "attack": (int)this_player()->query_skill("sword") / 4 + random((int)this_player()->query_skill("sword") / 2),
-        "dodge": (int)this_player()->query_skill("dodge") / 4 + random((int)this_player()->query_skill("force") / 3),
-        "parry": (int)this_player()->query_skill("parry") / 4 + random((int)this_player()->query_skill("parry") / 3),
-        "damage": (int)this_player()->query_skill("force") / 3 + random((int)this_player()->query_skill("sword") / 3),
+    ([ "action": "$N凝神静气，使出极招" RED " 玉箫剑法之极意 " NOR "",
         "lvl": 200,
         "skill_name": "极意",
         "damage_type": "刺伤"
@@ -153,27 +148,40 @@ int valid_enable(string usage) {
 
 int valid_learn(object me) {
     if ((int)me->query("max_neili") < 1200)
-        return notify_fail("你的内力修为不够，无法学习玉萧剑法。\n");
+        return notify_fail("你的内力修为不够，无法学习玉箫剑法。\n");
 
     if ((int)me->query_skill("force") < 150)
-        return notify_fail("你的内功火候不够，无法学习玉萧剑法。\n");
+        return notify_fail("你的内功火候不够，无法学习玉箫剑法。\n");
 
     if ((int)me->query_skill("sword", 1) < 100)
-        return notify_fail("你的基本剑法火候不够，无法学习玉萧剑法。\n");
+        return notify_fail("你的基本剑法火候不够，无法学习玉箫剑法。\n");
 
     if ((int)me->query_skill("sword", 1) < (int)me->query_skill("yuxiao-jian", 1))
-        return notify_fail("你的基本剑法水平有限，无法领会更高深的玉萧剑法。\n");
+        return notify_fail("你的基本剑法水平有限，无法领会更高深的玉箫剑法。\n");
 
     return 1;
 }
 
 mapping query_action(object me, object weapon) {
-    int i, level;
+    int i, level, index;
+    mapping result;
 
     level = (int)me->query_skill("yuxiao-jian", 1);
     for (i = sizeof(action); i > 0; i--)
-        if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 20, level / 5)];
+        if (level > action[i - 1]["lvl"]) {
+            index = NewRandom(i, 20, level / 5);
+            if (index != sizeof(action) - 1)
+                return action[index];
+
+            // 极意随施招者当前修为计算，不写回共享招式或此前返回的动作。
+            result = copy(action[index]);
+            result["force"] = (int)me->query_skill("force") / 2 + random((int)me->query_skill("force"));
+            result["attack"] = (int)me->query_skill("sword") / 4 + random((int)me->query_skill("sword") / 2);
+            result["dodge"] = (int)me->query_skill("dodge") / 4 + random((int)me->query_skill("force") / 3);
+            result["parry"] = (int)me->query_skill("parry") / 4 + random((int)me->query_skill("parry") / 3);
+            result["damage"] = (int)me->query_skill("force") / 3 + random((int)me->query_skill("sword") / 3);
+            return result;
+        }
 }
 
 int practice_skill(object me) {
@@ -187,7 +195,7 @@ int practice_skill(object me) {
         return notify_fail("你的体力不够练玉箫剑法。\n");
 
     if ((int)me->query("neili") < 70)
-        return notify_fail("你的体力不够练玉箫剑法。\n");
+        return notify_fail("你的内力不够练玉箫剑法。\n");
 
     me->receive_damage("qi", 45);
     me->add("neili", -66);

@@ -79,7 +79,7 @@ int main(object me, string arg) {
 
             case 3:
                 msg = HIY "$N" HIY "左手一招，右手一"
-                    "招，两招来路各异，令人难以低档！\n" NOR;
+                    "招，两招来路各异，令人难以抵挡！\n" NOR;
                 break;
         }
 
@@ -104,9 +104,11 @@ private int do_perform(object me, string arg) {
     //    int result;
 
     if (sscanf(arg, "%s.%s", martial, arg) != 2) {
-        if (weapon = me->query_temp("weapon"))
+        if (weapon = me->query_temp("weapon")) {
             martial = weapon->query("skill_type");
-        else
+            if (martial == "pin")
+                martial = "sword";
+        } else
             martial = "unarmed";
     }
 
@@ -149,7 +151,7 @@ perform sword.chan
 换句话说，只要是 enable 中的武功有特殊招式的，都可以用这个指
 令使用。
 
-如果你精通左右互搏，可以同时使用两个招式攻击同一对手或则分别
+如果你精通左右互搏，可以同时使用两个招式攻击同一对手或者分别
 攻击两人。左右互搏修炼的越是精深，则成功率越高。
 
 使用 twice 参数表示左右手使用同样的招式。

@@ -22,7 +22,7 @@ mapping *action = ({
         "damage_type": "刺伤",
         "skill_name": "拂风式",
     ]),
-    ([ "action": "$N纵身跃起，使出一招「落剑式」，陡见$w从半空直指$N$l",
+    ([ "action": "$N纵身跃起，使出一招「落剑式」，陡见$w从半空直指$n$l",
         "force": 81,
         "dodge": 25,
         "parry": 31,
@@ -42,7 +42,7 @@ mapping *action = ({
         "damage_type": "刺伤",
         "skill_name": "雁翔式",
     ]),
-    ([ "action": "$N剑峰忽转，一剑笔直地向$n$l刺来，内劲十足，正是一招「平剑式」",
+    ([ "action": "$N剑锋忽转，一剑笔直地向$n$l刺来，内劲十足，正是一招「平剑式」",
         "force": 106,
         "dodge": 27,
         "parry": 38,
@@ -113,10 +113,10 @@ int practice_skill(object me) {
         || (string)weapon->query("skill_type") != "sword")
         return notify_fail("你使用的武器不对。\n");
 
-    if ((int)me->query("neili") < 30)
+    if ((int)me->query("neili") < 50)
         return notify_fail("你的内力不足，没有办法练习回风落雁剑。\n");
 
-    if ((int)me->query("qi") < 35)
+    if ((int)me->query("qi") < 40)
         return notify_fail("你的体力不够练回风落雁剑。\n");
 
     me->receive_damage("qi", 40);

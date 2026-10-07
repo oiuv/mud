@@ -9,6 +9,8 @@ varargs void do_attack(object me, object target, object weapon, int flags, strin
     me->add_temp("test/attacks", 1);
     me->set_temp("test/in_effect", ({ me->query_str(), me->query_dex(),
         me->query_temp("apply/attack"), me->query_temp("apply/damage") }));
+    if (me->query_temp("test/stop_after") == me->query_temp("test/attacks"))
+        me->remove_enemy(target);
 }
 
 void fight(object me, object target) {}

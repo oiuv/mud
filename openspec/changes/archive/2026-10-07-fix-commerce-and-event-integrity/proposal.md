@@ -30,4 +30,4 @@
 - 主要代码：`cmds/std/put.c`、`adm/daemons/auctiond.c`、`adm/daemons/eventd.c`、`adm/daemons/event/wuliang.c`、`adm/daemons/timed.c`；必要时在 `moneyd.c` 提取现有付款规则供无副作用预检复用，不引入新的货币系统。时间锚点随既有公共数据库保存，仅新增宿主时钟记录字段。
 - 验证：扩充 `tools/tests/test_commerce_audit.mjs`，补充隔离活动回归并接入 `tools/test_gameplay.mjs`；不连接正式服、不读写玩家存档、不调用模型。
 - 文档：更新 `docs/daemons/auctiond.md`、`docs/daemons/eventd.md`、相应审查报告及 `help/changelog`，纠正旧文档中未实现的托管/退款描述。
-- 本批覆盖 [第二轮审查](../../../docs/reviews/2026-10-07-gameplay-audit.md) 的上述 6 项及实施中发现、经维护者确认补入的 WL-CLOCK。剩余 8 项身份、任务领奖和武学缺陷继续保留为未修复，后续分批处理；不调整武器分类、武学平衡、权限体系或游戏时钟速率，不恢复历史损失。开发和验收不操作正式服务和数据。
+- 本批覆盖 [第二轮审查](../../../../docs/reviews/2026-10-07-gameplay-audit.md) 的上述 6 项及实施中发现、经维护者确认补入的 WL-CLOCK。剩余 8 项身份、任务领奖和武学缺陷继续保留为未修复，后续分批处理；不调整武器分类、武学平衡、权限体系或游戏时钟速率，不恢复历史损失。开发和验收不操作正式服务和数据。
