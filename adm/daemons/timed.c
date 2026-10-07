@@ -1,13 +1,60 @@
+#include <localtime.h>
+
 inherit CORE_TIME_D;
+
+private int real_anchor;
+private int game_anchor;
+private int calendar_era;
 
 void clock();
 
-// 初始化游戏时间，同步现实世界时间
+// 宿主时间按真实经过秒数推进，不因心跳延迟或重新启动丢失经过时间。
+int query_gametime() {
+    if (!real_anchor) return ::query_gametime();
+    return game_anchor + (time() - real_anchor) * DATE_SCALE;
+}
+
+mixed save_dbase_data() {
+    if (!real_anchor) return ::save_dbase_data();
+    return ([ "gametime": query_gametime(), "clock_version": 1,
+        "real_anchor": real_anchor, "game_anchor": game_anchor, "calendar_era": calendar_era ]);
+}
+
+int receive_dbase_data(mixed data) {
+    if (mapp(data) && data["clock_version"] == 1 &&
+        intp(data["real_anchor"]) && data["real_anchor"] > 0 &&
+        intp(data["game_anchor"]) && data["game_anchor"] >= 0 &&
+        intp(data["calendar_era"]) && data["calendar_era"] > 0) {
+        real_anchor = data["real_anchor"];
+        game_anchor = data["game_anchor"];
+        calendar_era = data["calendar_era"];
+    }
+    return ::receive_dbase_data(data);
+}
+
+// 旧记录首次建立锚点时沿用原起始日期；以后只恢复，不再按现实日取模。
 void init_time() {
-    // 设置游戏世界时间戳
-    reset_gametime((GAME_TIME(time()) % 86400) * DATE_SCALE);
-    // 设置游戏tick、scale、year(游戏年)，说明：现实tick秒是游戏scale秒
-    set_scale(1, -GAME_TIME(time()) / 86400, DATE_SCALE);
+    int *lt;
+    int first_start;
+
+    first_start = !real_anchor;
+    if (first_start) {
+        real_anchor = time();
+        game_anchor = (GAME_TIME(real_anchor) % 86400) * DATE_SCALE;
+        lt = analyse_time(game_anchor);
+        // CORE_TIME_D 正纪年公式为内部年份 - 1970 + era。
+        calendar_era = GAME_TIME(real_anchor) / 86400 - lt[LT_YEAR] + 1970;
+    }
+    set_scale(1, calendar_era, DATE_SCALE);
+    reset_gametime(query_gametime());
+    process_gametime(query_gametime());
+    // 锚点仅需首次建立时强制落盘，正常运行沿用公共数据库保存周期。
+    if (first_start) DBASE_D->save();
+}
+
+void heart_beat() {
+    process_realtime();
+    process_gametime(query_gametime());
 }
 
 void create() {

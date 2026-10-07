@@ -1,0 +1,16 @@
+private int fired;
+private mixed received;
+
+void set_identity(string uid) { seteuid(uid); }
+
+int schedule(int year, int month, int day, int hour, mixed data) {
+    return EVENT_D->at_after(year, month, day, hour, data);
+}
+
+int absolute(int year, int month, int day, int hour, mixed data) {
+    return EVENT_D->at_when(year, month, day, hour, data);
+}
+
+void trigger_event(mixed data) { fired++; received = data; }
+int query_fired() { return fired; }
+mixed query_received() { return received; }

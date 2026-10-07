@@ -1,0 +1,13 @@
+inherit ITEM;
+
+void create() {
+    set_name("试玉佩", ({ "test lot" }));
+    set("unit", "块");
+    set("value", 10000);
+    set_weight(10);
+}
+
+varargs int move(mixed dest, int raw) {
+    if (objectp(dest) && dest->query("refuse_delivery")) return 0;
+    return ::move(dest, raw);
+}

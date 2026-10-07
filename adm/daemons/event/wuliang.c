@@ -1,13 +1,19 @@
 // wuliang.c 事件：无量山玉壁剑舞
 
 #include <ansi.h>
+#include <localtime.h>
 
 void create() { seteuid(getuid()); }
 
 // 开始创建事件
 void create_event() {
-    // 每月15日凌晨
-    EVENT_D->at_after(0, 0, -15, -23);
+    mixed *lt;
+    int next_month;
+
+    // 每月十五日二十三时；已到或已过则只安排下一月，不补发过期场次。
+    lt = NATURE_D->query_localtime();
+    next_month = lt[LT_MDAY] > 15 || (lt[LT_MDAY] == 15 && lt[LT_HOUR] >= 23);
+    EVENT_D->at_after(0, next_month, -15, -23);
 }
 
 // 奖励

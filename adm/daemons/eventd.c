@@ -95,6 +95,14 @@ int at_when(int year, int month, int day, int hour, mixed para) {
         return 0;
 
     event_list[base_name(pob)] = ({ year, month, day, hour, para });
+    return 1;
+}
+
+// 月日来自内部时间戳对应的公历，而不是宿主改写后的游戏纪年。
+private int month_days(int year, int month) {
+    if (month == 1)
+        return !(year % 4) && (year % 100 || !(year % 400)) ? 29 : 28;
+    return ({ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 })[month];
 }
 
 // 登记在一段时间以后启动事件
@@ -103,8 +111,10 @@ int at_when(int year, int month, int day, int hour, mixed para) {
 // 需要特别注意月份范围为0~11的问题
 int at_after(int year, int month, int day, int hour, mixed para) {
     mixed *lt;
+    int calendar_offset, days;
 
     lt = NATURE_D->query_localtime();
+    calendar_offset = TIME_D->analyse_time(TIME_D->query_gametime())[LT_YEAR] - lt[LT_YEAR];
     if (year < 0)
         year = -year;
     else
@@ -121,5 +131,17 @@ int at_after(int year, int month, int day, int hour, mixed para) {
         hour = -hour;
     else
         hour += lt[LT_HOUR];
+    day += hour / 24;
+    hour %= 24;
+    year += month / 12;
+    month %= 12;
+    while (day > (days = month_days(year + calendar_offset, month))) {
+        day -= days;
+        month++;
+        if (month == 12) {
+            month = 0;
+            year++;
+        }
+    }
     return at_when(year, month, day, hour, para);
 }

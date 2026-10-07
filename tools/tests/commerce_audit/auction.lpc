@@ -1,0 +1,266 @@
+inherit ROOM;
+
+#define AUCTION "/adm/daemons/auctiond"
+
+private object buyer, seller, other, third;
+
+void check(int ok, string label) { master()->check(ok, "auction: " + label); }
+
+private object give(object who, string file, int amount) {
+    object ob;
+
+    ob = new(file);
+    if (amount) ob->set_amount(amount);
+    ob->move(who);
+    return ob;
+}
+
+private int quantity(object who, string file) {
+    object ob;
+    int count;
+
+    foreach (ob in all_inventory(who))
+        if (base_name(ob) == file)
+            count += function_exists("query_amount", ob) ? ob->query_amount() : 1;
+    return count;
+}
+
+private int cash(object who) {
+    return quantity(
+        who,
+        CASH_OB
+    ) * 100000 + quantity(
+        who,
+        GOLD_OB
+    ) * 10000 + quantity(who, SILVER_OB) * 100 + quantity(who, COIN_OB);
+}
+
+private void reset_case() {
+    object who, ob;
+
+    AUCTION->set("auction_info", ([]));
+    foreach (who in ({ buyer, seller, other, third })) {
+        foreach (ob in all_inventory(who)) destruct(ob);
+        who->delete("refuse_delivery");
+        who->delete("doing");
+        who->set_max_encumbrance(1000000);
+        who->set("channels", ({ "bill" }));
+        who->move(this_object());
+        who->clear_messages();
+    }
+    foreach (ob in all_inventory(this_object()))
+        if (member_array(ob, ({ buyer, seller, other, third })) == -1) destruct(ob);
+}
+
+private void expire() {
+    mapping record;
+
+    foreach (record in values(AUCTION->query("auction_info"))) {
+        record["state"] = 3;
+        record["time"] = time() - 11;
+    }
+    AUCTION->heart_beat();
+}
+
+private void one_sale(string test) {
+    object lot;
+    int price, before_buyer, before_seller, expected, success;
+    string file;
+
+    reset_case();
+    price = test == "zero-fee" ? 24 : 1001;
+    file = strsrch(test, "stack") == 0 ? "/tests/put_stack" : "/tests/auction_item";
+    lot = give(seller, file, file == "/tests/put_stack" ? 5 : 0);
+    give(seller, COIN_OB, 100);
+    give(buyer, COIN_OB, 2000);
+    AUCTION->add_auction(seller, lot, price - 1);
+    check(mapp(AUCTION->query("auction_info")["seller"]), test + " listed");
+    AUCTION->join_auction(buyer, "seller", price);
+    check(AUCTION->query("auction_info")["seller"]["now"] == "buyer", test + " bid accepted");
+    success = member_array(test, ({ "normal", "zero-fee", "stack" })) != -1;
+    if (test == "fee-missing") present("coin_money", seller)->set_amount(0);
+    if (test == "buyer-missing") present("coin_money", buyer)->set_amount(0);
+    if (test == "overweight") {
+        lot->set_weight(3000);
+        buyer->set_max_encumbrance(buyer->query_encumbrance());
+    }
+    if (test == "refused") buyer->set("refuse_delivery", 1);
+    if (test == "stack-refused") buyer->set("refuse_delivery", 1);
+    if (test == "buyer-cash-only") {
+        destruct(present("coin_money", buyer));
+        give(buyer, CASH_OB, 1);
+    }
+    if (test == "seller-cash-only") {
+        destruct(present("coin_money", seller));
+        give(seller, CASH_OB, 1);
+    }
+    if (test == "zero-fee") destruct(present("coin_money", seller));
+    if (test == "seller-full") seller->set_max_encumbrance(seller->query_encumbrance());
+    if (test == "changed-owner") lot->move(third);
+    if (test == "no-sell") lot->set("no_sell", 1);
+    if (test == "no-drop") lot->set("no_drop", 1);
+    if (test == "destroyed") destruct(lot);
+    if (test == "stack") give(buyer, file, 3);
+    before_buyer = cash(buyer);
+    before_seller = cash(seller);
+    buyer->clear_messages();
+    expire();
+    check(!sizeof(AUCTION->query("auction_info")), test + " record removed");
+    check(cash(buyer) == before_buyer - (success ? price : 0), test + " buyer funds");
+    check(cash(seller) == before_seller + (success ? price - price / 25 : 0),
+        test + " seller funds and floor fee");
+    check(!cash(this_object()), test + " no money on ground");
+    if (success) {
+        expected = test == "stack" ? 8 : 1;
+        check(
+            quantity(buyer, file) == expected && !quantity(seller, file),
+            test + " delivered quantity"
+        );
+        check(strsrch(buyer->query_messages(), "成交了") != -1, test + " success announcement");
+    } else {
+        check(strsrch(buyer->query_messages(), "成交了") == -1, test + " no false announcement");
+        if (objectp(lot))
+            check(
+                environment(lot) == (test == "changed-owner" ? third : seller),
+                test + " owner retained"
+            );
+    }
+}
+
+private void changed_before_bid() {
+    object lot;
+
+    reset_case();
+    give(seller, COIN_OB, 100);
+    lot = give(seller, "/tests/auction_item", 0);
+    AUCTION->add_auction(seller, lot, 100);
+    lot->move(third);
+    AUCTION->join_auction(buyer, "seller", 101);
+    check(!sizeof(AUCTION->query("auction_info")) && environment(lot) == third,
+        "bid rejects transferred item");
+    lot->move(seller);
+    AUCTION->add_auction(seller, lot, 100);
+    lot->move(third);
+    AUCTION->check_auction_info();
+    check(!sizeof(AUCTION->query("auction_info")) && environment(lot) == third,
+        "listing hides transferred item");
+    lot->move(seller);
+    AUCTION->add_auction(seller, lot, 100);
+    AUCTION->cancel_auction(seller);
+    check(!sizeof(AUCTION->query("auction_info")) && environment(lot) == seller && cash(seller) == 100,
+        "cancellation does not move or charge");
+}
+
+private void two_sales(int bid_index) {
+    object first, second, lot1, lot2;
+    string *ids;
+    mapping records;
+
+    reset_case();
+    give(seller, COIN_OB, 100);
+    give(other, COIN_OB, 100);
+    give(buyer, COIN_OB, 2000);
+    lot1 = give(seller, "/tests/auction_item", 0);
+    lot2 = give(other, "/tests/auction_item", 0);
+    AUCTION->add_auction(seller, lot1, 100);
+    AUCTION->add_auction(other, lot2, 100);
+    records = AUCTION->query("auction_info");
+    ids = keys(records);
+    first = find_player(ids[bid_index]);
+    second = find_player(ids[1 - bid_index]);
+    AUCTION->join_auction(buyer, ids[bid_index], 101);
+    buyer->clear_messages();
+    expire();
+    check(cash(buyer) == 1899 && cash(first) == 197 && cash(second) == 100,
+        "independent buyers, traversal position " + bid_index);
+    check(quantity(buyer, "/tests/auction_item") == 1 &&
+        quantity(second, "/tests/auction_item") == 1 && !sizeof(AUCTION->query("auction_info")),
+        "unbid listing stays with owner, traversal position " + bid_index);
+}
+
+private void change_capacity() {
+    object lot;
+
+    reset_case();
+    give(seller, COIN_OB, 100);
+    give(buyer, GOLD_OB, 1);
+    buyer->set_max_encumbrance(buyer->query_encumbrance() + 20);
+    lot = give(seller, "/tests/auction_item", 0);
+    AUCTION->add_auction(seller, lot, 100);
+    AUCTION->join_auction(buyer, "seller", 101);
+    expire();
+    check(cash(buyer) == 10000 && cash(seller) == 100 && environment(lot) == seller && !cash(this_object()),
+        "too-heavy change fails without dropped funds");
+
+    reset_case();
+    give(seller, COIN_OB, 100);
+    give(buyer, CASH_OB, 2);
+    lot = give(seller, "/tests/auction_item", 0);
+    // Record is created before cash-only state: validate settlement, not finance.c's legacy precheck.
+    give(seller, GOLD_OB, 1);
+    AUCTION->add_auction(seller, lot, 99999);
+    AUCTION->join_auction(buyer, "seller", 100000);
+    expire();
+    check(cash(buyer) == 100000 && cash(seller) == 106100 && environment(lot) == buyer,
+        "cash notes pay a qualifying price");
+}
+
+private void offline_records() {
+    object lot1, lot2;
+
+    reset_case();
+    give(seller, COIN_OB, 100);
+    give(other, COIN_OB, 100);
+    give(buyer, COIN_OB, 1000);
+    give(third, COIN_OB, 1000);
+    lot1 = give(seller, "/tests/auction_item", 0);
+    lot2 = give(other, "/tests/auction_item", 0);
+    AUCTION->add_auction(seller, lot1, 100);
+    AUCTION->add_auction(other, lot2, 100);
+    AUCTION->join_auction(buyer, "seller", 101);
+    AUCTION->join_auction(third, "seller_two", 101);
+    // 撤销登记身份，模拟 find_player 已无法解析离线竞价者。
+    third->set_name("试客乙", ({ "offline_third" }));
+    third->enable_player();
+    check(!find_player("third"), "offline bidder is not resolvable");
+    expire();
+    check(cash(buyer) == 899 && cash(third) == 1000 && cash(other) == 100 &&
+        environment(lot1) == buyer && environment(lot2) == other,
+        "offline bidder does not affect other listing");
+    third->set_name("试客乙", ({ "third" }));
+    third->enable_player();
+    reset_case();
+    give(seller, COIN_OB, 100);
+    lot1 = give(seller, "/tests/auction_item", 0);
+    AUCTION->add_auction(seller, lot1, 100);
+    seller->set_name("试商", ({ "offline_seller" }));
+    seller->enable_player();
+    expire();
+    check(!sizeof(AUCTION->query("auction_info")) && environment(lot1) == seller &&
+        cash(seller) == 100, "offline seller listing cancelled without taking goods");
+    seller->set_name("试商", ({ "seller" }));
+    seller->enable_player();
+}
+
+void run() {
+    object *clients;
+    object who;
+    string test;
+
+    clients = master()->query_clients();
+    buyer = clients[0]; seller = clients[1]; other = clients[2]; third = clients[3];
+    buyer->set_name("试客", ({ "buyer" }));
+    seller->set_name("试商", ({ "seller" }));
+    other->set_name("试商乙", ({ "seller_two" }));
+    third->set_name("试客乙", ({ "third" }));
+    foreach (who in clients) who->enable_player();
+    foreach (test in ({ "normal", "zero-fee", "stack", "fee-missing", "buyer-missing",
+        "overweight", "refused", "stack-refused", "buyer-cash-only", "seller-cash-only",
+        "seller-full", "changed-owner", "no-sell", "no-drop", "destroyed" }))
+        one_sale(test);
+    changed_before_bid();
+    two_sales(0);
+    two_sales(1);
+    change_capacity();
+    offline_records();
+}

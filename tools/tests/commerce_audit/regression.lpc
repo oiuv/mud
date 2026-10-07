@@ -56,7 +56,7 @@ private int stored(object me) {
 void init() { add_action("dispatch", "audit"); }
 
 int dispatch(string test) {
-    object me, ob, npc, token, money;
+    object me, ob, npc, token, money, box, child;
     string arg, path;
     int before, result, count, balance;
     mixed err;
@@ -64,6 +64,62 @@ int dispatch(string test) {
     me = this_player();
     path = "/clone/weapon/lianzi";
     switch (test) {
+        case "put":
+            path = "/tests/put_stack";
+            foreach (arg in ({ "non-container", "depot", "full", "no-put", "heavy", "refused" })) {
+                box = item(me, "/tests/container", 0);
+                ob = item(me, path, 5);
+                switch (arg) {
+                    case "non-container": box->set("container", 0); break;
+                    case "depot": box->set("depot", 1); break;
+                    case "full":
+                        for (count = 0; count < MAX_ITEM_CARRIED; count++)
+                            item(box, "/tests/container", 0);
+                        break;
+                    case "no-put": ob->set("no_put", "试珠不可放入。\n"); break;
+                    case "heavy": box->set_max_encumbrance(0); break;
+                    case "refused": box->set("refuse_delivery", 1); break;
+                }
+                before = sizeof(children(path));
+                err = catch("/cmds/std/put"->main(me, "1 test bead in test box"));
+                check(!err && quantity(me, path) == 5 && !quantity(box, path),
+                    "put rejection preserves quantity: " + arg);
+                check(sizeof(children(path)) == before,
+                    "put rejection leaves no candidate: " + arg);
+                foreach (child in children(path))
+                    if (clonep(child)) destruct(child);
+                foreach (child in all_inventory(box)) destruct(child);
+                destruct(box);
+            }
+            box = item(me, "/tests/container", 0);
+            ob = item(me, path, 5);
+            before = sizeof(children(path));
+            set("fail_stack_create", 1);
+            err = catch("/cmds/std/put"->main(me, "1 test bead in test box"));
+            delete("fail_stack_create");
+            check(quantity(me, path) == 5 && !quantity(box, path),
+                "failed candidate creation keeps original quantity");
+            check(sizeof(children(path)) == before,
+                "failed candidate creation leaves no orphan");
+            ob->set_amount(5);
+            item(box, path, 3);
+            err = catch("/cmds/std/put"->main(me, "2 test bead in test box"));
+            check(!err && quantity(me, path) == 3 && quantity(box, path) == 5,
+                "partial put merges exact quantity");
+            err = catch("/cmds/std/put"->main(me, "3 test bead in test box"));
+            check(!err && !quantity(me, path) && quantity(box, path) == 8,
+                "whole put merges exact quantity");
+            ob = item(me, path, 5);
+            token = item(me, "/tests/container", 0);
+            token->set_name("禁匣", ({ "closed box" }));
+            token->set("no_put", 1);
+            err = catch("/cmds/std/put"->main(me, "all in test box"));
+            check(!err && !quantity(me, path) && quantity(box, path) == 13,
+                "bulk put transfers allowed stack");
+            check(environment(token) == me && environment(box) == me,
+                "bulk put retains rejected item and container");
+            foreach (child in all_inventory(box)) destruct(child);
+            break;
         case "payments":
             money = item(me, GOLD_OB, 100);
             foreach (int value in ({ 0, -1, -200000 })) {
@@ -375,6 +431,7 @@ void run() {
     seller->move(this_object());
     foreach (test in ({
         "payments",
+        "put",
         "npc",
         "stock",
         "prices",
@@ -394,4 +451,6 @@ void run() {
     buyer->suspend_busy();
     err = catch(buyer->execute_test("audit stall"));
     check(!err, "case completed: stall" + (err ? ": " + err : ""));
+    err = catch("/tests/auction"->run());
+    check(!err, "case completed: auction" + (err ? ": " + err : ""));
 }

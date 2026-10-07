@@ -27,6 +27,15 @@
 
 ## 📁 文档结构
 
+近期源码审查与架构记录：
+
+- [2026-10-07 核心玩法与架构第二轮审查](reviews/2026-10-07-gameplay-audit.md)：归档结果、覆盖边界、关键逻辑缺陷、AI 责任边界及兵器体系后续建议。
+- [经济、物品交付与身份边界](reviews/2026-10-07-economy-security.md)。
+- [世界与生命周期](reviews/2026-10-07-world-lifecycle.md)。
+- [兵器与武学平衡](reviews/2026-10-07-weapons-martial-balance.md)。
+
+审查结论对应报告注明的源码基线；确定缺陷不代表已经修复，设计建议不代表已上线。后续修复应补充实现与验证链接，不改写原始发现。
+
 ```
 docs/
 ├── README.md                 # 本文档
@@ -67,6 +76,8 @@ docs/
 - [channeld.md](daemons/channeld.md) - 频道守护进程详细实现
 - [combatd.md](daemons/combatd.md) - 战斗消息生成机制
 - [logind.md](daemons/logind.md) - 用户登录认证流程
+- [timed.md](daemons/timed.md) - 宿主时钟锚点、纪年和重启连续性
+- [eventd.md](daemons/eventd.md) - 世界活动日期进位及周期登记
 
 ### 🎮 第二类：综合功能系统文档
 **特点**:
@@ -163,4 +174,4 @@ docs/
 
 ---
 *维护团队：炎黄群侠传开发组*
-*最后更新：2026-10-05*
+*最后更新：2026-10-07*

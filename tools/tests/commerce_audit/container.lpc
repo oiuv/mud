@@ -1,0 +1,12 @@
+inherit ITEM;
+
+void create() {
+    set_name("试匣", ({ "test box" }));
+    set("unit", "只");
+    set("container", 1);
+    set_weight(0);
+    set_max_encumbrance(1000000);
+}
+
+int is_container() { return query("container"); }
+int is_depot_ob() { return query("depot"); }

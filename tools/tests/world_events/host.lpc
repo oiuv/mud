@@ -1,0 +1,120 @@
+#include <localtime.h>
+
+#define WALL "/tests/wall_clock"
+#define PROBE "/tests/probe"
+#define WULIANG "/adm/daemons/event/wuliang"
+
+private int bonuses;
+
+void check(int ok, string label) { master()->check(ok, label); }
+void record_bonus() { bonuses++; }
+
+private object reset_clock(string date) {
+    int stamp;
+    object clock;
+
+    if (objectp(clock = find_object(TIME_D))) destruct(clock);
+    stamp = strptime("%Y-%m-%d %H:%M:%S", date);
+    DBASE_D->set_object_data(TIME_D, ([ "clock_version": 1,
+        "real_anchor": WALL->query_now(), "game_anchor": stamp,
+        "calendar_era": 1000, "gametime": stamp ]));
+    return load_object(TIME_D);
+}
+
+void run() {
+    object clock, probe;
+    mixed *lt, *later;
+    mapping saved;
+    string disk;
+    int stamp, before, offset, start, target, expected, game_year;
+
+    start = WALL->query_now();
+    stamp = (GAME_TIME(start) % 86400) * DATE_SCALE;
+    DBASE_D->set_object_data(TIME_D, ([ "gametime": 12345 ]));
+    clock = load_object(TIME_D);
+    clock->heart_beat();
+    lt = clock->query_game_time();
+    later = clock->analyse_time(stamp);
+    check(lt[LT_YEAR] == GAME_TIME(start) / 86400 && lt[LT_MON] == later[LT_MON] &&
+        lt[LT_MDAY] == later[LT_MDAY] && lt[LT_HOUR] == later[LT_HOUR],
+        "initial anchor preserves old display date");
+    check(clock->query_scale()[0] == 1 && clock->query_scale()[1] == 60 &&
+        clock->query_scale()[2] > 0, "host retains rate with positive era");
+    saved = clock->save_dbase_data();
+    check(saved["clock_version"] == 1 && saved["real_anchor"] == start &&
+        saved["game_anchor"] == stamp, "host creates persistent anchor from legacy record");
+    disk = read_file("/data/dbased.o");
+    check(stringp(disk) && strsrch(disk, "clock_version") >= 0,
+        "first anchor reaches disk before periodic save");
+    WALL->advance(10);
+    clock->heart_beat();
+    check(clock->query_gametime() == stamp + 600, "elapsed ten seconds advances ten game minutes");
+    before = clock->query_gametime();
+    clock->heart_beat();
+    check(clock->query_gametime() == before, "extra heartbeat does not advance wall time");
+    clock->save();
+    DBASE_D->save();
+    destruct(clock);
+    // Simulate process loss after the explicit disk save, without online shutdown hooks.
+    efun::destruct(find_object(DBASE_D));
+    WALL->advance(86460);
+    clock = load_object(TIME_D);
+    check(clock->query_gametime() == stamp + (WALL->query_now() - start) * DATE_SCALE,
+        "reload restores disk anchor including offline real day");
+    saved = clock->save_dbase_data();
+    check(saved["real_anchor"] == start && saved["game_anchor"] == stamp,
+        "reload does not reanchor to current real day");
+
+    clock = reset_clock("2024-12-31 23:00:00");
+    clock->heart_beat();
+    lt = clock->query_game_time();
+    game_year = lt[LT_YEAR];
+    load_object(EVENT_D);
+    probe = load_object(PROBE);
+    probe->set_identity(ROOT_UID);
+    probe->schedule(0, 0, 0, 1, "host-boundary");
+    before = probe->query_fired();
+    WALL->advance(59);
+    clock->heart_beat();
+    EVENT_D->heart_beat();
+    check(probe->query_fired() == before, "real host year-end event not early");
+    WALL->advance(1);
+    clock->heart_beat();
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    later = clock->query_game_time();
+    check(later[LT_YEAR] == game_year + 1 && later[LT_MON] == 0 &&
+        later[LT_MDAY] == 1 && later[LT_HOUR] == 0, "real host year increments with calendar");
+    check(probe->query_fired() == before + 1 && probe->query_received() == "host-boundary",
+        "real host year-end event fires once");
+
+    clock = reset_clock("2024-02-29 23:00:00");
+    WALL->advance(60);
+    clock->heart_beat();
+    lt = clock->query_game_time();
+    check(lt[LT_MON] == 2 && lt[LT_MDAY] == 1 && lt[LT_HOUR] == 0,
+        "real host crosses leap-month boundary");
+
+    clock = reset_clock("2024-12-16 00:00:00");
+    clock->heart_beat();
+    load_object("/d/wanjiegu/wlhoushan");
+    WULIANG->create_event();
+    before = bonuses;
+    EVENT_D->heart_beat();
+    check(bonuses == before, "real host does not replay past monthly reward");
+    target = strptime("%Y-%m-%d %H:%M:%S", "2025-01-15 23:00:00");
+    offset = (target - clock->query_gametime()) / DATE_SCALE;
+    WALL->advance(offset);
+    clock->heart_beat();
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    check(bonuses == before + 1, "real host next-year monthly event fires exactly once");
+
+    // A separate driver process will read this actual temporary database.
+    clock->save();
+    DBASE_D->save();
+    expected = clock->query_gametime();
+    check(write_file("/data/clock-restart.json", json_encode(([ "now": WALL->query_now(),
+        "expected": expected, "anchor": clock->save_dbase_data() ])), 1),
+        "persist restart expectation in isolated data only");
+}

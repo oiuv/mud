@@ -105,15 +105,14 @@ int parse_trade_amount(string text, int maximum) {
     return value;
 }
 
-int player_pay(object who, int amount) {
+// 无副作用的付款预检；拍卖与实际付款共用银票、找零及溢出规则。
+mapping query_payment(object who, int amount) {
     object t_ob, g_ob, s_ob, c_ob;
     int tc, gc, sc, cc, left;
     int v;
 
-    if (amount < 1)
-        return 0;
-
-    seteuid(getuid());
+    if (!objectp(who) || amount < 1)
+        return ([ "status": 0 ]);
 
     if ((amount >= 100000 || who->query("doing") == "scheme") &&
         objectp(t_ob = present("cash_money", who)))
@@ -137,23 +136,23 @@ int player_pay(object who, int amount) {
         cc = 0;
 
     if (cc < 0 || sc < 0 || gc < 0 || tc < 0 || sc > (MAX_INT - cc) / 100)
-        return 0;
+        return ([ "status": 0 ]);
     v = cc + sc * 100;
     if (gc > (MAX_INT - v) / 10000)
-        return 0;
+        return ([ "status": 0 ]);
     v += gc * 10000;
     if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
-            return 2;
+            return ([ "status": 2 ]);
         else
-            return 0;
+            return ([ "status": 0 ]);
     }
 
     if (tc > (MAX_INT - v) / 100000)
-        return 0;
+        return ([ "status": 0 ]);
     v += tc * 100000;
     if (v < amount)
-        return 0;
+        return ([ "status": 0 ]);
     else {
         left = v - amount;
         if (tc) {
@@ -165,34 +164,54 @@ int player_pay(object who, int amount) {
         sc = left / 100;
         cc = left % 100;
 
-        if (t_ob && !g_ob && gc) {
-            g_ob = new(GOLD_OB);
-            g_ob->move(who, 1);
-        }
-
-        if (t_ob)
-            t_ob->set_amount(tc);
-        if (g_ob)
-            g_ob->set_amount(gc);
-        else
+        if (!g_ob && !t_ob) {
             sc += (gc * 100);
-        if (s_ob)
-            s_ob->set_amount(sc);
-        else if (sc) {
-            s_ob = new(SILVER_OB);
-            s_ob->set_amount(sc);
-            s_ob->move(who, 1);
+            gc = 0;
         }
-        if (c_ob)
-            c_ob->set_amount(cc);
-        else if (cc) {
-            c_ob = new(COIN_OB);
-            c_ob->set_amount(cc);
-            c_ob->move(who, 1);
+        // 未参与付款的银票保持原样，但也计入负重预检。
+        if (!t_ob && objectp(t_ob = present("cash_money", who))) {
+            tc = t_ob->query_amount();
         }
-
-        return 1;
+        return ([ "status": 1, "objects": ({ t_ob, g_ob, s_ob, c_ob }),
+            "amounts": ({ tc, gc, sc, cc }) ]);
     }
+}
+
+int player_pay(object who, int amount) {
+    mapping plan;
+    object *coins, *created;
+    object coin;
+    string *files;
+    int *counts;
+    int i;
+    mixed err;
+
+    plan = query_payment(who, amount);
+    if (plan["status"] != 1) return plan["status"];
+    seteuid(getuid());
+    coins = plan["objects"];
+    counts = plan["amounts"];
+    files = ({ CASH_OB, GOLD_OB, SILVER_OB, COIN_OB });
+    created = allocate(4);
+    // 先准备找零；创建失败时还没有扣除原币。
+    for (i = 0; i < 4; i++) {
+        if (coins[i] || !counts[i]) continue;
+        err = catch(created[i] = new(files[i]));
+        if (!err) err = catch(created[i]->set_amount(counts[i]));
+        if (err) {
+            foreach (coin in created) if (objectp(coin)) destruct(coin);
+            return 0;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        if (!coins[i]) continue;
+        // 不让已用尽的零数量钱币在本次同步结算中继续占用负重。
+        if (!counts[i]) destruct(coins[i]);
+        else coins[i]->set_amount(counts[i]);
+    }
+    for (i = 0; i < 4; i++)
+        if (created[i]) created[i]->move(who, 1);
+    return 1;
 }
 
 int player_carry(object ob) {

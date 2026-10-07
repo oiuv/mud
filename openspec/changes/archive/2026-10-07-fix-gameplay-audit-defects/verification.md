@@ -1,7 +1,7 @@
 # Verification
 
 验收日期：2026-10-07。实现、逐项修复边界和完整记录见
-[玩法审查修复与验收](../../../docs/architecture/gameplay-audit-fixes.md)。
+[玩法审查修复与验收](../../../../docs/architecture/gameplay-audit-fixes.md)。
 
 ## Results
 

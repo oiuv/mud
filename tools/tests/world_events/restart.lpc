@@ -1,0 +1,35 @@
+#include <localtime.h>
+
+private int bonuses;
+
+void record_bonus() { bonuses++; }
+
+void run() {
+    mapping saved, anchor;
+    mixed *lt, *record;
+    int current, next;
+    object clock;
+
+    saved = json_decode(read_file("/data/clock-restart.json"));
+    "/tests/wall_clock"->set_now(saved["now"] + 86460);
+    clock = load_object(TIME_D);
+    anchor = clock->save_dbase_data();
+    master()->check(clock->query_gametime() == saved["expected"] + 86460 * DATE_SCALE,
+        "new driver process resumes exact elapsed time from disk");
+    master()->check(anchor["real_anchor"] == saved["anchor"]["real_anchor"] &&
+        anchor["game_anchor"] == saved["anchor"]["game_anchor"] && anchor["clock_version"] == 1,
+        "new driver process retains original anchors");
+    clock->heart_beat();
+    load_object(EVENT_D);
+    load_object("/d/wanjiegu/wlhoushan");
+    "/adm/daemons/event/wuliang"->create_event();
+    record = EVENT_D->query_event_list()["/adm/daemons/event/wuliang"];
+    lt = clock->query_game_time();
+    current = ((lt[LT_YEAR] * 12 + lt[LT_MON]) * 32 + lt[LT_MDAY]) * 24 + lt[LT_HOUR];
+    next = ((record[0] * 12 + record[1]) * 32 + record[2]) * 24 + record[3];
+    master()->check(next > current && record[2] == 15 && record[3] == 23,
+        "restart schedules next monthly event strictly in future");
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    master()->check(bonuses == 0, "restart does not replay offline monthly rewards");
+}

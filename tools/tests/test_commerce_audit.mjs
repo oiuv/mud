@@ -10,10 +10,14 @@ import { createServer, createConnection } from 'node:net';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const baseline = process.argv.includes('--baseline');
+const integrityBaseline = process.argv.includes('--integrity-baseline');
+assert.ok(!(baseline && integrityBaseline), 'Choose only one baseline');
 const baselineRef = 'd43c418f';
+const integrityRef = 'b85d40ff';
 const driver = resolve(process.argv.slice(2).find(arg => !arg.startsWith('--')) || join(root, 'bin/driver.exe'));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-commerce-audit-'));
-console.log('Isolated commerce regression: ' + sandbox + (baseline ? ` (${baselineRef} baseline)` : ''));
+console.log('Isolated commerce regression: ' + sandbox
+    + (baseline ? ` (${baselineRef} baseline)` : integrityBaseline ? ` (${integrityRef} integrity baseline)` : ''));
 const git = (directory, args) => execFileSync('git', ['-C', directory, ...args], { encoding: 'utf8' });
 const files = new Set([...git(root, ['ls-files', '-z']).split('\0'),
     ...git(root, ['ls-files', '--others', '--exclude-standard', '-z']).split('\0'),
@@ -35,6 +39,9 @@ put('adm/etc/wizlist', '# Isolated regression: no administrators.\n');
 const commerce = ['feature/dealer.c', 'feature/user_storage.c', 'adm/daemons/moneyd.c',
     'adm/daemons/shopd.c', 'cmds/usr/buy.c', 'clone/misc/shang-ling.c'];
 if (baseline) for (const file of commerce) put(file, git(root, ['show', baselineRef + ':' + file]));
+if (integrityBaseline) for (const file of ['cmds/std/put.c', 'adm/daemons/auctiond.c', 'adm/daemons/moneyd.c']) {
+    put(file, git(root, ['show', integrityRef + ':' + file]));
+}
 put('tests/master.lpc', readFileSync(join(root, 'tools/tests/weapon_classification/startup_master.lpc'), 'utf8')
     .replaceAll('WEAPON_STARTUP', 'COMMERCE_AUDIT')
     .replace('if (!caught) {', 'debug_message(sprintf("COMMERCE_AUDIT TRACE: %O", details));\n    if (!caught) {')
@@ -44,17 +51,24 @@ object connect() { return new("/tests/actor"); }
 object *query_clients() { return clients; }
 void register_connection(object ob) {
     clients += ({ ob });
-    if (sizeof(clients) == 2) call_out("run", 0);
+    if (sizeof(clients) == 4) call_out("run", 0);
 }`)
     .replace('call_out("run", 0); return ({});', 'return ({});'));
 put('tests/actor.lpc', readFileSync(join(root, 'tools/tests/weapon_classification/startup_actor.lpc'), 'utf8')
     + '\nint execute_test(string text) { return command(text); }\n'
     + 'mapping query_depot_for_test() { return my_depot; }\n'
     + 'void seed_depot_for_test(mapping data) { my_depot = data; restore_depot(); }\n'
-    + 'int logon() { set_heart_beat(0); master()->register_connection(this_object()); return 1; }\n');
+    + 'int logon() { set_heart_beat(0); master()->register_connection(this_object()); return 1; }\n'
+    + 'private string messages = "";\n'
+    + 'void clear_messages() { messages = ""; }\n'
+    + 'string query_messages() { return messages; }\n'
+    + 'void receive_message(string kind, string text) { messages += text; ::receive_message(kind, text); }\n');
 put('tests/regression.lpc', readFileSync(join(root, 'tools/tests/commerce_audit/regression.lpc'), 'utf8'));
 put('tests/food.lpc', readFileSync(join(root, 'tools/tests/commerce_audit/food.lpc'), 'utf8'));
 put('tests/fragile.lpc', readFileSync(join(root, 'tools/tests/commerce_audit/fragile.lpc'), 'utf8'));
+for (const file of ['container', 'put_stack', 'auction', 'auction_item']) {
+    put(`tests/${file}.lpc`, readFileSync(join(root, `tools/tests/commerce_audit/${file}.lpc`), 'utf8'));
+}
 const listener = createServer();
 await new Promise((done, reject) => { listener.once('error', reject); listener.listen(0, '127.0.0.1', done); });
 const port = listener.address().port;
@@ -73,7 +87,7 @@ const result = await new Promise((done, reject) => {
         output += data;
         if (!connected && output.includes('Initializations complete.')) {
             connected = true;
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 4; i++) {
                 const socket = createConnection({ host: '127.0.0.1', port });
                 socket.on('data', () => {});
                 socket.on('error', error => {

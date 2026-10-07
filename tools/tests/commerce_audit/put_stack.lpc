@@ -1,0 +1,16 @@
+inherit COMBINED_ITEM;
+
+void create() {
+    if (clonep() && "/tests/regression"->query("fail_stack_create"))
+        error("Injected stack creation failure.\n");
+    set_name("试珠", ({ "test bead" }));
+    set("base_unit", "颗");
+    set("base_weight", 1);
+    set("base_value", 10);
+    set_amount(5);
+}
+
+varargs int move(mixed dest, int raw) {
+    if (objectp(dest) && dest->query("refuse_delivery")) return 0;
+    return ::move(dest, raw);
+}

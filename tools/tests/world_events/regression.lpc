@@ -1,0 +1,101 @@
+#include <localtime.h>
+
+#define PROBE "/tests/probe"
+#define WULIANG "/adm/daemons/event/wuliang"
+
+private int bonuses;
+
+void check(int ok, string label) { master()->check(ok, label); }
+void record_bonus() { bonuses++; }
+
+private void boundary(string start, int year, int month, int day, int hour, string target) {
+    mixed *expected, *record;
+    int timestamp;
+    object probe;
+
+    probe = load_object(PROBE);
+    probe->set_identity(ROOT_UID);
+    TIME_D->set_date(start);
+    probe->schedule(year, month, day, hour, "boundary");
+    timestamp = strptime("%Y-%m-%d %H:%M:%S", target);
+    expected = TIME_D->query_game_time(timestamp);
+    record = EVENT_D->query_event_list()[PROBE];
+    check(arrayp(record) && sizeof(record) == 5 && record[0] == expected[LT_YEAR] &&
+        record[1] == expected[LT_MON] && record[2] == expected[LT_MDAY] &&
+        record[3] == expected[LT_HOUR], "normalized " + start + " -> " + target);
+    EVENT_D->heart_beat();
+    check(arrayp(EVENT_D->query_event_list()[PROBE]), "not fired early: " + target);
+    TIME_D->reset_gametime(timestamp - 3600);
+    TIME_D->process_gametime(timestamp - 3600);
+    EVENT_D->heart_beat();
+    check(arrayp(EVENT_D->query_event_list()[PROBE]), "not fired one hour early: " + target);
+    TIME_D->set_date(target);
+    EVENT_D->heart_beat();
+    check(!arrayp(EVENT_D->query_event_list()[PROBE]) && probe->query_received() == "boundary",
+        "fired on target with parameter: " + target);
+}
+
+private void monthly(string start, string target) {
+    mixed *lt, *record;
+    int before;
+
+    TIME_D->set_date(start);
+    WULIANG->create_event();
+    lt = TIME_D->query_game_time(strptime("%Y-%m-%d %H:%M:%S", target));
+    record = EVENT_D->query_event_list()[WULIANG];
+    check(record[0] == lt[LT_YEAR] && record[1] == lt[LT_MON] &&
+        record[2] == 15 && record[3] == 23, "next monthly date: " + start);
+    before = bonuses;
+    EVENT_D->heart_beat();
+    check(bonuses == before, "monthly not immediate: " + start);
+    TIME_D->set_date(target);
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    check(bonuses == before + 1, "monthly reward entered exactly once: " + target);
+}
+
+void run() {
+    object probe;
+    mixed *lt, *record;
+    int before;
+
+    load_object(EVENT_D);
+    probe = load_object(PROBE);
+    boundary("2024-01-31 23:00:00", 0, 0, 0, 1, "2024-02-01 00:00:00");
+    boundary("2024-12-31 23:00:00", 0, 0, 0, 1, "2025-01-01 00:00:00");
+    boundary("2024-01-31 20:00:00", 0, 0, 1, -5, "2024-02-01 05:00:00");
+    boundary("2024-02-28 20:00:00", 0, 0, 1, -5, "2024-02-29 05:00:00");
+    boundary("2024-02-29 20:00:00", 0, 0, 1, -5, "2024-03-01 05:00:00");
+    boundary("2023-02-28 20:00:00", 0, 0, 1, -5, "2023-03-01 05:00:00");
+    boundary("2024-12-20 12:00:00", 0, 1, -15, -23, "2025-01-15 23:00:00");
+    boundary("2024-01-20 12:00:00", 0, -7, -17, -12, "2024-08-17 12:00:00");
+    boundary("2024-01-20 12:00:00", 1, -7, -17, -12, "2025-08-17 12:00:00");
+    // The display year differs from the Gregorian year; leap day follows the timestamp.
+    TIME_D->set_date("2024-02-28 12:00:00");
+    lt = TIME_D->query_game_time();
+    check(lt[LT_YEAR] != 2024, "calendar tests use a distinct game era");
+    probe->set_identity("Ordinary");
+    check(!probe->schedule(0, 0, 1, -5, 0) && !probe->absolute(1, 1, 1, 1, 0) &&
+        undefinedp(EVENT_D->query_event_list()[PROBE]), "ROOT_UID required for both registration paths");
+    probe->set_identity(ROOT_UID);
+    before = probe->query_fired();
+    probe->absolute(lt[LT_YEAR], 0, 1, 0, ([ "past": 1 ]));
+    EVENT_D->heart_beat();
+    EVENT_D->heart_beat();
+    check(probe->query_fired() == before + 1 && probe->query_received()["past"],
+        "past one-shot consumed once with mapping parameter");
+    load_object("/d/wanjiegu/wlhoushan");
+    monthly("2024-01-14 12:00:00", "2024-01-15 23:00:00");
+    monthly("2024-01-15 22:00:00", "2024-01-15 23:00:00");
+    monthly("2024-01-15 23:00:00", "2024-02-15 23:00:00");
+    monthly("2024-01-16 00:00:00", "2024-02-15 23:00:00");
+    monthly("2024-12-16 00:00:00", "2025-01-15 23:00:00");
+    TIME_D->set_date("2024-01-31 20:00:00");
+    "/adm/daemons/event/emei"->create_event();
+    record = EVENT_D->query_event_list()["/adm/daemons/event/emei"];
+    check(record[1] == 1 && record[2] == 1 && record[3] == 5, "emei keeps next-day 05:00");
+    "/adm/daemons/event/tianchi"->create_event();
+    record = EVENT_D->query_event_list()["/adm/daemons/event/tianchi"];
+    check(record[1] == 1 && record[2] == 1 && record[3] == 1, "tianchi keeps next-day 01:00");
+}

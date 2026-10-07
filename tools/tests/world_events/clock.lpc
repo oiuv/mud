@@ -1,0 +1,12 @@
+// Only installed in the temporary MUDLIB; retains the framework's actual calendar.
+inherit CORE_TIME_D;
+
+void create() { set_scale(1, 1000, 60); }
+
+void set_date(string value) {
+    int timestamp;
+
+    timestamp = strptime("%Y-%m-%d %H:%M:%S", value);
+    reset_gametime(timestamp);
+    process_gametime(timestamp);
+}

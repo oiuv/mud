@@ -1,0 +1,6 @@
+// Only used by the copied timed.c, never by production code.
+private int now = 1800000000;
+
+int query_now() { return now; }
+void set_now(int value) { now = value; }
+void advance(int seconds) { now += seconds; }
