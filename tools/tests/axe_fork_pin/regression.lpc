@@ -173,8 +173,8 @@ void check_contracts() {
     string *ids;
     string family, sample;
 
-    foreach (family in ({ "axe", "fork", "pin" })) {
-        sample = family == "axe" ? "dabanfu" : family == "fork" ? "gangcha" : "xiuhua_zhen";
+    foreach (family in ({ "axe", "spear", "pin" })) {
+        sample = family == "axe" ? "dabanfu" : family == "spear" ? "gangcha" : "xiuhua_zhen";
         program = load_object("/d/items/" + family);
         check(!program->query("name") && !environment(program), "inert shared program");
         err = catch(item = new("/d/items/" + family + "/missing"));
@@ -266,11 +266,13 @@ void check_variety(mixed *pair) {
 
     before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
     blueprint = load_object(pair[1]);
-    check(after->query("flag") == pair[5] && after->query("skill_type") == pair[4] && !after->is_combined() && !after->is_food() && !after->is_liquid() &&
+    check(after->query("flag") == (pair[4] == "fork" ? pair[5] | LONG : pair[5]) &&
+        after->query("skill_type") == (pair[4] == "fork" ? "spear" : pair[4]) &&
+        !after->is_combined() && !after->is_food() && !after->is_liquid() &&
         !function_exists(
             "do_play",
             after
-        ), "original family and flags without stacking or unrelated abilities");
+        ), "reviewed family and flags without stacking or unrelated abilities");
     compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
     compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
     check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
@@ -301,12 +303,13 @@ void check_variety(mixed *pair) {
 
 void check_shop_display(mixed *pair) {
     object vendor;
-    string before, after;
+    string before, after, reference;
     int price;
 
     vendor = new("/tests/axe_fork_pin_vendor");
+    reference = normalization_reference(pair[0], pair[1]);
     foreach (price in ({ 0, 321 })) {
-        vendor->set("vendor_goods", ([ pair[0]: price ]));
+        vendor->set("vendor_goods", ([ reference: price ]));
         check(vendor->do_list(0) == 1, "old dealer listing"); before = vendor->query_display();
         vendor->set("vendor_goods", ([ pair[1]: price ]));
         check(vendor->do_list(0) == 1, "virtual dealer listing"); after = vendor->query_display();
@@ -315,7 +318,7 @@ void check_shop_display(mixed *pair) {
             "listing contains actual name and effective price");
         before = replace_string(
             before,
-            "(" + pair[0]->query("id") + ")",
+            "(" + reference->query("id") + ")",
             "(" + pair[1]->query("id") + ")"
         );
         // Fixed-width padding changes when a merged primary alias has a different length.
@@ -352,7 +355,8 @@ void check_mengzhu_restore() {
         check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
             after->query("name") == before->query("name"), "mengzhu non-target data retained");
         compare(before->query_temp("weapon"), weapon, "mengzhu restored weapon parity");
-        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        check(same_value(expected_equipment_bonuses(before->query_temp("apply"),
+            before->query_temp("weapon"), weapon), after->query_temp("apply")),
             "mengzhu restored equipment bonuses match");
         check("/tests/cloth_records"->convert(
             converted["value"],

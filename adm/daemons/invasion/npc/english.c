@@ -31,9 +31,9 @@ void create() {
     set_skill("xiyang-boji", 1);
     set_skill("parry", 1);
     set_skill("qishi-ji", 1);
-    set_skill("club", 1);
+    set_skill("spear", 1);
 
-    map_skill("club", "qishi-ji");
+    map_skill("spear", "qishi-ji");
     map_skill("force", "xiyang-neigong");
     map_skill("dodge", "xiyang-boji");
     map_skill("parry", "qishi-ji");
@@ -46,8 +46,8 @@ void create() {
     set("chat_msg_combat", ({
         (: exert_function, "powerup" :),
         (: exert_function, "recover" :),
-        (: perform_action, "club.chong" :),
-        (: perform_action, "club.juan" :),
+        (: perform_action, "spear.chong" :),
+        (: perform_action, "spear.juan" :),
     }));
 
     setup();

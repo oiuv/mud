@@ -1,5 +1,6 @@
 // Fixed ARMOR/WAIST/SURCOAT/SHIELD definitions; no live records are read.
 import assert from 'node:assert/strict';
+import { afterWeaponNormalization } from './weapon_classification/migration_expectations.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -86,9 +87,11 @@ export function expectedCaller(file) {
 }
 export function afterDefensiveMigration(file, expected, compare) {
     const data = readBaseline();
-    if (!data.callers[file]) return expected;
-    assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected defensive overlap: ' + file);
-    return expectedCaller(file);
+    if (data.callers[file]) {
+        assert.deepEqual(compare(data.callers[file]), compare(expected), 'Unexpected defensive overlap: ' + file);
+        expected = expectedCaller(file);
+    }
+    return afterWeaponNormalization(file, expected);
 }
 export function correctedText(id, key, value) {
     if (id === 'pangu_kai' && key === '"unit"') return value.replace('"见"', '"件"');

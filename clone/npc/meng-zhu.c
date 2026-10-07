@@ -53,12 +53,12 @@ void create() {
         set_skill("dodge", 100);
         set_skill("parry", 100);
 
-        set("weapon", "/d/items/sword/changjian5");
+        set("weapon", "/d/items/sword/changjian");
         set("armor", "/d/items/cloth/buyi");
 
         setup();
 
-        carry_object("/d/items/sword/changjian5")->wield();
+        carry_object("/d/items/sword/changjian")->wield();
         carry_object("/d/items/cloth/buyi")->wear();
     } else {
         set("id", "mengzhu");

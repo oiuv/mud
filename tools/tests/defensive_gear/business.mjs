@@ -1,15 +1,16 @@
 import { readBaseline as whipBaseline } from '../whip_inventory.mjs';
 // Disposable adapters execute the selected game methods; no live server or saves.
 import assert from 'node:assert/strict';
-import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { readBaseline } from '../defensive_gear_inventory.mjs';
 import { tokens } from '../cloth_inventory.mjs';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 
 export function prepareBusiness(root, sandbox) {
     const put = (file, source) => {
         mkdirSync(dirname(join(sandbox, file)), { recursive: true });
-        writeFileSync(join(sandbox, file), source);
+        writeFileSync(join(sandbox, file), normalizeWeaponReferences(source));
     };
     const read = file => readFileSync(join(root, file), 'utf8');
     const data = readBaseline(), shops = [], equipment = [];
@@ -75,5 +76,5 @@ export function prepareBusiness(root, sandbox) {
         if (frozen) put(file, frozen.source);
         else if (existsSync(join(root, file))) put(file, read(file));
     }
-    cpSync(join(root, 'tools/tests/defensive_gear/business.lpc'), join(sandbox, 'tests/defensive_gear_business.h'));
+    put('tests/defensive_gear_business.h', read('tools/tests/defensive_gear/business.lpc'));
 }

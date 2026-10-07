@@ -89,34 +89,18 @@ mapping *action = ({
         "skill_name": "血流漫面",
         "damage_type": "割伤" ]),
     ([ "action": "$N凝神静气，使出极招" RED " 血刀之极意 " NOR "",
-        "force": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 2 + random((int)this_player()->query_skill("force", 1)),
-        "attack": (int)this_player()->query_skill(
-            "blade",
-            1
-        ) / 4 + random((int)this_player()->query_skill("blade", 1) / 2),
-        "dodge": (int)this_player()->query_skill(
-            "dodge",
-            1
-        ) / 6 + random((int)this_player()->query_skill("force", 1) / 3),
-        "parry": (int)this_player()->query_skill(
-            "parry",
-            1
-        ) / 6 + random((int)this_player()->query_skill("parry", 1) / 3),
-        "damage": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 4 + random((int)this_player()->query_skill("blade", 1) / 2),
         "lvl": 350,
         "skill_name": "极意",
         "damage_type": "割伤" ]),
 });
 
-int valid_enable(string usage) {
+varargs int valid_enable(string usage, object me) {
     int lvl;
-    lvl = (int)this_player()->query_skill("xuedao-dafa", 1);
+
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
+
+    lvl = (int)me->query_skill("xuedao-dafa", 1);
 
     if (lvl >= 120)
         return usage == "force" || usage == "blade" || usage == "parry";
@@ -156,11 +140,41 @@ int valid_learn(object me) {
 }
 
 mapping query_action(object me, object weapon) {
-    int i, level;
+    int i, level, selected;
+    mapping result;
+
     level = (int)me->query_skill("xuedao-dafa", 1);
     for (i = sizeof(action); i > 0; i--)
-        if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 50, level)];
+        if (level > action[i - 1]["lvl"]) {
+            selected = NewRandom(i, 50, level);
+            result = action[selected];
+            if (selected != sizeof(action) - 1)
+                return result;
+
+            // 极意按实际出招者计算，不在加载时读取命令发起者或修改共用招式。
+            result = copy(result);
+            result["force"] = (int)me->query_skill(
+                "force",
+                1
+            ) / 2 + random((int)me->query_skill("force", 1));
+            result["attack"] = (int)me->query_skill(
+                "blade",
+                1
+            ) / 4 + random((int)me->query_skill("blade", 1) / 2);
+            result["dodge"] = (int)me->query_skill(
+                "dodge",
+                1
+            ) / 6 + random((int)me->query_skill("force", 1) / 3);
+            result["parry"] = (int)me->query_skill(
+                "parry",
+                1
+            ) / 6 + random((int)me->query_skill("parry", 1) / 3);
+            result["damage"] = (int)me->query_skill(
+                "force",
+                1
+            ) / 4 + random((int)me->query_skill("blade", 1) / 2);
+            return result;
+        }
 }
 
 int practice_skill(object me) {

@@ -1,0 +1,32 @@
+{
+  "baseline": "97858beb",
+  "moves": {
+    "/d/items/fork/gangcha": "/d/items/spear/gangcha",
+    "/d/items/club/bintie_qiang": "/d/items/spear/bintie_qiang",
+    "/d/items/club/fangtian_ji": "/d/items/spear/fangtian_ji",
+    "/d/items/club/sangu_cha": "/d/items/spear/sangu_cha",
+    "/d/items/hammer/kaishan_fu": "/d/items/axe/kaishan_fu",
+    "/d/items/hammer/yufu": "/d/items/axe/yufu"
+  },
+  "merges": {
+    "/d/items/axe/dabanfu2": "/d/items/axe/dabanfu",
+    "/d/items/blade/caidao2": "/d/items/blade/caidao",
+    "/d/items/blade/dadao3": "/d/items/blade/dadao",
+    "/d/items/blade/gangdao5": "/d/items/blade/gangdao4",
+    "/d/items/blade/gangdao6": "/d/items/blade/gangdao4",
+    "/d/items/blade/gangdao7": "/d/items/blade/gangdao3",
+    "/d/items/hammer/shitou4": "/d/items/hammer/shitou",
+    "/d/items/hammer/tiechui2": "/d/items/hammer/tiechui",
+    "/d/items/hammer/tiechui3": "/d/items/hammer/tiechui",
+    "/d/items/sword/changjian3": "/d/items/sword/changjian",
+    "/d/items/sword/changjian5": "/d/items/sword/changjian",
+    "/d/items/sword/changjian6": "/d/items/sword/changjian",
+    "/d/items/sword/changjian7": "/d/items/sword/changjian",
+    "/d/items/sword/changjian8": "/d/items/sword/changjian4",
+    "/d/items/sword/duanjian3": "/d/items/sword/duanjian",
+    "/d/items/sword/duanjian4": "/d/items/sword/duanjian",
+    "/d/items/sword/gangjian3": "/d/items/sword/gangjian2",
+    "/d/items/sword/zhujian3": "/d/items/sword/zhujian1",
+    "/d/items/whip/changbian2": "/d/items/whip/changbian"
+  }
+}

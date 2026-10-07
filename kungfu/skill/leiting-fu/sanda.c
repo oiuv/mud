@@ -19,10 +19,10 @@ int perform(object me, object target) {
         return notify_fail("「三板斧」只能在战斗中使用。\n");
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "hammer")
+        (string)weapon->query("skill_type") != "axe")
         return notify_fail("你使用的武器不对。\n");
 
-    if (me->query_skill_mapped("hammer") != "leiting-fu")
+    if (me->query_skill_mapped("axe") != "leiting-fu")
         return notify_fail("你没有激发雷霆斧法，不能使用「三板斧」。\n");
 
     if ((int)me->query_str() < 40)
@@ -31,8 +31,8 @@ int perform(object me, object target) {
     if ((int)me->query_skill("force") < 200)
         return notify_fail("你的内功火候不够，难以施展「三板斧」！\n");
 
-    if ((int)me->query_skill("hammer", 1) < 180)
-        return notify_fail("你的棍法修为不够，不会使用「三板斧」！\n");
+    if ((int)me->query_skill("axe", 1) < 180)
+        return notify_fail("你的斧法修为不够，不会使用「三板斧」！\n");
 
     if ((int)me->query("neili") < 500)
         return notify_fail("你的真气不足！\n");
@@ -41,7 +41,7 @@ int perform(object me, object target) {
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
     // 第一斧劈脑袋
-    ap = me->query_skill("hammer") + me->query("str") * 2;
+    ap = me->query_skill("axe") + me->query("str") * 2;
     dp = target->query_skill("force");
     damage = me->query_skill("leiting-fu", 1);
     damage += (me->query_str() - zhuan * 20) * 2;

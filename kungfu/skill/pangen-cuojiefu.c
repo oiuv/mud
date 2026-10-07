@@ -31,23 +31,23 @@ mapping *action = ({
         "lvl": 20,
         "skill_name": "横扫千军"
     ]),
-    ([ "action": "$N突然抽身向右滚倒，随即跳起，就在一瞬间，已单臂握着$w砸向$n的左\n"
+    ([ "action": "$N突然抽身向右滚倒，随即跳起，就在一瞬间，已单臂握着$w砍向$n的左\n"
         "肋，出手既快且狠",
         "force": 180,
         "damage": 60,
         "dodge": -35,
         "parry": -10,
-        "damage_type": "砸伤",
+        "damage_type": "砍伤",
         "lvl": 30,
         "skill_name": "以退为进"
     ]),
-    ([ "action": "$N双手横举$w，平扫$n前胸，招式未使老就已打住猝然变招，斧尖直直撞\n"
-        "向$n的小腹，",
+    ([ "action": "$N双手横举$w，平扫$n前胸，招式未使老就已打住猝然变招，斧尖直直刺\n"
+        "向$n的小腹",
         "force": 210,
         "damage": 70,
         "dodge": -40,
         "parry": -20,
-        "damage_type": "内伤",
+        "damage_type": "刺伤",
         "lvl": 42,
         "skill_name": "金斧撞钟"
     ]),
@@ -84,7 +84,7 @@ mapping *action = ({
 });
 
 int valid_enable(string usage) {
-    return usage == "hammer" || usage == "parry";
+    return usage == "axe" || usage == "parry";
 }
 
 int valid_learn(object me) {
@@ -94,11 +94,11 @@ int valid_learn(object me) {
     if ((int)me->query("max_neili") < 600)
         return notify_fail("你的内力修为太弱，无法练盘根错节斧。\n");
 
-    if ((int)me->query_skill("hammer") < 30)
-        return notify_fail("你的基本锤法等级太低，无法学盘根错节斧。\n");
+    if ((int)me->query_skill("axe") < 30)
+        return notify_fail("你的基本斧法等级太低，无法学盘根错节斧。\n");
 
-    if ((int)me->query_skill("hammer", 1) < (int)me->query_skill("pangen-cuojiefu", 1))
-        return notify_fail("你的基本锤法水平有限，无法领会更高深的盘根错节斧。\n");
+    if ((int)me->query_skill("axe", 1) < (int)me->query_skill("pangen-cuojiefu", 1))
+        return notify_fail("你的基本斧法水平有限，无法领会更高深的盘根错节斧。\n");
 
     return 1;
 }
@@ -123,7 +123,7 @@ mapping query_action(object me, object weapon) {
 int practice_skill(object me) {
     object weapon;
     if (!objectp(weapon = me->query_temp("weapon"))
-        || (string)weapon->query("skill_type") != "hammer")
+        || (string)weapon->query("skill_type") != "axe")
         return notify_fail("你使用的武器不对。\n");
 
     if ((int)me->query("qi") < 100)

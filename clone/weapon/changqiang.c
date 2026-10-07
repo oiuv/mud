@@ -1,7 +1,7 @@
 // changqiang.c 长枪
 
 #include <weapon.h>
-inherit CLUB;
+inherit SPEAR;
 
 void create() {
     set_name("长枪", ({ "changqiang" }));
@@ -14,9 +14,9 @@ void create() {
         set("value", 500);
         set("rigidity", 100);
         set("material", "steel");
-        set("wield_msg", "$N掣出一杆根$n握在手中。\n");
+        set("wield_msg", "$N掣出一杆$n握在手中。\n");
         set("unwield_msg", "$N将手中的$n反别身后。\n");
     }
-    init_club(25);
+    init_spear(25);
     setup();
 }

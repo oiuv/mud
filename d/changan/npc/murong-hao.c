@@ -19,9 +19,9 @@ void create() {
     set("max_force", 200);
     set("force_factor", 5);
     set("vendor_goods", ({
-        "/d/items/sword/changjian3",
+        "/d/items/sword/changjian",
         "/d/items/blade/gangdao3",
-        "/d/items/hammer/tiechui2",
+        "/d/items/hammer/tiechui",
         "/clone/weapon/arrow",
         "/clone/weapon/wolfarrow",
         "/clone/weapon/tudao",
@@ -33,7 +33,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/lanse_jinzhuang")->wear();
-    carry_object("/d/items/sword/changjian3")->wield();
+    carry_object("/d/items/sword/changjian")->wield();
 }
 
 void init() {

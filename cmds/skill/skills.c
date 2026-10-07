@@ -18,7 +18,7 @@ int main(object me, string arg) {
     object ob;
     mapping skl, lrn, map;
     string *sname, *mapped, str, skill1;
-    string skillname, skcolor;
+    string skillname, skcolor, mapped_skill;
     string *basic;
     mixed *lists;
     string *others;
@@ -207,8 +207,12 @@ int main(object me, string arg) {
 
     // get the skill map
     map = ob->query_skill_map();
-    if (mapp(map)) mapped = values(map);
-    if (!mapped) mapped = ({});
+    mapped = ({});
+    if (mapp(map))
+        foreach (skillname in keys(map)) {
+            mapped_skill = ob->query_skill_mapped(skillname);
+            if (stringp(mapped_skill)) mapped += ({ mapped_skill });
+        }
 
     lrn = ob->query_learned();
     if (!mapp(lrn)) lrn = ([]);

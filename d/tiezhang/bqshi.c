@@ -13,10 +13,10 @@ LONG);
         "south": __DIR__ "zoulang-1",
     ]));
     set("objects", ([ /* sizeof() == 4 */
-        "/d/items/blade/gangdao6": 1,
-        "/d/items/sword/gangjian3": 1,
+        "/d/items/blade/gangdao4": 1,
+        "/d/items/sword/gangjian2": 1,
         "/d/items/staff/gangzhang2": 1,
-        "/d/items/whip/changbian2": 1,
+        "/d/items/whip/changbian": 1,
     ]));
     set("no_clean_up", 0);
 

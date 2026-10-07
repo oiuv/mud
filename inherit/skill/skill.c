@@ -100,7 +100,7 @@ int exert_function(object me, string arg) {
     }
 
     if (!stringp(file = (string)this_object()->exert_function_file(func)) ||
-        file_size(file + ".c") <= 0)
+        !lpc_file(file))
         return 0;
 
     return (int)call_other(file, "exert", me, target_ob);
@@ -118,7 +118,7 @@ int perform_action(object me, string arg) {
     }
 
     if (!stringp(file = (string)this_object()->perform_action_file(action)) ||
-        file_size(file + ".c") <= 0)
+        !lpc_file(file))
         return 0;
 
     return (int)call_other(file, "perform", me, target_ob);

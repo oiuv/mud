@@ -11,7 +11,7 @@ LONG);
         "east": __DIR__ "changl5",
     ]));
     set("objects", ([
-        "/d/items/sword/zhujian3": 4,
+        "/d/items/sword/zhujian1": 4,
     ]));
     set("no_clean_up", 0);
     setup();

@@ -18,7 +18,7 @@ void create() {
     set("vendor_goods", ({
         "/d/items/liquid/hulu2",
         "/d/items/staff/zhubang2",
-        "/d/items/sword/zhujian3",
+        "/d/items/sword/zhujian1",
         "/d/xiyu/obj/fire",
     }));
     setup();

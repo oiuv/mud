@@ -15,20 +15,6 @@ private mapping whip_definitions() {
                 ({ "unwield_msg", "$N将手中的$n卷回腰间。\n" }),
             }),
         ]),
-        "changbian2": ([
-            "name": "长鞭",
-            "ids": ({ "changbian", "bian" }),
-            "weight": 500,
-            "damage": 20,
-            "properties": ({
-                ({ "unit", "柄" }),
-                ({ "long", "这是一柄普通的长鞭，由水牛精工编织而成。\n" }),
-                ({ "value", 100 }),
-                ({ "material", "leather" }),
-                ({ "wield_msg", "$N「唰」的一声抖出一柄$n握在手中。\n" }),
-                ({ "unwield_msg", "$N将手中的$n卷回腰间。\n" }),
-            }),
-        ]),
         "chanhun_si": ([
             "name": HIW "缠魂丝" NOR,
             "ids": ({ "chanhun si", "si", "chanhun", "whip" }),

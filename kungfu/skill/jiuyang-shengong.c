@@ -182,8 +182,9 @@ mapping query_sub_skills() {
     return sub_skills;
 }
 
-int valid_enable(string usage) {
-    object me = this_player();
+varargs int valid_enable(string usage, object me) {
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
 
     if (me->query("reborn")) {
 

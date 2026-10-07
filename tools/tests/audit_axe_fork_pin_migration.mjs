@@ -24,7 +24,10 @@ if (!process.argv.includes('--baseline-only')) {
         assert.ok([...paths.values()].every(values => values.size === 1), 'Review merged configuration keys: ' + file);
     }
     assert.equal(references(data.varieties).hits.length, 0, 'Old runtime references');
-    for (const family of families) assert.deepEqual(semantic(readFileSync(join(root, 'd/items/' + family + '_data.h'), 'utf8')), semantic(renderDefinitions(family)));
+    for (const family of ['axe', 'spear', 'pin']) assert.deepEqual(semantic(readFileSync(join(root, 'd/items/' + family + '_data.h'), 'utf8')), semantic(renderDefinitions(family)));
+    assert.equal(renderDefinitions('fork'), '', 'FORK generator cannot recreate a deleted family');
+    assert.equal(existsSync(join(root, 'd/items/fork.lpc')), false);
+    assert.equal(existsSync(join(root, 'd/items/fork_data.h')), false);
     for (const row of data.varieties) {
         assert.equal(createHash('sha256').update(row.source).digest('hex'), row.source_hash);
         if (!process.argv.includes('--before-removal')) assert.equal(existsSync(join(root, row.old_path.slice(1) + '.c')), false);
@@ -33,6 +36,11 @@ if (!process.argv.includes('--baseline-only')) {
     for (const { file, source_hash } of data.excluded) {
         const frozen = original(file);
         assert.equal(createHash('sha256').update(frozen).digest('hex'), source_hash, 'Frozen retained: ' + file);
+        if (file === 'inherit/weapon/fork.c') {
+            assert.equal(existsSync(join(root, file)), false, 'FORK parent was explicitly replaced');
+            assert.ok(existsSync(join(root, 'inherit/weapon/spear.lpc')), 'SPEAR parent exists');
+            continue;
+        }
         assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterDefensiveMigration(file, frozen, semantic)), 'Retained or precisely migrated: ' + file);
     }
     for (const { file } of data.dynamic) if (!data.callers[file])
@@ -47,4 +55,4 @@ assert.equal(new Set(data.varieties.map(row => JSON.stringify(identity(row)))).s
     'All effectively identical clubs must merge');
 for (const group of canonicalGroups()) for (const row of group.rows)
     assert.deepEqual(identity(row), identity(group.representative), 'Effective grouping: ' + group.id);
-console.log(`AXE_FORK_PIN AUDIT PASS: 9 originals -> 9 varieties; 7 callers, 6 static + 1 dynamic replacement; preserved parents/combat/special items`);
+console.log('AXE_FORK_PIN AUDIT PASS: 9 historical varieties plus explicit weapon normalization; 7 callers; unchanged combat/special items, FORK replaced by SPEAR');

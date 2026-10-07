@@ -6,11 +6,12 @@ import { original, dynamicCallers } from '../staff_inventory.mjs';
 import { original as clothOriginal } from '../cloth_inventory.mjs';
 import { original as liquidOriginal } from '../liquid_inventory.mjs';
 import { prepareBusiness } from './business.mjs';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 
 export function prepareStaff(root, sandbox, copy) {
     const put = (file, text) => {
         mkdirSync(dirname(join(sandbox, file)), { recursive: true });
-        writeFileSync(join(sandbox, file), text);
+        writeFileSync(join(sandbox, file), normalizeWeaponReferences(text));
     };
     const method = (source, signature) => {
         const start = source.indexOf(signature);

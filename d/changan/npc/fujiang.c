@@ -63,7 +63,7 @@ LONG);
 
     setup();
     if (weapon_file == "changjian")
-        carry_object("/d/items/sword/changjian3")->wield();
+        carry_object("/d/items/sword/changjian")->wield();
     else if (weapon_file == "gangdao")
         carry_object("/d/items/blade/gangdao4")->wield();
     else if (weapon_file == "gangzhang")

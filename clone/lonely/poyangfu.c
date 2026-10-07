@@ -1,7 +1,7 @@
 #include <weapon.h>
 #include <ansi.h>
 
-inherit HAMMER;
+inherit AXE;
 
 void create() {
     set_name(HIR "破阳神斧" NOR, ({ "poyang fu", "poyang", "fu", "axe" }));
@@ -18,7 +18,7 @@ void create() {
         set("unwield_msg", HIR "$N" HIR "哈哈一笑，将手中的破阳神斧收回背后。\n" NOR);
         set("stable", 100);
     }
-    init_hammer(160);
+    init_axe(160);
     setup();
 }
 
@@ -26,13 +26,13 @@ mixed hit_ob(object me, object victim, int damage_bonus) {
     int n;
     //      int my_exp,ob_exp;
 
-    if (me->query_skill_mapped("hammer") != "pangu-qishi"
+    if (me->query_skill_mapped("axe") != "pangu-qishi"
         || me->query_skill("pangu-qishi", 1) < 100)
         return damage_bonus / 2;
 
     switch (random(6)) {
         case 0:
-            n = me->query_skill("hammer");
+            n = me->query_skill("axe");
             victim->receive_damage("qi", n, me);
             victim->receive_wound("qi", n, me);
             return HIR "$N" HIR "猛的一声爆喝，手中破阳神斧竟然幻作一道长虹向$n"

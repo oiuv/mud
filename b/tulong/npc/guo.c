@@ -27,7 +27,7 @@ LONG);
     set_skill("riyue-xinfa", 200);
     set_skill("dodge", 180);
     set_skill("feiyan-zoubi", 180);
-    set_skill("hammer", 180);
+    set_skill("axe", 180);
     set_skill("pangu-qishi", 180);
     set_skill("parry", 180);
     set_skill("cuff", 180);
@@ -39,7 +39,7 @@ LONG);
 
     map_skill("dodge", "feiyan-zoubi");
     map_skill("force", "riyue-xinfa");
-    map_skill("hammer", "pangu-qishi");
+    map_skill("axe", "pangu-qishi");
     map_skill("parry", "pangu-qishi");
     map_skill("cuff", "zhenyu-quan");
     map_skill("claw", "poyue-zhao");

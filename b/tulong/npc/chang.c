@@ -30,7 +30,7 @@ LONG);
     set_skill("dodge", 180);
     set_skill("feiyan-zoubi", 180);
     set_skill("hammer", 180);
-    set_skill("pangu-qishi", 180);
+    set_skill("hanshan-chuifa", 180);
     set_skill("parry", 180);
     set_skill("cuff", 180);
     set_skill("zhenyu-quan", 180);
@@ -41,8 +41,8 @@ LONG);
 
     map_skill("dodge", "feiyan-zoubi");
     map_skill("force", "riyue-xinfa");
-    map_skill("hammer", "pangu-qishi");
-    map_skill("parry", "pangu-qishi");
+    map_skill("hammer", "hanshan-chuifa");
+    map_skill("parry", "hanshan-chuifa");
     map_skill("cuff", "zhenyu-quan");
     map_skill("claw", "poyue-zhao");
 
@@ -53,7 +53,7 @@ LONG);
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-        (: perform_action, "hammer.kai" :),
+        (: perform_action, "hammer.zhen" :),
         (: exert_function, "recover" :),
         CYN "常金鹏喝道：恶贼还不放手？\n" NOR,
         CYN "常金鹏喝道：恶贼不得无礼！\n" NOR,

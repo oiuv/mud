@@ -19,13 +19,13 @@ int perform(object me, object target) {
         return notify_fail(DING "只能对战斗中的对手使用。\n");
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "club")
+        (string)weapon->query("skill_type") != "spear")
         return notify_fail("你所使用的武器不对，难以施展" DING "。\n");
 
     if ((int)me->query_skill("zhongping-qiang", 1) < 120)
         return notify_fail("你中平枪法不够娴熟，难以施展" DING "。\n");
 
-    if (me->query_skill_mapped("club") != "zhongping-qiang")
+    if (me->query_skill_mapped("spear") != "zhongping-qiang")
         return notify_fail("你没有激发中平枪法，难以施展" DING "。\n");
 
     if ((int)me->query_skill("force") < 180)
@@ -44,7 +44,7 @@ int perform(object me, object target) {
         HIY "」，手中" + weapon->name() + HIY "接连七刺，枪枪不离"
         "$n" HIY "要害！\n" NOR;
 
-    ap = me->query_skill("club");
+    ap = me->query_skill("spear");
     dp = target->query_skill("parry");
 
     if (ap / 2 + random(ap * 2) > dp) {

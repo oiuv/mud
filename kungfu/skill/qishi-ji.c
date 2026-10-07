@@ -39,7 +39,7 @@ mapping *action = ({
         "lvl": 50,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N跨前一不，双手将$w一压，斜斜的挑向$n的$l",
+    ([ "action": "$N跨前一步，双手将$w一压，斜斜的挑向$n的$l",
         "force": 180,
         "attack": 48,
         "dodge": 20,
@@ -68,7 +68,7 @@ mapping *action = ({
     ]),
 });
 
-int valid_enable(string usage) { return usage == "club" || usage == "parry"; }
+int valid_enable(string usage) { return usage == "spear" || usage == "parry"; }
 
 int valid_learn(object me) {
     if ((int)me->query("max_neili") < 100)
@@ -77,11 +77,8 @@ int valid_learn(object me) {
     if ((int)me->query_skill("force") < 30)
         return notify_fail("你的内功火候不够。\n");
 
-    if ((int)me->query_skill("club", 1) < (int)me->query_skill("qishi-ji", 1))
-        return notify_fail("你的基本剑法水平有限，无法领会更高深的圣骑士戟。\n");
-
-    if ((int)me->query_skill("club", 1) < (int)me->query_skill("qishi-ji", 1))
-        return notify_fail("你的基本剑法水平有限，无法领会更高深的圣骑士戟。\n");
+    if ((int)me->query_skill("spear", 1) < (int)me->query_skill("qishi-ji", 1))
+        return notify_fail("你的基本枪法水平有限，无法领会更高深的圣骑士戟。\n");
 
     return 1;
 }
@@ -105,7 +102,7 @@ int practice_skill(object me) {
     object weapon;
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "club")
+        (string)weapon->query("skill_type") != "spear")
         return notify_fail("你使用的武器不对。\n");
 
     if ((int)me->query("qi") < 80)

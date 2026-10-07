@@ -34,7 +34,7 @@ void create() {
     set_skill("claw", 220);
     set_skill("poyue-zhao", 220);
     set_skill("parry", 220);
-    set_skill("hammer", 240);
+    set_skill("axe", 240);
     set_skill("pangu-qishi", 240);
     set_skill("club", 220);
     set_skill("jinyuan-gun", 220);
@@ -46,7 +46,7 @@ void create() {
     map_skill("chuixiao-jifa", "xiaoao-jianghu");
     map_skill("dodge", "juechen-shenfa");
     map_skill("force", "tianhuan-shenjue");
-    map_skill("hammer", "pangu-qishi");
+    map_skill("axe", "pangu-qishi");
     map_skill("club", "jinyuan-gun");
     map_skill("parry", "pangu-qishi");
     map_skill("cuff", "zhenyu-quan");

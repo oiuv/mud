@@ -12,7 +12,7 @@ LONG);
     ]));
     set("no_clean_up", 0);
     set("objects", ([
-        "/d/items/blade/gangdao7": 2,
+        "/d/items/blade/gangdao3": 2,
     ]));
     setup();
 }

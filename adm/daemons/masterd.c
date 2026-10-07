@@ -23,6 +23,8 @@ private string *valid_types = ({
     "staff",
     "hammer",
     "club",
+    "spear",
+    "axe",
     "whip",
     "dagger",
     "throwing",

@@ -29,7 +29,7 @@ void create() {
     set("max_neili", 500);
 
     setup();
-    carry_object("/d/items/sword/gangjian3")->wield();
+    carry_object("/d/items/sword/gangjian2")->wield();
     carry_object("/clone/misc/cloth")->wear();
 
 }

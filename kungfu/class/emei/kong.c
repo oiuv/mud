@@ -82,7 +82,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/items/blade/gangdao5")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
 }
 

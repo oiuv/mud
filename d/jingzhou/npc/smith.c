@@ -14,8 +14,8 @@ void create() {
     set("combat_exp", 400);
     set("attitude", "friendly");
     set("vendor_goods", ({
-        "/d/items/sword/changjian6",
-        "/d/items/blade/gangdao6",
+        "/d/items/sword/changjian",
+        "/d/items/blade/gangdao4",
         "/d/items/cloth/tiejia3",
         "/d/items/cloth/pi_beixin",
     }));

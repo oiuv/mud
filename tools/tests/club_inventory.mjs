@@ -1,5 +1,6 @@
 // Ordinary CLUB inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { normalizeWeaponTable } from './weapon_classification/migration_expectations.mjs';
 import { afterBookMigration } from './book_inventory.mjs';
 import { correctedItemText } from './item_text_corrections.mjs';
 import { execFileSync } from 'node:child_process';
@@ -94,6 +95,9 @@ export function correctedClubText(id, key, value) {
     return correctedItemText(key, value);
 }
 export function renderDefinitions() {
+    return normalizeWeaponTable('club', renderHistoricalDefinitions());
+}
+export function renderHistoricalDefinitions() {
     return '// 普通棍类物品的蓝图属性；规范 ID 自然排序，伤害与标志由 init_club 初始化。\n'
         + 'private mapping club_definitions() {\n    return ([\n'
         + canonicalGroups().map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`

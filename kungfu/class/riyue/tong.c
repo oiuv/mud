@@ -42,7 +42,7 @@ LONG);
     set_skill("poyue-zhao", 220);
     set_skill("parry", 220);
     set_skill("hammer", 240);
-    set_skill("pangu-qishi", 240);
+    set_skill("hanshan-chuifa", 240);
     set_skill("club", 220);
     set_skill("jinyuan-gun", 220);
     set_skill("martial-cognize", 220);
@@ -50,9 +50,9 @@ LONG);
 
     map_skill("dodge", "juechen-shenfa");
     map_skill("force", "tianhuan-shenjue");
-    map_skill("hammer", "pangu-qishi");
+    map_skill("hammer", "hanshan-chuifa");
     map_skill("club", "jinyuan-gun");
-    map_skill("parry", "pangu-qishi");
+    map_skill("parry", "hanshan-chuifa");
     map_skill("cuff", "zhenyu-quan");
     map_skill("claw", "poyue-zhao");
 
@@ -67,7 +67,7 @@ LONG);
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-        (: perform_action, "hammer.kai" :),
+        (: perform_action, "hammer.zhen" :),
         (: perform_action, "cuff.tong" :),
         (: perform_action, "claw.duan" :),
         (: exert_function, "recover" :),

@@ -81,7 +81,7 @@ void create() {
     setup();
 
     carry_object("/d/items/cloth/buyi")->wear();
-    carry_object("/d/items/blade/gangdao5")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
 }
 
 void attempt_apprentice(object ob) {

@@ -1,5 +1,6 @@
 // Ordinary WHIP inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { normalizeWeaponTable } from './weapon_classification/migration_expectations.mjs';
 import { correctedItemText } from './item_text_corrections.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -87,6 +88,9 @@ export function afterWhipMigration(file, expected, compare) {
     return expectedCaller(file);
 }
 export function renderDefinitions() {
+    return normalizeWeaponTable('whip', renderHistoricalDefinitions());
+}
+export function renderHistoricalDefinitions() {
     return '// 普通鞭类物品的蓝图属性；规范 ID 自然排序，伤害与标志由 init_whip 初始化。\n'
         + 'private mapping whip_definitions() {\n    return ([\n'
         + canonicalGroups().map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`

@@ -35,13 +35,13 @@ void create() {
     set_skill("unarmed", 65);
     set_skill("changquan", 65);
     set_skill("club", 65);
-    set_skill("zhongping-qiang", 65);
+    set_skill("caiyan-gong", 65);
 
     map_skill("force", "taixuan-gong");
     map_skill("dodge", "lingxu-bu");
     map_skill("unarmed", "changquan");
-    map_skill("club", "zhongping-qiang");
-    map_skill("parry", "zhongping-qiang");
+    map_skill("club", "caiyan-gong");
+    map_skill("parry", "caiyan-gong");
 
     set("inquiry", ([
         "郭靖": "靖儿是我们的乖徒儿！\n",

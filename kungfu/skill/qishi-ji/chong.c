@@ -19,13 +19,13 @@ int perform(object me, object target) {
         return notify_fail(CHONG "只能在战斗中对对手使用。\n");
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "club")
+        (string)weapon->query("skill_type") != "spear")
         return notify_fail("你所使用的武器不对，难以施展" CHONG "。\n");
 
     if (me->query_skill("qishi-ji", 1) < 100)
         return notify_fail("你圣骑士戟修为不够，难以施展" CHONG "。\n");
 
-    if (me->query_skill_mapped("club") != "qishi-ji")
+    if (me->query_skill_mapped("spear") != "qishi-ji")
         return notify_fail("你没有激发圣骑士戟，难以施展" CHONG "。\n");
 
     if (me->query_skill("force") < 150)

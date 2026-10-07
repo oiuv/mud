@@ -1,0 +1,404 @@
+#include <weapon.h>
+inherit ROOM;
+
+void check(int ok, string label) { master()->check(ok, label); }
+
+int cash_value(object actor) {
+    object money;
+    int value;
+
+    foreach (money in all_inventory(actor))
+        if (money->is_money()) value += money->value();
+    return value;
+}
+
+void settle_storage_busy(object actor) {
+    int i;
+
+    // Taking items can impose three busy ticks; advance the real action handler.
+    for (i = 0; i < 4 && actor->is_busy(); i++) actor->continue_action();
+    check(!actor->is_busy(), "storage busy period ends before the next command");
+}
+
+void create() {
+    set("short", "演武场");
+    set("long", "空旷的场地上摆着数排兵器架。\n");
+    setup();
+}
+
+void check_full_construction() {
+    object ob, weapon;
+    string path;
+    mixed err;
+    string *programs;
+    mapping categories;
+
+    programs = json_decode(read_file("/tests/programs.json"));
+    foreach (path in programs) {
+        err = catch(ob = load_object(path));
+        check(!err && objectp(ob), "full program startup " + path + (err ? ": " + err : ""));
+    }
+    categories = ([
+        "/b/yitian/npc/bing1": "spear",
+        "/d/huanghe/npc/wu": "spear",
+        "/d/guiyun/npc/quanjinfa": "club",
+        "/b/tulong/npc/chang": "hammer",
+        "/kungfu/class/riyue/tong": "hammer",
+        "/kungfu/class/riyue/zhao": "hammer",
+        "/kungfu/class/riyue/fan": "axe",
+        "/kungfu/class/duan/gu": "axe",
+        "/kungfu/class/generate/english": "spear"
+    ]);
+    foreach (path in keys(categories)) {
+        ob = new(path);
+        check(objectp(ob) && ob->is_character() && living(ob), path + " real NPC clone is living");
+        weapon = ob->query_temp("weapon");
+        check(objectp(weapon) && weapon->query("skill_type") == categories[path],
+            path + " complete constructor equips correct category");
+        ob->move(this_object(), 1);
+        ob->reset_action();
+        check(mapp(ob->query_action()), path + " real attack feature selects an action");
+        destruct(ob);
+    }
+}
+
+void check_xuedao_actor() {
+    object actor, skill;
+    mapping first, snapshot, next;
+    string key;
+    int scale;
+    mapping bounds;
+
+    skill = load_object("/tests/xuedao_action");
+    actor = new("/tests/actor");
+    bounds = ([ "force": ({ 300, 900 }), "attack": ({ 100, 300 }),
+        "dodge": ({ 50, 250 }), "parry": ({ 40, 120 }), "damage": ({ 150, 350 }) ]);
+    actor->set_skill("xuedao-dafa", 350);
+    first = skill->query_action(actor, 0);
+    check(first["skill_name"] == "血流漫面" && first["force"] == 420,
+        "xuedao keeps strict greater-than-350 final-move threshold");
+    actor->set_skill("xuedao-dafa", 351);
+    foreach (scale in ({ 1, 10, 1 })) {
+        actor->set_skill("force", 600 * scale);
+        actor->set_skill("blade", 400 * scale);
+        actor->set_skill("dodge", 300 * scale);
+        actor->set_skill("parry", 240 * scale);
+        next = skill->query_action(actor, 0);
+        check(next["skill_name"] == "极意", "xuedao selects eligible final move");
+        foreach (key in keys(bounds))
+            check(next[key] >= bounds[key][0] * scale && next[key] < bounds[key][1] * scale,
+                "xuedao uses current actor's original " + key + " formula");
+        if (snapshot)
+            foreach (key in keys(bounds))
+                check(first[key] == snapshot[key], "xuedao does not mutate previous action " + key);
+        first = next;
+        snapshot = copy(first);
+    }
+    destruct(actor);
+}
+
+void check_real_learning() {
+    object actor, teacher, money, weapon;
+    int before;
+
+    actor = new("/tests/actor");
+    teacher = new("/d/city/npc/chen");
+    teacher->move(this_object(), 1);
+    actor->move(this_object(), 1);
+    actor->set("combat_exp", 1000);
+    money = new("/clone/money/coin");
+    money->set_amount(500);
+    money->move(actor, 1);
+    actor->force_me("give 500 coin to chen youde");
+    check(actor->query_temp("marks/yangzhou_paied") == 1 && !present("coin", actor),
+        "real give command pays Chen's unchanged newbie fee");
+    actor->force_me("learn chen youde spear 1");
+    check(actor->query("learned_points") == 1 && actor->query_skill("spear", 1) > 0,
+        "real learn command teaches basic spear through Chen");
+    actor->set("combat_exp", 10000000);
+    actor->set_skill("spear", 100);
+    actor->set_skill("parry", 100);
+    actor->set_skill("force", 800);
+    actor->set_skill("zhongping-qiang", 90);
+    weapon = actor->carry_object("/d/items/spear/bintie_qiang");
+    check(weapon->wield(), "real character wields canonical spear");
+    actor->force_me("enable spear zhongping-qiang");
+    actor->force_me("enable parry zhongping-qiang");
+    check(actor->query_skill_mapped("spear") == "zhongping-qiang" &&
+        actor->query_skill_mapped("parry") == "zhongping-qiang", "real enable command maps spear and parry");
+    before = actor->query("neili");
+    actor->force_me("practice spear 1");
+    check(actor->query("neili") == before - 20 && actor->query_learned()["zhongping-qiang"] > 0,
+        "real practice command trains Zhongping and consumes original resources");
+    destruct(actor);
+    destruct(teacher);
+}
+
+void check_chen_spear_tuition() {
+    object actor, teacher, money, item;
+    mapping learned;
+    int exp, points, before;
+
+    teacher = new("/d/city/npc/chen");
+    teacher->move(this_object(), 1);
+    foreach (exp in ({ 3499, 3500, 10000000 })) {
+        actor = new("/tests/actor");
+        actor->set("combat_exp", exp);
+        actor->move(this_object(), 1);
+        actor->force_me("learn chen youde spear 1");
+        check(!actor->query_skill("spear", 1) && !actor->query("learned_points"),
+            "Chen requires tuition before spear learning at exp " + exp);
+        item = actor->carry_object("/clone/book/basic-sword");
+        actor->force_me("give sword book to chen youde");
+        check(environment(item) == actor && !teacher->recognize_apprentice(actor, "spear"),
+            "Chen does not accept non-money as tuition at exp " + exp);
+        money = new("/clone/money/coin");
+        money->set_amount(500);
+        money->move(actor, 1);
+        actor->force_me("give 499 coin to chen youde");
+        check(cash_value(actor) == 500 && !teacher->recognize_apprentice(actor, "spear"),
+            "insufficient tuition is retained at exp " + exp);
+        actor->force_me("give 500 coin to chen youde");
+        check(!cash_value(actor) && teacher->recognize_apprentice(actor, "spear"),
+            "real give pays 500 copper for spear learning at exp " + exp);
+        check(!!actor->query_temp("marks/yangzhou_paied") == (exp < 3500) &&
+            !!actor->query_temp("marks/yangzhou_spear_paid") == (exp >= 3500),
+            "newbie and spear-only tuition remain separate at exp " + exp);
+        actor->force_me("learn chen youde spear 1");
+        check(actor->query_skill("spear", 1) == 1 && actor->query("learned_points") == 1,
+            "paid actor learns basic spear through real command at exp " + exp);
+        actor->delete_temp("time/learn");
+        points = actor->query("learned_points");
+        actor->force_me("learn chen youde sword 1");
+        check((exp < 3500 && actor->query_skill("sword", 1) == 1 &&
+            actor->query("learned_points") == points + 1) ||
+            (exp >= 3500 && !actor->query_skill("sword", 1) &&
+                actor->query("learned_points") == points),
+            "only original newbie tuition allows other skills at exp " + exp);
+        if (exp < 3500) {
+            actor->set("combat_exp", 3500);
+            check(teacher->recognize_apprentice(actor, "sword") &&
+                teacher->recognize_apprentice(actor), "previous newbie tuition survives experience growth");
+        }
+        if (exp == 10000000) {
+            actor->set_skill("spear", 79);
+            learned = actor->query_learned();
+            learned["spear"] = 6400;
+            actor->delete_temp("time/learn");
+            actor->force_me("learn chen youde spear 1");
+            check(actor->query_skill("spear", 1) == 80, "Chen teaches spear from 79 to 80");
+            actor->delete_temp("time/learn");
+            points = actor->query("learned_points");
+            before = actor->query("jing");
+            actor->force_me("learn chen youde spear 1");
+            check(actor->query_skill(
+                "spear",
+                1
+            ) == 80 && actor->query("learned_points") == points &&
+                actor->query("jing") == before, "Chen's original teaching cap refuses further learning");
+            money = new("/clone/money/coin");
+            money->set_amount(500);
+            money->move(actor, 1);
+            actor->force_me("give 500 coin to chen youde");
+            check(cash_value(actor) == 500, "Chen refuses unnecessary tuition once spear is at 80");
+        }
+        check(!actor->query_skill("zhongping-qiang", 1) && !actor->query("can_perform"),
+            "tuition does not grant special spear arts or unlocks at exp " + exp);
+        destruct(actor);
+    }
+    destruct(teacher);
+}
+
+void check_spear_book() {
+    object actor, seller, book, reference;
+    mapping learned;
+    string field;
+    int before, cost;
+
+    actor = new("/tests/actor");
+    seller = new("/d/city/npc/chen");
+    seller->move(this_object(), 1);
+    actor->move(this_object(), 1);
+    check(sizeof(filter_array(all_inventory(seller),
+        (: base_name($1) == "/clone/book/basic-spear" :))) == 5, "Chen starts with five spear books");
+    check(sizeof(filter_array(all_inventory(seller),
+        (: base_name($1) == "/clone/book/basic-sword" :))) == 5, "other introductory book stock is unchanged");
+    actor->force_me("buy spear book from chen youde");
+    check(!present("spear book", actor), "book purchase requires actual payment");
+    MONEY_D->pay_player(actor, 1000);
+    before = cash_value(actor);
+    actor->force_me("buy spear book from chen youde");
+    book = present("spear book", actor);
+    check(objectp(book) && base_name(book) == "/clone/book/basic-spear" &&
+        cash_value(actor) == before - 240, "real sale delivers spear book at original 120 percent stock price");
+    check(sizeof(filter_array(all_inventory(seller),
+        (: base_name($1) == "/clone/book/basic-spear" :))) == 4, "sale consumes one stocked book");
+    if (!book) {
+        destruct(actor);
+        destruct(seller);
+        return;
+    }
+    reference = new("/clone/book/basic-sword");
+    check(book->is_book() && book->id("book") && book->query("skill/name") == "spear" &&
+        book->query("name") == "枪法入门", "spear book uses BOOK and the basic spear skill");
+    check(book->query_weight() == 600 && book->query_weight() == reference->query_weight(),
+        "spear book keeps introductory book weight");
+    foreach (field in ({ "unit", "value", "material", "skill/exp_required", "skill/jing_cost",
+        "skill/difficulty", "skill/max_skill", "skill/min_skill" }))
+        check(book->query(field) == reference->query(field), "introductory book parity " + field);
+    actor->force_me("study spear book 1");
+    check(!actor->query_skill("spear", 1) && !actor->query_temp("time/study"),
+        "study rejects an illiterate reader");
+    actor->set_skill("literate", 20);
+    actor->set("combat_exp", 999);
+    actor->force_me("study spear book 1");
+    check(!actor->query_skill("spear", 1) && !actor->query_temp("time/study"),
+        "study rejects experience below 1000");
+    actor->set("combat_exp", 1000);
+    set("no_fight", 1);
+    actor->force_me("study spear book 1");
+    check(!actor->query_skill("spear", 1) && !actor->query_temp("time/study"),
+        "study retains the existing room restriction");
+    delete("no_fight");
+    actor->set("jing", 0);
+    actor->force_me("study spear book 1");
+    check(!actor->query_skill("spear", 1), "study does not progress without mental energy");
+    actor->set("jing", 10000);
+    actor->delete_temp("time/study");
+    before = actor->query("jing");
+    cost = (20 * 20 + 20 - actor->query_int()) / 20;
+    if (cost < 10) cost = 10;
+    actor->force_me("study spear book 1");
+    check(actor->query_skill("spear", 1) == 1 && actor->query("jing") == before - cost,
+        "real study teaches spear and uses unchanged mental-energy formula");
+    actor->set_skill("spear", 19);
+    learned = actor->query_learned();
+    learned["spear"] = 400;
+    actor->delete_temp("time/study");
+    actor->force_me("study spear book 1");
+    check(
+        actor->query_skill("spear", 1) == 20,
+        "study permits the original max_skill boundary of 19"
+    );
+    actor->delete_temp("time/study");
+    before = actor->query("jing");
+    actor->force_me("study spear book 1");
+    check(actor->query_skill("spear", 1) == 20 && actor->query("jing") == before,
+        "study refuses a new reading above max_skill without consuming mental energy");
+    check(!actor->query_skill("zhongping-qiang", 1) && !actor->query("can_perform"),
+        "book grants neither special martial arts nor perform unlocks");
+    destruct(reference);
+    destruct(actor);
+    destruct(seller);
+}
+
+void check_real_combat() {
+    object actor, target, weapon;
+    string *row;
+    int before, result, target_before;
+
+    foreach (row in ({
+        ({ "spear", "zhongping-qiang", "/d/items/spear/bintie_qiang", "ding" }),
+        ({ "hammer", "hanshan-chuifa", "/d/items/hammer/tongchui", "zhen" }),
+        ({ "axe", "pangu-qishi", "/d/items/axe/kaishan_fu", "kai" })
+    })) {
+        actor = new("/tests/actor");
+        target = new("/tests/actor");
+        target->set_name("陪练弟子", ({ "partner" }));
+        actor->move(this_object(), 1);
+        target->move(this_object(), 1);
+        actor->set_skill(row[0], 400);
+        actor->set_skill(row[1], 300);
+        actor->set_skill("force", 800);
+        actor->set_skill("parry", 400);
+        target->set_skill("dodge", 20);
+        target->set_skill("parry", 20);
+        target->set("combat_exp", 1000);
+        weapon = actor->carry_object(row[2]);
+        weapon->wield();
+        actor->force_me("enable " + row[0] + " " + row[1]);
+        actor->force_me("enable parry " + row[1]);
+        actor->kill_ob(target);
+        target->kill_ob(actor);
+        actor->reset_action();
+        before = target->query("qi");
+        COMBAT_D->do_attack(actor, target, weapon);
+        check(actor->is_fighting(target) && target->query("qi") <= before,
+            row[1] + " real COMBAT_D resolves ordinary attack");
+        before = actor->query("neili");
+        target_before = target->query("qi");
+        result = actor->perform_action(row[0] + "." + row[3]);
+        check(result && actor->is_busy() && actor->query("neili") < before,
+            row[1] + " actual perform dispatcher and COMBAT_D complete special attack");
+        check(living(target) && target->query("qi") <= 1000000,
+            row[1] + " actual combat completes without killing isolated opponent");
+        if (row[0] != "spear")
+            check(target->query("qi") < target_before,
+                row[1] + " guaranteed AP advantage exercises actual damage path");
+        destruct(actor);
+        destruct(target);
+    }
+}
+
+void check_real_trade_storage() {
+    object actor, seller, buyer, item, restored;
+    int before, price;
+    string id;
+
+    actor = new("/tests/actor");
+    seller = new("/d/jingzhou/npc/smith");
+    seller->move(this_object(), 1);
+    actor->move(this_object(), 1);
+    MONEY_D->pay_player(actor, 100000);
+    before = cash_value(actor);
+    actor->force_me("buy changjian from tiejiang");
+    item = present("changjian", actor);
+    check(objectp(item) && base_name(item) == "/d/items/sword/changjian" &&
+        cash_value(actor) == before - item->query("value"),
+        "real smith sale creates merged canonical item and charges original price");
+    actor->set("storage_bag", 1);
+    if (item) {
+        id = item->query("id");
+        actor->force_me("store " + id);
+        check(!objectp(item), "real store command consumes canonical instance");
+        actor->force_me("take 1 1");
+        restored = present(id, actor);
+        check(objectp(restored) && base_name(restored) == "/d/items/sword/changjian",
+            "real take command restores correct canonical identity");
+        settle_storage_busy(actor);
+    }
+    item = actor->carry_object("/d/items/spear/bintie_qiang");
+    id = item->query("id");
+    actor->force_me("store " + id);
+    check(!objectp(item), "real store accepts new spear category");
+    actor->force_me("take 1 1");
+    restored = present(id, actor);
+    check(objectp(restored) && base_name(restored) == "/d/items/spear/bintie_qiang",
+        "real take reconstructs new spear category");
+    settle_storage_busy(actor);
+    buyer = new("/d/city/npc/tang");
+    buyer->move(this_object(), 1);
+    foreach (id in ({ "changjian", id })) {
+        item = present(id, actor);
+        check(objectp(item), "recovered item is available for sale " + id);
+        if (!item) continue;
+        before = cash_value(actor);
+        price = item->query("value") * 3 / 10;
+        actor->force_me("sell " + id + " to tang nan");
+        check(!present(id, actor) && cash_value(actor) == before + price,
+            "real pawn sale pays original three-tenths rule " + id);
+    }
+    destruct(actor);
+    destruct(seller);
+    destruct(buyer);
+}
+
+void run() {
+    check_full_construction();
+    check_xuedao_actor();
+    check_real_learning();
+    check_chen_spear_tuition();
+    check_spear_book();
+    check_real_combat();
+    check_real_trade_storage();
+}

@@ -12,7 +12,7 @@ LONG);
         "east": __DIR__ "chufang",
     ]));
     set("objects", ([
-        "/d/items/sword/zhujian3": 2,
+        "/d/items/sword/zhujian1": 2,
     ]));
 
     set("no_fight", 1);

@@ -15,11 +15,11 @@ void create() {
 
     set_skill("unarmed", 120);
     set_skill("force", 120);
-    set_skill("club", 120);
+    set_skill("spear", 120);
     set_skill("zhongping-qiang", 80);
     set_skill("dodge", 120);
     set_skill("parry", 120);
-    map_skill("club", "zhongping-qiang");
+    map_skill("spear", "zhongping-qiang");
     set_temp("apply/attack", 50);
     set_temp("apply/defense", 50);
     set_temp("apply/armor", 50);

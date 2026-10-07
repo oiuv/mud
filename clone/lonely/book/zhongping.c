@@ -122,8 +122,8 @@ int do_yanjiu(string arg) {
                 "枪谱中所记载的中平枪法绝技「定岳七方」的奥"
                 "秘！\n" NOR + HIC "你学会了「定岳七方」。\n" NOR);
 
-            if (me->can_improve_skill("club"))
-                me->improve_skill("club", 1500000);
+            if (me->can_improve_skill("spear"))
+                me->improve_skill("spear", 1500000);
             if (me->can_improve_skill("zhongping-qiang"))
                 me->improve_skill("zhongping-qiang", 1500000);
             me->improve_skill("martial-cognize", 1500000);

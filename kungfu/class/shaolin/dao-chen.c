@@ -88,13 +88,13 @@ string ask_me(string name) {
         return "抱歉，你来得不是时候，武器已经发完了。";
 
     if (name == "changjian")
-        ob = new("/d/items/sword/changjian5");
+        ob = new("/d/items/sword/changjian");
     else if (name == "jiedao")
         ob = new("/d/items/blade/jiedao2");
     else if (name == "chanzhang")
         ob = new("/d/items/staff/chanzhang2");
     else if (name == "changbian")
-        ob = new("/d/items/whip/changbian2");
+        ob = new("/d/items/whip/changbian");
     else if (name == "qimeigun")
         ob = new("/d/items/club/qimei_gun");
     else if (name == "fojing10")

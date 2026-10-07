@@ -25,7 +25,7 @@ void create() {
     set_skill("force", 120);
 
     setup();
-    carry_object("/d/items/hammer/tiechui2")->wield();
+    carry_object("/d/items/hammer/tiechui")->wield();
     carry_object("/d/items/cloth/zhanjia")->wear();
 }
 

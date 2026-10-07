@@ -37,7 +37,7 @@ void create() {
     set_skill("jinyu-quan", 120);
     set_skill("strike", 120);
     set_skill("wuluo-zhang", 120);
-    set_skill("hammer", 140);
+    set_skill("axe", 140);
     set_skill("pangen-cuojiefu", 140);
     set_skill("parry", 120);
     set_skill("literate", 80);
@@ -47,7 +47,7 @@ void create() {
     map_skill("dodge", "tiannan-bu");
     map_skill("cuff", "jinyu-quan");
     map_skill("strike", "wuluo-zhang");
-    map_skill("hammer", "pangen-cuojiefu");
+    map_skill("axe", "pangen-cuojiefu");
     map_skill("parry", "pangen-cuojiefu");
 
     prepare_skill("cuff", "jinyu-quan");
@@ -61,7 +61,7 @@ void create() {
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-        (: perform_action, "hammer.cuo" :),
+        (: perform_action, "axe.cuo" :),
         (: perform_action, "cuff.man" :),
         (: perform_action, "strike.bian" :),
         (: exert_function, "recover" :),
@@ -69,7 +69,7 @@ void create() {
 
     setup();
     carry_object("/d/items/cloth/huangyi_junfu")->wear();
-    carry_object("/d/items/hammer/kaishan_fu")->wield();
+    carry_object("/d/items/axe/kaishan_fu")->wield();
     add_money("silver", 10);
 }
 
@@ -91,7 +91,7 @@ int recognize_apprentice(object ob, string skill) {
         return -1;
     }
 
-    if (skill != "pangen-cuojiefu" && skill != "hammer") {
+    if (skill != "pangen-cuojiefu" && skill != "axe") {
         command("say 我就只有这套斧法拿得出手，其余的还是找你爹爹学吧。");
         return -1;
     }
@@ -137,8 +137,8 @@ mixed ask_skill1() {
     command("bow");
     command("say 古某才识浅薄，所学仅此而已，让世子殿下见笑了。");
     tell_object(me, HIC "你学会了「错字诀」。\n" NOR);
-    if (me->can_improve_skill("hammer"))
-        me->improve_skill("hammer", 1500000);
+    if (me->can_improve_skill("axe"))
+        me->improve_skill("axe", 1500000);
     if (me->can_improve_skill("pangen-cuojiefu"))
         me->improve_skill("pangen-cuojiefu", 1500000);
     me->improve_skill("martial-cognize", 1500000);

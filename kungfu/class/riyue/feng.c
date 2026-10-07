@@ -47,7 +47,7 @@ LONG);
     set_skill("claw", 240);
     set_skill("poyue-zhao", 240);
     set_skill("parry", 240);
-    set_skill("hammer", 220);
+    set_skill("axe", 220);
     set_skill("pangu-qishi", 220);
     set_skill("club", 260);
     set_skill("jinyuan-gun", 260);
@@ -56,7 +56,7 @@ LONG);
 
     map_skill("dodge", "juechen-shenfa");
     map_skill("force", "tianhuan-shenjue");
-    map_skill("hammer", "pangu-qishi");
+    map_skill("axe", "pangu-qishi");
     map_skill("club", "jinyuan-gun");
     map_skill("parry", "jinyuan-gun");
     map_skill("cuff", "zhenyu-quan");

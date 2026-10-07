@@ -39,9 +39,13 @@ mapping *action = ({
         "damage_type": "内伤" ]),
 });
 
-int valid_enable(string usage) {
+varargs int valid_enable(string usage, object me) {
     int lvl;
-    lvl = (int)this_player()->query_skill("longxiang-gong", 1);
+
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
+
+    lvl = (int)me->query_skill("longxiang-gong", 1);
 
     if (lvl >= 150)
         return usage == "force" || usage == "parry" || usage == "unarmed";

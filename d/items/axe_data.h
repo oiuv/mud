@@ -45,21 +45,6 @@ private mapping axe_definitions() {
                 ({ "unwield_msg", "$N放下手中的$n。\n" }),
             }),
         ]),
-        "dabanfu2": ([
-            "name": "大板斧",
-            "ids": ({ "bigaxe", "axe" }),
-            "weight": 6000,
-            "damage": 35,
-            "flags": 1,
-            "properties": ({
-                ({ "unit", "把" }),
-                ({ "material", "steel" }),
-                ({ "long", "这是一把沉重的大板斧，砍起东西来非常顺手。\n" }),
-                ({ "value", 500 }),
-                ({ "wield_msg", "$N拿出一把$n，握在手中当作武器。\n" }),
-                ({ "unwield_msg", "$N放下手中的$n。\n" }),
-            }),
-        ]),
         "futou": ([
             "name": "斧头",
             "ids": ({ "axe", "fu tou" }),
@@ -73,6 +58,20 @@ private mapping axe_definitions() {
                 ({ "material", "steel" }),
                 ({ "wield_msg", "$N抓起一把斧头，握在手中。\n" }),
                 ({ "unwield_msg", "$N将手中的斧头收了回来。\n" }),
+            }),
+        ]),
+        "kaishan_fu": ([
+            "name": WHT "开山斧" NOR,
+            "ids": ({ "kaishan fu", "kaishan", "fu" }),
+            "weight": 5000,
+            "damage": 60,
+            "properties": ({
+                ({ "unit", "柄" }),
+                ({ "long", WHT "一柄十分锋利的大斧。\n" NOR }),
+                ({ "value", 100 }),
+                ({ "material", "iron" }),
+                ({ "wield_msg", WHT "$N" WHT "回手从身后抽出一柄大斧。\n" NOR }),
+                ({ "unwield_msg", WHT "$N" WHT "手往后一别，把大斧插在后腰上。\n" NOR }),
             }),
         ]),
         "kanchai_fu": ([
@@ -103,6 +102,18 @@ private mapping axe_definitions() {
                 ({ "material", "steel" }),
                 ({ "wield_msg", "$N掣出一柄$n握在手中。\n" }),
                 ({ "unwield_msg", "$N将手中的$n反别腰后。\n" }),
+            }),
+        ]),
+        "yufu": ([
+            "name": HIW "玉斧" NOR,
+            "ids": ({ "yu fu", "yu", "fu" }),
+            "weight": 500,
+            "damage": 10,
+            "properties": ({
+                ({ "unit", "柄" }),
+                ({ "long", HIW "一柄用白玉做成的斧头，相当的精美。\n" NOR }),
+                ({ "value", 5000 }),
+                ({ "material", "jade" }),
             }),
         ]),
     ]);

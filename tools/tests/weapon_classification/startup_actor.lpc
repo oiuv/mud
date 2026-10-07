@@ -1,0 +1,25 @@
+// Real NPC/CHARACTER inheritance; only test attributes, no simulated gameplay methods.
+inherit NPC;
+inherit F_USER_STORAGE;
+
+void create() {
+    set_name("演武弟子", ({ "trainee" }));
+    set("gender", "男性");
+    set("age", 25);
+    set("str", 40);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 30);
+    set("combat_exp", 10000000);
+    set("potential", 10000);
+    set("attitude", "peaceful");
+    setup();
+    set("max_qi", 1000000);
+    set("eff_qi", 1000000);
+    set("qi", 1000000);
+    set("max_jing", 10000);
+    set("eff_jing", 10000);
+    set("jing", 10000);
+    set("max_neili", 10000);
+    set("neili", 10000);
+}

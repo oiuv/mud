@@ -48,7 +48,8 @@ void check_equipment(string path) {
         "bonus not doubled"
     );
     action = item->query("actions");
-    check(mapp(action) && member_array(action["damage_type"], ({ "挫伤" })) >= 0 &&
+    check(mapp(action) && action["damage_type"] ==
+        (strsrch(path, "/d/items/axe/") == 0 ? "劈伤" : "挫伤") &&
         stringp(action["action"]), "actual WEAPON_D action callback");
     check("/cmds/std/unwield"->main(actor, item->query("id")) == 1 &&
         !actor->query_temp("weapon") && !item->query("equipped"), "real unwield clears references");
@@ -221,11 +222,12 @@ void check_variety(mixed *pair) {
 
     before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
     blueprint = load_object(pair[1]);
-    check(!after->query("flag") && !after->is_food() && !after->is_liquid() &&
+    check(after->query("flag") == (strsrch(pair[1], "/d/items/axe/") == 0 ? 4 : 0) &&
+        !after->is_food() && !after->is_liquid() &&
         !function_exists(
             "do_play",
             after
-        ), "HAMMER does not gain edged, food, drink or instrument abilities");
+        ), "only reviewed axes gain edged; no food, drink or instrument abilities");
     compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
     compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
     check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&
@@ -256,12 +258,13 @@ void check_variety(mixed *pair) {
 
 void check_shop_display(mixed *pair) {
     object vendor;
-    string before, after;
+    string before, after, reference;
     int price;
 
     vendor = new("/tests/hammer_vendor");
+    reference = normalization_reference(pair[0], pair[1]);
     foreach (price in ({ 0, 321 })) {
-        vendor->set("vendor_goods", ([ pair[0]: price ]));
+        vendor->set("vendor_goods", ([ reference: price ]));
         check(vendor->do_list(0) == 1, "old dealer listing"); before = vendor->query_display();
         vendor->set("vendor_goods", ([ pair[1]: price ]));
         check(vendor->do_list(0) == 1, "virtual dealer listing"); after = vendor->query_display();
@@ -270,7 +273,7 @@ void check_shop_display(mixed *pair) {
             "listing contains actual name and effective price");
         before = replace_string(
             before,
-            "(" + pair[0]->query("id") + ")",
+            "(" + reference->query("id") + ")",
             "(" + pair[1]->query("id") + ")"
         );
         // Fixed-width padding changes when a merged primary alias has a different length.
@@ -307,7 +310,8 @@ void check_mengzhu_restore() {
         check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
             after->query("name") == before->query("name"), "mengzhu non-target data retained");
         compare(before->query_temp("weapon"), weapon, "mengzhu restored weapon parity");
-        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        check(same_value(expected_equipment_bonuses(before->query_temp("apply"),
+            before->query_temp("weapon"), weapon), after->query_temp("apply")),
             "mengzhu restored equipment bonuses match");
         check("/tests/cloth_records"->convert(
             converted["value"],

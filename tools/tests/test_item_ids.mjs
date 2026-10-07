@@ -28,13 +28,14 @@ import { canonicalId, canonicalPath, currentBaseline, renamedIds, renamedPaths, 
 
 import * as staff from './staff_inventory.mjs';
 import * as hammer from './hammer_inventory.mjs';
+import { canonicalWeaponPath, normalization } from './weapon_classification/normalization.mjs';
 
 const families = { cloth, boots, headwear };
 const counts = { cloth: 148, boots: 8, headwear: 36 };
 const historicalNames = JSON.parse(execFileSync('git', ['show', 'b081c7ff:tools/tests/cloth/canonical_ids.json'],
     { cwd: root, encoding: 'utf8', windowsHide: true }));
 
-test('all 1300 historical paths resolve to registered varieties in one pass', () => {
+test('1300 historical paths retain their original migration mapping; approved normalization resolves current targets', () => {
     const all = { ...families, hands, neck, wrists, food, sword, liquid, blade, equip, hammer, staff, whip, dagger, throwing, club, book, instrument, weapons, defensive };
     const pairs = Object.values(all).flatMap(m => Object.entries(m.migrationPaths()));
     const paths = Object.fromEntries(pairs);
@@ -42,9 +43,12 @@ test('all 1300 historical paths resolve to registered varieties in one pass', ()
     assert.equal(pairs.length, 1300);
     assert.equal(Object.keys(paths).length, 1300);
     assert.equal(targets.size, 810);
+    const currentTargets = new Set([...targets].map(canonicalWeaponPath));
+    assert.equal(currentTargets.size, 791);
     for (const [oldPath, target] of pairs) {
         assert.ok(targets.has(target), oldPath);
         assert.equal(paths[target] ?? target, target, oldPath + ': no second conversion');
+        assert.ok(currentTargets.has(canonicalWeaponPath(target)), oldPath + ': current target');
     }
 });
 
@@ -57,12 +61,14 @@ test('all twenty-eight data tables and renderers use natural ID order without ch
         const savedBytes = readFileSync(snapshot);
         const groupsBefore = metadata.canonicalGroups();
         const pathsBefore = metadata.migrationPaths();
-        const expected = groupsBefore.map(g => g.id).sort(compareItemIds);
+        const expected = [...new Set(groupsBefore.map(g => canonicalWeaponPath(g.path)))]
+            .filter(path => path.startsWith('/d/items/' + family + '/'))
+            .map(path => path.split('/').at(-1)).sort(compareItemIds);
         const rendered = metadata.renderDefinitions();
         const actual = readFileSync(join(root, `d/items/${family}_data.h`), 'utf8');
         assert.deepEqual(idsIn(rendered), expected, family + ' generator order');
         assert.deepEqual(idsIn(actual), expected, family + ' file order');
-        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 70, liquid: 54, blade: 52, equip: 56, hammer: 40, staff: 32, whip: 25, dagger: 22, throwing: 26, club: 17, book: 28 })[family]);
+        assert.equal(new Set(expected).size, counts[family] ?? ({ neck: 10, hands: 20, wrists: 4, food: 119, sword: 61, liquid: 54, blade: 47, equip: 56, hammer: 35, staff: 32, whip: 24, dagger: 22, throwing: 26, club: 14, book: 28 })[family]);
         assert.deepEqual(metadata.canonicalGroups(), groupsBefore, family + ' historical group order unchanged');
         assert.deepEqual(metadata.migrationPaths(), pathsBefore, family + ' migration unchanged');
         assert.deepEqual(readFileSync(snapshot), savedBytes, family + ' frozen baseline unchanged');
@@ -79,8 +85,12 @@ test('all twenty-eight data tables and renderers use natural ID order without ch
     assert.deepEqual(instrument.canonicalGroups(), groupsBefore);
     assert.deepEqual(instrument.migrationPaths(), pathsBefore);
     assert.deepEqual(readFileSync(snapshot), savedBytes);
-    for (const metadata of [weapons, defensive]) for (const family of metadata.families) {
-        const expected = metadata.canonicalGroups().filter(g => g.representative.family === family).map(g => g.id).sort(compareItemIds);
+    for (const metadata of [weapons, defensive]) for (const family of metadata === weapons ? ['axe', 'spear', 'pin'] : metadata.families) {
+        const paths = metadata.canonicalGroups().map(g => g.path);
+        if (metadata === weapons) paths.push(...Object.keys(normalization.moves));
+        const expected = [...new Set(paths.map(canonicalWeaponPath))]
+            .filter(path => path.startsWith('/d/items/' + family + '/'))
+            .map(path => path.split('/').at(-1)).sort(compareItemIds);
         assert.deepEqual(idsIn(metadata.renderDefinitions(family)), expected);
         assert.deepEqual(idsIn(readFileSync(join(root, 'd/items/' + family + '_data.h'), 'utf8')), expected);
     }

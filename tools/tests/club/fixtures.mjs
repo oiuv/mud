@@ -1,5 +1,6 @@
 // Disposable shells execute the real supplier methods and constructor.
 import assert from 'node:assert/strict';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { original, dynamicCallers } from '../club_inventory.mjs';
@@ -18,7 +19,8 @@ export function prepareClub(root, sandbox, copy) {
         return source.slice(start, source.indexOf('\n}', start) + 2);
     };
     for (const old of [false, true]) for (const file of [...dynamicCallers, 'd/beijing/npc/qianzhenglun.c']) {
-        const source = old ? original(file) : readFileSync(join(root, file), 'utf8');
+        // Earlier migrated stock outside this CLUB batch uses today's canonical IDs.
+        const source = old ? normalizeWeaponReferences(original(file)) : readFileSync(join(root, file), 'utf8');
         const qian = file.includes('qianzhenglun'), dao = file.includes('dao-chen');
         let shell = qian ? '#include <ansi.h>\ninherit ITEM;\nint total = 2;\nmapping my_count = ([]);\nint issued(string key) { return my_count[key]; }\n'
             : 'inherit ITEM;\nvoid create() { set("' + (dao ? 'wuqi_count' : 'huju_count') + '", 2); }\n';

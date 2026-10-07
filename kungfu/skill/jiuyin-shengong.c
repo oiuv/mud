@@ -206,8 +206,9 @@ string *usage_skills = ({
 string *usage_skills2 = ({ "unarmed", "dodge", "force" });
 string *usage_skills3 = ({ "force" });
 
-int valid_enable(string usage) {
-    object me = this_player();
+varargs int valid_enable(string usage, object me) {
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
 
     if (!me->query("reborn"))
         return (member_array(usage, usage_skills3) != -1);

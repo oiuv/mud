@@ -13,7 +13,7 @@ void create() {
     set_skill("unarmed", 40);
     set_skill("dodge", 40);
     set_skill("parry", 40);
-    set_skill("club", 40);
+    set_skill("spear", 40);
     set_skill("force", 40);
     set_temp("apply/attack", 40);
     set_temp("apply/defense", 40);
@@ -21,7 +21,7 @@ void create() {
     set_temp("apply/armor", 40);
 
     setup();
-    carry_object("/d/items/club/bintie_qiang")->wield();
+    carry_object("/d/items/spear/bintie_qiang")->wield();
     carry_object("/d/items/cloth/bingfu")->wear();
 }
 void init() {

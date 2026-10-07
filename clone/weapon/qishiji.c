@@ -1,7 +1,7 @@
 #include <ansi.h>
 #include <weapon.h>
 
-inherit CLUB;
+inherit SPEAR;
 
 void create() {
     set_name(HIW "圣骑士戟" NOR, ({ "chivalry lance", "chivalry", "lance" }));
@@ -14,6 +14,6 @@ void create() {
         set("value", 10000);
         set("material", "silver");
     }
-    init_club(90);
+    init_spear(90);
     setup();
 }

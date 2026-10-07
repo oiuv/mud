@@ -21,7 +21,7 @@ void create() {
 
     setup();
 
-    carry_object("/d/items/blade/gangdao5")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
     carry_object("/clone/misc/cloth")->wear();
 
     add_money("coin", 10);

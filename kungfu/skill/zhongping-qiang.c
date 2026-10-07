@@ -44,15 +44,15 @@ mapping *action = ({
 });
 
 int valid_enable(string usage) {
-    return usage == "club" || usage == "parry";
+    return usage == "spear" || usage == "parry";
 }
 
 int valid_learn(object me) {
     object weapon;
 
     if (!objectp(weapon = me->query_temp("weapon"))
-        || (string)weapon->query("skill_type") != "club")
-        return notify_fail("你必须先找一根棍子才能练中平枪法。\n");
+        || (string)weapon->query("skill_type") != "spear")
+        return notify_fail("你必须先找一杆长枪才能练中平枪法。\n");
 
     if ((int)me->query("max_neili") < 1000)
         return notify_fail("你的内力修为不足，没有办法练中平枪法。\n");
@@ -60,11 +60,11 @@ int valid_learn(object me) {
     if ((int)me->query_skill("force") < 100)
         return notify_fail("你的内功火候太浅，没有办法练中平枪法。\n");
 
-    if ((int)me->query_skill("club", 1) < 80)
-        return notify_fail("你的棍法根基不足，没有办法练中平枪法。\n");
+    if ((int)me->query_skill("spear", 1) < 80)
+        return notify_fail("你的枪法根基不足，没有办法练中平枪法。\n");
 
-    if ((int)me->query_skill("club", 1) < (int)me->query_skill("zhongping-qiang", 1))
-        return notify_fail("你的基本棍法水平不够，无法领会更高深的中平枪法。\n");
+    if ((int)me->query_skill("spear", 1) < (int)me->query_skill("zhongping-qiang", 1))
+        return notify_fail("你的基本枪法水平不够，无法领会更高深的中平枪法。\n");
 
     return 1;
 }
@@ -89,7 +89,7 @@ int practice_skill(object me) {
     object weapon;
 
     if (!objectp(weapon = me->query_temp("weapon"))
-        || (string)weapon->query("skill_type") != "club")
+        || (string)weapon->query("skill_type") != "spear")
         return notify_fail("你使用的武器不对。\n");
 
     if ((int)me->query("qi") < 50)

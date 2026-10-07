@@ -135,20 +135,6 @@ private mapping hammer_definitions() {
                 ({ "stable", 50 }),
             }),
         ]),
-        "kaishan_fu": ([
-            "name": WHT "开山斧" NOR,
-            "ids": ({ "kaishan fu", "kaishan", "fu" }),
-            "weight": 5000,
-            "damage": 60,
-            "properties": ({
-                ({ "unit", "柄" }),
-                ({ "long", WHT "一柄十分锋利的大斧。\n" NOR }),
-                ({ "value", 100 }),
-                ({ "material", "iron" }),
-                ({ "wield_msg", WHT "$N" WHT "回手从身后抽出一柄大斧。\n" NOR }),
-                ({ "unwield_msg", WHT "$N" WHT "手往后一别，把大斧插在后腰上。\n" NOR }),
-            }),
-        ]),
         "leizhen_dang": ([
             "name": WHT "雷震挡" NOR,
             "ids": ({ "leizhen dang", "leizhen", "dang" }),
@@ -288,7 +274,7 @@ private mapping hammer_definitions() {
         ]),
         "shitou": ([
             "name": HIW "大石头" NOR,
-            "ids": ({ "shi tou", "da shikuai", "shitou", "d" }),
+            "ids": ({ "shi tou", "da shikuai", "shitou", "d", "stone" }),
             "weight": 5000,
             "damage": 1,
             "properties": ({
@@ -326,20 +312,6 @@ private mapping hammer_definitions() {
                 ({ "material", "iron" }),
             }),
         ]),
-        "shitou4": ([
-            "name": WHT "大石头" NOR,
-            "ids": ({ "stone" }),
-            "weight": 5000,
-            "damage": 1,
-            "properties": ({
-                ({ "unit", "块" }),
-                ({ "long", "这是一平平常常的大石头。\n" }),
-                ({ "value", 0 }),
-                ({ "material", "stone" }),
-                ({ "wield_msg", "$N搬起一块$n准备战斗。\n" }),
-                ({ "unwield_msg", "$N放下手中的$n。\n" }),
-            }),
-        ]),
         "shuipiao": ([
             "name": HIG "水瓢" NOR,
             "ids": ({ "shui piao", "shui", "piao" }),
@@ -372,38 +344,10 @@ private mapping hammer_definitions() {
             "damage": 15,
             "properties": ({
                 ({ "unit", "把" }),
-                ({ "long", "这是一把沈重的铁锤，打造的相当坚实。\n" }),
-                ({ "value", 300 }),
-                ({ "material", "iron" }),
-                ({ "wield_msg", "$N拿出一把$n，试了试重量，然後握在手中。\n" }),
-                ({ "unwield_msg", "$N放下手中的$n。\n" }),
-            }),
-        ]),
-        "tiechui2": ([
-            "name": "铁锤",
-            "ids": ({ "hammer" }),
-            "weight": 8000,
-            "damage": 15,
-            "properties": ({
-                ({ "unit", "把" }),
                 ({ "long", "这是一把沉重的铁锤，打造的相当坚实。\n" }),
                 ({ "value", 300 }),
                 ({ "material", "iron" }),
                 ({ "wield_msg", "$N拿出一把$n，试了试重量，然后握在手中。\n" }),
-                ({ "unwield_msg", "$N放下手中的$n。\n" }),
-            }),
-        ]),
-        "tiechui3": ([
-            "name": "铁锤",
-            "ids": ({ "hammer" }),
-            "weight": 8000,
-            "damage": 15,
-            "properties": ({
-                ({ "unit", "把" }),
-                ({ "long", "这是一把沈重的铁锤，打造的相当坚实。\n" }),
-                ({ "value", 3 }),
-                ({ "material", "iron" }),
-                ({ "wield_msg", "$N拿出一把$n，试了试重量，然後握在手中。\n" }),
                 ({ "unwield_msg", "$N放下手中的$n。\n" }),
             }),
         ]),
@@ -531,18 +475,6 @@ private mapping hammer_definitions() {
                 ({ "wield_msg", "$N「唰」的一声抽出一柄$n握在手中。\n" }),
                 ({ "unwield_msg", "$N将手中的$n放回腰间。\n" }),
                 ({ "stable", 40 }),
-            }),
-        ]),
-        "yufu": ([
-            "name": HIW "玉斧" NOR,
-            "ids": ({ "yu fu", "yu", "fu" }),
-            "weight": 500,
-            "damage": 10,
-            "properties": ({
-                ({ "unit", "柄" }),
-                ({ "long", HIW "一柄用白玉做成的斧头，相当的精美。\n" NOR }),
-                ({ "value", 5000 }),
-                ({ "material", "jade" }),
             }),
         ]),
     ]);

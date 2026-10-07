@@ -31,8 +31,53 @@ int same_value(mixed left, mixed right) {
     return save_variable(left) == save_variable(right);
 }
 
+string normalization_reference(string before, string after) {
+    mapping references, reference;
+
+    if (file_size("/tests/weapon-merge-references.json") <= 0) return before;
+    references = json_decode(read_file("/tests/weapon-merge-references.json"));
+    reference = references[before];
+    if (!mapp(reference) || reference["target"] != after) return before;
+    return reference["reference"];
+}
+
+mapping expected_equipment_bonuses(mapping applied, object before, object after) {
+    mapping expected, old_props, new_props;
+    string path, key;
+
+    expected = copy(applied);
+    if (!before->query("equipped")) return expected;
+    path = normalization_reference(base_name(before), base_name(after));
+    if (path == base_name(before)) return expected;
+    old_props = before->query("weapon_prop");
+    new_props = load_object(path)->query("weapon_prop");
+    foreach (key in keys(old_props + new_props))
+        expected[key] += new_props[key] - old_props[key];
+    return expected;
+}
+
 mixed expected_display(object before, object after, string key, mixed text) {
+    mapping deltas, delta;
+
+    if (file_size("/tests/weapon-category-deltas.json") > 0) {
+        deltas = json_decode(read_file("/tests/weapon-category-deltas.json"));
+        delta = deltas[base_name(before)];
+        if (mapp(delta) && delta["target"] == base_name(after) &&
+            member_array(key, ({ "skill_type", "flag", "verbs" })) >= 0)
+            return delta[key];
+        if (mapp(delta) && delta["target"] == base_name(after) && key == "long" && stringp(text)) {
+            if (delta["skill_type"] == "spear")
+                text = replace_string(replace_string(text, "物品类型 : 兵器(棍)", "物品类型 : 兵器(枪)"),
+                    "物品类型 : 兵器(叉)", "物品类型 : 兵器(枪)");
+            if (delta["skill_type"] == "axe")
+                text = replace_string(text, "物品类型 : 兵器(锤)", "物品类型 : 兵器(斧)");
+        }
+    }
     if (!stringp(text)) return text;
+    if (base_name(before) == "/d/beijing/npc/obj/hammer" &&
+        base_name(after) == "/d/items/hammer/tiechui" &&
+        member_array(key, ({ "long", "wield_msg" })) >= 0)
+        return replace_string(replace_string(text, "沈重", "沉重"), "然後", "然后");
     if (base_name(after) == "/d/items/armor/pangu_kai" && member_array(base_name(before),
         ({ "/d/death/sky/npc/obj/pangukai", "/d/sky/npc/obj/pangukai" })) >= 0) {
         if (key == "unit") return replace_string(text, "见", "件");
@@ -82,7 +127,17 @@ mixed expected_display(object before, object after, string key, mixed text) {
 void compare(object before, object after, string label) {
     mapping properties;
     mixed expected;
-    string key, alias, expected_short, expected_long;
+    object reference_clone, original;
+    string key, alias, expected_short, expected_long, reference;
+    string *former_ids;
+
+    original = before;
+    former_ids = before->parse_command_id_list();
+    reference = normalization_reference(base_name(before), base_name(after));
+    if (reference != base_name(before)) {
+        if (clonep(before)) before = reference_clone = new(reference);
+        else before = load_object(reference);
+    }
 
     check(before->name() == after->name(), label + " name");
     expected_short = before->short();
@@ -103,6 +158,7 @@ void compare(object before, object after, string label) {
             check(after->id(before->query("id")), label + " former primary input remains usable");
         else {
             expected = expected_display(before, after, key, before->query(key, 1));
+            if (key == "equipped") expected = original->query(key, 1);
             // Approved display typo only; old objects and frozen observations stay unchanged.
             if (key == "wield_msg" && stringp(expected) &&
                 strsrch(base_name(before), "/d/death/obj/weapon") == 0 &&
@@ -115,8 +171,9 @@ void compare(object before, object after, string label) {
                 label + " property " + key);
         }
     }
-    foreach (alias in before->parse_command_id_list())
+    foreach (alias in former_ids + before->parse_command_id_list())
         check(after->id(alias), label + " historical alias " + alias);
+    if (reference_clone) destruct(reference_clone);
 }
 
 void check_canonical_definitions() {
@@ -236,13 +293,20 @@ mapping player_shop_result(string path) {
 void check_business(mixed *pair) {
     object actor, room, item, untouched;
     object *items;
+    string reference;
 
     compare(load_object(pair[0]), load_object(pair[1]), "business blueprints");
-    check(save_variable(trade_result(pair[0], 0)) ==
+    reference = normalization_reference(pair[0], pair[1]);
+    if (reference != pair[0]) {
+        trade_result(pair[0], 0);
+        trade_result(pair[0], 321);
+        player_shop_result(pair[0]);
+    }
+    check(save_variable(trade_result(reference, 0)) ==
         save_variable(trade_result(pair[1], 0)), "default buy/sell parity");
-    check(save_variable(trade_result(pair[0], 321)) ==
+    check(save_variable(trade_result(reference, 321)) ==
         save_variable(trade_result(pair[1], 321)), "explicit price buy/sell parity");
-    check(save_variable(player_shop_result(pair[0])) == save_variable(player_shop_result(pair[1])),
+    check(save_variable(player_shop_result(reference)) == save_variable(player_shop_result(pair[1])),
         "player shop transaction parity");
     actor = new("/tests/actor");
     item = actor->carry_object(pair[1]);

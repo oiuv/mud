@@ -4,11 +4,12 @@ import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { families, dynamicCallers, original } from '../defensive_gear_inventory.mjs';
 import { prepareBusiness } from './business.mjs';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 
 export function prepareDefensive(root, sandbox) {
     const put = (file, source) => {
         mkdirSync(dirname(join(sandbox, file)), { recursive: true });
-        writeFileSync(join(sandbox, file), source);
+        writeFileSync(join(sandbox, file), normalizeWeaponReferences(source));
     };
     const method = (source, signature) => {
         const start = source.indexOf(signature), end = source.indexOf('\n}', start);

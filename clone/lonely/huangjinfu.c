@@ -1,7 +1,7 @@
 #include <weapon.h>
 #include <ansi.h>
 
-inherit HAMMER;
+inherit AXE;
 
 #define ZHUJIAN    "/clone/lonely/book/zhujian1"
 
@@ -20,7 +20,7 @@ void create() {
         set("unwield_msg", YEL "$N" YEL "哈哈一笑，将手中的黄金斧收回背后。\n" NOR);
         set("stable", 100);
     }
-    init_hammer(180);
+    init_axe(180);
     setup();
 }
 
@@ -28,13 +28,13 @@ mixed hit_ob(object me, object victim, int damage_bonus) {
     int n;
     //      int my_exp,ob_exp;
 
-    if (me->query_skill_mapped("hammer") != "leiting-fu"
+    if (me->query_skill_mapped("axe") != "leiting-fu"
         || me->query_skill("leiting-fu", 1) < 150)
         return damage_bonus / 2;
 
     switch (random(6)) {
         case 0:
-            n = me->query_skill("hammer");
+            n = me->query_skill("axe");
             victim->receive_damage("qi", n, me);
             victim->receive_wound("qi", n, me);
             return YEL "$N" YEL "一声断喝，手中黄金斧霎时金芒暴涨，呼的一声朝$n"

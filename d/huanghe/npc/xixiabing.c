@@ -16,7 +16,7 @@ void create() {
 
     set_skill("unarmed", 30);
     set_skill("force", 30);
-    set_skill("club", 30);
+    set_skill("spear", 30);
     set_skill("dodge", 30);
     set_skill("parry", 30);
     set_temp("apply/attack", 20);

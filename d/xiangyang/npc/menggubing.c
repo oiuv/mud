@@ -27,9 +27,9 @@ void create() {
     set_skill("dodge", 40);
     set_skill("parry", 40);
     set_skill("unarmed", 40);
-    set_skill("club", 40);
+    set_skill("spear", 40);
     set_skill("zhongping-qiang", 40);
-    map_skill("club", "zhongping-qiang");
+    map_skill("spear", "zhongping-qiang");
 
     set("env/wimpy", 60);
     set_temp("is_riding", HIY "蒙古马" NOR);

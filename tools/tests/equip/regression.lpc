@@ -2,7 +2,7 @@
 inherit "/tests/cloth_regression";
 
 private mixed *cases;
-private int next_case;
+private int next_equip;
 
 mapping wear_result(string path, string gender, int command_path) {
     object actor, item;
@@ -321,7 +321,7 @@ void check_mengzhu_restore(mixed *pair) {
 
     paths = json_decode(read_file("/tests/migration_paths.json"));
     data = ([ "name": "试验盟主", "str": 1000, "dex": 100, "combat_exp": 876543,
-        "weapon": "/d/items/sword/changjian5", "armor": pair[0], "note": pair[0], "gender": "男性" ]);
+        "weapon": "/d/items/sword/changjian", "armor": pair[0], "note": pair[0], "gender": "男性" ]);
     saved = save_variable(data);
     write_file("/data/npc/meng-zhu.o", "dbase " + saved + "\n", 1);
     before = new("/tests/mengzhu");
@@ -351,12 +351,12 @@ void check_mengzhu_restore(mixed *pair) {
 void run_chunk() {
     int end;
 
-    end = min(({ next_case + 8, sizeof(cases) }));
-    while (next_case < end) {
-        check_variety(cases[next_case]);
-        check_mengzhu_restore(cases[next_case++]);
+    end = min(({ next_equip + 8, sizeof(cases) }));
+    while (next_equip < end) {
+        check_variety(cases[next_equip]);
+        check_mengzhu_restore(cases[next_equip++]);
     }
-    if (next_case < sizeof(cases)) { call_out("run_chunk", 0); return; }
+    if (next_equip < sizeof(cases)) { call_out("run_chunk", 0); return; }
     check_contracts(); check_npc_equipment(); check_zeng_shop();
     master()->finish();
 }

@@ -20,7 +20,7 @@ int perform(object me, object target) {
         return notify_fail(KAI "只能对战斗中的对手使用。\n");
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "hammer")
+        (string)weapon->query("skill_type") != "axe")
         return notify_fail("你使用的武器不对，难以施展" KAI "。\n");
 
     if (me->query_skill("force") < 300)
@@ -32,7 +32,7 @@ int perform(object me, object target) {
     if (me->query("neili") < 400)
         return notify_fail("你的真气不够，难以施展" KAI "。\n");
 
-    if (me->query_skill_mapped("hammer") != "pangu-qishi")
+    if (me->query_skill_mapped("axe") != "pangu-qishi")
         return notify_fail("你没有激发盘古七势，难以施展" KAI "。\n");
 
     if (!living(target))
@@ -40,7 +40,7 @@ int perform(object me, object target) {
 
     msg = WHT "$N" WHT "一声断喝，手中" + weapon->name() + WHT "如山岳巍峙，携着开天辟地之势向$n" WHT "猛劈而下！\n" NOR;
 
-    ap = me->query_skill("hammer") + me->query("str") * 10;
+    ap = me->query_skill("axe") + me->query("str") * 10;
     dp = target->query_skill("force") + target->query("con") * 10;
 
     if (ap / 2 + random(ap) > dp) {
@@ -49,7 +49,7 @@ int perform(object me, object target) {
         me->start_busy(3);
         msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 80,
             HIR "$n" HIR "躲避不及，被$N" HIR "这"
-            "锤正中胸口，顿时一声闷响，稻草般向后"
+            "斧劈中胸口，顿时鲜血迸溅，踉跄着向后"
             "横飞出去。\n" NOR);
     } else {
         me->add("neili", -300);

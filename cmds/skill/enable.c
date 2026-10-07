@@ -11,6 +11,8 @@ mapping valid_types = ([
     "staff": "杖法",
     "hammer": "锤法",
     "club": "棍法",
+    "spear": "枪法",
+    "axe": "斧法",
     "throwing": "暗器",
     "force": "内功",
     "parry": "招架",
@@ -48,7 +50,8 @@ int main(object me, string arg) {
         skill = keys(valid_types);
         msg = "以下是你目前使用中的特殊技能。\n";
         for (i = 0; i < sizeof(skill); i++) {
-            if (undefinedp(map[skill[i]]))
+            map_to = me->query_skill_mapped(skill[i]);
+            if (!stringp(map_to))
                 continue;
 
             if (!me->query_skill(skill[i]))
@@ -57,7 +60,7 @@ int main(object me, string arg) {
             modify = me->query_temp("apply/" + skill[i]);
             msg += sprintf("  %-20s： %-20s  有效等级：%s%3d\n" NOR,
                 valid_types[skill[i]] + " (" + skill[i] + ")",
-                undefinedp(map[skill[i]]) ? "无" : to_chinese(map[skill[i]]),
+                to_chinese(map_to),
                 (modify == 0 ? "" : (modify > 0 ? HIC : HIR)),
                 me->query_skill(skill[i]));
         }
@@ -101,7 +104,7 @@ int main(object me, string arg) {
     if (me->query_skill(ski, 1) < 1)
         return notify_fail("你还不会半点" + to_chinese(ski) + "呢。\n");
 
-    if (!SKILL_D(map_to)->valid_enable(ski))
+    if (!SKILL_D(map_to)->valid_enable(ski, me))
         return notify_fail("这个技能不能当成这种用途。\n");
 
     me->map_skill(ski, map_to);

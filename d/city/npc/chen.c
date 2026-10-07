@@ -20,6 +20,8 @@ void create() {
     set_skill("cuff", 80);
     set_skill("blade", 80);
     set_skill("club", 80);
+    set_skill("spear", 80);
+    set_skill("axe", 80);
     set_skill("staff", 80);
     set_skill("sword", 80);
     set_skill("throwing", 80);
@@ -30,6 +32,12 @@ void create() {
     set("combat_exp", 400000);
     set("shen_type", 1);
     setup();
+
+    carry_object("/clone/book/basic-spear");
+    carry_object("/clone/book/basic-spear");
+    carry_object("/clone/book/basic-spear");
+    carry_object("/clone/book/basic-spear");
+    carry_object("/clone/book/basic-spear");
 
     carry_object("/clone/book/basic-sword");
     carry_object("/clone/book/basic-sword");
@@ -89,13 +97,20 @@ void init() {
 }
 
 int accept_object(object who, object ob) {
-    if (who->query("combat_exp") >= 3500) {
+    if (who->query("combat_exp") >= 3500 &&
+        who->query_skill("spear", 1) >= query_skill("spear", 1)) {
         message_vision("陈有德望着$N说：你的武功应该"
             "历练江湖才能再长进，不能埋没在这里了。\n", who);
         return 0;
     }
 
     if (ob->query("money_id") && ob->value() >= 500) {
+        if (who->query("combat_exp") >= 3500) {
+            who->set_temp("marks/yangzhou_spear_paid", 1);
+            message_vision("陈有德对$N说：既然有心补练枪法，我便指点你一番。"
+                "旁的功夫，还须你到江湖中历练。\n", who);
+            return 1;
+        }
         who->set_temp("marks/yangzhou_paied", 1);
         message_vision("陈有德对$N说：好！这位" + RANK_D->query_respect(who) +
             "想学什么呢？\n", who);
@@ -106,9 +121,9 @@ int accept_object(object who, object ob) {
     return 0;
 }
 
-int recognize_apprentice(object ob) {
-    if (!(int)ob->query_temp("marks/yangzhou_paied") == 1)
-        return 0;
+varargs int recognize_apprentice(object ob, string skill) {
+    if ((int)ob->query_temp("marks/yangzhou_paied"))
+        return 1;
 
-    return 1;
+    return skill == "spear" && ob->query_temp("marks/yangzhou_spear_paid") == 1;
 }

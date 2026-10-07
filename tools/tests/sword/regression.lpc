@@ -200,7 +200,7 @@ void check_suppliers() {
             "daochen sect restriction"
         );
         actor->set("family/family_name", "少林派"); actor->run_command("testnpc changjian");
-        path = prefix == "" ? "/d/items/sword/changjian5" : "/d/shaolin/obj/changjian";
+        path = prefix == "" ? "/d/items/sword/changjian" : "/d/shaolin/obj/changjian";
         item = present("changjian", actor);
         check(
             objectp(item) && base_name(item) == path && npc->query("wuqi_count") == 1,
@@ -219,7 +219,7 @@ void check_suppliers() {
         clear_inventory(actor); actor->run_command("testnpc changjian");
         check(!sizeof(all_inventory(actor)), "daochen exhausted stock"); destruct(npc);
         npc = new(prefix + "/d/changan/npc/fujiang");
-        weapons = ({ prefix == "" ? "/d/items/sword/changjian3" : "/d/changan/npc/obj/changjian",
+        weapons = ({ prefix == "" ? "/d/items/sword/changjian" : "/d/changan/npc/obj/changjian",
             prefix == "" ? "/d/items/blade/gangdao4" : "/d/changan/npc/obj/gangdao", prefix == "" ? "/d/items/staff/gangzhang" : "/d/changan/npc/obj/gangzhang", prefix == "" ? "/d/items/whip/changbian" : "/d/changan/npc/obj/changbian", prefix == "" ? "/d/items/axe/banfu" : "/d/changan/npc/obj/axe" });
         for (choice = 0; choice < 5; choice++) {
             foreach (item in all_inventory(npc)) {
@@ -328,7 +328,8 @@ void check_mengzhu_restore() {
         check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
             after->query("name") == before->query("name"), "mengzhu non-target data retained");
         compare(before->query_temp("weapon"), weapon, "mengzhu restored weapon parity");
-        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        check(same_value(expected_equipment_bonuses(before->query_temp("apply"),
+            before->query_temp("weapon"), weapon), after->query_temp("apply")),
             "mengzhu restored equipment bonuses match");
         check("/tests/cloth_records"->convert(
             converted["value"],

@@ -12,7 +12,7 @@ LONG);
         "west": __DIR__ "sanbuguan",
     ]));
     set("objects", ([
-        "/d/items/hammer/shitou4": 1,
+        "/d/items/hammer/shitou": 1,
     ]));
     setup();
     replace_program(ROOM);

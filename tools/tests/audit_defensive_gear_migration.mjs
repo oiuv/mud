@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { afterWeaponNormalization } from './weapon_classification/migration_expectations.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -27,9 +28,14 @@ for (const row of data.varieties) {
 for (const file of Object.keys(data.callers)) {
     assert.equal(data.callers[file], original(file));
     if (!process.argv.includes('--baseline-only'))
-        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(expectedCaller(file)), file);
+        assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')), semantic(afterWeaponNormalization(file, expectedCaller(file))), file);
 }
-for (const { file, source_hash } of data.excluded) assert.equal(hash(readFileSync(join(root, file))), source_hash, file);
+for (const { file, source_hash } of data.excluded) {
+    const frozen = original(file);
+    assert.equal(hash(frozen), source_hash, 'Frozen retained: ' + file);
+    assert.deepEqual(semantic(readFileSync(join(root, file), 'utf8')),
+        semantic(afterWeaponNormalization(file, frozen)), 'Only explicit later changes: ' + file);
+}
 if (!process.argv.includes('--baseline-only')) {
     assert.equal(references(data.varieties).hits.length, 0, 'old runtime references');
     for (const f of families) assert.deepEqual(semantic(readFileSync(join(root, 'd/items/' + f + '_data.h'), 'utf8')), semantic(renderDefinitions(f)), f);

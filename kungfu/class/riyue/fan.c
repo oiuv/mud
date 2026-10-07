@@ -46,7 +46,7 @@ LONG);
     set_skill("claw", 240);
     set_skill("poyue-zhao", 240);
     set_skill("parry", 240);
-    set_skill("hammer", 260);
+    set_skill("axe", 260);
     set_skill("pangu-qishi", 260);
     set_skill("club", 220);
     set_skill("jinyuan-gun", 220);
@@ -55,7 +55,7 @@ LONG);
 
     map_skill("dodge", "juechen-shenfa");
     map_skill("force", "tianhuan-shenjue");
-    map_skill("hammer", "pangu-qishi");
+    map_skill("axe", "pangu-qishi");
     map_skill("club", "jinyuan-gun");
     map_skill("parry", "pangu-qishi");
     map_skill("cuff", "zhenyu-quan");
@@ -77,7 +77,7 @@ LONG);
 
     set("chat_chance_combat", 120);
     set("chat_msg_combat", ({
-        (: perform_action, "hammer.kai" :),
+        (: perform_action, "axe.kai" :),
         (: perform_action, "cuff.tong" :),
         (: perform_action, "claw.duan" :),
         (: exert_function, "recover" :),
@@ -93,7 +93,7 @@ LONG);
             ob->move(this_object());
             ob->wield();
         } else {
-            ob = new("/d/items/hammer/kaishan_fu");
+            ob = new("/d/items/axe/kaishan_fu");
             ob->move(this_object());
             ob->wield();
         }
@@ -127,14 +127,14 @@ int recognize_apprentice(object ob, string skill) {
         return -1;
     }
 
-    if (skill != "hammer" && skill != "pangu-qishi") {
+    if (skill != "axe" && skill != "pangu-qishi") {
         command("hmm");
-        command("say 我只传授你这套锤法，其余的找你师父学去。");
+        command("say 我只传授你这套斧法，其余的找你师父学去。");
         return -1;
     }
 
-    if (skill == "hammer" && ob->query_skill("hammer", 1) > 179) {
-        command("say 你锤法的造诣已经非同凡响了，剩下就自己去练吧。");
+    if (skill == "axe" && ob->query_skill("axe", 1) > 179) {
+        command("say 你斧法的造诣已经非同凡响了，剩下就自己去练吧。");
         return -1;
     }
 
@@ -199,7 +199,7 @@ mixed ask_fu() {
     command("say 你用它多杀几个正派人士，扬扬咋们日月神教的威风。");
     command("give poyang fu to " + me->query("id"));
 
-    ob = new("/d/items/hammer/kaishan_fu");
+    ob = new("/d/items/axe/kaishan_fu");
     ob->move(this_object());
     ob->wield();
     return 1;
@@ -241,8 +241,8 @@ mixed ask_skill1() {
     command("nod2");
     command("say 招式便是如此，你自己下去练吧。");
     tell_object(me, HIC "你学会了「开天辟地」。\n" NOR);
-    if (me->can_improve_skill("hammer"))
-        me->improve_skill("hammer", 1500000);
+    if (me->can_improve_skill("axe"))
+        me->improve_skill("axe", 1500000);
     if (me->can_improve_skill("pangu-qishi"))
         me->improve_skill("pangu-qishi", 1500000);
     me->improve_skill("martial-cognize", 1500000);

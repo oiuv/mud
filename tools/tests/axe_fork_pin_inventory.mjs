@@ -1,6 +1,7 @@
 import { afterDefensiveMigration } from './defensive_gear_inventory.mjs';
 // Ordinary AXE/FORK/PIN inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { normalizeWeaponTable, renderSpearDefinitions } from './weapon_classification/migration_expectations.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -96,6 +97,10 @@ export function correctedWeaponText(id, key, value) {
     return value;
 }
 export function renderDefinitions(family) {
+    if (family === 'spear') return renderSpearDefinitions();
+    return normalizeWeaponTable(family, renderHistoricalDefinitions(family));
+}
+export function renderHistoricalDefinitions(family) {
     return '// 普通兵器的蓝图属性；按规范 ID 自然排序。\n'
         + 'private mapping ' + family + '_definitions() {\n    return ([\n'
         + canonicalGroups().filter(g => g.representative.family === family).map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`

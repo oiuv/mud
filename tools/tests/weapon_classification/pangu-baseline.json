@@ -1,0 +1,75 @@
+{
+  "source_commit": "97858beb",
+  "source": "kungfu/skill/pangu-qishi.c",
+  "actions": [
+    {
+      "force": 320,
+      "attack": 27,
+      "dodge": -30,
+      "parry": -34,
+      "lvl": 0,
+      "damage": 62
+    },
+    {
+      "force": 460,
+      "attack": 38,
+      "dodge": -27,
+      "parry": -45,
+      "lvl": 40,
+      "damage": 66
+    },
+    {
+      "force": 500,
+      "attack": 43,
+      "dodge": -25,
+      "parry": -47,
+      "lvl": 80,
+      "damage": 70
+    },
+    {
+      "force": 540,
+      "attack": 51,
+      "dodge": -45,
+      "parry": -50,
+      "lvl": 120,
+      "damage": 75
+    },
+    {
+      "force": 580,
+      "attack": 55,
+      "dodge": -20,
+      "parry": -25,
+      "lvl": 160,
+      "damage": 80
+    },
+    {
+      "force": 620,
+      "attack": 65,
+      "dodge": -40,
+      "parry": -35,
+      "lvl": 180,
+      "damage": 98
+    },
+    {
+      "force": 640,
+      "attack": 69,
+      "dodge": -62,
+      "parry": -33,
+      "lvl": 200,
+      "damage": 104
+    }
+  ],
+  "practice": {
+    "qi": 90,
+    "neili": 90
+  },
+  "perform": {
+    "source": "kungfu/skill/pangu-qishi/kai.c",
+    "minimum_neili": 400,
+    "hit_cost": 500,
+    "miss_cost": 300,
+    "hit_busy": 3,
+    "miss_busy": 4,
+    "damage_percent": 80
+  }
+}

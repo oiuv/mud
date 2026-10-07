@@ -76,7 +76,7 @@ void create() {
     }));
 
     setup();
-    carry_object("/d/items/whip/changbian2")->wield();
+    carry_object("/d/items/whip/changbian")->wield();
     carry_object("/clone/weapon/changjian");
     carry_object("/clone/weapon/dadao");
     carry_object("/clone/cloth/cloth")->wear();

@@ -1,0 +1,91 @@
+// Current normalized identities: real dealer, storage, shop and room methods.
+inherit "/tests/cloth_regression";
+
+void check_repeated_stock(string path) {
+    object actor, room, waiter, item, restored;
+    string id;
+    int i;
+
+    room = new("/tests/player_shop");
+    actor = new("/tests/trade_actor");
+    actor->move(room, 1);
+    waiter = new("/tests/vendor");
+    waiter->move(room, 1);
+    for (i = 0; i < 2; i++) {
+        item = actor->carry_object(path);
+        id = item->query("id");
+        "/tests/shop_transactions"->do_stock(waiter, actor, id + " value 321");
+        check(!item, path + " each stocked instance is consumed");
+    }
+    check(room->query("vendor_goods_num")[path] == 2 &&
+        room->query("vendor_goods")[path] == 321 && room->query("all_vendor_goods") == 2,
+        path + " same canonical identity accumulates quantity without overwriting price");
+    restored = new("/tests/player_shop");
+    check(restored->restore() && restored->query("vendor_goods_num")[path] == 2 &&
+        restored->query("vendor_goods")[path] == 321, path + " two items survive shop save/restore");
+    destruct(restored);
+    MONEY_D->pay_player(actor, 9999);
+    "/tests/shop_transactions"->do_buy(waiter, actor, id);
+    check(room->query("vendor_goods_num")[path] == 1 &&
+        room->query("vendor_goods")[path] == 321 && room->query("all_vendor_goods") == 1,
+        path + " purchase removes exactly one and keeps remaining price");
+    "/tests/shop_transactions"->do_unstock(waiter, actor, id);
+    check(!room->query("all_vendor_goods") && sizeof(filter_array(all_inventory(actor),
+        (: base_name($1) == $(path) :))) == 2, path + " remaining stock reconstructed separately");
+    foreach (item in all_inventory(actor)) destruct(item);
+    destruct(actor);
+    destruct(waiter);
+    destruct(room);
+}
+
+void run() {
+    mapping row;
+    object actor, item;
+    string path;
+    string *seen;
+    int i;
+
+    seen = ({});
+    foreach (row in json_decode(read_file("/tests/normalized-items.json"))) {
+        path = row["target"];
+        if (member_array(path, seen) >= 0) continue;
+        seen += ({ path });
+        // These helpers verify real prices, fees, sale restrictions and room quantities.
+        // No old/new price equality is asserted: the reviewed representative sets the price.
+        trade_result(path, 0);
+        trade_result(path, 321);
+        player_shop_result(path);
+        check_business(({ path, path }));
+        check_refusals(path);
+        actor = new("/tests/trade_actor");
+        actor->move(this_object(), 1);
+        for (i = 0; i < 2; i++) {
+            item = new(path);
+            actor->store_item(actor, item, 1);
+            check(!item, path + " canonical item accepted by real storage whitelist");
+        }
+        check(sizeof(actor->depot_records()) == 1 &&
+            actor->depot_records()["item0"]["amount"] == 2 &&
+            actor->depot_records()["item0"]["file"] == path, path + " shared identity retains two items");
+        actor->run_command("take 1 2");
+        check(sizeof(all_inventory(actor)) == 2 && !sizeof(actor->depot_records()),
+            path + " two stored items retrieved independently");
+        foreach (item in all_inventory(actor)) {
+            check(base_name(item) == path, path + " restored canonical path");
+            destruct(item);
+        }
+        destruct(actor);
+        if (!load_object(path)->query("no_sell")) check_repeated_stock(path);
+    }
+    actor = new("/tests/trade_actor");
+    foreach (path in ({ "/d/items/food/mantou", "/tests/vendor" })) {
+        item = new(path);
+        actor->store_item(actor, item, 1);
+        check(
+            objectp(item) && !sizeof(actor->depot_records()),
+            "non-weapon storage rules remain intact"
+        );
+        destruct(item);
+    }
+    destruct(actor);
+}

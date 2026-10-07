@@ -20,6 +20,6 @@ void create() {
     set_temp("apply/damage", 20);
 
     setup();
-    carry_object("/d/items/blade/gangdao5")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
 }

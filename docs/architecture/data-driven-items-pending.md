@@ -2,15 +2,17 @@
 
 ## 范围与口径
 
-核对日期：2026-10-07。以四类普通防具批次实施后的源码为准；本批隔离全库编译 9,982 通过，用户已确认游戏内 `updateall /` 成功编译 **9,985 个档案**，详见[验证报告](../../openspec/changes/refactor-data-driven-defensive-gear/validation.md)。上一批 AXE/FORK/PIN 的离线编译 9,996、游戏内编译 9,999 保留为历史记录；游戏内本批净少 14 个，不混用离线口径。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
+核对日期：2026-10-07。按当前武器规范化实现更新分类：两件独占斧由 HAMMER 移至 AXE，三件实体枪戟由 CLUB 移至 SPEAR，实体文件总数不变。最近一次用户确认的实服 `updateall /` 为四类普通防具批次的 **9,985 个档案**（当时隔离编译 9,982），详见[验证报告](../../openspec/changes/refactor-data-driven-defensive-gear/validation.md)；不是本轮规范化的实服验收。本页是开发维护台账，不是玩家物品图鉴，也不表示这些旧物品功能失效。
 
 覆盖已建立 `d/items/*_data.h` 的 **28 个分类**（乐器按琴、箫、筝分别统计），按真实继承/行为而非显示名称归类。扫描 Git 跟踪且仍存在的游戏 `.c/.lpc`，核对分类宏、静态继承、构造函数、回调及相关头文件；排除共享基类、已迁移 provider、测试和子模块，不读取玩家存档。此为源码清单，不是线上持有量或动态调用覆盖报告。
 
-目前共有 **479 个不同实体源码文件**：
+本轮另新增共用的《枪法入门》，与其他 `/clone` 入门秘籍一起保留 BOOK 实现；不属于恢复物品批量迁移。清单包括本轮已实现但尚未提交的新源码。
+
+目前共有 **480 个不同实体源码文件**：
 
 - **/d 内 85 个**：普通物品批次保留的特殊行为或初始化差异，以及补充识别的自定义研读物、武器乐器，下文逐项记录原因。
-- **其他目录 394 个**：`clone/` 376、`b/` 10、`kungfu/` 3、`u/` 5，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
-- 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个）；另有 17 件研读物交叉属于 CLOTH（5）、HANDS（2）或 SWORD（10），其中 /d 内 2 件、clone 内 15 件。4 件琴类乐器已登记于 HAMMER（1）或 SWORD（3），另有 3 件 XSWORD 箫类。龙象袈裟同时属于 ARMOR 和研读物，交叉登记但不重复计数。各表均登记，**分类合计 517 项，去重文件数 479**。
+- **其他目录 395 个**：`clone/` 377、`b/` 10、`kungfu/` 3、`u/` 5，未纳入此前以 /d 为主的普通物品批次；其中既有特殊物品，也有后续可评估的初始化候选，不能统称为“因特殊功能无法迁移”。
+- 16 个物品同时属于 FOOD 和 HAMMER（/d 内 15 个、clone 内 1 个）；另有 17 件研读物交叉属于 CLOTH（5）、HANDS（2）或 SWORD（10），其中 /d 内 2 件、clone 内 15 件。4 件琴类乐器已登记于 HAMMER（1）或 SWORD（3），另有 3 件 XSWORD 箫类。龙象袈裟同时属于 ARMOR 和研读物，交叉登记但不重复计数。各表均登记，**分类合计 518 项，去重文件数 480**。
 
 “初始化候选”只表示当前文件仅见构造初始化、尚未完成迁移评估，不承诺与现有品种等价；还需检查调用者、属性覆盖、持久记录及跨目录 UID/EUID。特殊物品也不是永久禁止数据化，但不得为塞入普通数据表丢掉玩法或放开克隆限制。
 
@@ -29,18 +31,18 @@
 | 剑 `SWORD` | 7 | 34 | 41 |
 | 刀 `BLADE` | 6 | 17 | 23 |
 | 直接防具 `EQUIP` | 0 | 1 | 1 |
-| 锤类 `HAMMER` | 17 | 9 | 26 |
+| 锤类 `HAMMER` | 17 | 7 | 24 |
 | 杖类 `STAFF` | 8 | 12 | 20 |
 | 鞭类 `WHIP` | 1 | 13 | 14 |
 | 短兵器 `DAGGER` | 1 | 4 | 5 |
 | 暗器 `THROWING` | 6 | 12 | 18 |
-| 棍类 `CLUB` | 1 | 7 | 8 |
-| 研读物 `ITEM / BOOK / 自定义阅读` | 17 | 202 | 219 |
+| 棍类 `CLUB` | 1 | 4 | 5 |
+| 研读物 `ITEM / BOOK / 自定义阅读` | 17 | 203 | 220 |
 | 琴 `MI_QIN` | 2 | 2 | 4 |
 | 箫 `MI_XIAO`（含 XSWORD） | 1 | 2 | 3 |
 | 筝 `MI_ZHENG` | 0 | 0 | 0 |
-| 斧 `AXE` | 0 | 0 | 0 |
-| 叉 `FORK` | 0 | 0 | 0 |
+| 斧 `AXE` | 0 | 2 | 2 |
+| 枪 `SPEAR` | 0 | 3 | 3 |
 | 针 `PIN` | 0 | 5 | 5 |
 | 护甲 `ARMOR` | 1 | 3 | 4 |
 | 护腰 `WAIST` | 5 | 2 | 7 |
@@ -51,7 +53,7 @@
 
 当前优先完成 `/d` 的装备类（武器、防具）迁移，不再按文件数量排序：先补齐尚未数据化的装备分类，再逐项评估已迁移分类中保留的特殊装备；特殊行为须保留并验证，不为清空台账改变玩法。非装备类别暂后置，`/clone` 暂不处理；其他目录清单是资料，不是当前实施范围。`/d` 的历史重复往往涉及同物多处定义，而 `/clone` 已集中提供公共物品，重复初始化代码不等于物品本身等价。
 
-普通 AXE/FORK/PIN 和 ARMOR/WAIST/SURCOAT/SHIELD 已完成，后续逐项评估 /d 保留的特殊装备，先按真实共有行为分组，再制定对应回归。FORK → SPEAR 归类另立变更，届时共同核对基本/特殊武学、NPC 配置、玩家技能及记录转换；当前 FORK 和 CLUB 枪类不变。
+普通 AXE/FORK/PIN 和 ARMOR/WAIST/SURCOAT/SHIELD 的数据化已完成；后续数据化迁移暂缓，先实施[武器分类规范化](weapon-classification.md)。FORK 已由 SPEAR 替代，相关枪斧武学及 NPC 同步调整；不转换玩家技能或正式物品记录，不保留旧路径别名。当前归并、移类去向见[审查清单](weapon-normalization-review.md)，历史迁移快照只作原始依据。
 
 每一批物品迁移在同一变更中更新本页，不只在临时分析或归档提案中写“排除若干件”：
 
@@ -387,7 +389,7 @@
 | 猪头 | [d/xiakedao/obj/zhutou.c](../../d/xiakedao/obj/zhutou.c) | FOOD + HAMMER；`pigpart.h` 的 `setup/do_effect/broil` 禁止生吃、支持烤熟；`finish_eat()` 留下骨头。须覆盖生→熟→骨头及兵器状态。 |
 | 炸鸡腿 | [d/zhongzhou/npc/obj/jitui.c](../../d/zhongzhou/npc/obj/jitui.c) | FOOD + HAMMER；`finish_eat()` 根据兵器属性变成骨头，改名、重量和描述并保留对象。须同时验证食用与持用。 |
 
-### 其他目录待评估（9）
+### 其他目录待评估（7）
 
 | 物品名称 | 源码 | 已发现行为 / 审查线索 |
 | --- | --- | --- |
@@ -395,9 +397,7 @@
 | 大石头 | [b/tulong/obj/stone.c](../../b/tulong/obj/stone.c) | 初始化候选。 |
 | 铜钹 | [b/yitian/npc/obj/tongbo.c](../../b/yitian/npc/obj/tongbo.c) | 初始化候选。 |
 | 烤鸡腿 | [clone/food/jitui.c](../../clone/food/jitui.c) | FOOD + HAMMER；`finish_eat()` 食毕留骨，兼有武器属性。 |
-| 黄金斧 | [clone/lonely/huangjinfu.c](../../clone/lonely/huangjinfu.c) | 克隆自毁；`hit_ob` 额外命中效果；`init/do_pick` 从斧柄取竹简。 |
 | 日月金轮 | [clone/lonely/jinlun.c](../../clone/lonely/jinlun.c) | 克隆自毁；`hit_ob` 额外命中效果。 |
-| 破阳神斧 | [clone/lonely/poyangfu.c](../../clone/lonely/poyangfu.c) | 克隆自毁；`hit_ob` 额外命中效果。 |
 | 玄铁棋盘 | [clone/lonely/qipan.c](../../clone/lonely/qipan.c) | 克隆自毁；`hit_ob` 额外命中效果。 |
 | 铁锤 | [clone/weapon/hammer.c](../../clone/weapon/hammer.c) | 初始化候选。 |
 
@@ -519,18 +519,15 @@
 | --- | --- | --- |
 | 赤金棍 | [d/luoyang/npc/obj/club1.c](../../d/luoyang/npc/obj/club1.c) | `owner_is_killed()` 销毁；保留持有者死亡回调，不套入普通定义表。 |
 
-### 其他目录待评估（7）
+### 其他目录待评估（4）
 
-以下仅登记，不扩大本批 /d 迁移范围；均直接继承 CLUB，头文件未注入额外物品行为。
+以下仅登记，不扩大数据化迁移范围；枪戟已另列 SPEAR，本表保留实际 CLUB 物品。
 
 | 物品名称 | 源码 | 已发现行为 / 审查线索 |
 | --- | --- | --- |
 | 大旗 | [b/tulong/npc/obj/flag.c](../../b/tulong/npc/obj/flag.c) | 初始化候选，long 的颜色与 /d 大旗不同，不能仅因同名合并。 |
-| 镔铁长枪 | [b/yitian/npc/obj/spear.c](../../b/yitian/npc/obj/spear.c) | 初始化候选，虽与本批 /d 来源相同，/b 仍在范围外。 |
 | 南海神木 | [clone/lonely/shenmu.c](../../clone/lonely/shenmu.c) | 克隆自毁、唯一蓝图；`hit_ob` 按金猿棍法和随机结果附加伤害，张乘风另有所有权判断。 |
-| 长枪 | [clone/weapon/changqiang.c](../../clone/weapon/changqiang.c) | 初始化候选，名称及别名不同；/clone 暂不处理。 |
 | 齐眉棍 | [clone/weapon/qimeigun.c](../../clone/weapon/qimeigun.c) | 初始化候选，value=200，不等同本批 value=50 的 qimei_gun。 |
-| 圣骑士戟 | [clone/weapon/qishiji.c](../../clone/weapon/qishiji.c) | 初始化候选，银材质、重量 30000，保留真实差异。 |
 | 铁棍 | [clone/weapon/tiegun.c](../../clone/weapon/tiegun.c) | 初始化候选，实际直接 CLUB；注释中的 STAFF 不计作继承。 |
 
 ## 研读物（ITEM / BOOK / 自定义阅读）
@@ -566,9 +563,9 @@
 | 千蛛万毒手秘笈 | [d/wudu/obj/qianzhumiji.c](../../d/wudu/obj/qianzhumiji.c) | `F_UNIQUE`；`setup / init / do_du / do_yanjiu / suck / zhugu / wan`。 |
 | 铜牌 | [d/wudu/obj/tongpai.c](../../d/wudu/obj/tongpai.c) | `setup / init / do_read`。 |
 
-### 其他目录待评估（202）
+### 其他目录待评估（203）
 
-`clone/` 197 件、`u/` 5 件，均不纳入当前迁移。普通初始化候选也不等于相同物品，须分别核对学习、展示及恢复。医书通过 `<medical.h>` 继承 `/inherit/item/medical-book`，其 setup、药方阅读和学习状态不能只搬属性；`u/` 经典阅读物还包含 HTTP/socket 查询，需单独评估。下表注明可见回调，未据此宣称全部运行路径已验收。
+`clone/` 198 件、`u/` 5 件，均不纳入当前迁移。普通初始化候选也不等于相同物品，须分别核对学习、展示及恢复。医书通过 `<medical.h>` 继承 `/inherit/item/medical-book`，其 setup、药方阅读和学习状态不能只搬属性；`u/` 经典阅读物还包含 HTTP/socket 查询，需单独评估。下表注明可见回调，未据此宣称全部运行路径已验收。
 
 | 物品名称 | 源码 | 特殊行为 / 暂缓原因 |
 | --- | --- | --- |
@@ -590,6 +587,7 @@
 | 轻功入门 | [clone/book/basic-dodge.c](../../clone/book/basic-dodge.c) | BOOK 父类显示/研读能力。 |
 | 内功入门 | [clone/book/basic-force.c](../../clone/book/basic-force.c) | BOOK 父类显示/研读能力。 |
 | 招架入门 | [clone/book/basic-parry.c](../../clone/book/basic-parry.c) | BOOK 父类显示/研读能力。 |
+| 枪法入门 | [clone/book/basic-spear.lpc](../../clone/book/basic-spear.lpc) | 本轮新增公共入门秘籍；复用 BOOK 和原研读规则，与其他 `/clone` 秘籍暂不数据化。 |
 | 杖法入门 | [clone/book/basic-staff.c](../../clone/book/basic-staff.c) | BOOK 父类显示/研读能力。 |
 | 剑法入门 | [clone/book/basic-sword.c](../../clone/book/basic-sword.c) | BOOK 父类显示/研读能力。 |
 | 暗器入门 | [clone/book/basic-throwing.c](../../clone/book/basic-throwing.c) | BOOK 父类显示/研读能力。 |
@@ -803,9 +801,26 @@
 
 副将 [d/changan/npc/fujiang.c](../../d/changan/npc/fujiang.c) 的动态 `weapon_file` 只指向原有五种武器，不包含本批木琴，源文件保持不变。本批审计同时复查这些负例、7 件保留项及音乐基类/技能的原始 hash。
 
-## 斧（AXE）与叉（FORK）
+## 斧（AXE）
 
-两类 `/d` 内保留均为 **0**，其他目录也未发现实体 AXE/FORK 物品。本批原 7 斧、1 叉已进入独立数据表，路径去向见 `tools/tests/axe_fork_pin/baseline.json`。按实际父类归类，名称带“枪”“叉”的 CLUB 物品仍记在棍类，不在此重复统计。
+`/d` 内保留 **0**，其他目录 **2** 件。以下独占物品已纠正为斧类，但没有数据化，不放开克隆或取消专用回调。
+
+| 物品名称 | 源码 | 已发现行为 / 保留原因 |
+| --- | --- | --- |
+| 黄金斧 | [clone/lonely/huangjinfu.c](../../clone/lonely/huangjinfu.c) | 克隆自毁；`hit_ob` 额外命中效果；`init/do_pick` 从斧柄取竹简。 |
+| 破阳神斧 | [clone/lonely/poyangfu.c](../../clone/lonely/poyangfu.c) | 克隆自毁；`hit_ob` 额外命中效果。 |
+
+## 枪（SPEAR）
+
+`/d` 内保留 **0**，其他目录 **3** 件。本轮只调整实际类别和配套武学，不把这些实体物品纳入数据化。
+
+| 物品名称 | 源码 | 已发现行为 / 审查线索 |
+| --- | --- | --- |
+| 镔铁长枪 | [b/yitian/npc/obj/spear.c](../../b/yitian/npc/obj/spear.c) | 固定初始化候选，/b 数据化另行评估。 |
+| 长枪 | [clone/weapon/changqiang.c](../../clone/weapon/changqiang.c) | 固定初始化候选，名称及别名独立；/clone 数据化暂缓。 |
+| 圣骑士戟 | [clone/weapon/qishiji.c](../../clone/weapon/qishiji.c) | 固定初始化候选，银材质、重量 30000，保留真实差异。 |
+
+原普通 7 斧、1 叉的历史快照仍在 `tools/tests/axe_fork_pin/baseline.json`；当前规范身份按 `tools/tests/weapon_classification/normalization.json` 的显式差异衔接，不将历史 FORK 记录当作现行入口。
 
 ## 针（PIN）
 

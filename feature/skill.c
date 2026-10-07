@@ -16,8 +16,7 @@ mapping query_learned() { return learned; }
 varargs void map_skill(string skill, string mapped_to);
 
 void set_skill(string skill, int val) {
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     if (!mapp(skills))
@@ -59,8 +58,7 @@ varargs void map_skill(string skill, string mapped_to) {
         return;
     }
 
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     if (!mapp(skills) || undefinedp(skills[mapped_to]))
@@ -81,8 +79,7 @@ varargs void prepare_skill(string skill, string mapped_to) {
         return;
     }
 
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     if (!mapp(skills) || undefinedp(skills[mapped_to]))
@@ -100,8 +97,7 @@ varargs void prepare_wskill(string skill, string mapped_to) {
         return;
     }
 
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     if (!mapp(skills) || undefinedp(skills[mapped_to]))
@@ -115,8 +111,12 @@ varargs void prepare_wskill(string skill, string mapped_to) {
 
 
 string query_skill_mapped(string skill) {
-    if (mapp(skill_map) && !undefinedp(skill_map[skill]))
-        return skill_map[skill];
+    string mapped;
+
+    // Keep saved mappings untouched; only currently applicable mappings are effective.
+    if (mapp(skill_map) && stringp(mapped = skill_map[skill]) &&
+        SKILL_D(mapped)->valid_enable(skill, this_object()))
+        return mapped;
     return 0;
 }
 
@@ -135,12 +135,13 @@ string query_wprepared(string skill) {
 varargs int query_skill(string skill, int raw) {
     if (!raw) {
         int s;
+        string mapped;
 
         s = query_temp("apply/" + skill);
         if (mapp(skills)) {
             s += skills[skill] / 2;
-            if (mapp(skill_map))
-                s += skills[skill_map[skill]];
+            if (stringp(mapped = query_skill_mapped(skill)))
+                s += skills[mapped];
         }
         return s;
     }
@@ -197,7 +198,7 @@ int skill_expell_penalty() {
 
     skname = keys(skills);
     for (i = 0; i < sizeof(skname); i++) {
-        if (file_size(SKILL_D(skname[i]) + ".c") < 0) {
+        if (!lpc_file(SKILL_D(skname[i]))) {
             delete_skill(skname[i]);
             continue;
         }
@@ -226,8 +227,7 @@ int can_improve_skill(string skill) {
     int lvl;
     int exp;
 
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     switch (SKILL_D(skill)->type()) {
@@ -257,8 +257,7 @@ varargs void improve_skill(string skill, int amount, int weak_mode) {
     int mlvl;
     string type;
 
-    if (!find_object(SKILL_D(skill)) &&
-        file_size(SKILL_D(skill) + ".c") < 0)
+    if (!find_object(SKILL_D(skill)) && !lpc_file(SKILL_D(skill)))
         error("F_SKILL: No such skill (" + skill + ")\n");
 
     if (!mapp(skills)) skills = ([]);

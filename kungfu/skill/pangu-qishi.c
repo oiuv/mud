@@ -2,7 +2,7 @@
 inherit SKILL;
 
 mapping *action = ({
-    ([ "action": "$N左手单臂抡起$w，一招「开山」，夹杂着阵阵风声向$n$l砸去",
+    ([ "action": "$N左手单臂抡起$w，一招「开山」，夹杂着阵阵风声向$n$l劈去",
         "skill_name": "开山",
         "force": 320,
         "attack": 27,
@@ -10,9 +10,9 @@ mapping *action = ({
         "parry": -34,
         "lvl": 0,
         "damage": 62,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
-    ([ "action": "$N将手中$w划出一道半弧，一式「断岳」便如流星坠地，直轰$n",
+    ([ "action": "$N将手中$w划出一道半弧，一式「断岳」斧刃挟着劲风，直劈$n",
         "skill_name": "断岳",
         "force": 460,
         "attack": 38,
@@ -20,7 +20,7 @@ mapping *action = ({
         "parry": -45,
         "lvl": 40,
         "damage": 66,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
     ([ "action": "突然间$N手中$w挟着无上劲力，一招「劈天」施出，飞砍向$n而去",
         "skill_name": "劈天",
@@ -30,9 +30,9 @@ mapping *action = ({
         "parry": -47,
         "lvl": 80,
         "damage": 70,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
-    ([ "action": "$N嗔目大喝，施一招「分海」，$w在劲力推动之下，向$n缓缓压来",
+    ([ "action": "$N嗔目大喝，施一招「分海」，$w在劲力推动之下，斧刃向$n迎面劈来",
         "skill_name": "分海",
         "force": 540,
         "attack": 51,
@@ -40,7 +40,7 @@ mapping *action = ({
         "parry": -50,
         "lvl": 120,
         "damage": 75,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
     ([ "action": "$N紧握$w，那势「还虚」的劲力便如同排山倒海般朝$n飞旋而出",
         "skill_name": "还虚",
@@ -50,7 +50,7 @@ mapping *action = ({
         "parry": -25,
         "lvl": 160,
         "damage": 80,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
     ([ "action": "$N高举$w，那势「破衲」的劲力便如同排山倒海般朝$n飞旋而出",
         "skill_name": "破衲",
@@ -60,7 +60,7 @@ mapping *action = ({
         "parry": -35,
         "lvl": 180,
         "damage": 98,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
     ([ "action": "$N反转$w，那势「克己」的劲力便如同排山倒海般朝$n飞旋而出",
         "skill_name": "克己",
@@ -70,12 +70,12 @@ mapping *action = ({
         "parry": -33,
         "lvl": 200,
         "damage": 104,
-        "damage_type": "挫伤",
+        "damage_type": "砍伤",
     ]),
 });
 
 
-int valid_enable(string usage) { return usage == "hammer" || usage == "parry"; }
+int valid_enable(string usage) { return usage == "axe" || usage == "parry"; }
 
 int valid_learn(object me) {
     if (me->query("str") < 32)
@@ -87,11 +87,11 @@ int valid_learn(object me) {
     if ((int)me->query_skill("force") < 180)
         return notify_fail("你的内功火候太浅，无法修炼盘古七势。\n");
 
-    if ((int)me->query_skill("hammer", 1) < 80)
-        return notify_fail("你的基本锤法火候太浅，无法修炼盘古七势。\n");
+    if ((int)me->query_skill("axe", 1) < 80)
+        return notify_fail("你的基本斧法火候太浅，无法修炼盘古七势。\n");
 
-    if ((int)me->query_skill("hammer", 1) < (int)me->query_skill("pangu-qishi", 1))
-        return notify_fail("你的基本锤法水平有限，无法领会更高深的盘古七势。\n");
+    if ((int)me->query_skill("axe", 1) < (int)me->query_skill("pangu-qishi", 1))
+        return notify_fail("你的基本斧法水平有限，无法领会更高深的盘古七势。\n");
 
     return 1;
 }
@@ -115,7 +115,7 @@ int practice_skill(object me) {
     object weapon;
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "hammer")
+        (string)weapon->query("skill_type") != "axe")
         return notify_fail("你使用的武器不对。\n");
 
     if ((int)me->query("qi") < 100)

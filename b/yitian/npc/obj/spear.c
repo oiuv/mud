@@ -1,7 +1,7 @@
 #include <weapon.h>
 #include <ansi.h>
 
-inherit CLUB;
+inherit SPEAR;
 
 void create() {
     set_name(HIW "镔铁长枪" NOR, ({ "chang qiang", "qiang", "spear" }));
@@ -13,6 +13,6 @@ void create() {
         set("value", 300);
         set("material", "silk");
     }
-    init_club(10);
+    init_spear(10);
     setup();
 }

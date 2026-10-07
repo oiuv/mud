@@ -4,16 +4,19 @@ import { readBaseline as throwingBaseline, migrationPaths as throwingPaths } fro
 import { readBaseline as whipBaseline, migrationPaths as whipPaths } from '../whip_inventory.mjs';
 // Disposable adapters execute the selected game methods; no live server or saves.
 import assert from 'node:assert/strict';
-import { readFileSync, writeFileSync, mkdirSync, cpSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { original, readBaseline } from '../hammer_inventory.mjs';
 import { readBaseline as staffBaseline, migrationPaths as staffPaths } from '../staff_inventory.mjs';
 import { tokens } from '../cloth_inventory.mjs';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 
 export function prepareBusiness(root, sandbox) {
     const put = (file, source) => {
         mkdirSync(dirname(join(sandbox, file)), { recursive: true });
-        writeFileSync(join(sandbox, file), source);
+        // Original physical objects remain frozen; previously migrated external
+        // goods and the current side use the reviewed canonical identities.
+        writeFileSync(join(sandbox, file), normalizeWeaponReferences(source));
     };
     const method = (source, signature) => {
         const start = source.indexOf(signature), end = source.indexOf('\n}', start) + 2;
@@ -100,5 +103,5 @@ export function prepareBusiness(root, sandbox) {
     }
     assert.equal(rooms.length, 19);
     put('tests/hammer-rooms.json', JSON.stringify(rooms));
-    cpSync(join(root, 'tools/tests/hammer/business.lpc'), join(sandbox, 'tests/hammer_business.h'));
+    put('tests/hammer_business.h', readFileSync(join(root, 'tools/tests/hammer/business.lpc'), 'utf8'));
 }

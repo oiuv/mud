@@ -13,7 +13,7 @@ void create() {
     set_skill("unarmed", 90);
     set_skill("dodge", 90);
     set_skill("parry", 90);
-    set_skill("club", 90);
+    set_skill("spear", 90);
     set_skill("force", 90);
     set_skill("zhongping-qiang", 90);
     set_skill("feiyan-zoubi", 90);
@@ -21,7 +21,7 @@ void create() {
 
     map_skill("dodge", "feiyan-zoubi");
     map_skill("force", "huntian-qigong");
-    map_skill("club", "zhongping-qiang");
+    map_skill("spear", "zhongping-qiang");
 
     set_temp("apply/attack", 60);
     set_temp("apply/defense", 60);
@@ -29,7 +29,7 @@ void create() {
     set_temp("apply/armor", 60);
 
     setup();
-    carry_object("/d/items/club/bintie_qiang")->wield();
+    carry_object("/d/items/spear/bintie_qiang")->wield();
     carry_object("/d/items/cloth/bingfu")->wear();
 }
 void init() {

@@ -210,7 +210,8 @@ void check_npc_equipment() {
             "carried-only whip does not become wielded");
         compare(weapon, all_inventory(after)[0], "actual NPC weapon parity");
         check(
-            same_value(before->query_temp("apply"), after->query_temp("apply")),
+            same_value(expected_equipment_bonuses(before->query_temp("apply"), weapon,
+                all_inventory(after)[0]), after->query_temp("apply")),
             "actual NPC weapon bonuses"
         );
         clear_inventory(before); destruct(before); clear_inventory(after); destruct(after);

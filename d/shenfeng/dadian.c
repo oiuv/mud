@@ -10,7 +10,7 @@ void create() {
 迥然不同。骸骨前面有一块十分光滑的石板。
 LONG);
     set("objects", ([
-        "/d/items/hammer/yufu": random(3),
+        "/d/items/axe/yufu": random(3),
         "/d/items/blade/yudao": random(3),
         "/d/items/sword/yujian": random(3),
         __DIR__ "obj/skeleton": random(5) + 3,

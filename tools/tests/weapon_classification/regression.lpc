@@ -1,0 +1,873 @@
+#include <weapon.h>
+inherit ITEM;
+
+void check(int ok, string label) { master()->check(ok, label); }
+
+void create() {
+    set_name("演武场", ({ "test room" }));
+    set_max_encumbrance(10000000);
+}
+
+void check_quanjinfa() {
+    object npc, weapon, skill, student;
+    mapping action;
+    int i;
+
+    npc = new("/d/guiyun/npc/quanjinfa");
+    npc->move(this_object(), 1);
+    weapon = npc->query_temp("weapon");
+    skill = load_object(SKILL_D("caiyan-gong"));
+    check(objectp(weapon) && base_name(weapon) == "/d/items/club/gancheng" &&
+        weapon->query("skill_type") == "club" && weapon->query("material") == "steel" &&
+        weapon->query("weapon_prop/damage") == 5, "Quan keeps his original steel balance");
+    check(npc->query_skill("club", 1) == 65 && npc->query_skill("caiyan-gong", 1) == 65 &&
+        !npc->query_skill("zhongping-qiang", 1), "Quan has one replacement art at level 65");
+    check(npc->query_skill_mapped("club") == "caiyan-gong" &&
+        npc->query_skill_mapped("parry") == "caiyan-gong" &&
+        skill->valid_enable("club") && skill->valid_enable("parry"), "matching club and parry");
+    check(npc->query_skill("club") == 97 && npc->query_skill("parry") == 65,
+        "effective attack and parry levels use Caiyan");
+    check(npc->query_skill_mapped("dodge") == "lingxu-bu" &&
+        npc->query_skill_mapped("force") == "taixuan-gong" &&
+        npc->query_skill_mapped("unarmed") == "changquan" &&
+        !npc->query("chat_msg_combat"), "other mappings unchanged; no active perform added");
+    for (i = 0; i < 20; i++) {
+        action = skill->query_action(npc, weapon);
+        check(mapp(action) && action["damage_type"] == "挫伤" &&
+            member_array(action["skill_name"], ({ "乳燕归巢", "蜻蜓点水" })) >= 0,
+            "level 65 uses applicable blunt club moves");
+    }
+    npc->set("qi", npc->query("max_qi"));
+    check(skill->practice_skill(npc) == 1 && npc->query("qi") == 1138 &&
+        npc->query("neili") == 1139, "practice uses unchanged Caiyan costs");
+
+    student = new("/tests/actor");
+    student->move(this_object(), 1);
+    student->set_skill("force", 100);
+    student->set_skill("club", 65);
+    student->set_skill("dodge", 65);
+    student->set_skill("caiyan-gong", 10);
+    student->set_teacher(npc);
+    check(!npc->prevent_learn(student, "caiyan-gong") && skill->valid_learn(student),
+        "existing master policy and Caiyan conditions allow a qualified pupil");
+    check(student->run_command("learn quan caiyan-gong 1") == 1 &&
+        student->query("learned_points") == 1 && student->query_learned()["caiyan-gong"] > 0,
+        "real learn command improves Caiyan through existing teacher skill list");
+    student->set("max_neili", 249);
+    check(!skill->valid_learn(student), "Caiyan inner-force prerequisite still enforced");
+    student->set("max_neili", 10000);
+    student->set_skill("dodge", 9);
+    check(!skill->valid_learn(student), "Caiyan dodge prerequisite still enforced");
+    student->set_skill("dodge", 65);
+    student->set_skill("club", 9);
+    check(!skill->valid_learn(student), "Caiyan club prerequisite still enforced");
+    destruct(student);
+    destruct(npc);
+}
+
+void check_categories() {
+    object actor, blueprint, item, other, skill;
+    string path, old;
+    mapping action;
+    mixed error_value;
+
+    actor = new("/tests/actor");
+    actor->move(this_object(), 1);
+    actor->set_skill("spear", 150);
+    check(actor->query_skill("spear", 1) == 150 &&
+        SKILL_D("spear")->type() == "martial", "new .lpc basic spear is discoverable");
+    foreach (path in ({ "/d/items/spear/bintie_qiang", "/d/items/spear/fangtian_ji",
+        "/d/items/spear/gangcha", "/d/items/spear/sangu_cha", "/clone/weapon/changqiang",
+        "/b/yitian/npc/obj/spear", "/clone/weapon/qishiji", "/tests/feature_spear" })) {
+        blueprint = load_object(path);
+        item = new(path);
+        other = new(path);
+        check(blueprint != item && item != other && !clonep(blueprint) && clonep(item),
+            path + " blueprint and separate clones");
+        check(base_name(item) == path && item->query("skill_type") == "spear" &&
+            (item->query("flag") & (LONG | POINTED)) == (LONG | POINTED),
+            path + " canonical spear type and flags");
+        item->move(actor, 1);
+        check(item->wield() && actor->query_temp("weapon") == item, path + " can wield");
+        action = item->query("actions");
+        check(mapp(action) && action["damage_type"] == "刺伤", path + " real thrust action");
+        item->set("test/instance", 1);
+        check(!other->query("test/instance"), path + " instance state is separate");
+        item->unequip();
+        destruct(item);
+        item = new(path);
+        check(!item->query("test/instance") && item->query("skill_type") == "spear",
+            path + " canonical identity rebuild");
+        destruct(item);
+        destruct(other);
+    }
+    foreach (old in ({ "/d/items/fork/gangcha", "/d/items/club/bintie_qiang",
+        "/d/items/club/fangtian_ji", "/d/items/club/sangu_cha", "/d/items/spear/unknown" })) {
+        error_value = catch(item = new(old));
+        check(!objectp(item), old + " rejected; no forwarding alias");
+    }
+    skill = load_object(SKILL_D("zhongping-qiang"));
+    item = new("/d/items/spear/bintie_qiang");
+    item->move(actor, 1);
+    item->wield();
+    actor->set_skill("force", 300);
+    actor->set_skill("zhongping-qiang", 120);
+    check(skill->valid_enable("spear") && !skill->valid_enable("club"),
+        "Zhongping accepts spear only, plus its parry use");
+    actor->run_command("enable spear zhongping-qiang");
+    check(actor->query_skill_mapped("spear") == "zhongping-qiang", "actual spear enable entry");
+    check(
+        skill->valid_learn(actor) && skill->practice_skill(actor),
+        "Zhongping spear learning and practice"
+    );
+    item->unequip();
+    destruct(item);
+    item = new("/d/items/club/gancheng");
+    item->move(actor, 1);
+    item->wield();
+    check(
+        !skill->valid_learn(actor) && !skill->practice_skill(actor),
+        "club cannot substitute for spear"
+    );
+    destruct(actor);
+}
+
+void check_basic_spear_npcs() {
+    object npc, target, weapon;
+    mapping action;
+    string path;
+    int level;
+
+    target = new("/tests/actor");
+    target->move(this_object(), 1);
+    foreach (path, level in ([ "/b/yitian/npc/bing1": 40, "/d/huanghe/npc/wu": 30 ])) {
+        npc = new(path);
+        npc->move(this_object(), 1);
+        weapon = npc->query_temp("weapon");
+        check(objectp(weapon) && weapon->query("skill_type") == "spear" &&
+            npc->query_skill("spear", 1) == level && !npc->query_skill("club", 1),
+            path + " keeps original level with matching spear and weapon");
+        check(!npc->query_skill("zhongping-qiang", 1) &&
+            !npc->query_skill_mapped("spear") && !npc->query("chat_msg_combat"),
+            path + " basic weapon correction does not grant a special art");
+        check(npc->query_skill("parry", 1) == level,
+            path + " retains original basic parry");
+        target->delete_temp("test/attacks");
+        COMBAT_D->do_attack(npc, target, weapon, 0);
+        action = target->query_temp("test/last_action");
+        check(target->query_temp("test/attacks") == 1 && mapp(action) &&
+            action["damage_type"] == "刺伤", path + " uses normal spear thrust action");
+        destruct(npc);
+    }
+    destruct(target);
+}
+
+void check_zhongping_manual() {
+    object actor, manual;
+    mapping before_skills, before_learned;
+    string research;
+
+    actor = new("/tests/actor");
+    actor->move(this_object(), 1);
+    actor->set_skill("literate", 100);
+    actor->set_skill("spear", 120);
+    actor->set_skill("club", 65);
+    actor->set_skill("zhongping-qiang", 120);
+    actor->set_skill("martial-cognize", 100);
+    manual = load_object("/clone/lonely/book/zhongping");
+    manual->move(actor, 1);
+    research = "research ding from zhongping qiangpu";
+    check(manual->query("skill/name") == "zhongping-qiang" &&
+        manual->query("skill/max_skill") == 149 &&
+        manual->query("skill/exp_required") == 100000,
+        "Zhongping manual retains its existing reading conditions");
+
+    actor->set("combat_exp", 99999);
+    actor->run_command(research);
+    check(!actor->query("can_perform/zhongping-qiang/ding") &&
+        !actor->query("learned_points") && actor->query("jing") == 10000,
+        "manual rejects insufficient experience without spending resources");
+    actor->set("combat_exp", 1000000);
+    actor->set_skill("zhongping-qiang", 119);
+    actor->run_command(research);
+    check(!actor->query("can_perform/zhongping-qiang/ding") &&
+        !actor->query("learned_points"), "manual retains level 120 unlock threshold");
+    actor->set_skill("zhongping-qiang", 120);
+    actor->run_command(research);
+    check(!actor->query("can_perform/zhongping-qiang/ding") &&
+        actor->query("learned_points") == 10 && actor->query("jing") == 9920 &&
+        actor->is_busy() == 2, "unsuccessful research retains original costs and delay");
+
+    actor->clear_busy();
+    manual->set("test/success", 1);
+    before_skills = copy(actor->query_skills());
+    before_learned = copy(actor->query_learned() || ([]));
+    actor->run_command(research);
+    check(actor->query("can_perform/zhongping-qiang/ding") == 1 &&
+        actor->query("learned_points") == 20 && actor->query("jing") == 9840 &&
+        actor->is_busy() == 2, "successful research unlocks Ding with original costs");
+    foreach (string skill in ({ "spear", "zhongping-qiang", "martial-cognize" }))
+        check(actor->query_skill(skill, 1) > before_skills[skill] ||
+            actor->query_learned()[skill] > before_learned[skill],
+            "manual rewards current discipline: " + skill);
+    check(actor->query_skill("club", 1) == before_skills["club"] &&
+        actor->query_learned()["club"] == before_learned["club"],
+        "gun manual does not grant club experience");
+    actor->clear_busy();
+    actor->run_command(research);
+    check(actor->query("learned_points") == 20 && actor->query("jing") == 9840 &&
+        !actor->is_busy(), "known Ding cannot charge again");
+    destruct(manual);
+    destruct(actor);
+}
+
+void check_axe_hammer() {
+    object actor, target, item, skill, perform_ob;
+    string art;
+    mapping action;
+    mixed *damage;
+    int i;
+
+    actor = new("/tests/actor");
+    target = new("/tests/actor");
+    actor->move(this_object(), 1);
+    target->move(this_object(), 1);
+    actor->set("str", 40);
+    actor->set_skill("force", 800);
+    actor->set_skill("axe", 400);
+    actor->set_skill("hammer", 400);
+    check(SKILL_D("axe")->type() == "martial", "basic axe obeys martial learning rules");
+    item = new("/d/items/axe/kaishan_fu");
+    item->move(actor, 1);
+    check(item->wield() && item->query("skill_type") == "axe" &&
+        (item->query("flag") & EDGED), "moved Kaishan is an edged axe");
+    foreach (art in ({ "pangu-qishi", "pangen-cuojiefu", "leiting-fu" })) {
+        skill = load_object(SKILL_D(art));
+        actor->set_skill(art, 300);
+        actor->set("qi", 10000);
+        actor->set("neili", 10000);
+        check(skill->valid_enable("axe") && skill->valid_enable("parry") &&
+            !skill->valid_enable("hammer"), art + " axe and parry, not hammer");
+        actor->run_command("enable axe " + art);
+        check(actor->query_skill_mapped("axe") == art && skill->valid_learn(actor) &&
+            skill->practice_skill(actor), art + " real axe enable, learn and practice");
+        for (i = 0; i < 30; i++) {
+            action = skill->query_action(actor, item);
+            check(mapp(action) && member_array(action["damage_type"], ({ "砍伤", "割伤", "刺伤" })) >= 0,
+                art + " sharp moves");
+        }
+    }
+    item->unequip();
+    destruct(item);
+    item = new("/d/items/hammer/tongchui");
+    item->move(actor, 1);
+    item->wield();
+    foreach (art in ({ "pangu-qishi", "pangen-cuojiefu", "leiting-fu" }))
+        check(!SKILL_D(art)->practice_skill(actor), art + " cannot practice with a hammer");
+    skill = load_object(SKILL_D("hanshan-chuifa"));
+    actor->set_skill("hanshan-chuifa", 300);
+    actor->run_command("enable hammer hanshan-chuifa");
+    check(skill->valid_enable("hammer") && skill->valid_enable("parry") &&
+        !skill->valid_enable("axe") && skill->valid_learn(actor), "Hanshan hammer learning and mapping");
+    actor->set("str", 31);
+    check(!skill->valid_learn(actor), "Hanshan original strength threshold");
+    actor->set("str", 40);
+    actor->set("max_neili", 1999);
+    check(!skill->valid_learn(actor), "Hanshan original maximum inner force threshold");
+    actor->set("max_neili", 10000);
+    actor->set_skill("force", 358);
+    check(!skill->valid_learn(actor), "Hanshan original effective force threshold");
+    actor->set_skill("force", 800);
+    actor->set_skill("hammer", 79);
+    check(!skill->valid_learn(actor), "Hanshan basic hammer threshold");
+    actor->set_skill("hammer", 299);
+    check(!skill->valid_learn(actor), "Hanshan basic skill cannot lag behind special art");
+    actor->set_skill("hammer", 400);
+    actor->set("qi", 1000);
+    actor->set("neili", 1000);
+    check(skill->practice_skill(actor) && actor->query("qi") == 910 && actor->query("neili") == 910,
+        "Hanshan retains original practice cost");
+    for (i = 0; i < 30; i++) {
+        action = skill->query_action(actor, item);
+        check(mapp(action) && action["damage_type"] == "挫伤", "Hanshan blunt moves");
+    }
+    perform_ob = load_object(SKILL_D("hanshan-chuifa/zhen"));
+    actor->set("test/player", 1);
+    actor->set_temp("test/fighting", 1);
+    actor->set("can_perform/pangu-qishi/kai", 1);
+    check(!perform_ob->perform(actor, target), "old Pangu unlock does not unlock Hanshan");
+    actor->set("can_perform/hanshan-chuifa/zhen", 1);
+    actor->set("neili", 399);
+    check(!perform_ob->perform(actor, target), "perform keeps original 400-neili entry threshold");
+    actor->set("neili", 1000);
+    target->set_skill("force", 0);
+    target->set("con", 0);
+    check(perform_ob->perform(
+        actor,
+        target
+    ) && actor->query("neili") == 500 && actor->is_busy() == 3,
+        "Hanshan hit branch cost 500 and busy 3");
+    damage = target->query_temp("test/damage");
+    check(arrayp(damage) && damage[1] >= 450 && damage[1] < 1350 && damage[2] == 80,
+        "Hanshan damage uses old AP formula and 80 percent parameter");
+    actor->clear_busy();
+    actor->set("neili", 1000);
+    target->set_skill("force", 1000000);
+    target->delete_temp("test/damage");
+    check(perform_ob->perform(
+        actor,
+        target
+    ) && actor->query("neili") == 700 && actor->is_busy() == 4 &&
+        !target->query_temp("test/damage"), "Hanshan miss branch cost 300 and busy 4");
+    actor->map_skill("hammer", 0);
+    check(!perform_ob->perform(actor, target), "Hanshan requires matching mapping");
+    actor->map_skill("hammer", "hanshan-chuifa");
+    item->unequip();
+    destruct(item);
+    item = new("/d/items/axe/yufu");
+    item->move(actor, 1);
+    item->wield();
+    check(!skill->practice_skill(actor) && !perform_ob->perform(actor, target),
+        "Hanshan rejects axe practice and perform");
+    destruct(actor);
+    destruct(target);
+}
+
+void check_hammer_teachers() {
+    object npc, student, weapon;
+    string path;
+    int level;
+    object target;
+
+    target = new("/tests/actor");
+    target->move(this_object(), 1);
+    target->set_skill("force", 0);
+
+    foreach (path, level in ([ "/b/tulong/npc/chang": 180,
+        "/kungfu/class/riyue/tong": 240, "/kungfu/class/riyue/zhao": 260 ])) {
+        npc = new(path);
+        npc->move(this_object(), 1);
+        weapon = npc->query_temp("weapon");
+        check(objectp(weapon) && weapon->query("skill_type") == "hammer" &&
+            npc->query_skill(
+                "hammer",
+                1
+            ) == level && npc->query_skill("hanshan-chuifa", 1) == level &&
+            !npc->query_skill(
+                "pangu-qishi",
+                1
+            ), path + " retains hammer and level with one new art");
+        check(npc->query_skill_mapped("hammer") == "hanshan-chuifa" &&
+            npc->query_skill_mapped("parry") == "hanshan-chuifa", path + " hammer and parry agree");
+        npc->set_temp("test/fighting", 1);
+        npc->set_temp("test/target", target);
+        check(evaluate(npc->query("chat_msg_combat", 1)[0]) && npc->is_busy(),
+            path + " actual combat closure and perform dispatch work");
+        destruct(npc);
+    }
+    npc = new("/kungfu/class/riyue/zhao");
+    npc->move(this_object(), 1);
+    student = new("/tests/actor");
+    student->move(this_object(), 1);
+    student->set("str", 32);
+    student->set("family/family_name", "日月神教");
+    student->set("family/master_id", "ren woxing");
+    student->set("shen", -120000);
+    student->set("gongxian", 2400);
+    student->set_skill("force", 600);
+    student->set_skill("hammer", 200);
+    student->set_skill("hanshan-chuifa", 179);
+    check(npc->recognize_apprentice(student, "hanshan-chuifa") == 1 &&
+        npc->recognize_apprentice(student, "pangu-qishi") == -1,
+        "Zhao teaches new art under existing recognition rules");
+    check(student->run_command("learn zhao hanshan-chuifa 1") && student->query("learned_points") == 1,
+        "actual learn command accepts qualified Hanshan pupil");
+    student->run_command("ask zhao about 撼山震岳");
+    check(!student->query("can_perform/hanshan-chuifa/zhen") && student->query("gongxian") == 2400,
+        "179 skill cannot learn perform or lose contribution");
+    student->set_skill("hanshan-chuifa", 180);
+    student->set("gongxian", 1199);
+    student->run_command("ask zhao about 撼山震岳");
+    check(!student->query("can_perform/hanshan-chuifa/zhen") && student->query("gongxian") == 1199,
+        "1199 contribution cannot learn perform");
+    student->set("gongxian", 2400);
+    student->set("family/master_id", "other");
+    student->run_command("ask zhao about 撼山震岳");
+    check(!student->query("can_perform/hanshan-chuifa/zhen"), "master identity is required");
+    student->set("family/master_id", "ren woxing");
+    student->run_command("ask zhao about 撼山震岳");
+    if (!student->query("can_perform/hanshan-chuifa/zhen"))
+        debug_message(sprintf("INQUIRY FAIL: %O, contribution=%O, force=%O", student->query_inquiry_result(),
+            student->query("gongxian"), student->query_skill("force")));
+    check(student->query_inquiry_result() == 1 && student->query("can_perform/hanshan-chuifa/zhen") &&
+        student->query("gongxian") == 1200, "actual inquiry grants Hanshan perform and charges once");
+    student->run_command("ask zhao about 撼山震岳");
+    check(student->query("gongxian") == 1200, "repeat inquiry does not charge again");
+    destruct(student);
+    destruct(npc);
+    destruct(target);
+}
+
+void check_old_mappings() {
+    object actor, restored, item;
+    string art, category, before;
+    mapping saved, action;
+
+    foreach (
+        art,
+        category in ([ "zhongping-qiang": "club", "qishi-ji": "club", "pangu-qishi": "hammer" ])
+    ) {
+        actor = new("/tests/actor");
+        actor->move(this_object(), 1);
+        actor->set_skill(category, 200);
+        actor->set_skill(art, 180);
+        actor->improve_skill(art, 7, 1);
+        actor->map_skill(category, art);
+        actor->set("can_perform/" + art + "/kai", 1);
+        actor->save_fixture();
+        restored = new("/tests/actor");
+        restored->restore_fixture();
+        restored->move(this_object(), 1);
+        saved = ([ "skills": restored->query_skills(), "learned": restored->query_learned(),
+            "map": restored->query_skill_map(), "unlocks": restored->query("can_perform") ]);
+        before = json_encode(saved);
+        check(restored->query_skill_map()[category] == art && !restored->query_skill_mapped(category) &&
+            restored->query_skill(category) == 100, art + " stale mapping remains stored but gives no bonus");
+        item = new(category == "club" ? "/d/items/club/gancheng" : "/d/items/hammer/tongchui");
+        item->move(restored, 1);
+        item->wield();
+        restored->reset_action();
+        action = restored->query_action();
+        check(
+            mapp(action) && !action["skill_name"],
+            art + " real reset_action falls back to weapon"
+        );
+        check(!restored->perform_action(category + ".kai"), art + " perform rejects old category");
+        check(json_encode(([ "skills": restored->query_skills(), "learned": restored->query_learned(),
+            "map": restored->query_skill_map(), "unlocks": restored->query("can_perform") ])) == before &&
+            !restored->query_skill("spear", 1) &&
+            !restored->query_skill("axe", 1) && !restored->query_skill("hanshan-chuifa", 1) &&
+            !restored->query("can_perform/hanshan-chuifa/zhen"), "saved levels, progress, maps and unlocks untouched");
+        destruct(restored);
+        destruct(actor);
+    }
+    actor = new("/tests/actor");
+    actor->set_skill("club", 200);
+    actor->set_skill("staff", 200);
+    actor->set_skill("caiyan-gong", 150);
+    actor->set_skill("wuchang-zhang", 150);
+    actor->map_skill("club", "caiyan-gong");
+    actor->map_skill("dodge", "caiyan-gong");
+    actor->map_skill("parry", "caiyan-gong");
+    actor->map_skill("staff", "wuchang-zhang");
+    check(actor->query_skill("club") == 250 && actor->query_skill("staff") == 250 &&
+        actor->query_skill_mapped("dodge") == "caiyan-gong" &&
+        actor->query_skill_mapped("parry") == "caiyan-gong", "legitimate club, staff and multipurpose art stay effective");
+    actor->set_skill("hamagong", 180);
+    actor->map_skill("strike", "hamagong");
+    check(
+        actor->query_skill_mapped("strike") == "hamagong",
+        "dynamic enable uses skill owner, not current caller"
+    );
+    actor->set_skill("hamagong", 179);
+    check(!actor->query_skill_mapped("strike") && actor->query_skill_map()["strike"] == "hamagong",
+        "dynamic eligibility threshold enforced without rewriting saved map");
+    destruct(actor);
+}
+
+void check_unique_axes() {
+    object actor, victim, axe, duplicate, book;
+    string path, art;
+    mixed result, err;
+
+    actor = new("/tests/actor");
+    victim = new("/tests/actor");
+    actor->move(this_object(), 1);
+    victim->move(this_object(), 1);
+    actor->set_skill("axe", 200);
+    foreach (path, art in ([ "/clone/lonely/poyangfu": "pangu-qishi",
+        "/clone/lonely/huangjinfu": "leiting-fu" ])) {
+        axe = load_object(path);
+        check(!clonep(axe) && axe->query("skill_type") == "axe" &&
+            (axe->query("flag") & EDGED), path + " retains unique blueprint as edged axe");
+        err = catch(duplicate = new(path));
+        check(!objectp(duplicate), path + " duplicate still destroys itself");
+        axe->move(actor, 1);
+        check(axe->wield(), path + " unique blueprint still usable");
+        actor->map_skill("axe", 0);
+        check(axe->hit_ob(actor, victim, 80) == 40, path + " unmatched art retains half bonus");
+        actor->set_skill(art, 180);
+        actor->map_skill("axe", art);
+        victim->set("qi", 10000);
+        victim->set("eff_qi", 10000);
+        result = axe->hit_ob(actor, victim, 80);
+        check(stringp(result) && victim->query("qi") == 9720 && victim->query("eff_qi") == 9720,
+            path + " original proc applies current effective axe level to damage and wound");
+        if (art == "leiting-fu") {
+            actor->run_command("turn huangjin fu");
+            book = find_object("/clone/lonely/book/zhujian1");
+            check(
+                objectp(book) && environment(book) == actor,
+                "golden axe still yields original unique manual"
+            );
+            check(!actor->run_command("turn huangjin fu") && environment(book) == actor,
+                "golden axe cannot duplicate the manual");
+        }
+        axe->unequip();
+        destruct(axe);
+    }
+    destruct(actor);
+    destruct(victim);
+}
+
+void check_spear_performs() {
+    object actor, target, item, art;
+    string name;
+    mapping action;
+
+    actor = new("/tests/actor");
+    target = new("/tests/actor");
+    actor->move(this_object(), 1);
+    target->move(this_object(), 1);
+    actor->set_skill("force", 800);
+    actor->set_skill("spear", 400);
+    actor->set("test/player", 1);
+    actor->set_temp("test/fighting", 1);
+    actor->set_temp("test/target", target);
+    item = new("/clone/weapon/qishiji");
+    item->move(actor, 1);
+    item->wield();
+    foreach (name in ({ "zhongping-qiang", "qishi-ji" })) {
+        actor->set_skill(name, 180);
+        actor->map_skill("spear", name);
+        actor->map_skill("parry", name);
+        art = load_object(SKILL_D(name));
+        check(art->valid_enable("spear") && art->valid_enable("parry") && !art->valid_enable("club"),
+            name + " spear and parry applicability");
+        actor->reset_action();
+        action = actor->query_action();
+        check(mapp(action) && action["damage"] > 0 && action["lvl"] >= 0 &&
+            action["damage_type"] == "刺伤", name + " actual attack action uses special art");
+    }
+    actor->map_skill("spear", "zhongping-qiang");
+    check(!actor->perform_action("spear.ding"), "Zhongping perform requires learning");
+    actor->set("can_perform/zhongping-qiang/ding", 1);
+    actor->set("neili", 1000);
+    check(actor->perform_action("spear.ding") && target->query_temp("test/attacks") == 7 &&
+        actor->query("neili") == 860 && actor->is_busy() >= 1 && actor->is_busy() <= 7,
+        "Zhongping seven attacks and original cost through perform dispatcher");
+    actor->clear_busy();
+    actor->map_skill("spear", "qishi-ji");
+    actor->set("can_perform/qishi-ji/chong", 1);
+    actor->set("can_perform/qishi-ji/juan", 1);
+    actor->set("neili", 1000);
+    target->set_temp("test/attacks", 0);
+    check(actor->perform_action("spear.chong") && target->query_temp("test/attacks") == 6 &&
+        actor->query("neili") == 900, "Qishi six attacks and original cost");
+    actor->clear_busy();
+    actor->set("neili", 1000);
+    check(actor->perform_action("spear.juan") && actor->query("neili") == 950 && actor->is_busy() == 2,
+        "Qishi Juan hit through spear dispatcher");
+    actor->clear_busy();
+    actor->set("neili", 1000);
+    target->set_skill("parry", 1000000);
+    check(actor->perform_action("spear.juan") && actor->query("neili") == 970 && actor->is_busy() == 3,
+        "Qishi Juan miss retains cost and delay");
+    actor->clear_busy();
+    item->unequip();
+    destruct(item);
+    item = new("/d/items/club/gancheng");
+    item->move(actor, 1);
+    item->wield();
+    check(!actor->perform_action("spear.chong") && !actor->perform_action("spear.juan"),
+        "Qishi cannot perform with a club");
+    actor->map_skill("spear", "zhongping-qiang");
+    check(!actor->perform_action("spear.ding"), "Zhongping cannot perform with a club");
+    destruct(actor);
+    destruct(target);
+}
+
+void check_axe_teachers() {
+    object npc, student, target, item;
+    string path, art, topic, command_name;
+    int contribution;
+
+    foreach (
+        path,
+        art in ([
+            "/kungfu/class/riyue/fan": "pangu-qishi",
+            "/kungfu/class/duan/gu": "pangen-cuojiefu"
+        ])
+    ) {
+        npc = new(path);
+        npc->move(this_object(), 1);
+        student = new("/tests/actor");
+        student->move(this_object(), 1);
+        student->set("family/family_name", npc->query("family/family_name"));
+        student->set("family/master_id", "ren woxing");
+        student->set("str", 40);
+        student->set("shen", -120000);
+        student->set("gongxian", 2400);
+        student->set("combat_exp", 100000000);
+        student->set_skill("force", 800);
+        student->set_skill("axe", 120);
+        student->set_skill(art, 100);
+        check(npc->recognize_apprentice(student, "axe") == 1 &&
+            npc->recognize_apprentice(
+                student,
+                "hammer"
+            ) == -1, path + " teaches basic axe, not hammer");
+        check(student->run_command("learn " + npc->query("id") + " " + art + " 1") &&
+            student->query("learned_points") == 1, path + " actual special-axe teaching");
+        topic = art == "pangu-qishi" ? "开天辟地" : "错字诀";
+        command_name = art == "pangu-qishi" ? "kai" : "cuo";
+        contribution = art == "pangu-qishi" ? 1200 : 150;
+        student->set_skill("axe", 250);
+        student->set_skill(art, 180);
+        student->run_command("ask " + npc->query("id") + " about " + topic);
+        check(student->query("can_perform/" + art + "/" + command_name) &&
+            student->query("gongxian") == 2400 - contribution && student->query_skill(
+                "axe",
+                1
+            ) == 251 &&
+            !student->query_skill(
+                "hammer",
+                1
+            ), path + " unlock and reward now use axe, same contribution");
+        student->map_skill("axe", art);
+        student->set_temp("test/fighting", 1);
+        target = new("/tests/actor");
+        target->move(this_object(), 1);
+        student->set_temp("test/target", target);
+        item = new("/d/items/axe/kaishan_fu");
+        item->move(student, 1);
+        item->wield();
+        check(
+            student->perform_action("axe." + command_name),
+            path + " learned perform works with axe"
+        );
+        student->clear_busy();
+        target->clear_busy();
+        item->unequip();
+        destruct(item);
+        item = new("/d/items/hammer/tongchui");
+        item->move(student, 1);
+        item->wield();
+        check(!student->perform_action("axe." + command_name), path + " wrong hammer rejected");
+        destruct(student);
+        destruct(target);
+        destruct(npc);
+    }
+}
+
+void check_leiting_perform() {
+    object actor, target, item;
+    mixed *damage;
+
+    actor = new("/tests/actor");
+    target = new("/tests/actor");
+    actor->move(this_object(), 1);
+    target->move(this_object(), 1);
+    actor->set("test/player", 1);
+    actor->set("str", 40);
+    actor->set("dex", 30);
+    actor->set("con", 30);
+    actor->set_skill("force", 400);
+    actor->set_skill("axe", 180);
+    actor->set_skill("leiting-fu", 180);
+    actor->map_skill("axe", "leiting-fu");
+    actor->set_temp("test/fighting", 1);
+    actor->set_temp("test/target", target);
+    item = new("/d/items/axe/kaishan_fu");
+    item->move(actor, 1);
+    item->wield();
+    actor->set("can_perform/leiting-fu/sanda", 1);
+    actor->set("str", 39);
+    check(!actor->perform_action("axe.sanda"), "Leiting keeps strength 40 gate");
+    actor->set("str", 40);
+    actor->set_skill("force", 398);
+    check(!actor->perform_action("axe.sanda"), "Leiting keeps effective force 200 gate");
+    actor->set_skill("force", 400);
+    actor->set_skill("axe", 179);
+    check(!actor->perform_action("axe.sanda"), "Leiting basic axe 180 gate");
+    actor->set_skill("axe", 180);
+    actor->set("neili", 499);
+    check(!actor->perform_action("axe.sanda"), "Leiting keeps neili 500 gate");
+    actor->set("neili", 1000);
+    check(actor->perform_action("axe.sanda") && target->query_temp("test/damage_count") == 3 &&
+        actor->query("neili") == 670 && actor->is_busy() >= 3 && actor->is_busy() <= 5,
+        "Leiting actual axe dispatcher: three hits, original costs and delay");
+    damage = target->query_temp("test/damage");
+    check(arrayp(damage) && damage[1] == 500 && damage[2] == 100,
+        "Leiting third hit retains accumulated damage and coefficient");
+    actor->clear_busy();
+    actor->set("neili", 1000);
+    target->set_skill("force", 1000000);
+    target->set_skill("parry", 1000000);
+    target->set_skill("dodge", 1000000);
+    target->set_temp("test/damage_count", 0);
+    check(actor->perform_action("axe.sanda") && !target->query_temp("test/damage_count") &&
+        actor->query("neili") == 835, "Leiting three misses retain original costs");
+    actor->clear_busy();
+    item->unequip();
+    destruct(item);
+    item = new("/d/items/hammer/tongchui");
+    item->move(actor, 1);
+    item->wield();
+    check(!actor->perform_action("axe.sanda"), "Leiting rejects hammer through actual dispatcher");
+    destruct(actor);
+    destruct(target);
+}
+
+void check_challenger() {
+    object npc, player, weapon;
+    object *prizes;
+    mixed *combat_actions;
+    int exp_before, potential_before, i;
+
+    npc = new("/kungfu/class/generate/english");
+    player = new("/tests/actor");
+    npc->move(this_object(), 1);
+    player->move(this_object(), 1);
+    weapon = npc->query_temp("weapon");
+    check(objectp(weapon) && base_name(weapon) == "/clone/weapon/qishiji" &&
+        weapon->query("skill_type") == "spear", "challenger retains silver halberd in correct category");
+    NPC_D->init_npc_skill(npc, 11);
+    check(npc->query("combat_exp") == 3000000 && npc->query_skill("spear", 1) == 275 &&
+        npc->query_skill("qishi-ji", 1) == 275 && npc->query_skill("force", 1) == 275 &&
+        npc->query_skill("xiyang-neigong", 1) == 275 && npc->query_skill("dodge", 1) == 275 &&
+        !npc->query_skill(
+            "club",
+            1
+        ), "real NPC_D scaling retains all original levels with spear replacing club");
+    player->set("combat_exp", 3000000);
+    player->set("max_qi", 2000);
+    player->set("max_jing", 1500);
+    npc->competition_with(player);
+    check(player->query("state/challenge") == 1 && npc->query_competitor() == player &&
+        npc->query("max_qi") == 2000 && npc->query("max_jing") == 1500 &&
+        npc->query("max_neili") == player->query("max_neili"), "actual challenger keeps scaling and challenge counter");
+    npc->set_temp("test/fighting", 1);
+    npc->set_temp("test/target", player);
+    combat_actions = npc->query("chat_msg_combat");
+    for (i = 2; i < sizeof(combat_actions); i++) {
+        npc->clear_busy();
+        check(evaluate(combat_actions[i]), "challenger actual spear perform closure");
+    }
+    exp_before = player->query("combat_exp");
+    potential_before = player->query("potential");
+    npc->lost();
+    check(player->query("state/challenge_win") == 1 && npc->query("finished") &&
+        STORY_D->query("test/stops") == 1, "actual challenger loss commits original outcome");
+    check(player->query("combat_exp") >= exp_before + 5000 &&
+        player->query("combat_exp") < exp_before + 16000 &&
+        player->query("potential") >= potential_before + 8000 &&
+        player->query("potential") < potential_before + 13000 &&
+        player->query("score") >= 100 && player->query("score") < 6100 &&
+        player->query("weiwang") >= 100 && player->query("weiwang") < 15100,
+        "challenge reward ranges remain unchanged");
+    prizes = filter_array(
+        all_inventory(this_object()),
+        (: strsrch(base_name($1), "/clone/fam/etc/prize") == 0 :)
+    );
+    check(
+        sizeof(prizes) == 1 && prizes[0]->query("value") > 0,
+        "English challenger still drops one actual prize"
+    );
+    destruct(player);
+    destruct(npc);
+}
+
+void check_normalized_items() {
+    mapping row;
+    object blueprint, first, second, stale;
+    mixed err;
+
+    foreach (row in json_decode(read_file("/tests/normalized-items.json"))) {
+        blueprint = load_object(row["target"]);
+        first = new(row["target"]);
+        second = new(row["target"]);
+        check(base_name(first) == row["target"] && first != second && !clonep(blueprint),
+            row["target"] + " canonical blueprint and separate normalized instances");
+        check(first->query_weight() == row["weight"] && first->query("weapon_prop/damage") == row["damage"] &&
+            first->query("value") == row["value"], row["target"] + " reviewed original representative values");
+        first->set("consistence", 30);
+        check(second->query("consistence") == 100 && blueprint->query("consistence") == 100,
+            row["target"] + " normalized instances keep independent durability");
+        stale = 0;
+        err = catch(stale = new(row["old"]));
+        check(!objectp(stale), row["old"] + " removed identity does not forward");
+        destruct(first);
+        destruct(second);
+    }
+}
+
+void check_skill_display() {
+    object actor;
+    string text;
+    string *types;
+
+    actor = new("/tests/actor");
+    actor->move(this_object(), 1);
+    types = MASTER_D->query_valid_types();
+    check(member_array("spear", types) >= 0 && member_array("axe", types) >= 0 &&
+        member_array("club", types) >= 0 && member_array("staff", types) >= 0 &&
+        member_array(
+            "hammer",
+            types
+        ) >= 0, "shared category registry includes all five independent weapons");
+    actor->run_command("enable ?");
+    text = actor->query_temp("test/display");
+    check(strsrch(text, "枪法 (spear)") >= 0 && strsrch(text, "斧法 (axe)") >= 0,
+        "actual enable help discovers new categories");
+    actor->set_skill("spear", 100);
+    actor->set_skill("axe", 100);
+    actor->set_skill("club", 100);
+    actor->set_skill("zhongping-qiang", 90);
+    actor->set_skill("pangu-qishi", 90);
+    actor->map_skill("club", "zhongping-qiang");
+    actor->run_command("enable");
+    check(strsrch(actor->query_temp("test/display"), "中平枪法") < 0 &&
+        actor->query_skill_map()["club"] == "zhongping-qiang", "enable hides invalid mapping without changing raw record");
+    actor->run_command("skills spear");
+    text = actor->query_temp("test/display");
+    check(strsrch(text, "你目前所学到的基本枪法及相关技能") >= 0 &&
+        strsrch(text, "中平枪法") >= 0 && strsrch(text, "□") < 0,
+        "skills displays public Chinese names and leaves invalid mapping unmarked");
+    actor->run_command("enable spear zhongping-qiang");
+    actor->run_command("enable axe pangu-qishi");
+    actor->run_command("enable");
+    text = actor->query_temp("test/display");
+    check(strsrch(text, "枪法 (spear)") >= 0 && strsrch(text, "斧法 (axe)") >= 0 &&
+        strsrch(
+            text,
+            "棍法 (club)"
+        ) < 0, "enable lists valid categories, not retained stale club mapping");
+    actor->run_command("skills spear");
+    check(strsrch(actor->query_temp("test/display"), "□ 中平枪法") >= 0,
+        "skills marks a valid current spear mapping");
+    actor->run_command("skills axe");
+    text = actor->query_temp("test/display");
+    check(strsrch(text, "基本斧法及相关技能") >= 0 && strsrch(text, "pangu-qishi") >= 0,
+        "skills discovers and displays basic axe and its art");
+    destruct(actor);
+}
+
+void run() {
+    check_quanjinfa();
+    check_categories();
+    check_basic_spear_npcs();
+    check_zhongping_manual();
+    check_axe_hammer();
+    check_hammer_teachers();
+    check_old_mappings();
+    check_unique_axes();
+    check_spear_performs();
+    check_axe_teachers();
+    check_leiting_perform();
+    check_challenger();
+    check_normalized_items();
+    check_skill_display();
+    "/tests/weapon_business"->run();
+    master()->finish();
+}

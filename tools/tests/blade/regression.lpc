@@ -235,7 +235,7 @@ void check_suppliers() {
         clear_inventory(actor); actor->run_command("testnpc jiedao");
         check(!sizeof(all_inventory(actor)), "daochen exhausted stock"); destruct(npc);
         npc = new(prefix + "/d/changan/npc/fujiang");
-        weapons = ({ "/d/items/sword/changjian3",
+        weapons = ({ "/d/items/sword/changjian",
             prefix == "" ? "/d/items/blade/gangdao4" : "/d/changan/npc/obj/gangdao",
             prefix == "" ? "/d/items/staff/gangzhang" : "/d/changan/npc/obj/gangzhang", prefix == "" ? "/d/items/whip/changbian" : "/d/changan/npc/obj/changbian", prefix == "" ? "/d/items/axe/banfu" : "/d/changan/npc/obj/axe" });
         for (choice = 0; choice < 5; choice++) {
@@ -324,12 +324,13 @@ void check_variety(mixed *pair) {
 
 void check_shop_display(mixed *pair) {
     object vendor;
-    string before, after;
+    string before, after, reference;
     int price;
 
     vendor = new("/tests/blade_vendor");
+    reference = normalization_reference(pair[0], pair[1]);
     foreach (price in ({ 0, 321 })) {
-        vendor->set("vendor_goods", ([ pair[0]: price ]));
+        vendor->set("vendor_goods", ([ reference: price ]));
         check(vendor->do_list(0) == 1, "old dealer listing"); before = vendor->query_display();
         vendor->set("vendor_goods", ([ pair[1]: price ]));
         check(vendor->do_list(0) == 1, "virtual dealer listing"); after = vendor->query_display();
@@ -338,7 +339,7 @@ void check_shop_display(mixed *pair) {
             "listing contains actual name and effective price");
         before = replace_string(
             before,
-            "(" + pair[0]->query("id") + ")",
+            "(" + reference->query("id") + ")",
             "(" + pair[1]->query("id") + ")"
         );
         // Fixed-width padding changes when a merged primary alias has a different length.
@@ -375,7 +376,8 @@ void check_mengzhu_restore() {
         check(after->query("combat_exp") == 876543 && after->query("note") == pair[0] &&
             after->query("name") == before->query("name"), "mengzhu non-target data retained");
         compare(before->query_temp("weapon"), weapon, "mengzhu restored weapon parity");
-        check(save_variable(before->query_temp("apply")) == save_variable(after->query_temp("apply")),
+        check(same_value(expected_equipment_bonuses(before->query_temp("apply"),
+            before->query_temp("weapon"), weapon), after->query_temp("apply")),
             "mengzhu restored equipment bonuses match");
         check("/tests/cloth_records"->convert(
             converted["value"],

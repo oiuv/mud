@@ -49,7 +49,8 @@ void check_equipment(string path) {
         "bonus not doubled"
     );
     action = item->query("actions");
-    check(mapp(action) && member_array(action["damage_type"], ({ "挫伤" })) >= 0 &&
+    check(mapp(action) && action["damage_type"] ==
+        (strsrch(path, "/d/items/spear/") == 0 ? "刺伤" : "挫伤") &&
         stringp(action["action"]), "actual WEAPON_D action callback");
     check("/cmds/std/unwield"->main(actor, item->query("id")) == 1 &&
         !actor->query_temp("weapon") && !item->query("equipped"), "real unwield clears references");
@@ -234,11 +235,19 @@ void check_variety(mixed *pair) {
 
     before = new(pair[0]); after = new(pair[1]); second = new(base_name(after));
     blueprint = load_object(pair[1]);
-    check(after->query("flag") == LONG && !after->is_food() && !after->is_liquid() &&
+    check(after->query("flag") == (strsrch(
+        pair[1],
+        "/d/items/spear/"
+    ) == 0 ? LONG | POINTED : LONG) &&
+        after->query("skill_type") == (strsrch(
+            pair[1],
+            "/d/items/spear/"
+        ) == 0 ? "spear" : "club") &&
+        !after->is_food() && !after->is_liquid() &&
         !function_exists(
             "do_play",
             after
-        ), "CLUB retains LONG without unrelated abilities");
+        ), "original CLUB or explicitly moved SPEAR flags without unrelated abilities");
     compare(load_object(pair[0]), blueprint, pair[0] + " blueprint");
     compare(before, after, pair[0] + " clone"); compare(after, second, "reconstruction");
     check(virtualp(blueprint) && !clonep(blueprint) && virtualp(after) && clonep(after) &&

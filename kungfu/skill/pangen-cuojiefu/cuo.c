@@ -19,7 +19,7 @@ int perform(object me, object target) {
         return notify_fail(CUO "只能对战斗中的对手使用。\n");
 
     if (!objectp(weapon = me->query_temp("weapon")) ||
-        (string)weapon->query("skill_type") != "hammer")
+        (string)weapon->query("skill_type") != "axe")
         return notify_fail("你使用的武器不对，难以施展" CUO "。\n");
 
     if (target->is_busy())
@@ -37,7 +37,7 @@ int perform(object me, object target) {
     if ((int)me->query("neili") < 100)
         return notify_fail("你现在真气不够，难以施展" CUO "。\n");
 
-    if (me->query_skill_mapped("hammer") != "pangen-cuojiefu")
+    if (me->query_skill_mapped("axe") != "pangen-cuojiefu")
         return notify_fail("你没有激发盘根错节斧，难以施展" CUO "。\n");
 
     if (!living(target))

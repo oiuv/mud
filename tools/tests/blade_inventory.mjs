@@ -1,5 +1,6 @@
 // Ordinary BLADE inventory and offline migration metadata; never reads player data.
 import assert from 'node:assert/strict';
+import { normalizeWeaponTable } from './weapon_classification/migration_expectations.mjs';
 import { correctedItemText } from './item_text_corrections.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -105,6 +106,9 @@ export function afterBladeMigration(file, expected, compare) {
     return expectedCaller(file);
 }
 export function renderDefinitions() {
+    return normalizeWeaponTable('blade', renderHistoricalDefinitions());
+}
+export function renderHistoricalDefinitions() {
     return '// 普通刀的蓝图属性；规范 ID 自然排序，伤害与标志由 init_blade 初始化。\n'
         + 'private mapping blade_definitions() {\n    return ([\n'
         + canonicalGroups().map(g => `        "${g.id}": ([\n            "name": ${g.representative.name[0]},\n`

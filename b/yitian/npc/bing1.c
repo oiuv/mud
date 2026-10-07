@@ -13,7 +13,7 @@ void create() {
     set_skill("unarmed", 40);
     set_skill("dodge", 40);
     set_skill("parry", 40);
-    set_skill("club", 40);
+    set_skill("spear", 40);
     set_skill("force", 40);
     set_temp("apply/attack", 40);
     set_temp("apply/defense", 40);

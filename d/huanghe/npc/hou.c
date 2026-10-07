@@ -18,7 +18,7 @@ void create() {
 
     set_skill("unarmed", 60);
     set_skill("force", 60);
-    set_skill("club", 60);
+    set_skill("spear", 60);
     set_skill("dodge", 60);
     set_skill("parry", 60);
     set_temp("apply/attack", 50);
@@ -31,6 +31,6 @@ void create() {
     set("jiali", 10);
 
     setup();
-    carry_object("/d/items/club/sangu_cha")->wield();
+    carry_object("/d/items/spear/sangu_cha")->wield();
     carry_object("/clone/misc/cloth")->wear();
 }

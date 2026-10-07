@@ -1,0 +1,94 @@
+// Synthetic character services; use actual item, skill and carry implementations.
+inherit ITEM;
+inherit F_SKILL;
+
+#include "carry_object.c"
+#include "create_family.c"
+#include "actions.c"
+
+private object teacher;
+private int busy;
+private mixed inquiry_result;
+
+void init() {}  // No live sessions or generic NPC interactions in this fixture.
+int is_character() { return 1; }
+int visible(object ob) { return 1; }
+int is_busy() { return busy; }
+varargs int is_fighting(object target) { return !!query_temp("test/fighting"); }
+void start_busy(int delay) { busy = delay; }
+void clear_busy() { busy = 0; }
+void clean_up_enemy() {}
+object select_opponent() { return query_temp("test/target"); }
+void kill_ob(object target) { set_temp("test/fighting", 1); set_temp("test/target", target); }
+int perform_action(string arg) { return "/cmds/skill/perform"->main(this_object(), arg); }
+int exert_function(string arg) { return 0; }
+void receive_message(string kind, string text) {}
+void start_more(string text) { set_temp("test/display", text); }
+varargs int receive_damage(string stat, int amount, object who) {
+    add(stat, -amount); return amount;
+}
+varargs void receive_wound(string stat, int amount, object who) { add("eff_" + stat, -amount); }
+int query_int() { return query("int"); }
+int query_str() { return query("str"); }
+int query_dex() { return query("dex"); }
+int query_con() { return query("con"); }
+void add_money(string kind, int count) { add_temp("test/money/" + kind, count); }
+void competition_with(object who) { set_temp("test/competitor", who); }
+object query_competitor() { return query_temp("test/competitor"); }
+int is_killing(string who) { return 0; }
+void lost() { set_temp("test/lost", 1); }
+void win() {}
+void die() {}
+int is_apprentice_of(object ob) { return ob == teacher; }
+void set_teacher(object ob) { teacher = ob; }
+void save_fixture() { save_object("/data/legacy-player"); }
+void restore_fixture() { restore_object("/data/legacy-player"); }
+int run_command(string arg) {
+    enable_commands();
+    add_action("do_learn", "learn");
+    add_action("do_enable", "enable");
+    add_action("do_skills", "skills");
+    add_action("do_ask", "ask");
+    return command(arg);
+}
+int do_learn(string arg) {
+    int result;
+
+    result = "/cmds/skill/learn"->main(this_object(), arg);
+    if (!result) debug_message(sprintf("LEARN FAIL: %O", query_notify_fail()));
+    return result;
+}
+int do_enable(string arg) { return "/cmds/skill/enable"->main(this_object(), arg); }
+int do_skills(string arg) { return "/cmds/skill/skills"->main(this_object(), arg); }
+mixed query_inquiry_result() { return inquiry_result; }
+int do_ask(string arg) {
+    object npc;
+    string who, topic;
+
+    if (sscanf(arg, "%s about %s", who, topic) != 2) return 0;
+    npc = present(who, environment());
+    if (!npc) return 0;
+    inquiry_result = evaluate(npc->query("inquiry/" + topic));
+    return 1;
+}
+
+void setup() {
+    ::setup();
+    set_max_encumbrance(1000000);
+    enable_commands();
+    add_action("do_learn", "learn");
+    add_action("do_enable", "enable");
+}
+
+void create() {
+    set_name("习武者", ({ "student" }));
+    set("gender", "男性");
+    set("int", 30);
+    set("jing", 10000);
+    set("qi", 10000);
+    set("neili", 10000);
+    set("max_neili", 10000);
+    set("potential", 10000);
+    set("combat_exp", 1000000);
+    setup();
+}

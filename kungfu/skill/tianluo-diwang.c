@@ -60,9 +60,13 @@ mapping *action = ({
     ]),
 });
 
-int valid_enable(string usage) {
+varargs int valid_enable(string usage, object me) {
     int lvl;
-    lvl = (int)this_player()->query_skill("tianluo-diwang", 1);
+
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
+
+    lvl = (int)me->query_skill("tianluo-diwang", 1);
 
     if (lvl > 30)
         return usage == "strike" || usage == "parry";

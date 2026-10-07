@@ -1,4 +1,5 @@
 import * as defensiveMetadata from './defensive_gear_inventory.mjs';
+import { weaponFixtureExpectations } from './weapon_classification/migration_expectations.mjs';
 import { prepareDefensive } from './defensive_gear/fixtures.mjs';
 import * as weaponMetadata from './axe_fork_pin_inventory.mjs';
 import { prepareWeapons } from './axe_fork_pin/fixtures.mjs';
@@ -45,6 +46,8 @@ import { prepareBlade } from './blade/fixtures.mjs';
 import { prepareEquip } from './equip/fixtures.mjs';
 import { createHash } from 'node:crypto';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { canonicalWeaponPath, normalization } from './weapon_classification/normalization.mjs';
 import { migrateItemRecords } from '../migrate_item_records.mjs';
 
 const defensive = process.argv.includes('--defensive-gear');
@@ -98,6 +101,13 @@ for (const dir of ['include', 'feature', 'inherit', 'mudcore/include', 'mudcore/
     cpSync(join(root, dir), join(sandbox, dir), { recursive: true });
 for (const dir of ['tests', 'log', 'data', 'adm/daemons', 'd/items'])
     mkdirSync(join(sandbox, dir), { recursive: true });
+// Old FORK sources are test evidence, not a runtime compatibility interface.
+// Only this disposable mudlib gets the pinned historical parent and macro.
+writeFileSync(join(sandbox, 'tests/historical_fork.c'), execFileSync('git',
+    ['show', normalization.baseline + ':inherit/weapon/fork.c'], { cwd: root, encoding: 'utf8' }));
+const weaponHeader = join(sandbox, 'include/weapon.h');
+writeFileSync(weaponHeader, readFileSync(weaponHeader, 'utf8') + '\n#define FORK "/tests/historical_fork"\n');
+for (const suffix of ['.lpc', '_data.h']) copy('d/items/spear' + suffix);
 for (const file of ['adm/daemons/virtuald.c', 'adm/daemons/moneyd.c', 'adm/daemons/weapond.c', 'd/items/cloth.lpc', 'd/items/cloth_data.h', 'clone/misc/bandage.c', 'clone/misc/cloth.c', 'clone/cloth/qingyi.c', 'cmds/std/wear.c']) copy(file);
 for (const file of ['d/items/boots.lpc', 'd/items/boots_data.h']) copy(file);
 for (const file of ['d/items/headwear.lpc', 'd/items/headwear_data.h']) copy(file);
@@ -194,12 +204,8 @@ if (food) {
         writeFileSync(target, readFileSync(target, 'utf8').replaceAll('CLOTH', label));
     }
 }
-if (cloneCommand) {
-    copy('cmds/wiz/clone.c');
-    mkdirSync(join(sandbox, 'log/static'), { recursive: true });
-    cpSync(join(sandbox, 'tests/clone_command.lpc'), join(sandbox, 'tests/regression.lpc'));
-    cpSync(join(sandbox, 'tests/clone_security.lpc'), join(sandbox, 'adm/daemons/securityd.lpc'));
-    // Exercise the real path helpers; only security policy and announcements are test doubles.
+if (cloneCommand || instrument) {
+    // Real dual-extension helpers are also required by current SKILL loading.
     const helpers = readFileSync(join(root, 'mudcore/system/kernel/simul_efun/file.c'), 'utf8');
     let extra = '\nint file_exists(string file) { return file_size(file) >= 0; }\n';
     for (const signature of ['string lpc_object_path(', 'mixed lpc_file(']) {
@@ -207,7 +213,15 @@ if (cloneCommand) {
         assert.ok(start >= 0, 'Missing actual helper: ' + signature);
         extra += helpers.slice(start, helpers.indexOf('\n}', start) + 2) + '\n';
     }
-    extra += readFileSync(join(root, 'mudcore/system/kernel/simul_efun/path.c'), 'utf8');
+    const sefun = join(sandbox, 'tests/sefun.lpc');
+    writeFileSync(sefun, readFileSync(sefun, 'utf8') + extra);
+}
+if (cloneCommand) {
+    copy('cmds/wiz/clone.c');
+    mkdirSync(join(sandbox, 'log/static'), { recursive: true });
+    cpSync(join(sandbox, 'tests/clone_command.lpc'), join(sandbox, 'tests/regression.lpc'));
+    cpSync(join(sandbox, 'tests/clone_security.lpc'), join(sandbox, 'adm/daemons/securityd.lpc'));
+    let extra = readFileSync(join(root, 'mudcore/system/kernel/simul_efun/path.c'), 'utf8');
     extra += '\nstring log_time() { return ctime(time()); }\nvoid message_system(string text) {}\n';
     extra += 'int area_move(object room, object ob, int x, int y) { error("Area movement is outside this fixture.\\n"); }\n';
     const sefun = join(sandbox, 'tests/sefun.lpc');
@@ -325,16 +339,27 @@ for (const row of rows) {
 }
 if (book) finishBook(sandbox, rows);
 writeFileSync(join(sandbox, 'tests/cases.json'), JSON.stringify(rows.map(row => defensive || weapons || instrument || book || club || throwing || dagger || whip || staff || hammer || equip || blade || liquid || sword || food || headwear || hands || neck || wrists
-    ? [row.old_path, row.new_path, Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight),
+    ? [row.old_path, canonicalWeaponPath(row.new_path), Number(row.weight), row.weight_scope === 'blueprint' ? 0 : Number(row.weight),
         ...(defensive ? [row.family] : []),
         ...(weapons ? [row.family, row.flags | (row.family === 'fork' ? 8 : 4)] : []),
         ...(equip || liquid ? [Number(!!row.setup)] : [])]
     : [row.old_path, row.new_path])));
 if (process.argv.includes('--baseline-only')) writeFileSync(join(sandbox, 'tests/baseline-only'), '1');
-writeFileSync(join(sandbox, 'tests/migration_paths.json'), JSON.stringify(migrationPaths()));
-writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(canonicalGroups().filter(g => !(headwear || hands || neck || wrists) || rows.some(r => r.new_path === g.path)).map(g => ({
-    path: g.path, ids: g.ids, historical: g.rows.map(r => r.new_path),
-}))));
+writeFileSync(join(sandbox, 'tests/migration_paths.json'), JSON.stringify(Object.fromEntries(
+    Object.entries(migrationPaths()).map(([old, target]) => [old, canonicalWeaponPath(target)]))));
+const weaponExpectations = weaponFixtureExpectations(canonicalGroups().filter(g =>
+    !(headwear || hands || neck || wrists) || rows.some(r => r.new_path === g.path)));
+writeFileSync(join(sandbox, 'tests/canonical.json'), JSON.stringify(weaponExpectations.canonical));
+writeFileSync(join(sandbox, 'tests/weapon-merge-references.json'), JSON.stringify(weaponExpectations.references));
+// Only listed path moves may change these initialization fields. Other
+// properties continue through the original strict old/new comparison.
+writeFileSync(join(sandbox, 'tests/weapon-category-deltas.json'), JSON.stringify(Object.fromEntries(
+    rows.filter(row => Object.hasOwn(normalization.moves, row.new_path)).map(row => {
+        const target = canonicalWeaponPath(row.new_path), family = target.split('/')[3];
+        return [row.old_path, { target, skill_type: family,
+            flag: (row.flags || 0) | (family === 'spear' ? 24 : 4),
+            verbs: family === 'spear' ? ['thrust'] : ['chop', 'slice', 'hack'] }];
+    }))));
 const socket = createServer();
 await new Promise(done => socket.listen(0, '127.0.0.1', done));
 const port = socket.address().port;

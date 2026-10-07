@@ -1,6 +1,7 @@
 import { readBaseline as whipBaseline } from '../whip_inventory.mjs';
 // Disposable adapters execute the selected game methods; no live server or saves.
 import assert from 'node:assert/strict';
+import { normalizeWeaponReferences } from '../weapon_classification/normalization.mjs';
 import { readFileSync, writeFileSync, mkdirSync, cpSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { readBaseline } from '../club_inventory.mjs';
@@ -45,6 +46,7 @@ export function prepareBusiness(root, sandbox) {
             for (const old of [true, false]) {
                 let body = ranges.map(([a, b]) => frozen.slice(a, b)).join('\n');
                 if (!old) for (const hit of hits) body = body.replaceAll(hit.expression, JSON.stringify(hit.new_path));
+                body = normalizeWeaponReferences(body);
                 body = body.replaceAll('__DIR__', JSON.stringify('/' + dirname(file).replaceAll('\\', '/') + '/'));
                 put((old ? 'tests/old/' : '') + fixture + '.lpc',
                     'inherit "/tests/village_npc";\n' + (type === 'shop' ? 'inherit F_DEALER;\n' : '')
@@ -73,7 +75,7 @@ export function prepareBusiness(root, sandbox) {
         else if (existsSync(join(root, file))) put(file, read(file));
     }
     prepareFeng(root, sandbox, put);
-    cpSync(join(root, 'tools/tests/club/business.lpc'), join(sandbox, 'tests/club_business.h'));
+    put('tests/club_business.h', normalizeWeaponReferences(read('tools/tests/club/business.lpc')));
 }
 
 function prepareFeng(root, sandbox, put) {

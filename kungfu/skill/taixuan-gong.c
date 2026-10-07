@@ -132,8 +132,9 @@ mapping *actionbad = ({
     ]),
 });
 
-int valid_enable(string usage) {
-    object me = this_player();
+varargs int valid_enable(string usage, object me) {
+    if (!objectp(me)) me = this_player();
+    if (!objectp(me)) return 0;
 
     if (me->query_skill("literate", 1) || me->query("learned_literate"))
         return usage == 0;

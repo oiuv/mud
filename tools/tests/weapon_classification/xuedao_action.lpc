@@ -1,0 +1,4 @@
+// Select the latest eligible move; the production action/formulas remain unchanged.
+inherit "/kungfu/skill/xuedao-dafa";
+
+int NewRandom(int count, int base, int level) { return count - 1; }

@@ -39,6 +39,6 @@ void create() {
     create_family("逍遥派", 5, "弟子");
     setup();
 
-    carry_object("/d/items/blade/gangdao6")->wield();
+    carry_object("/d/items/blade/gangdao4")->wield();
     carry_object("/d/items/cloth/buyi")->wear();
 }
