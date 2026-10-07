@@ -170,6 +170,7 @@ nomask void enable_player() {
                 enable_wizard();
                 break;
             default:
+                disable_wizard();
                 if (this_object()->is_in_prison())
                     my_path = PNE_PATH;
                 else

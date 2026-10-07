@@ -12,13 +12,14 @@ const outputFor = (suite, checks = 7, failures = 0) => suite.reconnect
     : `${suite.prefix} CHECKS: ${checks} FAILURES: ${failures}\n${suite.prefix} ${failures ? 'FAIL' : 'PASS'}\n`;
 const silent = () => {};
 
-test('fixed six positive suites, no discovery or baseline flags', () => {
+test('fixed seven positive suites, no discovery or baseline flags', () => {
     assert.deepEqual(suites.map(suite => suite.script), [
         'tools/tests/test_commerce_audit.mjs', 'tools/tests/test_weapon_combat.mjs',
         'tools/tests/test_martial_audit.mjs', 'ai/scripts/verify_lpc.mjs', 'ai/scripts/verify_npc_reconnect.mjs',
         'tools/tests/test_world_events.mjs',
+        'tools/tests/test_identity_quest_rewards.mjs',
     ]);
-    assert.deepEqual(suites.map(suite => suiteArgs(suite, options).length), [2, 2, 2, 3, 2, 2]);
+    assert.deepEqual(suites.map(suite => suiteArgs(suite, options).length), [2, 2, 2, 3, 2, 2, 2]);
     for (const suite of suites) assert.equal(suiteArgs(suite, options)[1], options.driver);
     assert.equal(suiteArgs(suites[3], options)[2], options.python);
 });
@@ -153,8 +154,8 @@ test('runs sequentially and sums actual counts, never the historical total', asy
     } });
     assert.deepEqual(seen, suites.map(suite => suite.name));
     assert.equal(result.exitCode, 0);
-    assert.equal(result.checks, 21);
-    assert.match(text, /6\/6 组通过/);
+    assert.equal(result.checks, 28);
+    assert.match(text, /7\/7 组通过/);
     assert.doesNotMatch(text, /788/);
 });
 
@@ -167,9 +168,9 @@ test('assertion failure, missing summary and thrown spawn error all allow later 
         if (index === 3) throw new Error('cannot spawn');
         return { code: 0, output: 'Isolated test: C:/temp/proof\n' + outputFor(suite, 3) };
     } });
-    assert.equal(index, 6);
+    assert.equal(index, 7);
     assert.equal(result.exitCode, 1);
-    assert.equal(result.checks, 16);
+    assert.equal(result.checks, 19);
     assert.equal(result.failures, 2);
     assert.equal(result.unknown, 2);
     assert.match(text, /未知/);

@@ -256,6 +256,8 @@ int main(object me, string arg) {
         list(me);
     else {
         if (sscanf(arg, "%s %d -%s", id, index, control) == 3) {
+            if (!wizardp(me))
+                return notify_fail("你只能查看自己的任务。\n");
             player = find_player(id);
             if (!objectp(player))
                 return notify_fail("沒有這個玩家。\n");

@@ -13,11 +13,12 @@ export const suites = [
     { name: 'AI LPC 通信', script: 'ai/scripts/verify_lpc.mjs', prefix: 'AI LPC', python: true },
     { name: 'NPC 重连', script: 'ai/scripts/verify_npc_reconnect.mjs', prefix: 'AI NPC RECONNECT', reconnect: true },
     { name: '世界活动', script: 'tools/tests/test_world_events.mjs', prefix: 'WORLD_EVENTS' },
+    { name: '身份与任务奖励', script: 'tools/tests/test_identity_quest_rewards.mjs', prefix: 'IDENTITY_QUEST' },
 ];
 
 const help = `用法：node tools/test_gameplay.mjs [--driver <path>] [--python <path>] [--help]
 
-顺序运行交易与背包、公共战斗、具体武学、AI LPC 通信、NPC 重连和世界活动六组隔离回归。
+顺序运行交易与背包、公共战斗、具体武学、AI LPC 通信、NPC 重连、世界活动及身份与任务奖励七组隔离回归。
 默认驱动：Windows 为 bin/driver.exe，其他平台为 bin/driver。
 默认 Python：ai/.venv/Scripts/python.exe（Windows）或 ai/.venv/bin/python。
 显式相对路径以当前目录为准；含空格的路径请加引号。

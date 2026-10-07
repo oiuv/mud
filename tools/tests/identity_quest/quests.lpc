@@ -1,0 +1,5 @@
+inherit CORE_QUEST_D;
+string query_save_file() { return "/data/test_quests"; }
+void bind_quest(object npc, string path) {
+    rewarder = ([ get_item_file(npc): ({ path }) ]);
+}

@@ -1,0 +1,5 @@
+inherit "/adm/daemons/quest/_0_tutorial1";
+private int reads;
+void clear_reads() { reads = 0; }
+int query_reads() { return reads; }
+string getDetail() { reads++; return "任务详情标记\n"; }

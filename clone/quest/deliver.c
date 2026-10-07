@@ -344,21 +344,14 @@ int npc_accept_object(object me, object who, object ob) {
         score = score / 2 + 1;
     }
 
-    if (mapp(b = query("bonus/" + who->query("id")))) {
-        // 正在奖励该人中
-        b["exp"] += exp;
-        b["pot"] += pot;
-        b["score"] += score;
-    } else {
-        b = ([
-            "exp": exp,
-            "pot": pot,
-            "score": score,
-            "prompt": "经过这次帮助" + me->name() + "运送" + ob->name() + "的事情",
-        ]);
-        set("bonus/" + who->query("id"), b);
-        call_out("do_bonus", 2 + random(2), who->query("id"), who);
-    }
+    // Assets settle with this delivery; delayed dialogue must not own rewards.
+    b = ([
+        "exp": exp,
+        "pot": pot,
+        "score": score,
+        "prompt": "经过这次帮助" + me->name() + "运送" + ob->name() + "的事情",
+    ]);
+    GIFT_D->bonus(who, b);
 
     destruct(ob);
     return -1;
@@ -377,26 +370,8 @@ private void do_notice(object me, object who, object ob) {
 
 // 准备完成任务
 private void do_finish() {
-    if (sizeof(query("bonus")) > 0) {
-        call_out("do_finish", 4);
-        return;
-    }
-
     // 该任务已经完成
     cancel_quest();
-}
-
-// 给某人奖励
-private void do_bonus(string who_id, object who) {
-    mapping b;
-
-    b = query("bonus/" + who_id);
-    delete("bonus/" + who_id);
-
-    if (!mapp(b) || !objectp(who) || !living(who))
-        return;
-
-    GIFT_D->bonus(who, b);
 }
 
 // 这个消息能够被散布吗？

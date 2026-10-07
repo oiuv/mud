@@ -7,6 +7,9 @@ inherit F_DBASE;
 #define TASK_OBJECT "/adm/daemons/task/obj/"              //task对象目录
 #define MIRROR "/adm/daemons/task/mirror.c"               //宝镜放置的路径
 
+private string *query_reward_pool(int count);
+private object prepare_mirror_reward(object me, int count);
+
 void create() {
     seteuid(getuid());
     set("name", HIG "宝镜任务精灵" NOR);
@@ -133,14 +136,17 @@ void set_task() {
 
 int do_return(object ob, object me, string arg) {
     string target, item;
-    object who, pay;
-    int count, exp, pot /*, tihui, gx*/;
+    object who, pay, reward_item;
+    int count, total, exp, pot /*, tihui, gx*/;
     //增加阅历奖励 2016-12-21
     int score;
     int kar;
 
     if (!arg)
         return notify_fail("你要给谁什么东西？\n");
+
+    if (!objectp(ob) || environment(ob) != me)
+        return 0;
 
     if (sscanf(arg, "%s to %s", item, target) != 2 &&
         sscanf(arg, "%s %s", target, item) != 2)
@@ -159,6 +165,13 @@ int do_return(object ob, object me, string arg) {
 
     if (!living(who))
         return notify_fail("你还是得等人家醒了再说吧。\n");
+
+    total = me->query("mirror_count") + 1;
+    if (sizeof(query_reward_pool(total))) {
+        reward_item = prepare_mirror_reward(me, total);
+        if (!objectp(reward_item))
+            return 1;  // This give action is handled; keep the quest item.
+    }
 
     if (me->query("mirror_task/task_time") != ob->query("task_time")) {
         me->delete("mirror_task");
@@ -225,14 +238,17 @@ int do_return(object ob, object me, string arg) {
              me->name(1), me->query("id"), ctime(time())));  */
 
     destruct(ob);
-    //task增加100、200、400任务奖品 by 薪有所属
-    if (me->query("mirror_count") == 100 || me->query("mirror_count") == 200 || me->query("mirror_count") == 300 ||
-        me->query("mirror_count") == 400 || me->query("mirror_count") == 500)
-        call_other(__FILE__, "set_item", me);
+    if (objectp(reward_item)) {
+        if (total == 500)
+            me->delete("mirror_count");
+        tell_object(me, HIG "你获得了一" +
+            (reward_item->query("base_unit") || reward_item->query("unit")) + NOR +
+            reward_item->name() + "\n");
+    }
     return 1;
 }
 
-string set_item(object me) {
+private string *query_reward_pool(int count) {
     //task增加100、200、400任务奖品 by 薪有所属
     // 完成100个task：美容丸、福源丹
     string *ob1_list = ({
@@ -273,40 +289,37 @@ string set_item(object me) {
         "/clone/fam/max/xuanhuang",
         "/clone/fam/max/longjia",
     });
-    string gift;
+    switch (count) {
+        case 100: return ob1_list;
+        case 200: return ob2_list;
+        case 300: return ob3_list;
+        case 400: return ob4_list;
+        case 500: return ob5_list;
+    }
+    return ({});
+}
+
+private object prepare_mirror_reward(object me, int count) {
+    string *pool, path;
     object item;
+    int max_weight, item_weight;
 
-    if (me->query("mirror_count") == 100) {
-        gift = ob1_list[random(sizeof(ob1_list))];
-        //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
-        //me->name(1), me->query("id"), ctime(time())));
-    } else if (me->query("mirror_count") == 200) {
-        gift = ob2_list[random(sizeof(ob2_list))];
-        //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
-        //me->name(1), me->query("id"), ctime(time())));
-    } else if (me->query("mirror_count") == 300) {
-        gift = ob3_list[random(sizeof(ob3_list))];
-        //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
-        //me->name(1), me->query("id"), ctime(time())));
-    } else if (me->query("mirror_count") == 400) {
-        gift = ob4_list[random(sizeof(ob4_list))];
-        //log_file("static/mirror", sprintf("%s(%s) 获得仙丹 at %s.\n",
-        //me->name(1), me->query("id"), ctime(time())));
-    } else if (me->query("mirror_count") == 500) {
-        me->delete("mirror_count");
-        gift = ob5_list[random(sizeof(ob5_list))];
-        //log_file("static/mirror", sprintf("%s(%s) 获得无花果 at %s.\n",
-        //me->name(1), me->query("id"), ctime(time())));
+    pool = query_reward_pool(count);
+    foreach (path in pool) {
+        item_weight = load_object(path)->weight();
+        if (item_weight > max_weight)
+            max_weight = item_weight;
     }
-
-    item = new(gift);
-    item->move(me);
-
-    if (item->query("base_unit")) {
-        tell_object(me, HIG "你获得了一" + item->query("base_unit") + NOR +
-            item->name() + "\n");
-    } else {
-        tell_object(me, HIG "你获得了一" + item->query("unit") + NOR +
-            item->name() + "\n");
+    // Check before choosing: insufficient capacity must not filter the pool.
+    if (me->query_encumbrance() + max_weight > me->query_max_encumbrance()) {
+        tell_object(me, "你的行囊太满，腾出足够地方领取奖品后再来交还失物吧。\n");
+        return 0;
     }
+    item = new(pool[random(sizeof(pool))]);
+    if (!item->move(me)) {
+        destruct(item);
+        tell_object(me, "奖品一时无法交到你手中，请整理行囊后再来交还失物。\n");
+        return 0;
+    }
+    return item;
 }

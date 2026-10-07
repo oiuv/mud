@@ -1,0 +1,8 @@
+inherit ITEM;
+void create() {
+    set_name("失物", ({ "test token" }));
+    set("unit", "件");
+    set("owner_id", "rewarder");
+    set("task_time", 42);
+    set_weight(10);
+}

@@ -123,9 +123,16 @@ string getReward() {
         4. 習得某技能
         5. 更改玩家狀態, ex: 轉職
  */
-void reward(object player, object npc) {
+int try_reward(object player, object npc) {
     int exp, pot, sc;
     object reward_item;
+
+    reward_item = new("/clone/fam/item/qiankun_stone");
+    if (!reward_item->move(player)) {
+        destruct(reward_item);
+        tell_object(player, "你的行囊太满，先整理一下再来领取乾坤石吧。\n");
+        return 0;
+    }
 
     exp = 10000 + random(1000);
     pot = 5000 + random(500);
@@ -137,9 +144,6 @@ void reward(object player, object npc) {
         "score": sc,
     ]));
 
-    // 初始化并发放物品奖励
-    reward_item = new("/clone/fam/item/qiankun_stone");
-    reward_item->move(player);
-
     // todo 称号（计划放在成就系统中）
+    return 1;
 }

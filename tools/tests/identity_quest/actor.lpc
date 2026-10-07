@@ -1,0 +1,34 @@
+// Production player behavior; only the save location and test entry are adapted.
+inherit USER_OB;
+
+void create() {
+    ::create();
+    seteuid(getuid());
+    set_name("试客", ({ getuid() }));
+    set("gender", "男性");
+    set("age", 25);
+    set("str", 40);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 30);
+    set("combat_exp", 10000);
+    set("kar", 30);
+    set("max_qi", 10000);
+    set("eff_qi", 10000);
+    set("qi", 10000);
+    set("max_jing", 10000);
+    set("eff_jing", 10000);
+    set("jing", 10000);
+    set_max_encumbrance(1000000);
+}
+string query_save_file() { return "/data/test_" + getuid(); }
+int execute_test(string text) { return command(text); }
+string *query_path() { return path; }
+// Exercise real move() rejection after the mirror capacity precheck.
+int valid_illusion_entry(object ob) { return !query("test_refuse_entry"); }
+int logon() {
+    enable_player();
+    set_heart_beat(0);
+    master()->register_connection(this_object());
+    return 1;
+}

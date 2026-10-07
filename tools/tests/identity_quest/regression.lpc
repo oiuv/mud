@@ -1,0 +1,380 @@
+#include <command.h>
+inherit ROOM;
+
+private object *players;
+private object *deliveries = ({});
+private object npc;
+private int choice, reconnect_exp, sleep_exp, quit_exp;
+
+void check(int ok, string label) { master()->check(ok, label); }
+int next_random(int n) { return n > 0 ? choice % n : 0; }
+void init() { add_action("dispatch", "audit"); }
+
+private void clear_inventory(object me) {
+    object ob;
+    foreach (ob in all_inventory(me)) destruct(ob);
+    me->set_max_encumbrance(1000000);
+}
+private int quantity(object me, string path) {
+    int count;
+    object ob;
+    foreach (ob in all_inventory(me))
+        if (base_name(ob) == path) count++;
+    return count;
+}
+private void permissions(object me) {
+    object target, info;
+    string path, arg, uid, euid, level;
+    target = players[1];
+    path = "/tests/quest_info.lpc";
+    info = load_object(path);
+    target->set_todo(path);
+    target->mark_solved(path);
+    me->set_todo(path);
+    me->mark_solved(path);
+    foreach (arg in ({ "audit1", "audit1 1", "audit1 -s", "audit1 1 -s" })) {
+        info->clear_reads();
+        check(!"/cmds/usr/quest2"->main(me, arg) && !info->query_reads(),
+            "SEC-02 unauthorized query: " + arg);
+    }
+    foreach (arg in ({ "1", "1 -s" })) {
+        info->clear_reads();
+        "/cmds/usr/quest2"->main(me, arg);
+        check(info->query_reads() == 1, "self detail remains usable: " + arg);
+    }
+    "/cmds/usr/quest2"->main(me, "1 -d");
+    check(!me->get_todo(path), "self give-up removes only own todo");
+    check(mapp(target->get_todo(path)), "self give-up leaves other player alone");
+    SECURITY_D->set_status(me, "(admin)");
+    me->enable_player();
+    check(wizardp(me), "administrator enabled");
+    foreach (arg in ({ "audit1 1", "audit1 1 -s" })) {
+        info->clear_reads();
+        "/cmds/usr/quest2"->main(me, arg);
+        check(info->query_reads() == 1, "administrator reads other detail: " + arg);
+    }
+    uid = getuid(target);
+    euid = geteuid(target);
+    foreach (level in ({ "(immortal)", "(apprentice)", "(wizard)", "(arch)", "(admin)" })) {
+        SECURITY_D->set_status(target, level);
+        target->enable_player();
+        target->enable_player();
+        check(wizardp(target) && wizardp(me), "existing privilege refresh: " + level);
+    }
+    SECURITY_D->set_status(target, "(player)");
+    target->enable_player();
+    target->enable_player();
+    check(!wizardp(target) && wizardp(me), "SEC-01 downgrade revokes target only");
+    check(getuid(target) == uid && geteuid(target) == euid, "identity refresh preserves UID/EUID");
+    check(
+        save_variable(target->query_path()) == save_variable(PLR_PATH),
+        "downgrade uses player command path"
+    );
+    target->execute_test("audit denied");
+}
+
+private void smith(object me) {
+    object quests, restored;
+    string path, stone;
+    int before, old_exp, old_pot, old_score;
+    path = "/adm/daemons/quest/_0_smith.c";
+    stone = "/clone/fam/item/qiankun_stone";
+    quests = new("/tests/quests");
+    quests->bind_quest(npc, path);
+    me->set_todo(path);
+    me->set("mark/job_smith", 10000);
+    me->set("potential", 0);
+    before = sizeof(children(stone));
+    load_object(stone);
+    before = sizeof(children(stone));
+    old_exp = me->query("combat_exp");
+    old_pot = me->query("potential");
+    old_score = me->query("score");
+    me->set_max_encumbrance(0);
+    check(!quests->reward_quests(npc, me), "WL-02 smith overweight refuses completion");
+    check(
+        mapp(me->get_todo(path)) && !me->is_solved(path),
+        "smith retains todo and unsolved state"
+    );
+    check(me->query("combat_exp") == old_exp && me->query("potential") == old_pot &&
+        me->query("score") == old_score, "smith failure has no numeric rewards");
+    check(sizeof(children(stone)) == before, "smith failure leaves no orphan stone");
+    me->set_max_encumbrance(3000);
+    quests->reward_quests(npc, me);
+    check(
+        quantity(me, stone) == 1 && !me->get_todo(path) && me->is_solved(path),
+        "smith retry completes exactly once"
+    );
+    check(me->query("combat_exp") >= old_exp + 10000 && me->query("combat_exp") < old_exp + 11000,
+        "smith retains original experience range");
+    old_exp = me->query("combat_exp");
+    check(!quests->reward_quests(npc, me) && quantity(me, stone) == 1 &&
+        me->query("combat_exp") == old_exp, "smith repeated request cannot double reward");
+    restored = new(base_name(me));
+    restored->restore();
+    check(restored->is_solved(path) && restored->query("combat_exp") == old_exp,
+        "smith completion save includes numeric reward");
+    destruct(restored);
+    destruct(quests);
+    clear_inventory(me);
+}
+
+private void mirror(object me) {
+    object task, ob;
+    string *pool, path;
+    int milestone, max_weight, index, old_exp, old_pot, old_score, total;
+    mapping pools;
+    pools = ([
+        100: ({
+            "/clone/fam/gift/perwan",
+            "/clone/fam/gift/kardan",
+            "/clone/fam/etc/prize4",
+            "/clone/fam/etc/prize5"
+        }),
+        200: ({
+            "/clone/fam/gift/str2",
+            "/clone/fam/gift/int2",
+            "/clone/fam/gift/con2",
+            "/clone/fam/gift/dex2"
+        }),
+        300: ({
+            "/clone/fam/gift/str3",
+            "/clone/fam/gift/int3",
+            "/clone/fam/gift/con3",
+            "/clone/fam/gift/dex3"
+        }),
+        400: ({
+            "/clone/fam/item/xuantie",
+            "/clone/fam/etc/bipo",
+            "/clone/fam/etc/huanshi",
+            "/clone/fam/etc/binghuozhu",
+            "/clone/fam/etc/leishenzhu"
+        }),
+        500: ({ "/clone/fam/obj/guo", "/clone/fam/max/xuanhuang", "/clone/fam/max/longjia" }),
+    ]);
+    task = load_object("/adm/daemons/task/set_task");
+    foreach (milestone, pool in pools) {
+        max_weight = 0;
+        foreach (path in pool)
+            if (load_object(path)->weight() > max_weight) max_weight = load_object(path)->weight();
+        for (index = 0; index < sizeof(pool); index++) {
+            clear_inventory(me);
+            ob = new("/tests/item");
+            ob->move(me);
+            me->set("mirror_count", milestone - 1);
+            me->set("mirror_task", ([ "task_time": 41, "count": 8 ]));
+            me->set("state/mirror", 17);
+            me->set("xquest/mirror", "unreturned");
+            old_exp = me->query("combat_exp");
+            old_pot = me->query("potential");
+            old_score = me->query("score");
+            choice = index;
+            me->set_max_encumbrance(me->query_encumbrance() + max_weight - 1);
+            task->do_return(ob, me, "rewarder test token");
+            check(objectp(ob) && environment(ob) == me && me->query("mirror_count") == milestone - 1,
+                "WL-02 mirror failed milestone retains item/count: " + milestone + "/" + index);
+            check(me->query("mirror_task/count") == 8 && me->query("mirror_task/task_time") == 41 &&
+                me->query("state/mirror") == 17 && me->query("xquest/mirror") == "unreturned",
+                "mirror failure retains round and task markers");
+            check(me->query("combat_exp") == old_exp && me->query("potential") == old_pot &&
+                me->query("score") == old_score && !quantity(
+                    me,
+                    SILVER_OB
+                ), "mirror failure has no numeric/cash reward");
+            if (!objectp(ob)) continue;  // Negative control already consumed the item.
+            me->set_max_encumbrance(me->query_encumbrance() + max_weight);
+            me->set("illusion_world", 1);
+            me->set("test_refuse_entry", 1);
+            task->do_return(ob, me, "rewarder test token");
+            me->delete("illusion_world");
+            me->delete("test_refuse_entry");
+            check(objectp(ob) && environment(ob) == me &&
+                me->query("mirror_count") == milestone - 1 &&
+                me->query("mirror_task/task_time") == 41 &&
+                me->query("mirror_task/count") == 8 && me->query("state/mirror") == 17 &&
+                me->query("xquest/mirror") == "unreturned" &&
+                me->query("combat_exp") == old_exp && me->query("potential") == old_pot &&
+                me->query("score") == old_score && !quantity(me, SILVER_OB),
+                "mirror actual move refusal preserves submission and rewards");
+            check(!sizeof(filter(children(pool[index]), (: clonep($1) && !environment($1) :))),
+                "mirror refused reward leaves no orphan clone");
+            task->do_return(ob, me, "rewarder test token");
+            total = milestone == 500 ? 0 : milestone;
+            check(!objectp(ob) && quantity(
+                me,
+                pool[index]
+            ) == 1 && me->query("mirror_count") == total,
+                "mirror deterministic pool member delivered once: " + milestone + "/" + index);
+            check(me->query("mirror_task/count") == 1 && me->query("mirror_task/task_time") == 42 &&
+                me->query("state/mirror") == 18 && !me->query("xquest/mirror"), "mirror success commits new round once");
+            check(me->query("combat_exp") == old_exp + 100 + index &&
+                me->query("potential") == old_pot + 100 + index, "mirror numeric formulas unchanged");
+            check(!task->do_return(
+                0,
+                me,
+                "rewarder test token"
+            ) && me->query("mirror_count") == total,
+                "consumed mirror item cannot be submitted again");
+        }
+    }
+    clear_inventory(me);
+    ob = new("/tests/item");
+    ob->move(me);
+    me->set("mirror_count", 1);
+    me->set("mirror_task", ([ "task_time": 42, "count": 2 ]));
+    task->do_return(ob, me, "rewarder test token");
+    check(!ob && me->query("mirror_count") == 2 && me->query("mirror_task/count") == 3,
+        "ordinary mirror task keeps original counters");
+    clear_inventory(me);
+    destruct(task);
+}
+
+private void deliver_goods(object quest, object me, int amount) {
+    object goods;
+    int remaining;
+    remaining = quest->query("amount");
+    goods = new("/tests/goods");
+    goods->set_amount(amount);
+    goods->move(me);
+    choice = 0;
+    quest->npc_accept_object(npc, me, goods);
+    check(
+        !goods && quest->query("amount") == remaining - amount,
+        "delivery consumes accepted goods once"
+    );
+}
+
+private object deliver(object me, int amount, int remaining) {
+    object quest;
+    quest = new("/clone/quest/deliver");
+    quest->set("amount", remaining);
+    quest->set("qob_id", "audit cloth");
+    quest->set("qob_name", "布料");
+    quest->set("qob_unit", "匹");
+    deliver_goods(quest, me, amount);
+    deliveries += ({ quest });
+    return quest;
+}
+
+private void delivery_tests(object me) {
+    int initial, exp, pot, score, rate;
+    object quest;
+    foreach (initial in ({ 10000, 999999, 1000000, 1000001, 1999999, 2000000, 3000000 })) {
+        clear_inventory(me);
+        me->set("combat_exp", initial);
+        me->set("potential", 0);
+        me->set("score", 0);
+        exp = initial > 1000000 ? 26 : 50;
+        pot = initial > 1000000 ? 11 : 20;
+        score = initial > 1000000 ? 3 : 4;
+        rate = initial >= 3000000 ? 8 : initial >= 2000000 ? 4 : initial >= 1000000 ? 2 : 1;
+        deliver(me, 1, 1);
+        check(me->query("combat_exp") == initial + exp / rate && me->query("potential") == pot / rate &&
+            me->query("score") == score, "WL-03 immediate original formula at " + initial);
+    }
+    me->set("combat_exp", 10000);
+    me->set("potential", me->query_potential_limit());
+    pot = me->query("potential");
+    deliver(me, 1, 1);
+    check(me->query("potential") == pot, "delivery respects potential limit");
+    me->set("combat_exp", 10000);
+    me->set("potential", 0);
+    me->set("score", 0);
+    quest = deliver(me, 2, 5);
+    check(me->query("combat_exp") == 10100 && quest->query("amount") == 3,
+        "ordinary delivery settles without waiting for final batch");
+    deliver_goods(quest, me, 1);
+    check(me->query("combat_exp") == 10150 && quest->query("amount") == 2,
+        "consecutive delivery settles once per batch");
+    deliver_goods(quest, me, 2);
+    check(me->query("combat_exp") == 10250 && me->query("potential") == 100 &&
+        me->query("score") == 20 && !quest->query("amount"),
+        "last delivery settles remaining batch once");
+    me->set("combat_exp", 999999);
+    me->set("potential", 0);
+    me->set("score", 0);
+    quest = deliver(me, 1, 3);
+    deliver_goods(quest, me, 1);
+    deliver_goods(quest, me, 1);
+    check(me->query("combat_exp") == 1000075 && me->query("potential") == 30 &&
+        me->query("score") == 10, "consecutive delivery applies newly crossed experience tier");
+}
+
+int dispatch(string arg) {
+    object me, restored;
+    mixed err;
+    me = this_player();
+    switch (arg) {
+        case "permissions": permissions(me); break;
+        case "denied":
+            "/tests/quest_info"->clear_reads();
+            "/cmds/usr/quest2"->main(me, "audit0 1 -s");
+            check(
+                !"/tests/quest_info"->query_reads(),
+                "downgraded player denied other solved detail"
+            );
+            break;
+        case "smith": smith(me); break;
+        case "mirror": mirror(me); break;
+        case "delivery": delivery_tests(me); break;
+        case "quit":
+            me->set("combat_exp", 10000);
+            deliver(me, 1, 1);
+            quit_exp = me->query("combat_exp");
+            check(quit_exp == 10050, "WL-03 quitting player has received reward before quit");
+            err = catch("/cmds/usr/quit"->main(me, 0));
+            check(!err && !objectp(me), "real quit saves and destroys player");
+            restored = new("/tests/player2");
+            check(
+                restored->restore() && restored->query("combat_exp") == 10050,
+                "quit restore retains delivered reward"
+            );
+            destruct(restored);
+            break;
+    }
+    return 1;
+}
+
+void finish_checks() {
+    object quest;
+    check(players[3]->query("combat_exp") == sleep_exp && sleep_exp == 10050,
+        "WL-03 unconscious recovery retains reward without late duplicates");
+    players[3]->enable_player();
+    foreach (quest in deliveries) check(!objectp(quest), "final delivery quest cleanup completed");
+    master()->finish();
+}
+void after_reconnect() {
+    check(
+        interactive(players[1]) && !wizardp(players[1]),
+        "relogin keeps downgraded player unprivileged"
+    );
+    check(players[1]->query("combat_exp") == reconnect_exp && reconnect_exp == 10050,
+        "WL-03 disconnect/reconnect retains settled reward");
+    call_out("finish_checks", 5);
+}
+void run() {
+    object me;
+    string test;
+    mixed err;
+    players = master()->query_clients();
+    npc = new("/tests/npc");
+    npc->set_name("领赏人", ({ "rewarder" }));
+    npc->move(this_object());
+    npc->set_heart_beat(0);
+    foreach (me in players) me->move(this_object());
+    foreach (test in ({ "permissions", "smith", "mirror", "delivery" })) {
+        err = catch(players[0]->execute_test("audit " + test));
+        check(!err, "case completed: " + test + (err ? ": " + err : ""));
+    }
+    err = catch(players[2]->execute_test("audit quit"));
+    check(!err, "case completed: quit" + (err ? ": " + err : ""));
+    players[1]->set("combat_exp", 10000);
+    deliver(players[1], 1, 1);
+    reconnect_exp = players[1]->query("combat_exp");
+    players[3]->set("combat_exp", 10000);
+    deliver(players[3], 1, 1);
+    sleep_exp = players[3]->query("combat_exp");
+    players[3]->disable_player("<昏迷不醒>");
+    check(!living(players[3]), "unconscious fixture really disables commands");
+    debug_message("IDENTITY_QUEST RECONNECT");
+}

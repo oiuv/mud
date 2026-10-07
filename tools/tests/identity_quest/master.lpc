@@ -1,0 +1,67 @@
+private int checks, failures, connected;
+private object *clients = ({});
+
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Backbone"; }
+string creator_file(string file) {
+    int index;
+    if (sscanf(file, "/tests/player%d", index) == 1 ||
+        sscanf(file, "tests/player%d", index) == 1) return "audit" + index;
+    return "Root";
+}
+string author_file(string file) { return "Root"; }
+string domain_file(string file) { return "Backbone"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) {
+    return strsrch(
+        file,
+        "/data/"
+    ) == 0 || strsrch(file, "/log/") == 0 || file == "/adm/etc/wizlist";
+}
+int valid_seteuid(object ob, string uid) { return 1; }
+int valid_override(string file, string name, string main_file) { return 1; }
+int valid_bind(object binder, object old_owner, object new_owner) { return 1; }
+int valid_socket(object ob, string func, mixed *info) { return 0; }
+int valid_database(object ob, string func, mixed *info) { return 0; }
+int valid_external(string command) { return 0; }
+object connect() {
+    if (connected >= 4) return clients[1];
+    return new("/tests/player" + connected);
+}
+mixed compile_object(string file) { return VIRTUAL_D->compile_object(file); }
+void log_error(string file, string text) { debug_message(text); }
+object *query_clients() { return clients; }
+void check(int ok, string label) {
+    checks++;
+    if (!ok) { failures++; debug_message("FAIL: " + label); }
+}
+void finish() {
+    debug_message(sprintf("IDENTITY_QUEST CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "IDENTITY_QUEST FAIL" : "IDENTITY_QUEST PASS");
+    shutdown(failures ? 1 : 0);
+}
+void error_handler(mapping details, int caught) {
+    debug_message(sprintf("IDENTITY_QUEST TRACE: %O", details));
+    if (!caught) {
+        check(0, details["error"]);
+        debug_message(sprintf("TEST TRACE: %O", details["trace"]));
+        finish();
+    }
+}
+void run() {
+    mixed err;
+    err = catch("/tests/regression"->run());
+    if (err) { check(0, err); finish(); }
+}
+void restored_connection() {
+    mixed err;
+    err = catch("/tests/regression"->after_reconnect());
+    if (err) { check(0, err); finish(); }
+}
+void register_connection(object ob) {
+    connected++;
+    if (connected <= 4) clients += ({ ob });
+    if (connected == 4) call_out("run", 0);
+    if (connected == 5) call_out("restored_connection", 0);
+}
+string *epilog(int flag) { return ({}); }

@@ -1,0 +1,7 @@
+inherit "/inherit/item/combined";
+void create() {
+    set_name("布料", ({ "audit cloth" }));
+    set("base_unit", "匹");
+    set("base_weight", 10);
+    set_amount(1);
+}
