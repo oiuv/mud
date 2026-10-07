@@ -10,7 +10,7 @@ void move(object destination) { move_object(destination); }
 void request_step(string callback) {
     phase = callback;
     input_to("advance");
-    tell_object(this_object(), "HOTUPDATE STEP\n");
+    tell_object(this_object(), "RELOAD STEP\n");
 }
 void advance(string input) {
     if (phase == "start") "/tests/probe"->start(this_object());

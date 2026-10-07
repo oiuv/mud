@@ -88,7 +88,7 @@ protected void execute_plan(object me, object *plan, string *paths, int index,
         total += count;
         index++;
         report(me, sprintf("热更新 %s：驱动报告成功更新 %d 个实例。\n", path, count));
-        log_file("hotupdate", sprintf("%s %s updated %s: %d\n", ctime(time()), owner, path, count));
+        log_file("reload", sprintf("%s %s updated %s: %d\n", ctime(time()), owner, path, count));
         if (index == sizeof(plan)) {
             running = 0;
             report(me, sprintf("热更新结束：%d 个程序，累计 %d 个成功实例。\n", index, total));
@@ -102,7 +102,7 @@ protected void execute_plan(object me, object *plan, string *paths, int index,
             path, err, index, total));
         // A failed log write must not leave the command permanently busy.
         catch(log_file(
-            "hotupdate",
+            "reload",
             sprintf("%s %s failed %s: %O\n", ctime(time()), owner, path, err)
         ));
     }
@@ -124,10 +124,10 @@ int main(object me, string arg) {
         if (part == "-n") preview = 1;
         else if (part == "-r") recursive = 1;
         else if (part[0] == '-' || path)
-            return notify_fail("用法：hotupdate [-n] [-r] <文件|here>\n");
+            return notify_fail("用法：reload [-n] [-r] <文件|here>\n");
         else path = part;
     }
-    if (!path) return notify_fail("用法：hotupdate [-n] [-r] <文件|here>\n");
+    if (!path) return notify_fail("用法：reload [-n] [-r] <文件|here>\n");
     if (path == "here") {
         target = environment(me);
     } else {
@@ -154,12 +154,12 @@ int main(object me, string arg) {
 
 int help(object me) {
     write(@HELP
-用法：hotupdate [-n] [-r] <文件|here>
+用法：reload [-n] [-r] <文件|here>
 
 仅管理员可用。-n 预览，不编译；-r 包含当前已加载的普通继承者，父类先于子类。
 路径支持 .c、.lpc 或省略扩展名；here 指当前房间，必须是已加载的普通原型。
 默认只更新目标程序及共享它的当前克隆，不自动更新父类或其他继承者。
-修改父类时，使用 hotupdate -n -r <父类> 先检查范围，再去掉 -n 执行。
+修改父类时，使用 reload -n -r <父类> 先检查范围，再去掉 -n 执行。
 
 保留对象身份、环境、背包和各实例变量；不执行 create()。
 修改 create() 中的描述、出口或初始属性仍需 update/updateall 重建或显式迁移。

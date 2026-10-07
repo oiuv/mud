@@ -8,13 +8,13 @@ import { createServer, createConnection } from 'node:net';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const driver = resolve(process.argv[2] || join(root, 'bin/driver.exe'));
-const sandbox = mkdtempSync(join(tmpdir(), 'mud-hotupdate-'));
+const sandbox = mkdtempSync(join(tmpdir(), 'mud-reload-'));
 const put = (path, text) => writeFileSync(join(sandbox, path), text, 'utf8');
-console.log('Isolated hotupdate regression: ' + sandbox);
+console.log('Isolated reload regression: ' + sandbox);
 for (const directory of ['tests', 'include', 'log/static', 'cmds/adm', 'cases'])
     mkdirSync(join(sandbox, directory), { recursive: true });
-cpSync(join(root, 'tools/tests/hotupdate'), join(sandbox, 'tests'), { recursive: true });
-cpSync(join(root, 'cmds/adm/hotupdate.lpc'), join(sandbox, 'cmds/adm/hotupdate.lpc'));
+cpSync(join(root, 'tools/tests/reload'), join(sandbox, 'tests'), { recursive: true });
+cpSync(join(root, 'cmds/adm/reload.lpc'), join(sandbox, 'cmds/adm/reload.lpc'));
 cpSync(join(root, 'mudcore/include/runtime_config.h'), join(sandbox, 'include/runtime_config.h'));
 put('include/globals.h', '#define DEBUG 0\n#define ROOT_UID "Root"\n#define SECURITY_D "/tests/security"\n#define F_CLEAN_UP "/tests/cleanup"\n');
 // Reuse production authorization and file-read rules; only account/ACL storage is synthetic.
@@ -56,7 +56,7 @@ await new Promise((ready, reject) => {
 const port = listener.address().port;
 await new Promise(done => listener.close(done));
 put('driver.cfg', [
-    'name : Hotupdate Regression', 'mud ip : 127.0.0.1', 'port number : ' + port,
+    'name : Reload Regression', 'mud ip : 127.0.0.1', 'port number : ' + port,
     'mudlib directory : ' + sandbox.replaceAll('\\', '/'),
     'log directory : /log', 'debug log file : debug.log',
     'include directories : /include', 'global include file : <globals.h>',
@@ -69,7 +69,7 @@ const result = await new Promise((done, reject) => {
     const child = spawn(driver, ['driver.cfg'], { cwd: sandbox, windowsHide: true });
     let output = '', client, connected = false, connecting = false;
     const connectTimer = setInterval(() => {
-        if (connected || connecting || !output.includes('HOTUPDATE READY')) return;
+        if (connected || connecting || !output.includes('RELOAD READY')) return;
         connecting = true;
         client = createConnection({ host: '127.0.0.1', port });
         client.on('connect', () => { connected = true; clearInterval(connectTimer); });
@@ -78,8 +78,8 @@ const result = await new Promise((done, reject) => {
             transcript += text;
             inputBuffer += text;
             let offset;
-            while ((offset = inputBuffer.indexOf('HOTUPDATE STEP')) >= 0) {
-                inputBuffer = inputBuffer.slice(offset + 'HOTUPDATE STEP'.length);
+            while ((offset = inputBuffer.indexOf('RELOAD STEP')) >= 0) {
+                inputBuffer = inputBuffer.slice(offset + 'RELOAD STEP'.length);
                 client.write('\r\n');
             }
         });
@@ -98,6 +98,6 @@ const result = await new Promise((done, reject) => {
 });
 put('driver-output.txt', result.output);
 put('client-output.txt', transcript);
-console.log(result.output.split('\n').filter(line => /HOTUPDATE|FAIL:|error:/.test(line)).join('\n'));
-if (result.code !== 0 || !result.output.includes('HOTUPDATE PASS'))
-    throw new Error('Hotupdate regression failed; see ' + join(sandbox, 'driver-output.txt'));
+console.log(result.output.split('\n').filter(line => /RELOAD|FAIL:|error:/.test(line)).join('\n'));
+if (result.code !== 0 || !result.output.includes('RELOAD PASS'))
+    throw new Error('Reload regression failed; see ' + join(sandbox, 'driver-output.txt'));

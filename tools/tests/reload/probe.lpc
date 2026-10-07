@@ -39,7 +39,7 @@ void start(object player) {
 
     actor = player;
     original_actor = player;
-    command_ob = load_object("/cmds/adm/hotupdate");
+    command_ob = load_object("/cmds/adm/reload");
     put("/cases/state.c", state_source(1));
     state = load_object("/cases/state");
     first = new("/cases/state");
@@ -86,7 +86,7 @@ void start(object player) {
     check(!invoke("/cases/state /cases/aleaf"), "multiple paths refused");
     check(!invoke("me"), "individual player refused");
     check(!invoke(file_name(first)), "clone path refused");
-    check(!invoke("/cmds/adm/hotupdate"), "command cannot reload itself");
+    check(!invoke("/cmds/adm/reload"), "command cannot reload itself");
     put("/cases/unloaded.lpc", "int value() { return 1; }\n");
     check(
         !invoke("/cases/unloaded") && !find_object("/cases/unloaded"),
@@ -122,7 +122,7 @@ void after_state() {
     }
     check(
         geteuid(state) != ROOT_UID && geteuid(state) != "testadmin",
-        "hotupdate does not elevate target euid"
+        "reload does not elevate target euid"
     );
     check(first->pending(), "named callout retained");
     // 新驱动可按名称重绑本地函数引用；旧驱动拒绝亦符合既有热更新约定。

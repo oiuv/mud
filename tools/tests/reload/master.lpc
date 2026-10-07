@@ -21,8 +21,8 @@ void check(int ok, string label) {
     if (!ok) { failures++; debug_message("FAIL: " + label); }
 }
 void finish() {
-    debug_message(sprintf("HOTUPDATE CHECKS: %d FAILURES: %d", checks, failures));
-    debug_message(failures ? "HOTUPDATE FAIL" : "HOTUPDATE PASS");
+    debug_message(sprintf("RELOAD CHECKS: %d FAILURES: %d", checks, failures));
+    debug_message(failures ? "RELOAD FAIL" : "RELOAD PASS");
     shutdown(failures ? 1 : 0);
 }
 void error_handler(mapping details, int caught) {
@@ -30,6 +30,6 @@ void error_handler(mapping details, int caught) {
 }
 string *epilog(int flag) {
     load_object(SECURITY_D);
-    debug_message("HOTUPDATE READY");
+    debug_message("RELOAD READY");
     return ({});
 }

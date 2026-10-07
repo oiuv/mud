@@ -1,19 +1,21 @@
 # 管理员手动热更新
 
-`hotupdate` 使用 FluffOS 的 `recompile_object()` 就地替换已加载程序，供管理员修改运行逻辑后保留对象状态。项目最低驱动版本 **v2026.0712.3** 已包含该 efun，无需提高最低版本要求。
+`reload` 使用 FluffOS 的 `recompile_object()` 就地替换已加载程序，供管理员修改运行逻辑后保留对象状态。项目最低驱动版本 **v2026.0712.3** 已包含该 efun，无需提高最低版本要求。
 
 | 命令 | 更新方式 | 适用场景 |
 | --- | --- | --- |
 | `update` | 保持原有的单对象重建行为 | 重跑初始化、刷新房间描述或初始属性 |
 | `updateall` | 保持原有的目录批量重建行为 | 全量编译检查、批量重建 |
-| `hotupdate` | 替换程序，保留当前实例状态 | 修改函数逻辑，同时保留房间、物品或在线对象 |
+| `reload` | 替换程序，保留当前实例状态 | 修改函数逻辑，同时保留房间、物品或在线对象 |
 
 ## 使用
 
 本功能包含游戏 master 的权限接入。向正在运行的游戏部署时，管理员先执行 `update /adm/single/master` 载入权限规则；首次部署新命令后，再执行 `rehash /cmds/adm` 刷新命令索引。重启驱动也会载入新规则。
 
+原 `hotupdate` 命令现统一更名为 `reload`，不保留旧命令别名，参数和热更新行为不变。在线部署改名时，应先等待正在执行的热更新结束，再更新文件并执行 `rehash /cmds/adm`；无需重新载入已生效的 master 权限规则。
+
 ```text
-hotupdate [-n] [-r] <文件|here>
+reload [-n] [-r] <文件|here>
 ```
 
 - `-n`：只显示更新顺序，不编译、不加载或更新对象；这不是语法检查。
@@ -25,11 +27,11 @@ hotupdate [-n] [-r] <文件|here>
 更新当前普通房间的函数逻辑：
 
 ```text
-hotupdate -n here
-hotupdate here
+reload -n here
+reload here
 ```
 
-修改公共父类后，先用 `hotupdate -n -r <父类路径>` 查看范围，再去掉 `-n` 执行。默认不更新继承者，也不自动更新目标的父类。
+修改公共父类后，先用 `reload -n -r <父类路径>` 查看范围，再去掉 `-n` 执行。默认不更新继承者，也不自动更新目标的父类。
 
 命令只接受在线管理员，通过现有 `SECURITY_D->valid_grant()` 校验入口；不向普通巫师开放单独授权。执行前会再次检查操作者在线状态、管理员身份和 euid，以及目标原型是否仍是计划中的对象。执行安排在本次命令返回之后，每次处理一个程序，避免玩家正在调用命令时更新其活跃程序栈。同一命令实例只运行一批任务。
 
@@ -53,18 +55,18 @@ FluffOS 对 `recompile_object()` 调用 `valid_read()` 时，传入的是被更�
 - 捕获到编译、权限、目标失效、日志或调度错误时停止后续程序，释放忙状态，允许修复后重试。编译失败会保留该程序的旧代码，但已完成的其他程序不会回滚。
 - **初始化表达式失败不保证保留旧状态。** 驱动可能已将对象切到新程序并丢弃旧变量；部分实例失败还可能只表现为返回成功数减少，而不向调用者抛出错误。命令报告的是驱动返回的成功实例数，不能替代检查驱动错误日志和实际业务回归。返回零时命令中止。
 
-操作记录通过 `log_file("hotupdate", ...)` 写入游戏日志。没有自动文件监控、自动重试或自动回退到重建行为。
+操作记录通过 `log_file("reload", ...)` 写入游戏日志，原 `hotupdate` 日志保留作历史记录，不迁移或删除。没有自动文件监控、自动重试或自动回退到重建行为。
 
 ## 验证
 
 ```sh
-node tools/tests/test_hotupdate.mjs
+node tools/tests/test_reload.mjs
 # 可显式指定驱动路径，例如 Linux 构建：
-node tools/tests/test_hotupdate.mjs /path/to/driver
+node tools/tests/test_reload.mjs /path/to/driver
 ```
 
 测试在系统临时目录创建独立 MUDLIB，运行真实驱动并连接临时回环 Telnet 端口；使用实际命令、master 读取检查及安全模块授权/文件读取函数，账号与 ACL 数据使用隔离夹具。覆盖非 Root 管理员更新普通身份目标、越权拒绝、目标身份不变、状态保留、闭包失效、三层继承排序（含中间原型已被清理）、预览、编译失败后的停止与重试、权限变化、原型替换、日志错误恢复及连接保留。不连接正式游戏或 AI 服务，不调用模型。临时目录保留驱动与客户端输出供检查，故意构造的编译错误属于预期测试。
 
 上线后可选择一个无在途任务的普通房间，先预览，再修改一个纯函数的返回值并热更新，核实新逻辑生效且在场角色、物品和运行状态未变。修改初始化属性的场景仍用原来的重建命令验证。
 
-实现见 [hotupdate.lpc](../../cmds/adm/hotupdate.lpc)。驱动契约以本地 `fluffos/docs/efun/objects/recompile_object.md`、`fluffos/src/vm/internal/simulate.cc` 和对应 testsuite 为准。
+实现见 [reload.lpc](../../cmds/adm/reload.lpc)。驱动契约以本地 `fluffos/docs/efun/objects/recompile_object.md`、`fluffos/src/vm/internal/simulate.cc` 和对应 testsuite 为准。

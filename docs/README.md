@@ -87,7 +87,7 @@ docs/
 - 基于已实现功能的综合分析
 
 **示例文档**:
-- [hotupdate.md](systems/hotupdate.md) - 管理员手动热更新、状态保留与重建边界
+- [reload.md](systems/reload.md) - 管理员手动热更新、状态保留与重建边界
 - [data-driven-items.md](architecture/data-driven-items.md) - 普通服装数据、虚拟品种入口及旧记录离线迁移
 - [virtual-objects.md](architecture/virtual-objects.md) - 通用虚拟对象创建接口、驱动生命周期及框架配套部署
 - [illusion-world.md](systems/illusion-world.md) - 武侠无限世界当前实现、世界身份与阶段测试
