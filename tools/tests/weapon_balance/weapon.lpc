@@ -1,0 +1,12 @@
+// The launcher substitutes the category token in the disposable copy only.
+#include <weapon.h>
+inherit AXE;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武兵器", ({ "practice weapon" }));
+    set("unit", "柄");
+    set_weight(3000);
+    init_axe(50);
+    setup();
+}

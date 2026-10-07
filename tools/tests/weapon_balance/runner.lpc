@@ -1,0 +1,434 @@
+#include <combat.h>
+inherit ROOM;
+
+private object *players = ({});
+private mapping options;
+private mapping current;
+private mapping *jobs = ({});
+private int cursor;
+private int active;
+private float started, observed;
+private float *busy_seconds;
+private int *busy_state;
+private string *types = ({ "axe", "hammer", "spear", "blade", "staff", "whip", "whip" });
+private string *skills = ({ "pangu-qishi", "hanshan-chuifa", "zhongping-qiang", "hujia-daofa",
+    "dagou-bang", "chanhun-suo", "chanhun-suo" });
+private string *moves = ({ "kai", "zhen", "ding", "cang", "chan", "duo", "duo" });
+private int *thresholds = ({ 500, 500, 200, 220, 100, 220, 220 });
+
+void advance();
+void poll();
+void finish_sample(string terminal, int loser);
+
+void require(int ok, string label) {
+    if (!ok) error("BALANCE FAIL: " + label + "\n");
+}
+
+void emit(mapping record) {
+    require(write_file("/log/events.jsonl", json_encode(record) + "\n"), "write evidence");
+}
+
+mixed serializable(mixed value) {
+    mapping result;
+    mixed key;
+    if (functionp(value)) return "<function>";
+    if (objectp(value)) return base_name(value);
+    if (arrayp(value)) return map(value, (: serializable :));
+    if (!mapp(value)) return value;
+    result = ([]);
+    foreach (key in keys(value)) result[sprintf("%s", key)] = serializable(value[key]);
+    return result;
+}
+
+mapping snapshot(object ob) {
+    object weapon;
+    mapping state;
+    string key;
+    state = ([]);
+    foreach (key in ({ "qi", "eff_qi", "max_qi", "jing", "eff_jing", "neili", "max_neili" }))
+        state[key] = ob->query(key);
+    state["busy"] = ob->is_busy() ? ob->query_busy() : 0;
+    state["living"] = living(ob);
+    state["ghost"] = ob->is_ghost();
+    weapon = ob->query_temp("weapon");
+    state["weapon"] = weapon ? weapon->query("skill_type") : "none";
+    return state;
+}
+
+mapping profile(object ob, int which) {
+    object weapon, blueprint;
+    mapping state, equipment, effective;
+    string key;
+    weapon = ob->query_temp("weapon");
+    blueprint = weapon->query_default_object();
+    equipment = blueprint->query_entire_dbase() + weapon->query_entire_dbase();
+    effective = ([]);
+    foreach (key in ({
+        types[which],
+        skills[which],
+        "force",
+        "dodge",
+        "parry",
+        "poison",
+        "martial-cognize"
+    }))
+        effective[key] = ob->query_skill(key);
+    state = ([ "kind": "profile", "profile": which, "userp": userp(ob),
+        "interactive": interactive(ob), "playerp": playerp(ob), "wizardp": wizardp(ob),
+        "dbase": serializable(ob->query_entire_dbase()), "skills": ob->query_skills(),
+        "effective": effective, "mapping": ob->query_skill_map(),
+        "applied": serializable(ob->query_entire_temp_dbase()),
+        "weapon": serializable(equipment), "weight": weapon->query_weight(),
+        "resolved_weapon": ([ "flag": weapon->query("flag"), "material": weapon->query("material"),
+            "rigidity": weapon->query("rigidity"), "damage": weapon->query("weapon_prop/damage"),
+            "stable": weapon->query("stable"), "consistence": weapon->query("consistence") ]) ]);
+    return state;
+}
+
+// Every sample receives two newly constructed objects. Transfer only the socket,
+// not dbase, learned skills, call_outs, busy, equipment, or observations.
+void prepare(int left, int right, int jiali, int first) {
+    object *fresh;
+    object old, weapon, ob;
+    int side, which;
+    string key;
+    active = 0;
+    foreach (ob in players) ob->stop_observation();
+    fresh = allocate(2);
+    foreach (side in ({ first, 1 - first })) {
+        which = side ? right : left;
+        old = players[side];
+        fresh[side] = ob = new("/tests/actor");
+        require(efun::exec(ob, old), "transfer disposable connection");
+        foreach (weapon in all_inventory(old)) destruct(weapon);
+        destruct(old);
+        ob->set("id", side ? "right" : "left");
+        ob->move(this_object());
+        foreach (key in ({ "force", "dodge", "parry" })) ob->set_skill(key, 600);
+        ob->set_skill(types[which], 200); ob->set_skill(skills[which], 200);
+        ob->set_skill("martial-cognize", 200);
+        if (which == 6) ob->set_skill("poison", 200);
+        ob->map_skill(types[which], skills[which]);
+        ob->set("can_perform/" + skills[which] + "/" + moves[which], 1);
+        ob->set("jiali", jiali);
+        ob->set_temp("apply/armor", 100);
+        weapon = new("/tests/" + types[which]);
+        if (which == 6) weapon->set("material", "white silk");
+        require(weapon->move(ob) && weapon->wield(), "standard weapon wield");
+        ob->observation_heartbeat(0);
+        require(
+            userp(ob) && interactive(ob) && playerp(ob) && !wizardp(ob),
+            "real unprivileged player identity"
+        );
+        require(ob->query_skill_mapped(types[which]) == skills[which], "effective mapping");
+        require(
+            ob->query_skill("force") == 300 && ob->query_skill(types[which]) == 300,
+            "effective skill profile"
+        );
+        require(
+            ob->query("qi") == 10000 && ob->query("neili") == 6000 && !ob->is_busy(),
+            "fresh state"
+        );
+        foreach (key in ({
+            "str",
+            "int",
+            "con",
+            "dex"
+        })) require(ob->query(key) == 30, "standard attributes");
+        require(ob->query("eff_qi") == 10000 && ob->query("jing") == 10000 &&
+            !ob->query_skill(
+                "zuoyou-hubo",
+                1
+            ) && !ob->query_temp("apply/attack"), "no prior injury or bonus");
+    }
+    players = fresh;
+    players[0]->kill_ob(players[1]); players[1]->kill_ob(players[0]);
+    foreach (side in ({ first, 1 - first })) {
+        players[side]->observation_heartbeat(0);
+        players[side]->start_observation(side);
+    }
+}
+
+int perform_move(int side, int which) {
+    object ob;
+    int ok;
+    ob = players[side];
+    ob->count_event("perform_attempts");
+    ok = ob->force_me("perform " + types[which] + "." + moves[which]);
+    if (ok) ob->count_event("perform_launched");
+    else if (active) current["refusals"] += ({ ([
+        "side": side,
+        "reason": ob->query_fail_msg()
+    ]) });
+    return ok;
+}
+
+void observe_attack(object me, object target, int attack_type, int result, int damage) {
+    me->count_event(result == RESULT_HIT ? "hit" : (result == RESULT_DODGE ? "dodge" : "parry"));
+    if (attack_type == TYPE_RIPOSTE) me->count_event("riposte");
+    if (attack_type == TYPE_QUICK) me->count_event("quick");
+}
+void observe_direct(object me, object target) { me->count_event("direct"); }
+
+int strategy(object ob, int side) {
+    int which;
+    if (active && current["mode"] == "bout") {
+        if (time_ns() / 1000000000.0 - started >= options["duration"]) {
+            finish_sample("time_limit", -1);
+            return 0;
+        }
+        ob->count_event("heartbeats");
+        if (current["first_actor"] == -1) current["first_actor"] = side;
+    }
+    if (!active || current["mode"] != "bout" || current["strategy"] != "perform") return 1;
+    which = current[side ? "right" : "left"];
+    if (!living(ob) || ob->query("qi") < 0 || ob->is_busy() || !living(players[1 - side]) ||
+        players[1 - side]->query("qi") < 0 || !ob->query_temp("weapon") ||
+        ob->query("neili") < thresholds[which]) return 1;
+    if (which == 4 && players[1 - side]->is_busy()) return 1;
+    perform_move(side, which);
+    return 1;
+}
+
+// Native heartbeat ordering is driver-owned. Enable the second participant only
+// after the designated initiator actually completes its first native heartbeat.
+void after_heartbeat(int side) {
+    if (active && current["mode"] == "bout" && !current["second_started"]) {
+        require(side == current["first"], "actual opening initiative");
+        current["second_started"] = 1;
+        players[1 - side]->observation_heartbeat(1);
+    }
+}
+
+void sample_busy() {
+    float now, elapsed;
+    int side;
+    now = time_ns() / 1000000000.0;
+    elapsed = now - observed;
+    foreach (side in ({ 0, 1 })) {
+        if (busy_state[side]) busy_seconds[side] += elapsed;
+        busy_state[side] = players[side]->is_busy();
+    }
+    observed = now;
+}
+
+void terminal(object ob, int side, string state) {
+    if (active && current["mode"] == "bout") finish_sample(state, side);
+}
+
+void finish_sample(string terminal, int loser) {
+    object ob;
+    if (!active) return;
+    active = 0;
+    sample_busy();
+    current["elapsed"] = time_ns() / 1000000000.0 - started;
+    current["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    current["metrics"] = ({ players[0]->query_observation(), players[1]->query_observation() });
+    current["busy_seconds"] = busy_seconds;
+    current["terminal"] = terminal;
+    current["winner"] = loser < 0 ? -1 : 1 - loser;
+    current["error"] = "";
+    foreach (ob in players) ob->stop_observation();
+    emit(current);
+    cursor++;
+    if (cursor % 100 == 0 || current["mode"] == "bout")
+        debug_message(sprintf("BALANCE %d/%d %s", cursor, sizeof(jobs), current["condition"]));
+}
+
+void poll() {
+    if (!active) { advance(); return; }
+    sample_busy();
+    if (time_ns() / 1000000000.0 - started >= options["duration"]) {
+        finish_sample("time_limit", -1);
+        call_out("advance", 0);
+        return;
+    }
+    call_out("poll", 1);
+}
+
+void advance() {
+    int batch;
+    for (batch = 0; batch < 20; batch++) {
+        if (cursor == sizeof(jobs)) {
+            debug_message("BALANCE PASS");
+            shutdown(0);
+            return;
+        }
+        current = copy(jobs[cursor]);
+        prepare(current["left"], current["right"], current["jiali"], current["first"]);
+        current["kind"] = "sample";
+        current["fresh"] = 1;
+        current["before"] = ({ snapshot(players[0]), snapshot(players[1]) });
+        current["launched"] = 1;
+        current["first_actor"] = -1;
+        current["second_started"] = 0;
+        current["refusals"] = ({});
+        started = observed = time_ns() / 1000000000.0;
+        busy_seconds = ({ 0.0, 0.0 }); busy_state = ({ 0, 0 });
+        active = 1;
+        if (current["mode"] == "bout") {
+            players[current["first"]]->observation_heartbeat(1);
+            call_out("poll", 1);
+            return;
+        }
+        if (current["mode"] == "ordinary")
+            COMBAT_D->do_attack(
+                players[0],
+                players[1],
+                players[0]->query_temp("weapon"),
+                TYPE_REGULAR
+            );
+        else current["launched"] = perform_move(0, current["left"]);
+        finish_sample("single", -1);
+    }
+    call_out("advance", 0);
+}
+
+void preflight() {
+    object weapon, ob;
+    object *before_death, *death_objects;
+    string *cleaned;
+    mapping metrics;
+    int which;
+    foreach (which in ({ 0, 1, 2, 3, 4, 5, 6 })) {
+        prepare(which, which, 0, 0);
+        emit(profile(players[0], which));
+        players[0]->delete("can_perform/" + skills[which] + "/" + moves[which]);
+        require(
+            !perform_move(0, which) && players[0]->query("neili") == 6000,
+            "missing learned move rejected"
+        );
+        players[0]->set("can_perform/" + skills[which] + "/" + moves[which], 1);
+        weapon = players[0]->query_temp("weapon");
+        weapon->set("skill_type", "sword");
+        require(!perform_move(0, which), "wrong weapon rejected");
+        weapon->set("skill_type", types[which]);
+        require(perform_move(0, which), "qualified real command launched");
+        metrics = players[0]->query_observation();
+        require(
+            metrics["neili_cost"] == 6000 - players[0]->query("neili"),
+            "gross cost with no regeneration"
+        );
+        if (which == 4) require(
+            players[1]->query("qi") == 10000,
+            "control move is not direct damage"
+        );
+        if (options["probes"] && which == 2) require(
+            metrics["hit"] + metrics["parry"] + metrics["dodge"] == 7,
+            "seven actual ordinary attacks"
+        );
+        if (options["probes"] && which == 3) require(
+            metrics["hit"] + metrics["parry"] + metrics["dodge"] == 8,
+            "eight actual ordinary attacks"
+        );
+    }
+    prepare(4, 5, 0, 0);
+    players[1]->start_busy(3);
+    require(
+        !perform_move(0, 4) && players[0]->query("neili") == 6000,
+        "busy target rejects chan without charging"
+    );
+    prepare(0, 1, 0, 0);
+    players[0]->set("neili", 499);
+    require(
+        !perform_move(0, 0) && players[0]->query("neili") == 499,
+        "insufficient energy rejected"
+    );
+    players[0]->set("neili", 0);
+    require(
+        !perform_move(0, 0) && players[0]->query("neili") == 0,
+        "empty resource does not become negative"
+    );
+    prepare(0, 1, 0, 0);
+    players[0]->set("neili", 5000);
+    players[0]->heal_up();
+    metrics = players[0]->query_observation();
+    require(metrics["neili_cost"] == 1000 && metrics["neili_recovery"] == 160 &&
+        players[0]->query("neili") == 5160, "gross spending and native recovery remain separate");
+    prepare(0, 1, 0, 0);
+    weapon = players[0]->query_temp("weapon");
+    weapon->move(this_object());
+    require(!players[0]->query_temp("weapon") && !perform_move(0, 0), "lost weapon stays lost");
+    destruct(weapon);
+    // Boundary controls are separate from the fixed-profile statistical samples.
+    prepare(4, 5, 0, 0);
+    players[1]->set_skill("dodge", 0);
+    require(perform_move(0, 4) && players[1]->query_busy() == 13 &&
+        players[1]->query("qi") == 10000, "chan control success without damage");
+    prepare(6, 0, 0, 0);
+    players[1]->set_skill("force", 0); players[1]->set_skill("parry", 0);
+    players[1]->set_skill("martial-cognize", 0);
+    require(players[0]->query_skill("poison", 1) == 200 &&
+        players[0]->query_temp("weapon")->query("material") == "white silk", "explicit whip extension");
+    require(perform_move(0, 6) && players[1]->query_busy() >= 1 &&
+        players[1]->query_busy() <= 4, "white silk control branch");
+    prepare(0, 1, 50, 0);
+    players[1]->set_skill("force", 0); players[1]->set("con", 0);
+    require(perform_move(0, 0), "direct damage boundary launches");
+    metrics = players[0]->query_observation();
+    require(players[0]->query("neili") == 5450, "perform plus public jiali cost");
+    if (options["probes"]) require(metrics["neili_cost"] == 550 && metrics["direct"] == 1,
+        "direct cost probe counts mapping mutation exactly once");
+    prepare(0, 1, 0, 0);
+    players[0]->set("qi", -1);
+    players[0]->heart_beat();
+    require(!living(players[0]) && !players[0]->is_ghost(), "real unconscious transition");
+    prepare(0, 1, 0, 0);
+    before_death = objects();
+    players[0]->die(players[1]);
+    require(players[0]->is_ghost(), "real death transition");
+    // Real death initializes quests and the afterlife, which can start unrelated
+    // NPCs wandering into the wider world. Retire only objects created by this
+    // boundary check, not combat services, player heartbeats or skill call_outs.
+    death_objects = objects() - before_death - players;
+    cleaned = ({});
+    foreach (ob in death_objects) {
+        if (!objectp(ob)) continue;
+        cleaned += ({ file_name(ob) });
+        destruct(ob);
+    }
+    require(!sizeof(filter(death_objects, (: objectp :))), "death side effects retired");
+    require(sizeof(all_interactive()) == 2 && objectp(players[0]) && objectp(players[1]),
+        "disposable players preserved after cleanup");
+    emit(([ "kind": "isolation_cleanup", "phase": "death_preflight", "objects": cleaned ]));
+    foreach (weapon in players) weapon->stop_observation();
+    emit(([ "kind": "preflight", "ok": 1, "profiles": 7 ]));
+}
+
+void start() {
+    int which, jiali, n, pair;
+    string mode, condition;
+    options = json_decode(read_file("/tests/options.json"));
+    preflight();
+    foreach (which in ({ 0, 1, 2, 3, 4, 5, 6 }))
+        foreach (jiali in ({ 0, 50 }))
+            foreach (mode in ({ "ordinary", "perform" })) {
+                condition = sprintf("%s:%d:jiali%d", mode, which, jiali);
+                for (n = 0; n < options["samples"]; n++)
+                    jobs += ({ ([ "id": sprintf("%s:%d", condition, n), "condition": condition,
+                        "mode": mode, "left": which, "right": which, "jiali": jiali,
+                        "index": n, "first": n % 2 ]) });
+            }
+    foreach (pair in ({ 0, 1, 2 }))
+        foreach (jiali in ({ 0, 50 }))
+            foreach (mode in ({ "ordinary", "perform" })) {
+                condition = sprintf("bout:%d:%s:jiali%d", pair, mode, jiali);
+                for (n = 0; n < options["bouts"]; n++)
+                    jobs += ({ ([ "id": sprintf("%s:%d", condition, n), "condition": condition,
+                        "mode": "bout", "strategy": mode, "left": pair * 2, "right": pair * 2 + 1,
+                        "jiali": jiali, "index": n, "first": n % 2 ]) });
+            }
+    advance();
+}
+
+void connected(object ob) {
+    require(sizeof(players) < 2, "only two disposable connections");
+    players += ({ ob });
+    if (sizeof(players) == 2) call_out("start", 0);
+}
+
+void create() {
+    set("short", "演武场");
+    set("long", "青石铺地，四下空旷，正宜切磋武艺。\n");
+    set("no_clean_up", 1);
+}

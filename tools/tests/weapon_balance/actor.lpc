@@ -1,0 +1,90 @@
+// Actual player inheritance and interactive connections; no live login or saves.
+inherit USER_OB;
+
+private mapping counters = ([]);
+private int tracking;
+private int side;
+
+void observe_resource(string resource, int delta) {
+    string key;
+    if (!tracking || !delta) return;
+    key = resource + (delta < 0 ? "_cost" : "_recovery");
+    counters[key] += delta < 0 ? -delta : delta;
+}
+
+mixed set(string key, mixed value) {
+    mixed before, result;
+    before = query(key);
+    result = ::set(key, value);
+    if (member_array(key, ({ "neili", "qi", "eff_qi", "jing", "eff_jing" })) != -1 &&
+        intp(before) && intp(query(key)))
+        observe_resource(key, query(key) - before);
+    return result;
+}
+
+void create() {
+    ::create();
+    set_name("演武弟子", ({ "trainee" }));
+    set("gender", "男性");
+    set("str", 30); set("int", 30); set("con", 30); set("dex", 30);
+    set("combat_exp", 10000000);
+    set("potential", 10000);
+    setup();
+    set("age", 25);
+    set("max_qi", 10000); set("eff_qi", 10000); set("qi", 10000);
+    set("max_jing", 10000); set("eff_jing", 10000); set("jing", 10000);
+    set("max_neili", 6000); set("neili", 6000);
+    set("food", 10000); set("water", 10000);
+    set("last_save", time());
+    set_heart_beat(0);
+}
+
+int logon() {
+    "/tests/runner"->connected(this_object());
+    return 1;
+}
+
+// No account operations in a disposable test character.
+void net_dead() {}
+int save() { return 1; }
+
+void start_observation(int value) {
+    side = value;
+    counters = ([]);
+    tracking = 1;
+}
+void stop_observation() { tracking = 0; set_heart_beat(0); }
+void observation_heartbeat(int enabled) { set_heart_beat(enabled); }
+mapping query_observation() { return copy(counters); }
+void count_event(string key) { if (tracking) counters[key]++; }
+
+int heal_up() {
+    mapping before;
+    int result, was_tracking;
+    string key;
+    before = ([]);
+    foreach (key in ({ "neili", "qi", "eff_qi", "jing", "eff_jing" })) before[key] = query(key);
+    was_tracking = tracking;
+    tracking = 0;
+    result = ::heal_up();
+    tracking = was_tracking;
+    foreach (key in keys(before)) observe_resource(key, query(key) - before[key]);
+    return result;
+}
+
+void heart_beat() {
+    if (!tracking) { set_heart_beat(0); return; }
+    if (!"/tests/runner"->strategy(this_object(), side)) return;
+    ::heart_beat();
+    "/tests/runner"->after_heartbeat(side);
+}
+
+void unconcious() {
+    ::unconcious();
+    "/tests/runner"->terminal(this_object(), side, "unconscious");
+}
+
+varargs void die(object killer) {
+    ::die(killer);
+    "/tests/runner"->terminal(this_object(), side, "death");
+}

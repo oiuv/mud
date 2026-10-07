@@ -10,7 +10,7 @@
 以及 SEC-01～02、WL-02～03，均已完成修复与隔离验收；对应两批任务已同步主规范并归档。
 结果分别见[交易与活动验收](../../openspec/changes/archive/2026-10-07-fix-commerce-and-event-integrity/verification.md)
 和[身份与任务验收](../../openspec/changes/archive/2026-10-07-fix-identity-and-quest-rewards/verification.md)。
-WB-01～04 也已按独立方案完成修复与隔离验收，见[武学修复验证](../../openspec/changes/fix-martial-state-and-resource-boundaries/verification.md)：四项修复前负对照均检出预期错误，修复后统一回归 7/7 组、1,609 项、0 失败。
+WB-01～04 也已按独立方案完成修复与隔离验收，见[武学修复验证](../../openspec/changes/archive/2026-10-07-fix-martial-state-and-resource-boundaries/verification.md)：四项修复前负对照均检出预期错误，修复后统一回归 7/7 组、1,609 项、0 失败。
 归档不代表新增实服验收；下文保留审查时的发现、源码位置和原始建议。
 
 ## 已完成工作的归档
@@ -29,6 +29,8 @@ WB-01～04 也已按独立方案完成修复与隔离验收，见[武学修复�
 - [身份与任务奖励](../../openspec/changes/archive/2026-10-07-fix-identity-and-quest-rewards/verification.md)：15/15 项完成，同步 mudcore 任务完成、管理身份和任务奖励三份主规范。
 
 本次共同步 14 项新增要求，5 份主规范新建、1 份追加；原有要求、用途和历史验收记录保留。6 份涉及规范全部通过严格校验，全库普通校验为 24 通过、0 失败，仍保留原物品定义长描述警告。两批共 16 个文件移动前后哈希一致，随后仅调整归档内部的 3 处相对链接；本次不改游戏代码、数据或正式服务。
+
+**武学修复归档（2026-10-07）**：`fix-martial-state-and-resource-boundaries` 已完成 14/14 并提交为 `1f8dcdbd`，维护者反馈 `updateall` 通过。已向武学效果、公共战斗两份主规范同步 3 项新增要求及 1 项既有要求的补充场景，两份严格校验通过。7 份变更文件归档时哈希保持，随后只修正提案内的一处相对链接；不新增测试结论或调整玩法。
 
 ## 审查覆盖与证据等级
 

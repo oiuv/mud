@@ -6,7 +6,12 @@
 
 以下正文保留原审查时的证据与数值，不代表后续代码仍有同一缺陷。2026-10-07 已修复 WB-01 玉箫极意状态隔离、WB-02 八方藏刀势足额内力检查、WB-03 回风落雁剑练习资源、WB-04 针类默认绝招分发及相关错字；真实驱动定向检查分别为 143、58、55、76 项，失败 0。原公式、实际成本及资格限制不变，集成验收另见验证记录。
 
-修复前后对照、夹具边界与证据目录见 [本批验证记录](../../openspec/changes/fix-martial-state-and-resource-boundaries/verification.md)。这些修复不是十二类兵器的平衡性验收。
+修复前后对照、夹具边界与证据目录见 [本批验证记录](../../openspec/changes/archive/2026-10-07-fix-martial-state-and-resource-boundaries/verification.md)。这些修复不是十二类兵器的平衡性验收。
+
+后续同条件评测工具已实现，真实烟雾与既有核心玩法回归通过；提交前已停止未完成的长时评测并保留数据，两批完整统计基线仍待完成。
+工具和口径见 [隔离评测说明](../architecture/weapon-balance-benchmark.md)，
+实际完成状态见 [评测验证记录](../../openspec/changes/add-weapon-balance-baseline/verification.md)。
+完整报告出具前，不据小样本调整数值或宣布流派强弱。
 
 ## 结论与范围
 

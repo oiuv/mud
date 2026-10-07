@@ -28,4 +28,4 @@
 - 回归优先扩展 `tools/tests/test_martial_audit.mjs`、`tools/tests/test_weapon_combat.mjs` 及其 LPC 夹具，由 `tools/test_gameplay.mjs` 继续统一执行，不新建测试框架。
 - 文档涉及 `docs/reviews/2026-10-07-weapons-martial-balance.md`、审查总览和 `help/changelog`；实施后才记录修复及验证结果。
 - 不迁移玩家技能、装备或存档，不修改 mudcore，不改变兵器分类、通用被动、招式成本、伤害倍率或普通攻击规则，不操作正式服务。
-- 依据：[第二轮兵器审查](../../../docs/reviews/2026-10-07-weapons-martial-balance.md)。本提案不代表缺陷已经修复或测试通过。
+- 依据：[第二轮兵器审查](../../../../docs/reviews/2026-10-07-weapons-martial-balance.md)。本提案不代表缺陷已经修复或测试通过。

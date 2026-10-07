@@ -1,0 +1,31 @@
+// Isolated test host. No account restore, preload list or outbound sockets.
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Backbone"; }
+string creator_file(string file) { return "Root"; }
+string author_file(string file) { return "Root"; }
+string domain_file(string file) { return "Backbone"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) {
+    return strsrch(file, "/log/") == 0 || strsrch(file, "/data/") == 0;
+}
+int valid_seteuid(object ob, string uid) { return 1; }
+int valid_override(string file, string name, string main_file) { return 1; }
+int valid_bind(object binder, object old_owner, object new_owner) { return 1; }
+int valid_socket(object ob, string func, mixed *info) { return 0; }
+int valid_database(object ob, string func, mixed *info) { return 0; }
+int valid_external(string command) { return 0; }
+mixed compile_object(string file) { return VIRTUAL_D->compile_object(file); }
+object connect() { return new("/tests/actor"); }
+void log_error(string file, string text) { debug_message(text); }
+void error_handler(mapping details, int caught) {
+    if (!caught) {
+        debug_message("BALANCE FAIL: " + details["error"]);
+        debug_message(sprintf("TEST TRACE: %O", details["trace"]));
+        shutdown(1);
+    }
+}
+string *epilog(int flag) {
+    load_object("/tests/runner");
+    debug_message("BALANCE WAITING");
+    return ({});
+}
