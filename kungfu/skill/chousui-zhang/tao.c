@@ -72,11 +72,10 @@ int perform(object me, object target) {
         msg += HIR "$N" HIR "一声惨笑，长叹一声，眼前一黑，倒在了地上。\n\n" NOR;
         me->add("max_neili", -random(50));
 
-        remove_call_out("unconcious_me");
         call_out("unconcious_me", 1, me);
 
     } else {
-        ap = me->query_skill("poison", 1) / 2 + me->query_skill("force, 1");
+        ap = me->query_skill("poison", 1) / 2 + me->query_skill("force", 1);
         //me->query_skill("force");
         if (ap + random(ap) < target->query_skill("dodge")) {
             msg += CYN "$n" CYN "见势不妙，急忙腾挪身形，避开了$N" CYN "的攻击。\n" NOR;

@@ -285,22 +285,21 @@ void skill_improved(object me) {
 
 mixed hit_ob(object me, object victim, int damage_bonus) {
     int lvl, slv, p;
-    object target;
     string msg;
 
-    if (!target) target = offensive_target(me);
     lvl = me->query_skill("canhe-zhi", 1);
+    slv = victim->query_skill("liumai-shenjian", 1);
 
     // 身负六脉神剑绝技可以将参合剑气折回
-    if (slv = target->query_skill("liumai-shenjian", 1) > 200
-        && target->query_skill_prepared("finger") == "liumai-shenjian"
-        && slv >= me->query_skill("canhe-zhi", 1) - 60
+    if (slv > 200
+        && victim->query_skill_prepared("finger") == "liumai-shenjian"
+        && slv >= lvl - 60
         && random(10) == 0) {
         msg = action[random(sizeof(action))]["action"];
         msg += HIY "\n但见$n" HIY "斜斜一指点出，指出如风，剑气纵横，嗤然"
             "作响，竟将$N" HIY "的剑气全部折回，反向自己射去！\n" NOR;
 
-        me->receive_wound("qi", slv / 4 + random(slv / 6), target);
+        me->receive_wound("qi", slv / 4 + random(slv / 6), victim);
         p = (int)me->query("qi") * 100 / (int)me->query("max_qi");
         msg += "( $N" + eff_status_msg(p) + ")\n";
         return msg;
@@ -309,7 +308,7 @@ mixed hit_ob(object me, object victim, int damage_bonus) {
     if (damage_bonus < 220 || lvl < 140) return 0;
 
     if (damage_bonus / 5 > victim->query_dex()
-        && random(5) == 0 && me->query("neili") > 65) {
+        && random(5) == 0 && me->query("neili") >= 80) {
         me->add("neili", -80);
         victim->receive_wound("qi", (damage_bonus - 80) / 3, me);
         return HIR "你只听「嗤嗤嗤」破空声骤响，脸上竟溅到一些血滴！\n" NOR;

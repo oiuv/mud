@@ -330,15 +330,15 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --hammer --bench
 
 `--bench` 每轮新启驱动，对照相同的 202 份历史来源请求和 4,040 实例；旧版实际为 202 个蓝图，新版为 148 个规范蓝图。旧/新顺序交替，共三轮。`memory_info()` 是驱动估算，不是 OS RSS。数据化减少源码重复和冷加载开销，但虚拟创建与实例状态隔离有成本；不能推断批量创建更快或实例更省内存。归并前后结果分别记录，不把旧报告冒充当前结果。
 
-剑类使用 `--sword --bench`，同条件为 85 个历史来源请求、每来源 20 次创建（共 1,700 实例）；新版共 70 个虚拟品种。当前测量与实施证据见 [SWORD 验证报告](../../openspec/changes/refactor-data-driven-swords/validation.md)。该报告不代表已转换正式存档或完成线上部署。
+剑类使用 `--sword --bench`，同条件为 85 个历史来源请求、每来源 20 次创建（共 1,700 实例）；新版共 70 个虚拟品种。当前测量与实施证据见 [SWORD 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-swords/validation.md)。该报告不代表已转换正式存档或完成线上部署。
 
-饮具使用 `--liquid --bench`，同条件为 74 个历史来源请求、每来源 20 次创建（共 1,480 实例）；新版共 54 个虚拟品种。逐定义对照及真实命令/消费者回归使用 `--liquid --all`，证据与边界见 [LIQUID 验证报告](../../openspec/changes/refactor-data-driven-liquids/validation.md)。测试中的原 `setup()` 次数只在临时副本内计数，不给运行期程序增加统计代码。
+饮具使用 `--liquid --bench`，同条件为 74 个历史来源请求、每来源 20 次创建（共 1,480 实例）；新版共 54 个虚拟品种。逐定义对照及真实命令/消费者回归使用 `--liquid --all`，证据与边界见 [LIQUID 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-liquids/validation.md)。测试中的原 `setup()` 次数只在临时副本内计数，不给运行期程序增加统计代码。
 
-刀类使用 `--blade --all` 验证全部定义、装备、交易、存取、供应、屠龙刀对砍和盟主备份恢复；`--blade --bench` 对照 61 个来源请求、1,220 个实例。基线提交为 `b5e94cd0`，旧刀源码仅恢复到临时测试副本。实际结果与测量边界见 [BLADE 验证报告](../../openspec/changes/refactor-data-driven-blades/validation.md)。
+刀类使用 `--blade --all` 验证全部定义、装备、交易、存取、供应、屠龙刀对砍和盟主备份恢复；`--blade --bench` 对照 61 个来源请求、1,220 个实例。基线提交为 `b5e94cd0`，旧刀源码仅恢复到临时测试副本。实际结果与测量边界见 [BLADE 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-blades/validation.md)。
 
-直接防具使用 `--equip --all` 对照全部 56 份定义及穿脱、交易、存取和盟主恢复；`--equip --bench` 独立对照 56 个来源、1,120 个实例，三轮旧新交替。此批还需 Git 历史 `beef12ea`。曾柔采用实际构造函数、货表和交易方法；其余 NPC 在隔离角色上按原顺序执行 40 条实际配装语句及原性别/初始加成，不代表无关任务或战斗完整验收。旧鞋靴夹具只在临时副本恢复冻结源码，现行能力检查改用 `/d/items/equip/xiuhuaxie`，仍断言无洗涤/撕布；旧审计按批次逐层核对调用，不改写历史快照。结果见 [EQUIP 验证报告](../../openspec/changes/refactor-data-driven-equipment/validation.md)。
+直接防具使用 `--equip --all` 对照全部 56 份定义及穿脱、交易、存取和盟主恢复；`--equip --bench` 独立对照 56 个来源、1,120 个实例，三轮旧新交替。此批还需 Git 历史 `beef12ea`。曾柔采用实际构造函数、货表和交易方法；其余 NPC 在隔离角色上按原顺序执行 40 条实际配装语句及原性别/初始加成，不代表无关任务或战斗完整验收。旧鞋靴夹具只在临时副本恢复冻结源码，现行能力检查改用 `/d/items/equip/xiuhuaxie`，仍断言无洗涤/撕布；旧审计按批次逐层核对调用，不改写历史快照。结果见 [EQUIP 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-equipment/validation.md)。
 
-锤类使用 `--hammer --all` 对照全部 43 个来源及持用、交易、存取、实际消费者和盟主恢复；`--hammer --bench` 对照 43 个来源、860 个实例，三轮旧新交替。需 Git 历史 `95537906`。房间测试按原顺序执行实际陈设语句（保留后续覆盖），再调用原 ROOM 刷新；商店使用实际构造函数与 F_DEALER。武馆实际领取/作业/归还方法在可见测试角色上运行，随机数固定；独特兵器本体及命令派发使用测试替身，不声称完整战斗或独特兵器系统验收。实际结果见 [HAMMER 验证报告](../../openspec/changes/refactor-data-driven-hammers/validation.md)。
+锤类使用 `--hammer --all` 对照全部 43 个来源及持用、交易、存取、实际消费者和盟主恢复；`--hammer --bench` 对照 43 个来源、860 个实例，三轮旧新交替。需 Git 历史 `95537906`。房间测试按原顺序执行实际陈设语句（保留后续覆盖），再调用原 ROOM 刷新；商店使用实际构造函数与 F_DEALER。武馆实际领取/作业/归还方法在可见测试角色上运行，随机数固定；独特兵器本体及命令派发使用测试替身，不声称完整战斗或独特兵器系统验收。实际结果见 [HAMMER 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-hammers/validation.md)。
 
 杖类回归复用相同入口：
 
@@ -350,7 +350,7 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --staff --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --staff --bench
 ```
 
-需要 Git 历史 `32f587a5`。功能测试覆盖 37 个来源、三个动态入口、九个商店、五处房间及 27 处携带/持用语句；商店与房间按原语句顺序在隔离角色上执行，复用实际 F_DEALER/ROOM 方法，其他 NPC 基础设施由测试替身隔离，不代表完整战斗和任务系统验收。性能在其余测试结束后单独运行，按同样来源各创建 20 次，共 740 实例，三组新旧交替；不启动正式服、不读取正式存档。实际结果见 [STAFF 验证报告](../../openspec/changes/refactor-data-driven-staves/validation.md)。
+需要 Git 历史 `32f587a5`。功能测试覆盖 37 个来源、三个动态入口、九个商店、五处房间及 27 处携带/持用语句；商店与房间按原语句顺序在隔离角色上执行，复用实际 F_DEALER/ROOM 方法，其他 NPC 基础设施由测试替身隔离，不代表完整战斗和任务系统验收。性能在其余测试结束后单独运行，按同样来源各创建 20 次，共 740 实例，三组新旧交替；不启动正式服、不读取正式存档。实际结果见 [STAFF 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-staves/validation.md)。
 
 鞭类回归复用相同入口：
 
@@ -362,7 +362,7 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --whip --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --whip --bench
 ```
 
-需要 Git 历史 `da702704`。功能回归覆盖全部 32 个来源、实际装备与存取、王方平十一件商品、两处房间、十三处携物语句、三个动态入口及三渡的两条武器获取分支。三渡只执行原武器获取代码，独特黑索本体和无关 NPC 基础设施使用临时替身，不代表完整战斗或独特装备验收。旧类别所需历史长鞭/货表源码仅恢复到临时副本，不修改旧快照或恢复运行期旧入口。性能按 32 个来源各创建 20 次，共 640 实例，三组独立驱动新旧交替。实际结果见 [WHIP 验证报告](../../openspec/changes/refactor-data-driven-whips/validation.md)。
+需要 Git 历史 `da702704`。功能回归覆盖全部 32 个来源、实际装备与存取、王方平十一件商品、两处房间、十三处携物语句、三个动态入口及三渡的两条武器获取分支。三渡只执行原武器获取代码，独特黑索本体和无关 NPC 基础设施使用临时替身，不代表完整战斗或独特装备验收。旧类别所需历史长鞭/货表源码仅恢复到临时副本，不修改旧快照或恢复运行期旧入口。性能按 32 个来源各创建 20 次，共 640 实例，三组独立驱动新旧交替。实际结果见 [WHIP 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-whips/validation.md)。
 
 短兵器回归复用相同入口：
 
@@ -374,7 +374,7 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --dagger --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --dagger --bench
 ```
 
-需要 Git 历史 `6ad10eee`。覆盖 23 个来源、主副手切换及加成、十件商品、书室陈设、普通 NPC 配装、盈盈两条武器获取分支、钱正伦领取及背包/盟主恢复。无关 NPC 基础设施和盈盈独特鱼肠剑本体使用隔离替身，不代表完整战斗或独特兵器验收。旧类别的历史短兵器依赖仅恢复到临时副本，不修改旧快照。性能按 23 个来源各创建 20 次（460 实例），三组独立驱动新旧交替；结果与已知旧行为见 [DAGGER 验证报告](../../openspec/changes/refactor-data-driven-daggers/validation.md)。
+需要 Git 历史 `6ad10eee`。覆盖 23 个来源、主副手切换及加成、十件商品、书室陈设、普通 NPC 配装、盈盈两条武器获取分支、钱正伦领取及背包/盟主恢复。无关 NPC 基础设施和盈盈独特鱼肠剑本体使用隔离替身，不代表完整战斗或独特兵器验收。旧类别的历史短兵器依赖仅恢复到临时副本，不修改旧快照。性能按 23 个来源各创建 20 次（460 实例），三组独立驱动新旧交替；结果与已知旧行为见 [DAGGER 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-daggers/validation.md)。
 
 
 ## 暗器验证入口
@@ -387,7 +387,7 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --throwing --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --throwing --bench
 ```
 
-冻结基线为 `55f5e073`。测试只使用临时 MUDLIB 和显式合成备份，覆盖原数量与合堆命令、唐门「唐花」绝招的普通暗器分支、七个房间、两家商店、NPC 持物/领取、精确背包路径及十六类离线转换。角色基础设施、随机选择和独特兵器本体使用明确替身，不声称完整战斗验收；旧测试依赖只在临时副本恢复。部署须先对备份预览旧身份，按需转换副本，代码和记录配套切换/回退，不能仅凭全量编译认定存档无需处理。实测结果见 [THROWING 验证报告](../../openspec/changes/refactor-data-driven-throwing/validation.md)。
+冻结基线为 `55f5e073`。测试只使用临时 MUDLIB 和显式合成备份，覆盖原数量与合堆命令、唐门「唐花」绝招的普通暗器分支、七个房间、两家商店、NPC 持物/领取、精确背包路径及十六类离线转换。角色基础设施、随机选择和独特兵器本体使用明确替身，不声称完整战斗验收；旧测试依赖只在临时副本恢复。部署须先对备份预览旧身份，按需转换副本，代码和记录配套切换/回退，不能仅凭全量编译认定存档无需处理。实测结果见 [THROWING 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-throwing/validation.md)。
 
 ## 普通棍类（CLUB）
 
@@ -414,19 +414,19 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --club --all
 node tools/tests/test_cloth_objects.mjs bin/driver.exe --club --bench
 ```
 
-基线 `f4d88805`；全部检查在临时 MUDLIB/合成备份运行，NPC 基础设施与神木战斗行为使用明确替身。实际范围、结果和性能见 [CLUB 验证报告](../../openspec/changes/refactor-data-driven-clubs/validation.md)。
+基线 `f4d88805`；全部检查在临时 MUDLIB/合成备份运行，NPC 基础设施与神木战斗行为使用明确替身。实际范围、结果和性能见 [CLUB 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-clubs/validation.md)。
 
 ## 普通研读物（ITEM）
 
 `d/items/book.lpc` 与 `book_data.h` 提供 28 个规范品种，继续继承 ITEM，不新增 BOOK 行为或 setup。每实例书名、石板蓝图技能、道德经蓝图精力消耗分别保留原随机生命周期；字段、调用、精确存取及旧记录转换见[书籍维护说明](data-driven-books.md)。
 
-验证使用 `--book --all`、`--book --bench`，冻结基线为 `ea5f6afd`。36 份旧定义删除，保留的特殊研读物与范围外书籍均已逐项写入[未迁移台账](data-driven-items-pending.md)；不迁移 `/clone`，不补运行期旧路径入口。实际结果见 [BOOK 验证报告](../../openspec/changes/refactor-data-driven-books/validation.md)。
+验证使用 `--book --all`、`--book --bench`，冻结基线为 `ea5f6afd`。36 份旧定义删除，保留的特殊研读物与范围外书籍均已逐项写入[未迁移台账](data-driven-items-pending.md)；不迁移 `/clone`，不补运行期旧路径入口。实际结果见 [BOOK 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-books/validation.md)。
 
 ## 普通乐器（ITEM + MI）
 
 `d/items/qin.lpc`、`xiao.lpc`、`zheng.lpc` 分别维护 15、7、2 个品种，各自继承原 ITEM 与对应 MI，不扩展成多类乐器或武器。固定数据自然排序，原 `play`、技能效果、一次 setup、交易/刷新与存取规则保持。完整维护和部署约定见[乐器说明](data-driven-instruments.md)。
 
-基线 `aab4cff1`；`--instrument --all` 覆盖逐品种与相关业务，`--instrument --bench` 比较 24 份来源和 480 个实例。7 件特殊武器乐器保留，另核对未具备演奏能力的外观物品，不修改 `/clone`。结果及测试替身边界见 [INSTRUMENT 验证报告](../../openspec/changes/refactor-data-driven-instruments/validation.md)。
+基线 `aab4cff1`；`--instrument --all` 覆盖逐品种与相关业务，`--instrument --bench` 比较 24 份来源和 480 个实例。7 件特殊武器乐器保留，另核对未具备演奏能力的外观物品，不修改 `/clone`。结果及测试替身边界见 [INSTRUMENT 验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-instruments/validation.md)。
 
 ## 普通斧、叉、针（AXE / FORK / PIN）
 
@@ -455,7 +455,7 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --axe-fork-pin --bench
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --axe-fork-pin
 ```
 
-真实结果与替身边界见 [AXE/FORK/PIN 验证记录](../../openspec/changes/refactor-data-driven-axes-forks-pins/validation.md)。本批三个公共程序替代九个旧程序，净减少 6 个可编译文件；若连数据头文件一起计数，净减少 3 个定义文件，两种口径不混用。
+真实结果与替身边界见 [AXE/FORK/PIN 验证记录](../../openspec/changes/archive/2026-10-07-refactor-data-driven-axes-forks-pins/validation.md)。本批三个公共程序替代九个旧程序，净减少 6 个可编译文件；若连数据头文件一起计数，净减少 3 个定义文件，两种口径不混用。
 
 ## 普通护甲、护腰、披挂与盾（ARMOR / WAIST / SURCOAT / SHIELD）
 
@@ -484,6 +484,6 @@ node tools/tests/test_cloth_objects.mjs bin/driver.exe --defensive-gear --bench
 node tools/tests/compile_cloth_callers.mjs bin/lpcc.exe --defensive-gear
 ```
 
-需基线 Git 历史 `487c98da`。同条件性能比较 18 个来源、360 实例及旧 18 / 新 10 蓝图；测试仅在临时副本运行。验证与替身边界见[本批验证报告](../../openspec/changes/refactor-data-driven-defensive-gear/validation.md)。本批净减少 14 个可编译文件，含数据头文件的定义文件净减少 10 个；两种口径不混用。
+需基线 Git 历史 `487c98da`。同条件性能比较 18 个来源、360 实例及旧 18 / 新 10 蓝图；测试仅在临时副本运行。验证与替身边界见[本批验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-defensive-gear/validation.md)。本批净减少 14 个可编译文件，含数据头文件的定义文件净减少 10 个；两种口径不混用。
 
 装备类继续优先，下一步评估 ARMOR、WAIST、SURCOAT、SHIELD，再按台账处理特殊装备。后续独立规划 **FORK → SPEAR**：核对宏、父类、武学激发、NPC/玩家技能及存档后再决定枪、矛、叉的归属，本批不实施，也不修改 CLUB 下的枪。

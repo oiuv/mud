@@ -52,7 +52,8 @@ int do_take(string arg) {
     object me, ob;
     object *obs;
     int n, amount, num;
-    string un;
+    string un, name;
+    mixed err;
 
     me = this_player();
 
@@ -80,43 +81,57 @@ int do_take(string arg) {
     if (amount > bag[n]->amount)
         amount = bag[n]->amount;
 
-    if (!(ob = new(bag[n]->file))) {
-        bag[n] = 0;
-        bag -= ({ 0 });
-        tell_object(me, "无法取出该物品，系统自动清除之。\n");
-        return 1;
+    err = catch(ob = new(bag[n]->file));
+    if (err || !objectp(ob)) {
+        log_file("storage", sprintf("Cannot restore %s: %O\n", bag[n]->file, err));
+        return notify_fail("这件东西暂时取不出来，仍替你留在背包里，请稍后再试。\n");
     }
 
     obs = filter_array(all_inventory(me), (: !$1->query_temp("equipped") :));
-    if (sizeof(obs) >= 100 && !ob->can_combine_to(me))
+    if (sizeof(obs) >= 100 && !ob->can_combine_to(me)) {
+        destruct(ob);
         return notify_fail("你身上的东西实在是太多了，没法再拿东西了。\n");
+    }
 
 
     if (!(un = ob->query("base_unit")))
         un = ob->query("unit");
+    name = ob->query("name");
 
     if (ob->query_amount()) {
+        ob->set_amount(amount);
+        if (ob->move(me) <= 0) {
+            if (objectp(ob)) destruct(ob);
+            return notify_fail("这些东西暂时拿不动，仍替你留在背包里。\n");
+        }
         bag[n]->amount -= amount;
         if (bag[n]->amount == 0) {
             bag[n] = 0;
             bag -= ({ 0 });
         }
-        ob->set_amount(amount);
-        ob->move(me);
-
-        msg("vision", "$ME从背包里取出" + chinese_number(amount) + un + ob->query("name") + "。\n", me);
+        msg("vision", "$ME从背包里取出" + chinese_number(amount) + un + name + "。\n", me);
         return 1;
     }
-    destruct(ob);
-
-    bag[n]->amount -= amount;
-    num = amount;
-    while (num--) {
-        ob = new(bag[n]->file);
-        ob->move(me, 1);
+    for (num = 0; num < amount; num++) {
+        if (num) {
+            err = catch(ob = new(bag[n]->file));
+            if (err || !objectp(ob)) {
+                log_file("storage", sprintf("Cannot restore %s: %O\n", bag[n]->file, err));
+                break;
+            }
+        }
+        if (ob->move(me, 1) <= 0) {
+            if (objectp(ob)) destruct(ob);
+            break;
+        }
+        bag[n]->amount--;
     }
 
-    msg("vision", "$ME从背包里取出" + chinese_number(amount) + un + ob->query("name") + "。\n", me);
+    if (!num)
+        return notify_fail("这件东西暂时取不出来，仍替你留在背包里。\n");
+    msg("vision", "$ME从背包里取出" + chinese_number(num) + un + name + "。\n", me);
+    if (num < amount)
+        tell_object(me, "余下的东西暂时取不出来，仍替你留在背包里。\n");
 
     if (!wizardp(me) && random(2))
         me->start_busy(3);
@@ -132,7 +147,7 @@ int do_take(string arg) {
 int do_store(string arg) {
     int i, n, amount;
     string item;
-    object me, ob1, ob2, *inv;
+    object me, ob1, *inv;
 
     me = this_player();
 
@@ -191,18 +206,8 @@ int do_store(string arg) {
         if (amount > ob1->query_amount())
             return notify_fail("你没有那么多的" + ob1->name() + "。\n");
 
-        if (amount == (int)ob1->query_amount()) {
-            return store_item(me, ob1, amount);
-        } else {
-            ob1->set_amount((int)ob1->query_amount() - amount);
-            ob2 = new(base_name(ob1));
-            ob2->set_amount(amount);
-            if (!store_item(me, ob2, amount)) {
-                ob2->move(me, 1);
-                return 0;
-            }
-            return 1;
-        }
+        // Validate and record the original object before consuming any quantity.
+        return store_item(me, ob1, amount);
     }
 
     if (!objectp(ob1 = present(arg, me)))
@@ -211,8 +216,7 @@ int do_store(string arg) {
     if (ob1->query_amount())
         return do_store(ob1->query_amount() + " " + arg);
 
-    store_item(me, ob1, 1);
-    return 1;
+    return store_item(me, ob1, 1);
 }
 
 int store_item(object me, object ob, int amount) {
@@ -225,7 +229,10 @@ int store_item(object me, object ob, int amount) {
         return 0;
     }
 
-    if (file_size(base_name(ob) + ".c") < 0 &&
+    if (amount < 1 || (ob->query_amount() ? amount > ob->query_amount() : amount != 1))
+        return notify_fail("存放的数量不对，请重新查看身上的物品。\n");
+
+    if (!lpc_file(base_name(ob)) &&
         !"/d/items/cloth"->valid_variety_path(base_name(ob)) &&
         !"/d/items/boots"->valid_variety_path(base_name(ob)) &&
         !"/d/items/headwear"->valid_variety_path(base_name(ob)) &&
@@ -254,16 +261,16 @@ int store_item(object me, object ob, int amount) {
         !"/d/items/xiao"->valid_variety_path(base_name(ob)) &&
         !"/d/items/zheng"->valid_variety_path(base_name(ob)) &&
         !"/d/items/liquid"->valid_variety_path(base_name(ob)))
-        return 1;
+        return notify_fail("这件东西暂时无法存放，请你自己妥善保管。\n");
 
     if (ob->is_money()) {
         tell_object(me, "存钱请找钱庄老板存(deposit)。\n");
-        return 1;
+        return 0;
     }
 
     if (ob->is_food() || ob->is_liquid()) {
         tell_object(me, "食物饮水存背包里会变质的。\n");
-        return 1;
+        return 0;
     }
 
     // if (ob->is_container())
@@ -274,17 +281,17 @@ int store_item(object me, object ob, int amount) {
 
     if (ob->query_entire_temp_dbase()) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
-        return 1;
+        return 0;
     }
 
     if (inherits(F_SILENTDEST, ob)) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
-        return 1;
+        return 0;
     }
 
     if (inherits(F_UNIQUE, ob)) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
-        return 1;
+        return 0;
     }
 
     /*
@@ -305,26 +312,26 @@ int store_item(object me, object ob, int amount) {
     // put为move对象，store为destruct对象
     if (ob->is_no_clone() || ob->query("no_put") || ob->query("no_store")) {
         tell_object(me, "背包不保存" + ob->query("name") + "，请你自己妥善处理。\n");
-        return 1;
+        return 0;
     }
 
     if (ob->is_character() || ob->is_item_make() || !clonep(ob)) {
         tell_object(me, "背包不能保存" + ob->query("name") + "\n");
-        return 1;
+        return 0;
     }
 
     switch (ob->query("equipped")) {
         case "worn":
             tell_object(me, ob->name() + "必须先脱下来才能存放。\n");
-            return 1;
+            return 0;
         case "wielded":
             tell_object(me, ob->name() + "必须先解除装备才能存放。\n");
-            return 1;
+            return 0;
     }
 
     if (sizeof(all_inventory(ob))) {
         tell_object(me, "请你先把" + ob->query("name") + "里面的东西先拿出来。\n");
-        return 1;
+        return 0;
     }
 
     name = ob->query("name");
@@ -336,13 +343,18 @@ int store_item(object me, object ob, int amount) {
     n = sizeof(bag);
     for (i = 0; i < n; i++) {
         if (bag[i]->file == file && bag[i]->id == id && bag[i]->name == name) {
+            if (bag[i]->amount > MAX_INT - amount)
+                return notify_fail("背包里的这类东西已经太多了。\n");
             bag[i]->amount += amount;
             msg(
                 "vision",
                 "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n",
                 me
             );
-            destruct(ob);
+            if (ob->query_amount() > amount)
+                ob->add_amount(-amount);
+            else
+                destruct(ob);
             return 1;
         }
     }
@@ -354,7 +366,10 @@ int store_item(object me, object ob, int amount) {
     item->amount = amount;
     bag += ({ item });
     msg("vision", "$ME把" + chinese_number(amount) + un + ob->query("name") + "存到背包里。\n", me);
-    destruct(ob);
+    if (ob->query_amount() > amount)
+        ob->add_amount(-amount);
+    else
+        destruct(ob);
     return 1;
 }
 

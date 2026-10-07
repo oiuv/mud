@@ -1,13 +1,32 @@
 // Only the sandbox copies call this at explicitly recorded random decision sites.
 private string outcome;
 private int collision;
+private int fixed_random;
+private int dex_roll;
 
-void set_case(string value, int roll) { outcome = value; collision = roll; }
+void set_case(string value, int roll) { outcome = value; collision = roll; fixed_random = 0; }
+
+void set_attributes(int value) {
+    outcome = "hit";
+    fixed_random = 1;
+    dex_roll = value;
+}
+
+void set_riposte() {
+    set_attributes(99);
+    outcome = "dodge";
+}
+
+int random_value(int limit) {
+    if (!fixed_random) return random(limit);
+    return limit > 0 ? limit / 2 : 0;
+}
 
 int roll(string site, int limit) {
     if (limit <= 0) return 0;
     if (site == "dodge") return outcome == "dodge" ? 0 : limit - 1;
     if (site == "parry") return outcome == "parry" ? 0 : limit - 1;
     if (site == "collision") return collision < limit ? collision : limit - 1;
+    if (site == "dex" && fixed_random) return dex_roll;
     return limit - 1;
 }

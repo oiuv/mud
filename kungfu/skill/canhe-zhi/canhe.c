@@ -28,7 +28,7 @@ int perform(object me, object target) {
     if (objectp(me->query_temp("weapon")))
         return notify_fail("你必须空手才能使用" CANHE "。\n");
 
-    if (clv = (int)me->query_skill("canhe-zhi", 1) < 220)
+    if ((clv = (int)me->query_skill("canhe-zhi", 1)) < 220)
         return notify_fail("你的参合指修为有限，难以施展" CANHE "。\n");
 
     if (me->query_skill_prepared("finger") != "canhe-zhi")

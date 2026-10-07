@@ -33,6 +33,27 @@ varargs void start_busy(mixed new_busy, mixed new_interrupt) {
     set_heart_beat(1);
 }
 
+// 暂存动作仅解除忙乱，不执行中断回调；互搏第二招结束后按原值恢复。
+mixed *suspend_busy() {
+    mixed *state;
+
+    state = ({ busy, interrupt });
+    busy = 0;
+    interrupt = 0;
+    return state;
+}
+
+void restore_busy(mixed *state) {
+    if (!arrayp(state) || sizeof(state) != 2 ||
+        (!intp(state[0]) && !functionp(state[0])) ||
+        (intp(state[0]) && state[0] < 0) ||
+        (!intp(state[1]) && !functionp(state[1])))
+        error("action: Invalid saved busy state.\n");
+    busy = state[0];
+    interrupt = state[1];
+    if (busy) set_heart_beat(1);
+}
+
 // This function is for temporary conditions's recovery call_outs, bcz
 // such recovery function call_out might be destroyed if some wizard
 // destructed the object that is reponsible of it, so we let users launch

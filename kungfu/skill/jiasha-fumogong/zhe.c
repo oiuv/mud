@@ -52,7 +52,7 @@ int perform(object me, object target) {
     if (ap / 2 + random(ap) > dp) {
         count = ap / 4;
         if (me->query("max_neili") > target->query("max_neili") * 2
-            && me->query("neili") > 500) {
+            && me->query("neili") >= 800) {
             msg += HIR "$n" HIR "全身一颤，立足不稳，被$N"
                 HIR "这招击得飞起，重重的跌落在地上。\n" NOR;
 

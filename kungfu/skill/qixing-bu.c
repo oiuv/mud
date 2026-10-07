@@ -32,6 +32,6 @@ int practice_skill(object me) {
         return notify_fail("你的内力太差了，不能练倒转七星步。\n");
 
     me->receive_damage("qi", 35);
-    me->add("neill", -24);
+    me->add("neili", -24);
     return 1;
 }

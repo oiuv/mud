@@ -284,6 +284,78 @@ private void callbacks() {
     }
 }
 
+// Exercise real COMBAT_D and receive_damage/receive_wound with reproducible draws.
+private int *attribute_damage(int special, int attacker_dex, int defender_dex,
+    int attacker_con, int defender_con, int dex_roll) {
+    object me, target, weapon;
+    int qi, eff_qi;
+    int *loss;
+
+    me = actor();
+    target = actor();
+    me->set("dex", attacker_dex);
+    target->set("dex", defender_dex);
+    me->set("con", attacker_con);
+    target->set("con", defender_con);
+    // These effects intentionally still use base attributes, not effective totals.
+    target->set_temp("apply/dex", 100);
+    target->set_temp("apply/con", 100);
+    weapon = gear(me, "/d/items/sword/bintie_jian", "main");
+    weapon->set("actions", ([ "action": "$N挥剑刺向$n", "damage_type": "刺伤" ]));
+    weapon->wield();
+    "/tests/control"->set_attributes(dex_roll);
+    qi = target->query("qi");
+    eff_qi = target->query("eff_qi");
+    if (special)
+        COMBAT_D->do_damage(me, target, WEAPON_ATTACK, 200, 50, "演武命中。\n");
+    else
+        COMBAT_D->do_attack(me, target, weapon, TYPE_QUICK);
+    loss = ({ qi - target->query("qi"), eff_qi - target->query("eff_qi") });
+    destruct(me);
+    destruct(target);
+    return loss;
+}
+
+private void attributes() {
+    int attacker, defender, roll, special, threshold, wound;
+    int *loss, *baseline;
+    string label;
+
+    foreach (attacker in ({ 10, 30, 50 })) {
+        foreach (defender in ({ 10, 30, 50 })) {
+            threshold = (defender - 10) / 4 + 2;
+            foreach (roll in ({ 0, 1, 2, 6, 7, 11, 12, 99 })) {
+                loss = attribute_damage(0, attacker, defender, 10, 10, roll);
+                label = sprintf(" dex attacker=%d defender=%d roll=%d", attacker, defender, roll);
+                check(roll < threshold ? loss[0] == 0 : loss[0] > 0,
+                    "extra evasion uses defender base attribute and original threshold" + label);
+                check(loss[1] == loss[0], "extra evasion clears both damage and wound" + label);
+            }
+        }
+    }
+    foreach (special in ({ 0, 1 })) {
+        baseline = attribute_damage(special, 10, 10, 10, 10, 99);
+        check(baseline[0] > 0 && baseline[1] > 0, "positive attribute baseline: " + special);
+        check(baseline[1] == (special ? baseline[0] * 50 / 100 : baseline[0]),
+            "original pre-con wound calculation: " + special);
+        foreach (attacker in ({ 10, 30, 50 })) {
+            foreach (defender in ({ 10, 30, 50 })) {
+                loss = attribute_damage(special, 10, 10, attacker, defender, 99);
+                wound = baseline[1] - baseline[1] * (defender - 10) / 100;
+                label = sprintf(
+                    " con special=%d attacker=%d defender=%d",
+                    special,
+                    attacker,
+                    defender
+                );
+                check(loss[0] == baseline[0], "con does not reduce immediate qi damage" + label);
+                check(loss[1] == wound, "wound reduction uses defender base con only" + label);
+            }
+        }
+    }
+    "/tests/control"->set_case("hit", 0);
+}
+
 private void skills() {
     object me, target, other, weapon, skill, room, member;
     string type, name, ending;
@@ -465,6 +537,8 @@ void run() {
     groups = json_decode(read_file("/tests/groups.json"));
     if (member_array("equipment", groups) != -1) equipment();
     if (member_array("callbacks", groups) != -1) callbacks();
+    if (member_array("attributes", groups) != -1) attributes();
+    if (member_array("audit", groups) != -1) "/tests/audit"->run();
     if (member_array("skills", groups) != -1) {
         skills();
         timed_cleanup();

@@ -1,0 +1,24 @@
+private int *draws = ({});
+private int *limits = ({});
+private int high;
+
+void reset(int use_high, int *values) {
+    high = use_high;
+    draws = values;
+    limits = ({});
+}
+
+int roll(int limit) {
+    int value;
+
+    limits += ({ limit });
+    if (sizeof(draws)) {
+        value = draws[0];
+        draws = draws[1..];
+        return limit > 0 ? value % limit : 0;
+    }
+    return high && limit > 0 ? limit - 1 : 0;
+}
+
+int *query_limits() { return limits; }
+float effect_delay(object target) { return to_float(target->query_temp("test/delay")) / 10.0; }

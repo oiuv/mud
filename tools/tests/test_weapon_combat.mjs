@@ -11,7 +11,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const args = process.argv.slice(2);
 const driver = resolve(args.find(arg => !arg.startsWith('--')) || join(root, 'bin/driver.exe'));
 const groups = args.filter(arg => arg.startsWith('--')).map(arg => arg.slice(2));
-assert.ok(groups.every(group => ['equipment', 'callbacks', 'skills'].includes(group)));
+const allGroups = ['equipment', 'callbacks', 'attributes', 'audit', 'skills'];
+assert.ok(groups.every(group => allGroups.includes(group)));
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-weapon-combat-'));
 console.log('Isolated weapon regression: ' + sandbox);
 const git = (directory, arguments_) => execFileSync('git', ['-C', directory, ...arguments_], { encoding: 'utf8' })
@@ -37,8 +38,9 @@ put('tests/master.lpc', readFileSync(join(root, 'tools/tests/weapon_classificati
         'if (err) check(0, err);\n    if (err || !"/tests/regression"->query_pending()) finish();'));
 put('tests/actor.lpc', readFileSync(join(root, 'tools/tests/weapon_classification/startup_actor.lpc'), 'utf8')
     + '\n// Fixture-only death state, without NPC corpse/reward side effects.\nvoid mark_ghost() { ghost = 1; }\n');
-for (const file of ['regression', 'control', 'armor', 'crafted', 'throwing'])
+for (const file of ['regression', 'control', 'armor', 'crafted', 'throwing', 'audit', 'audit_weapon'])
     put('tests/' + file + '.lpc', readFileSync(join(root, 'tools/tests/weapon_combat', file + '.lpc'), 'utf8'));
+put('kungfu/skill/audit_skill.lpc', readFileSync(join(root, 'tools/tests/weapon_combat/audit_skill.lpc'), 'utf8'));
 // Deterministic random choices only in the disposable copies. Keep real do_attack,
 // callbacks, damage calculation, item lifecycle and character inheritance intact.
 const patches = {
@@ -46,19 +48,28 @@ const patches = {
         ['random(ap + dp)', '"/tests/control"->roll("dodge", ap + dp)'],
         ['random(ap + pp)', '"/tests/control"->roll("parry", ap + pp)'],
         ['> random(100))\n                    damage = 0;', '> "/tests/control"->roll("dex", 100))\n                    damage = 0;'],
+        // Remaining draws keep native randomness except while testing attribute ownership.
+        ['random(', '"/tests/control"->random_value('],
     ],
     'adm/daemons/weapond.c': [['wap = random(wap);', 'wap = "/tests/control"->roll("collision", wap);']],
+    'feature/action.c': [['random(', '"/tests/control"->random_value(']],
+    'cmds/skill/perform.c': [['random(', '"/tests/control"->random_value(']],
 };
 for (const [file, replacements] of Object.entries(patches)) {
     let text = readFileSync(join(root, file), 'utf8');
     for (const [before, after] of replacements) {
-        assert.equal(text.split(before).length, 2, 'Unique random patch site: ' + file + ': ' + before);
-        text = text.replace(before, after);
+        if (before === 'random(') {
+            assert.ok(text.includes(before), 'Combat random draws found');
+            text = text.replaceAll(before, after);
+        } else {
+            assert.equal(text.split(before).length, 2, 'Unique random patch site: ' + file + ': ' + before);
+            text = text.replace(before, after);
+        }
     }
     put(file, text);
 }
 put('tests/random-patches.json', JSON.stringify(patches, null, 2));
-put('tests/groups.json', JSON.stringify(groups.length ? groups : ['equipment', 'callbacks', 'skills']));
+put('tests/groups.json', JSON.stringify(groups.length ? groups : allGroups));
 const listener = createServer();
 await new Promise((done, reject) => { listener.once('error', reject); listener.listen(0, '127.0.0.1', done); });
 const port = listener.address().port;

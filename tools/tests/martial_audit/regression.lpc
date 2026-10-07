@@ -1,0 +1,417 @@
+#include <combat.h>
+
+inherit ROOM;
+
+private object *actors = ({});
+private object timed_a, timed_b, recoil_a, recoil_b;
+
+void check(int ok, string label) { master()->check(ok, label); }
+void rolls(int high, int *values) { "/tests/control"->reset(high, values); }
+
+object actor() {
+    object ob;
+
+    ob = new("/tests/actor");
+    ob->set_name("演武弟子", ({ sprintf("trainee%d", sizeof(actors)) }));
+    ob->move(this_object());
+    actors += ({ ob });
+    return ob;
+}
+
+void fight(object a, object b) {
+    a->fight_ob(b);
+    b->fight_ob(a);
+}
+
+void init() { add_action("do_invoke", "audit_invoke"); }
+
+int do_invoke() {
+    object who;
+
+    who = this_player();
+    who->set_temp("test/result", evaluate(who->query_temp("test/callback", 1)));
+    return 1;
+}
+
+int taixuan(object me, object target) {
+    return me->invoke((: call_other, "/kungfu/skill/taixuan-gong", "perform_action", me,
+        "xuan " + target->query("id") :));
+}
+
+void check_freeze() {
+    object a, b, skill;
+    int n, before;
+    int *limits;
+
+    a = actor(); b = actor(); fight(a, b);
+    a->set_skill("bingxin-jue", 200);
+    b->set_skill("force", 2400);
+    skill = load_object("/kungfu/skill/bingxin-jue/freeze");
+    rolls(0, ({ 0, 1199 }));
+    before = b->query("qi");
+    check(skill->exert(a, b) && b->query("qi") == before, "freeze high target force can resist");
+    limits = "/tests/control"->query_limits();
+    check(
+        sizeof(limits) >= 2 && limits[1] == b->query_skill("force"),
+        "freeze defense RNG uses victim force"
+    );
+    foreach (n in ({ 165, 166, 167, 1000 })) {
+        b->set("neili", n); before = b->query("qi"); rolls(0, ({}));
+        check(skill->exert(a, b), "freeze succeeds with controlled hit");
+        check(
+            b->query("neili") == (n > 166 ? n - 166 : 0),
+            "freeze drains enemy energy without underflow"
+        );
+        check(b->query("qi") == before - 166, "freeze keeps original damage");
+    }
+}
+
+void check_canhe() {
+    object a, b, c, skill;
+    int before, n;
+
+    a = actor(); b = actor(); c = actor(); fight(a, b);
+    a->set_skill("canhe-zhi", 500);
+    a->map_skill("finger", "canhe-zhi");
+    a->prepare_skill("finger", "canhe-zhi");
+    b->set_skill("liumai-shenjian", 200);
+    b->prepare_skill("finger", "liumai-shenjian");
+    skill = load_object("/kungfu/skill/canhe-zhi/canhe");
+    rolls(0, ({})); before = a->query("eff_qi");
+    check(
+        skill->perform(a, b) && a->query("eff_qi") == before,
+        "high-level canhe ignores lower six-meridian reflection"
+    );
+    check(
+        b->query_temp("test/damages") == 3,
+        "canhe still attacks three times when reflection is suppressed"
+    );
+    a->set_skill("canhe-zhi", 250); rolls(0, ({})); before = a->query("eff_qi");
+    check(
+        skill->perform(a, b) && a->query("eff_qi") < before,
+        "eligible six-meridian reflects canhe using real levels"
+    );
+    a->set_skill("canhe-zhi", 219); before = a->query("neili");
+    check(
+        !skill->perform(a, b) && a->query("neili") == before,
+        "canhe rejects skill below 220 without spending"
+    );
+
+    skill = load_object("/kungfu/skill/canhe-zhi");
+    a->set_skill("canhe-zhi", 250);
+    b->set_skill("liumai-shenjian", 201);
+    a->fight_ob(c); rolls(0, ({})); before = a->query("eff_qi");
+    skill->hit_ob(a, b, 300);
+    check(a->query("eff_qi") == before - 201 / 4 && a->query_last_damage_from() == b,
+        "passive reflection uses actual victim and real skill damage, not another opponent");
+    rolls(0, ({})); before = a->query("eff_qi");
+    skill->hit_ob(a, c, 100);
+    check(
+        a->query("eff_qi") == before,
+        "ordinary victim cannot borrow another opponent's six-meridian art"
+    );
+    a->set_skill("canhe-zhi", 500); rolls(0, ({})); before = a->query("eff_qi");
+    skill->hit_ob(a, b, 100);
+    check(a->query("eff_qi") == before, "passive reflection observes the level gap");
+    foreach (n in ({ 79, 80, 81 })) {
+        a->set("neili", n); rolls(0, ({})); before = c->query("eff_qi");
+        skill->hit_ob(a, c, 1000);
+        check(
+            a->query("neili") == (n >= 80 ? n - 80 : n),
+            "canhe optional hit pays exactly 80 only when affordable"
+        );
+        check(
+            (c->query("eff_qi") < before) == (n >= 80),
+            "unaffordable canhe extra wound is absent"
+        );
+    }
+}
+
+void check_taixuan() {
+    object a, b, weapon;
+    string kind;
+    int before;
+    mixed *during;
+
+    a = actor(); b = actor(); fight(a, b);
+    a->set_skill("taixuan-gong", 320);
+    a->map_skill("unarmed", "taixuan-gong");
+    before = a->query("neili");
+    check(!taixuan(a, b) && a->query("neili") == before,
+        "taixuan unprepared empty hand rejected before payment");
+    a->prepare_skill("unarmed", "taixuan-gong");
+    a->set_temp("apply/attack", 7); rolls(0, ({}));
+    check(taixuan(a, b), "prepared taixuan dispatched perform succeeds");
+    during = a->query_temp("test/in_effect");
+    check(
+        during[2] == 47 && a->query_temp("test/attacks") == 15,
+        "taixuan real level contributes to all fifteen attacks"
+    );
+    check(a->query_temp("apply/attack") == 7 && a->query("neili") == before - 600,
+        "taixuan restores existing enhancement and original cost");
+    a->prepare_skill("unarmed"); a->set("can_learned/taixuan-gong/enable_weapon", 1);
+    before = a->query("neili");
+    check(!taixuan(a, b) && a->query("neili") == before,
+        "weapon-trained taixuan still requires preparation when empty handed");
+    foreach (kind in ({ "sword", "blade" })) {
+        weapon = new("/tests/actor");
+        weapon->set("skill_type", kind);
+        a->set_temp("weapon", weapon);
+        a->set_skill(kind, 500); a->map_skill(kind, "taixuan-gong");
+        a->delete_temp("test/attacks"); before = a->query("neili"); rolls(0, ({}));
+        check(taixuan(
+            a,
+            b
+        ) && a->query_temp("test/attacks") == 15 && a->query("neili") == before - 600,
+            kind + " taixuan dispatch also works through its armed branch");
+        destruct(weapon);
+    }
+}
+
+void check_tao_and_ruying() {
+    object a, b, skill;
+    int n, before_str, before_dex, before;
+    int *limits;
+    mixed *during;
+
+    a = actor(); b = actor(); fight(a, b);
+    a->set_skill("chousui-zhang", 220); a->set_skill("poison", 250);
+    a->set_skill("huagong-dafa", 220); a->prepare_skill("strike", "chousui-zhang");
+    a->set_temp("powerup", 1); b->set("max_neili", 100);
+    skill = load_object("/kungfu/skill/chousui-zhang/tao");
+    foreach (n in ({ 300, 600 })) {
+        a->set_skill("force", n); a->set("neili", 10000); rolls(0, ({}));
+        check(skill->perform(a, b), "tao executes production success path");
+        limits = "/tests/control"->query_limits();
+        check(member_array(125 + n, limits) >= 0,
+            sprintf("tao accuracy includes actual basic force %d (RNG bounds %O)", n, limits));
+        check(a->query("neili") == 0, "tao keeps full-current-energy cost");
+    }
+    a = actor(); b = actor(); fight(a, b);
+    a->set_skill("ruying-suixingtui", 200); a->map_skill("unarmed", "ruying-suixingtui");
+    a->prepare_skill("unarmed", "ruying-suixingtui");
+    a->set_temp("apply/str", 3); a->set_temp("apply/dex", 4);
+    a->set_temp("apply/attack", 5); a->set_temp("apply/damage", 6);
+    before_str = a->query_str(); before_dex = a->query_dex(); before = a->query("neili");
+    rolls(0, ({}));
+    check(
+        "/kungfu/skill/ruying-suixingtui/ruying"->perform(a, b),
+        "ruying production combo executes"
+    );
+    during = a->query_temp("test/in_effect");
+    check(during[0] == before_str + 50 && during[1] == before_dex + 50 && during[2] == 55 && during[3] == 56,
+        "ruying increases real strength/dexterity and combat modifiers during combo");
+    check(a->query_str() == before_str && a->query_dex() == before_dex &&
+        a->query_temp("apply/attack") == 5 && a->query_temp("apply/damage") == 6,
+        "ruying restores all four original modifiers");
+    check(!a->query_temp("apply/strength") && !a->query_temp("apply/dexerity") && a->query("neili") == before - 500,
+        "ruying does not write misspelled modifiers or change cost");
+}
+
+void check_energy() {
+    object a, b, skill;
+    string name;
+    int n, before;
+
+    foreach (name in ({ "shenxing-baibian", "qixing-bu" })) {
+        a = actor(); skill = load_object(SKILL_D(name));
+        a->set("neili", 29); before = a->query("qi");
+        check(!skill->practice_skill(a) && a->query("qi") == before && a->query("neili") == 29,
+            name + " insufficient practice energy changes nothing");
+        a->set("neili", 30);
+        check(skill->practice_skill(a) && a->query("neili") == (name == "qixing-bu" ? 6 : 16),
+            name + " practice consumes real inner energy");
+        check(!a->query("neill"), name + " never creates misspelled persistent energy");
+    }
+    foreach (name in ({ "shenxing-baibian/piao", "biyun-xinfa/powerup" })) {
+        skill = load_object(SKILL_D(name));
+        foreach (n in ({ 99, 100, 101 })) {
+            a = actor(); a->set_skill(
+                "shenxing-baibian",
+                60
+            ); a->map_skill("dodge", "shenxing-baibian");
+            a->set("neili", n);
+            before = name == "shenxing-baibian/piao" ? skill->perform(a, a) : skill->exert(a, a);
+            check(!!before == (n >= 100) && a->query("neili") == (n >= 100 ? n - 100 : n),
+                name + " boundary at 99/100/101 pays exactly or rejects");
+            check(!!a->query_temp(name == "shenxing-baibian/piao" ? "shenxing" : "powerup") == (n >= 100),
+                name + " rejected request never applies enhancement");
+            if (n >= 100) {
+                a->set("neili", 100);
+                before = name == "shenxing-baibian/piao" ? skill->perform(
+                    a,
+                    a
+                ) : skill->exert(a, a);
+                check(
+                    !before && a->query("neili") == 100,
+                    name + " already-active effect cannot spend or stack again"
+                );
+            }
+        }
+    }
+    skill = load_object("/kungfu/skill/jiasha-fumogong/zhe");
+    foreach (n in ({ 399, 400, 501, 799, 800, 801 })) {
+        a = actor(); b = actor(); fight(a, b);
+        a->set_skill("jiasha-fumogong", 200); a->map_skill("unarmed", "jiasha-fumogong");
+        a->prepare_skill("unarmed", "jiasha-fumogong"); b->set("max_neili", 1000); b->set("con", 1);
+        a->set("neili", n); before = b->query("eff_qi"); rolls(0, ({}));
+        check(!!skill->perform(a, b) == (n >= 400), "zhe preserves original entry requirement");
+        check(a->query("neili") == (n < 400 ? n : n - (n >= 800 ? 800 : 300)),
+            sprintf("zhe reserves base cost before optional 500-energy effect at %d", n));
+        check(
+            b->query("eff_qi") == (n >= 800 ? 0 : before),
+            sprintf("zhe strong effect occurs only with full 800 payment at %d", n)
+        );
+    }
+    a->set("neili", 800); b->set("max_neili", a->query("max_neili")); b->set("eff_qi", 100000);
+    rolls(0, ({})); skill->perform(a, b);
+    check(a->query("neili") == 500 && b->query("eff_qi") == 100000,
+        "zhe sufficient payment alone does not bypass original strength requirement");
+}
+
+void check_recovery() {
+    object a, skill;
+    string name;
+    int n;
+
+    foreach (name in ({ "xiantian-gong/exert/hup", "xuedao-dafa/exert/resurrect" })) {
+        skill = load_object(SKILL_D(name));
+        foreach (n in ({ 200, 1000 })) {
+            a = actor(); a->set_skill("xiantian-gong", 200); a->set_skill("xuedao-dafa", 120);
+            a->set("max_qi", 1000); a->set("eff_qi", 800); a->set("qi", 300); a->set("neili", n);
+            rolls(1, ({}));
+            check(skill->exert(a, a) && a->query("eff_qi") == 900 && a->query("qi") == 450,
+                name + " cures wounds and really restores current qi");
+            check(a->query("neili") == n - 200, name + " retains affordable healing cost");
+        }
+        a = actor(); a->set_skill("xiantian-gong", 200); a->set_skill("xuedao-dafa", 120);
+        a->set("max_qi", 1000); a->set("eff_qi", 995); a->set("qi", 995); rolls(1, ({}));
+        check(skill->exert(a, a) && a->query("eff_qi") == 1000 && a->query("qi") == 1000,
+            name + " recovery never exceeds effective/maximum qi");
+        a->set("max_qi", 10000); a->set("eff_qi", 5000); a->set("qi", 1000); a->set("neili", 200);
+        rolls(1, ({}));
+        check(skill->exert(
+            a,
+            a
+        ) && a->query("eff_qi") == 5100 && a->query("qi") == 1150 && a->query("neili") == 0,
+            name + " scales actual recovery to affordable remaining energy");
+        a->set("eff_qi", 10000); a->set("qi", 9900); a->set("neili", 1000);
+        check(skill->exert(a, a) && a->query("qi") == 10000 && a->query("neili") == 980,
+            name + " uninjured fallback still calls real force recover");
+    }
+    a = actor(); a->set("max_neili", 0); a->set("con", 20);
+    a->set("eff_qi", 100); a->set("qi", 50); a->set("eff_jing", 100); a->set("jing", 50);
+    check("/kungfu/condition/drunk"->update_condition(
+        a,
+        15
+    ) && a->query("qi") == 65 && a->query("jing") == 60,
+        "mild drunkenness restores real current qi and jing");
+    a->set("qi", 99); a->set("jing", 99); "/kungfu/condition/drunk"->update_condition(a, 15);
+    check(
+        a->query("qi") == 100 && a->query("jing") == 100,
+        "drunk recovery observes effective caps"
+    );
+    a = actor(); a->set_skill("biyun-xinfa", 100); a->map_skill("force", "biyun-xinfa");
+    a->set("max_qi", 1000); a->set("eff_qi", 990); a->set("qi", 900);
+    a->set_temp("pending/exercise", 7);
+    skill = load_object("/kungfu/skill/force/heal");
+    check(
+        skill->exert(a, a) && a->query_temp("pending/healing"),
+        "heal marks its own pending operation"
+    );
+    check(skill->healing(a) && !skill->healing(a) && !a->query_temp("pending/healing") &&
+        a->query_temp("pending/exercise") == 7, "natural heal completion clears only healing state");
+    a->set_temp("pending/healing", 1);
+    check(
+        skill->halt_healing(a) && !a->query_temp("pending/healing"),
+        "interrupted heal also clears its own state"
+    );
+}
+
+void cast_xin(object caster, object target) {
+    fight(caster, target); caster->set_skill("jiuyin-shengong", 300);
+    caster->map_skill("force", "jiuyin-shengong");
+    target->set_skill("force", 0); rolls(0, ({}));
+    check(caster->invoke((: call_other, "/kungfu/skill/jiuyin-shengong/perform/xin", "perform", caster, target :)),
+        "xin production effect applied");
+}
+
+void timed_middle() {
+    check(timed_a->query_temp("eff/jiuyin-shengong/xin") &&
+        !timed_b->query_temp("eff/jiuyin-shengong/xin"), "expired old xin callback does not clear refreshed target or strand another target");
+    check(recoil_a->query_temp("test/unconscious") == 1 && recoil_b->query_temp("test/unconscious") == 1,
+        "two tao users independently receive their delayed recoil");
+}
+
+void timed_finish() {
+    check(
+        !timed_a->query_temp("eff/jiuyin-shengong/xin"),
+        "refreshed xin finally expires at its own deadline"
+    );
+    master()->finish();
+}
+
+void check_timing() {
+    object caster, second_caster, vanished, target;
+    int old_id;
+
+    caster = actor(); second_caster = actor(); timed_a = actor(); timed_b = actor(); vanished = actor();
+    timed_a->set_temp(
+        "test/delay",
+        10
+    ); timed_b->set_temp("test/delay", 10); vanished->set_temp("test/delay", 5);
+    cast_xin(caster, timed_a); old_id = timed_a->query_temp("eff/jiuyin-shengong/xin");
+    cast_xin(second_caster, timed_b); cast_xin(caster, vanished);
+    destruct(vanished);
+    timed_a->set_temp("test/delay", 20); cast_xin(caster, timed_a);
+    check(
+        timed_a->query_temp("eff/jiuyin-shengong/xin") != old_id,
+        "repeated xin refresh has a distinct effect identity"
+    );
+    recoil_a = actor(); recoil_b = actor(); target = actor(); target->set("max_neili", 100000);
+    foreach (caster in ({ recoil_a, recoil_b })) {
+        fight(caster, target); caster->set_skill("chousui-zhang", 220);
+        caster->set_skill("poison", 250); caster->set_skill("huagong-dafa", 220);
+        caster->prepare_skill(
+            "strike",
+            "chousui-zhang"
+        ); caster->set_temp("powerup", 1); rolls(0, ({}));
+        check(
+            "/kungfu/skill/chousui-zhang/tao"->perform(caster, target),
+            "tao production recoil scheduled"
+        );
+    }
+    call_out("timed_middle", 1.3);
+    call_out("timed_finish", 2.3);
+}
+
+void create() { set("short", "隔离演武场"); set("no_fight", 0); }
+
+int run_checks() {
+    string before;
+
+    before = read_file("/tests/before.txt");
+    if (stringp(before) && before != "") {
+        switch (before) {
+            case "freeze": check_freeze(); break;
+            case "canhe": check_canhe(); break;
+            case "taixuan": check_taixuan(); break;
+            case "tao": check_tao_and_ruying(); break;
+            case "energy": check_energy(); break;
+            case "recovery": check_recovery(); break;
+            case "timing": check_timing(); return 1;
+        }
+        master()->finish();
+        return 1;
+    }
+    check_freeze(); check_canhe(); check_taixuan(); check_tao_and_ruying();
+    check_energy(); check_recovery(); check_timing();
+    return 1;
+}
+
+void run() {
+    object controller;
+
+    controller = actor();
+    check(controller->invoke((: run_checks :)), "regression runs in a real command context");
+}

@@ -282,6 +282,7 @@ int do_buy(string arg) {
     int amount;
     int value, val_factor;
     string ob_file;
+    string quantity, item;
     object *obs;
     object ob;
     string my_id;
@@ -322,13 +323,14 @@ int do_buy(string arg) {
         return 1;
     }
 
-    if (sscanf(arg, "%d %s", amount, arg) != 2)
-        // not indicate the amount of the goods
-        amount = 1;
-
-    if (amount > 100) {
-        write(CYN + name() + "忙道：慢慢来，一次最多买一百件。\n" NOR);
-        return 1;
+    amount = 1;
+    if (sscanf(arg, "%s %s", quantity, item) == 2 &&
+        ((quantity[0] >= '0' && quantity[0] <= '9') ||
+            quantity[0] == '-' || quantity[0] == '+')) {
+        amount = MONEY_D->parse_trade_amount(quantity, 100);
+        if (!amount)
+            return notify_fail("购买数量须为一到一百之间的整数。\n");
+        arg = item;
     }
 
     // no present or equipped
@@ -347,7 +349,7 @@ int do_buy(string arg) {
             return 1;
         }
         ob = new(ob_file);
-        if (amount > 1) ob->set_amount(amount);
+        if (ob->query_amount()) ob->set_amount(amount);
         val_factor = 10;
         call_out("destruct_it", 0, ob);
     } else {
@@ -380,17 +382,18 @@ int do_buy(string arg) {
     }
 
     value = ob->query("value");
-    if (value > 100000000 || value * val_factor / val_factor != value) {
+    if (value < 0 || value > 100000000 || value > MAX_INT / val_factor) {
         write(CYN + name() + CYN "大惊失色道：这么大一笔生意？我可不好做。\n" NOR);
         return 1;
     }
 
     value = value * val_factor / 10;
 
-    if (mapp(goods = query("vendor_goods")) &&
-        (int)goods[base_name(ob)] > 0) {
+    if (mapp(goods = query("vendor_goods")) && !undefinedp(goods[base_name(ob)])) {
+        if (!intp(goods[base_name(ob)]) || goods[base_name(ob)] < 1)
+            return notify_fail("这件货物的售价尚未定妥，暂时不能购买。\n");
         value = goods[base_name(ob)];
-        if (value * amount / amount != value) {
+        if (value > MAX_INT / amount) {
             write(CYN + name() + CYN "大惊失色道：“这么大一笔生意？我可不好做。”\n" NOR);
             return 1;
         }
@@ -405,7 +408,10 @@ int do_buy(string arg) {
 
     // 开了店的玩家才采购时享受八折优惠
     if (SHOP_D->is_owner(me->query("id")))
-        value = value * 4 / 5;
+        value = value / 5 * 4 + value % 5 * 4 / 5;
+
+    if (value < 1)
+        return notify_fail("这件货物的售价尚未定妥，暂时不能购买。\n");
 
     switch (MONEY_D->player_pay(me, value)) {
         case 0:

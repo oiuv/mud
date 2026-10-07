@@ -1,0 +1,6 @@
+#include "json.c"
+
+object find_player(string id) {
+    return id == "tester" ? "/tests/master"->query_player() : 0;
+}
+string sort_string(string text, int width) { return text; }

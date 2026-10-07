@@ -44,6 +44,7 @@
 | `verify_codegraph.py` | 隔离 LPC 索引与七项 CLI 查询 | 默认预览；`--execute` 调用本机 CLI、维护临时索引，不调用模型 |
 | `verify_upgrade.py` | 旧版/当前版升级回退 | 直接运行隔离演练，创建临时副本，不读正式数据或调用模型 |
 | `verify_lpc.mjs` | 真实驱动与假模型 UDP 回归 | 直接启动临时驱动/后端，需要可用 FluffOS 与 Python，不连接正式游戏 |
+| `verify_npc_reconnect.mjs` | 同玩家对象重连、顶号与旧回复隔离 | 临时真实驱动、TCP 连接和本地 UDP 替身；不调用模型或读写玩家数据，`--baseline` 仅在临时副本对照 `d43c418f` 的旧实现 |
 | `bench_cache.py` | 查询向量缓存基准 | 直接调用远程向量 API，可能写本地缓存 |
 | `bench_retrieval.py` | 检索耗时基准 | 默认本地 BM25；`--remote` 调用远程向量/重排 |
 | `eval_source.py` | 固定源码题、人工审核与计分 | 默认预览；真实运行需 `--execute --allow-source-egress`；离线审核/计分不调用模型 |

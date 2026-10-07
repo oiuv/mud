@@ -1,0 +1,40 @@
+// Real NPC, skill, attribute, action and damage methods; only unrelated life-cycle
+// consequences are suppressed. No accounts, saves or autonomous combat ticks.
+inherit NPC;
+
+void heart_beat() {}
+void unconcious() { add_temp("test/unconscious", 1); }
+void die() { add_temp("test/deaths", 1); }
+
+int invoke(function callback) {
+    set_temp("test/callback", callback);
+    command("audit_invoke");
+    return query_temp("test/result");
+}
+
+void create() {
+    set_name("演武弟子", ({ "trainee" }));
+    set("gender", "男性");
+    set("age", 25);
+    set("str", 40);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 40);
+    set("combat_exp", 10000000);
+    set("attitude", "peaceful");
+    setup();
+    set("max_qi", 100000);
+    set("eff_qi", 100000);
+    set("qi", 100000);
+    set("max_jing", 100000);
+    set("eff_jing", 100000);
+    set("jing", 100000);
+    set("max_neili", 10000);
+    set("neili", 10000);
+    set_skill("force", 1000);
+    set_skill("unarmed", 500);
+    set_skill("finger", 500);
+    set_skill("strike", 500);
+    set_skill("dodge", 100);
+    set_skill("parry", 100);
+}

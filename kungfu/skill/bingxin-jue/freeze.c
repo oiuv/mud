@@ -31,7 +31,7 @@ int exert(object me, object target) {
         HIW "，四周登时雪花飘飘。\n" NOR;
 
     ap = me->query_skill("force");
-    dp = me->query_skill("force");
+    dp = target->query_skill("force");
 
     me->start_busy(2);
 
@@ -40,7 +40,7 @@ int exert(object me, object target) {
         target->receive_damage("qi", damage, me);
         target->receive_wound("qi", damage, me);
         if (target->query("neili") > damage)
-            target->add("neili", damage);
+            target->add("neili", -damage);
         else
             target->set("neili", 0);
 

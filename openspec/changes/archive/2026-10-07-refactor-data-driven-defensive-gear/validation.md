@@ -72,7 +72,7 @@
 
 ## 复现与证据
 
-命令见[维护说明](../../../docs/architecture/data-driven-items.md)的四类普通防具章节。另执行：
+命令见[维护说明](../../../../docs/architecture/data-driven-items.md)的四类普通防具章节。另执行：
 
 ```powershell
 node --test tools/tests/test_item_records.mjs

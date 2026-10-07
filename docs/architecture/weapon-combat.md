@@ -28,7 +28,32 @@ void post_action(object me, object victim, object weapon, int damage, int result
 其他情况仅显示碰撞。未调整原阈值、概率或自制折损保护，不给未注册回调的特殊武学追加效果。
 `throw_weapon` 仍每次消耗一枚，最后一枚先卸装、再由组合物品生命周期销毁。
 
+## 防守属性归属
+
+- `COMBAT_D->do_attack()` 的额外闪避使用防守方 `victim->query("dex")`，
+  保留 `(dex - 10) / 4 + 2 > random(100)` 的整数计算与严格大于判断。
+  这是常规命中、招架判定之后的伤害清零分支，不是角色总闪避率，也不改动原攻击结果码。
+- 普通攻击的 `wounded` 和 `do_damage()` 的 `wound` 均使用防守方的
+  `query("con")`，保留 `wound -= wound * (con - 10) / 100`。
+  根骨在这两处减轻创伤（`eff_qi` 损失），不直接降低当次气血伤害。
+- 本次仅修正属性所属对象；仍取先天基础字段，不切换为 `query_dex()` / `query_con()`，
+  不改变武学、装备、临时加成及其他判定原有的属性用法，不迁移玩家数据。
+
 ## 指定武学
+
+### 反击、加力与互搏
+
+- 趁隙反击在出手时读取防守方的 `query_temp("weapon")`，不读取持久属性中的
+  `weapon`；空手、主手变更及副手转正均沿当前装备动作结算。
+- `do_damage()` 的远程与近程分支先计算 `damage_bonus`，再统一加到伤害中。
+  远程仍保留原来的加力消耗与不经过近程内功抵抗的规则，不新增抵抗或倍率。
+- 左右互搏暂存首招的原始 `busy/interrupt`，不调用取消回调，也不重新应用忙乱减免。
+  第二招失败或数值忙乱较短时恢复首招，较长时保留第二招。
+  首招为函数型持续动作时不再执行第二招；第二招产生函数型动作时保留其回调。
+  `feature/action.c` 的 `suspend_busy()` / `restore_busy()` 仅保存恢复状态，
+  不用于替代正常动作完成或中断处理。
+
+### 消耗与效果
 
 - 盘古七势「开天辟地」、撼山锤法「撼山震岳」统一要求当前内力至少 500。
   命中扣 500、自忙 3；未中扣 300、自忙 4；持器、领悟、伤害和其他门槛不变。
@@ -42,13 +67,23 @@ void post_action(object me, object victim, object weapon, int damage, int result
 ## 验证与部署边界
 
 `node tools/tests/test_weapon_combat.mjs bin/driver.exe` 使用源码临时副本、真实 NPC 继承与
-COMBAT_D；可选 `--equipment`、`--callbacks`、`--skills`。战斗分支仅在临时副本控制
+COMBAT_D；可选 `--equipment`、`--callbacks`、`--attributes`、`--skills`、`--audit`。战斗分支仅在临时副本控制
 随机决策点，记录 `tests/random-patches.json`，不修改正式随机实现或存档。
-具体结果见[本次验收记录](../../openspec/changes/fix-weapon-combat-consistency/verification.md)。
+属性测试固定其他随机取值，交叉改变攻守双方身法、根骨（10、30、50），
+覆盖额外闪避阈值两侧、普通攻击和绝招创伤、气血伤害不随根骨改变，
+并用防守方临时加成确认仍按基础字段结算；其他测试保留原随机行为。
+原装备与武学修复结果见[归档验收记录](../../openspec/changes/archive/2026-10-07-fix-weapon-combat-consistency/verification.md)。
+交易、背包、公共战斗、具体武学和 AI 重连的本轮修复与验收见
+[玩法审查修复记录](gameplay-audit-fixes.md)。
+
+2026-10-07 属性归属回归：新增 184 项检查在修复前有 28 项失败，覆盖上述三处错误；
+修复后与原 150 项合并运行，334 项全部通过，无 LPC 编译警告或错误。
+使用 `bin/driver.exe` 的隔离源码副本，不连接正式游戏、不读取玩家存档；
+这不替代正式服更新后的编译与玩法验收。
 
 上线应在维护窗口完整重载依赖，或重启驱动，避免旧装备实例继续执行旧继承程序、旧棍阵回调。
 勿在生效中的棍阵上只热更单个文件；本次不为旧临时状态增加迁移分支。
 代码回退不会自动恢复已折损、掉落或消耗的物品。正式部署及存量处置由管理员决定。
 
-未处理：全局 dex 清零伤害、con 影响创伤的归属疑点；`EDGED/POINTED/LONG` 新被动；
+未处理：`EDGED/POINTED/LONG` 新被动；
 额外双持攻击；小李飞刀秒杀平衡；中平枪法相关提示与控制效果；全类别强度重做。

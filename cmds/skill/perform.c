@@ -9,7 +9,7 @@ private int do_perform(object me, string arg);
 int main(object me, string arg) {
     string and;
     int result;
-    int busy;
+    mixed *busy_state;
     int lvl;
     string msg;
 
@@ -54,6 +54,10 @@ int main(object me, string arg) {
     if (!and)
         return result;
 
+    // 持续动作不能与第二招合并；保留它的执行及中断回调。
+    if (functionp(me->query_busy()))
+        return result;
+
     if (!result)
         write(query_notify_fail());
     else {
@@ -82,18 +86,14 @@ int main(object me, string arg) {
         message_combatd(msg, me);
     }
 
-    busy = me->query_busy();
-    me->interrupt_busy(0);
+    busy_state = me->suspend_busy();
 
     result = do_perform(me, and);
     if (!result)
         write(query_notify_fail());
 
-    if (intp(busy) && intp(me->query_busy()) &&
-        busy > me->query_busy()) {
-        me->interrupt_busy(0);
-        me->start_busy();
-    }
+    if (intp(me->query_busy()) && busy_state[0] > me->query_busy())
+        me->restore_busy(busy_state);
 
     return 1;
 }

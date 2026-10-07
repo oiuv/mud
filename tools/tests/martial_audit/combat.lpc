@@ -1,0 +1,15 @@
+// Observes the combat boundary; all effect calculations remain production code.
+varargs string do_damage(object me, object target, int type, int amount, int percent, mixed text) {
+    target->add_temp("test/damages", 1);
+    target->set_temp("test/damage", amount);
+    return stringp(text) ? text : "";
+}
+
+varargs void do_attack(object me, object target, object weapon, int flags, string text) {
+    me->add_temp("test/attacks", 1);
+    me->set_temp("test/in_effect", ({ me->query_str(), me->query_dex(),
+        me->query_temp("apply/attack"), me->query_temp("apply/damage") }));
+}
+
+void fight(object me, object target) {}
+void announce(object me, object target) {}

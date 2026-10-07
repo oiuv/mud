@@ -93,7 +93,8 @@ NPC 适配层负责：
 - 查找并保存原玩家对象，同玩家、同 NPC 防重复；最多 64 个在途聊天。
 - 提问不超过 1000 字符，成功发送后返回“处理中...”。等待提示在玩家提问回显之后，仅显示一次。
 - 校验回包 NPC/玩家 ID 和文本字段，再按原玩家对象展示。玩家退出或对象更换，不把旧回复发给新登录对象。
-- 保存原玩家与 NPC 对象，检查玩家仍在线且 `find_player()` 仍是原对象；每 5 秒维持长请求。健康通信不因超过 90 秒放弃，失联/重载提示重新提问，离线或对象替换不显示旧回复。
+- 保存原玩家、NPC 及发起时的 `query_temp("link_ob")` 连接对象；等待提示、存活续约、回包和重载通知均核验连接仍相同。快速重连/顶号即使复用同一玩家对象，也不能接收旧会话结果；新提问先取消失效请求，不被旧会话的重复保护阻塞。连接身份只取自游戏对象，不接受网络载荷指定。
+- 每 5 秒维持长请求。健康通信不因超过 90 秒放弃，失联/重载提示仍在原连接的玩家重新提问，离线、对象或连接替换不显示旧回复。
 
 成功聊天回包含 `response`；错误回包含 `code`、`error`。AI 输出仅是文字，不执行游戏指令或发放奖励。
 
@@ -163,10 +164,13 @@ NPC 使用多轮 `npc_dialogue`，摘要使用单次 `conversation_summary`，�
 ~~~powershell
 ai/.venv/Scripts/python.exe -m unittest discover -s ai/tests -v
 node ai/scripts/verify_lpc.mjs
+node ai/scripts/verify_npc_reconnect.mjs
 ~~~
 
 LPC 测试默认使用 `bin/driver.exe`，可传驱动路径与 Python 路径：
 `node ai/scripts/verify_lpc.mjs /path/to/driver /path/to/python`。
 独立临时 mudlib、随机本机端口、模拟模型，不读写真实玩家数据，不调用外部模型。测试编译真实客户端及适配层，并用原 NPC 聊天入口验证普通和影子调用。
+
+`verify_npc_reconnect.mjs` 另以真实 TCP 连接、`exec()` 与 UDP 回包验证同玩家对象快速重连、顶号、新提问、失效续约及重载通知隔离；不覆盖 `interactive()`。可传驱动路径；`--baseline` 只在临时副本使用 `d43c418f` 版本 NPC 适配层作缺陷负对照，预期旧版本失败。
 
 隔离回归不代表实际游戏验收；真实聊天会使用模型额度并保存正常对话。

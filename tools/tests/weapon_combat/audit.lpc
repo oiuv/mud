@@ -1,0 +1,242 @@
+#include <combat.h>
+#include <weapon.h>
+
+inherit ROOM;
+
+private void check(int ok, string label) { "/tests/master"->check(ok, label); }
+
+private object actor() {
+    object ob;
+
+    ob = new("/tests/actor");
+    ob->move(this_object());
+    ob->set_heart_beat(0);
+    ob->set_skill("sword", 200);
+    ob->set_skill("dagger", 200);
+    ob->set_skill("unarmed", 1);
+    ob->set_temp("apply/unarmed_damage", 1);
+    return ob;
+}
+
+void capture(object me, object victim, object weapon, int damage, int result) {
+    me->set_temp("audit/attack", ({ weapon, damage, result }));
+}
+
+void before_riposte(object me, object victim, object weapon, int damage, int result) {
+    string mode;
+
+    mode = victim->query_temp("audit/mode");
+    if (mode == "promoted" || mode == "disarmed")
+        victim->query_temp("weapon")->move(this_object());
+    "/tests/control"->set_attributes(99);
+}
+
+private object weapon(object owner, int secondary) {
+    object ob;
+
+    ob = new("/tests/audit_weapon");
+    if (secondary) {
+        ob->set("flag", SECONDARY);
+        ob->set("skill_type", "dagger");
+    }
+    ob->set("actions", ([
+        "action": "$N挥动兵器攻向$n", "damage_type": "刺伤", "post_action": (: capture :)
+    ]));
+    ob->move(owner);
+    return ob;
+}
+
+private void ripostes() {
+    object me, target, main, off, decoy, expected;
+    mixed *actual;
+    int dex;
+    string mode, label;
+
+    foreach (dex in ({ 2, 40 })) {
+        foreach (mode in ({ "armed", "unarmed", "promoted", "disarmed" })) {
+            me = actor();
+            target = actor();
+            me->set("dex", dex);
+            me->set_default_action(([
+                "action": "$N试探$n", "damage_type": "瘀伤", "post_action": (: before_riposte :)
+            ]), 0);
+            target->set_default_action(([
+                "action": "$N空手反击$n", "damage_type": "瘀伤", "post_action": (: capture :)
+            ]), 0);
+            target->set_temp("guarding", 1);
+            target->set_temp("audit/mode", mode);
+            main = 0;
+            off = 0;
+            if (mode != "unarmed") {
+                main = weapon(target, 0);
+                check(main->wield(), "riposte main wielded");
+            }
+            if (mode == "promoted") {
+                off = weapon(target, 1);
+                check(off->wield(), "riposte secondary wielded");
+            }
+            decoy = weapon(target, 0);
+            target->set("weapon", decoy);
+            "/tests/control"->set_riposte();
+            COMBAT_D->do_attack(me, target, 0, TYPE_REGULAR);
+            actual = target->query_temp("audit/attack");
+            expected = mode == "armed" ? main : mode == "promoted" ? off : 0;
+            label = sprintf("riposte dex=%d mode=%s", dex, mode);
+            check(arrayp(actual) && actual[0] == expected, label + " current weapon callback");
+            check(arrayp(actual) && actual[1] > 0 && actual[2] == RESULT_HIT, label + " hits");
+            check(target->query_temp("audit/hit_weapon") == expected, label + " actual hit hook");
+            check(
+                target->query_temp("weapon") == expected,
+                label + " equipment remains consistent"
+            );
+            if (objectp(main) && environment(main) == this_object()) destruct(main);
+            destruct(me);
+            destruct(target);
+        }
+    }
+}
+
+private int *damage(int type, int jiali, int neili, int resist) {
+    object me, target;
+    int qi;
+    int *result;
+
+    me = actor();
+    target = actor();
+    me->set("str", 0);
+    me->set("int", 0);
+    me->set("jiali", jiali);
+    me->set("neili", neili);
+    me->set_temp("apply/unarmed_damage", 0);
+    if (resist) {
+        target->set_skill("audit_skill", 200);
+        target->map_skill("force", "audit_skill");
+    }
+    "/tests/control"->set_attributes(99);
+    qi = target->query("qi");
+    COMBAT_D->do_damage(me, target, type, 200, 50, "演武命中。\n");
+    result = ({
+        qi - target->query("qi"),
+        me->query("neili"),
+        target->query_temp("audit/force_calls")
+    });
+    destruct(me);
+    destruct(target);
+    return result;
+}
+
+private void enforcement() {
+    int *result;
+
+    result = damage(REMOTE_ATTACK, 0, 100, 0);
+    check(result[0] == 200 && result[1] == 100, "remote zero enforcement");
+    result = damage(REMOTE_ATTACK, 100, 100, 0);
+    check(result[0] == 300 && result[1] == 0, "remote exact energy pays and increases damage");
+    result = damage(REMOTE_ATTACK, 100, 99, 0);
+    check(
+        result[0] == 200 && result[1] == 99,
+        "remote insufficient energy changes neither bonus nor payment"
+    );
+    result = damage(REMOTE_ATTACK, 100, 150, 1);
+    check(
+        result[0] == 300 && result[1] == 50 && result[2] == 0,
+        "remote does not introduce force resistance"
+    );
+    result = damage(UNARMED_ATTACK, 100, 150, 0);
+    check(result[0] == 266 && result[1] == 50, "close-range original enforcement divisor");
+    result = damage(UNARMED_ATTACK, 100, 150, 1);
+    check(
+        result[0] == 233 && result[1] == 50 && result[2] == 1,
+        "close-range original force resistance"
+    );
+}
+
+int busy_callback(object me) { me->add_temp("audit/ticks", 1); return 1; }
+int interrupt_callback(object me, object who, string how) {
+    me->add_temp("audit/interrupts", 1);
+    return 1;
+}
+
+private void dual_performance() {
+    object me, target;
+    mixed first, second, current;
+    int expected;
+    string mode;
+
+    foreach (mode in ({ "fail", "short", "long", "first_function", "second_function" })) {
+        me = actor();
+        target = actor();
+        me->fight_ob(target);
+        me->set_skill("zuoyou-hubo", 360);
+        me->set_skill("audit_skill", 300);
+        me->map_skill("unarmed", "audit_skill");
+        first = 12;
+        second = mode == "long" ? 20 : 6;
+        if (mode == "first_function") first = (: busy_callback :);
+        if (mode == "second_function") second = (: busy_callback :);
+        me->set_temp("audit/first", first);
+        me->set_temp("audit/first_interrupt", (: interrupt_callback :));
+        me->set_temp("audit/second", second);
+        "/tests/control"->set_attributes(99);
+        check(me->force_me("perform unarmed.first and unarmed." + (mode == "fail" ? "fail" : "second")),
+            "real command accepted: " + mode);
+        current = me->query_busy();
+        check(
+            !me->query_temp("audit/interrupts"),
+            "pause does not execute cancellation callback: " + mode
+        );
+        if (mode == "first_function") {
+            check(
+                functionp(current) && me->query_temp("audit/calls") == 1,
+                "first continuing action is preserved without a second action"
+            );
+            me->continue_action();
+            check(me->query_temp("audit/ticks") == 1, "first continuing callback still executes");
+        } else {
+            check(me->query_temp("audit/calls") == 2 && !me->query_temp("audit/second_was_busy"),
+                "second action runs without first busy: " + mode);
+            if (mode == "second_function") {
+                check(
+                    functionp(current),
+                    "second continuing action is not replaced with a numeric duration"
+                );
+                me->continue_action();
+                check(
+                    me->query_temp("audit/ticks") == 1,
+                    "second continuing callback still executes"
+                );
+            } else {
+                expected = mode == "long" ? me->query_temp("audit/second_actual") : me->query_temp("audit/first_actual");
+                check(
+                    current == expected,
+                    "original longer busy is restored without a second discount: " + mode
+                );
+                check(
+                    me->query_temp("audit/first_actual") == 8,
+                    "fixture exercises actual hubo reduction once"
+                );
+            }
+        }
+        if (mode == "fail" || mode == "short" || mode == "first_function") {
+            me->interrupt_me(me, "test");
+            check(
+                me->query_temp("audit/interrupts") == 1 && !me->is_busy(),
+                "original interrupt callback preserved: " + mode
+            );
+        }
+        destruct(me);
+        destruct(target);
+    }
+    me = actor();
+    check(stringp(catch(me->restore_busy(({ -1, 0 })))), "negative saved busy rejected");
+    check(stringp(catch(me->restore_busy(({ 1, "invalid" })))), "invalid saved interrupt rejected");
+    check(stringp(catch(me->restore_busy(({ 1 })))), "incomplete saved state rejected");
+    destruct(me);
+}
+
+void run() {
+    ripostes();
+    enforcement();
+    dual_performance();
+    "/tests/control"->set_case("hit", 0);
+}

@@ -97,7 +97,7 @@ int healing(object me) {
     }
 
     // 恢复完毕
-    me->set_temp("pending/exercise", 0);
+    me->set_temp("pending/healing", 0);
     me->set_short_desc(0);
     message_vision(HIY "$N" HIY "运功完毕，吐出一口瘀血，脸色看起来好多了。\n" NOR,
         me);

@@ -24,7 +24,7 @@ int perform(object me, object target) {
     if (me->query_temp("shenxing"))
         return notify_fail("你已经运起「虚无缥缈」了。\n");
 
-    if (me->query("neili") < 60)
+    if (me->query("neili") < 100)
         return notify_fail("你现在真气不够，无法施展" FEI "。\n");
 
     msg = HIM "只见$N" HIM "将全身的内力旋转震动，身形东一溜，西一晃，"

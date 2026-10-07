@@ -85,10 +85,33 @@ void pay_player(object who, int amount) {
     }
 }
 
+// Parse a complete positive decimal before arithmetic; sscanf can overflow.
+int parse_trade_amount(string text, int maximum) {
+    int value, digit, i;
+
+    if (!stringp(text) || text == "" || maximum < 1)
+        return 0;
+    if (text[0] == '+')
+        text = text[1..];
+    if (text == "")
+        return 0;
+    for (i = 0; i < strlen(text); i++) {
+        digit = text[i] - '0';
+        if (digit < 0 || digit > 9 || value > maximum / 10 ||
+            (value == maximum / 10 && digit > maximum % 10))
+            return 0;
+        value = value * 10 + digit;
+    }
+    return value;
+}
+
 int player_pay(object who, int amount) {
     object t_ob, g_ob, s_ob, c_ob;
     int tc, gc, sc, cc, left;
     int v;
+
+    if (amount < 1)
+        return 0;
 
     seteuid(getuid());
 
@@ -113,7 +136,12 @@ int player_pay(object who, int amount) {
     else
         cc = 0;
 
-    v = cc + sc * 100 + gc * 10000;
+    if (cc < 0 || sc < 0 || gc < 0 || tc < 0 || sc > (MAX_INT - cc) / 100)
+        return 0;
+    v = cc + sc * 100;
+    if (gc > (MAX_INT - v) / 10000)
+        return 0;
+    v += gc * 10000;
     if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
             return 2;
@@ -121,6 +149,8 @@ int player_pay(object who, int amount) {
             return 0;
     }
 
+    if (tc > (MAX_INT - v) / 100000)
+        return 0;
     v += tc * 100000;
     if (v < amount)
         return 0;

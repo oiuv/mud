@@ -1,0 +1,17 @@
+// Hit callback fixture; equipment, skills and damage still use the real game implementation.
+#include <weapon.h>
+inherit SWORD;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武剑", ({ "audit sword" }));
+    set("unit", "柄");
+    set_weight(1000);
+    init_sword(150);
+    setup();
+}
+
+int hit_ob(object me, object target, int damage) {
+    me->set_temp("audit/hit_weapon", this_object());
+    return 0;
+}

@@ -1,0 +1,10 @@
+inherit COMBINED_ITEM;
+
+void create() {
+    set_name("试食", ({ "food" }));
+    set("base_unit", "块");
+    set("base_weight", 1);
+    set_amount(5);
+}
+
+int is_food() { return 1; }

@@ -1,0 +1,9 @@
+void login(string input) {
+    "/tests/master"->bind_connection(this_object());
+}
+
+int logon() {
+    input_to("login");
+    write("LOGIN\n");
+    return 1;
+}

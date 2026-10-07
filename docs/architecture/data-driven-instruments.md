@@ -53,4 +53,4 @@ node --test tools/tests/test_item_records.mjs
 node tools/tests/check_lpc_warnings.mjs bin/lpcc.exe
 ```
 
-冻结基线 `aab4cff1e5b17ecadd0eb36ffd3581d6a7995ec8`。测试仅运行隔离驱动/临时记录；实际演奏技能、存取和交易入口保留，玩家状态及曲谱效果使用可观测替身，NPC 只执行相关携带语句，不代表完整战斗、任务或真人客户端验收。实测结果与性能见[本批验证报告](../../openspec/changes/refactor-data-driven-instruments/validation.md)。
+冻结基线 `aab4cff1e5b17ecadd0eb36ffd3581d6a7995ec8`。测试仅运行隔离驱动/临时记录；实际演奏技能、存取和交易入口保留，玩家状态及曲谱效果使用可观测替身，NPC 只执行相关携带语句，不代表完整战斗、任务或真人客户端验收。实测结果与性能见[本批验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-instruments/validation.md)。

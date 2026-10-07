@@ -10,7 +10,7 @@ int exert(object me, object target) {
     if (target != me)
         return (notify_fail("你只能用碧云心法来提升自己的战斗力。\n"));
 
-    if (me->query("neili") < 80)
+    if (me->query("neili") < 100)
         return (notify_fail("你的内力不够。\n"));
 
     if (me->query_temp("powerup"))

@@ -4,7 +4,7 @@ nosave private mapping pending_chats = ([]);
 void show_pending(string requestId, string npcName);
 void receive_chat(mapping response);
 int valid_response(string npcId, string playerId, mapping response);
-int caller_alive(object player, object npc, string playerId);
+int caller_alive(object player, object npc, string playerId, object link);
 
 void create() {
     seteuid(getuid(this_object()));
@@ -14,25 +14,42 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
     string message, string context, object npc) {
     mapping result, pending;
     string requestId, key, error, npcName;
-    object player;
+    object player, link;
 
     player = find_player(playerId);
     if (!objectp(player) || !interactive(player))
         return "玩家已离线";
+    link = player->query_temp("link_ob");
+    if (!objectp(link))
+        return "玩家已离线";
     if (!stringp(message) || message == "" || sizeof(message) > 1000)
         error = "提问不能为空且不能超过1000字。";
-    else if (sizeof(pending_chats) >= 64)
-        error = "眼下问话的人太多，少侠请稍候再问。";
     if (error) {
         tell_object(player, error + "\n");
         return error;
     }
     foreach (key in keys(pending_chats)) {
         pending = pending_chats[key];
+        if (!caller_alive(
+            pending["player"],
+            pending["npc"],
+            pending["player_id"],
+            pending["link"]
+        )) {
+            if (pending["notice"] > 0)
+                remove_call_out(pending["notice"]);
+            map_delete(pending_chats, key);
+            AI_CLIENT_D->cancel_request(key);
+            continue;
+        }
         if (pending["player_id"] == playerId && pending["npc_id"] == npcId) {
             tell_object(player, "对方还在思考你上一个问题，请稍候。\n");
             return "处理中...";
         }
+    }
+    if (sizeof(pending_chats) >= 64) {
+        tell_object(player, "眼下问话的人太多，少侠请稍候再问。\n");
+        return "眼下问话的人太多，少侠请稍候再问。";
     }
     if (!objectp(npc))
         npc = previous_object();
@@ -43,7 +60,7 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
         "message": message, "context": context || "无"
     ]), (: receive_chat :), ([
         "validator": (: valid_response, npcId, playerId :), "long": 1,
-        "alive": (: caller_alive, player, npc, playerId :)
+        "alive": (: caller_alive, player, npc, playerId, link :)
     ]));
     if (!stringp(result["request_id"])) {
         tell_object(player, "对方此刻无心交谈，少侠请稍后再问。\n");
@@ -51,7 +68,7 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
     }
     requestId = result["request_id"];
     pending_chats[requestId] = ([
-        "player": player, "player_id": playerId, "npc_id": npcId, "npc": npc
+        "player": player, "player_id": playerId, "npc_id": npcId, "npc": npc, "link": link
     ]);
     npcName = "对方";
     if (objectp(npc) && function_exists("name", npc))
@@ -63,8 +80,9 @@ varargs string send_chat_request(string npcId, string playerId, string playerNam
     return "处理中...";
 }
 
-int caller_alive(object player, object npc, string playerId) {
-    return objectp(player) && interactive(player) && find_player(playerId) == player && objectp(npc);
+int caller_alive(object player, object npc, string playerId, object link) {
+    // 同一玩家对象可以被重连或顶号复用，只有发起问话的连接仍有效才可投递。
+    return objectp(player) && interactive(player) && find_player(playerId) == player && objectp(npc) && objectp(link) && player->query_temp("link_ob") == link;
 }
 
 int valid_response(string npcId, string playerId, mapping response) {
@@ -78,7 +96,7 @@ void show_pending(string requestId, string npcName) {
     if (!mapp(pending))
         return;
     pending["notice"] = 0;
-    if (caller_alive(pending["player"], pending["npc"], pending["player_id"]))
+    if (caller_alive(pending["player"], pending["npc"], pending["player_id"], pending["link"]))
         tell_object(pending["player"], npcName + "正在思索你的问题，请稍候……\n");
 }
 
@@ -94,7 +112,7 @@ void receive_chat(mapping response) {
     if (pending["notice"] > 0)
         remove_call_out(pending["notice"]);
     player = pending["player"];
-    if (!caller_alive(player, pending["npc"], pending["player_id"]))
+    if (!caller_alive(player, pending["npc"], pending["player_id"], pending["link"]))
         return;
     output = response["type"] == "error" ? "对方此刻心绪不宁，少侠不妨稍后再问。" : response["response"];
     if (stringp(output))
@@ -112,7 +130,7 @@ void remove() {
             remove_call_out(pending["notice"]);
         if (objectp(client))
             client->cancel_request(requestId);
-        if (objectp(pending["player"]) && interactive(pending["player"]))
+        if (caller_alive(pending["player"], pending["npc"], pending["player_id"], pending["link"]))
             tell_object(pending["player"], "方才的话音被打断了，少侠请重新问过。\n");
     }
     pending_chats = ([]);

@@ -44,8 +44,8 @@ int perform(object me, object target) {
     msg = YEL "\n你猛吸一口真气，体内劲力瞬时爆发！\n" NOR;
     message_vision(msg, me, target);
 
-    me->add_temp("apply/strength", i);
-    me->add_temp("apply/dexerity", i);
+    me->add_temp("apply/str", i);
+    me->add_temp("apply/dex", i);
     me->add_temp("apply/attack", i);
     me->add_temp("apply/damage", i);
 
@@ -82,9 +82,9 @@ int perform(object me, object target) {
     msg = YEL "\n你连环飞腿使完，全身一转，稳稳落在地上。\n" NOR;
 
     //me->add("neili", -400);
-    me->add_temp("apply/dexerity", -i);
+    me->add_temp("apply/dex", -i);
     me->add_temp("apply/damage", -i);
-    me->add_temp("apply/strength", -i);
+    me->add_temp("apply/str", -i);
     me->add_temp("apply/attack", -i);
     me->start_busy(2 + random(2));
 

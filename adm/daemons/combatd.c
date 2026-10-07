@@ -830,8 +830,8 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
                         damage += damage * 4 / int1;
                 }
 
-                //do dex effect 闪避
-                if (((me->query("dex") - 10) / 4 + 2) > random(100))
+                // 防守方的先天身法提供额外闪避。
+                if (((victim->query("dex") - 10) / 4 + 2) > random(100))
                     damage = 0;
 
                 // calculate wounded
@@ -855,8 +855,8 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
                 if (your["character"] == "光明磊落")
                     wounded -= wounded * 20 / 100;
 
-                // do con effect
-                wounded -= wounded * (me->query("con") - 10) / 100;
+                // 防守方的先天根骨减轻自身创伤。
+                wounded -= wounded * (victim->query("con") - 10) / 100;
 
                 damage = victim->receive_damage("qi", damage, me);
                 if (wounded > 0 &&
@@ -958,12 +958,12 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
         if (random(my["dex"]) < 5) {
             message_combatd(HIC "$N" HIC "一击不中，露出了破绽！\n" NOR,
                 me, 0, "");
-            do_attack(victim, me, your["weapon"],
+            do_attack(victim, me, victim->query_temp("weapon"),
                 TYPE_QUICK);
         } else {
             message_combatd(HIC "$N" HIC "见$n" HIC "攻击失误，趁机发动攻击！\n" NOR,
                 victim, me, "");
-            do_attack(victim, me, your["weapon"],
+            do_attack(victim, me, victim->query_temp("weapon"),
                 TYPE_RIPOSTE);
         }
     }
@@ -1107,8 +1107,8 @@ varargs string do_damage(object me, object target, mixed type,
                         damage_bonus += foo["damage"];
                     }
                 }
-                damage += damage_bonus;
             }
+            damage += damage_bonus;
         }
 
         // do strength effect
@@ -1157,8 +1157,8 @@ varargs string do_damage(object me, object target, mixed type,
         wound = (damage - random(armor)) * percent / 100;
         if (target->query("character") == "光明磊落")
             wound -= wound * 20 / 100;
-        // do con effect
-        wound -= wound * (me->query("con") - 10) / 100;
+        // 防守方的先天根骨减轻自身创伤，与普通攻击保持一致。
+        wound -= wound * (target->query("con") - 10) / 100;
 
         if (wound > 0)
             target->receive_wound("qi", wound, me);

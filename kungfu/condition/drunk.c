@@ -53,8 +53,8 @@ int update_condition(object me, int duration) {
         tell_object(me, "你觉得一阵酒意上冲，眼皮有些沉重了。\n");
         message("vision", me->name() + "脸上已经略显酒意了。\n",
             environment(me), me);
-        me->receive_healing("jing", 10);
-        me->receive_healing("qi", 15);
+        me->receive_heal("jing", 10);
+        me->receive_heal("qi", 15);
     }
 
     me->apply_condition("drunk", duration - 1);

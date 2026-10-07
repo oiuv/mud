@@ -575,20 +575,19 @@ public string do_stock(object ob, object me, string arg) {
     int value;
     mapping all_goods, all_goods_num;
     object room;
+    string price;
 
     room = environment(ob);
 
     if (!room->query("shop_type"))
         return "对不起，该店铺目前已经被巫师关闭。\n";
 
-    if (!arg || !sscanf(arg, "%s value %d", arg, value) == 2)
+    if (!arg || sscanf(arg, "%s value %s", arg, price) != 2)
         return "指令格式：stock <货物> value * (其中 * 是以铜板作单位的价格)\n";
 
+    value = MONEY_D->parse_trade_amount(price, 50000000);
     if (!value)
-        return "指令格式：stock <货物> value * (其中 * 是以铜板作单位的价格)\n";
-
-    if (value > 50000000)
-        return "店铺最多标价五千两黄金，你就别那么心黑了吧。\n";
+        return "售价须为一到五千万之间的整数，以铜板为单位。\n";
 
     if (!(goods = present(arg, me)) || !objectp(goods))
         return "你身上并没有这个货物啊！\n";
@@ -685,6 +684,8 @@ public string do_unstock(object ob, object me, string arg) {
             "并没有这样货物。\n";
 
     goods = new(ob_file);
+    if (goods->query_amount())
+        goods->set_amount(1);
 
     room->add("all_vendor_goods", -1);
     all_goods_num[base_name(goods)] -= 1;
@@ -866,12 +867,22 @@ public int do_buy(object obj, object me, string arg) {
     }
 
     value = goods[ob_file];
+    if (!intp(goods[ob_file]) || value < 1)
+        return notify_fail("这件货物的售价尚未定妥，暂时不能购买。\n");
 
     // 如果是贵宾，则有优惠
-    if (room->query("invite/" + me->query("id")))
-        value = value * room->query("invite/" + me->query("id")) / 10;
+    if (room->query("invite/" + me->query("id"))) {
+        i = room->query("invite/" + me->query("id"));
+        if (i < 1 || i > 10)
+            return notify_fail("这间铺子的折扣尚未定妥，暂时不能购买。\n");
+        value = value / 10 * i + value % 10 * i / 10;
+    }
+    if (value < 1)
+        return notify_fail("这件货物的售价尚未定妥，暂时不能购买。\n");
 
     ob = new(ob_file);
+    if (ob->query_amount())
+        ob->set_amount(1);
     call_out("destruct_it", 0, ob);
 
     switch (player_pay(me, obj, value)) {
@@ -918,6 +929,15 @@ private int player_pay(object who, object target, int amount) {
     int v;
     int pay_amount;
 
+    if (amount < 1)
+        return 0;
+    pay_amount = amount / 100 * 99 + amount % 100 * 99 / 100;
+    owner = find_player(environment(target)->query("owner"));
+    if (!owner)
+        owner = environment(target);
+    if (owner->query("balance") > MAX_INT - pay_amount)
+        return 0;
+
     seteuid(getuid());
 
     if (amount >= 100000 && t_ob = present("cash_money", who))
@@ -942,7 +962,12 @@ private int player_pay(object who, object target, int amount) {
     else
         cc = 0;
 
-    v = cc + sc * 100 + gc * 10000;
+    if (cc < 0 || sc < 0 || gc < 0 || tc < 0 || sc > (MAX_INT - cc) / 100)
+        return 0;
+    v = cc + sc * 100;
+    if (gc > (MAX_INT - v) / 10000)
+        return 0;
+    v += gc * 10000;
 
     if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
@@ -951,6 +976,8 @@ private int player_pay(object who, object target, int amount) {
             return 0;
     }
 
+    if (tc > (MAX_INT - v) / 100000)
+        return 0;
     v += tc * 100000;
 
     if (v < amount)
@@ -994,8 +1021,6 @@ private int player_pay(object who, object target, int amount) {
             c_ob->set_amount(cc);
             c_ob->move(who, 1);
         }
-
-        pay_amount = amount * 99 / 100;
 
         if (owner = find_player(environment(target)->query("owner"))) {
             owner->add("balance", pay_amount);

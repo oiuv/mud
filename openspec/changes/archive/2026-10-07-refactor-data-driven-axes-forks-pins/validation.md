@@ -58,7 +58,7 @@
 
 累计完整记录测试 `node --test tools/tests/test_item_records.mjs` **32/32 通过，0 失败、0 跳过**，覆盖此前分类与本批的混合备份、清单生成、预览/复制、价格冲突、显式旧袋、盟主字段、规范 ID 更新及回退。另行分组复测通过；完整测试结束后停止了重复运行，不以中断的重复测试计通过。
 
-部署沿用 [统一备份与转换流程](../../../docs/architecture/data-driven-items.md#离线转换与部署)。以下命令已在本批自动夹具创建的合成备份执行，示例路径用本次临时目录，不是正式数据：
+部署沿用 [统一备份与转换流程](../../../../docs/architecture/data-driven-items.md#离线转换与部署)。以下命令已在本批自动夹具创建的合成备份执行，示例路径用本次临时目录，不是正式数据：
 
 ```powershell
 node tools/migrate_item_records.mjs --backup-root C:/Users/oiuv/AppData/Local/Temp/mud-record-tests-Hvmn69/axe_fork_pin-input --write-manifest C:/Users/oiuv/AppData/Local/Temp/mud-record-tests-Hvmn69/axe_fork_pin-input/manifest.json

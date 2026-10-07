@@ -22,7 +22,7 @@ int do_stock(string arg) {
     object /*obj,*/ me, goods;
     int amount, value, i;
     mapping all_goods;
-    string beishu, *args;
+    string beishu, quantity, *args;
 
     me = this_player();
 
@@ -41,10 +41,14 @@ int do_stock(string arg) {
     i = sizeof(args = explode(arg, " "));
 
     i--;
-    if (!sscanf(args[i], "%d", amount))
-        amount = 0;
-    else
-        arg = replace_string(arg, " " + amount, "");
+    quantity = args[i];
+    if ((quantity[0] >= '0' && quantity[0] <= '9') ||
+        quantity[0] == '-' || quantity[0] == '+') {
+        amount = MONEY_D->parse_trade_amount(quantity, 100);
+        if (!amount)
+            return notify_fail("售价倍数须为一到一百之间的整数。\n");
+        arg = implode(args[0..<2], " ");
+    }
 
     if (!(goods = present(arg, me)) || !objectp(goods))
         return notify_fail("你身上并没有这个货物。\n");
@@ -67,23 +71,23 @@ int do_stock(string arg) {
     if (sizeof(me->query("vendor_goods")) >= 10)
         return notify_fail("你一次只能摆十种货物，把别的先收点起来吧。\n");
 
-    if (amount > 100)
-        return notify_fail("物品出售价格最多定为原价的一百倍。\n");
-
     value = goods->query("base_value");
 
     if (!value)
         value = goods->query("value");
 
+    if (value < 1 || (amount && value > MAX_INT / amount))
+        return notify_fail("这件货物的价值不适合摆摊出售。\n");
+
     if (amount) {
         value = amount * value;
-        beishu = chinese_number((string)amount) + "倍价";
+        beishu = chinese_number(amount) + "倍价";
     } else {
         value = value / 2;
         beishu = "半价";
     }
 
-    if (!value)
+    if (value < 1)
         return notify_fail("这东西不值钱，没人会去买的。\n");
 
     all_goods = me->query("vendor_goods");

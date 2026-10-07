@@ -38,7 +38,7 @@ int perform(object me, object target) {
             return notify_fail("你还没有学会如何利用太玄功驾御兵器，这招只能空手施展！\n");
 
         if (me->query_skill_mapped("unarmed") != "taixuan-gong"
-            || me->query_skill_prepared("unarmed" != "taixuan-gong"))
+            || me->query_skill_prepared("unarmed") != "taixuan-gong")
             return notify_fail("你没有准备太玄功，无法使用" XUAN "。\n");
 
     } else  // 已经学会利用太玄功驾御兵器
@@ -47,7 +47,7 @@ int perform(object me, object target) {
         // 当没有持武器时判断施展该招需要准备为拳脚
         if (!objectp(weapon)) {
             if (me->query_skill_mapped("unarmed") != "taixuan-gong"
-                || me->query_skill_prepared("unarmed" != "taixuan-gong"))
+                || me->query_skill_prepared("unarmed") != "taixuan-gong")
                 return notify_fail("你没有准备太玄功，无法使用" XUAN "。\n");
         }
         // 手持有武器必须为刀或者剑
@@ -73,7 +73,7 @@ int perform(object me, object target) {
 
     message_sort(msg, me, target);
     me->add("neili", -600);
-    ap = me->query_skill("taixuan-gong, 1");
+    ap = me->query_skill("taixuan-gong", 1);
     dp = target->query_skill("dodge", 1);
 
     if (ap / 3 + random(ap) > dp)

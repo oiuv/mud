@@ -30,5 +30,4 @@ __pycache__/
 *.pyo
 
 # AI 开发工具缓存（仅仓库根目录）
-/.codegraph/
 /.zread/

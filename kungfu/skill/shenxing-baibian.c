@@ -33,7 +33,7 @@ int practice_skill(object me) {
         return notify_fail("你的内力太差了，不能练神行百变。\n");
 
     me->receive_damage("qi", 40);
-    me->add("neill", -14);
+    me->add("neili", -14);
     return 1;
 }
 

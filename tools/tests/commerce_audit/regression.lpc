@@ -1,0 +1,397 @@
+inherit ROOM;
+
+private object buyer, seller;
+private int deliveries;
+
+int allow_delivery() { return deliveries-- > 0; }
+
+void check(int ok, string label) { master()->check(ok, label); }
+
+private object actor(string id) {
+    object ob;
+
+    ob = new("/tests/actor");
+    ob->set_name("试商", ({ id }));
+    ob->enable_player();
+    ob->set("storage_bag", 1);
+    ob->move(this_object());
+    ob->set_heart_beat(0);
+    return ob;
+}
+
+private object item(object me, string path, int amount) {
+    object ob;
+
+    ob = new(path);
+    if (amount) ob->set_amount(amount);
+    ob->move(me, 1);
+    return ob;
+}
+
+private int quantity(object me, string path) {
+    int total;
+    object ob;
+
+    foreach (ob in all_inventory(me))
+        if (base_name(ob) == path)
+            total += function_exists("query_amount", ob) ? ob->query_amount() : 1;
+    return total;
+}
+
+private int cash(object me) {
+    return quantity(me, GOLD_OB) * 10000 + quantity(me, SILVER_OB) * 100 + quantity(me, COIN_OB);
+}
+
+private int stored(object me) {
+    mapping values;
+    string key;
+    int count;
+
+    me->save_depot();
+    values = me->query_depot_for_test();
+    foreach (key in keys(values)) count += values[key]["amount"];
+    return count;
+}
+
+void init() { add_action("dispatch", "audit"); }
+
+int dispatch(string test) {
+    object me, ob, npc, token, money;
+    string arg, path;
+    int before, result, count, balance;
+    mixed err;
+
+    me = this_player();
+    path = "/clone/weapon/lianzi";
+    switch (test) {
+        case "payments":
+            money = item(me, GOLD_OB, 100);
+            foreach (int value in ({ 0, -1, -200000 })) {
+                before = cash(me);
+                check(!MONEY_D->player_pay(me, value) && cash(me) == before,
+                    "public payment rejects nonpositive fee " + value);
+                check(!"/cmds/usr/buy"->player_pay(
+                    me,
+                    seller,
+                    value
+                ) && cash(me) == before && !seller->query("balance"),
+                    "stall payment rejects nonpositive fee " + value);
+            }
+            before = cash(me);
+            check(
+                MONEY_D->player_pay(me, 101) == 1 && cash(me) == before - 101,
+                "normal exact change"
+            );
+            before = cash(me);
+            seller->set("balance", MAX_INT);
+            check(!"/cmds/usr/buy"->player_pay(me, seller, 101) &&
+                cash(me) == before && seller->query("balance") == MAX_INT,
+                "stall recipient balance overflow rejected before payment");
+            seller->set("balance", 0);
+            before = cash(me);
+            check("/cmds/usr/buy"->player_pay(me, seller, 101) == 1 &&
+                cash(me) == before - 101 && seller->query("balance") == 95,
+                "stall income preserves 95 percent floor rounding");
+            break;
+        case "npc":
+            npc = new("/d/city/npc/qichangfa");
+            npc->move(this_object());
+            npc->set_heart_beat(0);
+            item(me, GOLD_OB, 20);
+            foreach (arg in ({
+                "-1 ma shao",
+                "0 ma shao",
+                "101 ma shao",
+                "18446744073709551617 ma shao"
+            })) {
+                before = cash(me);
+                count = quantity(me, "/clone/misc/whistle");
+                err = catch(npc->do_buy(arg));
+                check(
+                    !err && cash(me) == before && quantity(me, "/clone/misc/whistle") == count,
+                    "NPC invalid quantity " + arg
+                );
+                npc->delete_temp("busy");
+            }
+            foreach (ob in all_inventory(me)) destruct(ob);
+            item(me, GOLD_OB, 20);
+            result = npc->do_buy("ma shao");
+            check(
+                result && quantity(me, "/clone/misc/whistle") == 1 && !cash(me),
+                sprintf(
+                    "NPC normal purchase: result=%d items=%d cash=%d",
+                    result,
+                    quantity(me, "/clone/misc/whistle"),
+                    cash(me)
+                )
+            );
+            npc->delete_temp("busy");
+            npc->set("vendor_goods", ([ path: 100 ]));
+            item(me, SILVER_OB, 2);
+            result = npc->do_buy("tie lianzi");
+            check(result && quantity(me, path) == 1 && cash(me) == 100,
+                "NPC default stack sells one requested unit");
+            destruct(npc);
+            break;
+        case "stock":
+            set("vendor_goods", ([]));
+            set("vendor_goods_num", ([]));
+            set("all_vendor_goods", 0);
+            ob = item(me, path, 50);
+            foreach (arg in ({
+                "tie lianzi value -1",
+                "tie lianzi value 0",
+                "tie lianzi value 50000001",
+                "tie lianzi value 18446744073709551617"
+            })) {
+                before = quantity(me, path);
+                count = query("all_vendor_goods");
+                SHOP_D->do_stock(seller, me, arg);
+                check(
+                    quantity(me, path) == before && query("all_vendor_goods") == count,
+                    "shop invalid price " + arg
+                );
+            }
+            // Each test owns an empty disposable shop; reset only after invalid cases.
+            set("vendor_goods", ([]));
+            set("vendor_goods_num", ([]));
+            set("all_vendor_goods", 0);
+            ob->set_amount(50);
+            SHOP_D->do_stock(seller, me, "tie lianzi value 100");
+            check(
+                quantity(me, path) == 49 && query("vendor_goods_num")[path] == 1,
+                "shop stocks one basic unit"
+            );
+            SHOP_D->do_unstock(seller, me, "tie lianzi");
+            check(
+                quantity(me, path) == 50 && !query("all_vendor_goods"),
+                "shop unstock preserves total 50"
+            );
+            SHOP_D->do_stock(seller, me, "tie lianzi value 100");
+            item(buyer, SILVER_OB, 2);
+            buyer->suspend_busy();
+            balance = seller->query("balance");
+            SHOP_D->do_buy(seller, buyer, "tie lianzi");
+            check(
+                quantity(buyer, path) == 1 && quantity(me, path) == 49 && cash(buyer) == 100,
+                "shop buyer gets one unit and pays once"
+            );
+            check(!query("all_vendor_goods"), "shop stock decremented once");
+            check(seller->query("balance") == balance + 99,
+                "shop income preserves 99 percent");
+            SHOP_D->do_stock(seller, me, "tie lianzi value 101");
+            set("invite/buyer", 3);
+            buyer->suspend_busy();
+            before = cash(buyer);
+            count = quantity(buyer, path);
+            SHOP_D->do_buy(seller, buyer, "tie lianzi");
+            check(cash(buyer) == before - 30 && quantity(buyer, path) == count + 1 &&
+                seller->query("balance") == balance + 99 + 29 && !query("all_vendor_goods"),
+                "shop discount and fee preserve integer floor rounding");
+            delete("invite/buyer");
+            SHOP_D->do_stock(seller, me, "tie lianzi value 101");
+            item(buyer, SILVER_OB, 2);
+            buyer->suspend_busy();
+            seller->set("balance", MAX_INT);
+            before = cash(buyer);
+            count = quantity(buyer, path);
+            SHOP_D->do_buy(seller, buyer, "tie lianzi");
+            check(cash(buyer) == before && quantity(buyer, path) == count &&
+                query("vendor_goods_num")[path] == 1 && seller->query("balance") == MAX_INT,
+                "shop recipient overflow preserves buyer and stock");
+            seller->set("balance", balance + 99 + 29);
+            break;
+        case "stall":
+            seller->set("is_vendor", 1);
+            seller->set_temp("on_baitan", 1);
+            seller->set("vendor_goods", ([ path: 100 ]));
+            ob = item(seller, path, 50);
+            before = quantity(seller, path) + quantity(me, path);
+            item(me, SILVER_OB, 2);
+            me->suspend_busy();
+            check(find_player("seller") == seller, "real connected merchant discovery");
+            result = "/cmds/usr/buy"->main(me, "tie lianzi from seller");
+            check(result && quantity(
+                seller,
+                path
+            ) + quantity(me, path) == before && quantity(seller, path) == 49,
+                sprintf(
+                    "player stall transfers exactly one unit: result=%d seller=%d buyer=%d before=%d",
+                    result,
+                    quantity(seller, path),
+                    quantity(me, path),
+                    before
+                ));
+            break;
+        case "prices":
+            token = item(me, "/clone/misc/shang-ling", 0);
+            ob = item(me, path, 50);
+            me->set("is_vendor", 1);
+            me->set_temp("on_baitan", 1);
+            foreach (arg in ({
+                "tie lianzi -1",
+                "tie lianzi 0",
+                "tie lianzi 101",
+                "tie lianzi 18446744073709551617"
+            })) {
+                me->set("vendor_goods", ([]));
+                err = catch(token->do_stock(arg));
+                check(
+                    !err && !sizeof(me->query("vendor_goods")),
+                    "stall rejects invalid multiplier " + arg
+                );
+            }
+            ob->set("base_value", MAX_INT);
+            me->set("vendor_goods", ([]));
+            token->do_stock("tie lianzi 2");
+            check(!sizeof(me->query("vendor_goods")), "stall rejects multiplication overflow");
+            ob->set("base_value", 2);
+            check(
+                token->do_stock("tie lianzi") && me->query("vendor_goods")[path] == 1,
+                "omitted stall multiplier keeps half-price"
+            );
+            check(
+                token->do_stock("tie lianzi 2") && me->query("vendor_goods")[path] == 4,
+                "positive stall multiplier"
+            );
+            break;
+        case "reject":
+            ob = item(me, GOLD_OB, 2);
+            me->do_store("1 gold");
+            check(
+                quantity(me, GOLD_OB) == 2 && !stored(me),
+                "partial rejected gold preserves quantity"
+            );
+            ob = item(me, "/tests/food", 5);
+            me->do_store("1 food");
+            check(
+                quantity(me, "/tests/food") == 5 && !stored(me),
+                "partial food rejection preserves quantity"
+            );
+            ob = item(me, path, 50);
+            ob->set("no_store", 1);
+            me->do_store("1 tie lianzi");
+            check(
+                quantity(me, path) == 50 && !stored(me),
+                "original instance no_store cannot be laundered by splitting"
+            );
+            ob->delete("no_store");
+            ob->set_temp("poison", 1);
+            me->do_store("1 tie lianzi");
+            check(
+                quantity(me, path) == 50 && !stored(me),
+                "original temporary state remains excluded"
+            );
+            break;
+        case "withdraw":
+            ob = item(me, path, 50);
+            check(
+                me->do_store("20 tie lianzi") && quantity(me, path) == 30 && stored(me) == 20,
+                "partial valid store conserves quantity"
+            );
+            me->set_max_encumbrance(1);
+            before = sizeof(children(path));
+            result = me->do_take("1 20");
+            check(
+                !result && stored(me) == 20 && quantity(me, path) == 30,
+                "overweight withdrawal preserves record and inventory"
+            );
+            check(sizeof(children(path)) == before, "failed withdrawal destroys unused clone");
+            me->set_max_encumbrance(1000000);
+            check(
+                me->do_take("1 20") && stored(me) == 0 && quantity(me, path) == 50,
+                "normal stack withdrawal merges exact quantity"
+            );
+            break;
+        case "books":
+            ob = item(me, "/clone/book/basic-spear", 0);
+            result = me->do_store("spear book");
+            check(
+                result && !quantity(me, "/clone/book/basic-spear") && stored(me) == 1,
+                "normal .lpc book accepted"
+            );
+            me->suspend_busy();
+            check(
+                me->do_take("1 1") && quantity(me, "/clone/book/basic-spear") == 1 && !stored(me),
+                "normal .lpc book restored"
+            );
+            me->suspend_busy();
+            ob = item(me, "/d/items/axe/banfu", 0);
+            check(
+                me->do_store(ob->query("id")) && stored(me) == 1,
+                "existing virtual variety accepted"
+            );
+            me->suspend_busy();
+            check(
+                me->do_take("1 1") && quantity(me, "/d/items/axe/banfu") == 1 && !stored(me),
+                "existing virtual variety restored"
+            );
+            break;
+        case "partial":
+            me->seed_depot_for_test(([ "item0": ([ "file": "/tests/fragile",
+                "name": "试玉", "id": "test jade", "amount": 3 ]) ]));
+            deliveries = 1;
+            before = sizeof(children("/tests/fragile"));
+            check(me->do_take("1 3") && stored(me) == 2 && quantity(me, "/tests/fragile") == 1,
+                "nonstack partial delivery only debits successful items");
+            check(sizeof(children("/tests/fragile")) <= before + 2,
+                "failed nonstack candidate cleaned up");
+            me->suspend_busy();
+            deliveries = 5;
+            me->set_max_encumbrance(1);
+            check(me->do_take("1 2") && !stored(me) && quantity(
+                this_object(),
+                "/tests/fragile"
+            ) == 2,
+                "nonstack overweight retains existing ground delivery");
+            break;
+        case "missing":
+            me->seed_depot_for_test(([ "item0": ([ "file": "/tests/not_here",
+                "name": "旧物", "id": "missing", "amount": 2 ]) ]));
+            err = catch(result = me->do_take("1 1"));
+            check(
+                !err && !result && stored(me) == 2,
+                "missing item keeps saved record and returns failure"
+            );
+            break;
+    }
+    return 1;
+}
+
+void run() {
+    object me, ob;
+    string test;
+    mixed err;
+
+    set("shop_type", 1);
+    set("owner", "seller");
+    buyer = master()->query_clients()[0];
+    seller = master()->query_clients()[1];
+    buyer->set_name("试客", ({ "buyer" }));
+    seller->set_name("试商", ({ "seller" }));
+    buyer->enable_player();
+    seller->enable_player();
+    buyer->move(this_object());
+    seller->move(this_object());
+    foreach (test in ({
+        "payments",
+        "npc",
+        "stock",
+        "prices",
+        "reject",
+        "withdraw",
+        "books",
+        "partial",
+        "missing"
+    })) {
+        me = actor("test" + test);
+        err = catch(me->execute_test("audit " + test));
+        check(!err, "case completed: " + test + (err ? ": " + err : ""));
+        foreach (ob in all_inventory(me)) destruct(ob);
+        destruct(me);
+    }
+    foreach (ob in all_inventory(buyer)) destruct(ob);
+    buyer->suspend_busy();
+    err = catch(buyer->execute_test("audit stall"));
+    check(!err, "case completed: stall" + (err ? ": " + err : ""));
+}

@@ -43,7 +43,7 @@ int exert(object me, object target) {
         rp = neili_cost - 100;
     }
     me->receive_curing("qi", rp);
-    me->receive_healing("qi", rp * 3 / 2);
+    me->receive_heal("qi", rp * 3 / 2);
     me->add("neili", -neili_cost);
 
     me->start_busy(3);

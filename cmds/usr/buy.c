@@ -53,10 +53,13 @@ int main(object me, string arg) {
         return notify_fail(obj->name(1) + "并没有兜售这样货物。\n");
 
     value = goods[base_name(ob)];
+    if (!intp(goods[base_name(ob)]) || value < 1)
+        return notify_fail("这件货物的售价尚未定妥，暂时不能购买。\n");
 
     if (ob->query_amount()) {
         object old_ob;
         ob = new(base_name(old_ob = ob));
+        ob->set_amount(1);
         ob->set_temp("moved_from", old_ob);
         call_out("destruct_it", 0, ob);
     }
@@ -93,7 +96,13 @@ int main(object me, string arg) {
 int player_pay(object who, object target, int amount) {
     object t_ob, g_ob, s_ob, c_ob;
     int tc, gc, sc, cc, left;
-    int v;
+    int v, income;
+
+    if (amount < 1)
+        return 0;
+    income = amount / 20 * 19 + amount % 20 * 19 / 20;
+    if (target->query("balance") > MAX_INT - income)
+        return 0;
 
     seteuid(getuid());
 
@@ -119,7 +128,12 @@ int player_pay(object who, object target, int amount) {
     else
         cc = 0;
 
-    v = cc + sc * 100 + gc * 10000;
+    if (cc < 0 || sc < 0 || gc < 0 || tc < 0 || sc > (MAX_INT - cc) / 100)
+        return 0;
+    v = cc + sc * 100;
+    if (gc > (MAX_INT - v) / 10000)
+        return 0;
+    v += gc * 10000;
 
     if (amount < 100000 && v < amount) {
         if (present("cash_money", who))
@@ -128,6 +142,8 @@ int player_pay(object who, object target, int amount) {
             return 0;
     }
 
+    if (tc > (MAX_INT - v) / 100000)
+        return 0;
     v += tc * 100000;
 
     if (v < amount)
@@ -173,7 +189,7 @@ int player_pay(object who, object target, int amount) {
             c_ob->move(who, 1);
         }
 
-        target->add("balance", amount * 19 / 20);
+        target->add("balance", income);
         if (query_ip_number(target) != query_ip_number(who))
 
             target->add("vendor_score", amount / 2500);

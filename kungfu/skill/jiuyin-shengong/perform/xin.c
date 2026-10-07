@@ -5,7 +5,9 @@
 
 inherit F_SSERVER;
 
-void remove_effs(object target);
+private int next_effect_id;
+
+void remove_effs(object target, int effect_id);
 
 string final(object me, object target, int damage);
 
@@ -55,7 +57,7 @@ int perform(object me, object target) {
         target->start_busy(2 + random(4));
         target->receive_damage("jing", ap / 2 + random(ap / 4));
         target->receive_wound("jing", ap / 2 + random(ap / 8));
-        target->set_temp("eff/jiuyin-shengong/xin", 1);
+        target->set_temp("eff/jiuyin-shengong/xin", ++next_effect_id);
 
         if (target->query_skill("martial-cognize", 1) < 200)
             times = ap / 10 + random(6);
@@ -75,8 +77,8 @@ int perform(object me, object target) {
             times = ap / 30 + random(6);
         if (target->query_skill("martial-cognize", 1) > 400)
             times = 8 + random(7);
-        remove_call_out("remove_effs");
-        call_out("remove_effs", times, target);
+        // Each target owns its current effect; an older callback cannot clear a refresh.
+        call_out("remove_effs", times, target, next_effect_id);
     } else {
         msg += NOR + CYN "$n" NOR + CYN "怒喝道：“尔等妖法，休想迷惑我！”。猛然间，招式陡快，"
             "竟将$N" NOR +
@@ -89,8 +91,8 @@ int perform(object me, object target) {
     return 1;
 }
 
-void remove_effs(object target) {
-    if (!objectp(target) || !target->query_temp("eff/jiuyin-shengong/xin"))
+void remove_effs(object target, int effect_id) {
+    if (!objectp(target) || target->query_temp("eff/jiuyin-shengong/xin") != effect_id)
         return;
     target->delete_temp("eff/jiuyin-shengong/xin");
     tell_object(target, HIW "猛然间你气血上冲，头昏胀痛之感顿然消去，精力逐渐集中起来。\n" NOR);

@@ -1,0 +1,13 @@
+// Only the delivery failure is injected; the storage implementation stays real.
+inherit ITEM;
+
+void create() {
+    set_name("试玉", ({ "test jade" }));
+    set("unit", "块");
+    set_weight(1);
+}
+
+varargs int move(mixed dest, int raw) {
+    if (!"/tests/regression"->allow_delivery()) return 0;
+    return ::move(dest, raw);
+}

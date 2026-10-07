@@ -63,4 +63,4 @@ node --test tools/tests/test_item_records.mjs
 node tools/tests/check_lpc_warnings.mjs bin/lpcc.exe
 ```
 
-需要基线 `ea5f6afd1d95f22c5dc47fe23081a927ee64e11a` 和支持测试参数的本地驱动。隔离测试运行实际 study、存取、交易及相关业务片段；角色基础设施、技能服务和随机数使用明确夹具，不代表完整 NPC 战斗/任务验收。性能按 36 个来源各创建 20 次，三轮新旧独立驱动对照；实际结果见[本批验证报告](../../openspec/changes/refactor-data-driven-books/validation.md)。
+需要基线 `ea5f6afd1d95f22c5dc47fe23081a927ee64e11a` 和支持测试参数的本地驱动。隔离测试运行实际 study、存取、交易及相关业务片段；角色基础设施、技能服务和随机数使用明确夹具，不代表完整 NPC 战斗/任务验收。性能按 36 个来源各创建 20 次，三轮新旧独立驱动对照；实际结果见[本批验证报告](../../openspec/changes/archive/2026-10-07-refactor-data-driven-books/validation.md)。

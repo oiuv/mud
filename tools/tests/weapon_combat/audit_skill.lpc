@@ -1,0 +1,26 @@
+// Controlled effect inputs at the Skill boundary. Command dispatch and busy state are production code.
+inherit SKILL;
+
+int valid_enable(string usage) { return usage == "unarmed" || usage == "force"; }
+
+int perform_action(object me, string action) {
+    mixed duration, handler;
+
+    if (me->is_busy()) {
+        me->set_temp("audit/second_was_busy", 1);
+        return 0;
+    }
+    me->add_temp("audit/calls", 1);
+    if (action == "fail") return 0;
+    if (action != "first" && action != "second") return 0;
+    duration = me->query_temp("audit/" + action, 1);
+    handler = me->query_temp("audit/" + action + "_interrupt", 1);
+    me->start_busy(duration, handler);
+    me->set_temp("audit/" + action + "_actual", me->query_busy());
+    return 1;
+}
+
+int valid_damage(object me, object target, int damage) {
+    target->add_temp("audit/force_calls", 1);
+    return -damage / 2;
+}

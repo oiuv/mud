@@ -1,0 +1,35 @@
+private mapping temp_data = ([]);
+
+mixed query_temp(string key) { return temp_data[key]; }
+void set_temp(string key, mixed value) { temp_data[key] = value; }
+
+void command(string text) {
+    string question;
+
+    if (sscanf(text, "ask %s", question) == 1) {
+        AI_NPC_D->send_chat_request("guide", "tester", "测试旅人", question, "",
+            "/tests/master"->query_npc());
+        write("SENT " + question + "\n");
+    } else if (text == "status")
+        write(sprintf("PENDING %d\n", AI_CLIENT_D->query_pending_count()));
+    else if (text == "remove") {
+        AI_NPC_D->remove();
+        write("REMOVED\n");
+    } else if (text == "finish")
+        "/tests/master"->finish();
+    input_to("command");
+}
+
+void listen(int connection) {
+    input_to("command");
+    tell_object(this_object(), sprintf("READY %d %s\n", connection, file_name(this_object())));
+}
+
+void net_dead() {
+    object link;
+
+    link = temp_data["link_ob"];
+    temp_data["link_ob"] = 0;
+    if (objectp(link))
+        destruct(link);
+}
