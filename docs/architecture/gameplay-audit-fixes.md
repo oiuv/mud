@@ -102,8 +102,41 @@ node ai/scripts/verify_npc_reconnect.mjs
 `mud-ai-lpc-0K23M3`、`mud-npc-reconnect-EIsKIq` 的 `driver-output.txt`。
 这些临时证据不提交 Git，可用上述入口重新生成；结果不替代正式服升级后的运行观察。
 
+## 统一回归入口
+
+从仓库真实路径的根目录运行（当前入口不支持通过软链接或目录联接路径启动）：
+
+```sh
+node tools/test_gameplay.mjs
+node tools/test_gameplay.mjs --help
+
+# 可显式指定驱动和 AI Python；相对路径以调用者当前目录为准
+node tools/test_gameplay.mjs --driver "bin/driver.exe" --python "ai/.venv/Scripts/python.exe"
+
+# 只验证入口编排，不启动 FluffOS 或模型
+node --test tools/tests/test_gameplay_runner.mjs
+```
+
+依赖 Node.js 18+、Git、已初始化的 mudcore、已编译的 FluffOS，以及已安装 AI 服务依赖的 Python 环境。
+Windows 默认驱动为 `bin/driver.exe`，其他平台为 `bin/driver`；Python 默认取
+`ai/.venv/Scripts/python.exe` 或 `ai/.venv/bin/python`。入口不会自动安装依赖、编译或修改配置，
+`--help` 不要求这些依赖存在。含空格的路径须加引号。
+
+入口顺序调用上方五条原测试命令，不包含旧代码负对照、性能测试、真实模型评测或全量编译。
+保留各组 stdout/stderr 和临时证据目录，最后汇总状态、实际检查数、失败数及耗时；
+历史 788 项不是写死的通过标准。退出码为 0 且摘要完整、无失败才算通过，缺摘要的计数显示未知。
+普通单组失败继续运行其余组，最终非零退出；中断后不启动下一组，等待当前组退出及其清理，
+不会把部分完成显示为全通过。各组仍可单独执行。
+
+临时源码、回归日志及本机随机端口沿用原套件，不连接正式服、不读写玩家存档或调用模型。
+日志保留在系统临时目录，不自动删除；这只是五组定向回归，不代表全库无缺陷。
+入口自身的测试和实测结果见 [入口验收记录](../../openspec/changes/add-gameplay-regression-entry/verification.md)。
+
 ## 部署边界
 
-本轮未提交、未推送、未重启正式服务、未修改正式存档。上线宜完整重启游戏，
-避免旧继承、旧临时效果和旧在途聊天混用；不要只热更共享效果文件后继续旧战斗。
+本轮修复已提交为 `5ced8b99`。隔离验收阶段没有操作正式服务或修改正式存档；
+用户随后反馈已重启游戏并完成 `updateall /`，**9,989 个档案全部编译成功**。
+这确认了正式环境的加载与编译兼容性，不替代购买、背包、战斗等运行行为的实际体验。
+涉及共享战斗/效果代码的升级宜完整重启，避免旧继承、旧临时效果和旧在途聊天混用；
+不要只热更共享效果文件后继续旧战斗。
 Python AI 服务协议未变，本次连接修复位于游戏侧。

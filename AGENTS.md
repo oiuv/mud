@@ -125,6 +125,8 @@ node tools/format_lpc.mjs --check mudcore/inherit/user_gmcp.c
 
 There is no repository-wide coverage runner. Start FluffOS in debug mode, inspect `log/debug.log` and `log/error.log`, and exercise the affected gameplay path. Administrator-only `eval` supports focused checks; reusable command tests belong in `cmds/test/`. Include regression steps for rooms, NPCs, commands, or protocols touched.
 
+核心玩法定向回归统一执行 `node tools/test_gameplay.mjs`，顺序复用交易/背包、公共战斗、具体武学、AI LPC 通信和 NPC 重连五组隔离测试；这不是全库覆盖或 `updateall /` 的替代。需要 Node.js 18+、Git、mudcore、FluffOS 和已安装依赖的 AI Python 环境；可用 `--driver <path>`、`--python <path>` 指定可执行文件，`--help` 不启动测试。运行会创建临时 MUDLIB、随机本机端口及日志，不连接正式服或模型、不读写玩家存档；任一组失败或摘要不完整均非零退出。详见 [回归说明](docs/architecture/gameplay-audit-fixes.md#统一回归入口)。
+
 ## LPC Language Reference
 
 开发中涉及 LPC 语法、类型、运算符或编译器扩展时，以 `docs/LPC_Language_FluffOS.md` 的最新内容为项目标准，并注意其中标注的核对基线与支持版本。efun/apply 的签名和行为必须查阅 `fluffos/docs/` 或 `fluffos/src/`，不以历史 `doc/` 或项目指南中的摘要替代驱动依据。驱动升级或开发中发现差异时，根据源码和测试同步修订相关内容。

@@ -68,9 +68,18 @@ python ai/scripts/verify_runtime.py
 python -m unittest discover -s ai/tests -v
 node ai/scripts/verify_lpc.mjs
 
+# 五组核心玩法隔离回归（含上述 AI LPC 通信和 NPC 重连，不调用模型）
+node tools/test_gameplay.mjs
+
 # 本地索引维护，会写索引但不调用模型
 python ai/scripts/ops_build_bm25.py
 ```
+
+`tools/test_gameplay.mjs` 是跨游戏与 AI 通信的开发入口，不属于 AI 服务启动器。
+它需要 Node.js 18+、Git、mudcore、FluffOS 及已安装依赖的 AI Python 环境，默认使用
+`bin/driver.exe` / `bin/driver` 和 `ai/.venv`，可用 `--driver <path>`、`--python <path>` 覆盖。
+只运行固定五组正向回归，不扫描并执行本目录全部脚本；产生的临时 MUDLIB 和日志留在系统临时目录。
+任一组失败或摘要缺失都返回非零，详细说明见[统一回归入口](../../docs/architecture/gameplay-audit-fixes.md#统一回归入口)。
 
 ## 独立测试模型与 Skill
 
