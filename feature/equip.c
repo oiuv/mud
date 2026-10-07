@@ -49,11 +49,11 @@ int wear() {
 }
 
 int wield() {
-    object owner, old_weapon;
-    mapping weapon_prop;
-    string *apply /*, type*/;
+    object owner, old_weapon, secondary, held;
+    mapping weapon_prop, old_prop, applied_prop;
+    string *apply, key;
     mixed no_wield;
-    int flag;
+    int flag, i, as_secondary, demote;
 
     // Only character object can wear armors.
     owner = environment();
@@ -77,53 +77,53 @@ int wield() {
             return notify_fail("这样东西无法装备。");
     }
 
-    // If handing it now, stop handing
-    if (owner->query_temp("handing") == this_object())
-        owner->delete_temp("handing");
-
     // Check if we have "weapon_prop" defined.
     if (!mapp(weapon_prop = query("weapon_prop")) ||
         !stringp(query("skill_type")))
         return notify_fail("你只能装备可当作武器的东西。\n");
 
     flag = query("flag");
+    old_weapon = owner->query_temp("weapon");
+    secondary = owner->query_temp("secondary_weapon");
+    held = owner->query_temp("handing");
+    // A successful hand-to-wield transition releases this object's held slot.
+    // Validate against the proposed state before changing any slot or property.
+    if (held == this_object())
+        held = 0;
 
     if (flag & TWO_HANDED) {
-        if (owner->query_temp("secondary_weapon") ||
-            owner->query_temp("weapon") ||
-            owner->query_temp("handing"))
+        if (secondary || old_weapon || held)
             return notify_fail("你必须空出双手才能装备该武器。\n");
-        owner->set_temp("weapon", this_object());
-    } else {
-        // If we are are using any weapon?
-        if (!(old_weapon = owner->query_temp("weapon")))
-            owner->set_temp("weapon", this_object());
-
-        else  // If we still have a free hand?
-        if (!owner->query_temp("secondary_weapon") && !owner->query_temp("handing")) {
-            // If we can wield this as secondary weapon?
-            if (flag & SECONDARY) {
-                owner->set_temp("secondary_weapon", this_object());
-            }
-            // If we can switch our old weapon to secondary weapon ?
-            else if ((int)old_weapon->query("flag") & SECONDARY) {
-                old_weapon->unequip();
-                owner->set_temp("weapon", this_object());
-                old_weapon->wield();
-
-                // We need unwield our old weapon before we can use this one.
-            } else
-                return notify_fail("你必须先放下你目前装备的武器。\n");
-
-            // We have both hands wearing something.
-        } else
+    } else if (old_weapon) {
+        if ((old_weapon->query("flag") & TWO_HANDED) || secondary || held)
             return notify_fail("你必须空出一只手来使用武器。\n");
+        if (flag & SECONDARY)
+            as_secondary = 1;
+        else if (old_weapon->query("flag") & SECONDARY)
+            demote = 1;
+        else
+            return notify_fail("你必须先放下你目前装备的武器。\n");
+    } else if (secondary && (held || (secondary->query("flag") & TWO_HANDED))) {
+        return notify_fail("你必须空出一只手来使用武器。\n");
     }
+
+    if (owner->query_temp("handing") == this_object())
+        owner->delete_temp("handing");
+    if (demote) {
+        // Internal reordering is not an unequip: do not recursively promote a weapon.
+        old_prop = old_weapon->query("weapon_prop");
+        applied_prop = owner->query_temp("apply");
+        if (mapp(old_prop) && mapp(applied_prop))
+            foreach (key in keys(old_prop))
+                applied_prop[key] -= old_prop[key];
+        owner->set_temp("secondary_weapon", old_weapon);
+    }
+    owner->set_temp(as_secondary ? "secondary_weapon" : "weapon", this_object());
 
     // add by doing to discard the secondary_weapon's prop
     if (owner->query_temp("secondary_weapon") != this_object()) {
         apply = keys(weapon_prop);
-        for (int i = 0; i < sizeof(apply); i++)
+        for (i = 0; i < sizeof(apply); i++)
             owner->add_temp("apply/" + apply[i], weapon_prop[apply[i]]);
     }
 
@@ -133,11 +133,11 @@ int wield() {
 }
 
 int unequip() {
-    object owner;
+    object owner, secondary;
     mapping prop = 0, applied_prop;
     string *apply, equipped;
 
-    if (!(owner = environment())->is_character())
+    if (!objectp(owner = environment()) || !owner->is_character())
         return 0;
 
     if (!stringp(equipped = query("equipped")))
@@ -147,11 +147,12 @@ int unequip() {
         if ((object)owner->query_temp("weapon") == this_object()) {
             prop = query("weapon_prop");
             owner->delete_temp("weapon");
+            secondary = owner->query_temp("secondary_weapon");
+            owner->delete_temp("secondary_weapon");
         } else if ((object)owner->query_temp("secondary_weapon") == this_object()) {
             owner->delete_temp("secondary_weapon");
             prop = 0;
         }
-        owner->reset_action();
     } else if (equipped == "worn") {
         owner->delete_temp("armor/" + query("armor_type"));
         prop = query("armor_prop");
@@ -166,6 +167,14 @@ int unequip() {
     }
 
     delete("equipped");
+    if (objectp(secondary) && secondary != this_object() && environment(secondary) == owner &&
+        secondary->query("equipped") == "wielded") {
+        secondary->delete("equipped");
+        if ((secondary->query("flag") & SECONDARY) && secondary->wield())
+            message_vision("$N顺势握稳了$n。\n", owner, secondary);
+    }
+    if (equipped == "wielded")
+        owner->reset_action();
     return 1;
 }
 

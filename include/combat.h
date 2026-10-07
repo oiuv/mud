@@ -7,6 +7,8 @@
 #define TYPE_RIPOSTE            1
 #define TYPE_QUICK            2
 
+// post_action 的第五个参数；第四个参数仍为本次伤害值。
+#define RESULT_HIT              0
 #define RESULT_DODGE            -1
 #define RESULT_PARRY            -2
 

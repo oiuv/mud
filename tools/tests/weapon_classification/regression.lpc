@@ -297,8 +297,11 @@ void check_axe_hammer() {
     actor->set("can_perform/pangu-qishi/kai", 1);
     check(!perform_ob->perform(actor, target), "old Pangu unlock does not unlock Hanshan");
     actor->set("can_perform/hanshan-chuifa/zhen", 1);
-    actor->set("neili", 399);
-    check(!perform_ob->perform(actor, target), "perform keeps original 400-neili entry threshold");
+    actor->set("neili", 499);
+    check(
+        !perform_ob->perform(actor, target),
+        "perform requires enough neili for its 500-cost hit branch"
+    );
     actor->set("neili", 1000);
     target->set_skill("force", 0);
     target->set("con", 0);

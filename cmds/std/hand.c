@@ -23,21 +23,15 @@ int main(object me, string arg) {
     if (!objectp(ob = present(arg, me)))
         return notify_fail("你身上没有这样东西。\n");
 
-    if (objectp(old = me->query_temp("handing"))) {
-        if (old == ob)
-            return notify_fail("你不是正拿着它吗？\n");
-
-        message_vision("$N收回手中的" + old->name() + "。\n", me);
-        me->delete_temp("handing");
-    }
+    if (objectp(old = me->query_temp("handing")) && old == ob)
+        return notify_fail("你不是正拿着它吗？\n");
 
     if ((ob->query_amount() ? ob->query("base_weight") : ob->query_weight()) > 20000)
         return notify_fail(ob->name() + "太重了，你单手拿不住。\n");
 
     weapon = me->query_temp("weapon");
-    if (weapon &&
-        (((int)weapon->query("flag")) & TWO_HANDED ||
-            me->query_temp("secondary_weapon"))) {
+    if ((weapon && ((int)weapon->query("flag") & TWO_HANDED)) ||
+        me->query_temp("secondary_weapon")) {
         // none of two hand is free
         return notify_fail("你双手都拿着武器，没有办法"
             "再拿着" +
@@ -47,6 +41,8 @@ int main(object me, string arg) {
     if (ob->query("equipped"))
         return notify_fail("你正装备着它呢！\n");
 
+    if (old)
+        message_vision("$N收回手中的" + old->name() + "。\n", me);
     me->set_temp("handing", ob);
     message_vision("$N拿出" + (old && ob->name() == old->name() ? "另外" : "") +
         "一" + (ob->query_amount() ? ob->query("base_unit") : ob->query("unit")) +
@@ -60,6 +56,8 @@ int help(object me) {
 指令格式 : hand <物品名称> | nothing
 
 这个指令可以让你拿出一样你所携带的物品，随时准备使用。
+需要空出一只手，不能再拿已装备或重得单手拿不住的物品。
+换拿失败时，原来手中的物品不变。
 
 HELP);
     return 1;

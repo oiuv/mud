@@ -1,0 +1,472 @@
+#include <weapon.h>
+#include <combat.h>
+
+inherit ROOM;
+
+private int pending;
+int query_pending() { return pending; }
+
+private void check(int ok, string label) { "/tests/master"->check(ok, label); }
+
+private object actor() {
+    object ob;
+
+    ob = new("/tests/actor");
+    ob->move(this_object());
+    ob->set_heart_beat(0);
+    ob->set_skill("sword", 200);
+    ob->set_skill("dagger", 200);
+    return ob;
+}
+
+private object gear(object owner, string path, string id) {
+    object ob;
+
+    ob = new(path);
+    ob->set_name("演武兵器", ({ id }));
+    ob->move(owner);
+    return ob;
+}
+
+private void equipment() {
+    object me, main, off, held, heavy;
+    mapping action;
+    int i;
+    string invalid;
+
+    me = actor();
+    main = gear(me, "/d/items/axe/banfu", "main");
+    off = gear(me, "/d/items/dagger/bishou", "off");
+    check(main->wield(), "two-handed weapon wielded");
+    check(!off->wield(), "two-handed main rejects secondary");
+    check(!me->query_temp("secondary_weapon"), "no secondary slot after rejection");
+    destruct(me);
+
+    me = actor();
+    main = gear(me, "/d/items/sword/bintie_jian", "main");
+    off = gear(me, "/d/items/dagger/bishou", "off");
+    check(main->wield() && off->wield(), "single main plus secondary");
+    check("/cmds/std/unwield"->main(me, "main"), "real unwield command");
+    check(me->query_temp("weapon") == off && !me->query_temp("secondary_weapon"),
+        "secondary promoted after unwield");
+    check(me->query_temp("apply/damage") == off->query("weapon_prop/damage"),
+        "promoted weapon contributes damage once");
+    me->set_skill("jifeng-cixuefa", 1);
+    me->map_skill("dagger", "jifeng-cixuefa");
+    me->reset_action();
+    check(
+        me->query_action()["skill_name"] == "蝎尾针",
+        "promoted main selects real mapped dagger action"
+    );
+    destruct(me);
+
+    me = actor();
+    held = gear(me, "/d/items/dagger/bishou", "held");
+    heavy = gear(me, "/d/items/dagger/bishou2", "heavy");
+    heavy->set_weight(30000);
+    check("/cmds/std/hand"->main(me, "held"), "hand original object");
+    check(!"/cmds/std/hand"->main(me, "heavy"), "reject overweight replacement");
+    check(me->query_temp("handing") == held, "failed replacement preserves held object");
+    destruct(me);
+
+    me = actor();
+    off = gear(me, "/d/items/dagger/bishou", "off");
+    main = gear(me, "/d/items/axe/banfu", "main");
+    check(off->wield() && !main->wield(), "secondary-first rejects two-handed weapon");
+    check(me->query_temp("weapon") == off && !main->query("equipped"), "failed wield keeps slots");
+    off->unequip();
+    check(
+        "/cmds/std/hand"->main(me, "main") && main->wield(),
+        "held two-handed weapon becomes main"
+    );
+    check(!me->query_temp("handing"), "successful wield releases held slot");
+    check(!"/cmds/std/hand"->main(me, "off"), "two-handed main rejects held item");
+    main->unequip();
+    check("/cmds/std/hand"->main(me, "off") && off->wield() && !me->query_temp("handing"),
+        "held single-handed weapon becomes main without double occupancy");
+    off->unequip();
+    check("/cmds/std/hand"->main(me, "off"), "hold secondary candidate");
+    off->delete("weapon_prop");
+    // Override the blueprint mapping explicitly; delete alone exposes inherited properties.
+    off->set("weapon_prop", 0);
+    check(
+        !off->wield() && me->query_temp("handing") == off,
+        "invalid held weapon preserves held slot"
+    );
+    destruct(me);
+
+    me = actor();
+    main = gear(me, "/d/items/sword/bintie_jian", "main");
+    off = gear(me, "/d/items/dagger/bishou", "off");
+    held = gear(me, "/d/items/dagger/bishou2", "held");
+    off->set("actions", ([ "action": "副手招式", "damage_type": "刺伤" ]));
+    check(off->wield() && main->wield(), "secondary-capable old main is demoted");
+    check(me->query_temp("weapon") == main && me->query_temp("secondary_weapon") == off &&
+        me->query_temp("apply/damage") == main->query("weapon_prop/damage"), "demotion replaces properties once");
+    check(
+        !held->wield() && !"/cmds/std/hand"->main(me, "held"),
+        "two weapons reject third occupancy"
+    );
+    main->move(this_object());
+    action = me->query_action();
+    check(
+        me->query_temp("weapon") == off && action["action"] == "副手招式",
+        "move promotes actual action"
+    );
+    main->move(me);
+    for (i = 0; i < 3; i++) {
+        check(main->wield() && main->unequip() && me->query_temp("apply/damage") ==
+            off->query("weapon_prop/damage"), "repeated promotion has no property drift");
+    }
+    check(
+        held->wield() && me->query_temp("weapon") == off,
+        "two secondary-capable weapons keep first main"
+    );
+    off->unequip();
+    check(me->query_temp("weapon") == held && me->query_temp("apply/damage") ==
+        held->query("weapon_prop/damage"), "second secondary-capable weapon promotes once");
+    check(main->wield(), "main restored before destruction");
+    destruct(main);
+    check(me->query_temp("weapon") == held, "normal destruction promotes secondary");
+    held->unequip();
+    check(!me->query_temp("apply/damage"), "last unwield removes all weapon properties");
+    check("/cmds/std/hand"->main(me, "off") && held->wield(), "single weapon plus held object");
+    check(!"/cmds/std/hand"->main(me, "held") && me->query_temp("handing") == off,
+        "equipped replacement rejection retains held object");
+    heavy = gear(me, "/d/items/dagger/bishou3", "third");
+    check(!heavy->wield() && me->query_temp("handing") == off && me->query_temp("weapon") == held,
+        "main plus held item rejects third weapon without changing slots");
+    destruct(me);
+
+    foreach (invalid in ({ "broken", "forbidden", "two_handed", "not_owned", "conflict" })) {
+        me = actor();
+        main = gear(me, "/d/items/sword/bintie_jian", "main");
+        off = gear(me, "/d/items/dagger/bishou", "off");
+        check(main->wield() && off->wield(), "invalid-secondary fixture equipped");
+        switch (invalid) {
+            case "broken": off->set("consistence", 0); break;
+            case "forbidden": off->set("no_wield", 1); break;
+            case "two_handed":
+                off->set("flag", TWO_HANDED | SECONDARY);
+                held = gear(me, "/d/items/dagger/bishou2", "held");
+                me->set_temp("handing", held);
+                break;
+            case "not_owned":
+                off->move(this_object());
+                me->set_temp("secondary_weapon", off);
+                break;
+            case "conflict":
+                held = gear(me, "/d/items/dagger/bishou2", "held");
+                held->wield();  // rejected: fixture then represents an old invalid triple state
+                me->set_temp("handing", held);
+                off->set("flag", TWO_HANDED | SECONDARY);
+                break;
+        }
+        check(main->unequip() && !me->query_temp("weapon") && !me->query_temp("secondary_weapon") &&
+            !me->query_temp("apply/damage"), "invalid secondary is released: " + invalid);
+        destruct(off);
+        destruct(me);
+    }
+}
+
+void capture(mixed callback, object me, object victim, object weapon, int damage, int result) {
+    me->set_temp("test/outcome", ({ damage, result }));
+    if (functionp(callback)) evaluate(callback, me, victim, weapon, damage, result);
+}
+
+private mapping default_action(string verb) {
+    set("verbs", ({ verb }));
+    return copy(WEAPON_D->query_action());
+}
+
+private void callbacks() {
+    object me, victim, weapon, defense, off, armor;
+    mapping action;
+    int result, value, qi, count;
+    string outcome, effect;
+    mixed callback;
+
+    foreach (outcome in ({ "hit", "dodge", "parry", "zero", "negative" })) {
+        me = actor();
+        victim = actor();
+        weapon = gear(me, "/d/items/axe/banfu", "main");
+        weapon->set("actions", default_action("bash"));
+        weapon->set("rigidity", 10000);
+        weapon->wield();
+        defense = gear(victim, "/d/items/sword/bintie_jian", "defense");
+        defense->wield();
+        if (outcome == "zero" || outcome == "negative") {
+            armor = new("/tests/armor");
+            armor->set("test/result", outcome == "zero" ? 0 : -2);
+            armor->move(victim);
+            check(armor->wear(), "damage-hook armor equipped");
+        }
+        action = copy(me->query_action());
+        callback = action["post_action"];
+        action["post_action"] = (: capture, callback :);
+        weapon->set("actions", action);
+        "/tests/control"->set_case(outcome, 99999);
+        qi = victim->query("qi");
+        COMBAT_D->do_attack(me, victim, weapon, TYPE_QUICK);
+        result = me->query_temp("test/outcome")[1];
+        value = me->query_temp("test/outcome")[0];
+        check(result == (outcome == "parry" ? RESULT_PARRY : outcome == "dodge" ? RESULT_DODGE : RESULT_HIT),
+            "independent post-action result: " + outcome);
+        if (outcome == "hit") check(
+            value > 0 && victim->query("qi") == qi - value,
+            "actual positive damage retained"
+        );
+        else check(
+            value == (outcome == "negative" ? -2 : 0),
+            "actual zero/negative damage retained: " + outcome
+        );
+        check(
+            (environment(defense) == this_object()) == (outcome == "parry"),
+            "collision only for real parry: " + outcome
+        );
+        destruct(defense);
+        destruct(me);
+        destruct(victim);
+    }
+    foreach (effect in ({ "disarm", "break", "crafted", "no_callback" })) {
+        me = actor();
+        victim = actor();
+        weapon = gear(me, "/d/items/axe/banfu", "main");
+        weapon->set("actions", default_action(effect == "no_callback" ? "chop" : "bash"));
+        weapon->set("rigidity", 10000);
+        weapon->wield();
+        defense = effect == "crafted" ? new("/tests/crafted") : new("/d/items/sword/bintie_jian");
+        defense->move(victim);
+        defense->wield();
+        off = gear(victim, "/d/items/dagger/bishou", "off");
+        off->wield();
+        value = defense->weight() / 500 + defense->query("rigidity") + victim->query("str");
+        "/tests/control"->set_case(
+            "parry",
+            effect == "disarm" || effect == "no_callback" ? value * 2 + 1 : value
+        );
+        COMBAT_D->do_attack(me, victim, weapon, TYPE_QUICK);
+        if (effect == "break" || effect == "disarm") {
+            check(environment(defense) == this_object() && victim->query_temp("weapon") == off,
+                "collision unequips and promotes secondary: " + effect);
+            check(
+                victim->query_temp("apply/damage") == off->query("weapon_prop/damage"),
+                "disarm property transition once"
+            );
+            check(
+                (!mapp(defense->query("weapon_prop"))) == (effect == "break"),
+                "break versus disarm properties"
+            );
+        } else check(victim->query_temp("weapon") == defense && mapp(defense->query("weapon_prop")),
+            "collision protection: " + effect);
+        destruct(defense);
+        destruct(me);
+        destruct(victim);
+    }
+    foreach (outcome in ({ "hit", "dodge", "parry" })) {
+        me = actor();
+        victim = actor();
+        weapon = new("/tests/throwing");
+        weapon->move(me);
+        weapon->wield();
+        count = weapon->query_amount();
+        "/tests/control"->set_case(outcome, 0);
+        COMBAT_D->do_attack(me, victim, weapon, TYPE_QUICK);
+        check(weapon->query_amount() == count - 1, "one projectile consumed: " + outcome);
+        weapon->set_amount(1);
+        COMBAT_D->do_attack(me, victim, weapon, TYPE_QUICK);
+        check(
+            (!objectp(weapon) || !weapon->query_amount()) && !me->query_temp("weapon"),
+            "last projectile unequipped before deferred destruction: " + outcome
+        );
+        destruct(me);
+        destruct(victim);
+    }
+}
+
+private void skills() {
+    object me, target, other, weapon, skill, room, member;
+    string type, name, ending;
+    mapping effect, old_effect;
+    int neili, qi, str, dex, target_str, target_dex, amount;
+
+    foreach (type in ({ "axe", "hammer" })) {
+        name = type == "axe" ? "pangu-qishi" : "hanshan-chuifa";
+        skill = load_object(SKILL_D(name + (type == "axe" ? "/kai" : "/zhen")));
+        me = actor();
+        target = actor();
+        weapon = gear(me, type == "axe" ? "/d/items/axe/banfu" : "/d/items/hammer/tiechui", "main");
+        weapon->wield();
+        me->set_skill("force", 600);
+        me->set_skill(type, 400);
+        me->set_skill(name, 200);
+        me->map_skill(type, name);
+        me->fight_ob(target);
+        target->set("con", 0);
+        foreach (neili in ({ 399, 400, 499 })) {
+            me->set("neili", neili);
+            qi = target->query("qi");
+            check(!skill->perform(me, target) && me->query("neili") == neili &&
+                !me->is_busy() && target->query("qi") == qi, name + " rejects without effects: " + neili);
+        }
+        me->set("neili", 500);
+        qi = target->query("qi");
+        check(skill->perform(me, target) && me->query("neili") == 0 && me->query_busy() == 3 &&
+            target->query("qi") < qi, name + " 500-neili hit preserves cost/busy/damage");
+        while (me->is_busy()) me->continue_action();
+        target->set_skill("force", 1000000);
+        me->set("neili", 500);
+        qi = target->query("qi");
+        check(skill->perform(me, target) && me->query("neili") == 200 && me->query_busy() == 4 &&
+            target->query("qi") == qi, name + " 500-neili miss preserves cost/busy");
+        while (me->is_busy()) me->continue_action();
+        me->set("neili", 500);
+        me->map_skill(type, 0);
+        check(!skill->perform(me, target) && me->query("neili") == 500, name + " requires mapping");
+        me->map_skill(type, name);
+        me->set_skill(name, 179);
+        check(!skill->perform(me, target), name + " requires skill 180");
+        me->set_skill(name, 200);
+        weapon->set("skill_type", type == "axe" ? "hammer" : "axe");
+        check(!skill->perform(me, target), name + " rejects wrong weapon");
+        destruct(me);
+        destruct(target);
+    }
+
+    skill = load_object(SKILL_D("luohan-gun/shibaluohan"));
+    foreach (ending in ({
+        "combat",
+        "leave",
+        "weapon",
+        "partner",
+        "ghost",
+        "unconscious",
+        "mapping"
+    })) {
+        me = actor();
+        target = actor();
+        other = actor();
+        foreach (member in ({ me, target })) {
+            member->set_skill("club", 120);
+            member->set_skill("luohan-gun", 120);
+            member->map_skill("club", "luohan-gun");
+            member->set("jingli", 3000);
+            member->set("neili", 3000);
+            if (ending == "mapping") member->set("str", 5);
+            member->add_temp("apply/str", 5);
+            member->add_temp("apply/dex", 7);
+            gear(member, "/d/items/club/qimei_gun", "main")->wield();
+            member->fight_ob(other);
+        }
+        str = me->query_str();
+        dex = me->query_dex();
+        target_str = target->query_str();
+        target_dex = target->query_dex();
+        amount = (24 + str + target_str) / 5;
+        if (amount > 20) amount = 20;
+        check(ending == "mapping" ? amount < 20 : amount == 20,
+            "formation covers original formula below and at cap: " + ending);
+        check(skill->perform(me, target), "formation starts: " + ending);
+        effect = me->query_temp("gunzhen");
+        check(
+            mapp(effect) && target->query_temp("gunzhen") == effect,
+            "formation marked for both partners"
+        );
+        check(me->query_str() == str + amount && me->query_dex() == dex + amount &&
+            target->query_str() == target_str + amount && target->query_dex() == target_dex + amount,
+            "formation adds effective str/dex");
+        check(me->query("jingli") == 2900 && target->query("jingli") == 2900 &&
+            me->query("neili") == 2700 && target->query("neili") == 2700 &&
+            me->query_busy() == 1 && target->query_busy() == 1 && other->query_busy() == amount / 3,
+            "formation original cost and control duration");
+        check(!skill->perform(me, target) && !skill->perform(target, me) &&
+            me->query("neili") == 2700 && target->query("neili") == 2700, "neither partner can stack formation");
+        switch (ending) {
+            case "combat": me->remove_all_enemy(1); break;
+            case "leave":
+                room = new(ROOM);
+                target->move(room);
+                break;
+            case "weapon":
+                target->query_temp("weapon")->unequip();
+                gear(target, "/d/items/sword/bintie_jian", "sword")->wield();
+                break;
+            case "partner": destruct(target); break;
+            case "ghost": target->mark_ghost(); break;
+            case "unconscious": target->disable_player(" <昏迷不醒>"); break;
+            case "mapping": target->map_skill("club", 0); break;
+        }
+        skill->check_fight(me, target, effect);
+        skill->check_fight(me, target, effect);
+        check(!me->query_temp("gunzhen") && me->query_str() == str && me->query_dex() == dex,
+            "formation removed once with other buffs retained: " + ending);
+        if (objectp(target)) check(!target->query_temp("gunzhen") && target->query_str() == target_str &&
+            target->query_dex() == target_dex, "partner effects removed once: " + ending);
+        if (ending == "combat") {
+            old_effect = effect;
+            while (me->is_busy()) me->continue_action();
+            while (target->is_busy()) target->continue_action();
+            me->fight_ob(other);
+            check(skill->perform(me, target), "formation can be reused after cleanup");
+            effect = me->query_temp("gunzhen");
+            skill->check_fight(me, target, old_effect);
+            check(me->query_temp("gunzhen") == effect && me->query_str() == str + amount,
+                "stale callback cannot remove new formation");
+            me->remove_all_enemy(1);
+            skill->check_fight(me, target, effect);
+        }
+        destruct(me);
+        if (objectp(target)) destruct(target);
+        destruct(other);
+        if (objectp(room)) destruct(room);
+    }
+}
+
+void verify_timed_cleanup(object me, object target, object other, int str, int dex) {
+    check(!me->query_temp("gunzhen") && !target->query_temp("gunzhen") &&
+        me->query_str() == str && me->query_dex() == dex, "scheduled formation check removes effects automatically");
+    destruct(me);
+    destruct(target);
+    destruct(other);
+    pending = 0;
+    "/tests/master"->finish();
+}
+
+private void timed_cleanup() {
+    object me, target, other, member;
+    int str, dex;
+
+    me = actor();
+    target = actor();
+    other = actor();
+    foreach (member in ({ me, target })) {
+        member->set_skill("club", 120);
+        member->set_skill("luohan-gun", 120);
+        member->map_skill("club", "luohan-gun");
+        member->set("jingli", 3000);
+        gear(member, "/d/items/club/qimei_gun", "main")->wield();
+        member->fight_ob(other);
+    }
+    str = me->query_str();
+    dex = me->query_dex();
+    check(
+        SKILL_D("luohan-gun/shibaluohan")->perform(me, target),
+        "scheduled cleanup fixture forms formation"
+    );
+    me->query_temp("weapon")->unequip();
+    foreach (member in ({ me, target, other })) member->set_heart_beat(0);
+    pending = 1;
+    call_out("verify_timed_cleanup", 2, me, target, other, str, dex);
+}
+
+void run() {
+    string *groups;
+
+    groups = json_decode(read_file("/tests/groups.json"));
+    if (member_array("equipment", groups) != -1) equipment();
+    if (member_array("callbacks", groups) != -1) callbacks();
+    if (member_array("skills", groups) != -1) {
+        skills();
+        timed_cleanup();
+    }
+}

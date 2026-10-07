@@ -411,7 +411,7 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
 
     int delta;
     int ap, dp, pp;
-    int damage, damage_bonus;
+    int damage, damage_bonus, attack_result;
     int wounded;
     int str1, int1;
 
@@ -546,9 +546,11 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
     //     or be hit.
     //
     damage = 0;
+    attack_result = RESULT_HIT;
     wounded = 0;
     damage_info = "";
     if (random(ap + dp) < dp) {  // Does the victim dodge this hit?
+        attack_result = RESULT_DODGE;
 #if INSTALL_COMBAT_TEST
         if (wizardp(me) && me->query("env/combat_test"))
             tell_object(me, HIY "【测试精灵】：己方 AP：" + ap +
@@ -599,6 +601,7 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
             pp += pp / 100 * SKILL_D(parry_skill)->query_effect_parry(me, victim);
 
         if (random(ap + pp) < pp) {
+            attack_result = RESULT_PARRY;
 #if INSTALL_COMBAT_TEST
             if (wizardp(me) && me->query("env/combat_test"))
                 tell_object(me, HIY "【测试精灵】：己方 AP：" + ap +
@@ -945,7 +948,7 @@ varargs int do_attack(object me, object victim, object weapon, int attack_type) 
     }
 
     if (functionp(action["post_action"]))
-        evaluate(action["post_action"], me, victim, weapon, damage);
+        evaluate(action["post_action"], me, victim, weapon, damage, attack_result);
 
     // See if the victim can make a riposte.
     if (attack_type == TYPE_REGULAR &&

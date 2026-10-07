@@ -1,0 +1,5 @@
+inherit "/clone/misc/cloth";
+
+mixed valid_damage(object me, object victim, int damage) {
+    return -damage + query("test/result");
+}

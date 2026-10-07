@@ -1,23 +1,34 @@
+# 仓库通用规则；各目录专用规则放在对应目录的 .gitignore 中。
+
+# 操作系统杂项
 .DS_Store
-*_DUMP*
+
+# 本地驱动、客户端及构建产物
 *.exe
-cert*
 driver*
 fluffos*
-tintin*
 lpcc*
 mudos*
-swapfile*
-trace*
-temp
+tintin*
 version
+
+# 运行期转储、诊断及临时文件
+*_DUMP*
 PROFILE
+swapfile*
+temp
+trace*
+
+# 本地配置与证书
+cert*
 config.json
+
+# Python 缓存与扩展模块
 __pycache__/
 *.pyc
-*.pyo
 *.pyd
+*.pyo
+
+# AI 开发工具缓存（仅仓库根目录）
 /.codegraph/
 /.zread/
-/data/illusion_world/
-/data/illusion_backups/

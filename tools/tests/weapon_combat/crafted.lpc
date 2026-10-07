@@ -1,0 +1,13 @@
+// A real crafted weapon's protection predicate, without player save data.
+#include <weapon.h>
+inherit SWORD;
+inherit F_ITEMMAKE;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武剑", ({ "sword" }));
+    set("unit", "柄");
+    set_weight(10000);
+    init_sword(15);
+    setup();
+}

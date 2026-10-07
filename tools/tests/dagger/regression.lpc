@@ -79,15 +79,19 @@ void check_equipment(string path) {
         check(actor->query_temp("apply/" + key) == primary->query("weapon_prop/" + key),
             "switched bonuses belong only to primary " + key);
     primary->unequip();
-    check(!actor->query_temp("weapon") && actor->query_temp("secondary_weapon") == item,
-        "original behavior does not auto-promote off-hand weapon");
+    // Approved combat-consistency change: a valid off-hand now becomes the main weapon.
+    check(actor->query_temp("weapon") == item && !actor->query_temp("secondary_weapon"),
+        "valid off-hand automatically becomes main weapon");
     foreach (key in keys(props + primary->query("weapon_prop")))
-        check(!actor->query_temp("apply/" + key), "primary release leaves no bonus " + key);
+        check(actor->query_temp("apply/" + key) == props[key],
+            "promoted dagger contributes only its own bonus " + key);
     item->unequip();
     check(
-        !actor->query_temp("secondary_weapon") && !item->query("equipped"),
-        "switched secondary releases cleanly"
+        !actor->query_temp("weapon") && !actor->query_temp("secondary_weapon") && !item->query("equipped"),
+        "promoted dagger releases cleanly"
     );
+    foreach (key in keys(props + primary->query("weapon_prop")))
+        check(!actor->query_temp("apply/" + key), "final release restores bonus " + key);
     destruct(primary);
     // Only the random draw is fixed in the disposable copy of the actual durability method.
     item->set(

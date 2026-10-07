@@ -29,7 +29,7 @@ int perform(object me, object target) {
     if (me->query_skill("pangu-qishi", 1) < 180)
         return notify_fail("你的盘古七势修为不够，难以施展" KAI "。\n");
 
-    if (me->query("neili") < 400)
+    if (me->query("neili") < 500)
         return notify_fail("你的真气不够，难以施展" KAI "。\n");
 
     if (me->query_skill_mapped("axe") != "pangu-qishi")

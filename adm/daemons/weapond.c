@@ -85,7 +85,7 @@ varargs mapping query_action() {
     }
 }
 
-void throw_weapon(object me, object victim, object weapon, int damage) {
+void throw_weapon(object me, object victim, object weapon, int damage, int result) {
     if (objectp(weapon)) {
         if ((int)weapon->query_amount() == 1) {
             weapon->unequip();
@@ -96,13 +96,15 @@ void throw_weapon(object me, object victim, object weapon, int damage) {
     }
 }
 
-void bash_weapon(object me, object victim, object weapon, int damage) {
+void bash_weapon(object me, object victim, object weapon, int damage, int result) {
     object ob;
     int wap, wdp;
 
-    if (objectp(weapon) &&
-        damage == RESULT_PARRY &&
-        ob = victim->query_temp("weapon")) {
+    if (result == RESULT_PARRY && objectp(me) && objectp(victim) &&
+        objectp(weapon) && environment(weapon) == me &&
+        me->query_temp("weapon") == weapon &&
+        environment(me) == environment(victim) &&
+        objectp(ob = victim->query_temp("weapon")) && environment(ob) == victim) {
         wap = (int)weapon->weight() / 500 + (int)weapon->query("rigidity") + (int)me->query("str");
         wdp = (int)ob->weight() / 500 + (int)ob->query("rigidity") + (int)victim->query("str");
         wap = random(wap);

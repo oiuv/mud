@@ -1,5 +1,14 @@
+# 本地环境配置
+.env
+
+# 游戏存档与数据库
 *.o
 *.sqlite
-.env
+
+# 纳入版本管理的公共字典（覆盖上面的 *.o 规则）
 !e2c_dict.o
 !emoted.o
+
+# 无限幻境运行数据与备份
+/illusion_world/
+/illusion_backups/

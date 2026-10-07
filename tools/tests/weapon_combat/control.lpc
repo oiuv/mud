@@ -1,0 +1,13 @@
+// Only the sandbox copies call this at explicitly recorded random decision sites.
+private string outcome;
+private int collision;
+
+void set_case(string value, int roll) { outcome = value; collision = roll; }
+
+int roll(string site, int limit) {
+    if (limit <= 0) return 0;
+    if (site == "dodge") return outcome == "dodge" ? 0 : limit - 1;
+    if (site == "parry") return outcome == "parry" ? 0 : limit - 1;
+    if (site == "collision") return collision < limit ? collision : limit - 1;
+    return limit - 1;
+}

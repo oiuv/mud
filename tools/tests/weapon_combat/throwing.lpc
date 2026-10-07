@@ -1,0 +1,17 @@
+#include <weapon.h>
+
+inherit THROWING;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武飞石", ({ "stone" }));
+    set("base_unit", "枚");
+    set("base_weight", 10);
+    set("unit", "把");
+    set_amount(3);
+    init_throwing(10);
+    setup();
+    // Exercise the historical default throw post_action through the real attack loop.
+    // Ordinary game throwing items retain their no_wield rule.
+    set("no_wield", 0);
+}
