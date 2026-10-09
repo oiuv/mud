@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-最低驱动版本为 **FluffOS v2026.0712.3**；构建须启用 CRYPTO，提供 SHA-256 `hash`。功能属于游戏 LIB，不向 mudcore 引入具体玩法或外部服务依赖。
+最低驱动版本为 **FluffOS v2026.0712.3**。`hash()` 优先使用驱动原生实现；驱动未提供时，由 `adm/single/simul_efun/fluffos.c` 兼容 MD5、SHA-256。生产构建建议启用 `PACKAGE_CRYPTO` 以获得更好的性能。功能属于游戏 LIB，不向 mudcore 引入具体玩法或外部服务依赖。
 
 已实现确定性地图、道路、多房间场景、虚拟房间与个人实例，以及 AI 后台创作、持久队列、正文发布和管理回退。维护者于 **2026-09-30 确认全部验收通过**，对应 OpenSpec 变更已归档。正式世界 `huanjing-v1` 已于 2026-09-28 在本部署开放；其他部署是否开放以运行配置及 `illusion status` 为准。AI 是可选组件，停服时仍可探索默认地图并读取已保存正文。
 
@@ -67,11 +67,14 @@ illusion enter test-huanjing-m1
 ## 自动回归
 
 ```sh
+node tools/tests/test_hash.mjs
 node tools/tests/test_illusion_encounters.mjs
 node tools/tests/test_illusion_world.mjs
 # 其他平台可指定已构建驱动
 node tools/tests/test_illusion_world.mjs /path/to/driver
 ```
+
+`test_hash.mjs` 验证原生与后备 MD5、SHA-256 实现及 LPC/Python 幻境摘要协议。可用 `node tools/tests/test_hash.mjs /path/to/driver /path/to/python` 指定驱动与解释器。
 
 测试使用临时 MUDLIB、随机环回端口和两条连接，编译真实地图/移动实现；宿主房间、NPC 和权限使用测试替身。不读取玩家数据、不启动正式游戏、不调用模型，也不扩大驱动评估限制。
 

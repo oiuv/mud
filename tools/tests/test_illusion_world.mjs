@@ -78,6 +78,7 @@ const zixuSource = readFileSync(join(root, 'adm/daemons/task/npc/zixu.c'), 'utf8
 writeFileSync(join(sandbox, 'tests/zixu_entrance.lpc'), '#include <ansi.h>\n#define MAZE "/u/mudren/maze"\n' +
     zixuSource.slice(zixuSource.indexOf('int ask_maze() {'), zixuSource.indexOf('int ask_mirror() {')), 'utf8');
 cpSync(join(root, 'mudcore/system/kernel/simul_efun/json.c'), join(sandbox, 'tests/json.c'));
+cpSync(join(root, 'adm/single/simul_efun/fluffos.c'), join(sandbox, 'tests/fluffos.c'));
 let backendOutput = '';
 const backend = spawn(python, [join(root, 'ai/tests/world_fixture.py'), sandbox], { cwd: root, windowsHide: true });
 backend.stdout.on('data', data => { backendOutput += data; });

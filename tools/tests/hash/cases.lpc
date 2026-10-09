@@ -1,0 +1,90 @@
+inherit "/inherit/illusion/content";
+
+private mapping *vectors;
+private int checks;
+
+private void check(int ok, string label) {
+    checks++;
+    if (!ok) error("HASH FAIL: " + label + "\n");
+}
+
+void finish() {
+    mapping world, facts, payload;
+    string field;
+
+    check(stringp(catch(hash("not-a-hash", "abc"))), "unsupported algorithm rejected");
+    check(stringp(catch(hash(0, "abc"))), "null algorithm rejected");
+    check(stringp(catch(hash("md5", 0))), "null input rejected");
+    check(hash("MD5", "abc") == hash("md5", "abc"), "case-insensitive MD5");
+    check(hash("ShA256", "abc") == hash("sha256", "abc"), "case-insensitive SHA-256");
+#if efun_defined(hash)
+    check(hash("md5", "中文🙂") == efun::hash("md5", "中文🙂"), "native MD5 matches");
+    check(hash("sha256", "中文🙂") == efun::hash("sha256", "中文🙂"), "native SHA-256 matches");
+    // In the normal branch, other driver algorithms remain directly available.
+    if (!function_exists("hash", load_object("/tests/sefun")))
+        check(hash("sha512", "abc") == efun::hash("sha512", "abc"), "native algorithms untouched");
+#endif
+    world = make_manifest(
+        "test-hash",
+        42,
+        1,
+        "test-v1",
+        hash("sha256", read_file("/tests/catalog.json"))
+    );
+    check(validate_manifest(world)["world_id"] == "test-hash", "manifest round trip");
+    facts = ([ "schema_version": 1, "landmarks": ({}), "elevation": 1, "moisture": 2,
+        "temperature": 3, "slope": 4, "road": 0 ]);
+    foreach (field in ({ "name", "biome", "biome_name", "patch", "theme", "role", "description",
+        "transition", "secondary", "scene_id", "scene_name", "scene_biome", "scene_theme", "material", "condition" }))
+        facts[field] = "";
+    facts["name"] = "古道";
+    facts["description"] = "远山如黛，草木含烟。\n";
+    payload = ([ "world_id": world["world_id"], "manifest_digest": world["manifest_digest"],
+        "x": -17, "y": 32, "facts": facts, "facts_digest": narration_digest(facts) ]);
+    payload["content_key"] = hash("sha256", frame_fields(({ "illusion-content-v1", world["manifest_digest"],
+        "-17", "32", payload["facts_digest"] })));
+    write_file("/results.json", json_encode(([ "world": world, "payload": payload,
+        "checks": checks, "fallback": !!function_exists("hash", load_object("/tests/sefun")) ])));
+    debug_message(sprintf("HASH CHECKS: %d FAILURES: 0", checks));
+    debug_message("HASH PASS");
+    shutdown(0);
+}
+
+void run_case(int index) {
+    mapping vector;
+    string result;
+    int before, elapsed, cost;
+
+    vector = vectors[index];
+    before = eval_cost();
+    elapsed = time_ns();
+    result = hash(vector["algorithm"], vector["text"]);
+    elapsed = time_ns() - elapsed;
+    cost = before - eval_cost();
+    check(result == vector["expected"], vector["label"]);
+#if efun_defined(hash)
+    check(
+        result == efun::hash(vector["algorithm"], vector["text"]),
+        "native comparison " + vector["label"]
+    );
+#endif
+    if (sizeof(vector["text"]) >= 65536)
+        debug_message(sprintf(
+            "HASH COST: %s eval=%d elapsed_ms=%d",
+            vector["label"],
+            cost,
+            elapsed / 1000000
+        ));
+    if (index + 1 < sizeof(vectors)) call_out("run_case", 0, index + 1);
+    else call_out("finish", 0);
+}
+
+void start() {
+    vectors = json_decode(read_file("/tests/vectors.json"));
+#if efun_defined(hash)
+    debug_message("HASH DRIVER: native available");
+#else
+    debug_message("HASH DRIVER: native absent");
+#endif
+    run_case(0);
+}

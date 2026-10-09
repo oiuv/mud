@@ -1,0 +1,18 @@
+string get_root_uid() { return "Root"; }
+string get_bb_uid() { return "Root"; }
+mixed creator_file(string file) { return "Root"; }
+int valid_read(string file, mixed user, string func) { return 1; }
+int valid_write(string file, mixed user, string func) { return 1; }
+int valid_seteuid(object ob, string uid) { return 1; }
+int valid_override(string file, string name, string main_file) { return name == "hash"; }
+void log_error(string file, string text) { debug_message(text); }
+void error_handler(mapping info, int caught) {
+    if (!caught) { debug_message("HASH FAIL: " + info["error"]); shutdown(1); }
+}
+void run() {
+    mixed err;
+
+    err = catch(load_object("/tests/cases")->start());
+    if (err) { debug_message("HASH FAIL: " + err); shutdown(1); }
+}
+string *epilog(int flag) { call_out("run", 0); return ({}); }
