@@ -29,8 +29,8 @@ BUILD_JOBS 可指定并行任务数，例如：
   bash build.sh --local --no-install --debug --build-dir fluffos/build-debug
   bash build.sh --local --no-install --march-native
 
-默认启用 CRYPTO（包含 hash）、SQLite，关闭 MySQL/PostgreSQL。
-SQLite 后端编号和默认数据库编号均为 1（不是 SQLite 版本号）。
+默认启用 CRYPTO（包含 hash）、SQLite、MySQL 和 PostgreSQL。
+数据库后端编号：SQLite=1（默认）、MySQL=2、PostgreSQL=3。
 Linux 使用动态链接；只构建发布程序，不构建上游单元测试或基准程序。
 复用目录会重新配置，不沿用缓存中的 Debug 或本机 CPU 优化选项。
 更新正在使用的驱动前请先停服；仅验证时请另选构建目录并加 --no-install。
@@ -98,8 +98,9 @@ if ! $LOCAL_BUILD; then
     as_root apt-get update
     as_root apt-get install -y \
         git bison flex build-essential autoconf automake cmake pkg-config \
+        expect telnet libtool libmysqlclient-dev libpq-dev libgtest-dev \
         libjemalloc-dev zlib1g-dev libssl-dev libsqlite3-dev libpcre2-dev \
-        libevent-dev libicu-dev libdw-dev binutils-dev libffi-dev python3
+        libevent-dev libicu-dev libdw-dev libbz2-dev binutils-dev libffi-dev python3
 fi
 
 for tool in git cmake gcc g++ bison make pkg-config; do
@@ -131,7 +132,7 @@ cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DCMAKE_INSTALL_PREFIX="$BUILD_DIR" \
     -DSTATIC=OFF -DMARCH_NATIVE="$MARCH_NATIVE" \
     -DPACKAGE_CRYPTO=ON -DPACKAGE_DB=ON \
-    -DPACKAGE_DB_MYSQL="" -DPACKAGE_DB_POSTGRESQL="" \
+    -DPACKAGE_DB_MYSQL=2 -DPACKAGE_DB_POSTGRESQL=3 \
     -DPACKAGE_DB_SQLITE=1 -DPACKAGE_DB_DEFAULT_DB=1
 # portbind 是 Linux 上 cmake --install 需要的额外发布程序。
 cmake --build "$BUILD_DIR" --parallel "$JOBS" \

@@ -131,19 +131,24 @@ class LinuxBuildTests(unittest.TestCase):
     def assert_original_driver(self):
         self.assertEqual((self.root / "installed-driver").read_bytes(), b"old driver")
 
-    def test_default_builds_linux_release_sqlite_and_copies_driver(self):
+    def test_default_builds_linux_release_all_databases_and_copies_driver(self):
         result, calls = self.command()
         self.assert_success(result)
         self.assertIn("apt-get <update>", calls)
         self.assertIn("apt-get <install> <-y>", calls)
-        for package in ("flex", "libpcre2-dev", "libffi-dev", "libsqlite3-dev"):
+        for package in (
+            "build-essential", "autoconf", "automake", "bison", "flex", "expect",
+            "libmysqlclient-dev", "libpcre2-dev", "libpq-dev", "libsqlite3-dev",
+            "libssl-dev", "libtool", "zlib1g-dev", "telnet", "libjemalloc-dev",
+            "libicu-dev", "libgtest-dev", "pkg-config", "libffi-dev", "libdw-dev", "libbz2-dev",
+        ):
             self.assertIn(f"<{package}>", calls)
         self.assertNotIn("libpcre3-dev", calls)
         self.assertIn("<pull> <--ff-only> <https://github.com/fluffos/fluffos.git>", calls)
         for flag in (
             "-DCMAKE_BUILD_TYPE=Release", "-DSTATIC=OFF", "-DMARCH_NATIVE=OFF",
-            "-DPACKAGE_CRYPTO=ON", "-DPACKAGE_DB=ON", "-DPACKAGE_DB_MYSQL=",
-            "-DPACKAGE_DB_POSTGRESQL=", "-DPACKAGE_DB_SQLITE=1", "-DPACKAGE_DB_DEFAULT_DB=1",
+            "-DPACKAGE_CRYPTO=ON", "-DPACKAGE_DB=ON", "-DPACKAGE_DB_MYSQL=2",
+            "-DPACKAGE_DB_POSTGRESQL=3", "-DPACKAGE_DB_SQLITE=1", "-DPACKAGE_DB_DEFAULT_DB=1",
         ):
             self.assertIn(f"<{flag}>", calls)
         self.assertIn("<-G> <Unix Makefiles>", calls)

@@ -31,6 +31,7 @@ done
 
 PROJECT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 SOURCE_DIR="$PROJECT_DIR/fluffos"
+SOURCE_URL=https://github.com/fluffos/fluffos.git
 IMAGE="${MUD_DOCKER_IMAGE:-fluffos:latest}"
 for tool in docker git; do
     command -v "$tool" >/dev/null 2>&1 || fail "找不到 $tool。"
@@ -39,7 +40,7 @@ docker info >/dev/null || fail "Docker 引擎不可用，请先启动 Docker。"
 
 if [[ ! -e "$SOURCE_DIR" ]]; then
     $LOCAL_BUILD && fail "未找到 fluffos/，请先不带 --local 执行脚本。"
-    git clone https://gitee.com/fluffos/fluffos.git "$SOURCE_DIR"
+    git clone "$SOURCE_URL" "$SOURCE_DIR"
 fi
 [[ -f "$SOURCE_DIR/CMakeLists.txt" ]] || fail "fluffos/ 不是有效的源码目录。"
 REPO_ROOT="$(git -C "$SOURCE_DIR" rev-parse --show-toplevel)"
@@ -47,7 +48,7 @@ REPO_ROOT="$(git -C "$SOURCE_DIR" rev-parse --show-toplevel)"
     fail "fluffos/ 必须是独立的 Git 仓库。"
 if ! $LOCAL_BUILD; then
     git -C "$SOURCE_DIR" checkout -- .
-    git -C "$SOURCE_DIR" pull --ff-only
+    git -C "$SOURCE_DIR" pull --ff-only "$SOURCE_URL"
 fi
 # 构建上下文为当前提交的原版源码，包括 FluffOS 自带的 Dockerfile。
 # 不带入宿主机的 build/、.env 或本地未提交文件。
