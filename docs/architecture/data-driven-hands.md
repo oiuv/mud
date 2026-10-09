@@ -73,4 +73,4 @@ MUDLIB 运行，原对象观测保存在输出目录的 `tests/weight-baseline.j
 
 性能旧/新各三个独立进程，每次 28 个来源请求、560 实例；分别报告冷加载、热创建和
 驱动 `memory_info()`（不是 OS RSS）。结果及验收边界见
-[本批报告](../../openspec/changes/archive/2026-10-05-refactor-data-driven-hands/validation.md)。开发测试不代表正式服已经部署。
+[本批报告](../../openspec/changes/archive/2026-10-05-refactor-data-driven-hands/validation.md)。

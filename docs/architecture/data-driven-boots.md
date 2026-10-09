@@ -18,7 +18,7 @@
 19 个旧定义归为 `zhanxue`（1）、`caoxie`（3）、`xiuhuaxie`（8）、`pixue`（3）、
 `qilinxue`（1）、`xiuhuaxie2`（1）、`sengxie`（1）、`shaolin_sengxie`（1）。
 两种绣花鞋颜色、描述、价值不同；两种僧鞋的 `shaolin` 属性不同，因此各自保留。
-材质中的 `wood`、`boots` 是历史有效值，本批不改动。商品 ID 不携带旧目录信息。
+材质字段保留 `wood`、`boots` 等已有值。商品 ID 不携带旧目录信息。
 
 ID 只需简洁地识别物品，实际变体可用稳定编号，不拼接所有属性。`xiuhuaxie`、`xiuhuaxie2` 和
 `sengxie` 对应的 3 个旧规范 ID 已加入统一离线映射；`shaolin_sengxie` 保留实用的门派限定。
@@ -39,7 +39,7 @@ EQUIP 批次迁移，不混入 BOOTS 表。当前保留项及其他目录候选�
 仓库只放行表内的精确鞋靴路径，原有拒存资格保留。旧路径不再可加载，因此上线前按
 [统一物品迁移流程](data-driven-items.md#离线转换与部署)对停服备份执行预览，必要时生成副本。
 转换器同时处理旧 CLOTH 和本批 BOOTS；不要只 `git pull` 后直接重启而略过存档检查。
-回退须同时恢复匹配的代码和原始记录，本次开发不替维护者操作正式数据。
+回退须同时恢复匹配的代码和原始记录。
 
 全部调用编译：`node tools/tests/compile_boots_callers.mjs bin/lpcc.exe`。
 性能对照：`node tools/tests/test_boots_objects.mjs bin/driver.exe --bench`，使用独立进程各测三轮，

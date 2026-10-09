@@ -1,6 +1,6 @@
 # AI 服务高级配置
 
-日常配置见 `ai/.env.example`。下面保留精简前的完整选项和默认值，按需复制对应行，不必全部配置。进程环境优先于 `ai/.env`，路径以 `ai/` 为基准；本次未修改正式配置或默认行为。实际字段定义见 `ai/src/settings.py`。
+日常配置见 `ai/.env.example`。以下列出完整选项和默认值，按需配置。进程环境优先于 `ai/.env`，路径以 `ai/` 为基准；字段定义见 `ai/src/settings.py`。
 
 新增 CLI 配置：`CODEGRAPH_OPERATIONS` 默认为 `explore`；明确启用七项查询可设为 `explore,query,callers,callees,impact,node,files`。`CLI_PROGRAMS_FILE` 默认为空，配置其他程序见[授权 CLI 工具](ai-cli-tools.md)。旧 CodeGraph 显式路径及关闭状态不变；工具上限中的旧 `codegraph.explore` 须由管理员明确改为 `exec`，不会自动改写权限列表。
 

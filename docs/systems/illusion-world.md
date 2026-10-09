@@ -4,11 +4,9 @@
 
 最低驱动版本为 **FluffOS v2026.0712.3**。`hash()` 优先使用驱动原生实现；驱动未提供时，由 `adm/single/simul_efun/fluffos.c` 兼容 MD5、SHA-256。生产构建建议启用 `PACKAGE_CRYPTO` 以获得更好的性能。功能属于游戏 LIB，不向 mudcore 引入具体玩法或外部服务依赖。
 
-已实现确定性地图、道路、多房间场景、虚拟房间与个人实例，以及 AI 后台创作、持久队列、正文发布和管理回退。维护者于 **2026-09-30 确认全部验收通过**，对应 OpenSpec 变更已归档。正式世界 `huanjing-v1` 已于 2026-09-28 在本部署开放；其他部署是否开放以运行配置及 `illusion status` 为准。AI 是可选组件，停服时仍可探索默认地图并读取已保存正文。
+幻境包含确定性地图、道路、多房间场景、虚拟房间与个人实例，并支持 AI 异步创作和持久正文。AI 是可选组件，停服时仍可探索默认地图并读取已保存正文。
 
-启用与小预算试验见 [无限世界 AI 创作](illusion-world-ai.md)。AI 可用自然细节、局部地形描写和文学比喻丰富体验；地图空间结构、实际出口、任务和奖励仍由规则决定。不把未逐项列出的合理补白误判为错误，审读标准见该文档。
-
-实施与验收记录见 [任务清单](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/tasks.md) 和 [验证记录](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/validation.md)。所有玩家可见内容遵守 [AGENTS.md](../../AGENTS.md#玩家可见文本)，包括异常与占位提示。
+启用、管理与正文审读见[无限世界 AI 创作](illusion-world-ai.md)。入口状态以运行配置及 `illusion status` 为准；历史验收见[验证记录](../../openspec/changes/archive/2026-09-30-add-wuxia-infinite-world/validation.md)。
 
 ## 模块与地图规则
 
@@ -23,7 +21,7 @@
 | `ai/src/world/` | 独立持久任务、模型调用、校验及原子 JSON 发布 |
 | `d/illusion/world.lpc`、`room.lpc` | 虚拟路径、玩家归属、默认文本与离境 |
 | `inherit/room/illusion_base.lpc` | 新旧幻境共用的原心魔遭遇与掉落逻辑 |
-| `d/illusion/catalog.json` | `test-v1` 内容表：四生态、两种九房间结构 |
+| `d/illusion/catalog.json`、`catalog-wuxia-v1.json` | 测试与正式内容表，按世界清单版本选择 |
 
 地图只依赖冻结清单与坐标，不使用玩家身份、时间或全局随机数。每轴范围为 ±1,000,000,000；16×16 区块采用向下取整，`-1` 位于区块 `-1` 的局部格 `15`，边界不环绕。
 
@@ -41,7 +39,7 @@
 - 种子范围 `0..2147483647`；清单冻结生成器版本、内容版本/摘要和参数。同 ID 同内容可重复初始化，不同内容拒绝覆盖。
 - 缺失、损坏、超限或摘要不符时拒绝，不自动创建替代世界。先写同目录 `.pending` 再重命名；遗留文件须人工检查。
 - 摘要采用固定字段顺序和 UTF-8 字节长度编码，用于一致性检查，不是认证签名。
-- 当前内容仍在调整。内容表变化后，先让测试玩家离境，重载守护程序，使用**新的测试 ID**；不要改写旧清单。
+- 内容表发布后保持冻结。修改影响地图事实的内容时，使用新内容版本和新世界 ID，不改写已有清单。
 - 测试内容表禁止初始化正式世界，测试世界禁止设为公共入口。
 
 ## 管理命令
@@ -62,7 +60,7 @@ illusion enter test-huanjing-m1
 
 图例：`@` 起点，`O` 离境，`S` 场景，`+` 道路，`.` 荒野，`#` 不可进入；北在上，东在右。
 
-`illusion entry off` 关闭新入口。开关仅在内存中，重载或重启后默认关闭，尚非持久化开放配置。重载会使旧临时实例失效，应先离境；失效房间保留紧急 `out`。
+`illusion entry 世界ID` / `illusion entry off` 切换后续玩家入场入口，设置保存到 `data/illusion_world/runtime.json`，重启后校验并恢复；未配置或配置无效时关闭新入口。外部修改配置后可调用 `illusion_world_d->reload_runtime()`，保留在线实例。销毁并重建守护程序会使旧实例失效，应先让玩家离境；失效房间保留紧急 `out`。
 
 ## 自动回归
 
@@ -76,9 +74,9 @@ node tools/tests/test_illusion_world.mjs /path/to/driver
 
 `test_hash.mjs` 验证原生与后备 MD5、SHA-256 实现及 LPC/Python 幻境摘要协议。可用 `node tools/tests/test_hash.mjs /path/to/driver /path/to/python` 指定驱动与解释器。
 
-测试使用临时 MUDLIB、随机环回端口和两条连接，编译真实地图/移动实现；宿主房间、NPC 和权限使用测试替身。不读取玩家数据、不启动正式游戏、不调用模型，也不扩大驱动评估限制。
+测试使用临时 MUDLIB、随机环回端口、SQLite 和本地假模型，编译真实地图及移动实现；宿主房间、NPC 和权限使用测试替身。另启动独立驱动验证存档冷启动，不读取玩家数据、不连接正式服务或外部模型 API。
 
-M2 增加真实 UDP、SQLite 与本地假模型闭环，因此还需要已安装 `ai/requirements.txt` 的 Python 环境，默认使用 `ai/.venv`。可用第三参数指定解释器：`node tools/tests/test_illusion_world.mjs /path/to/driver /path/to/python`。这里“不调用模型”指不调用外部模型 API；假模型会产生可计数的测试正文。另启动第二个隔离驱动验证存档冷启动，不启动正式服务。
+需要已安装 `ai/requirements.txt` 的 Python 环境，默认使用 `ai/.venv`。可指定驱动与解释器：`node tools/tests/test_illusion_world.mjs /path/to/driver /path/to/python`。
 
 输出目录保留 `driver-output.txt`、`data/map-scan.json`、`data/cross-scene.json`、`data/preview-*.txt/.json`。它们包含种子、完整事实摘要、地图和连通报告。原心魔逻辑另以提取前的 token 摘要校验。
 
@@ -86,10 +84,10 @@ M2 增加真实 UDP、SQLite 与本地假模型闭环，因此还需要已安装
 
 1. 执行 `updateall /`，确认新旧模板及命令编译；刷新命令索引，创建独立测试世界。
 2. 测试移动、反向返回、重复 `look`、NPC/物品隔离和 `out`，分别检查 Telnet 与现有 Web 客户端。
-3. 关闭 AI 服务，实走“雾林 → 旧村 → 残寺 → 离境”，验证原心魔任务二十次击杀及奖励。
+3. 关闭 AI 服务，经过不同生态、旧村和残寺后离境，验证原心魔任务二十次击杀及奖励。
 4. 验证断线原对象重连、退出重登、驱动重启后的安全位置，不保存过期实例为永久出生点。
-5. 公共入口保持关闭；回滚移除新模板前先让全部测试玩家离境，保留清单和记录。
+5. 验收使用独立测试世界；回滚前关闭公共入口并让玩家离境，保留清单和记录。
 
-种子 42 的已验证地标：旧村 `(-61,36)`、残寺 `(-4,41)`、跨块旧村 `(91,-240)`。其起点是苍岭，不能将自动回归称为已完成“雾林起步”的实走验收。
+种子 42 的已验证地标：旧村 `(-61,36)`、残寺 `(-4,41)`、跨块旧村 `(91,-240)`。起点为苍岭。
 
-道路形态、生态比例和收益节奏仍须调图及实玩检查。现有计时混合缓存命中/未命中，不能证明冷区 p95 目标达标；正式内容和上线验收留在后续阶段。
+地图与正文的独立性能测量使用 `node tools/tests/test_illusion_world.mjs --bench`，统计口径见[自动验证](illusion-world-ai.md#自动验证)。

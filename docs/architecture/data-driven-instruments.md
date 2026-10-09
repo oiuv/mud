@@ -26,7 +26,7 @@
 
 7 件武器乐器保持原文件：大理瑶琴、梅庄檀木琴、桃花玉萧，以及 `/clone/lonely` 的铁琴剑、白玉瑶琴、绿玉洞箫和玉箫。它们具有 HAMMER/SWORD/XSWORD、克隆限制或战斗回调，不能套用普通 ITEM 表。名称像乐器但没有 MI 的古筝、铜钹、铜鼓、铜号也不获得演奏能力。
 
-逐件路径与暂缓原因见[未迁移台账](data-driven-items-pending.md)。`/clone` 本批未改；副将动态配装没有乐器分支，不修改其代码。
+逐件路径与暂缓原因见[未迁移台账](data-driven-items-pending.md)。
 
 ## 存取、迁移与回退
 
@@ -39,7 +39,7 @@ node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items
 node tools/migrate_item_records.mjs --backup-root C:/mud-backup/items --output C:/mud-backup/items-converted
 ```
 
-输出目录必须全新，输入不覆盖。沿用既有玩家、商店、显式旧袋和精确盟主字段协议；数量、价格、未知字段保持，同品同价库存合计，价格冲突整批拒绝。仅部署完整成功的输出，回退同时恢复旧代码和原记录。详见[统一部署流程](data-driven-items.md#离线转换与部署)；编译通过不代表正式存档无需转换，本批未检查正式数据。
+输出目录必须全新，输入不覆盖。沿用既有玩家、商店、显式旧袋和精确盟主字段协议；数量、价格、未知字段保持，同品同价库存合计，价格冲突整批拒绝。仅部署完整成功的输出，回退同时恢复旧代码和原记录。详见[统一部署流程](data-driven-items.md#离线转换与部署)。
 
 ## 验证
 

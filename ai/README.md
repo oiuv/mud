@@ -1,84 +1,40 @@
 # 游戏 AI 服务
 
-所有辅助脚本统一在 `scripts/`，用 `ops_`、`debug_`、`verify_`、`bench_`、`eval_`、`example_` 区分运维、诊断、验证、性能、效果评测及接入示例。用途、调用费用和旧命令迁移见 [脚本指南](scripts/README.md)；自动测试仍在 `tests/`，原 `examples/` 的客户端已并入脚本目录。
+独立 Python 服务，通过本机 UDP 为游戏提供 NPC 人设对话、帮助检索、对话摘要、关系记录及幻境场景创作，要求 Python 3.10+。
 
-源码定位通过统一 `exec(program, args)` 调用可选 CodeGraph；`source.search/read` 负责回退与补读。`CODEGRAPH_ENABLED` 默认关闭，`CODEGRAPH_COMMAND` 支持正常 Windows `.cmd` 安装；LPC 映射及边界见[源码接入说明](../docs/architecture/ai-source-access.md#可选-codegraph)。
-
-所有 CLI 共用一个 `exec`，不提供任意 Shell。CodeGraph 可授权七项查询，`explore` 调用同名真实命令；旧配置默认只开放 `explore`，其余通过 `CODEGRAPH_OPERATIONS` 明确授权。其他 CLI 由 `CLI_PROGRAMS_FILE` 配置，见[配置与迁移](../docs/architecture/ai-cli-tools.md)。日常配置见精简后的 `.env.example`，其余选项保留在[高级配置](../docs/architecture/ai-configuration.md)。
-
-公共技能名称字典 `data/e2c_dict.o` 可通过现有源码工具按需搜索和读取，长行只需读取命中附近的行列片段；允许必要片段外发，不预加载整份字典，也不开放其他存档。实际私有路径排除及源码关闭仍优先，详见[公共字典说明](../docs/architecture/ai-source-access.md#公共技能名称字典)。
-
-问答允许不误导玩家的题外展开、角色发挥、联想和建议；核心规则、数值及必要证据须准确。角色口吻不要求文言或中文数字，规则可用自然白话、阿拉伯数字和算式讲清，不能改写适用条件或将内部代码术语带给玩家。无害发散或较长耗时不单独判失败，创作不能冒充确定的游戏机制。
-
-独立 Python 服务，通过本机 UDP 为游戏提供 AI 能力，要求 Python 3.10+。提供 NPC 人设对话、游戏帮助检索、对话摘要和关系记录，以及默认关闭的幻境场景创作。
-
-游戏统一使用 `AI_CLIENT_D` 发送异步请求；`AI_NPC_D` 负责 NPC 的玩家校验与对话展示。Python 在 `main.py:create_server()` 按请求类型注册业务，各业务拥有独立工作容量和期限。
+游戏统一使用 `AI_CLIENT_D` 发送异步请求，`AI_NPC_D` 负责 NPC 的玩家校验与对话展示。Python 在 `main.py:create_server()` 按请求类型注册业务，各业务拥有独立工作容量和期限。
 
 | 模块 | 职责 |
 | --- | --- |
-| `src/udp_server.py`、`src/protocol.py` | UDP、公共报文校验、请求关联、有限并发分发 |
-| `src/llm.py` | 公共模型客户端、单次调用及期限、模型错误 |
-| `src/npc/` | NPC 人设、会话锁、聊天/记忆/角色查询及原子持久化 |
-| `src/world/` | 静态房间事实、持久去重任务、独立模型 worker 和本地正文发布 |
-| `src/agents/router.py` | 默认关闭的目标协调入口，按需委派并核验最终交付 |
+| `src/udp_server.py`、`src/protocol.py` | UDP、报文校验、请求关联和并发分发 |
+| `src/llm.py` | 模型客户端、单次调用期限和错误处理 |
+| `src/npc/` | NPC 人设、会话、记忆、关系及原子持久化 |
+| `src/world/` | 冻结房间事实、持久任务和正文发布 |
+| `src/agents/router.py` | 通用主 Agent，直接处理目标或按需委派 |
 | `src/knowledge_*.py` | BM25、向量混合检索和知识库同步 |
-| `src/runtime/`、`src/tools/`、`skills/` | NPC、摘要与世界生成共用的 Agent/Tool/Skill/Hook；不是第二套 socket 服务 |
+| `src/runtime/`、`src/tools/`、`skills/` | 共用 Agent 执行、工具、专业指导及 Hook |
 
-服务明确注册 `chat`、`memory`、`config`、`world_describe`、`world_status`；世界能力不要求 NPC/玩家聊天字段。禁用创作时世界路由返回 `retry_later`，不创建模型客户端或后台任务。接口与扩展约定见 [AI 客户端文档](../docs/daemons/ai_client_d.md)。
+默认 `ENABLED_MODULES=npc,world` 注册 `chat`、`memory`、`config`、`world_describe` 和 `world_status`。设置 `ENABLED_MODULES=npc` 可不加载世界模块；`WORLD_ENABLED=false` 则保留世界路由并返回停用状态。
 
-默认 `ENABLED_MODULES=npc,world` 保持以上行为；只需要 NPC 时设置 `ENABLED_MODULES=npc`，世界模块不会加载。`WORLD_ENABLED=false` 仅停用创作并保留原路由，不能与“不注册模块”混淆。
-
-`MAIN_AGENT_ENABLED=true` 另行注册 `agent_run`，默认关闭，容量由 `MAIN_AGENT_WORKERS` 控制（默认 2）。它不改变旧入口，不自动把未知请求交给模型。独立客户端和字段示例见 [socket 接入示例](scripts/README.md)。
+主 Agent 默认关闭，设置 `MAIN_AGENT_ENABLED=true` 后注册 `agent_run`，容量由 `MAIN_AGENT_WORKERS` 控制（默认 2）。它仅处理显式请求，不接管现有 NPC 或世界入口。接入方式见 [通信契约](../docs/daemons/ai_client_d.md) 和 [socket 示例](scripts/README.md#独立-socket-接入示例)。
 
 ## 独立部署与适配原则
 
-遵循 KISS，优先保证正常任务正确完成与常见故障恢复；借鉴其他 Agent 的成熟做法，不为假设中的边界增加机制。模型负责调查和生成，程序保管证据、权限及提交状态；不重复要求模型证明程序已经确定的元数据。
+每个服务实例面向一个游戏，使用独立端口、配置和数据目录。其他 MUD 可配置 `HELP_DIR`、`NPC_ROLES_FILE`、`DATA_DIR`、`SKILLS_DIR` 及 `SOURCE_ROOT`，按业务 Skill 调整角色与专业指导。本机 UDP 要求可信游戏端，不提供远程玩家或管理员认证。
 
-以当前 MUD 的服务为主，避免强耦合，不为通用性额外增加抽象。其他 MUD 优先修改 `HELP_DIR`、`NPC_ROLES_FILE`、`DATA_DIR`、`SKILLS_DIR` 等配置接入；专业提示词已迁为可独立修改的 Skill，不要求复制本库目录或使用相同驱动。源码调查、本机管理员诊断及可选主 Agent 网络路由已接入，Windows 和 Ubuntu/WSL 的独立部署与离线回归通过；真实游戏效果和实服验收仍待完成，见 [架构与迁移说明](../docs/architecture/ai-service.md)。
+不需要文档检索时可设置 `KNOWLEDGE_UPDATE_ENABLED=false` 跳过启动同步；显式建库命令仍可用。世界共享目录仅为启用幻境创作时所需。
 
-交付区分能力链路、回答效果与实际游戏验收：代表性真实直达、自主处理及委派链路已核对，包含父子上下文隔离和成果引用交付；完整题集的质量/成本对照及维护者游戏记录分别跟进。核心答案正确且不误导时，补充解释和非关键细节不足可后续优化，错误规则、数值或关键条件仍是缺陷，不降低权限、证据、取消与提交检查。能力范围和保留问题详见[验收对应表](../openspec/changes/evolve-ai-capability-runtime/acceptance.md)；不自动启用主 Agent 或宣称全题正确。
+### 运行时与开发文档
 
-不需要文档检索的部署可设置 `KNOWLEDGE_UPDATE_ENABLED=false`，启动脚本跳过同步；显式建库命令仍可运行。无限世界的共享目录和清单/正文格式只属于该可选业务，并非所有 AI 功能的前置条件。单独部署时复制服务源码、安装依赖并创建自己的配置/数据；一个实例服务一个游戏，不复用原游戏密钥或玩家历史。本机 UDP 不提供远程管理员认证。
+NPC、摘要、世界及主 Agent 共用 Runner、Tool、Skill 和 Hook。模型负责调查与生成，程序负责权限、证据核验、取消、用量与业务提交。专业委派仅支持单层顺序调用，父子各自管理上下文并共享用量与取消。
 
-### 新运行时开发验证
+NPC 与主 Agent 使用带证据的 `parts` 生成玩家正文；摘要和 compact 使用文本。修改业务协议时须同步代码和 `skills/`，自定义 `SKILLS_DIR` 也须匹配当前格式。
 
-Skill 按 `SKILLS_DIR` 扫描，向 Agent 仅提供授权名称和描述；正文及参考资料都经唯一的 `skill(name, path?)` 工具加载，直接预加载也使用该入口。NPC 多轮问答、内部单次摘要及世界单次描写已接入；知识检索通过 `knowledge.search`，沿用 BM25/向量融合及重排回退。Tool 和 Hook 均由受信任部署代码注册，不接受模型安装，不提供写文件或执行代码能力。
-
-统一委派工具 `agent.list` / `agent.invoke` 由可信装配绑定业务（`runtime/delegation.py`）；发现不代表授权。NPC 复用当前角色/玩家会话与原子提交，世界只受理/查询宿主预先绑定的冻结事实，不能由模型改换坐标或发布位置。直接与委派共用业务容量；子 Agent 复用 Runner、独立历史/状态及模型窗口，共享用量和取消，不把技能正文、检索片段或工具过程自动回传父上下文。仅允许单层顺序委派，内部摘要不开放。委派不是单次 I/O，不套 90 秒 Tool 总期限；子操作仍保留各自超时。
-
-`main_router` 是服务 MUD 的通用主 Agent，可直接回答、检索或多步调查，也可按需委派游戏答疑、无限世界等专业任务；它不只是分类路由器，也不为简单任务增加子调用。Tool 提供能力，Skill 提供必要专业指导，Hook 负责观测和必要干预。只有明确场景才由 Skill 给定工作流，其他任务由模型自主规划、行动并根据结果调整；不要求每个 Skill 都有固定步骤、清单和正反例。统一回传状态、有界摘要、必要结论/证据引用、限制和待办；主 Agent 仍须判断整体目标是否完成。世界受理只返回原业务凭据，未发布不能声称完成。
-
-通用 `Agent` 默认使用文本；现有 NPC、主 Agent 结果和世界正文接口明确要求 JSON，分别声明 `json_output=True`，统一模型适配发送 `response_format={"type":"json_object"}`。不使用 JSON Schema，不新增格式修复模型。JSON Object 只保证格式，现有字段、证据与业务提交检查继续有效；摘要和 compact 仍生成文本。
-
-NPC 和主 Agent 的模型答案只写一份 `parts`（玩家可读段落，已核实规则附证据）。真正缺资料时可另段给出明确标注的推断，说明假设及未核实部分，不计为已核实规则、不消除决定性缺口。程序原样拼接正文并提取同源结论，不要求模型重复撰写 `answer/claims`；对外响应和旧成功缓存格式不变。角色描写可保留，格式合格或正文同源不等于事实正确；详见[调查结果与完成检查](../docs/architecture/ai-source-access.md#调查结果与完成检查)。
-
-升级时同步部署代码与 `skills/`。若配置了自定义 `SKILLS_DIR`，其中 NPC、主 Agent 和源码调查指导也须同步为 `parts` 格式；不修改旧成功数据或为迁移重新调用模型。
-
-JSON 请求不发送 `max_tokens`，按 `OPENAI_MODEL_MAX_OUTPUT_TOKENS`（默认 `131072`）预留模型最大输出空间；文本调用仍使用自己的输出上限（对话默认 `OPENAI_MAX_TOKENS`）。换模型时同时核对最大输出与 `OPENAI_CONTEXT_WINDOW_TOKENS`，并确认 `CHAT_SUPPORTS_JSON_OBJECT=true` 符合实际能力；不支持时明确失败，不静默换模式或模型。这些是单次请求的容量配置，不是任务累计预算。
-
-NPC 委派由业务适配层同时传递原始 `goal` 与公开场景，专业 Agent 的 `message` 仍是本次子任务；原目标不能被工具参数替换。NPC Skill 以原目标限定相关调查，compact 状态保留原目标与子任务，不复制主 Agent 历史。传递正确只证明边界信息完整，不保证模型一定不扩张任务，仍须按实际轨迹及答案验收。
-
-已提交的专业成果可用请求内 `result_ref` 原样交付，不要求主模型重写正文。运行时核验归属、权限、完整性及提交状态，引用不授予新权限，不跨请求存活；compact 保留引用与凭据关联。最终响应仍检查玩家表达及大小，持久成功缓存保存已解析的响应，不保存悬空引用。主请求缓存按业务命名空间和完整输入/权限指纹隔离，重传/重启重放不再调用模型；旧 NPC 缓存保持兼容。详见[成果交付边界](../docs/architecture/ai-service.md#成果引用与主请求重放)。
-
-NPC 不按累计模型/工具次数截断任务；摘要、问答、检索及 compact 共享用量账本和取消。重复无进展只反馈调整方法，不固定次数强制收尾。新版游戏客户端显式使用长请求，每 5 秒续约、30 秒失联窗口，不再受 80/90 秒任务总期限约束；单次 I/O 超时仍有效。玩家离线、原 NPC/宿主失效、取消或失联后不再发起新操作，不提交迟到成功结果。旧客户端、短查询及世界受理仍用原短期限。角色配置的 `knowledge_threshold` 仍是检索下限，模型不能调低；值为 1 时禁用召回。只有验证完成且事务提交成功才写入历史、关系和成功去重。世界正常生成仍是一次模型调用、最多三次持久尝试，旧正文不重生成。
-
-源码调查的进展按已取得的版本/行内容识别：仅换关键词重复搜索已读内容不算新证据；搜索后的首次读取、新行和文件变化仍算进展。反馈提醒先判断证据是否足以回答，再围绕具体缺口补查，不放宽完成校验，也不强迫收尾。
-
-上下文达到 `OPENAI_CONTEXT_WINDOW_TOKENS` 的 80% 或输出预留不足时，运行时自动 compact。窗口默认十进制 1M，更换模型须同步修改。压缩指导独立保存在 `src/runtime/prompts/compact.md`，不走 Tool/Skill；模型只写文本工作摘要，证据关联、必要任务状态、系统约束及完整近期工具组由程序保管，不要求 JSON 或逐项复制证据 ID。候选通过状态与完整请求容量检查后才替换历史，失败不丢旧资料；80% 是触发点，不是任务终止线。服务商输入用量可校准未变化前缀；估算与计费用量分开，缺失用量明确标为未知。详见[压缩与故障契约](../docs/architecture/ai-service.md#自动-compact)。
-
-压缩后的上下文保留任务状态和证据 ID 索引，不把所有含数字的源码行机械复制为永久保留内容。相关条件/数值写入工作摘要，完整原始证据及校验 hash 留在运行时；最终答案仍须核对原证据，不能只凭摘要声明正确。
-
-`python ai/scripts/verify_compaction.py` 默认预览合成样本，获准后加 `--execute` 验证真实文本压缩后续行，分别检查最终条件/数值/引用与运行时证据关联；只在测试进程声明 24K 小窗口，不修改部署配置或读取玩家资料，不自动重跑测试。
-
-用量按模型调用独立结算，主/子过程、摘要、compact、向量和重排分别可查。`usage` 只表示已知小计，`usage_unknown` 标明缺失字段的调用数；缓存 token 属于输入子集，本地检索缓存命中不产生新模型用量。可在 `.env` 配置 `MODEL_PRICES_PER_MILLION` 与 `COST_CURRENCY`（示例中文说明）；默认不预置价格，缺少单价或用量时估算费用为 `null`，不是免费，也不是消费限制。固定合成测试报告每个通过任务的估算成本；源码调查仍待人工审读，不把终态当作答案准确。详见[用量契约](../docs/architecture/ai-service.md#运行与完成契约)。
-
-`python ai/scripts/verify_runtime.py` 默认只显示测试计划。获准后加 `--execute`，用临时合成规则验证发现/加载/读取和直接预加载两条路径，不以累计次数截断、不自动重跑测试，不读取游戏源码、玩家数据或业务数据库。`--model` 仅覆盖本次模型选择。实际记录见[阶段验收报告](../docs/architecture/ai-runtime-validation.md)，少量链路测试不是源码调查质量验收。
-
-`python ai/scripts/verify_business_agents.py` 同样默认只显示计划；获准后加 `--execute`，在临时库联调 NPC 检索问答、摘要、成功重放和世界正文发布，只发送合成资料，不连接正式业务库，不再承诺旧 7 次硬上限。报告列出文本、终态、耗时与用量，自动数值检查不替代人工审读。
-
-`python ai/scripts/verify_source_agent.py` 默认离线预览三项源码调查小样本，不加载凭据。可用 `--case ambiguous_name` 选择单题；已移除 `--budget-profile`、`--max-calls` 及隐式业务总期限，不人为截断正常调查，仍保留单次 I/O 故障超时及取消。
-
-授权后添加 `--execute --report ai/logs/probes/source-新批次名.json` 才实际调用。只用临时合成 LPC、角色和数据库，沿用实际 NPC/Skill/Tool 链路；报告记录操作参数、证据、耗时、用量及 compact，失败也保留已有轨迹。已有报告拒绝覆盖，不自动重跑，生成目录被 Git 忽略。旧低预算测试只作历史记录，不能代表当前完成率；见[运行时验收记录](../docs/architecture/ai-runtime-validation.md)，不代替至少 20 题效果验收。
+- [架构与接入规范](../docs/architecture/ai-service.md)：执行、委派、提交、compact、用量及升级回退。
+- [源码范围配置](../docs/architecture/ai-source-access.md)：仓库访问、公共名称字典、证据核验与可选 CodeGraph。
+- [高级配置](../docs/architecture/ai-configuration.md)与[授权 CLI](../docs/architecture/ai-cli-tools.md)：模型、权限及外部程序配置。
+- [脚本指南](scripts/README.md)：运维、诊断、验证、性能测试和接入示例。
+- [真实源码评测](evals/README.md)：题集、模型调用授权、人工审核及质量与成本对照。
 
 ## 启动
 
@@ -187,7 +143,8 @@ run 使用当前控制台前台运行。日志追加到 logs/ai.log。
 
 `OPENAI_CONTEXT_WINDOW_TOKENS` 指模型输入与输出合计窗口，默认 **1,000,000 tokens**；
 更换 `OPENAI_MODEL` 时须核对并同步调整容量，不会自动查询模型规格。
-`OPENAI_MAX_TOKENS` 仍是单次输出上限，不能将两者混为一谈。进程环境优先于 `.env`；
+`OPENAI_MAX_TOKENS` 用于纯文本输出；JSON 请求不发送 `max_tokens`，按
+`OPENAI_MODEL_MAX_OUTPUT_TOKENS` 预留最大输出空间。进程环境优先于 `.env`；
 显式空值、非正整数、输出不能留下输入和安全空间的配置会拒绝启动。
 
 完整请求在 Hook 追加后计量，涵盖系统提示、Skill、工具定义、历史及工具结果。
@@ -199,9 +156,8 @@ run 使用当前控制台前台运行。日志追加到 logs/ai.log。
 各模型适配器绑定自身配置，父子调用不共享窗口容量；业务报文、工具输出上限另行保留。
 详见 [运行时上下文边界](../docs/architecture/ai-service.md#模型上下文窗口)。
 
-实施状态：窗口配置、自动 compact 和取消累计调用次数上限已接入；摘要临时故障可恢复，
-压缩效果不足时调整目标/范围，80% 不作为任务终止线。长任务通信与取消已配套接入 NPC，
-压缩期间由 socket 收包循环独立维持存活；完整协议及独立客户端见 [AI_CLIENT_D](../docs/daemons/ai_client_d.md)。
+上下文达到窗口 80% 或输出预留不足时自动 compact。NPC 长任务在压缩期间继续由
+socket 收包循环维持存活，完整协议见 [AI_CLIENT_D](../docs/daemons/ai_client_d.md)。
 
 ~~~dotenv
 OPENAI_MODEL=qwen3.8-flash
@@ -234,12 +190,12 @@ RERANK_ENABLED=true
 
 1. 递归读取 help/，清理颜色码，以3000字符分块、200字符重叠；保留全文。
 2. BM25 使用中文双字片段与英文指令词匹配，不依赖额外分词字典；例如“请问武当派如何拜师”可以召回武当帮助。
-3. 同时获取 BM25 和向量两路候选，按文档块ID去重，通过 RRF 融合排名。
+3. 获取 BM25 和向量两路候选，按文档块ID去重，通过 RRF 融合排名。
 4. 使用重排模型评估融合候选，返回默认3条资料，限制注入提示词的总字符数。
 5. 向量失败或结果为空仍保留 BM25；重排超时、报错、结果损坏时返回融合排名。
 6. 查询向量使用有容量和TTL限制的LRU缓存；错误和零向量不进入缓存。
 
-“同时”指两路均参与召回；网络调用在有界工具处理线程内依次完成，共用本次请求的期限与预算。
+两路召回及重排在有界工具线程内依次执行，共用请求期限与用量账本。
 向量以模型、端点、维度的指纹隔离，文档块ID包含内容哈希。换模型或维度后，启动脚本会自动补齐新向量；也可手动运行 ops_build_vectors.py。
 不同模型的索引不混用；文件变更后重启服务会自动更新，也可手动运行构建脚本。
 重排候选按配置的单条和整请求字节预算限制；超出预算的低排名候选不送入重排。
@@ -248,11 +204,11 @@ knowledge_threshold 控制向量召回相似度；BM25不使用该阈值。设�
 
 `RUNTIME_POLICY` 是可信部署权限上限，默认 `{}` 保持入口能力；只能收紧，不能靠填写工具名绕过源码开关或启用主 Agent。可指定 `tools/skills/scopes/egress_scopes/agents` 名称数组、`knowledge_paths` 文档路径模式及 `version`。省略字段不额外限制，空数组全部禁止；示例见 `.env.example`。修改后重启服务，错误配置会阻止启动，不静默放宽。
 
-源码读取默认启用：`SOURCE_ENABLED=true`、`SOURCE_ROOT=..`，相对路径以 `ai/` 为基准，与启动目录无关。NPC 和已启用的主 Agent 共用该仓库，允许向配置的模型发送回答所需片段；统一排除密钥、玩家数据、数据库、日志、隐藏目录及生成缓存，不上传整库。设置 `SOURCE_ENABLED=false` 可关闭源码且保留文档问答；世界和摘要没有源码工具。升级须移除旧 `SOURCE_SCOPES_FILE` 及角色 `source_scopes`，残留会明确报错，旧配置文件不会自动删除。沿用 `npc_dialogue` 多轮调查，按需加载统一 `skill`，核对多文件依赖和引用，提交前重新验证文件；不新增专用模型循环，不强制闲谈走调查。玩家只接收游戏语境正文；本机管理员诊断可检查获授权的证据快照，但不证明实服已加载该版本。固定题及真实准确率验收尚待完成。配置、用量、缓存与安全限制见 [源码范围配置](../docs/architecture/ai-source-access.md)。
+源码读取默认启用：`SOURCE_ENABLED=true`、`SOURCE_ROOT=..`，相对路径以 `ai/` 为基准，与启动目录无关。NPC 和已启用的主 Agent 共用该仓库，允许向配置的模型发送回答所需片段；统一排除密钥、玩家数据、数据库、日志、隐藏目录及生成缓存，不上传整库。设置 `SOURCE_ENABLED=false` 可关闭源码且保留文档问答；世界和摘要没有源码工具。升级须移除旧 `SOURCE_SCOPES_FILE` 及角色 `source_scopes`，残留会明确报错，旧配置文件不会自动删除。沿用 `npc_dialogue` 多轮调查，按需加载统一 `skill`，核对多文件依赖和引用，提交前重新验证文件；不新增专用模型循环，不强制闲谈走调查。玩家只接收游戏语境正文；本机管理员诊断可检查获授权的证据快照，但不证明实服已加载该版本。配置、用量、缓存与安全限制见 [源码范围配置](../docs/architecture/ai-source-access.md)。
 
 在 `ai/` 内运行 `python scripts/debug_source.py "入门需要多少贡献？"` 仅预览，不读源码、不调用模型。确认实际目录和外发授权后，才添加 `--execute --audience admin --report <受保护目录>/新报告.json`；报告父目录须事先限制 OS 访问，已有报告不会覆盖。整个报告只供维护者使用，不是可直接发送给玩家的载荷；不新增网络管理员入口。
 
-`python scripts/eval_source.py` 默认预览 [20 题本游戏真实源码评测](evals/README.md)，结论已逐项对照源码。`--check-sources` 只在本机验证固定的 16 文件快照；`--execute --allow-source-egress --report <新报告>` 才按明确授权把这些文件的临时快照用于模型测试，不修改正式源码或服务权限。原虚构材料仅用于 `--suite synthetic` 自动回归，不要求维护者核对虚构门规。静态核对不冒充真实模型或实服验收。
+`python scripts/eval_source.py` 默认预览 [20 题本游戏真实源码评测](evals/README.md)，结论已逐项对照源码。`--check-sources` 只在本机验证固定的 16 文件快照；`--execute --allow-source-egress --report <新报告>` 才按明确授权把这些文件的临时快照用于模型测试，不修改正式源码或服务权限。合成材料通过 `--suite synthetic` 用于自动回归。
 
 评测默认 `--route direct`；`--route coordinated` 走真实主 Agent，按需委派同一 NPC，临时授权范围不变且不启用正式主入口。报告分别记录主/子/compact 的模型配置、用量、上下文峰值和最终引用；父账本已含子过程，不重复累计。`--compare <直达报告> <协调报告>` 离线对照同题同模型结果，可加 `--reviews <直达审核> <协调审核>`；没有完整人工验收不宣称等质或成本收益。详见[对照步骤](evals/README.md#直达与主-agent-对照)。
 
@@ -297,7 +253,7 @@ aitest li bai about 你好
 ## 历史与关系
 
 - conversations.db 保留完整原始提问和回复；一轮对应2条消息，100条容量约50轮。
-- 查询最近历史按ID稳定排序；不会返回最早的N条冒充最新记录。
+- 最近历史按 ID 倒序取出指定条数，再按对话顺序提供给模型。
 - 达到消息容量或历史字符预算时单独调用摘要模型，将累计摘要保存到 summaries；原问题随后正常回答。
 - 摘要失败不推进摘要位置、不删除原历史，当前问题继续处理。
 - memory_capacity=0 仅关闭历史上下文和摘要，仍保存成功对话和关系；不代表禁止持久化。

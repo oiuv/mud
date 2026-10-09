@@ -68,7 +68,7 @@ python ai/scripts/verify_runtime.py
 python -m unittest discover -s ai/tests -v
 node ai/scripts/verify_lpc.mjs
 
-# 五组核心玩法隔离回归（含上述 AI LPC 通信和 NPC 重连，不调用模型）
+# 七组核心玩法隔离回归（含 AI LPC 通信和 NPC 重连，不调用模型）
 node tools/test_gameplay.mjs
 
 # 本地索引维护，会写索引但不调用模型
@@ -117,7 +117,7 @@ python ai/scripts/eval_skill.py --skill source-investigation --input "查明入�
 
 ## 旧命令迁移
 
-本次只整理名称和引用，参数、业务协议及默认行为保持。请更新本地计划任务和个人脚本；旧文件入口不再保留。旧评测报告中的命令记录保留当时名称，不代表当前可执行路径。
+计划任务和个人脚本应使用下表中的当前名称；旧文件入口已移除。
 
 | 旧名称（原 `ai/scripts/`，另注除外） | 当前名称（统一在 `ai/scripts/`） |
 | --- | --- |
@@ -136,7 +136,7 @@ python ai/scripts/eval_skill.py --skill source-investigation --input "查明入�
 | `evaluate_source.py` | `eval_source.py` |
 | `ai/examples/socket_client.py` | `example_socket.py` |
 
-其余 `verify_*.py` 名称不变，原 `ai/examples/README.md` 的接入说明合并如下。
+其余 `verify_*.py` 名称不变。
 
 ## 独立 socket 接入示例
 

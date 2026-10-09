@@ -6,7 +6,7 @@
 
 高级配置 `CLI_PROGRAMS_FILE` 指向管理员维护的 JSON 文件；相对路径以 `ai/` 为准。默认空值不加载任何普通 CLI，也不要求安装外部程序。可以从 `ai/config/cli_programs.example.json` 复制为 `cli_programs.json`，按需修改；不要改正式 `.env` 或把密钥放进命令参数。实际配置文件排除于模型源码读取范围，默认本机文件名已加入 Git 忽略；自定义文件同样不要提交。
 
-每个程序配置 `command`、`cwd`、`description` 和 `operations`。`command` 为程序名/路径，也可为 JSON argv 字符串；固定前缀由管理员提供，不能使用模型模板替换。`operations` 的键是 `args` 第一项，其 `arguments` 约束余下参数，复用已有本地 JSON 契约，不新增模型输出格式要求。
+每个程序配置 `command`、`cwd`、`description` 和 `operations`。`command` 为程序名/路径，也可为 JSON argv 字符串；固定前缀由管理员提供，不能使用模型模板替换。`operations` 的键是 `args` 第一项，其 `arguments` 约束余下参数，按本地 JSON 契约验证。
 
 示例仅允许 `git version`，不开放其他 Git 操作或额外选项：
 
@@ -51,7 +51,7 @@
 - `{"program":"codegraph","args":["node","learn","--file","teachers/elder.lpc"]}`：同名消歧。
 - `callers/callees/impact` 接符号名；`files` 可带 `--filter` 或 `--pattern`。
 
-工具目录给出每项可用参数，模型不能覆盖仓库路径。位置和关系是索引线索，原文来自本次安全读取；`files` 只给当前可读路径，不伪造源码证据。本机 CodeGraph 1.6.0 的 `node` 实测未按分页参数截取内容，因此模型入口只开放符号/文件查询与同名消歧，指定行补读用 `source.read`，不承诺 CLI 未实现的行为。旧 `context` 效果报告保留为历史，不改称 `explore` 的结果。
+工具目录给出每项可用参数，模型不能覆盖仓库路径。位置和关系是索引线索，原文来自本次安全读取；`files` 只给当前可读路径，不伪造源码证据。本机 CodeGraph 1.6.0 的 `node` 实测未按分页参数截取内容，因此模型入口只开放符号/文件查询与同名消歧，指定行补读用 `source.read`，不承诺 CLI 未实现的行为。
 
 ## 验证
 

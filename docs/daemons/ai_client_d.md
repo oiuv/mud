@@ -102,7 +102,7 @@ NPC 适配层负责：
 
 ### 可选主 Agent
 
-服务配置 `MAIN_AGENT_ENABLED=true` 后才注册 `agent_run`，默认关闭；未知请求、`chat` 和世界接口不会隐式转交主 Agent。使用通用 `send_request("agent_run", payload, callback, ([ "long": 1, "alive": ... ]))` 接入，游戏仍负责选择可信身份、业务授权、在线对象及展示。本次未自动替换现有 NPC/幻境玩法入口。
+服务配置 `MAIN_AGENT_ENABLED=true` 后才注册 `agent_run`，默认关闭；未知请求、`chat` 和世界接口不会隐式转交主 Agent。使用通用 `send_request("agent_run", payload, callback, ([ "long": 1, "alive": ... ]))` 接入，游戏仍负责选择可信身份、业务授权、在线对象及展示。
 
 业务字段如下（传输层仍单独添加 `type/request_id/request_mode/request_token`）：
 

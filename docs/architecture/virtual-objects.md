@@ -1,6 +1,6 @@
 # 通用虚拟对象创建约定
 
-LIB 由 `adm/single/master/object.c` 接收 FluffOS 的 `compile_object()` 回调，再交给 `adm/daemons/virtuald.c`。仍使用本游戏的守护精灵，不切换到 mudcore 的 daemon；双方采用相同的处理程序接口。
+LIB 由 `adm/single/master/object.c` 接收 FluffOS 的 `compile_object()` 回调，再交给 `adm/daemons/virtuald.c`。该守护精灵与 mudcore 使用相同的处理程序接口。
 
 ## 路径与接口
 
@@ -12,7 +12,7 @@ object create_virtual_object(string key);
 
 守护精灵只按最后一个 `/` 拆分，将非空 key 原样传入。`7`、`1,2` 和 `1,2,3` 都只是字符串；坐标、编号或品种的含义由处理程序解释。不逐级向上查找，不增加类型注册表。
 
-处理程序返回一个新克隆供驱动接管；未知或非法 key 返回 `0`。不得返回自身、共享蓝图、已登记虚拟对象或错误文本。缺程序、缺接口或返回 `0` 时加载不成功；构造异常继续向调用方传播，不再尝试旧坐标或 `query_maze_room()` 分支。
+处理程序返回一个新克隆供驱动接管；未知或非法 key 返回 `0`。不得返回自身、共享蓝图、已登记虚拟对象或错误文本。缺程序、缺接口或返回 `0` 时加载不成功；构造异常向调用方传播。
 
 ## 创建与生命周期
 
@@ -77,6 +77,6 @@ node tools/tests/test_boots_objects.mjs bin/driver.exe --all
 
 均在临时目录验证；幻境回归需 `ai/.venv`，仅连接本机假 AI 服务，不调用真实模型。夹具验证通用协议和实际业务代码，不能替代正式服部署后的巡检。
 
-LIB 和含新 `CORE_VRM` 的 mudcore 须配套部署，安排维护重启，避免旧继承链驻留；不能只更新 daemon。此次接口统一不改变虚拟路径或存档格式，回退时同时恢复配套 LIB/框架代码后冷启动。
+LIB 和含新 `CORE_VRM` 的 mudcore 须配套部署，安排维护重启，避免旧继承链驻留；不能只更新 daemon。回退时同时恢复配套 LIB/框架代码后冷启动。
 
-若与普通 CLOTH 数据化同时上线或回退，仍按[服装迁移说明](data-driven-items.md)联合处理其代码和存档；本次“接口不需转换数据”不取消该要求。开发测试不操作正式服务或玩家记录。
+涉及物品数据化时，按[物品迁移说明](data-driven-items.md)配套处理代码和存档。
