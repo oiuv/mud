@@ -1,0 +1,24 @@
+// Disposable once-interactive actor; real move/character methods, no account or saves.
+inherit NPC;
+
+void create() {
+    set_name("试境侠客", ({ "tester" }));
+    set("gender", "男性");
+    set("age", 25);
+    set("str", 30);
+    set("int", 30);
+    set("con", 30);
+    set("dex", 30);
+    set("combat_exp", 100000);
+    set("attitude", "peaceful");
+    setup();
+}
+
+void heart_beat() {}
+void net_dead() {}
+
+int logon() {
+    set_heart_beat(0);
+    master()->register_connection(this_object());
+    return 1;
+}

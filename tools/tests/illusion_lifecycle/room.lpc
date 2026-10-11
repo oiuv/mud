@@ -1,0 +1,8 @@
+inherit ROOM;
+
+void create() {
+    set("short", "试境静室");
+    set("long", "一间安静的石室。\n");
+    set("exits", ([]));
+    setup();
+}

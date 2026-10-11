@@ -1,0 +1,174 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define DEMON "/kungfu/class/generate/demon"
+#define ID "test-lifecycle"
+#define CHECK(ok, label) master()->check((ok), (label))
+
+private object ticking_expired, ticking_live, live_owner, live_room;
+
+private object make_demon(object room) {
+    object demon;
+
+    demon = new(DEMON);
+    demon->set("chat_chance", 0);
+    demon->set("chat_chance_combat", 0);
+    demon->set("max_qi", 10000);
+    demon->set("eff_qi", 10000);
+    demon->set("qi", 10000);
+    demon->set("max_jing", 10000);
+    demon->set("eff_jing", 10000);
+    demon->set("jing", 10000);
+    CHECK(demon->move(room, 1), "actual demon enters live room");
+    return demon;
+}
+
+private object origin(object owner) {
+    string token;
+
+    token = WORLD->register_instance(owner, ID);
+    return load_object(WORLD->room_path(ID, 0, 0, token));
+}
+
+private void check_expired_move(object owner, int returning) {
+    object room, demon;
+    string token, path;
+    mixed err;
+
+    room = origin(owner);
+    token = room->query("illusion_instance");
+    path = WORLD->room_path(ID, 1, 0, token);
+    room->set("exits", ([ "east": path ]));
+    demon = make_demon(room);
+    if (returning) demon->set_temp("moved", ({ "west", "west", "west", "west", "west" }));
+    WORLD->release_instance(token, owner);
+    CHECK(!WORLD->instance_valid(ID, token), "released token is invalid");
+    err = catch(demon->random_move());
+    if (err) debug_message("EXPECTED BASELINE PATH ERROR: " + err);
+    CHECK(!err, "expired movement does not load rejected destination");
+    CHECK(!objectp(demon), "expired movement recycles demon");
+    CHECK(!find_object(path), "expired movement creates no destination");
+    CHECK(file_size("/log/illusion_world") < 1, "expired movement produces no repeated go log");
+    if (objectp(demon)) destruct(demon);
+    room->clean_up(0);
+    CHECK(!objectp(room), "room is reclaimable after expired demon leaves");
+}
+
+void finish_checks() {
+    CHECK(!objectp(ticking_expired), "actual driver heartbeat recycles expired demon");
+    CHECK(objectp(ticking_live) && environment(ticking_live) == live_room,
+        "actual driver heartbeat preserves valid demon");
+    CHECK(WORLD->instance_owned_by(ID, live_room->query("illusion_instance"), live_owner),
+        "expired cleanup preserves another owner session");
+    CHECK(!find_object(GIFT_D), "recycling does not invoke death reward daemon");
+    CHECK(file_size("/log/illusion_world") < 1, "heartbeat recovery does not log failed routes");
+    master()->finish();
+}
+
+void run() {
+    object owner, other, room, next, demon, item, legacy, legacy_next, other_room;
+    string token, path, other_token;
+    mixed err;
+
+    seteuid("Root");
+    WORLD->initialize_world(WORLD->catalog_manifest(ID, 42, 1));
+    owner = master()->query_players()[0];
+    other = master()->query_players()[1];
+    CHECK(
+        userp(owner) && interactive(owner) && userp(other),
+        "two real loopback player identities"
+    );
+    // Keep real userp/objects but no autonomous login/combat actions in this lifecycle test.
+    remove_interactive(owner);
+    remove_interactive(other);
+    CHECK(userp(owner) && !interactive(owner), "link loss keeps original player object");
+    room = origin(owner);
+    token = room->query("illusion_instance");
+    CHECK(owner->move(room, 1), "owner enters own room via original move");
+    CHECK(WORLD->instance_valid(ID, token), "disconnected owner keeps valid session");
+    CHECK(!other->move(room, 1), "different player cannot enter this session");
+    demon = make_demon(room);
+    path = WORLD->room_path(ID, 1, 0, token);
+    room->set("exits", ([ "east": path ]));
+    CHECK(!find_object(path), "live movement starts with unloaded destination");
+    demon->random_move();
+    next = find_object(path);
+    CHECK(
+        objectp(next) && environment(demon) == next,
+        "live demon follows actual NPC_D and go into new room"
+    );
+    CHECK(demon->is_stay_in_room(), "live demon retains room protection");
+    next->clean_up(0);
+    CHECK(objectp(next) && objectp(demon), "normal cleanup preserves active demon room");
+    other_room = origin(other);
+    other_token = other_room->query("illusion_instance");
+    CHECK(
+        other_room != room && other_token != token,
+        "second owner has independent room and token"
+    );
+    CHECK(owner->move("/tests/room", 1), "owner leaves via original move");
+    CHECK(!WORLD->instance_valid(ID, token), "original movement releases old token");
+    CHECK(!demon->is_stay_in_room(), "expired demon no longer blocks room cleanup");
+    item = new("/clone/money/silver");
+    item->move(demon);
+    // Simulates already halted NPCs too: room cleanup must not rely on another heartbeat.
+    next->clean_up(0);
+    CHECK(!objectp(next) && !objectp(demon) && !objectp(item),
+        "normal room cleanup recycles stale demon and its inventory");
+    if (objectp(demon)) destruct(demon);
+    if (objectp(next)) destruct(next);
+    CHECK(WORLD->instance_valid(ID, other_token), "cleanup leaves other token valid");
+
+    check_expired_move(owner, 0);
+    check_expired_move(owner, 1);
+
+    room = origin(owner);
+    token = room->query("illusion_instance");
+    demon = make_demon(room);
+    WORLD->release_instance(token, owner);
+    demon->set("qi", -1);
+    err = catch(demon->heart_beat());
+    CHECK(!err && !objectp(demon), "expired heartbeat recycles before death or combat");
+    CHECK(!find_object(GIFT_D), "expired cleanup cannot award death bonus");
+    if (objectp(demon)) destruct(demon);
+
+    room = origin(owner);
+    demon = make_demon(room);
+    // Simulate the owner object's disappearance, independent of administrator removal policy.
+    efun::destruct(owner);
+    err = catch(demon->random_move());
+    CHECK(!err && !objectp(demon), "destroyed owner safely retires leftover demon");
+    if (objectp(demon)) destruct(demon);
+
+    // Reloading world daemon loses its in-memory tokens, but preserves public facts.
+    demon = make_demon(other_room);
+    destruct(find_object(WORLD));
+    err = catch(demon->random_move());
+    CHECK(!err && !objectp(demon), "daemon replacement safely retires obsolete session demon");
+    if (objectp(demon)) destruct(demon);
+    CHECK(
+        !WORLD->instance_valid(ID, other_token),
+        "daemon replacement does not revive expired token"
+    );
+    CHECK(strsrch(other_room->long(), "out") >= 0, "obsolete room retains safe exit guidance");
+    CHECK(other->move("/tests/room", 1), "player can leave obsolete room");
+    live_room = origin(other);
+    CHECK(other->move(live_room, 1), "player can reenter fresh session");
+    live_owner = other;
+
+    legacy = new("/tests/room");
+    legacy_next = load_object("/tests/legacy_next");
+    legacy->set("exits", ([ "east": "/tests/legacy_next" ]));
+    demon = make_demon(legacy);
+    demon->random_move();
+    CHECK(objectp(demon) && environment(demon) == legacy_next && demon->is_stay_in_room(),
+        "legacy room without instance identity retains normal wandering and protection");
+    destruct(demon);
+
+    ticking_live = make_demon(live_room);
+    owner = new("/tests/actor");
+    room = origin(owner);
+    ticking_expired = make_demon(room);
+    WORLD->release_instance(room->query("illusion_instance"), owner);
+    CHECK(query_heart_beat(ticking_expired) && query_heart_beat(ticking_live),
+        "original demon constructor keeps driver heartbeats enabled");
+    call_out("finish_checks", 2);
+}

@@ -1,0 +1,100 @@
+#define WORLD "/adm/daemons/illusion_world_d"
+#define DEMON "/kungfu/class/generate/demon"
+#define ID "test-reload"
+#define CHECK(ok, label) master()->check((ok), (label))
+
+private object live, expired, halted, live_room, halted_room, owner, item;
+private function old_move;
+private string live_path, token;
+
+private object origin(object player) {
+    string key;
+
+    key = WORLD->register_instance(player, ID);
+    return load_object(WORLD->room_path(ID, 0, 0, key));
+}
+
+private object make_demon(object room) {
+    object ob;
+
+    ob = new(DEMON);
+    ob->set("chat_chance", 0);
+    ob->set("chat_chance_combat", 0);
+    ob->set("qi", 10000);
+    ob->set("eff_qi", 10000);
+    ob->set("jing", 10000);
+    ob->set("eff_jing", 10000);
+    CHECK(ob->move(room, 1), "old-version demon enters live room");
+    return ob;
+}
+
+void finish_checks() {
+    CHECK(!objectp(expired), "recompiled existing demon retires on real heartbeat");
+    CHECK(objectp(live) && query_heart_beat(live), "recompiled live demon keeps heartbeat");
+    CHECK(live->query("qi") == 7777 && environment(item) == live,
+        "hot reload preserves live health and inventory");
+    CHECK(WORLD->instance_owned_by(ID, token, owner), "hot reload preserves owner session");
+    CHECK(file_size("/log/illusion_world") < 1, "hot reload produces no failed-route logs");
+    master()->finish();
+}
+
+void reload_when_ready() {
+    int count;
+    mixed err;
+
+    if (file_size("/data/reload_ready") < 1) {
+        call_out("reload_when_ready", 0.1);
+        return;
+    }
+    // Same driver operation as the administrator's reload command; no create rerun.
+    count = recompile_object(find_object(DEMON));
+    CHECK(count >= 4, "real recompile_object updates blueprint and old clones");
+    CHECK(file_name(live) == live_path && live->query("qi") == 7777,
+        "existing identity and state survive hot update");
+    CHECK(live->is_stay_in_room() && !halted->is_stay_in_room(),
+        "already-created clones use new lifecycle predicate");
+    CHECK(!query_heart_beat(halted), "hot update does not restart stopped heartbeat");
+    halted_room->clean_up(0);
+    CHECK(
+        !objectp(halted_room) && !objectp(halted),
+        "stopped old demon is reclaimable by room cleanup"
+    );
+    err = catch(evaluate(old_move));
+    CHECK(!err && objectp(live) && environment(live) != live_room,
+        "pre-update named random_move callback still works in active instance");
+    evaluate(bind((: set_heart_beat, 1 :), expired));
+    call_out("finish_checks", 2);
+}
+
+void run() {
+    object other, room;
+
+    seteuid("Root");
+    WORLD->initialize_world(WORLD->catalog_manifest(ID, 42, 1));
+    owner = master()->query_players()[0];
+    other = master()->query_players()[1];
+    remove_interactive(owner);
+    remove_interactive(other);
+    live_room = origin(owner);
+    CHECK(owner->move(live_room, 1), "owner enters before hot update");
+    token = live_room->query("illusion_instance");
+    live_room->set("exits", ([ "east": WORLD->room_path(ID, 1, 0, token) ]));
+    live = make_demon(live_room);
+    live->set("qi", 7777);
+    live_path = file_name(live);
+    old_move = live->query("chat_msg")[0];
+    item = new("/clone/money/silver");
+    item->move(live);
+    halted_room = origin(other);
+    halted = make_demon(halted_room);
+    evaluate(bind((: set_heart_beat, 0 :), halted));
+    WORLD->release_instance(halted_room->query("illusion_instance"), other);
+    room = origin(other);
+    expired = make_demon(room);
+    evaluate(bind((: set_heart_beat, 0 :), expired));
+    WORLD->release_instance(room->query("illusion_instance"), other);
+    CHECK(halted->is_stay_in_room() && expired->is_stay_in_room(),
+        "before update old clones incorrectly protect expired rooms");
+    debug_message("ILLUSION_LIFECYCLE RELOAD_READY");
+    call_out("reload_when_ready", 0.1);
+}

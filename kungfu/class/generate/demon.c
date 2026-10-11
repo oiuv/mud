@@ -8,7 +8,25 @@ int accept_object(object who, object ob);
 
 void random_move();
 int leave();
-int is_stay_in_room() { return 1; }
+
+private int in_expired_illusion() {
+    object room;
+
+    room = environment();
+    return objectp(room) && room->query("illusion_world") && !room->valid_illusion_entry(this_object());
+}
+
+// 旧迷宫和有效幻境仍保留心魔；失效实例不再阻挡房间的常规清理。
+int is_stay_in_room() { return !in_expired_illusion(); }
+
+void heart_beat() {
+    if (in_expired_illusion()) {
+        // 直接回收，不走死亡、掉落或任务奖励流程。
+        destruct(this_object());
+        return;
+    }
+    ::heart_beat();
+}
 
 void create() {
     ::create();
@@ -169,6 +187,10 @@ int accept_kill(object ob) {
 }
 
 void random_move() {
+    if (in_expired_illusion()) {
+        destruct(this_object());
+        return;
+    }
     NPC_D->random_move(this_object());
 }
 
