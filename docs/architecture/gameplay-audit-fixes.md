@@ -4,6 +4,8 @@
 方案与任务见 [fix-gameplay-audit-defects](../../openspec/changes/archive/2026-10-07-fix-gameplay-audit-defects/proposal.md)。
 原有防守身法/根骨修复见 [战斗契约](weapon-combat.md)，本轮保留其回归。
 
+2026-10-11补充：[残血令与圣火神功连击叠加修复](../reviews/2026-10-11-shenghuo-combo-fix.md)。两条扰乱判定分支的七连击均阻止内功追加攻击，成功创伤仍仅属于成功分支；专项已加入下述统一回归入口，不改变本页2026-10-07历史检查数。
+
 ## 交易与背包
 
 | 问题 | 修复契约 | 主要源码 |

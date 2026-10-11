@@ -1,0 +1,75 @@
+// Original perform and both hit_ob hooks; only hit delivery/RNG are controlled.
+private object suite;
+
+void check(int ok, string label) { master()->check(ok, "shenghuo " + label); }
+
+object fighter(object target) {
+    object who, weapon;
+
+    who = suite->actor();
+    who->set_skill("sword", 600);
+    who->set_skill("shenghuo-ling", 400);
+    who->set_skill("shenghuo-shengong", 400);
+    who->map_skill("sword", "shenghuo-ling");
+    who->map_skill("force", "shenghuo-shengong");
+    who->set("jiali", 1);
+    who->set_temp("apply/attack", 17);
+    who->set_temp("test/shenghuo", 1);
+    weapon = new("/tests/sword");
+    who->set_temp("weapon", weapon);
+    target->set_skill("force", 100);
+    suite->fight(who, target);
+    return who;
+}
+
+void run(object host) {
+    object who, target, skill;
+    int success, stop, outer, attacks, qi, neili, result;
+
+    suite = host;
+    skill = load_object("/kungfu/skill/shenghuo-ling/can");
+    // High passive RNG always triggers if the guard leaks. The first draw
+    // selects only the perform branch: zero fails, 699 succeeds at sword 700.
+    foreach (success in ({ 0, 1 })) foreach (stop in ({ 0, 3 })) foreach (outer in ({ 0, 3 })) {
+        target = suite->actor(); who = fighter(target);
+        who->set_temp("shenghuo-ling/hit", outer);
+        if (stop) who->set_temp("test/stop_after", stop);
+        "/tests/control"->reset(1, ({ success ? 699 : 0 }));
+        qi = target->query("eff_qi"); neili = who->query("neili");
+        result = skill->perform(who, target);
+        attacks = stop ? stop : 7;
+        check(result == 1, "can accepted in both outcome branches");
+        if (!result) {
+            debug_message(sprintf("SHENGHUO unexpected refusal: %O", query_fail_msg()));
+            return;
+        }
+        check(who->query_temp("test/attacks") == attacks, "can does not multiply seven attacks");
+        check(!who->query_temp("test/shenghuo_passives"), "can blocks inner force follow-ups");
+        check(who->query_temp("test/in_effect")[2] == 17 + (success ? 66 : 0),
+            "only successful can receives the original accuracy bonus");
+        check(target->query("eff_qi") == qi - (success ? attacks * 100 : 0),
+            "max_hit wounds remain exclusive to successful can");
+        check(who->query("neili") == neili - 300, "can keeps its original base cost");
+        check(who->query_temp("apply/attack") == 17, "can restores prior accuracy");
+        check(who->query_temp("shenghuo-ling/hit") == outer, "can restores the outer guard");
+        check(!who->query_temp("shenghuo-ling/max_hit"), "can clears its wound flag");
+        debug_message(sprintf("SHENGHUO can success=%d stop=%d outer=%d attacks=%d passive=%d wounds=%d",
+            success, stop, outer, who->query_temp("test/attacks"),
+            who->query_temp("test/shenghuo_passives"), qi - target->query("eff_qi")));
+        if (!outer && !stop) {
+            who->delete_temp("test/attacks");
+            neili = who->query("neili");
+            "/tests/control"->reset(1, ({}));
+            check("/kungfu/skill/shenghuo-shengong"->hit_ob(who, target, 100, 1) == 1,
+                "ordinary force passive works again after can");
+            check(who->query_temp("test/attacks") == 8 && who->query("neili") == neili - 160,
+                "ordinary passive retains eight attacks and original cost");
+            check(!who->query_temp("shenghuo-ling/hit"), "ordinary passive clears recursion guard");
+        }
+    }
+    target = suite->actor(); who = fighter(target); who->set("neili", 399);
+    check(!skill->perform(who, target), "insufficient energy still refuses");
+    check(!who->query_temp("test/attacks") && !who->query_temp("shenghuo-ling/hit")
+        && !who->query_temp("shenghuo-ling/max_hit") && who->query("neili") == 399,
+        "refused can leaves state and energy untouched");
+}

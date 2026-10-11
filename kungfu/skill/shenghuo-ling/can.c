@@ -97,6 +97,8 @@ int perform(object me, object target) {
     me->add("neili", -300);
     me->add_temp("apply/attack", count);
 
+    // 两个分支都有七连击，统一阻止圣火神功追加攻击；max_hit 仅保留成功时的创伤效果。
+    me->add_temp("shenghuo-ling/hit", 1);
     for (i = 0; i < 7; i++) {
         if (!me->is_fighting(target))
             break;
@@ -104,6 +106,7 @@ int perform(object me, object target) {
             target->start_busy(1);
         COMBAT_D->do_attack(me, target, weapon, 0);
     }
+    me->add_temp("shenghuo-ling/hit", -1);
 
     me->add_temp("apply/attack", -count);
     me->delete_temp("shenghuo-ling/max_hit");

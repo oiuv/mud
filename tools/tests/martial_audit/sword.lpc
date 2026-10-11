@@ -1,0 +1,15 @@
+#include <weapon.h>
+
+inherit SWORD;
+
+void create() {
+    set_name("演武剑", ({ "sword" }));
+    set_weight(1000);
+    set("unit", "柄");
+    set("material", "steel");
+    if (clonep())
+        set_default_object(__FILE__);
+    else
+        init_sword(10);
+    setup();
+}

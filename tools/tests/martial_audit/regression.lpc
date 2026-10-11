@@ -403,6 +403,7 @@ int run_checks() {
             case "yuxiao":
             case "cang":
             case "luoyan": "/tests/state"->run(before, this_object()); break;
+            case "shenghuo": "/tests/shenghuo"->run(this_object()); break;
         }
         master()->finish();
         return 1;
@@ -411,6 +412,7 @@ int run_checks() {
     "/tests/state"->run("yuxiao", this_object());
     "/tests/state"->run("cang", this_object());
     "/tests/state"->run("luoyan", this_object());
+    "/tests/shenghuo"->run(this_object());
     check_energy(); check_recovery(); check_timing();
     return 1;
 }

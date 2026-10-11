@@ -9,6 +9,13 @@ varargs void do_attack(object me, object target, object weapon, int flags, strin
     me->add_temp("test/attacks", 1);
     me->set_temp("test/in_effect", ({ me->query_str(), me->query_dex(),
         me->query_temp("apply/attack"), me->query_temp("apply/damage") }));
+    // Deterministic hit boundary for the Shenghuo regression only. Both hooks
+    // remain original skill code; this is not a full combat probability test.
+    if (me->query_temp("test/shenghuo")) {
+        if ("/kungfu/skill/shenghuo-shengong"->hit_ob(me, target, 100, 1))
+            me->add_temp("test/shenghuo_passives", 1);
+        "/kungfu/skill/shenghuo-ling"->hit_ob(me, target, 100);
+    }
     if (me->query_temp("test/stop_after") == me->query_temp("test/attacks"))
         me->remove_enemy(target);
 }

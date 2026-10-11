@@ -28,12 +28,14 @@ const baselineGroups = {
     yuxiao: ['kungfu/skill/yuxiao-jian.c'],
     cang: ['kungfu/skill/hujia-daofa/cang.c'],
     luoyan: ['kungfu/skill/luoyan-jian.c'],
+    shenghuo: ['kungfu/skill/shenghuo-ling/can.c'],
 };
 assert.ok(!before || baselineGroups[before], 'Unknown baseline group');
 assert.ok(!group || baselineGroups[group], 'Unknown selected group');
 assert.ok(!before || !group, 'Choose --before or --group, not both');
 const stateGroups = ['yuxiao', 'cang', 'luoyan'];
-const baseline = stateGroups.includes(before) ? '8aee0828' : auditBaseline;
+const baseline = before === 'shenghuo' ? '61d92f7c39449289f912c957d9d971daeccd775b'
+    : stateGroups.includes(before) ? '8aee0828' : auditBaseline;
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-martial-audit-'));
 console.log('Isolated martial audit: ' + sandbox);
 const source = file => readFileSync(join(root, file), 'utf8');
@@ -63,7 +65,7 @@ put('tests/master.lpc', source('tools/tests/weapon_classification/startup_master
     .replaceAll('WEAPON_STARTUP', 'MARTIAL_AUDIT')
     .replace('if (!caught) {', 'debug_message(sprintf("TEST TRACE: %O", details));\n    if (!caught) {')
     .replace('if (err) check(0, err);\n    finish();', 'if (err) { check(0, err); finish(); }'));
-for (const file of ['actor', 'control', 'combat', 'regression', 'state'])
+for (const file of ['actor', 'control', 'combat', 'regression', 'state', 'shenghuo', 'sword'])
     put('tests/' + file + '.lpc', source('tools/tests/martial_audit/' + file + '.lpc'));
 // Boundary spy only: effects execute actual skill/character/attribute/damage code.
 // Common combat resolution has its own real-driver suite; here record the exact
@@ -75,7 +77,8 @@ put('adm/daemons/securityd.c', 'int get_wiz_level(mixed ob) { return 0; }\n'
 const randomFiles = ['canhe-zhi.c', 'canhe-zhi/canhe.c', 'bingxin-jue/freeze.c',
     'taixuan-gong/perform/xuan.c', 'taixuan-gong/xuan.c', 'chousui-zhang/tao.c',
     'ruying-suixingtui/ruying.c', 'jiasha-fumogong/zhe.c', 'jiuyin-shengong/perform/xin.c',
-    'xuedao-dafa/exert/resurrect.c', 'yuxiao-jian.c', 'hujia-daofa/cang.c', 'luoyan-jian.c'];
+    'xuedao-dafa/exert/resurrect.c', 'yuxiao-jian.c', 'hujia-daofa/cang.c', 'luoyan-jian.c',
+    'shenghuo-ling/can.c', 'shenghuo-shengong.c'];
 for (const relative of randomFiles) {
     const file = 'kungfu/skill/' + relative;
     let text = production(file);
@@ -118,14 +121,19 @@ const result = await new Promise((done, reject) => {
 put('driver-output.txt', result.output);
 const debug = join(sandbox, 'log/debug.log');
 const diagnostics = result.output + (existsSync(debug) ? readFileSync(debug, 'utf8') : '');
-console.log(result.output.split(/\r?\n/).filter(line => /MARTIAL_AUDIT|FAIL:|error:|warning:|TEST TRACE/i.test(line)).join('\n'));
+console.log(result.output.split(/\r?\n/).filter(line => /MARTIAL_AUDIT|SHENGHUO|FAIL:|error:|warning:|TEST TRACE/i.test(line)).join('\n'));
 if (before) {
     assert.equal(result.code, 1, 'Old production code must fail this isolated regression');
     assert.ok(result.output.includes('MARTIAL_AUDIT FAIL') && result.output.includes('FAIL:'), 'Missing negative-control failure');
-    if (stateGroups.includes(before)) {
+    if (stateGroups.includes(before) || before === 'shenghuo') {
         assert.ok(result.output.includes('FAIL: ' + before + ' '), 'Missing specific state defect');
         assert.ok(!/\b(?:error|warning):/i.test(diagnostics.replaceAll("WARNING: Platform doesn't support eval limit!", '')),
             'Negative control must compile without diagnostics');
+    }
+    if (before === 'shenghuo') {
+        assert.ok(result.output.includes('SHENGHUO can success=0 stop=0 outer=0 attacks=63 passive=7 wounds=0'),
+            'Negative control must reproduce the seven times eight additional attacks');
+        assert.ok(!result.output.includes('TEST TRACE:'), 'A fixture runtime failure is not a reproduced defect');
     }
     console.log('MARTIAL_AUDIT BEFORE ' + before + ': expected defect detected');
 } else {
