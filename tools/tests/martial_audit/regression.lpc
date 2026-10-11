@@ -395,6 +395,8 @@ int run_checks() {
         switch (before) {
             case "freeze": check_freeze(); break;
             case "canhe": check_canhe(); break;
+            case "canhe_action": "/tests/canhe_action"->run(this_object()); break;
+            case "tanzhi_action": "/tests/tanzhi_action"->run(this_object()); break;
             case "taixuan": check_taixuan(); break;
             case "tao": check_tao_and_ruying(); break;
             case "energy": check_energy(); break;
@@ -408,6 +410,8 @@ int run_checks() {
         master()->finish();
         return 1;
     }
+    "/tests/canhe_action"->run(this_object());
+    "/tests/tanzhi_action"->run(this_object());
     check_freeze(); check_canhe(); check_taixuan(); check_tao_and_ruying();
     "/tests/state"->run("yuxiao", this_object());
     "/tests/state"->run("cang", this_object());
@@ -422,6 +426,10 @@ void run() {
     string group;
 
     group = read_file("/tests/group.txt");
+    if (!group || group == "" || group == "tanzhi_action")
+        "/tests/tanzhi_action"->cold_load();
+    if (!group || group == "" || group == "canhe_action")
+        "/tests/canhe_action"->cold_load();
     if (!group || group == "" || group == "yuxiao")
         "/tests/state"->cold_yuxiao();
     controller = actor();

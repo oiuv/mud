@@ -79,26 +79,6 @@ mapping *action = ({
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 参合指之极意 " NOR "",
-        "force": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 2 + random((int)this_player()->query_skill("force", 1)),
-        "attack": (int)this_player()->query_skill(
-            "finger",
-            1
-        ) / 4 + random((int)this_player()->query_skill("finger", 1) / 2),
-        "dodge": (int)this_player()->query_skill(
-            "dodge",
-            1
-        ) / 6 + random((int)this_player()->query_skill("force", 1) / 3),
-        "parry": (int)this_player()->query_skill(
-            "parry",
-            1
-        ) / 6 + random((int)this_player()->query_skill("parry", 1) / 3),
-        "damage": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 4 + random((int)this_player()->query_skill("finger", 1) / 2),
         "lvl": 200,
         "weapon": HIR "参合破体剑气" NOR,
         "skill_name": "极意",
@@ -237,10 +217,30 @@ int practice_skill(object me) {
     return 1;
 }
 
-mapping query_action(object me, object weapon) {
+private mapping resolve_action(object me, int index) {
+    mapping result;
+    int force, finger, dodge, parry;
 
+    if (index != sizeof(action) - 1)
+        return action[index];
+
+    // 极意随本次出招者的基本功计算，不在加载时依赖 this_player()。
+    result = copy(action[index]);
+    force = me->query_skill("force", 1);
+    finger = me->query_skill("finger", 1);
+    dodge = me->query_skill("dodge", 1);
+    parry = me->query_skill("parry", 1);
+    result["force"] = force / 2 + random(force);
+    result["attack"] = finger / 4 + random(finger / 2);
+    result["dodge"] = dodge / 6 + random(force / 3);
+    result["parry"] = parry / 6 + random(parry / 3);
+    result["damage"] = force / 4 + random(finger / 2);
+    return result;
+}
+
+mapping query_action(object me, object weapon) {
     if (!undefinedp(me->query_temp("canhe-action")))
-        return action[me->query_temp("canhe-action")];
+        return resolve_action(me, me->query_temp("canhe-action"));
 
     if (random(10) == 1 && me->query("neili") > 1000) {
         me->add("neili", -300);
@@ -256,7 +256,7 @@ mapping query_action(object me, object weapon) {
         ]);
     }
 
-    return action[random(sizeof(action))];
+    return resolve_action(me, random(sizeof(action)));
 }
 
 string query_parry_msg(object victim_weapon) {

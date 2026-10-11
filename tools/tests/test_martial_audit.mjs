@@ -17,6 +17,8 @@ const auditBaseline = 'd43c418f';
 const baselineGroups = {
     freeze: ['kungfu/skill/bingxin-jue/freeze.c'],
     canhe: ['kungfu/skill/canhe-zhi.c', 'kungfu/skill/canhe-zhi/canhe.c'],
+    canhe_action: ['kungfu/skill/canhe-zhi.c'],
+    tanzhi_action: ['kungfu/skill/tanzhi-shentong.c'],
     taixuan: ['kungfu/skill/taixuan-gong/perform/xuan.c'],
     tao: ['kungfu/skill/chousui-zhang/tao.c', 'kungfu/skill/ruying-suixingtui/ruying.c'],
     energy: ['kungfu/skill/shenxing-baibian.c', 'kungfu/skill/qixing-bu.c',
@@ -35,6 +37,7 @@ assert.ok(!group || baselineGroups[group], 'Unknown selected group');
 assert.ok(!before || !group, 'Choose --before or --group, not both');
 const stateGroups = ['yuxiao', 'cang', 'luoyan'];
 const baseline = before === 'shenghuo' ? '61d92f7c39449289f912c957d9d971daeccd775b'
+    : ['canhe_action', 'tanzhi_action'].includes(before) ? 'af546461'
     : stateGroups.includes(before) ? '8aee0828' : auditBaseline;
 const sandbox = mkdtempSync(join(tmpdir(), 'mud-martial-audit-'));
 console.log('Isolated martial audit: ' + sandbox);
@@ -65,7 +68,8 @@ put('tests/master.lpc', source('tools/tests/weapon_classification/startup_master
     .replaceAll('WEAPON_STARTUP', 'MARTIAL_AUDIT')
     .replace('if (!caught) {', 'debug_message(sprintf("TEST TRACE: %O", details));\n    if (!caught) {')
     .replace('if (err) check(0, err);\n    finish();', 'if (err) { check(0, err); finish(); }'));
-for (const file of ['actor', 'control', 'combat', 'regression', 'state', 'shenghuo', 'sword'])
+for (const file of ['actor', 'control', 'combat', 'regression', 'state', 'shenghuo', 'sword',
+    'canhe_action', 'tanzhi_action'])
     put('tests/' + file + '.lpc', source('tools/tests/martial_audit/' + file + '.lpc'));
 // Boundary spy only: effects execute actual skill/character/attribute/damage code.
 // Common combat resolution has its own real-driver suite; here record the exact
@@ -74,7 +78,7 @@ put('adm/daemons/combatd.c', 'inherit "/tests/combat";\n');
 // Synthetic ordinary actors only; never load deployment wizard/account records.
 put('adm/daemons/securityd.c', 'int get_wiz_level(mixed ob) { return 0; }\n'
     + 'string get_status(mixed ob) { return "(player)"; }\n');
-const randomFiles = ['canhe-zhi.c', 'canhe-zhi/canhe.c', 'bingxin-jue/freeze.c',
+const randomFiles = ['canhe-zhi.c', 'canhe-zhi/canhe.c', 'tanzhi-shentong.c', 'bingxin-jue/freeze.c',
     'taixuan-gong/perform/xuan.c', 'taixuan-gong/xuan.c', 'chousui-zhang/tao.c',
     'ruying-suixingtui/ruying.c', 'jiasha-fumogong/zhe.c', 'jiuyin-shengong/perform/xin.c',
     'xuedao-dafa/exert/resurrect.c', 'yuxiao-jian.c', 'hujia-daofa/cang.c', 'luoyan-jian.c',
@@ -135,10 +139,27 @@ if (before) {
             'Negative control must reproduce the seven times eight additional attacks');
         assert.ok(!result.output.includes('TEST TRACE:'), 'A fixture runtime failure is not a reproduced defect');
     }
+    if (['canhe_action', 'tanzhi_action'].includes(before)) {
+        assert.equal(result.output.split('TEST TRACE:').length - 1, before === 'tanzhi_action' ? 3 : 2,
+            'Only the expected cold-load/name/action exceptions may occur');
+        assert.ok(result.output.includes('*Bad argument 1 to EFUN call_other()')
+            && result.output.includes('*Value being indexed is zero.'),
+            'Must reproduce both the missing player and subsequent zero indexing');
+        assert.ok(result.output.includes('FAIL: ' + before + ' cold action table is usable'),
+            'Must reproduce the broken action table after a playerless load');
+        assert.ok(result.output.includes('FAIL: ' + before + ' current actor formula force'),
+            'Must also reproduce the frozen loading-player attributes');
+        assert.ok(!/\b(?:error|warning):/i.test(diagnostics.replaceAll("WARNING: Platform doesn't support eval limit!", '')),
+            'Negative control must compile without diagnostics');
+        assert.ok(result.output.split(/\r?\n/).filter(line => line.startsWith('FAIL: '))
+            .every(line => line.startsWith('FAIL: ' + before + ' ')), 'Unexpected negative-control failure');
+    }
     console.log('MARTIAL_AUDIT BEFORE ' + before + ': expected defect detected');
 } else {
     assert.equal(result.code, 0, 'Driver failed; inspect ' + sandbox);
     assert.ok(result.output.includes('MARTIAL_AUDIT PASS'), 'Incomplete regression');
+    if (['canhe_action', 'tanzhi_action'].includes(group)) assert.ok(!result.output.includes('TEST TRACE:'),
+        'Fixed action regression must have no caught runtime exceptions');
     assert.ok(!diagnostics.split(/\r?\n/).some(line => /\bwarning:|\berror:/i.test(line)
         && !/^WARNING: Platform doesn't support eval limit!$/.test(line)), 'Compiler diagnostics; inspect ' + sandbox);
 }

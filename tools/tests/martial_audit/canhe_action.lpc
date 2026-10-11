@@ -1,0 +1,157 @@
+// Synthetic actors only; use the production skill with controlled random inputs.
+private object suite;
+
+void check(int ok, string label) { master()->check(ok, "canhe_action " + label); }
+
+void cold_load() {
+    object skill, who;
+    mapping result;
+    mixed err;
+
+    check(!this_player(), "cold load has no command player");
+    err = catch(skill = load_object("/kungfu/skill/canhe-zhi"));
+    check(!err && objectp(skill), "cold load succeeds without a player");
+    if (!objectp(skill)) skill = find_object("/kungfu/skill/canhe-zhi");
+    if (objectp(skill)) {
+        who = new("/tests/actor");
+        "/tests/control"->reset(0, ({ 0, 0 }));
+        err = catch(result = skill->query_action(who, 0));
+        check(!err && mapp(result) && result["force"] == 480, "cold action table is usable");
+        destruct(who);
+        destruct(skill);
+    } else {
+        check(0, "cold action table is usable");
+    }
+}
+
+int load_skill(object loader) {
+    loader->set_temp("test/loaded", load_object("/kungfu/skill/canhe-zhi"));
+    return 1;
+}
+
+mapping extreme(object skill, object who, int high, int selected) {
+    mapping result;
+    int force, finger, dodge, parry, i, neili;
+    int *expected, *limits, *draw_limits;
+    string *fields;
+
+    force = who->query_skill("force", 1);
+    finger = who->query_skill("finger", 1);
+    dodge = who->query_skill("dodge", 1);
+    parry = who->query_skill("parry", 1);
+    neili = who->query("neili");
+    if (selected) who->set_temp("canhe-action", 6);
+    else who->delete_temp("canhe-action");
+    // The first draw skips the special sword-qi branch, the second selects extreme.
+    "/tests/control"->reset(high, selected ? ({}) : ({ 0, 6 }));
+    result = skill->query_action(who, 0);
+    check(mapp(result) && result["skill_name"] == "极意", "selects extreme action");
+    if (!mapp(result)) return ([]);
+    fields = ({ "force", "attack", "dodge", "parry", "damage" });
+    limits = ({ force, finger / 2, force / 3, parry / 3, finger / 2 });
+    expected = ({ force / 2, finger / 4, dodge / 6, parry / 6, force / 4 });
+    for (i = 0; i < sizeof(fields); i++)
+        check(result[fields[i]] == expected[i] + (high && limits[i] > 0 ? limits[i] - 1 : 0),
+            "current actor formula " + fields[i]);
+    draw_limits = selected ? limits : ({ 10, 7 }) + limits;
+    check(save_variable(draw_limits) == save_variable("/tests/control"->query_limits()),
+        "preserves selection and original random ranges");
+    check(who->query("neili") == neili, "extreme adds no energy cost");
+    return result;
+}
+
+void run(object host) {
+    object a, b, loader, skill;
+    mapping first, result;
+    string snapshot, basic;
+    string *fields;
+    mixed *ordinary;
+    int round, i, j, neili;
+
+    suite = host;
+    a = suite->actor();
+    b = suite->actor();
+    check(this_player() != a && this_player() != b, "command player is not either attacker");
+    a->set_skill("force", 802);
+    a->set_skill("finger", 606);
+    a->set_skill("dodge", 414);
+    a->set_skill("parry", 518);
+    b->set_skill("force", 1606);
+    b->set_skill("finger", 1014);
+    b->set_skill("dodge", 822);
+    b->set_skill("parry", 1226);
+    // Cover both loading orders: neither actor may supply shared combat values.
+    for (round = 0; round < 2; round++) {
+        skill = find_object("/kungfu/skill/canhe-zhi");
+        if (objectp(skill)) destruct(skill);
+        loader = round ? b : a;
+        "/tests/control"->reset(0, ({}));
+        check(loader->invoke((: load_skill, loader :)), "loads in selected actor context");
+        skill = loader->query_temp("test/loaded");
+        first = extreme(skill, a, 0, 1);
+        snapshot = save_variable(first);
+        extreme(skill, b, 1, 1);
+        check(save_variable(first) == snapshot, "another actor preserves the previous result");
+        extreme(skill, a, 1, 0);
+        extreme(skill, b, 0, 0);
+        first["force"] = -999;
+        extreme(skill, a, 0, 1);
+    }
+    // Read changed skills on the next attack, including zero random bounds.
+    a->set_skill("force", 1202);
+    extreme(skill, a, 1, 1);
+    foreach (i in ({ 0, 1 })) {
+        foreach (basic in ({ "force", "finger", "dodge", "parry" }))
+            b->set_skill(basic, i);
+        extreme(skill, b, 1, 1);
+    }
+    fields = ({ "force", "attack", "parry", "dodge", "damage" });
+    ordinary = ({
+        ({ 480, 110, 90, 95, 160 }), ({ 460, 100, 90, 115, 180 }),
+        ({ 460, 100, 135, 125, 180 }), ({ 460, 100, 115, 145, 200 }),
+        ({ 460, 120, 130, 125, 200 }), ({ 480, 120, 150, 165, 240 })
+    });
+    for (i = 0; i < sizeof(ordinary); i++) {
+        a->set_temp("canhe-action", i);
+        "/tests/control"->reset(0, ({}));
+        result = skill->query_action(a, 0);
+        for (j = 0; j < sizeof(fields); j++)
+            check(result[fields[j]] == ordinary[i][j], "fixed action values remain unchanged");
+        check(!sizeof("/tests/control"->query_limits()), "forced fixed action consumes no draws");
+        a->delete_temp("canhe-action");
+        "/tests/control"->reset(0, ({ 0, i }));
+        check(save_variable(skill->query_action(a, 0)) == save_variable(result),
+            "random selection retains every fixed action");
+    }
+    foreach (neili in ({ 999, 1000, 1001 })) {
+        a->set("neili", neili);
+        "/tests/control"->reset(0, ({ 1, 0 }));
+        result = skill->query_action(a, 0);
+        check(result["force"] == (neili > 1000 ? 560 : 480), "sword qi energy threshold unchanged");
+        check(a->query("neili") == neili - (neili > 1000 ? 300 : 0), "sword qi cost unchanged");
+    }
+    // Temporary action overrides still take precedence over the 10% branch.
+    a->set("neili", 5000);
+    a->set_temp("canhe-action", 0);
+    "/tests/control"->reset(0, ({ 1 }));
+    result = skill->query_action(a, 0);
+    check(result["force"] == 480 && a->query("neili") == 5000,
+        "forced action bypasses special branch and cost");
+    // Normal attack entry used by combatd, with no carried weapon.
+    a->delete_temp("canhe-action");
+    a->set_skill("canhe-zhi", 300);
+    a->map_skill("finger", "canhe-zhi");
+    a->prepare_skill("finger", "canhe-zhi");
+    a->reset_action();
+    "/tests/control"->reset(0, ({ 0, 6 }));
+    result = a->query_action(0);
+    check(mapp(result) && result["skill_name"] == "极意" && result["force"] == 601,
+        "real unarmed character action entry succeeds");
+    // update destroys/reloads the skill; existing characters keep a path-based action callback.
+    destruct(skill);
+    load_object("/kungfu/skill/canhe-zhi");
+    "/tests/control"->reset(0, ({ 0, 6 }));
+    result = a->query_action(0);
+    check(mapp(result) && result["force"] == 601,
+        "existing character action survives skill destruction and reload");
+}

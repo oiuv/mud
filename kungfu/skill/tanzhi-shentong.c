@@ -61,26 +61,6 @@ mapping *action_finger = ({
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 弹指神通之极意 " NOR "",
-        "force": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 2 + random((int)this_player()->query_skill("force", 1)),
-        "attack": (int)this_player()->query_skill(
-            "finger",
-            1
-        ) / 4 + random((int)this_player()->query_skill("finger", 1) / 2),
-        "dodge": (int)this_player()->query_skill(
-            "dodge",
-            1
-        ) / 6 + random((int)this_player()->query_skill("force", 1) / 3),
-        "parry": (int)this_player()->query_skill(
-            "parry",
-            1
-        ) / 6 + random((int)this_player()->query_skill("parry", 1) / 3),
-        "damage": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 4 + random((int)this_player()->query_skill("finger", 1) / 2),
         "lvl": 200,
         "skill_name": "极意",
         "damage_type": "刺伤"
@@ -115,7 +95,25 @@ string query_skill_name(int level) {
 }
 
 mapping query_action(object me, object weapon) {
-    return action_finger[random(sizeof(action_finger))];
+    mapping result;
+    int index, force, finger, dodge, parry;
+
+    index = random(sizeof(action_finger));
+    if (index != sizeof(action_finger) - 1)
+        return action_finger[index];
+
+    // 极意随本次出招者的基本功计算，不在加载时依赖 this_player()。
+    result = copy(action_finger[index]);
+    force = me->query_skill("force", 1);
+    finger = me->query_skill("finger", 1);
+    dodge = me->query_skill("dodge", 1);
+    parry = me->query_skill("parry", 1);
+    result["force"] = force / 2 + random(force);
+    result["attack"] = finger / 4 + random(finger / 2);
+    result["dodge"] = dodge / 6 + random(force / 3);
+    result["parry"] = parry / 6 + random(parry / 3);
+    result["damage"] = force / 4 + random(finger / 2);
+    return result;
 }
 
 //为弹指神通新增特防效果 2017-02-21
