@@ -1,0 +1,330 @@
+// A point observer used by the existing runner, not another executor.
+// No replacement of NPC callbacks, MASTER_D, ask/give, or player learning methods.
+
+private varargs mapping teaching_state(object student, string *grants, string profile) {
+    mapping values, result;
+    string key;
+
+    values = ([]);
+    foreach (key in grants) values[key] = student->query(key) || 0;
+    result = ([
+        "grants": values,
+        "contribution": student->query("gongxian") || 0,
+        "balance": student->query("balance") || 0,
+        "combat_exp": student->query("combat_exp") || 0,
+        "score": student->query("score") || 0,
+        "jing": student->query("jing"),
+        "neili": student->query("neili"),
+        "max_neili": student->query("max_neili"),
+        "max_jingli": student->query("max_jingli") || 0,
+        "potential": student->query("potential") || 0,
+        "learned_points": student->query("learned_points") || 0,
+        "skills": copy(student->query_skills() || ([])),
+        "learned": copy(student->query_learned() || ([])),
+        "mappings": copy(student->query_skill_map() || ([])),
+        "effective_force": student->query_skill("force"),
+        "effective_dodge": student->query_skill("dodge"),
+        "dex": student->query("dex"),
+        "effective_dex": student->query_dex(),
+        "con": student->query("con"),
+        "int": student->query("int"),
+        "effective_int": student->query_int(),
+        "character": student->query("character"),
+        "family": student->query("family/family_name"),
+        "master_id": student->query("family/master_id"),
+        "beggarlvl": student->query("family/beggarlvl") || 0,
+        "master_name": student->query("family/master_name"),
+        "reborn_family": student->query("reborn/family_name"),
+        "shen": student->query("shen"),
+        "weiwang": student->query("weiwang") || 0,
+        "feng_flags": ([
+            "blocked": student->query_temp("have_asked_feng") || 0,
+            "told": student->query_temp("feng_has_told") || 0,
+            "visited": student->query_temp("learnd_lonely_sword") || 0
+        ]),
+        "shaolin_flags": ([
+            "wuming": student->query_temp("can_learn/wuming") || 0,
+            "kongjian": student->query_temp("can_learn/kongjian/jingang-buhuaiti") || 0
+        ]),
+        "str": student->query("str")
+    ]);
+    if (profile == "gumu-acquisition-learning")
+        result += ([ "gender": student->query("gender"),
+            "sadly": student->query("static/sadly"), "effective_str": student->query_str() ]);
+    if (profile == "gumu-recruit")
+        result += ([ "gender": student->query("gender"), "per": student->query("per"),
+            "effective_str": student->query_str(), "effective_per": student->query_per() ]);
+    return result;
+}
+
+private varargs mapping recruitment_state(object student, string profile) {
+    object pending, betrayer;
+    mapping result;
+
+    pending = student->query_temp("pending/apprentice");
+    betrayer = student->query_temp("pending/betrayer");
+    result = ([ "family": copy(student->query("family") || ([])),
+        "name": student->query("name"), "class": student->query("class") || "",
+        "title": student->query("title") || "",
+        "pending_apprentice": objectp(pending) ? file_name(pending) : "",
+        "pending_betrayer": objectp(betrayer) ? file_name(betrayer) : "",
+        "flags": ([ "have_letter": student->query_temp("have_letter") || 0,
+            "apprentice_ok": student->query_temp("apprentice_ok") || 0,
+            "valid_in_fumoquan": student->query_temp("valid_in_fumoquan") || 0 ]) ]);
+    if (profile == "gumu-recruit")
+        result += ([ "family_present": mapp(student->query("family")),
+            "history": ([ "detach/古墓派": student->query("detach/古墓派"),
+                "betrayer/古墓派": student->query("betrayer/古墓派"),
+                "betrayer/times": student->query("betrayer/times") ]),
+            "quest": copy(student->query("quest")), "temp_quest": copy(student->query_temp("quest")) ]);
+    return result;
+}
+
+// Only the finite, frozen acquisition holders. Reading never creates or moves items.
+object *gumu_item_objects(mapping context) {
+    object holder, item;
+    object *items;
+    if (base_name(previous_object()) != "/tests/runner")
+        error("Item observation requires the isolated runner.\n");
+    if (!mapp(context["carriers"]) || member_array(context["item"],
+        ({ "/d/gumu/obj/yufeng-zhen", "/d/gumu/obj/bingpo-zhen", "/clone/lonely/yinsuo" })) == -1)
+        error("Unreviewed acquisition item.\n");
+    items = ({});
+    foreach (holder in values(context["carriers"])) {
+        if (!objectp(holder)) error("Acquisition holder disappeared.\n");
+        foreach (item in all_inventory(holder))
+            if (base_name(item) == context["item"] && member_array(item, items) == -1)
+                items += ({ item });
+    }
+    return items;
+}
+
+mapping gumu_item_state(mapping context) {
+    mapping result, state;
+    object holder, item, owner, weapon, secondary;
+    string role;
+    string *chain;
+    result = ([ "stock": stringp(context["stock_key"]) ?
+        context["carriers"]["teacher"]->query(context["stock_key"]) : 0,
+        "carriers": ([]), "items": ({}) ]);
+    foreach (role, holder in context["carriers"]) {
+        owner = environment(holder);
+        weapon = holder->query_temp("weapon");
+        secondary = holder->query_temp("secondary_weapon");
+        result["carriers"][role] = ([ "object": file_name(holder), "program": base_name(holder),
+            "environment": objectp(owner) ? file_name(owner) : 0,
+            "is_character": holder->is_character(), "family": holder->query("family/family_name"),
+            "encumbrance": holder->query_encumbrance(), "max_encumbrance": holder->query_max_encumbrance(),
+            "inventory": map(all_inventory(holder), (: file_name :)),
+            "weapon": objectp(weapon) ? file_name(weapon) : "none",
+            "secondary_weapon": objectp(secondary) ? file_name(secondary) : "none",
+            "apply": copy(holder->query_temp("apply") || ([])) ]);
+    }
+    foreach (item in gumu_item_objects(context)) {
+        chain = ({});
+        owner = environment(item);
+        while (objectp(owner)) {
+            if (member_array(file_name(owner), chain) != -1) error("Cyclic item ownership.\n");
+            chain += ({ file_name(owner) });
+            owner = environment(owner);
+        }
+        state = ([ "object": file_name(item), "program": base_name(item), "clonep": clonep(item),
+            "environment": file_name(environment(item)), "owner_chain": chain,
+            "weight": item->query_weight(), "skill_type": item->query("skill_type"),
+            "flag": item->query("flag"), "consistence": item->query("consistence"),
+            "material": item->query("material"), "equipped": item->query("equipped"),
+            "weapon_prop": copy(item->query("weapon_prop")) ]);
+        if (context["item"] != "/clone/lonely/yinsuo")
+            state += ([ "amount": item->query_amount(), "base_weight": item->query("base_weight"),
+                "daub": copy(item->query_temp("daub")) ]);
+        result["items"] += ({ state });
+    }
+    return result;
+}
+
+private mapping teaching_item(mapping item) {
+    object ob, holder;
+
+    if (item["path"] != "/clone/special/sjmletter" || item["id"] != "sjm letter")
+        error("Unreviewed teaching item observation.\n");
+    // Observation must not load, clone, move, or otherwise manufacture a letter.
+    ob = find_object(item["path"]);
+    if (!objectp(ob))
+        return ([ "exists": 0, "object": "", "program": "", "holder": "", "clone": 0 ]);
+    holder = environment(ob);
+    return ([ "exists": 1, "object": file_name(ob), "program": base_name(ob),
+        "holder": objectp(holder) ? file_name(holder) : "", "clone": clonep(ob) ]);
+}
+
+// Read the original name daemon and identity fields, never manufacture permission.
+private mapping tonsure_state(object student, string original_name) {
+    string name;
+    name = student->query("name");
+    return ([ "recruitment": recruitment_state(student), "id": student->query("id"),
+        "gender": student->query("gender"), "PKS": student->query("PKS"), "MKS": student->query("MKS"),
+        "K_record": student->query("K_record"), "shen_record": student->query("shen_record"),
+        "pending": student->query_temp("pending/join_bonze") || 0,
+        "quit_pending": student->query_temp("pending/quit_bonze") || 0,
+        "secularize_pending": student->query_temp("pending/secularize") || 0,
+        "purename": student->query("purename") || "",
+        "old_name": student->query("marks/old_name") || "",
+        "name_ids": NAME_D->query(name[0..0] + "/" + name) || "",
+        "original_name_ids": NAME_D->query(original_name[0..0] + "/" + original_name) || "" ]);
+}
+
+// Inventory observation only: no loading or creating quest objects.
+private mapping promotion_state(object student, object teacher) {
+    object item;
+    mixed row;
+    mapping result;
+
+    result = ([ "recruitment": recruitment_state(student), "items": ({}),
+        "fight_ok": student->query_temp("fight_ok") || 0,
+        "student_qi": student->query("qi"), "student_max_qi": student->query("max_qi"),
+        "teacher_qi": teacher->query("qi"), "teacher_max_qi": teacher->query("max_qi"),
+        "teacher_fighting": teacher->is_fighting(), "student_fighting": student->is_fighting(),
+        "teacher_name": teacher->query("name"), "teacher_family": copy(teacher->query("family")),
+        "checking_pending": 0 ]);
+    foreach (item in all_inventory(student))
+        if (strsrch(base_name(item), "/d/shaolin/obj/") == 0)
+            result["items"] += ({ ([ "object": file_name(item), "program": base_name(item),
+                "id": item->query("id"), "clone": clonep(item), "holder": file_name(environment(item)) ]) });
+    foreach (row in call_out_info())
+        if (row[0] == teacher && row[1] == "checking") result["checking_pending"]++;
+    return result;
+}
+
+mapping finish_promotion_wait(object student, object teacher) {
+    mapping state;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated observer only.\n");
+    state = teaching_state(student, ({}));
+    state["promotion"] = promotion_state(student, teacher);
+    return state;
+}
+
+mapping finish_challenge_wait(object student) {
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated observer only.\n");
+    return teaching_state(student, ({}));
+}
+
+varargs mapping observe_command(
+    object student,
+    object teacher,
+    string command,
+    string *grants,
+    mapping offer,
+    mapping tracked_item,
+    int promotion,
+    string tonsure_name,
+    mapping formation,
+    string profile,
+    mapping item_context
+) {
+    mapping result;
+    object book;
+    object *tracked;
+    string *tracked_names;
+    int i;
+    float started;
+
+    if (base_name(previous_object()) != "/tests/runner")
+        error("Teaching observation requires the isolated runner.\n");
+    if (!objectp(student) || !objectp(teacher) ||
+        !userp(student) || !interactive(student) || !playerp(student) || wizardp(student) ||
+        playerp(teacher) || !living(teacher) || !clonep(teacher) ||
+        environment(student) != environment(teacher))
+        error("Teaching observation requires a real player and original NPC in one room.\n");
+
+    // Prepare the original book blueprint in the isolated copy, including the
+    // registered virtual Lengjia book; never replace accept_object or its flags.
+    if (mapp(offer)) {
+        if (member_array(
+            offer["path"],
+            ({
+                "/clone/lonely/book/zhenjing1",
+                "/clone/lonely/book/zhenjing2",
+                "/d/items/book/lengjia_jing"
+            })
+        ) == -1)
+            error("Unreviewed teaching book.\n");
+        book = load_object(offer["path"]);
+        if (!objectp(book) || clonep(book) || environment(book) || !book->id(offer["id"]) || !book->move(student))
+            error("Original teaching book preparation failed.\n");
+    }
+    result = ([
+        "student": file_name(student),
+        "teacher": file_name(teacher),
+        "teacher_program": base_name(teacher),
+        "command": command,
+        "before": teaching_state(student, grants, profile)
+    ]);
+    if (promotion) result["before"]["promotion"] = promotion_state(student, teacher);
+    if (stringp(tonsure_name)) result["before"]["tonsure"] = tonsure_state(student, tonsure_name);
+    if (mapp(formation)) result["before"]["formation"] = "/tests/formation_observer"->observe(
+        student,
+        teacher,
+        formation
+    );
+    if (strsrch(command, "learn ") == 0 ||
+        member_array(
+            profile,
+            ({
+                "gumu-special",
+                "gumu-acquisition-learning",
+                "gumu-item-acquisition",
+                "gumu-recruit"
+            })
+        ) != -1)
+        result["teacher_skills"] = copy(teacher->query_skills() || ([]));
+    if (!promotion && strsrch(command, "apprentice ") == 0) {
+        result["before"]["recruitment"] = recruitment_state(student, profile);
+        result["teacher_family"] = teacher->query("family") ? ([ "family_name": teacher->query("family/family_name"),
+            "generation": teacher->query("family/generation") ]): ([]);
+        result["wall_time"] = time();
+    }
+    if (objectp(book))
+        result["offered_item"] = ([ "object": file_name(book), "program": base_name(book),
+            "holder_before": file_name(environment(book)), "clone": clonep(book) ]);
+    if (mapp(tracked_item)) result["item_before"] = teaching_item(tracked_item);
+    if (member_array(profile, ({ "gumu-item-acquisition", "gumu-recruit" })) != -1) {
+        if (present(teacher->query("id"), environment(student)) != teacher)
+            error("Original command would select a different teacher.\n");
+        result["resolved_teacher"] = file_name(present(teacher->query("id"), environment(student)));
+    }
+    if (profile == "gumu-item-acquisition") {
+        result["item_before"] = gumu_item_state(item_context);
+        tracked = gumu_item_objects(item_context);
+        tracked_names = map(tracked, (: file_name :));
+    }
+    student->begin_teaching_messages();
+    started = time_ns() / 1000000000.0;
+    result["command_accepted"] = student->force_me(command);
+    result["elapsed"] = time_ns() / 1000000000.0 - started;
+    result["messages"] = student->end_teaching_messages();
+    result["message_scope"] = "receive_message_apply_input_not_full_transcript";
+    result["after"] = teaching_state(student, grants, profile);
+    if (promotion) result["after"]["promotion"] = promotion_state(student, teacher);
+    if (stringp(tonsure_name)) result["after"]["tonsure"] = tonsure_state(student, tonsure_name);
+    if (mapp(formation)) result["after"]["formation"] = "/tests/formation_observer"->observe(
+        student,
+        teacher,
+        formation
+    );
+    if (!promotion && strsrch(command, "apprentice ") == 0) {
+        result["after"]["recruitment"] = recruitment_state(student, profile);
+        result["teacher_pending_recruit"] = objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
+    }
+    if (mapp(tracked_item)) result["item_after"] = teaching_item(tracked_item);
+    if (profile == "gumu-item-acquisition") {
+        result["item_after"] = gumu_item_state(item_context);
+        result["destroyed_items"] = ({});
+        for (i = 0; i < sizeof(tracked); i++)
+            if (!objectp(tracked[i]))
+                result["destroyed_items"] += ({ ([ "object": tracked_names[i], "exists": 0 ]) });
+    }
+    if (mapp(offer)) {
+        result["offered_item"]["exists_after"] = objectp(book);
+        result["offered_item"]["holder_after"] = objectp(book) && environment(book) ? file_name(environment(book)) : "";
+    }
+    return result;
+}

@@ -1,0 +1,13 @@
+#include <armor.h>
+inherit CLOTH;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武衣", ({ "yanwu yi" }));
+    set_weight(1000);
+    set("unit", "件");
+    set("material", "cloth");
+    set("value", 100);
+    set("armor_prop/armor", 100);
+    setup();
+}

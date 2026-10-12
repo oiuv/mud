@@ -1,0 +1,25 @@
+// Observe ordinary commands; never call array cleanup or correct its state.
+mapping team_state(object ob) {
+    mapping result;
+    object *members;
+    object member;
+    result = "/tests/runner"->snapshot(ob);
+    result["environment"] = file_name(environment(ob));
+    members = ob->query_team() || ({});
+    result["team"] = ({});
+    foreach (member in members) result["team"] += ({ file_name(member) });
+    return result;
+}
+
+mapping observe_command(object *players, mapping step) {
+    mapping result;
+    object skill;
+    skill = load_object("/kungfu/skill/fanliangyi-dao");
+    result = ([ "side": step["side"], "action": step["action"],
+        "form_array_owner": function_exists("form_array", skill),
+        "dismiss_array_owner": function_exists("dismiss_array", skill),
+        "before": ({ team_state(players[0]), team_state(players[1]) }) ]);
+    result["accepted"] = players[step["side"]]->force_me(step["action"]);
+    result["after"] = ({ team_state(players[0]), team_state(players[1]) });
+    return result;
+}

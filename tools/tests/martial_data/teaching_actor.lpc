@@ -1,0 +1,42 @@
+// Teaching observation uses the same connected player and resource counters.
+inherit "/tests/actor";
+
+private int recording_teaching;
+private mapping *teaching_messages = ({});
+
+void begin_teaching_messages() {
+    teaching_messages = ({});
+    recording_teaching = 1;
+}
+
+mapping *end_teaching_messages() {
+    recording_teaching = 0;
+    return copy(teaching_messages);
+}
+
+void receive_message(string category, string text) {
+    // Observe the original apply input, then preserve normal player delivery.
+    // Direct write()/tell_object() may bypass this apply: not a full transcript.
+    if (recording_teaching)
+        teaching_messages += ({ ([ "category": category, "text": text ]) });
+    ::receive_message(category, text);
+}
+
+// Observe around original behavior, including nested revive during death.
+void unconcious() {
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "unconscious", "before");
+    ::unconcious();
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "unconscious", "after");
+}
+
+varargs void die(object killer) {
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "death", "before");
+    ::die(killer);
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "death", "after");
+}
+
+varargs void revive(int quiet) {
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "revive", "before");
+    ::revive(quiet);
+    "/tests/runner"->observe_scene_lifecycle(this_object(), "revive", "after");
+}

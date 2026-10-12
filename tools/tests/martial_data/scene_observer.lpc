@@ -1,0 +1,107 @@
+// Disposable scene setup only. All entrance/exit behavior uses the original go.
+private object displaced_guardian;
+private string displaced_id;
+
+private void require_runner() {
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated observer only.\n");
+}
+
+void reset_sample() {
+    object room, ob, item;
+    string path;
+    require_runner();
+    if (objectp(displaced_guardian)) {
+        foreach (item in deep_inventory(displaced_guardian)) destruct(item);
+        destruct(displaced_guardian);
+    }
+    displaced_guardian = 0;
+    displaced_id = 0;
+    foreach (path in ({ "/d/shaolin/fumoquan", "/d/shaolin/qyping" })) {
+        room = find_object(path);
+        if (!objectp(room)) continue;
+        foreach (ob in all_inventory(room)) {
+            if (userp(ob)) error("Refuse to reset occupied scene.\n");
+            foreach (item in deep_inventory(ob)) destruct(item);
+            destruct(ob);
+        }
+        destruct(room);
+    }
+    load_object("/d/shaolin/qyping");
+    load_object("/d/shaolin/fumoquan");
+}
+
+mapping prepare_guardian(mapping config) {
+    object monk;
+    mapping result;
+    require_runner();
+    if (member_array(config["id"], ({ "du nan", "du e", "du jie" })) == -1)
+        error("Unreviewed guardian.\n");
+    monk = present(config["id"], load_object("/d/shaolin/fumoquan"));
+    if (!objectp(monk) || userp(monk)) error("Expected original NPC.\n");
+    result = ([ "id": config["id"], "mode": config["mode"], "object": file_name(monk),
+        "before": "/tests/runner"->snapshot(monk), "before_room": base_name(environment(monk)) ]);
+    if (config["mode"] == "missing") {
+        // Explicit temporary-world setup, not a claim that a player moved the NPC.
+        if (!monk->move(previous_object())) error("Cannot arrange absent guardian.\n");
+        displaced_guardian = monk;
+        displaced_id = config["id"];
+    } else if (config["mode"] == "unconscious") monk->unconcious();
+    else error("Unreviewed guardian state.\n");
+    result["after"] = "/tests/runner"->snapshot(monk);
+    result["after_room"] = base_name(environment(monk));
+    return result;
+}
+
+mapping observe(object player) {
+    mapping result;
+    object room, monk;
+    string id;
+    require_runner();
+    room = load_object("/d/shaolin/fumoquan");
+    result = ([ "room": base_name(environment(player)),
+        "family": copy(player->query("family") || ([])),
+        "permit": player->query_temp("valid_in_fumoquan"), "ultra": ultrap(player),
+        "player": "/tests/runner"->snapshot(player), "monks": ({}) ]);
+    foreach (id in ({ "du nan", "du e", "du jie" })) {
+        monk = present(id, room);
+        if (!objectp(monk)) {
+            if (id != displaced_id || !objectp(displaced_guardian)) error("Missing original guardian.\n");
+            result["monks"] += ({ ([ "id": id, "missing": 1 ]) });
+            continue;
+        }
+        result["monks"] += ({ ([ "program": base_name(monk), "object": file_name(monk),
+            "room": base_name(environment(monk)), "state": "/tests/runner"->snapshot(monk) ]) });
+    }
+    return result;
+}
+
+varargs mapping observe_gifts(object player, object other) {
+    mapping result, gift;
+    object item, owner;
+    string path;
+    require_runner();
+    result = observe(player);
+    if (objectp(other))
+        result["other"] = ([ "room": base_name(environment(other)),
+            "permit": other->query_temp("valid_in_fumoquan"), "player": "/tests/runner"->snapshot(other) ]);
+    result["gifts"] = ({});
+    foreach (path in ({
+        "/clone/lonely/caojie",
+        "/clone/lonely/jiuhuan",
+        "/clone/lonely/jinlan"
+    })) {
+        // Observation must not load or recreate a returned/destroyed blueprint.
+        item = find_object(path);
+        gift = ([ "path": path, "exists": objectp(item) ]);
+        if (objectp(item)) {
+            owner = environment(item);
+            while (objectp(owner) && !owner->is_character() && environment(owner))
+                owner = environment(owner);
+            gift += ([ "object": file_name(item), "clone": clonep(item), "name": item->query("name"),
+                "environment": objectp(environment(item)) ? file_name(environment(item)) : "",
+                "owner": objectp(owner) ? file_name(owner) : "", "equipped": item->query("equipped") ]);
+        }
+        result["gifts"] += ({ gift });
+    }
+    return result;
+}

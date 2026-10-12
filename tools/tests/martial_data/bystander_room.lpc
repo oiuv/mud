@@ -1,0 +1,7 @@
+inherit ROOM;
+
+void create() {
+    set("short", "演武场外");
+    set("long", "石墙隔开了演武场，场外自有一处安静的空地。\n");
+    set("no_clean_up", 1);
+}

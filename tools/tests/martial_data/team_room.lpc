@@ -1,0 +1,8 @@
+inherit ROOM;
+
+void create() {
+    set("short", "演武场东侧");
+    set("long", "石径通向西面的演武场。\n");
+    set("no_clean_up", 1);
+    set("exits", ([ "west": "/tests/runner" ]));
+}

@@ -1,0 +1,60 @@
+// Isolated setup and observations only; no calls into the formation state machine.
+private void require_runner() {
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated observer only.\n");
+}
+
+void reset_sample() {
+    object room, ob, item;
+    require_runner();
+    room = find_object("/d/shaolin/houdian");
+    if (!objectp(room)) return;
+    foreach (ob in all_inventory(room)) {
+        if (userp(ob)) error("Refuse to reset occupied rear hall.\n");
+        foreach (item in deep_inventory(ob)) destruct(item);
+        destruct(ob);
+    }
+    destruct(room);
+}
+
+object teacher(string name) {
+    object room, ob;
+    require_runner();
+    if (member_array(name, ({ "xuan-ku", "xuan-nan" })) == -1) error("Unknown host.\n");
+    room = load_object(name == "xuan-ku" ? "/d/shaolin/luohan5" : "/d/shaolin/banruo5");
+    foreach (ob in all_inventory(room))
+        if (base_name(ob) == "/kungfu/class/shaolin/" + name) return ob;
+    error("Original room did not supply formation host.\n");
+    return 0;
+}
+
+mapping walk(object student, string direction) {
+    mapping result;
+    require_runner();
+    if (member_array(direction, ({ "east", "west" })) == -1) error("Unreviewed route.\n");
+    result = ([ "command": "go " + direction, "before": base_name(environment(student)) ]);
+    result["accepted"] = student->force_me("go " + direction);
+    result["after"] = base_name(environment(student));
+    return result;
+}
+
+mapping observe(object student, object *teachers, mapping rosters) {
+    mapping result;
+    object room;
+    string name;
+    int i;
+    require_runner();
+    room = find_object("/d/shaolin/wuchang");
+    result = ([ "hosts": ([]), "exits": objectp(room) ? copy(room->query("exits") || ([])) : ([]),
+        "qi": student->query("qi"), "combat_exp": student->query("combat_exp"),
+        "living": living(student), "ghost": student->is_ghost(),
+        "find_player_same": find_player(student->query("id")) == student ]);
+    for (i = 0; i < sizeof(teachers); i++) {
+        name = base_name(teachers[i]) == "/kungfu/class/shaolin/xuan-ku" ? "xuan-ku" : "xuan-nan";
+        result["hosts"][name] = "/tests/formation_observer"->observe(student, teachers[i],
+            ([
+                "flag": name == "xuan-ku" ? "xuanku-asked" : "xuannan-asked",
+                "roster": rosters[name]
+            ]));
+    }
+    return result;
+}

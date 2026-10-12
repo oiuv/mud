@@ -1,0 +1,426 @@
+// Original objects in the isolated copy only. No replacement NPC or forced random.
+private object gumu_npc, gumu_companion, gumu_target;
+private object *gumu_owned = ({});
+private mapping gumu_result;
+private mapping gumu_bout_owned;
+private string *gumu_bout_items = ({});
+private string *gumu_bout_corpses = ({});
+
+mapping state(object ob) {
+    mapping result, properties, item_state;
+    object item, weapon;
+    string key;
+    mixed callback;
+    mixed *inventory, *callbacks;
+    properties = ([]);
+    foreach (key in ({ "str", "int", "con", "dex", "qi", "eff_qi", "max_qi",
+        "jing", "eff_jing", "max_jing", "neili", "max_neili", "jiali", "combat_exp",
+        "gender", "family", "chat_chance_combat" })) properties[key] = ob->query(key);
+    inventory = ({});
+    foreach (item in all_inventory(ob)) {
+        item_state = ([ "program": base_name(item), "name": item->query("name"),
+            "skill_type": item->query("skill_type"), "equipped": item->query("equipped"),
+            "weapon_prop": copy(item->query("weapon_prop") || ([])),
+            "armor_prop": copy(item->query("armor_prop") || ([])) ]);
+        inventory += ({ item_state });
+    }
+    callbacks = ({});
+    foreach (callback in ob->query("chat_msg_combat") || ({}))
+        callbacks += ({ sprintf("%O", callback) });
+    weapon = ob->query_temp("weapon");
+    result = ([ "program": base_name(ob), "name": ob->name(), "clone": clonep(ob),
+        "userp": userp(ob), "playerp": playerp(ob), "living": living(ob),
+        "properties": properties, "skills": copy(ob->query_skills() || ([])),
+        "mappings": copy(ob->query_skill_map() || ([])),
+        "preparations": copy(ob->query_skill_prepare() || ([])),
+        "inventory": inventory, "weapon": weapon ? weapon->query("skill_type") : "none",
+        "combat_callbacks": callbacks, "busy": ob->query_busy(),
+        "temp": "/tests/runner"->serializable(ob->query_entire_temp_dbase()),
+        "effective_str": ob->query_str(), "effective_dex": ob->query_dex() ]);
+    return result;
+}
+
+mapping observe(mapping config, object target) {
+    object npc, item;
+    mapping result;
+    mixed *callbacks;
+    int index;
+    if (strsrch(config["path"], "/kungfu/class/emei/") != 0 ||
+        !interactive(target) || !userp(target) || wizardp(target))
+        error("Original NPC observation requires reviewed source and connected player.\n");
+    npc = new(config["path"]);
+    if (!npc->move(environment(target))) error("Original NPC move failed.\n");
+    result = ([ "before": state(npc), "called": 0 ]);
+    index = config["callback_index"];
+    if (index >= 0) {
+        callbacks = npc->query("chat_msg_combat");
+        if (config["path"] != "/kungfu/class/emei/zhou" || index >= 8 ||
+            !arrayp(callbacks) || sizeof(callbacks) != 8 || !functionp(callbacks[index]))
+            error("Unreviewed original NPC callback.\n");
+        npc->kill_ob(target);
+        target->kill_ob(npc);
+        result["called"] = 1;
+        result["callback_index"] = index;
+        result["result"] = evaluate(callbacks[index]);
+        target->remove_enemy(npc);
+        target->remove_killer(npc);
+        npc->remove_enemy(target);
+        npc->remove_killer(target);
+    }
+    result["after"] = state(npc);
+    foreach (item in all_inventory(npc)) destruct(item);
+    destruct(npc);
+    result["destroyed"] = !objectp(npc);
+    return result;
+}
+
+// Narrow original-Gumu observation. The Emei snapshot/entry above is unchanged.
+string *gumu_loaded_skills() {
+    string skill;
+    string *result;
+    result = ({});
+    foreach (skill in ({ "suxin-jian", "quanzhen-jian", "yinsuo-jinling",
+        "sanwu-shou", "wudu-shenzhang", "sad-strike" }))
+        if (objectp(find_object("/kungfu/skill/" + skill))) result += ({ "/kungfu/skill/" + skill });
+    return result;
+}
+
+mixed *gumu_callbacks(object *owners) {
+    mixed row;
+    mixed *result;
+    result = ({});
+    foreach (row in call_out_info())
+        if (objectp(row[0]) && member_array(row[0], owners) != -1)
+            result += ({ ([ "owner": file_name(row[0]),
+                "function": "/tests/runner"->serializable(row[1]), "remaining": row[2]]) });
+    return result;
+}
+
+mapping gumu_state(object ob) {
+    mapping result, item_state;
+    object item, weapon;
+    mixed fun;
+    string key;
+    result = state(ob);
+    result["object"] = file_name(ob);
+    result["interactive"] = interactive(ob);
+    result["wizardp"] = wizardp(ob);
+    result["learned"] = copy(ob->query_learned() || ([]));
+    foreach (key in ({ "id", "potential", "couple/id", "static/marry" }))
+        result["properties"][key] = ob->query(key);
+    result["inventory"] = ({});
+    foreach (item in all_inventory(ob)) {
+        item_state = ([ "object": file_name(item), "program": base_name(item),
+            "name": item->query("name"), "clone": clonep(item),
+            "environment": file_name(environment(item)),
+            "skill_type": item->query("skill_type"), "equipped": item->query("equipped"),
+            "consistence": item->query("consistence"),
+            "weapon_prop": copy(item->query("weapon_prop") || ([])),
+            "armor_prop": copy(item->query("armor_prop") || ([])) ]);
+        result["inventory"] += ({ item_state });
+    }
+    weapon = ob->query_temp("weapon");
+    result["weapon_object"] = objectp(weapon) ? file_name(weapon) : "";
+    weapon = ob->query_temp("secondary_weapon");
+    result["secondary_weapon_object"] = objectp(weapon) ? file_name(weapon) : "";
+    result["combat_callback_owners"] = ({});
+    foreach (fun in ob->query("chat_msg_combat") || ({}))
+        result["combat_callback_owners"] += ({ functionp(fun) ?
+            "/tests/runner"->serializable(function_owner(fun)) : "" });
+    result["callouts"] = gumu_callbacks(({ ob }));
+    return result;
+}
+
+mapping clear_gumu() {
+    object ob, item;
+    object *remaining;
+    mapping cleanup;
+    string name;
+    int index;
+    if (base_name(previous_object()) != "/tests/runner" && previous_object() != this_object())
+        error("Scoped original Gumu cleanup only.\n");
+    if (!objectp(gumu_npc) && !objectp(gumu_companion) && !sizeof(gumu_owned)) return gumu_result;
+    cleanup = ([ "enemies_removed": 1, "objects": ({}), "remaining_callbacks": ({}) ]);
+    foreach (ob in ({ gumu_npc, gumu_companion })) {
+        if (!objectp(ob)) continue;
+        evaluate(bind((: set_heart_beat, 0 :), ob));
+        if (objectp(gumu_target)) {
+            gumu_target->remove_enemy(ob);
+            gumu_target->remove_killer(ob);
+            ob->remove_enemy(gumu_target);
+            ob->remove_killer(gumu_target);
+            if (gumu_target->is_fighting(ob) || ob->is_fighting(gumu_target))
+                cleanup["enemies_removed"] = 0;
+        }
+        foreach (item in deep_inventory(ob))
+            if (member_array(item, gumu_owned) == -1) gumu_owned += ({ item });
+    }
+    // The exact references include the original singleton only after the original
+    // constructor moved it into one of this sample's two NPCs. Never seize it.
+    remaining = copy(gumu_owned);
+    for (index = sizeof(gumu_owned) - 1; index >= 0; index--) {
+        ob = gumu_owned[index];
+        if (!objectp(ob)) continue;
+        name = file_name(ob);
+        destruct(ob);
+        cleanup["objects"] += ({ ([ "object": name, "destroyed": !objectp(ob) ]) });
+    }
+    cleanup["remaining_callbacks"] = gumu_callbacks(remaining);
+    if (mapp(gumu_result)) {
+        gumu_result["cleanup"] = cleanup;
+        gumu_result["destroyed"] = !objectp(gumu_npc) && !objectp(gumu_companion);
+    }
+    gumu_npc = 0;
+    gumu_companion = 0;
+    gumu_target = 0;
+    gumu_owned = ({});
+    return gumu_result;
+}
+
+void observe_gumu_step(object me, string argument, string phase, int accepted, mixed reason) {
+    mapping step;
+    if (base_name(previous_object()) != "/tests/runner" || me != gumu_npc || !mapp(gumu_result))
+        error("Scoped original NPC dual command observation.\n");
+    if (phase == "before") {
+        gumu_result["steps"] += ({ ([ "argument": argument, "actor_object": file_name(me),
+            "target_object": file_name(gumu_target), "before": gumu_state(me) ]) });
+        return;
+    }
+    if (phase != "after" || !sizeof(gumu_result["steps"])) error("Unmatched NPC dual command.\n");
+    step = gumu_result["steps"][<1];
+    if (step["argument"] != argument || !undefinedp(step["after"])) error("Duplicate NPC dual command.\n");
+    step["accepted"] = accepted;
+    step["reason"] = accepted || !stringp(reason) ? "" : reason;
+    step["after"] = gumu_state(me);
+}
+
+// Shared original construction. No combat closure or heartbeat is run here.
+mapping prepare_gumu(mapping config, object target) {
+    object silver, blueprint;
+    object *autonomous;
+    mixed absent;
+    mapping prep, silver_state;
+    if (base_name(previous_object()) != "/tests/runner" ||
+        member_array(config["path"], ({ "/kungfu/class/gumu/li", "/kungfu/class/gumu/lin",
+            "/kungfu/class/gumu/longnv", "/kungfu/class/gumu/yang" })) == -1 ||
+        this_player() != target || !interactive(target) || !userp(target) || !playerp(target) || wizardp(target))
+        error("Original Gumu NPC requires reviewed source and real player context.\n");
+    if (objectp(gumu_npc) || objectp(gumu_companion) || sizeof(gumu_owned))
+        error("Prior original NPC observation not cleaned.\n");
+    gumu_target = target;
+    // The host JSON decoder maps null to LPC zero. called/index and NPC/silver
+    // context distinguish these explicit absent observations from real results.
+    absent = json_decode("null");
+    prep = ([ "entry_player": file_name(this_player()), "initializer_actor": "not_observed",
+        "loaded_before": gumu_loaded_skills(), "created_npcs": ({}) ]);
+    gumu_result = ([ "preparation": prep, "steps": ({}), "silver": absent,
+        "room": file_name(environment(target)), "target_object": file_name(target),
+        "called": 0, "callback_index": config["callback_index"], "callback_owner": "",
+        "callback_repr": "", "result": absent ]);
+    if (config["path"] == "/kungfu/class/gumu/longnv") {
+        silver = find_object("/clone/lonely/yinsuo");
+        if (objectp(silver) && environment(silver)) error("Do not take externally occupied silver.\n");
+        if (config["silver_state"] == "occupied") {
+            gumu_companion = new(config["path"]);
+            gumu_owned += ({ gumu_companion }) + deep_inventory(gumu_companion);
+            prep["created_npcs"] += ({ file_name(gumu_companion) });
+            if (!gumu_companion->move("/tests/team_room")) error("Original companion move failed.\n");
+            evaluate(bind((: set_heart_beat, 0 :), gumu_companion));
+            silver = find_object("/clone/lonely/yinsuo");
+            if (!objectp(silver) || environment(silver) != gumu_companion)
+                error("Original companion did not obtain the original singleton.\n");
+        } else if (config["silver_state"] != "free") error("Unreviewed silver state.\n");
+        silver_state = ([ "object": "/clone/lonely/yinsuo", "clone": 0,
+            "state": config["silver_state"], "initial_environment": objectp(silver) && environment(silver) ?
+            file_name(environment(silver)) : "", "companion_before": objectp(gumu_companion) ?
+            gumu_state(gumu_companion) : absent, "companion_after": absent,
+            "companion_room": objectp(gumu_companion) ? file_name(environment(gumu_companion)) : "" ]);
+        gumu_result["silver"] = silver_state;
+    }
+    gumu_npc = new(config["path"]);
+    gumu_owned += ({ gumu_npc }) + deep_inventory(gumu_npc);
+    prep["created_npcs"] += ({ file_name(gumu_npc) });
+    "/tests/runner"->set_gumu_npc_observation(gumu_npc);
+    if (!gumu_npc->move(environment(target))) error("Original Gumu NPC move failed.\n");
+    prep["npc_heartbeat_before"] = query_heart_beat(gumu_npc);
+    evaluate(bind((: set_heart_beat, 0 :), gumu_npc));
+    prep["npc_heartbeat_paused"] = query_heart_beat(gumu_npc);
+    blueprint = find_object(config["path"]);
+    prep["blueprint_heartbeat"] = query_heart_beat(blueprint);
+    autonomous = ({ gumu_npc, blueprint }) + deep_inventory(gumu_npc) + deep_inventory(blueprint);
+    if (objectp(gumu_companion)) autonomous += ({ gumu_companion }) + deep_inventory(gumu_companion);
+    prep["constructor_callbacks"] = gumu_callbacks(autonomous);
+    prep["returned_player"] = "/tests/runner"->serializable(this_player());
+    prep["loaded_after"] = gumu_loaded_skills();
+    if (prep["npc_heartbeat_paused"] || prep["blueprint_heartbeat"] ||
+        sizeof(prep["constructor_callbacks"])) error("Original NPC autonomous preparation is not immediate.\n");
+    gumu_result["before"] = gumu_state(gumu_npc);
+    if (mapp(silver_state)) {
+        silver = find_object("/clone/lonely/yinsuo");
+        if (!objectp(silver) || clonep(silver) ||
+            environment(silver) != (objectp(gumu_companion) ? gumu_companion : gumu_npc))
+            error("Original silver/fallback ownership differs.\n");
+        silver_state["clone"] = clonep(silver);
+        silver_state["before_environment"] = file_name(environment(silver));
+    }
+    return gumu_result;
+}
+
+mapping capture_gumu(int index) {
+    object silver;
+    mapping silver_state;
+    mixed absent;
+    absent = json_decode("null");
+    gumu_result["after"] = objectp(gumu_npc) ? gumu_state(gumu_npc) : absent;
+    gumu_result["execution"] = ([ "target_active_after": objectp(gumu_target) &&
+        objectp(gumu_npc) && living(gumu_target) &&
+        environment(gumu_target) == environment(gumu_npc) && gumu_target->query("qi") >= 0 &&
+        gumu_target->query("jing") >= 0 && (index < 0 || gumu_npc->is_fighting(gumu_target)) ]);
+    silver_state = gumu_result["silver"];
+    if (mapp(silver_state)) {
+        silver = find_object("/clone/lonely/yinsuo");
+        silver_state["after_environment"] = objectp(silver) && environment(silver) ? file_name(environment(silver)) : "";
+        silver_state["companion_after"] = objectp(gumu_companion) ? gumu_state(gumu_companion) : absent;
+    }
+    return gumu_result;
+}
+
+mapping observe_gumu(mapping config, object target) {
+    mixed *callbacks;
+    int index;
+    prepare_gumu(config, target);
+    index = config["callback_index"];
+    if (index >= 0) {
+        callbacks = gumu_npc->query("chat_msg_combat");
+        if (!arrayp(callbacks) || index >= sizeof(callbacks) || !functionp(callbacks[index]) ||
+            function_owner(callbacks[index]) != gumu_npc) error("Unreviewed original Gumu callback.\n");
+        gumu_npc->kill_ob(target);
+        target->kill_ob(gumu_npc);
+        gumu_result["called"] = 1;
+        gumu_result["callback_owner"] = file_name(function_owner(callbacks[index]));
+        gumu_result["callback_repr"] = sprintf("%O", callbacks[index]);
+        gumu_result["result"] = evaluate(callbacks[index]);
+    }
+    capture_gumu(index);
+    clear_gumu();
+    return gumu_result;
+}
+
+// The following staged API is for the separate natural-NPC bout only. It is not
+// registered in the collector yet; existing immediate observations keep their shape.
+mapping gumu_bout_state(object ob) {
+    mapping result;
+    if (!objectp(ob)) return 0;
+    result = gumu_state(ob);
+    result["ghost"] = ob->is_ghost();
+    result["conditions"] = "/tests/runner"->serializable(ob->query_condition());
+    return result;
+}
+
+mapping prepare_gumu_bout(mapping config, object target) {
+    object ob;
+    mixed failure;
+    string name;
+    int index;
+    if (base_name(previous_object()) != "/tests/runner" || config["callback_index"] != -1)
+        error("Natural NPC bout preparation cannot select a closure.\n");
+    if (objectp(gumu_npc) || objectp(gumu_companion) || sizeof(gumu_owned))
+        error("Prior original NPC observation not cleaned.\n");
+    failure = catch { prepare_gumu(config, target); };
+    if (failure) {
+        // Preparation has not enabled autonomous combat. Reuse the immediate
+        // cleanup for any references already created before a setup/move error.
+        clear_gumu();
+        error(stringp(failure) ? failure : sprintf("%O", failure));
+    }
+    gumu_bout_owned = ([]);
+    gumu_bout_items = ({});
+    gumu_bout_corpses = ({});
+    // Preserve exact names before destruction invalidates object references.
+    foreach (ob in gumu_owned) gumu_bout_owned[file_name(ob)] = ob;
+    for (index = sizeof(gumu_owned) - 1; index >= 0; index--) {
+        name = file_name(gumu_owned[index]);
+        if (member_array(name, gumu_result["preparation"]["created_npcs"]) == -1)
+            gumu_bout_items += ({ name });
+    }
+    gumu_result["before"] = gumu_bout_state(gumu_npc);
+    if (mapp(gumu_result["silver"])) {
+        gumu_result["silver"]["companion_before"] = gumu_bout_state(gumu_companion);
+        gumu_result["silver"]["companion_heartbeat"] = objectp(gumu_companion) ? query_heart_beat(gumu_companion) : 0;
+    }
+    return gumu_result;
+}
+
+object query_gumu_bout_actor() {
+    if (base_name(previous_object()) != "/tests/runner" || !mapp(gumu_bout_owned))
+        error("Scoped natural NPC bout actor only.\n");
+    return gumu_npc;
+}
+
+// The runner supplies only the actual make_corpse return observed at CHARD.
+// This does not search the room or take ownership of arbitrary dropped objects.
+void own_gumu_bout_corpse(object corpse) {
+    if (base_name(previous_object()) != "/tests/runner" || !mapp(gumu_bout_owned) ||
+        !objectp(corpse) || !clonep(corpse) || base_name(corpse) != "/clone/misc/corpse")
+        error("Exact original corpse return only.\n");
+    gumu_bout_owned[file_name(corpse)] = corpse;
+    if (member_array(file_name(corpse), gumu_bout_corpses) == -1)
+        gumu_bout_corpses += ({ file_name(corpse) });
+}
+
+mapping capture_gumu_bout() {
+    if (base_name(previous_object()) != "/tests/runner" || !mapp(gumu_bout_owned))
+        error("Scoped natural NPC bout capture only.\n");
+    capture_gumu(-1);
+    gumu_result["after"] = gumu_bout_state(gumu_npc);
+    if (mapp(gumu_result["silver"]))
+        gumu_result["silver"]["companion_after"] = gumu_bout_state(gumu_companion);
+    return gumu_result;
+}
+
+mapping clear_gumu_bout() {
+    mapping cleanup, existence;
+    object ob;
+    object *owners;
+    string name;
+    int existed;
+    if (base_name(previous_object()) != "/tests/runner")
+        error("Scoped natural NPC bout cleanup only.\n");
+    if (!mapp(gumu_bout_owned)) return gumu_result;
+    cleanup = ([ "enemies_removed": 1, "objects": ({}), "remaining_callbacks": ({}) ]);
+    foreach (ob in ({ gumu_npc, gumu_companion })) {
+        if (!objectp(ob)) continue;
+        evaluate(bind((: set_heart_beat, 0 :), ob));
+        if (objectp(gumu_target)) {
+            gumu_target->remove_enemy(ob);
+            gumu_target->remove_killer(ob);
+            ob->remove_enemy(gumu_target);
+            ob->remove_killer(gumu_target);
+            if (gumu_target->is_fighting(ob) || ob->is_fighting(gumu_target)) cleanup["enemies_removed"] = 0;
+        }
+    }
+    owners = values(gumu_bout_owned);
+    existence = ([]);
+    foreach (name in keys(gumu_bout_owned)) existence[name] = objectp(gumu_bout_owned[name]);
+    // As with immediate cleanup, remove original inventory leaves first. Then
+    // remove returned corpses and finally original NPCs, never arbitrary room items.
+    foreach (name in gumu_bout_items + gumu_bout_corpses +
+        gumu_result["preparation"]["created_npcs"]) {
+        ob = gumu_bout_owned[name];
+        existed = existence[name];
+        if (objectp(ob)) destruct(ob);
+        cleanup["objects"] += ({ ([ "object": name, "existed_before_cleanup": existed,
+            "destroyed": !objectp(ob) ]) });
+    }
+    cleanup["remaining_callbacks"] = gumu_callbacks(owners);
+    gumu_result["cleanup"] = cleanup;
+    gumu_result["destroyed"] = !objectp(gumu_npc) && !objectp(gumu_companion);
+    gumu_npc = 0;
+    gumu_companion = 0;
+    gumu_target = 0;
+    gumu_owned = ({});
+    gumu_bout_owned = 0;
+    gumu_bout_items = ({});
+    gumu_bout_corpses = ({});
+    return gumu_result;
+}

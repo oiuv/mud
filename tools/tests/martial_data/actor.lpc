@@ -1,0 +1,33 @@
+// Keep the established real USER actor; observe its original bound callbacks.
+inherit "/tests/base_actor";
+
+void receive_message(string type, string text) {
+    "/tests/runner"->observe_lookup_message(this_object(), type, text);
+    ::receive_message(type, text);
+}
+
+// Efun-only persistence in a fresh test object; never call live account save/restore.
+int observation_save_state() { return save_object("/data/buff_snapshot"); }
+int observation_restore_state() { return restore_object("/data/buff_snapshot"); }
+
+int attack() {
+    int before, result;
+    before = query_temp("combat_time");
+    result = ::attack();
+    "/tests/runner"->observe_attack_round(this_object(), before, result);
+    return result;
+}
+
+void continue_action() {
+    "/tests/runner"->observe_exercise(this_object(), "before");
+    "/tests/runner"->observe_healing(this_object(), "before");
+    ::continue_action();
+    "/tests/runner"->observe_healing(this_object(), "after");
+    "/tests/runner"->observe_exercise(this_object(), "after");
+}
+
+protected void eval_function(function fun) {
+    "/tests/runner"->observe_callback(this_object(), "before");
+    ::eval_function(fun);
+    "/tests/runner"->observe_callback(this_object(), "after");
+}

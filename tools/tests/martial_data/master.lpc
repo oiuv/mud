@@ -1,0 +1,26 @@
+// Reuse the existing isolated host's UID, virtual object and network policies.
+inherit "/tests/base_master";
+
+void error_handler(mapping details, int caught) {
+    object runner;
+    mapping frame;
+    if (caught && (runner = find_object("/tests/runner")))
+        runner->observe_caught_error(details);
+    if (!caught) {
+        debug_message("DATA FAIL: " + details["error"]);
+        // Keep the call path; dumping multi-megabyte arguments can itself fail.
+        foreach (frame in details["trace"] || ({})) {
+            debug_message(sprintf("TEST TRACE: %s:%d %s", frame["file"], frame["line"],
+                frame["function"]));
+        }
+        runner = find_object("/tests/runner");
+        if (runner && runner->record_failure(details)) return;
+        shutdown(1);
+    }
+}
+
+string *epilog(int flag) {
+    load_object("/tests/runner");
+    debug_message("DATA WAITING");
+    return ({});
+}

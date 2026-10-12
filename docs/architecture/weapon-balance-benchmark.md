@@ -2,6 +2,7 @@
 
 本工具用于比较机制，不修改正式数值，不是十二类兵器排行榜，也不替代功能回归。
 当前实现和验收进度见 [任务清单](../../openspec/changes/add-weapon-balance-baseline/tasks.md)。
+2026-10-08 两批完整固定条件采样已完成，见[结果报告](../reviews/2026-10-08-weapon-baseline-results.md)；十二类与全武学资料仍单独推进。
 
 ## 运行
 

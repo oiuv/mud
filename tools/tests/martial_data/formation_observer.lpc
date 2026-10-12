@@ -1,0 +1,65 @@
+// Only inspect the original summons and timers in the isolated MUDLIB.
+private void require_runner() {
+    if (member_array(base_name(previous_object()),
+        ({ "/tests/runner", "/tests/teaching_observer", "/tests/challenge_observer" })) == -1)
+        error("Isolated formation observer only.\n");
+}
+
+private string *rooms() {
+    string *result;
+    int i;
+    result = ({ "/d/shaolin/wuchang", "/d/shaolin/wuchang1", "/d/shaolin/wuchang2" });
+    for (i = 1; i <= 9; i++) result += ({ "/d/shaolin/luohan" + i, "/d/shaolin/banruo" + i });
+    return result;
+}
+
+// Between independent samples, discard only these isolated rooms and contents.
+// No callback is invoked manually and no game file or save is changed.
+void reset_sample() {
+    object room, ob, item;
+    string path;
+    require_runner();
+    foreach (path in rooms()) {
+        room = find_object(path);
+        if (!objectp(room)) continue;
+        foreach (ob in all_inventory(room)) {
+            if (userp(ob)) error("Refuse to reset occupied formation room.\n");
+            foreach (item in deep_inventory(ob)) destruct(item);
+            destruct(ob);
+        }
+        destruct(room);
+    }
+}
+
+mapping observe(object student, object teacher, mapping config) {
+    mapping result, found, timers;
+    mixed row;
+    object room, ob;
+    string path, program;
+    require_runner();
+    found = ([]);
+    timers = ([ "waiting": 0, "preparing": 0, "fighting": 0, "do_back": 0, "do_recruit": 0 ]);
+    foreach (path in rooms()) {
+        room = find_object(path);
+        if (!objectp(room)) continue;
+        foreach (ob in all_inventory(room)) {
+            program = base_name(ob);
+            if (member_array(program, config["roster"]) == -1) continue;
+            if (!arrayp(found[program])) found[program] = ({});
+            found[program] += ({ ([ "object": file_name(ob), "program": program,
+                "room": base_name(room), "clone": clonep(ob), "living": living(ob) ]) });
+        }
+    }
+    foreach (row in call_out_info())
+        if (row[0] == teacher && !undefinedp(timers[row[1]])) timers[row[1]]++;
+    result = ([ "assigned": teacher->query("assigned_fighter") || "",
+        "student_id": student->query("id"), "student_room": base_name(environment(student)),
+        "teacher_room": base_name(environment(teacher)), "timers": timers, "roster": found,
+        "requested": student->query_temp(config["flag"]) || 0,
+        "other_requested": student->query_temp(config["flag"] == "xuanku-asked" ? "xuannan-asked" : "xuanku-asked") || 0,
+        "fighting": student->query_temp("fighting") || 0,
+        "beat_count": student->query_temp("beat_count") || 0,
+        "winner": student->query("luohan_winner") || 0,
+        "family": copy(student->query("family") || ([])), "guilty": student->query("guilty") || 0 ]);
+    return result;
+}

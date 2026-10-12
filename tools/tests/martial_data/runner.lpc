@@ -1,0 +1,3441 @@
+#include <combat.h>
+inherit ROOM;
+
+private object *players = ({});
+private mapping *jobs = ({});
+private mapping current;
+private mapping fault;
+private int cursor, active;
+private float started;
+private float observed;
+private float *busy_seconds;
+private int *busy_state;
+private object lookup_subject;
+private object *test_clothes = ({ 0, 0 });
+private object promotion_teacher;
+private int promotion_index, promotion_waiting;
+private float promotion_started;
+private object formation_teacher;
+private float formation_started;
+private object *challenge_teachers;
+private object *practice_materials = ({});
+private mapping original_skill_loads = ([]);
+private mapping passive_before = ([]);
+private string observation_run_id;
+private object needle_object;
+private object taohua_po_target_weapon;
+private object taohua_zhuan_target_weapon, taohua_zhuan_corpse;
+private mapping taohua_zhuan_before;
+private object gumu_teacher;
+private int gumu_teacher_pending;
+private object gumu_previous_teacher;
+private object *gumu_item_owned = ({});
+private mapping gumu_item_context;
+private object gumu_npc;
+private int gumu_npc_pending;
+
+void advance();
+void finish_sample();
+void sample_busy();
+void poll();
+void advance_promotion();
+void observe_challenge();
+void stop_background_quests();
+void require(int condition, string message);
+int is_npc_bout();
+mapping npc_bout_state(object ob);
+int npc_bout_side(object ob);
+void npc_bout_count(object ob, string key);
+void initialize_npc_bout();
+void record_npc_bout_heartbeat(object ob);
+void observe_npc_bout_user_round(object ob, int before, int result);
+void finish_npc_bout_observation();
+private int is_taohua_ding();
+private mapping taohua_ding_snapshot(object ob, mapping result);
+private int taohua_ding_callback(object target, string phase, object owner, string function_name);
+private int is_taohua_xiao();
+private mapping taohua_xiao_snapshot(object ob, mapping result);
+private int is_taohua_po();
+private mapping taohua_po_snapshot(object ob, mapping result);
+private void observe_taohua_po_weapon(string phase);
+private int is_taohua_zhuan();
+private mapping taohua_zhuan_snapshot(object ob, mapping result);
+private mapping taohua_zhuan_death_before(object target, object killer);
+private mapping taohua_zhuan_death_snapshot(object target, object killer, object corpse,
+    object weapon, mapping before);
+
+int observe_taohua_zhuan_corpse(object victim, object killer, object corpse) {
+    if (!active || !is_taohua_zhuan()) return 0;
+    require(
+        victim == players[1] && killer == players[0],
+        "exact original ZHUAN corpse participants"
+    );
+    require(base_name(previous_object()) == "/adm/daemons/chard", "original CHARD corpse return");
+    require(objectp(corpse) && !objectp(taohua_zhuan_corpse), "one original ZHUAN corpse");
+    taohua_zhuan_corpse = corpse;
+    return 1;
+}
+
+private void clear_taohua_zhuan_owned() {
+    object item;
+    if (objectp(taohua_zhuan_corpse)) {
+        foreach (item in all_inventory(taohua_zhuan_corpse)) {
+            require(
+                item == taohua_zhuan_target_weapon,
+                "only this sample's original weapon in corpse"
+            );
+            destruct(item);
+        }
+        destruct(taohua_zhuan_corpse);
+    }
+    taohua_zhuan_corpse = 0;
+    taohua_zhuan_target_weapon = 0;
+    taohua_zhuan_before = 0;
+}
+
+void require(int condition, string message) {
+    if (!condition) error("DATA FAIL: " + message + "\n");
+}
+
+int needle_collection() {
+    return member_array(current["parameters"]["collection_group"],
+        ({ "gumu-throwing", "gumu-needle-lifecycle", "taohua-po" })) != -1;
+}
+
+void emit(mapping value) {
+    require(write_file("/log/events.jsonl", json_encode(value) + "\n"), "write evidence");
+}
+
+mixed serializable(mixed value) {
+    mapping result;
+    mixed key;
+    if (objectp(value)) return file_name(value);
+    if (functionp(value)) return "<function>";
+    if (arrayp(value)) return map(value, (: serializable :));
+    if (!mapp(value)) return value;
+    result = ([]);
+    foreach (key in keys(value)) result[sprintf("%s", key)] = serializable(value[key]);
+    return result;
+}
+
+mapping equipment_snapshot(object item) {
+    mapping result;
+    if (!objectp(item)) return ([]);
+    result = ([ "object": file_name(item), "program": base_name(item),
+        "skill_type": item->query("skill_type"), "flag": item->query("flag"),
+        "weight": item->query_weight(), "material": item->query("material"),
+        "rigidity": item->query("rigidity"), "consistence": item->query("consistence"),
+        "damage": item->query("weapon_prop/damage"), "no_wield": item->query("no_wield") ]);
+    if (current["parameters"]["collection_group"] == "gumu-weapon-learning" ||
+        member_array(current["parameters"]["teaching_profile"],
+            ({
+                "gumu-teachers",
+                "gumu-special",
+                "gumu-acquisition-learning",
+                "gumu-item-acquisition",
+                "gumu-recruit"
+            })) != -1)
+        result["id"] = item->query("id");
+    if (current["parameters"]["collection_group"] == "gumu-advanced")
+        result += ([ "item_make": !!item->is_item_make(),
+            "item_make_source": function_exists("is_item_make", item),
+            "name": item->name(), "value": item->query("value") ]);
+    if (needle_collection())
+        result += ([ "amount": item->query_amount(),
+            "daub": serializable(item->query_temp("daub") || ([])) ]);
+    if (is_taohua_po()) result["stable"] = item->query("stable");
+    if (current["parameters"]["collection_group"] == "taohua-bihai")
+        result += ([ "valid_as_xiao": item->valid_as_xiao(),
+            "valid_as_xiao_source": function_exists("valid_as_xiao", item) ]);
+    return result;
+}
+
+mapping snapshot(object ob) {
+    mapping result, effective;
+    string key;
+    object weapon, handing, cloth, secondary, opponent;
+    if (!objectp(ob)) return ([ "missing": 1 ]);
+    result = ([]);
+    foreach (key in ({ "qi", "eff_qi", "max_qi", "jing", "eff_jing", "max_jing", "neili", "max_neili",
+        "jingli", "str", "int", "con", "dex", "age", "gender", "combat_exp", "jiali",
+        "potential", "learned_points", "shen", "id" }))
+        result[key] = ob->query(key);
+    weapon = ob->query_temp("weapon");
+    handing = ob->query_temp("handing");
+    result["object"] = file_name(ob);
+    result["userp"] = userp(ob);
+    result["interactive"] = interactive(ob);
+    result["playerp"] = playerp(ob);
+    result["wizardp"] = wizardp(ob);
+    result["living"] = living(ob);
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "emei-public-force", "gumu-public-force" })) != -1)
+        result["not_living"] = ob->query("not_living");
+    result["ghost"] = ob->is_ghost();
+    result["busy"] = serializable(ob->query_busy());
+    if (member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "taohua-direct",
+            "taohua-control",
+            "taohua-attack",
+            "taohua-combo",
+            "taohua-bihai",
+            "taohua-passive"
+        })) != -1) {
+        opponent = ob == players[0] ? players[1] : players[0];
+        result["fighting_opponent"] = objectp(opponent) && !!ob->is_fighting(opponent);
+    }
+    result["skills"] = copy(ob->query_skills() || ([]));
+    result["learned"] = copy(ob->query_learned() || ([]));
+    result["force_attribute"] = ob->query("force");
+    result["cultivation"] = ([]);
+    foreach (key in ({ "sex", "improve/neili", "breakup", "special_skill/mystery", "special_skill/divine",
+        "special_skill/guimai", "special_skill/wuxing", "class", "family/family_name", "wudang-jiuyang", "immune/poison" }))
+        result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "shaolin-cultivation")
+        foreach (key in ({ "guilty", "couple/have_couple", "shaolin-jiuyang" }))
+            result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "emei-cultivation")
+        foreach (key in ({ "guilty", "emei-jiuyang" }))
+            result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "emei-yijin")
+        foreach (key in ({ "character", "yijin-duangu" }))
+            result["cultivation"][key] = ob->query(key);
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "emei-recovery", "gumu-recovery" })) != -1)
+        foreach (key in ({ "special_skill/self", "character" }))
+            result["cultivation"][key] = ob->query(key);
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "emei-healing", "emei-dispel", "emei-buffs", "gumu-public-force",
+            "gumu-healing", "gumu-dispel", "gumu-buffs" })) != -1)
+        result["cultivation"]["character"] = ob->query("character");
+    if (current["parameters"]["collection_group"] == "shaolin-backlash")
+        result["cultivation"]["reborn"] = ob->query("reborn");
+    result["nothing"] = ob->query("can_learn/dugu-jiujian/nothing");
+    result["dugu_grants"] = ([ "qi": ob->query("can_perform/dugu/qi"),
+        "po": ob->query("can_perform/dugu/po") ]);
+    effective = ([]);
+    foreach (key in keys(result["skills"])) effective[key] = ob->query_skill(key);
+    result["effective_skills"] = effective;
+    result["effective_con"] = ob->query_con();
+    result["effective_str"] = ob->query_str();
+    if (current["parameters"]["collection_group"] == "gumu-cultivation") {
+        result["effective_int"] = ob->query_int();
+        foreach (key in ({ "tattoo/tattoo_str", "reborn/str", "tattoo/tattoo_int",
+            "reborn/int", "env/no_learn" }))
+            result["cultivation"][key] = ob->query(key);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-movement") {
+        result["effective_int"] = ob->query_int();
+        result["cultivation"]["env/no_learn"] = ob->query("env/no_learn");
+    }
+    if (current["parameters"]["collection_group"] == "gumu-research") {
+        result["effective_int"] = ob->query_int();
+        result["effective_dex"] = ob->query_dex();
+        foreach (key in ({ "character", "env/no_learn", "tattoo/tattoo_str", "reborn/str",
+            "tattoo/tattoo_dex", "reborn/dex" }))
+            result["cultivation"][key] = ob->query(key);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-weapon-learning") {
+        result["effective_dex"] = ob->query_dex();
+        result["effective_int"] = ob->query_int();
+        foreach (key in ({ "character", "tattoo/tattoo_dex", "reborn/dex", "env/no_learn" }))
+            result["cultivation"][key] = ob->query(key);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-unarmed-learning") {
+        result["effective_int"] = ob->query_int();
+        foreach (key in ({
+            "character",
+            "tattoo/tattoo_str",
+            "reborn/str",
+            "env/no_learn",
+            "doing"
+        }))
+            result["cultivation"][key] = ob->query(key);
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (current["parameters"]["collection_group"] == "taohua-direct") {
+        foreach (key in ({ "character", "can_perform/canglang-zhi/tao",
+            "can_perform/pikong-zhang/dai", "can_perform/luoying-shenzhang/zhuan",
+            "can_perform/yuxiao-jian/tian" }))
+            result["cultivation"][key] = ob->query(key);
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (current["parameters"]["collection_group"] == "taohua-control") {
+        foreach (key in ({ "character", "can_perform/lanhua-shou/fu",
+            "can_perform/luoying-shenjian/sui" }))
+            result["cultivation"][key] = ob->query(key);
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "taohua-attack", "taohua-passive", "taohua-combination" })) != -1) {
+        result["cultivation"]["character"] = ob->query("character");
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (current["parameters"]["collection_group"] == "taohua-bihai") {
+        result["cultivation"]["can_perform/yuxiao-jian/bihai"] = ob->query("can_perform/yuxiao-jian/bihai");
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (current["parameters"]["collection_group"] == "taohua-combo") {
+        foreach (key in ({ "character", "can_perform/xuanfeng-tui/kuang",
+            "can_perform/lanhua-shou/fei" }))
+            result["cultivation"][key] = ob->query(key);
+        result["killing_opponent"] = objectp(opponent) && !!ob->is_killing(opponent->query("id"));
+        result["preparation_order"] = keys(ob->query_skill_prepare() || ([]));
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (member_array(current["parameters"]["teaching_profile"],
+        ({
+            "gumu-teachers",
+            "gumu-special",
+            "gumu-acquisition-learning",
+            "gumu-item-acquisition",
+            "gumu-recruit"
+        })) != -1) {
+        result["effective_int"] = ob->query_int();
+        result["effective_dex"] = ob->query_dex();
+        foreach (key in ({ "character", "family/master_id", "family/master_name",
+            "special_skill/tiandao", "special_skill/qinzong", "betrayer/times", "env/no_learn" }))
+            result["cultivation"][key] = ob->query(key);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-exert") {
+        result["is_character"] = ob->is_character();
+        result["cultivation"]["character"] = ob->query("character");
+        if (ob == players[0])
+            result["powers"] = ([
+                "attack": COMBAT_D->skill_power(ob, "unarmed", SKILL_USAGE_ATTACK, 0),
+                "dodge": COMBAT_D->skill_power(ob, "dodge", SKILL_USAGE_DEFENSE, 0),
+                "parry": COMBAT_D->skill_power(ob, "parry", SKILL_USAGE_DEFENSE, 0)
+            ]);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-advanced") {
+        result["effective_dex"] = ob->query_dex();
+        result["cultivation"]["character"] = ob->query("character");
+    }
+    if (current["parameters"]["collection_group"] == "gumu-unarmed") {
+        result["cultivation"]["character"] = ob->query("character");
+        result["perform_grant"] = serializable(ob->query("can_perform/" +
+            current["parameters"]["skill"] + "/" + current["parameters"]["ability"]));
+    }
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "gumu-combo", "gumu-temporal" })
+    ) != -1) {
+        foreach (key in ({ "character", "static/marry", "couple/id", "couple/name",
+            "can_perform/chilian-shenzhang/lian", "can_perform/chiilian-shenzhang/lian",
+            "can_perform/sad-strike/xiao", "can_perform/sad-strike/tuo" }))
+            result["cultivation"][key] = ob->query(key);
+        result["clock_seconds"] = time();
+    }
+    if (current["parameters"]["collection_group"] == "gumu-fireice")
+        foreach (key in ({ "character", "can_perform/fireice-strike/binghuo" }))
+            result["cultivation"][key] = ob->query(key);
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "gumu-hubo", "gumu-temporal" })
+    ) != -1)
+        foreach (key in ({ "character", "special_skill/qinzong", "special_skill/tiandao",
+            "can_perform/tianluo-diwang/wang" }))
+            result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "gumu-poison")
+        foreach (key in ({ "character", "can_perform/wudu-shenzhang/shi", "special_skill/piyi" }))
+            result["cultivation"][key] = ob->query(key);
+    if (member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout",
+            "gumu-npc-bout"
+        })) != -1)
+        foreach (key in ({ "character", "can_learn/yunv-xinjing/wall" }))
+            result["cultivation"][key] = ob->query(key);
+    if (is_npc_bout()) {
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+    }
+    if (current["parameters"]["collection_group"] == "gumu-bout" || is_npc_bout())
+        result["per"] = ob->query("per");
+    if (current["parameters"]["collection_group"] == "gumu-zhi")
+        result["cultivation"]["can_perform/sanwu-shou/zhi"] = ob->query("can_perform/sanwu-shou/zhi");
+    if (current["parameters"]["collection_group"] == "gumu-quanzhen")
+        foreach (key in ({ "can_perform/quanzhen-jian/chan", "can_perform/quanzhen-jian/ding",
+            "can_perform/quanzhen-jian/hua", "can_perform/quanzhen-jian/lian" }))
+            result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "gumu-unarmed-attack")
+        foreach (key in ({ "tattoo/tattoo_str", "reborn/str", "special_skill/piyi" }))
+            result["cultivation"][key] = ob->query(key);
+    if (needle_collection() && !is_taohua_po())
+        foreach (key in ({ "character", "special_skill/piyi", "can_perform/yufeng-zhen/ying",
+            "can_perform/bingpo-shenzhen/bing" }))
+            result["cultivation"][key] = ob->query(key);
+    result["mappings"] = copy(ob->query_skill_map() || ([]));
+    result["preparations"] = copy(ob->query_skill_prepare() || ([]));
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({
+            "wudang-combination",
+            "shaolin-combination",
+            "emei-combination",
+            "gumu-combination",
+            "emei-jiuyin-buff",
+            "taohua-combination",
+            "wudang-bout",
+            "shaolin-bout",
+            "emei-bout",
+            "gumu-bout",
+            "gumu-npc-bout",
+            "shaolin-sword",
+            "shaolin-weapons",
+            "shaolin-fists",
+            "shaolin-palms",
+            "shaolin-fingers",
+            "shaolin-hands"
+        })
+    ) != -1) {
+        result["preparation_order"] = keys(ob->query_skill_prepare() || ([]));
+        result["effective_dex"] = ob->query_dex();
+    }
+    result["temp"] = serializable(ob->query_entire_temp_dbase());
+    if (current["parameters"]["collection_group"] == "emei-jiuyin") {
+        result["jiuyin_grants"] = ([]);
+        foreach (key in ({ "can_perform/jiuyin-baiguzhao", "can_perform/jiuyin-baiguzhao/duo",
+            "can_perform/cuixin-zhang/cui", "can_perform/yinlong-bian/zhu" }))
+            result["jiuyin_grants"][key] = serializable(ob->query(key));
+    }
+    result["conditions"] = serializable(ob->query_condition());
+    if (current["parameters"]["collection_group"] == "emei-jiuyin-passive")
+        result["cultivation"]["special_skill/piyi"] = ob->query("special_skill/piyi");
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-public-force", "gumu-exert", "gumu-temporal" })) != -1)
+        result["hostility"] = ([ "enemies": map(ob->query_enemy(), (: $1->query("id") :)),
+            "killers": copy(ob->query_killer()), "wants": copy(ob->query_want()) ]);
+    if (current["parameters"]["collection_group"] == "gumu-temporal")
+        result["environment"] = objectp(environment(ob)) ? file_name(environment(ob)) : "";
+    result["weapon"] = weapon ? weapon->query("skill_type") : "none";
+    result["weapon_damage"] = weapon ? weapon->query("weapon_prop/damage") : 0;
+    result["weapon_flag"] = weapon ? weapon->query("flag") : 0;
+    result["weapon_details"] = equipment_snapshot(weapon);
+    result["handing"] = handing ? handing->query("skill_type") : "none";
+    result["handing_details"] = equipment_snapshot(handing);
+    result["ammunition"] = handing ? handing->query_amount() : 0;
+    if (current["parameters"]["collection_group"] == "shaolin-hands") {
+        cloth = test_clothes[ob == players[0] ? 0 : 1];
+        result["cloth"] = objectp(cloth) ? ([ "object": file_name(cloth),
+            "name": cloth->query("name"), "value": cloth->query("value"),
+            "armor": cloth->query("armor_prop/armor"),
+            "equipped": ob->query_temp("armor/cloth") == cloth,
+            "location": environment(cloth) == ob ? "actor" :
+            environment(cloth) == this_object() ? "room" : "other" ]): ([]);
+    }
+    result = taohua_xiao_snapshot(ob, result);
+    result = taohua_po_snapshot(ob, result);
+    result = taohua_zhuan_snapshot(ob, result);
+    return taohua_ding_snapshot(ob, result);
+}
+
+mixed *practice_material_snapshot() {
+    mixed *result;
+    object item;
+    result = ({});
+    foreach (item in practice_materials) {
+        require(objectp(item), "original practice material still exists");
+        result += ({ ([ "object": file_name(item), "program": base_name(item),
+            "location": environment(item) == this_object() ? "room" :
+            environment(item) == players[0] ? "actor" : "other",
+            "used": !!item->query_temp("clawed_by_jiuyin"),
+            "cut": !!item->query("been_cut/head"), "long": item->query("long") ]) });
+    }
+    return result;
+}
+
+void prepare_practice_materials(mapping parameters) {
+    mapping config;
+    object item;
+    practice_materials = ({});
+    require(parameters["collection_group"] == "emei-jiuyin-learning", "explicit material fixture");
+    foreach (config in parameters["materials"]) {
+        require(
+            member_array(config["kind"], ({ "head", "corpse" })) != -1,
+            "original material class"
+        );
+        item = new("/clone/misc/" + config["kind"]);
+        if (config["bone"]) {
+            require(config["kind"] == "head", "original head bone transition");
+            item->finish_eat();
+        }
+        if (config["cut"]) item->set("been_cut/head", 1);
+        if (config["used"]) item->set_temp("clawed_by_jiuyin", 1);
+        require(item->move(config["carried"] ? players[0] : this_object()), "material placement");
+        practice_materials += ({ item });
+    }
+    current["practice_room"] = ([
+        "no_fight": !!query("no_fight"),
+        "sleep_room": !!query("sleep_room")
+    ]);
+    current["practice_materials_before"] = practice_material_snapshot();
+}
+
+void prepare_actor(int side, mapping config) {
+    object ob, old, weapon, item, held;
+    string key, load_usage;
+    mixed value;
+    mapping descriptor, load;
+    old = players[side];
+    old->stop_observation();
+    if (!side && current["parameters"]["teaching_profile"] == "shaolin-tonsure")
+        NAME_D->remove_name(old->query("name"), old->query("id"));
+    ob = new(!side && member_array(current["method"], ({ "teaching", "scene" })) != -1 ?
+        "/tests/teaching_actor" : "/tests/actor");
+    require(efun::exec(ob, old), "transfer connection");
+    players[side] = ob;
+    foreach (item in all_inventory(old)) destruct(item);
+    destruct(old);
+    ob->set("id", side == 2 ? "third" : side ? "right" : "left");
+    if (current["method"] == "team")
+        ob->set_name(side ? "右阵弟子" : "左阵弟子", ({ side ? "right" : "left" }));
+    else if (current["parameters"]["named_participants"] ||
+        current["parameters"]["collection_group"] == "gumu-temporal")
+        ob->set_name(side == 2 ? "旁试弟子" : side ? "右试弟子" : "左试弟子",
+            ({ side == 2 ? "third" : side ? "right" : "left" }));
+    ob->move(this_object());
+    if (is_taohua_ding()) require(present(side ? "right" : "left", this_object()) == ob,
+        "original DING input resolves to exact USER");
+    if (is_taohua_xiao()) {
+        require(ob->id(side ? "right" : "left"), "original XIAO input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original XIAO input resolves to exact USER");
+    }
+    if (is_taohua_po()) {
+        require(ob->id(side ? "right" : "left"), "original PO input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original PO input resolves to exact USER");
+    }
+    if (is_taohua_zhuan()) {
+        require(ob->id(side ? "right" : "left"), "original ZHUAN input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original ZHUAN input resolves to exact USER");
+    }
+    if (current["parameters"]["collection_group"] == "taohua-direct") {
+        require(ob->id(side ? "right" : "left"), "original DIRECT input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original DIRECT input resolves to exact USER");
+    }
+    if (current["parameters"]["collection_group"] == "taohua-control") {
+        require(ob->id(side ? "right" : "left"), "original CONTROL input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original CONTROL input resolves to exact USER");
+    }
+    if (current["parameters"]["collection_group"] == "taohua-combo") {
+        require(ob->id(side ? "right" : "left"), "original COMBO input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original COMBO input resolves to exact USER");
+    }
+    if (current["parameters"]["collection_group"] == "taohua-bihai") {
+        require(ob->id(side ? "right" : "left"), "original BIHAI input alias");
+        require(present(side ? "right" : "left", this_object()) == ob,
+            "original BIHAI input resolves to exact USER");
+    }
+    if (side && current["parameters"]["collection_group"] == "gumu-temporal") {
+        require(ob->id(side == 2 ? "third" : "right"), "original temporal target input alias");
+        require(present(side == 2 ? "third" : "right", this_object()) == ob,
+            "original temporal target resolves to prepared actor");
+    }
+    foreach (key, value in config["properties"] || ([])) ob->set(key, value);
+    if (!side && current["parameters"]["teaching_profile"] == "shaolin-tonsure")
+        NAME_D->map_name(ob->query("name"), ob->query("id"));
+    foreach (key, value in config["skills"] || ([])) ob->set_skill(key, value);
+    if (!side && member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout"
+        })) != -1) {
+        foreach (descriptor in current["parameters"]["capture_skill_loads"]) {
+            key = descriptor["skill"];
+            if (!mapp(original_skill_loads[key])) {
+                require(!objectp(find_object("/kungfu/skill/" + key)), "first original skill load");
+                // No mappings yet: reading this snapshot cannot load the pending skill.
+                load = descriptor + ([ "load_id": observation_run_id + ":" + key,
+                    "run_id": observation_run_id, "state": snapshot(ob),
+                    "command": "enable parry " + key ]);
+                require(ob->force_me(load["command"]), "original dynamic skill enable context");
+                require(
+                    objectp(find_object("/kungfu/skill/" + key)),
+                    "original dynamic skill loaded"
+                );
+                original_skill_loads[key] = load;
+            } else
+                require(
+                    objectp(find_object("/kungfu/skill/" + key)),
+                    "retain original shared skill"
+                );
+            current["skill_loads"] += ({ serializable(original_skill_loads[key]) });
+        }
+    }
+    if ((side == 0 && current["parameters"]["collection_group"] == "gumu-unarmed" &&
+        current["parameters"]["skill"] == "wudu-shenzhang") ||
+        (current["parameters"]["collection_group"] == "gumu-poison" &&
+            side == (current["method"] == "condition" ? 1 : 0)) ||
+        (side == 1 && current["parameters"]["collection_group"] == "gumu-defense" &&
+            current["parameters"]["skill"] == "wudu-shenzhang")) {
+        // Before query_skill_mapped() loads the skill to check valid_enable().
+        // Its legacy global action table reads this_player() during first load.
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/wudu-shenzhang")),
+            "skills": copy(ob->query_skills()), "command": "enable parry wudu-shenzhang" ]);
+        require(ob->force_me("enable parry wudu-shenzhang"), "original Wudu enable context");
+        require(objectp(find_object("/kungfu/skill/wudu-shenzhang")), "original Wudu loaded");
+        if (current["parameters"]["collection_group"] == "gumu-defense")
+            ob->map_skill("parry");
+    }
+    if (!side && current["parameters"]["collection_group"] == "gumu-weapon-learning" &&
+        member_array(current["parameters"]["skill"],
+            ({ "suxin-jian", "quanzhen-jian", "yinsuo-jinling", "sanwu-shou" })) != -1) {
+        // These legacy action tables require the original player's first-load context.
+        key = current["parameters"]["skill"];
+        load_usage = member_array(
+            key,
+            ({ "suxin-jian", "quanzhen-jian" })
+        ) != -1 ? "sword" : "whip";
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/" + key)),
+            "skills": copy(ob->query_skills()), "command": "enable " + load_usage + " " + key ]);
+        require(ob->force_me(current["skill_load_context"]["command"]),
+            "original weapon learning enable context");
+        require(
+            objectp(find_object("/kungfu/skill/" + key)),
+            "original weapon learning skill loaded"
+        );
+        ob->map_skill(load_usage);
+    }
+    if (!side && current["parameters"]["collection_group"] == "gumu-unarmed-learning" &&
+        member_array(current["parameters"]["skill"], ({ "wudu-shenzhang", "sad-strike" })) != -1) {
+        // Use an existing original usage; ordinary learning actors have no basic parry.
+        key = current["parameters"]["skill"];
+        load_usage = key == "wudu-shenzhang" ? "strike" : "unarmed";
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/" + key)),
+            "skills": copy(ob->query_skills()), "command": "enable " + load_usage + " " + key ]);
+        require(ob->force_me(current["skill_load_context"]["command"]),
+            "original unarmed learning enable context");
+        require(
+            objectp(find_object("/kungfu/skill/" + key)),
+            "original unarmed learning skill loaded"
+        );
+        ob->map_skill(load_usage);
+    }
+    if (!side && current["parameters"]["collection_group"] == "gumu-research" &&
+        member_array(current["parameters"]["skill"], ({ "suxin-jian", "quanzhen-jian",
+            "yinsuo-jinling", "sanwu-shou", "wudu-shenzhang", "sad-strike" })) != -1) {
+        key = current["parameters"]["skill"];
+        load_usage = current["parameters"]["usage"];
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/" + key)),
+            "skills": copy(ob->query_skills()), "command": "enable " + load_usage + " " + key ]);
+        require(ob->force_me(current["skill_load_context"]["command"]),
+            "original research enable context");
+        require(objectp(find_object("/kungfu/skill/" + key)), "original research skill loaded");
+        ob->map_skill(load_usage);
+    }
+    if (!side && current["parameters"]["teaching_profile"] == "gumu-teachers" &&
+        member_array(current["parameters"]["skill"], ({ "suxin-jian", "quanzhen-jian",
+            "yinsuo-jinling", "sanwu-shou", "wudu-shenzhang", "sad-strike" })) != -1) {
+        key = current["parameters"]["skill"];
+        load_usage = member_array(
+            key,
+            ({ "suxin-jian", "quanzhen-jian" })
+        ) != -1 ? "sword" : member_array(
+            key,
+            ({ "yinsuo-jinling", "sanwu-shou" })
+        ) != -1 ? "whip" : key == "wudu-shenzhang" ? "strike" : "unarmed";
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/" + key)),
+            "skills": copy(ob->query_skills()), "command": "enable " + load_usage + " " + key ]);
+        require(ob->force_me(current["skill_load_context"]["command"]),
+            "original teacher learning enable context");
+        require(
+            objectp(find_object("/kungfu/skill/" + key)),
+            "original teacher learning skill loaded"
+        );
+        ob->map_skill(load_usage);
+    }
+    if (!side && is_taohua_ding()) {
+        require(ob->force_me("enable finger tanzhi-shentong"), "original DING enable context");
+        ob->map_skill("finger");
+    }
+    if (!side && is_taohua_xiao()) {
+        require(ob->force_me("enable finger tanzhi-shentong"), "original XIAO enable context");
+        ob->map_skill("finger");
+    }
+    if (!side && is_taohua_po()) {
+        require(ob->force_me("enable finger tanzhi-shentong"), "original PO enable context");
+        ob->map_skill("finger");
+    }
+    if (!side && is_taohua_zhuan()) {
+        require(ob->force_me("enable finger tanzhi-shentong"), "original ZHUAN enable context");
+        ob->map_skill("finger");
+    }
+    foreach (key, value in config["mappings"] || ([])) {
+        ob->map_skill(key, value);
+        require(ob->query_skill_mapped(key) == value, "effective skill mapping");
+    }
+    foreach (key, value in config["preparations"] || ([])) ob->prepare_skill(key, value);
+    if (side == 0 && member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-additional", "shaolin-weapon-learning" })) != -1 &&
+        current["parameters"]["skill"] == "qingyun-bian") {
+        // Run before wield/reset_action can load this legacy shared skill object.
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/qingyun-bian")),
+            "max_neili": ob->query("max_neili"), "shen": ob->query("shen") ]);
+        ob->map_skill("whip");
+        require(ob->force_me("enable whip qingyun-bian"), "original Qingyun enable context");
+    }
+    ob->set_temp("apply/armor", 100);
+    if (side < 2) test_clothes[side] = 0;
+    if (mapp(config["cloth"])) {
+        require(current["parameters"]["collection_group"] == "shaolin-hands" && side == 1,
+            "explicit test clothing");
+        item = new("/tests/cloth");
+        item->set("armor_prop/armor", config["cloth"]["armor"]);
+        require(item->move(ob) && item->wear() && ob->query_temp("armor/cloth") == item,
+            "original clothing wear");
+        test_clothes[side] = item;
+    }
+    if (mapp(config["handing_equipment"])) {
+        require(current["parameters"]["collection_group"] == "taohua-bihai" && side == 0 &&
+            member_array(config["handing_equipment"]["type"], ({ "xsword", "sword" })) != -1,
+            "explicit BIHAI held instrument");
+        held = new("/tests/" + config["handing_equipment"]["type"]);
+        require(held->move(ob) && ob->force_me("hand practice weapon") &&
+            ob->query_temp("handing") == held && !ob->query_temp("weapon") &&
+            environment(held) == ob, "original BIHAI hand before primary weapon");
+    }
+    if (mapp(config["equipment"])) {
+        if (config["equipment"]["item_make"]) {
+            require(current["parameters"]["collection_group"] == "gumu-advanced" &&
+                member_array(config["equipment"]["type"], ({ "sword", "hammer" })) != -1,
+                "explicit crafted test weapon");
+            weapon = new("/tests/crafted_" + config["equipment"]["type"]);
+            require(weapon->is_item_make(), "original crafted weapon identity");
+        } else if (is_taohua_po()) {
+            require((side == 0 && config["equipment"]["hold"] &&
+                member_array(config["equipment"]["program"],
+                    ({ "/d/items/throwing/taohua_ban", "/tests/sword" })) != -1) ||
+                (side == 1 && config["equipment"]["type"] == "sword" &&
+                    !config["equipment"]["hold"]), "explicit original PO equipment");
+            weapon = new(side == 0 ? config["equipment"]["program"] : "/tests/sword");
+            if (side == 0 && config["equipment"]["type"] == "throwing") {
+                require(intp(config["equipment"]["amount"]) && config["equipment"]["amount"] > 0,
+                    "positive initial PO ammunition");
+                weapon->set_amount(config["equipment"]["amount"]);
+            }
+        } else if (needle_collection()) {
+            require(side == 0 && member_array(config["equipment"]["program"],
+                ({ "/d/gumu/obj/yufeng-zhen", "/d/gumu/obj/bingpo-zhen",
+                    "/tests/throwing", "/tests/sword" })) != -1, "explicit original needle");
+            weapon = new(config["equipment"]["program"]);
+            if (config["equipment"]["type"] == "throwing") {
+                require(intp(config["equipment"]["amount"]) &&
+                    config["equipment"]["amount"] > 0, "positive initial ammunition");
+                weapon->set_amount(config["equipment"]["amount"]);
+            }
+        } else weapon = new("/tests/" + config["equipment"]["type"]);
+        if (!undefinedp(config["equipment"]["weight"])) {
+            require(current["parameters"]["collection_group"] == "gumu-advanced" &&
+                intp(config["equipment"]["weight"]) && config["equipment"]["weight"] > 0 &&
+                intp(config["equipment"]["value"]) && config["equipment"]["value"] > 0,
+                "explicit test weight and value");
+            weapon->set_weight(config["equipment"]["weight"]);
+            weapon->set("value", config["equipment"]["value"]);
+        }
+        if (!undefinedp(config["equipment"]["id"])) {
+            require(current["parameters"]["collection_group"] == "gumu-weapon-learning" &&
+                side == 0 && stringp(config["equipment"]["id"]), "explicit learning weapon id");
+            weapon->set("id", config["equipment"]["id"]);
+        }
+        // Only the explicitly configured test item's material is varied.
+        foreach (key, value in config["equipment"]["properties"] || ([])) {
+            require(key == "material" && stringp(value), "configured test material");
+            weapon->set(key, value);
+        }
+        require(weapon->move(ob), "equipment inventory");
+        if (!undefinedp(config["equipment"]["slot"]))
+            require(member_array(current["parameters"]["collection_group"],
+                ({ "gumu-unarmed-learning", "taohua-zhuan" })) != -1 &&
+                side == 0 && config["equipment"]["type"] == "sword" && !config["equipment"]["hold"] &&
+                member_array(config["equipment"]["slot"], ({ "weapon", "secondary_weapon" })) != -1,
+                "explicit unarmed learning weapon slot");
+        if (config["equipment"]["hold"]) {
+            if (weapon->query("skill_type") == "throwing")
+                require(!weapon->wield(), "ammunition cannot be wielded");
+            require(ob->force_me("hand " + (config["equipment"]["hand_id"] || "jinshe zhui")),
+                "hand ammunition");
+            require(
+                ob->query_temp("handing") == weapon && !ob->query_temp("weapon"),
+                "held not wielded"
+            );
+        } else if (config["equipment"]["slot"] == "secondary_weapon") {
+            // Diagnostic placement only: no wield(), flag rewrite, or primary weapon apply.
+            ob->set_temp("secondary_weapon", weapon);
+            require(ob->query_temp("secondary_weapon") == weapon && !ob->query_temp("weapon"),
+                "diagnostic secondary weapon without primary");
+        } else require(weapon->wield() && ob->query_temp("weapon") == weapon, "weapon wielded");
+    }
+    if (current["parameters"]["collection_group"] == "taohua-bihai") {
+        require(ob->query_temp("handing") == held && ob->query_temp("weapon") == weapon,
+            "exact BIHAI held and primary slots");
+        if (objectp(held))
+            require(held != weapon && environment(held) == ob,
+                "distinct owned BIHAI instrument preserved after wield");
+    }
+    if (config["busy"]) {
+        if (member_array(current["parameters"]["collection_group"],
+            ({ "gumu-hubo", "gumu-quanzhen", "gumu-temporal" })) != -1 ||
+            (!side && current["parameters"]["teaching_profile"] == "gumu-recruit"))
+            ob->restore_busy(({ config["busy"], 0 }));
+        else ob->start_busy(config["busy"]);
+    }
+    foreach (key, value in config["temp"] || ([])) {
+        require((is_taohua_ding() && key == "no_perform" && value == 1) ||
+            (!side && current["parameters"]["teaching_profile"] == "gumu-recruit" &&
+                key == "quest" && mapp(value) && sizeof(value) == 1 && value["next_level"] == 3) ||
+            (intp(value) &&
+                ((current["parameters"]["collection_group"] == "gumu-combo" && side == 0 &&
+                    key == "apply/attack") ||
+                    (member_array(current["parameters"]["collection_group"],
+                        ({ "gumu-zhi", "gumu-quanzhen" })) != -1 && side == 0 &&
+                        key == "apply/attack" && value == 17) ||
+                    (current["parameters"]["collection_group"] == "gumu-hubo" && side == 0 &&
+                        key == "no_perform" && value == 1) ||
+                    (current["parameters"]["collection_group"] == "gumu-cultivation" && side == 0 && value > 0 &&
+                        member_array(key, ({ "apply/str", "apply/int" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "gumu-weapon-learning" && side == 0 &&
+                        key == "apply/dex" && value == 1) ||
+                    (current["parameters"]["collection_group"] == "gumu-unarmed-learning" && side == 0 &&
+                        key == "apply/str") ||
+                    (current["parameters"]["collection_group"] == "gumu-exert" && side == 0 &&
+                        ((member_array(key, ({ "powerup", "no_exert" })) != -1 && value == 1) ||
+                            (member_array(
+                                key,
+                                ({ "apply/attack", "apply/defense", "apply/unarmed_damage" })
+                            ) != -1 && value > 0))) ||
+                    (current["parameters"]["collection_group"] == "gumu-poison" &&
+                        side == (current["method"] == "condition" ? 0 : 1) && key == "nopoison") ||
+                    (current["parameters"]["collection_group"] == "gumu-unarmed-attack" &&
+                        side == 1 && key == "nopoison" && value == 1) ||
+                    (needle_collection() && !is_taohua_po() && side == 1 &&
+                        member_array(key, ({ "nopoison", "bingpo", "apply/attack", "apply/dodge",
+                            "apply/parry" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "gumu-advanced" && side == 0 &&
+                        member_array(key, ({ "apply/attack", "apply/str" })) != -1) ||
+                    (current["parameters"]["teaching_profile"] == "shaolin-recruit" && side == 0 &&
+                        member_array(
+                            key,
+                            ({ "have_letter", "apprentice_ok", "valid_in_fumoquan" })
+                        ) != -1) ||
+                    (current["parameters"]["collection_group"] == "wudang-passive" &&
+                        member_array(key, ({ "combat_time", "action_flag", "apply/attack", "apply/parry",
+                            "apply/unarmed_damage" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "shaolin-backlash" && side == 0 && key == "no_exert") ||
+                    (current["parameters"]["collection_group"] == "emei-jiuyin-buff" && side == 0 &&
+                        member_array(key, ({ "powerup", "shield", "gui_yuan", "no_exert", "no_perform",
+                            "str", "dex", "apply/attack", "apply/armor", "apply/force", "apply/dodge",
+                            "apply/damage", "apply/unarmed_damage", "apply/str", "apply/dex" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "shaolin-exert" && side == 0 &&
+                        member_array(
+                            key,
+                            ({ "powerup", "no_exert", "apply/attack", "apply/defense" })
+                        ) != -1) ||
+                    (member_array(current["parameters"]["collection_group"],
+                        ({ "emei-exert", "emei-zhao" })) != -1 && side == 0 &&
+                        member_array(
+                            key,
+                            ({
+                                "powerup",
+                                "no_exert",
+                                "apply/attack",
+                                "apply/dodge",
+                                "apply/damage"
+                            })
+                        ) != -1) ||
+                    (current["parameters"]["collection_group"] == "wudang-special" &&
+                        member_array(
+                            key,
+                            ({ "apply/attack", "apply/defense", "apply/armor" })
+                        ) != -1) ||
+                    (current["parameters"]["collection_group"] == "shaolin-sword" && side == 1 &&
+                        member_array(
+                            key,
+                            ({ "powerup", "damo_qingxin", "apply/attack", "apply/defense" })
+                        ) != -1) ||
+                    (current["parameters"]["collection_group"] == "shaolin-weapons" && side == 0 &&
+                        member_array(
+                            key,
+                            ({ "cbd_sheshen", "zg_zuida", "sl_leidong", "powerup" })
+                        ) != -1) ||
+                    (current["parameters"]["collection_group"] == "shaolin-additional" && side == 0 && key == "zhen_yan") ||
+                    (current["parameters"]["collection_group"] == "shaolin-fists" && side == 0 && key == "jingang") ||
+                    (current["parameters"]["collection_group"] == "shaolin-palms" && side == 0 &&
+                        member_array(key, ({ "brz_feng", "action_flag" })) != -1) ||
+                    (member_array(
+                        current["parameters"]["collection_group"],
+                        ({ "wudang-healing", "shaolin-healing", "emei-healing", "gumu-healing" })
+                    ) != -1 && key == "tianmo" && value == 1) ||
+                    (!side && current["parameters"]["teaching_profile"] == "gumu-recruit" &&
+                        key == "apply/per" && value == 20))),
+            "configured starting state");
+        ob->set_temp(key, value);
+    }
+    if (side == 0 && current["parameters"]["collection_group"] == "gumu-combo" &&
+        !undefinedp(current["parameters"]["cooldown_age_seconds"])) {
+        value = current["parameters"]["cooldown_age_seconds"];
+        require(current["parameters"]["ability"] == "tuo" && intp(value) && value >= 0,
+            "explicit cooldown age relative to original clock");
+        ob->set_temp("last_perform/sad-strike/tuo", time() - value);
+    }
+    foreach (key, value in config["conditions"] || ([])) {
+        require((member_array(current["parameters"]["collection_group"],
+            ({
+                "wudang-dispel",
+                "wudang-condition",
+                "shaolin-dispel",
+                "emei-dispel",
+                "gumu-dispel"
+            })) != -1 &&
+            member_array(
+                key,
+                ({ "drunk", "ill_kesou", "freezing", "damo_luanqi", "bandaged" })
+            ) != -1) || (current["parameters"]["collection_group"] == "shaolin-weapons" &&
+            side == 0 && key == "drunk" && intp(value) && value > 0) ||
+            (current["parameters"]["collection_group"] == "emei-jiuyin-passive" &&
+                key == "cuixin_zhang" && mapp(value)) ||
+            (current["parameters"]["collection_group"] == "gumu-poison" &&
+                side == (current["method"] == "condition" ? 0 : 1) &&
+                key == "wudu_shenzhang" && mapp(value)) ||
+            (current["parameters"]["collection_group"] == "gumu-exert" &&
+                side == 0 && key == "exert_drug" && value == 10) ||
+            (member_array(current["parameters"]["collection_group"],
+                ({ "shaolin-public-force", "gumu-exert" })) != -1 &&
+                current["parameters"]["ability"] == "roar" && side > 0 && key == "die_guard" && value == 100),
+            "explicit initial condition");
+        // Original dispel/update may mutate the mapping, never the saved input.
+        ob->apply_condition(key, serializable(value));
+    }
+    ob->observation_heartbeat(0);
+    require(
+        userp(ob) && interactive(ob) && playerp(ob) && !wizardp(ob),
+        "unprivileged player identity"
+    );
+}
+
+void observe_attack(object me, object target, int attack_type, int result, int damage) {
+    mapping value, prepared;
+    object weapon;
+    string usage;
+    int flag;
+    if (is_npc_bout()) {
+        require(npc_bout_side(me) != -2 && npc_bout_side(target) != -2 && me != target,
+            "exact natural NPC attack pair");
+        npc_bout_count(
+            me,
+            result == RESULT_HIT ? "hit" : result == RESULT_DODGE ? "dodge" : "parry"
+        );
+        if (attack_type == TYPE_QUICK) npc_bout_count(me, "quick");
+        if (attack_type == TYPE_RIPOSTE) npc_bout_count(me, "riposte");
+    }
+    if (!is_npc_bout() || me != gumu_npc) {
+        me->count_event(result == RESULT_HIT ? "hit" : result == RESULT_DODGE ? "dodge" : "parry");
+        if (attack_type == TYPE_QUICK) me->count_event("quick");
+        if (attack_type == TYPE_RIPOSTE) me->count_event("riposte");
+    }
+    if (active) {
+        value = ([ "actor": member_array(me, players),
+            "target": member_array(target, players), "type": attack_type,
+            "result": result, "damage": damage ]);
+        if (is_npc_bout()) {
+            value["actor_object"] = file_name(me);
+            value["target_object"] = file_name(target);
+        }
+        if (current["parameters"]["collection_group"] == "gumu-npc") {
+            require(
+                me == gumu_npc && target == players[0],
+                "exact original NPC attack owner and target"
+            );
+            value["actor_object"] = file_name(me);
+            value["actor_program"] = base_name(me);
+            value["target_object"] = file_name(target);
+            value["apply_attack"] = me->query_temp("apply/attack");
+        }
+        if (current["parameters"]["teaching_profile"] == "shaolin-challenge") {
+            value["actor_program"] = base_name(me);
+            value["target_program"] = base_name(target);
+            value["elapsed"] = time_ns() / 1000000000.0 - formation_started;
+        }
+        if (member_array(
+            current["parameters"]["collection_group"],
+            ({
+                "wudang-combination",
+                "shaolin-combination",
+                "emei-combination",
+                "gumu-combination",
+                "gumu-quanzhen",
+                "taohua-combination",
+                "wudang-bout",
+                "shaolin-bout",
+                "emei-bout",
+                "gumu-bout",
+                "taohua-combo"
+            })
+        ) != -1) {
+            prepared = me->query_skill_prepare() || ([]);
+            weapon = me->query_temp("weapon");
+            flag = me->query_temp("action_flag");
+            usage = weapon ? weapon->query("skill_type") : sizeof(prepared) ? keys(prepared)[sizeof(prepared) == 2 ? flag : 0] : "unarmed";
+            value["action_flag"] = flag;
+            value["attack_usage"] = usage;
+            value["attack_skill"] = me->query_skill_mapped(usage);
+        }
+        if (member_array(current["parameters"]["collection_group"],
+            ({ "gumu-zhi", "gumu-quanzhen", "taohua-combo" })) != -1)
+            value["apply_attack"] = me->query_temp("apply/attack");
+        if (current["parameters"]["collection_group"] == "taohua-combo") {
+            value["apply_unarmed_damage"] = me->query_temp("apply/unarmed_damage");
+            value["neili"] = me->query("neili");
+        }
+        if (current["parameters"]["collection_group"] == "gumu-quanzhen") {
+            weapon = me->query_temp("weapon");
+            value["weapon"] = objectp(weapon) ? weapon->query("skill_type") : "none";
+            value["weapon_object"] = objectp(weapon) ? file_name(weapon) : "";
+        }
+        current["attacks"] += ({ value });
+    }
+}
+
+varargs void observe_direct(object me, object target, int type, int damage, int percent) {
+    object weapon;
+    if (is_npc_bout()) {
+        require(me == gumu_npc && target == players[0], "original natural NPC direct pair");
+        npc_bout_count(me, "direct");
+        current["npc_direct"] += ({ ([ "actor": -1, "actor_object": file_name(me),
+            "target": 0, "target_object": file_name(target), "type": type,
+            "damage": damage, "percent": percent ]) });
+    } else me->count_event("direct");
+    if (active && current["parameters"]["collection_group"] == "emei-npc")
+        current["npc_direct"] += ({ ([ "actor_program": base_name(me),
+            "target": member_array(target, players) ]) });
+    if (active && current["parameters"]["collection_group"] == "gumu-npc") {
+        require(
+            me == gumu_npc && target == players[0],
+            "exact original NPC direct owner and target"
+        );
+        current["npc_direct"] += ({ ([ "actor": member_array(me, players),
+            "actor_object": file_name(me), "actor_program": base_name(me),
+            "target": member_array(target, players), "target_object": file_name(target),
+            "type": type, "damage": damage, "percent": percent ]) });
+    }
+    if (active && member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-quanzhen",
+            "gumu-temporal",
+            "taohua-ding",
+            "taohua-zhuan",
+            "taohua-direct"
+        })) != -1) {
+        weapon = me->query_temp("weapon");
+        current["directs"] += ({ ([ "actor": member_array(me, players),
+            "target": member_array(target, players), "type": type, "damage": damage,
+            "percent": percent, "weapon": objectp(weapon) ? weapon->query("skill_type") : "none",
+            "weapon_object": objectp(weapon) ? file_name(weapon) : "" ]) });
+    }
+}
+
+void observe_scene_lifecycle(object ob, string event, string phase) {
+    if (!active || current["method"] != "scene" || !current["parameters"]["lifecycle"] ||
+        ob != players[0]) return;
+    current["scene_lifecycle"] += ({ ([ "event": event, "phase": phase,
+        "elapsed": time_ns() / 1000000000.0 - started,
+        "room": objectp(environment(ob)) ? base_name(environment(ob)) : "",
+        "state": snapshot(ob), "deaths": ob->query("combat/dietimes"),
+        "reason": ob->query_temp("die_reason") ]) });
+}
+
+void observe_scene_attack(object me, object target, object weapon, string skill,
+    string phase, object caller) {
+    if (!active || current["method"] != "scene") return;
+    current["scene_attacks"] += ({ ([ "phase": phase, "step": current["scene_step"],
+        "caller": objectp(caller) ? base_name(caller) : "",
+        "actor_program": base_name(me), "target": member_array(target, players),
+        "same_room": environment(me) == environment(target), "attack_skill": skill,
+        "argument_weapon": equipment_snapshot(weapon),
+        "actual_weapon": equipment_snapshot(me->query_temp("weapon")) ]) });
+}
+
+void observe_taiji(object me, object target, string phase) {
+    mapping value;
+    string key;
+    if (!active || member_array(
+        current["parameters"]["collection_group"],
+        ({ "wudang-passive", "wudang-bout" })
+    ) == -1) return;
+    value = ([ "actor": member_array(me, players), "target": member_array(target, players),
+        "phase": phase, "combat_time": me->query_temp("combat_time"),
+        "action_flag": me->query_temp("action_flag"), "apply": ([]),
+        "attack_index": sizeof(current["attacks"]),
+        "elapsed": time_ns() / 1000000000.0 - started ]);
+    foreach (key in ({ "attack", "parry", "unarmed_damage" }))
+        value["apply"][key] = me->query_temp("apply/" + key);
+    current["taiji_events"] += ({ value });
+}
+
+void observe_attack_round(object me, int before, int result) {
+    if (is_npc_bout()) {
+        observe_npc_bout_user_round(me, before, result);
+        return;
+    }
+    if (!active || member_array(
+        current["parameters"]["collection_group"],
+        ({ "wudang-passive", "wudang-bout", "shaolin-bout", "emei-bout", "gumu-bout" })
+    ) == -1) return;
+    current["attack_rounds"] += ({ ([ "actor": member_array(me, players), "before": before,
+        "after": me->query_temp("combat_time"), "result": result,
+        "elapsed": time_ns() / 1000000000.0 - started ]) });
+}
+
+void observe_defense(
+    object me,
+    object target,
+    string skill,
+    int damage,
+    mixed result,
+    string route
+) {
+    if (!active) return;
+    if (route == "ordinary-dodge" && member_array(current["parameters"]["collection_group"],
+        ({ "emei-shexing", "gumu-defense" })) == -1) return;
+    if (active) current["defenses"] += ({ ([ "actor": member_array(me, players),
+        "target": member_array(target, players), "skill": skill, "incoming": damage,
+        "result": serializable(result), "route": route ]) });
+}
+
+void observe_selected_action(object me, object target, string usage, mapping action) {
+    if (is_npc_bout()) {
+        require(npc_bout_side(me) != -2 && npc_bout_side(target) != -2 && me != target,
+            "original natural NPC action pair");
+        current["actions"] += ({ ([ "actor": npc_bout_side(me), "actor_object": file_name(me),
+            "target": npc_bout_side(target), "target_object": file_name(target),
+            "skill": me->query_skill_mapped(usage), "action": serializable(action) ]) });
+        return;
+    }
+    if (!active || member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout",
+            "taohua-attack",
+            "taohua-combo"
+        })) == -1) return;
+    current["actions"] += ({ ([ "actor": member_array(me, players),
+        "target": member_array(target, players), "skill": me->query_skill_mapped(usage),
+        "action": serializable(action) ]) });
+}
+
+void begin_passive(object me, object target, string route) {
+    if (is_npc_bout()) {
+        require(me == gumu_npc && target == players[0] && undefinedp(passive_before[route]),
+            "natural NPC passive before");
+        passive_before[route] = ({ npc_bout_state(me), npc_bout_state(target) });
+        return;
+    }
+    if (!active || member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout",
+            "taohua-attack",
+            "taohua-combo",
+            "taohua-passive"
+        })) == -1) return;
+    require(undefinedp(passive_before[route]), "passive observation is not nested");
+    passive_before[route] = ({ snapshot(me), snapshot(target) });
+}
+
+void observe_passive(
+    object me,
+    object target,
+    string skill,
+    int damage,
+    int factor,
+    mixed result,
+    string route
+) {
+    if (is_npc_bout()) {
+        require(me == gumu_npc && target == players[0] && arrayp(passive_before[route]),
+            "natural NPC passive return");
+        current["passives"] += ({ ([ "actor": -1, "actor_object": file_name(me),
+            "target": 0, "target_object": file_name(target), "skill": skill, "incoming": damage,
+            "factor": factor, "result": serializable(result), "route": route,
+            "before": passive_before[route], "after": ({
+                npc_bout_state(me),
+                npc_bout_state(target)
+            }) ]) });
+        npc_bout_count(me, route);
+        map_delete(passive_before, route);
+        return;
+    }
+    if (active) current["passives"] += ({ ([ "actor": member_array(me, players),
+        "target": member_array(target, players), "skill": skill, "incoming": damage,
+        "factor": factor, "result": serializable(result), "route": route,
+        "neili_after": me->query("neili"), "target_eff_qi_after": target->query("eff_qi"),
+        "target_busy_after": serializable(target->query_busy()) ]) });
+    if (active && member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout",
+            "taohua-attack",
+            "taohua-combo",
+            "taohua-passive"
+        })) != -1) {
+        require(arrayp(passive_before[route]), "passive before snapshot exists");
+        current["passives"][<1]["before"] = passive_before[route];
+        current["passives"][<1]["after"] = ({ snapshot(me), snapshot(target) });
+        map_delete(passive_before, route);
+    }
+}
+
+void observe_dodge(object me, object target, int attack_type, int ap, int dp, string phase) {
+    if (active) current["dodge_checks"] += ({ ([ "actor": member_array(me, players),
+        "target": member_array(target, players), "type": attack_type, "ap": ap, "dp": dp,
+        "phase": phase, "busy": serializable(target->query_busy()),
+        "skill": target->query_skill_mapped("dodge") ]) });
+}
+
+void observe_launch(object me, string skill, string argument) {
+    if (!is_npc_bout() || me != gumu_npc) me->count_event("ability_launched");
+    if (active) current["launches"] += ({ ([
+        "actor": file_name(me),
+        "skill": skill,
+        "argument": argument
+    ]) });
+}
+
+void observe_refusal(object me, mixed reason) {
+    if (active && stringp(reason) && reason != "")
+        current["refusals"] += ({ ([ "actor": file_name(me), "reason": reason ]) });
+}
+
+// Only the original command's two calls are observed; setup and other groups are excluded.
+void observe_hubo_step(object me, string argument, string phase, int result, mixed reason) {
+    mapping step;
+    mixed *states;
+    if (active && current["parameters"]["collection_group"] == "gumu-npc" &&
+        me == gumu_npc && base_name(previous_object()) == "/cmds/skill/perform") {
+        "/tests/npc_observer"->observe_gumu_step(me, argument, phase, result, reason);
+        return;
+    }
+    if (!active || member_array(current["parameters"]["collection_group"],
+        ({ "gumu-hubo", "gumu-temporal" })) == -1 ||
+        !arrayp(current["before"]) || me != players[0] ||
+        base_name(previous_object()) != "/cmds/skill/perform") return;
+    states = ({ snapshot(players[0]), snapshot(players[1]) });
+    if (current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "hubo-targets") states += ({ snapshot(players[2]) });
+    if (phase == "before") {
+        current["hubo_steps"] += ({ ([ "argument": argument,
+            "before": states ]) });
+        return;
+    }
+    require(phase == "after" && sizeof(current["hubo_steps"]), "matching original perform step");
+    step = current["hubo_steps"][<1];
+    require(step["argument"] == argument && undefinedp(step["after"]), "perform step matched once");
+    step["accepted"] = result;
+    step["reason"] = result || !stringp(reason) ? "" : reason;
+    step["after"] = states;
+}
+
+void observe_hubo_busy(object me, mixed requested, string phase) {
+    mapping call;
+    int side;
+    if (!active || member_array(current["parameters"]["collection_group"],
+        ({ "gumu-hubo", "gumu-temporal" })) == -1 ||
+        !arrayp(current["before"]) || !intp(requested)) return;
+    side = member_array(me, players);
+    if (side == -1) return;
+    require(previous_object() == me, "original actor busy observation");
+    if (phase == "before") {
+        call = ([ "side": side, "caller_side": member_array(this_player(), players),
+            "requested": requested, "before": serializable(me->query_busy()) ]);
+        current["busy_calls"] += ({ call });
+        return;
+    }
+    require(phase == "after" && sizeof(current["busy_calls"]), "matching original busy call");
+    call = current["busy_calls"][<1];
+    require(call["side"] == side && undefinedp(call["after"]), "busy call matched once");
+    call["after"] = serializable(me->query_busy());
+}
+
+void observe_condition_tick(object me, string name, object daemon, string phase, int flag) {
+    int side;
+    if (!active || current["method"] != "condition") return;
+    side = current["parameters"]["collection_group"] == "gumu-needle-lifecycle" ? 1 : 0;
+    if (me != players[side]) return;
+    current["condition_events"] += ({ ([ "phase": phase, "name": name,
+        "daemon": base_name(daemon), "flag": flag, "state": snapshot(me),
+        "elapsed": time_ns() / 1000000000.0 - started ]) });
+    if (side) current["condition_events"][<1]["side"] = side;
+}
+
+void observe_lookup_message(object me, string type, string text) {
+    if (active && member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense" })) != -1 &&
+        arrayp(current["defense_messages"]) && member_array(me, players) != -1)
+        current["defense_messages"] += ({ ([ "side": member_array(me, players),
+            "type": type, "text": text ]) });
+    if (active && current["parameters"]["collection_group"] == "shaolin-backlash" &&
+        me == players[0] && type == "write" && arrayp(current["backlash_messages"]))
+        current["backlash_messages"] += ({ text });
+    if (active && current["parameters"]["collection_group"] == "wudang-lookup" &&
+        me == players[0] && type == "write" && arrayp(current["lookup_messages"]))
+        current["lookup_messages"] += ({ text });
+    if (active && current["parameters"]["collection_group"] == "gumu-hubo" &&
+        current["method"] == "interface" &&
+        current["parameters"]["interface"]["function"] == "skill_improved" &&
+        me == players[0] && type == "tell_object" && arrayp(current["skill_messages"]))
+        current["skill_messages"] += ({ text });
+}
+
+void observe_caught_error(mapping details) {
+    mapping frame;
+    mixed *trace;
+    if (!active || current["parameters"]["collection_group"] != "wudang-lookup") return;
+    trace = ({});
+    foreach (frame in details["trace"] || ({}))
+        trace += ({ ([
+            "file": frame["file"],
+            "line": frame["line"],
+            "function": frame["function"]
+        ]) });
+    current["caught_error"] = ([ "error": details["error"], "trace": trace ]);
+}
+
+mapping lookup_snapshot(object ob) {
+    object room;
+    if (!objectp(ob)) return ([ "missing": 1 ]);
+    room = environment(ob);
+    return ([ "state": snapshot(ob), "room": room ? file_name(room) : "",
+        "room_short": room ? room->short() : "", "name": ob->name(1),
+        "place": ob->query("place") ]);
+}
+
+void prepare_lookup(mapping parameters) {
+    string mode, key;
+    mode = parameters["lookup_mode"];
+    lookup_subject = players[1];
+    if (member_array(mode, ({ "by-living", "no-environment" })) != -1) {
+        lookup_subject = new("/tests/actor");
+        lookup_subject->set_name("寻踪弟子", ({ "lookup_subject" }));
+        lookup_subject->set("id", "lookup_subject");
+        lookup_subject->enable_player();
+        if (mode != "no-environment") lookup_subject->move(this_object());
+        lookup_subject->stop_observation();
+    }
+    if (mode == "by-player") players[1]->enable_player();
+    key = mode == "by-player" ? "right" : mode == "by-living" ? "lookup_subject" : file_name(lookup_subject);
+    if (mode == "not-found") key = "missing_lookup_subject";
+    if (mode == "no-quest") key = "";
+    if (key != "") players[0]->set("quest/id", key);
+    current["lookup"] = ([ "quest_id": key,
+        "find_player": key == "" ? 0 : serializable(find_player(key)),
+        "find_living": key == "" ? 0 : serializable(find_living(key)),
+        "find_object": key == "" ? 0 : serializable(find_object(key)),
+        "permission": players[0]->query("can_perform/wiz_test"),
+        "before": lookup_snapshot(lookup_subject) ]);
+    current["lookup_messages"] = ({});
+}
+
+void observe_callback(object me, string phase) {
+    int side;
+    string key;
+    mixed *frames;
+    object owner;
+    if (is_taohua_ding()) {
+        owner = previous_object();
+        frames = call_stack(2);
+        require(arrayp(frames) && sizeof(frames) > 1 && stringp(frames[1]),
+            "actual DING callback stack");
+        if (taohua_ding_callback(me, phase, owner, frames[1])) return;
+    }
+    side = member_array(me, players);
+    if (active && side != -1) {
+        key = current["parameters"]["collection_group"] == "gumu-needle-lifecycle" ? "incidental_callbacks" : "callbacks";
+        current[key] += ({ ([ "side": side, "phase": phase,
+            "elapsed": time_ns() / 1000000000.0 - started,
+            "state": snapshot(me) ]) });
+    }
+}
+
+void observe_fireice_followup(object me, object target) {
+    if (!active || current["parameters"]["collection_group"] != "gumu-fireice" ||
+        me != players[0] || target != players[1] ||
+        base_name(previous_object()) != "/kungfu/skill/fireice-strike/binghuo") return;
+    current["fireice_followups"] += ({ ([ "phase": "entry", "function": "perform2",
+        "elapsed": time_ns() / 1000000000.0 - started,
+        "same_room": environment(me) == environment(target), "target_living": living(target),
+        "actor_neili": me->query("neili"),
+        "metrics": ({ me->query_observation(), target->query_observation() }) ]) });
+}
+
+void observe_exercise(object me, string phase) {
+    if (active && current["method"] == "exercise" && me == players[0])
+        current["exercise_steps"] += ({ ([ "phase": phase, "state": snapshot(me),
+            "elapsed": time_ns() / 1000000000.0 - started,
+            "limit": me->query_current_neili_limit() ]) });
+}
+
+void observe_healing(object me, string phase) {
+    if (active && current["method"] == "healing" && me == players[0])
+        current["healing_steps"] += ({ ([ "phase": phase, "state": snapshot(me),
+            "elapsed": time_ns() / 1000000000.0 - started ]) });
+}
+
+mapping gumu_teacher_loaded_skills() {
+    mapping result;
+    string skill;
+    result = ([]);
+    foreach (skill in ({ "suxin-jian", "quanzhen-jian", "yinsuo-jinling",
+        "sanwu-shou", "wudu-shenzhang", "sad-strike" }))
+        result[skill] = objectp(find_object("/kungfu/skill/" + skill));
+    return result;
+}
+
+mapping gumu_teacher_autonomy() {
+    object blueprint;
+    object *owners;
+    mixed row;
+    mapping result;
+    require(objectp(gumu_teacher), "original Gumu teacher reference");
+    blueprint = find_object(base_name(gumu_teacher));
+    require(objectp(blueprint), "original Gumu teacher blueprint");
+    owners = ({
+        gumu_teacher,
+        blueprint
+    }) + deep_inventory(gumu_teacher) + deep_inventory(blueprint);
+    result = ([ "heartbeat": query_heart_beat(gumu_teacher),
+        "blueprint": file_name(blueprint), "blueprint_heartbeat": query_heart_beat(blueprint),
+        "callbacks": ({}) ]);
+    foreach (row in call_out_info())
+        if (member_array(row[0], owners) != -1)
+            result["callbacks"] += ({ ([ "object": file_name(row[0]),
+                "function": serializable(row[1]), "delay": row[2]]) });
+    return result;
+}
+
+void clear_gumu_teacher() {
+    object item, holder;
+    gumu_teacher_pending = 0;
+    if (mapp(gumu_item_context))
+        foreach (holder in values(gumu_item_context["carriers"])) if (objectp(holder))
+            foreach (item in all_inventory(holder))
+                if (base_name(item) == gumu_item_context["item"]) gumu_item_owned += ({ item });
+    foreach (item in gumu_item_owned) if (objectp(item)) destruct(item);
+    gumu_item_owned = ({});
+    gumu_item_context = 0;
+    if (objectp(gumu_previous_teacher)) {
+        foreach (item in deep_inventory(gumu_previous_teacher)) destruct(item);
+        destruct(gumu_previous_teacher);
+    }
+    gumu_previous_teacher = 0;
+    // Also owns a successfully created NPC whose move failed before room cleanup.
+    if (objectp(gumu_teacher)) {
+        foreach (item in deep_inventory(gumu_teacher)) destruct(item);
+        destruct(gumu_teacher);
+    }
+    gumu_teacher = 0;
+}
+
+// Only this finite acquisition profile prepares stock, holders and capacity.
+// Every award still runs the original ask/NPC/MASTER_D/move/combined chain.
+void prepare_gumu_items(mapping parameters) {
+    mapping setup, prep;
+    object item, holder, container;
+    string role;
+    require(parameters["teaching_profile"] == "gumu-item-acquisition", "scoped item preparation");
+    setup = parameters["item_setup"];
+    require(member_array(setup["item"], ({ "/d/gumu/obj/yufeng-zhen",
+        "/d/gumu/obj/bingpo-zhen", "/clone/lonely/yinsuo" })) != -1, "reviewed acquisition item");
+    gumu_item_context = ([ "item": setup["item"], "stock_key": setup["stock_key"],
+        "carriers": ([ "student": players[0], "room": this_object() ]) ]);
+    prep = ([ "scope": "explicit_preparation_not_natural_acquisition",
+        "stock_key": setup["stock_key"], "stock_source": setup["stock_source"],
+        "constructor_stock": 0, "reset": 0, "singleton": 0, "previous_teacher": 0 ]);
+    current["item_preparation"] = prep;
+    if (setup["item"] == "/clone/lonely/yinsuo") {
+        require(!objectp(find_object(setup["item"])), "previous acquisition singleton cleaned");
+        item = load_object(setup["item"]);
+        gumu_item_owned += ({ item });
+        require(objectp(item) && !clonep(item) && !environment(item), "original free singleton");
+        if (setup["holder"] == "previous_teacher") {
+            gumu_teacher_pending = 1;
+            require(players[0]->force_me("test_interface") && !gumu_teacher_pending &&
+                objectp(gumu_teacher), "first original singleton holder");
+            prep["previous_teacher"] = copy(current["teacher_preparation"]);
+            prep["previous_teacher"]["singleton_before_create"] = 0;
+            prep["previous_teacher"]["singleton_after_create"] = serializable(environment(item));
+            gumu_previous_teacher = gumu_teacher;
+            gumu_item_context["carriers"]["previous_teacher"] = gumu_previous_teacher;
+            gumu_teacher = 0;
+        } else if (setup["holder"] != "cold") {
+            role = replace_string(setup["holder"], "-container", "");
+            require(member_array(role, ({ "student", "room", "peer", "outsider" })) != -1,
+                "finite singleton holder");
+            if (role == "peer" || role == "outsider") {
+                players[1]->set("family/family_name", role == "peer" ? "古墓派" : "武当派");
+                gumu_item_context["carriers"][role] = players[1];
+            }
+            holder = gumu_item_context["carriers"][role];
+            if (strsrch(setup["holder"], "-container") != -1) {
+                container = new("/inherit/item/item");
+                gumu_item_owned += ({ container });
+                container->set_name("试验收纳袋", ({ "acquisition bag" }));
+                container->set_weight(0);
+                container->set_max_encumbrance(1300);
+                require(container->move(holder), "original item container placement");
+                gumu_item_context["carriers"]["container"] = container;
+                holder = container;
+            }
+            require(item->move(holder), "explicit original singleton placement");
+        }
+        prep["singleton"] = ([ "object": file_name(item), "clonep": clonep(item),
+            "before_create": serializable(environment(item)) ]);
+    } else if (setup["initial_room_amount"] > 0) {
+        require(setup["item"] == "/d/gumu/obj/yufeng-zhen" && setup["initial_room_amount"] == 50,
+            "finite initial room stack");
+        item = new(setup["item"]);
+        gumu_item_owned += ({ item });
+        item->set_amount(setup["initial_room_amount"]);
+        require(item->move(this_object()), "original initial room stack movement");
+    }
+    players[0]->set_max_encumbrance(players[0]->query_encumbrance() + setup["free_capacity"]);
+}
+
+void finish_gumu_item_preparation(mapping parameters) {
+    mapping setup, prep;
+    object item, weapon;
+    setup = parameters["item_setup"];
+    prep = current["item_preparation"];
+    gumu_item_context["carriers"]["teacher"] = gumu_teacher;
+    prep["teacher"] = file_name(gumu_teacher);
+    prep["teacher_program"] = base_name(gumu_teacher);
+    if (stringp(setup["stock_key"])) {
+        prep["constructor_stock"] = gumu_teacher->query(setup["stock_key"]);
+        if (setup["stock_source"] == "direct_reset") {
+            prep["reset"] = ([ "calls": 1, "function": "reset",
+                "owner": function_exists("reset", gumu_teacher), "object": file_name(gumu_teacher),
+                "before": prep["constructor_stock"], "scope": "direct_interface_not_natural_refresh" ]);
+            gumu_teacher->reset();
+            prep["reset"]["after"] = gumu_teacher->query(setup["stock_key"]);
+        } else gumu_teacher->set(setup["stock_key"], setup["stock"]);
+    } else {
+        item = find_object(setup["item"]);
+        require(objectp(item), "same original singleton after constructor");
+        weapon = gumu_teacher->query_temp("weapon");
+        prep["singleton"]["after_create"] = serializable(environment(item));
+        prep["singleton"]["fallback"] = objectp(weapon) && base_name(weapon) == "/clone/weapon/changbian";
+    }
+    require(present(parameters["teacher"]["id"], this_object()) == gumu_teacher,
+        "exact original teacher resolves despite same-name holder");
+}
+
+void set_gumu_npc_observation(object ob) {
+    require(active && (current["parameters"]["collection_group"] == "gumu-npc" || is_npc_bout()) &&
+        base_name(previous_object()) == "/tests/npc_observer" && objectp(ob) &&
+        clonep(ob) && base_name(ob) == current["parameters"]["npc"]["path"] && !objectp(gumu_npc),
+        "exact original NPC observation reference");
+    gumu_npc = ob;
+}
+
+int do_interface() {
+    mapping spec, busy_call;
+    mixed result, reason;
+    if (!active || this_player() != players[0]) return 0;
+    if (gumu_npc_pending) {
+        gumu_npc_pending = 0;
+        if (is_npc_bout()) {
+            current["npc_observation"] = "/tests/npc_observer"->prepare_gumu_bout(
+                current["parameters"]["npc"], players[0]);
+            return 1;
+        }
+        require(current["method"] == "npc" &&
+            current["parameters"]["collection_group"] == "gumu-npc", "scoped original Gumu NPC command");
+        current["npc_observation"] = "/tests/npc_observer"->observe_gumu(
+            current["parameters"]["npc"], players[0]);
+        return 1;
+    }
+    if (gumu_teacher_pending) {
+        gumu_teacher_pending = 0;
+        require(current["method"] == "teaching" &&
+            member_array(current["parameters"]["teaching_profile"],
+                ({
+                    "gumu-teachers",
+                    "gumu-special",
+                    "gumu-acquisition-learning", "gumu-item-acquisition", "gumu-recruit"
+                })) != -1 && !objectp(gumu_teacher),
+            "scoped original Gumu teacher preparation");
+        require(userp(this_player()) && playerp(this_player()) && interactive(this_player()) &&
+            !wizardp(this_player()), "connected ordinary student creates original teacher");
+        current["teacher_preparation"] = ([ "command": "test_interface",
+            "entry_actor": file_name(this_player()), "before": snapshot(players[0]),
+            "loaded_before": gumu_teacher_loaded_skills(), "initializer_actor": "not_observed" ]);
+        // Original setup/enable_player may change the command giver inside create.
+        // Entry/return identity is not evidence of the action table's first reader.
+        gumu_teacher = new(current["parameters"]["teacher"]["path"]);
+        require(objectp(gumu_teacher) && clonep(gumu_teacher), "original Gumu teacher clone");
+        current["teacher_preparation"]["teacher"] = file_name(gumu_teacher);
+        current["teacher_preparation"]["teacher_program"] = base_name(gumu_teacher);
+        require(gumu_teacher->move(this_object()), "prepared teacher in observation room");
+        current["teacher_preparation"]["autonomy_before"] = gumu_teacher_autonomy();
+        evaluate(bind((: set_heart_beat, 0 :), gumu_teacher));
+        current["teacher_preparation"]["autonomy_after"] = gumu_teacher_autonomy();
+        current["teacher_preparation"]["teacher_state"] = snapshot(gumu_teacher);
+        current["teacher_preparation"]["after"] = snapshot(players[0]);
+        current["teacher_preparation"]["loaded_after"] = gumu_teacher_loaded_skills();
+        current["teacher_preparation"]["return_actor"] = serializable(this_player());
+        require(this_player() == players[0] && !query_heart_beat(gumu_teacher) &&
+            !current["teacher_preparation"]["autonomy_after"]["blueprint_heartbeat"] &&
+            !sizeof(current["teacher_preparation"]["autonomy_before"]["callbacks"]) &&
+            !sizeof(current["teacher_preparation"]["autonomy_after"]["callbacks"]),
+            "original teacher prepared without autonomous callbacks");
+        return 1;
+    }
+    spec = current["parameters"]["interface"];
+    require(mapp(spec) && member_array(
+        spec["function"],
+        ({
+            "valid_learn",
+            "valid_research",
+            "valid_force",
+            "can_learn",
+            "do_effect",
+            "difficult_level",
+            "query_neili_improve",
+            "query_neili_limit",
+            "query_current_neili_limit",
+            "query_effect_parry",
+            "query_effect_dodge",
+            "query_dodge_msg",
+            "query_action",
+            "query_parry_msg",
+            "valid_enable",
+            "type",
+            "valid_learn_level",
+            "valid_combine",
+            "practice_skill",
+            "valid_damage",
+            "do_damage",
+            "hit_ob",
+            "remove_enemy",
+            "remove_all_enemy",
+            "start_busy",
+            "skill_improved"
+        })
+    ) != -1,
+        "configured observation interface");
+    if (spec["function"] == "valid_research") {
+        require(member_array(current["parameters"]["collection_group"],
+            ({ "gumu-cultivation", "gumu-movement" })) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
+            "configured original research qualification");
+        result = call_other(spec["object"], "valid_research", players[0]);
+    } else if (spec["function"] == "valid_force") {
+        require(current["parameters"]["collection_group"] == "gumu-cultivation" &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            stringp(spec["argument"]), "configured original force compatibility");
+        result = call_other(spec["object"], "valid_force", spec["argument"]);
+    } else if (spec["function"] == "can_learn") {
+        require(current["parameters"]["collection_group"] == "gumu-cultivation" &&
+            spec["object"] == "/cmds/skill/learn" &&
+            spec["argument"] == current["parameters"]["skill"],
+            "configured original public learning qualification");
+        result = call_other(spec["object"], "can_learn", players[0], spec["argument"]);
+    } else if (spec["function"] == "start_busy") {
+        require(current["parameters"]["collection_group"] == "gumu-hubo" &&
+            spec["object"] == "player" && !undefinedp(spec["player_side"]) &&
+            member_array(spec["player_side"], ({ 0, 1 })) != -1 &&
+            intp(spec["amount"]) && spec["amount"] >= 0,
+            "configured original busy interface");
+        result = call_other(players[spec["player_side"]], "start_busy", spec["amount"]);
+        if (!spec["amount"]) {
+            // The original zero request returned early. Read its actual state after that return.
+            require(sizeof(current["busy_calls"]), "zero busy call observed");
+            busy_call = current["busy_calls"][<1];
+            require(busy_call["side"] == spec["player_side"] && busy_call["requested"] == 0 &&
+                undefinedp(busy_call["after"]), "matching original zero busy return");
+            busy_call["after"] = serializable(players[spec["player_side"]]->query_busy());
+        }
+    } else if (spec["function"] == "skill_improved") {
+        require(current["parameters"]["collection_group"] == "gumu-hubo" &&
+            spec["object"] == "/kungfu/skill/zuoyou-hubo", "configured original knowledge notification");
+        result = call_other(spec["object"], "skill_improved", players[0]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "gumu-movement") {
+        require(spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            member_array(spec["argument"], ({ "dodge", "move", "parry" })) != -1,
+            "configured original movement usage");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (member_array(spec["function"], ({ "valid_enable", "query_parry_msg" })) != -1) {
+        require(member_array(current["parameters"]["collection_group"],
+            ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense" })) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
+            "configured original defense query");
+        if (spec["function"] == "valid_enable") {
+            require(member_array(spec["usage"], ({ "parry", "dodge", "move" })) != -1 ||
+                (current["parameters"]["collection_group"] == "gumu-defense" &&
+                    spec["object"] == "/kungfu/skill/tianluo-diwang" && spec["usage"] == "strike"),
+                "configured defense usage");
+            if (!undefinedp(spec["player_side"])) {
+                require(current["parameters"]["collection_group"] == "gumu-defense" &&
+                    spec["object"] == "/kungfu/skill/tianluo-diwang" && spec["player_side"] == 1,
+                    "configured defender qualification query");
+                result = call_other(spec["object"], "valid_enable", spec["usage"], players[1]);
+            } else result = call_other(spec["object"], "valid_enable", spec["usage"]);
+        } else
+            result = call_other(
+                spec["object"],
+                "query_parry_msg",
+                players[1]->query_temp("weapon")
+            );
+    } else if (spec["function"] == "do_effect") {
+        require(current["parameters"]["collection_group"] == "shaolin-backlash" &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
+            "configured original force safety check");
+        result = call_other(spec["object"], "do_effect", players[0]);
+    } else if (spec["function"] == "valid_combine") {
+        require(member_array(current["parameters"]["collection_group"],
+            ({
+                "wudang-combination",
+                "shaolin-combination",
+                "emei-combination",
+                "gumu-combination"
+            })) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
+            "configured combination query");
+        result = call_other(spec["object"], "valid_combine", spec["combo"]);
+    } else if (spec["function"] == "query_effect_dodge")
+        result = call_other(spec["object"], "query_effect_dodge", players[0], players[1]);
+    else if (spec["function"] == "query_dodge_msg")
+        result = call_other(spec["object"], "query_dodge_msg", "胸口");
+    else if (spec["function"] == "query_action") {
+        require(current["parameters"]["collection_group"] == "emei-shexing" &&
+            spec["object"] == "/kungfu/skill/shexing-lifan", "configured movement action query");
+        result = call_other(
+            spec["object"],
+            "query_action",
+            players[0],
+            players[0]->query_temp("weapon")
+        );
+    } else if (spec["function"] == "type")
+        result = call_other(spec["object"], "type");
+    else if (member_array(spec["function"], ({ "valid_learn_level", "practice_skill" })) != -1)
+        result = call_other(spec["object"], spec["function"], players[0]);
+    else if (spec["function"] == "difficult_level")
+        result = call_other(spec["object"], "difficult_level");
+    else if (spec["function"] == "query_neili_improve")
+        result = call_other(spec["object"], "query_neili_improve", players[0]);
+    else if (member_array(
+        spec["function"],
+        ({ "query_neili_limit", "query_current_neili_limit" })
+    ) != -1) {
+        require(spec["object"] == "player", "real USER cultivation interface");
+        result = call_other(players[0], spec["function"]);
+    } else if (spec["function"] == "query_effect_parry")
+        result = call_other(spec["object"], "query_effect_parry", players[0], players[1]);
+    else if (spec["function"] == "valid_damage") {
+        result = call_other(spec["object"], "valid_damage", players[0], players[1],
+            spec["damage"], players[0]->query_temp("weapon"));
+        observe_defense(
+            players[0],
+            players[1],
+            current["parameters"]["skill"],
+            spec["damage"],
+            result,
+            "interface"
+        );
+    } else if (spec["function"] == "do_damage") {
+        require(spec["object"] == COMBAT_D, "original combat damage interface");
+        require(
+            undefinedp(spec["attack_type"]) || member_array(
+                spec["attack_type"],
+                ({ UNARMED_ATTACK, WEAPON_ATTACK })
+            ) != -1,
+            "configured attack type"
+        );
+        result = COMBAT_D->do_damage(
+            players[0],
+            players[1],
+            undefinedp(spec["attack_type"]) ? WEAPON_ATTACK : spec["attack_type"],
+            spec["damage"],
+            50,
+            ""
+        );
+    } else if (spec["function"] == "hit_ob" && spec["object"] == "/kungfu/skill/taiji-quan") {
+        require(current["parameters"]["collection_group"] == "wudang-passive",
+            "configured original Taiji passive interface");
+        result = call_other(spec["object"], "hit_ob", players[0], players[1]);
+    } else if (member_array(spec["function"], ({ "remove_enemy", "remove_all_enemy" })) != -1) {
+        require(spec["object"] == "player" &&
+            current["parameters"]["collection_group"] == "wudang-passive",
+            "configured original combat cleanup");
+        if (spec["function"] == "remove_enemy") result = players[0]->remove_enemy(players[1]);
+        else result = players[0]->remove_all_enemy(1);
+    } else if (spec["function"] == "hit_ob") {
+        require(
+            spec["object"] == "/kungfu/skill/xiantian-gong" ||
+            (current["parameters"]["collection_group"] == "emei-jiuyin-passive" &&
+                member_array(spec["object"], ({ "/kungfu/skill/jiuyin-baiguzhao",
+                    "/kungfu/skill/cuixin-zhang" })) != -1) ||
+            (spec["object"] == "/kungfu/skill/shenmen-jian" &&
+                current["parameters"]["collection_group"] == "wudang-shenmen") ||
+            (spec["object"] == "/kungfu/skill/yuxiao-jian" &&
+                current["parameters"]["collection_group"] == "taohua-passive") ||
+            (current["parameters"]["collection_group"] == "gumu-weapons" &&
+                member_array(spec["object"], ({ "/kungfu/skill/xuantie-jian",
+                    "/kungfu/skill/sanwu-shou", "/kungfu/skill/yunv-xinjing" })) != -1) ||
+            (current["parameters"]["collection_group"] == "gumu-unarmed-attack" &&
+                member_array(spec["object"], ({ "/kungfu/skill/meinv-quan",
+                    "/kungfu/skill/tianluo-diwang", "/kungfu/skill/chilian-shenzhang",
+                    "/kungfu/skill/wudu-shenzhang", "/kungfu/skill/sad-strike",
+                    "/kungfu/skill/fireice-strike" })) != -1),
+            "configured original passive interface"
+        );
+        begin_passive(players[0], players[1], "interface");
+        result = call_other(
+            spec["object"],
+            "hit_ob",
+            players[0],
+            players[1],
+            spec["damage"],
+            spec["factor"]
+        );
+        observe_passive(
+            players[0],
+            players[1],
+            explode(spec["object"], "/")[<1],
+            spec["damage"],
+            spec["factor"],
+            result,
+            "interface"
+        );
+    } else
+        result = call_other(spec["object"], "valid_learn", players[0]);
+    reason = query_notify_fail();
+    current["interfaces"] += ({ ([ "object": spec["object"], "function": spec["function"],
+        "result": serializable(result) ]) });
+    if (spec["function"] == "valid_combine")
+        current["interfaces"][<1]["combo"] = spec["combo"];
+    if (!undefinedp(spec["player_side"]))
+        current["interfaces"][<1]["player_side"] = spec["player_side"];
+    if (!undefinedp(spec["argument"]))
+        current["interfaces"][<1]["argument"] = spec["argument"];
+    if (spec["function"] == "do_effect")
+        current["interfaces"][<1]["implemented_by"] = function_exists(
+            "do_effect",
+            load_object(spec["object"])
+        );
+    if (spec["function"] == "query_effect_dodge")
+        current["interfaces"][<1]["implemented_by"] = function_exists(
+            "query_effect_dodge",
+            load_object(spec["object"])
+        );
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense" })) != -1)
+        current["interfaces"][<1]["implemented_by"] = function_exists(
+            spec["function"], load_object(spec["object"]));
+    if (current["parameters"]["collection_group"] == "gumu-hubo")
+        current["interfaces"][<1]["implemented_by"] = function_exists(spec["function"],
+            spec["object"] == "player" ? players[spec["player_side"]] : load_object(spec["object"]));
+    if (current["parameters"]["collection_group"] == "gumu-cultivation")
+        current["interfaces"][<1]["implemented_by"] = function_exists(spec["function"],
+            spec["object"] == "player" ? players[0] : load_object(spec["object"]));
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning" })) != -1)
+        current["interfaces"][<1]["implemented_by"] = function_exists(spec["function"],
+            load_object(spec["object"]));
+    current["outcome"] = member_array(
+        spec["function"],
+        ({ "valid_learn", "valid_research", "can_learn", "practice_skill" })
+    ) != -1 && !result ? "refused" : "observed";
+    if (current["outcome"] == "refused") current["reason"] = stringp(reason) ? reason : "学习接口未允许";
+    return 1;
+}
+
+void init() { add_action("do_interface", "test_interface"); }
+
+// Point observations still have no autonomous heartbeat. Bouts use the original
+// USER heartbeat, including regeneration; only the chosen command is automated.
+int strategy(object ob, int side) {
+    if (is_npc_bout()) {
+        require(!side && ob == players[0], "only the neutral USER heartbeat");
+        ob->count_event("heartbeats");
+        record_npc_bout_heartbeat(ob);
+        return 1;
+    }
+    if (active && current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "tuo-cooldown" && side < 2 && ob == players[side]) {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && !side && current["method"] == "scene" &&
+        current["parameters"]["lifecycle"] && current["parameters"]["observe_seconds"] > 0) {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && !side && current["parameters"]["teaching_profile"] == "shaolin-challenge") {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && !side && promotion_waiting &&
+        current["parameters"]["teaching_profile"] == "shaolin-promotion") {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && side == 1 && member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-palms", "shaolin-hands" })) != -1 &&
+        current["parameters"]["target_heartbeat"]) {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && current["parameters"]["collection_group"] == "gumu-needle-lifecycle") {
+        if (side != 1 || current["method"] != "condition" || !current["parameters"]["ticks"])
+            return 0;
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (active && member_array(
+        current["method"],
+        ({ "exercise", "healing", "condition" })
+    ) != -1 && !side) {
+        ob->count_event("heartbeats");
+        return 1;
+    }
+    if (!active || current["method"] != "bout") return 0;
+    if (time_ns() / 1000000000.0 - started >= current["parameters"]["observe_seconds"]) {
+        current["terminal"] = "time_limit";
+        current["winner"] = -1;
+        finish_sample();
+        return 0;
+    }
+    ob->count_event("heartbeats");
+    if (current["first_actor"] == -1) current["first_actor"] = side;
+    if (!side && current["parameters"]["strategy"] == "perform" &&
+        living(ob) && living(players[1]) && !ob->is_busy() &&
+        ob->query("qi") >= 0 && players[1]->query("qi") >= 0) {
+        ob->count_event("perform_attempts");
+        ob->force_me(current["parameters"]["action"]);
+    }
+    return active;
+}
+
+void after_heartbeat(int side) {
+    if (is_npc_bout()) {
+        require(!side, "natural bout excludes bystander heartbeat");
+        sample_busy();
+        if (!current["second_started"] && objectp(gumu_npc)) {
+            current["second_started"] = 1;
+            evaluate(bind((: set_heart_beat, 1 :), gumu_npc));
+        }
+        return;
+    }
+    if (active && current["parameters"]["collection_group"] == "gumu-needle-lifecycle" && side == 1) {
+        if (sizeof(current["condition_events"]) / 2 > sizeof(current["condition_heartbeats"])) {
+            current["condition_heartbeats"] += ({ ([ "side": side, "state": snapshot(players[side]),
+                "elapsed": time_ns() / 1000000000.0 - started ]) });
+            if (sizeof(current["condition_heartbeats"]) == current["parameters"]["ticks"])
+                finish_sample();
+        }
+        return;
+    }
+    if (active && current["method"] == "condition" && !side) {
+        if (sizeof(current["condition_events"]) / 2 > sizeof(current["condition_heartbeats"])) {
+            current["condition_heartbeats"] += ({ ([ "state": snapshot(players[0]),
+                "elapsed": time_ns() / 1000000000.0 - started ]) });
+            if (sizeof(current["condition_heartbeats"]) == current["parameters"]["ticks"])
+                finish_sample();
+        }
+        return;
+    }
+    if (active && current["method"] == "healing" && !side) {
+        if (current["parameters"]["halt_after"] && sizeof(current["healing_steps"]) &&
+            !current["halt_accepted"]) {
+            current["healing_halt"] = ([ "before": snapshot(players[0]) ]);
+            current["halt_accepted"] = players[0]->force_me("halt");
+            current["healing_halt"]["after"] = snapshot(players[0]);
+            require(current["halt_accepted"], "original healing halt accepted");
+        }
+        // Preserve the game's pending marker, including MA-080; busy owns completion.
+        if (!players[0]->is_busy()) {
+            current["healing_terminal"] = current["halt_accepted"] ? "halted" : "busy_ended";
+            finish_sample();
+        }
+        return;
+    }
+    if (active && current["method"] == "exercise" && !side) {
+        if (current["parameters"]["halt_after"] && sizeof(current["exercise_steps"]) &&
+            !current["halt_accepted"]) {
+            current["halt_accepted"] = players[0]->force_me("halt");
+            require(current["halt_accepted"], "original halt accepted");
+        }
+        if (!players[0]->is_busy() && !players[0]->query_temp("pending/exercise")) {
+            current["exercise_terminal"] = current["halt_accepted"] ? "halted" : "completed";
+            finish_sample();
+        }
+        return;
+    }
+    if (!active || current["method"] != "bout") return;
+    sample_busy();
+    if (!current["second_started"]) {
+        require(side == current["first"], "actual opening initiative");
+        current["second_started"] = 1;
+        players[1 - side]->observation_heartbeat(1);
+    }
+}
+
+void terminal(object ob, int side, string state) {
+    if (is_npc_bout()) {
+        require(!side && ob == players[0], "natural bout USER terminal return");
+        call_out("finish_sample", 0);
+        return;
+    }
+    if (active) current["terminals"] += ({ ([ "side": side, "state": state ]) });
+    if (active && current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "tuo-cooldown") {
+        current["outcome"] = "error";
+        current["reason"] = "Original cooldown sequence ended with " + state;
+        finish_sample();
+        return;
+    }
+    if (active && current["method"] == "scene" && current["parameters"]["lifecycle"])
+        stop_background_quests();
+    if (active && side == 1 && state == "death" &&
+        member_array(
+            current["parameters"]["collection_group"],
+            ({ "shaolin-palms", "shaolin-hands" })
+        ) != -1 &&
+        current["parameters"]["target_heartbeat"]) {
+        if (current["parameters"]["collection_group"] == "shaolin-hands")
+            current["observation_terminal"] = "death";
+        finish_sample();
+        return;
+    }
+    if (active && current["method"] == "bout") {
+        current["terminal"] = state;
+        current["winner"] = 1 - side;
+        finish_sample();
+    }
+}
+
+void sample_busy() {
+    float now, elapsed;
+    int side;
+    now = time_ns() / 1000000000.0;
+    elapsed = now - observed;
+    foreach (side in ({ 0, 1 })) {
+        if (busy_state[side]) busy_seconds[side] += elapsed;
+        if (is_npc_bout()) busy_state[side] = side ? players[0]->is_busy() : objectp(gumu_npc) && gumu_npc->is_busy();
+        else busy_state[side] = objectp(players[side]) && players[side]->is_busy();
+    }
+    observed = now;
+}
+
+// Three original commands only. Waiting neither rewrites the game's timestamp
+// nor invokes continue_action, start_busy, resource refills or automatic performs.
+void perform_gumu_temporal(string phase) {
+    mapping step;
+    mixed reason;
+    require(active && current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "tuo-cooldown" &&
+        member_array(phase, ({ "initial", "early", "expired" })) != -1,
+        "reviewed original cooldown sequence");
+    step = ([ "phase": phase, "action": current["parameters"]["action"],
+        "before": ({ snapshot(players[0]), snapshot(players[1]) }),
+        "metrics_before": ({ players[0]->query_observation(), players[1]->query_observation() }),
+        "launches_before": sizeof(current["launches"]), "directs_before": sizeof(current["directs"]) ]);
+    current["temporal_steps"] += ({ step });
+    step["accepted"] = players[0]->force_me(step["action"]);
+    reason = players[0]->query_temp("notify_fail");
+    step["reason"] = step["accepted"] || !stringp(reason) ? "" : reason;
+    step["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    step["metrics_after"] = ({ players[0]->query_observation(), players[1]->query_observation() });
+    step["launches_after"] = sizeof(current["launches"]);
+    step["directs_after"] = sizeof(current["directs"]);
+}
+
+void poll_gumu_temporal() {
+    int size, age;
+    object ob;
+    require(time_ns() / 1000000000.0 - started <= current["parameters"]["observe_seconds"],
+        "original cooldown sequence observation window expired");
+    foreach (ob in players[0..1])
+        require(objectp(ob) && interactive(ob) && living(ob) && !ob->is_ghost() &&
+            environment(ob) == this_object() && ob->query("qi") >= 0 && ob->query("jing") >= 0,
+            "original cooldown sequence lost its live connected target");
+    require(players[0]->is_fighting(players[1]) && players[1]->is_fighting(players[0]) &&
+        players[0]->query("neili") >= 500, "original cooldown sequence lost combat or resources");
+    size = sizeof(current["temporal_steps"]);
+    require(size == 1 || size == 2, "original cooldown sequence phase");
+    age = time() - players[0]->query_temp("last_perform/sad-strike/tuo");
+    if (!players[0]->is_busy() && age > 0 && (size == 1 || age >= 60)) {
+        require(size == 2 || age < 60, "early original cooldown boundary missed");
+        perform_gumu_temporal(size == 1 ? "early" : "expired");
+        require(current["temporal_steps"][<1]["accepted"] == (size == 2),
+            "original cooldown phase did not produce its expected return");
+        if (size == 2) {
+            finish_sample();
+            return;
+        }
+    }
+    call_out("poll", 1);
+}
+
+void poll() {
+    mapping state, step;
+    if (is_npc_bout()) {
+        sample_busy();
+        if (sizeof(current["npc_bout"]["terminal_events"]) ||
+            time_ns() / 1000000000.0 - started >= current["parameters"]["observe_seconds"])
+            finish_sample();
+        else call_out("poll", 1);
+        return;
+    }
+    if (active && current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "tuo-cooldown") {
+        poll_gumu_temporal();
+        return;
+    }
+    if (active && current["parameters"]["teaching_profile"] == "shaolin-challenge") {
+        observe_challenge();
+        if (time_ns() / 1000000000.0 - formation_started >= current["parameters"]["observe_seconds"])
+            finish_sample();
+        else call_out("poll", 1);
+        return;
+    }
+    if (active && promotion_waiting && current["parameters"]["teaching_profile"] == "shaolin-promotion") {
+        state = "/tests/teaching_observer"->finish_promotion_wait(players[0], promotion_teacher);
+        require(time_ns() / 1000000000.0 - promotion_started < current["parameters"]["observe_seconds"],
+            "original promotion fight/callback did not complete within observation window");
+        if (state["promotion"]["teacher_fighting"] || state["promotion"]["student_fighting"] ||
+            state["promotion"]["checking_pending"]) {
+            call_out("poll", 1);
+            return;
+        }
+        step = current["teaching"][<1];
+        step["immediate_after"] = step["after"];
+        step["after"] = state;
+        step["wait_elapsed"] = time_ns() / 1000000000.0 - promotion_started;
+        step["wait_messages"] = players[0]->end_teaching_messages();
+        promotion_waiting = 0;
+        players[0]->observation_heartbeat(0);
+        advance_promotion();
+        if (promotion_waiting) call_out("poll", 1);
+        else finish_sample();
+        return;
+    }
+    if (active && current["parameters"]["collection_group"] == "shaolin-hands" &&
+        current["parameters"]["target_heartbeat"]) {
+        // Zero effective resources do not guarantee death: retain the real state.
+        if (time_ns() / 1000000000.0 - started >= current["parameters"]["observe_seconds"]) {
+            current["observation_terminal"] = "window_complete";
+            finish_sample();
+        } else call_out("poll", 1);
+        return;
+    }
+    if (active && member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-palms", "shaolin-hands" })) != -1 &&
+        current["parameters"]["target_heartbeat"]) {
+        require(time_ns() / 1000000000.0 - started < current["parameters"]["observe_seconds"],
+            "original target death heartbeat did not finish");
+        call_out("poll", 1);
+        return;
+    }
+    if (active && current["parameters"]["collection_group"] == "gumu-needle-lifecycle") {
+        require(time_ns() / 1000000000.0 - started < current["parameters"]["observe_seconds"],
+            "original needle lifecycle did not complete before watchdog");
+        call_out("poll", 1);
+        return;
+    }
+    if (active && member_array(current["method"], ({ "exercise", "healing", "condition" })) != -1) {
+        require(time_ns() / 1000000000.0 - started < current["parameters"]["observe_seconds"],
+            "original heartbeat action watchdog expired without completion");
+        call_out("poll", 1);
+        return;
+    }
+    if (!active || current["method"] != "bout") return;
+    sample_busy();
+    if (time_ns() / 1000000000.0 - started >= current["parameters"]["observe_seconds"]) {
+        current["terminal"] = "time_limit";
+        current["winner"] = -1;
+        finish_sample();
+    } else call_out("poll", 1);
+}
+
+// Continue the same student's original commands after the original NPC timer.
+// The only autonomous player action is its normal heartbeat during fight.
+void advance_promotion() {
+    mapping parameters, expectation, step;
+    string path;
+    parameters = current["parameters"];
+    while (promotion_index < sizeof(parameters["teaching_expectations"])) {
+        expectation = parameters["teaching_expectations"][promotion_index++];
+        path = expectation["teacher"]["path"];
+        if (!objectp(promotion_teacher) || base_name(promotion_teacher) != path) {
+            promotion_teacher = new(path);
+            require(promotion_teacher->move(this_object()), "original promotion NPC in room");
+        }
+        step = "/tests/teaching_observer"->observe_command(players[0], promotion_teacher,
+            expectation["action"], ({}), 0, 0, 1);
+        current["teaching"] += ({ step });
+        if (sizeof(step["after"]["promotion"]["items"]) > sizeof(step["before"]["promotion"]["items"]) ||
+            step["after"]["master_id"] != step["before"]["master_id"])
+            current["outcome"] = "observed";
+        if (expectation["wait_fight"] && step["command_accepted"]) {
+            promotion_waiting = 1;
+            promotion_started = time_ns() / 1000000000.0;
+            players[0]->begin_teaching_messages();
+            players[0]->observation_heartbeat(1);
+            return;
+        }
+    }
+    if (current["outcome"] == "refused") current["reason"] = "原命令未取得信物或晋升，详见逐步记录";
+}
+
+void observe_challenge() {
+    mapping state;
+    state = "/tests/challenge_observer"->observe(players[0], challenge_teachers,
+        current["parameters"]["challenge_rosters"]);
+    state["elapsed"] = time_ns() / 1000000000.0 - formation_started;
+    current["challenge_timeline"] += ({ state });
+}
+
+void start_challenge(mapping parameters) {
+    mapping expectation, step;
+    object teacher;
+    string name, direction;
+    int index, i;
+    // The base fixture ran setup before its per-sample ID was assigned.
+    // Use the original registration entry, not a replacement find_player.
+    players[0]->enable_player();
+    require(find_player(players[0]->query("id")) == players[0], "registered challenge player");
+    "/tests/challenge_observer"->reset_sample();
+    "/tests/formation_observer"->reset_sample();
+    current["teaching"] = ({});
+    current["challenge_walks"] = ({});
+    current["challenge_timeline"] = ({});
+    challenge_teachers = ({});
+    formation_started = time_ns() / 1000000000.0;
+    for (index = 0; index < 2; index++) {
+        name = parameters["challenge_order"][index];
+        teacher = "/tests/challenge_observer"->teacher(name);
+        if (!index) require(
+            players[0]->move(environment(teacher)),
+            "initial original formation room"
+        );
+        expectation = parameters["teaching_expectations"][index];
+        step = "/tests/teaching_observer"->observe_command(players[0], teacher,
+            expectation["action"], ({}), 0, 0, 0, 0, expectation["formation"]);
+        current["teaching"] += ({ step });
+        require(step["after"]["formation"]["requested"] == 1, "original invitation accepted");
+        challenge_teachers += ({ teacher });
+        direction = name == "xuan-ku" ? "west" : "east";
+        for (i = 0; i < (index ? 2 : 4); i++) {
+            step = "/tests/challenge_observer"->walk(players[0], direction);
+            current["challenge_walks"] += ({ step });
+            require(step["before"] != step["after"], "original go reached next formation room");
+        }
+    }
+    require(
+        base_name(environment(players[0])) == "/d/shaolin/wuchang",
+        "arrived at original field"
+    );
+    current["teaching"][<1]["immediate_after"] = current["teaching"][<1]["after"];
+    current["outcome"] = "observed";
+    players[0]->begin_teaching_messages();
+    players[0]->observation_heartbeat(1);
+    observe_challenge();
+}
+
+void perform_sample() {
+    mapping parameters, step, expectation;
+    string action, grant, room_key, saved_state;
+    mixed reason;
+    object teacher, restored_actor, ob;
+    int result, launches, cycle, participant;
+    parameters = current["parameters"];
+    foreach (room_key in ({
+        "no_fight",
+        "skybook",
+        "can_dazuo",
+        "exercise_improve",
+        "sleep_room"
+    })) {
+        delete(room_key);
+        if (mapp(parameters["room"]) && !undefinedp(parameters["room"][room_key]))
+            set(room_key, parameters["room"][room_key]);
+    }
+    foreach (room_key in ({ "practice_improve", "research_improve" })) {
+        delete(room_key);
+        if ((parameters["collection_group"] == "gumu-movement" ||
+            (parameters["collection_group"] == "gumu-weapon-learning" && room_key == "practice_improve") ||
+            (parameters["collection_group"] == "gumu-research" && room_key == "research_improve")) &&
+            mapp(parameters["room"]) && !undefinedp(parameters["room"][room_key]))
+            set(room_key, parameters["room"][room_key]);
+    }
+    foreach (room_key in ({
+        "pigging",
+        "can_practice_xiantie-jian",
+        "can_practice_xuantie-jian"
+    })) {
+        delete(room_key);
+        if ((parameters["collection_group"] == "gumu-weapon-learning" ||
+            (parameters["collection_group"] == "gumu-research" && room_key == "pigging")) &&
+            mapp(parameters["room"]) && !undefinedp(parameters["room"][room_key]))
+            set(room_key, parameters["room"][room_key]);
+    }
+    if (parameters["collection_group"] == "gumu-weapon-learning")
+        current["weapon_learning_room"] = ([ "no_fight": query("no_fight"),
+            "pigging": query("pigging"), "practice_improve": query("practice_improve"),
+            "can_practice_xiantie-jian": query("can_practice_xiantie-jian"),
+            "can_practice_xuantie-jian": query("can_practice_xuantie-jian") ]);
+    if (parameters["collection_group"] == "gumu-unarmed-learning") {
+        foreach (room_key in ({ "pigging", "practice_improve" }))
+            if (mapp(parameters["room"]) && !undefinedp(parameters["room"][room_key]))
+                set(room_key, parameters["room"][room_key]);
+        current["unarmed_learning_room"] = ([ "no_fight": query("no_fight"),
+            "pigging": query("pigging"), "practice_improve": query("practice_improve") ]);
+    }
+    if (parameters["collection_group"] == "gumu-movement")
+        current["movement_room"] = ([ "no_fight": query("no_fight"),
+            "practice_improve": query("practice_improve"),
+            "research_improve": query("research_improve") ]);
+    if (parameters["collection_group"] == "gumu-research")
+        current["research_room"] = ([ "no_fight": query("no_fight"),
+            "pigging": query("pigging"), "research_improve": query("research_improve") ]);
+    prepare_actor(0, parameters["actor"]);
+    prepare_actor(1, parameters["target"]);
+    if (is_npc_bout()) require(
+        players[1]->move("/tests/bystander_room"),
+        "natural bout bystander outside arena"
+    );
+    if (parameters["collection_group"] == "emei-jiuyin-learning") prepare_practice_materials(parameters);
+    if (mapp(parameters["extra_target"])) {
+        require(member_array(parameters["collection_group"],
+            ({
+                "wudang-special",
+                "shaolin-public-force",
+                "gumu-exert"
+                , "gumu-temporal"
+            })) != -1 && sizeof(players) == 3,
+            "configured third connected target");
+        prepare_actor(2, parameters["extra_target"]);
+        if (member_array(
+            parameters["collection_group"],
+            ({ "wudang-special", "gumu-temporal" })
+        ) != -1) {
+            players[0]->kill_ob(players[2]);
+            players[2]->kill_ob(players[0]);
+        }
+        players[2]->observation_heartbeat(0);
+        if (parameters["collection_group"] != "gumu-temporal") {
+            current["extra_target_before"] = snapshot(players[2]);
+            players[2]->start_observation(2);
+        }
+    }
+    if (parameters["fighting"] && !parameters["powerup_before_combat"] && !is_npc_bout()) {
+        if (parameters["collection_group"] == "taohua-combo" && parameters["nonlethal"]) {
+            players[0]->fight_ob(players[1]);
+            players[1]->fight_ob(players[0]);
+        } else {
+            players[0]->kill_ob(players[1]);
+            players[1]->kill_ob(players[0]);
+        }
+    }
+    players[0]->observation_heartbeat(0);
+    players[1]->observation_heartbeat(0);
+    if (parameters["target_state"] == "unconscious") {
+        require(member_array(
+            parameters["collection_group"],
+            ({
+                "wudang-special",
+                "wudang-shenmen",
+                "shaolin-public-force",
+                "emei-shexing",
+                "gumu-defense",
+                "gumu-exert",
+                "gumu-zhi",
+                "gumu-quanzhen",
+                "taohua-ding",
+                "taohua-xiao",
+                "taohua-po",
+                "taohua-zhuan",
+                "taohua-bihai"
+            })
+        ) != -1 &&
+            (!parameters["fighting"] || member_array(parameters["collection_group"],
+                ({
+                    "gumu-zhi",
+                    "gumu-quanzhen",
+                    "taohua-ding",
+                    "taohua-xiao",
+                    "taohua-po",
+                    "taohua-zhuan",
+                    "taohua-bihai"
+                })) != -1), "configured unconscious preparation");
+        current["preparation"] = ([ "before": snapshot(players[1]) ]);
+        players[1]->start_observation(1);
+        players[1]->unconcious();
+        players[1]->stop_observation();
+        current["preparation"]["after"] = snapshot(players[1]);
+        require(!living(players[1]) && !players[1]->is_ghost(), "original unconscious target");
+        if (member_array(parameters["collection_group"],
+            ({
+                "gumu-exert",
+                "gumu-zhi",
+                "gumu-quanzhen",
+                "taohua-ding",
+                "taohua-xiao",
+                "taohua-po",
+                "taohua-zhuan",
+                "taohua-bihai"
+            })) != -1) {
+            current["preparation"]["terminals"] = copy(current["terminals"]);
+            current["terminals"] = ({});
+        }
+    }
+    if (parameters["collection_group"] == "wudang-lookup") prepare_lookup(parameters);
+    if (parameters["teaching_profile"] == "gumu-item-acquisition") prepare_gumu_items(parameters);
+    if (member_array(parameters["teaching_profile"],
+        ({
+            "gumu-teachers",
+            "gumu-special",
+            "gumu-acquisition-learning",
+            "gumu-item-acquisition",
+            "gumu-recruit"
+        })) != -1) {
+        gumu_teacher_pending = 1;
+        require(players[0]->force_me("test_interface") && !gumu_teacher_pending &&
+            objectp(gumu_teacher), "original Gumu teacher prepared through student command");
+    }
+    if (parameters["teaching_profile"] == "gumu-item-acquisition") finish_gumu_item_preparation(parameters);
+    current["before"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    if (is_taohua_zhuan()) {
+        taohua_zhuan_target_weapon = players[1]->query_temp("weapon");
+        taohua_zhuan_before = taohua_zhuan_death_before(players[1], players[0]);
+    }
+    if (is_taohua_po()) {
+        needle_object = players[0]->query_temp("handing");
+        taohua_po_target_weapon = players[1]->query_temp("weapon");
+        current["po_equipment"] = ([
+            "actor_room": file_name(environment(players[0])),
+            "target_room": file_name(environment(players[1])), "target_weapon": ([]) ]);
+        observe_taohua_po_weapon("before");
+    }
+    players[0]->start_observation(0);
+    players[1]->start_observation(1);
+    if (parameters["collection_group"] == "gumu-temporal" && mapp(parameters["extra_target"])) {
+        current["extra_target_before"] = snapshot(players[2]);
+        players[2]->start_observation(2);
+    }
+    started = time_ns() / 1000000000.0;
+    if (mapp(fault) && fault["condition_id"] == current["condition_id"] && fault["index"] == current["index"]) {
+        current["injected_fault"] = fault["stage"];
+        if (fault["stage"] == "action") {
+            players[0]->set_temp("fixture_fault_poison", 1);
+            error("Injected collection action failure.\n");
+        }
+        if (fault["stage"] == "callback") call_out("injected_callback_error", 1);
+    }
+    if (parameters["not_applicable"] != "") {
+        current["outcome"] = "not_applicable";
+        current["reason"] = parameters["not_applicable"];
+        return;
+    }
+    action = parameters["action"];
+    if (is_npc_bout()) {
+        require(
+            environment(players[1]) != this_object(),
+            "natural bout bystander remains outside arena"
+        );
+        gumu_npc_pending = 1;
+        require(players[0]->force_me("test_interface") && !gumu_npc_pending && objectp(gumu_npc),
+            "original natural NPC created by real USER command");
+        gumu_npc->kill_ob(players[0]);
+        players[0]->kill_ob(gumu_npc);
+        players[0]->observation_heartbeat(0);
+        evaluate(bind((: set_heart_beat, 0 :), gumu_npc));
+        initialize_npc_bout();
+        current["outcome"] = "observed";
+        return;
+    }
+    if (parameters["collection_group"] == "gumu-npc") {
+        require(current["method"] == "npc", "original Gumu NPC method");
+        gumu_npc_pending = 1;
+        require(players[0]->force_me("test_interface") && !gumu_npc_pending &&
+            mapp(current["npc_observation"]), "original NPC observed through player command");
+        current["outcome"] = "observed";
+        return;
+    }
+    if (parameters["collection_group"] == "gumu-temporal" && parameters["temporal_kind"] == "tuo-cooldown") {
+        perform_gumu_temporal("initial");
+        current["command_accepted"] = current["temporal_steps"][0]["accepted"];
+        require(current["command_accepted"] && sizeof(current["launches"]) == 1,
+            "original cooldown sequence first command launched");
+        current["outcome"] = "observed";
+        return;
+    }
+    if (parameters["collection_group"] == "emei-npc") {
+        require(current["method"] == "npc", "original NPC method");
+        current["npc_observation"] = "/tests/npc_observer"->observe(parameters["npc"], players[0]);
+        current["outcome"] = "observed";
+        return;
+    }
+    if (parameters["powerup_before_combat"]) {
+        require(parameters["collection_group"] == "emei-zhao" &&
+            action == "perform strike.zhao", "reviewed original powerup prelude");
+        step = ([ "action": "exert powerup", "before": current["before"],
+            "launches_before": sizeof(current["launches"]) ]);
+        step["accepted"] = players[0]->force_me("exert powerup");
+        step["launches_after"] = sizeof(current["launches"]);
+        step["reason"] = !step["accepted"] && sizeof(current["refusals"]) ? current["refusals"][<1]["reason"] : "";
+        if (!step["accepted"] && step["reason"] == "") {
+            reason = players[0]->query_temp("notify_fail");
+            step["reason"] = stringp(reason) && reason != "" ? reason : "原强化命令未受理";
+        }
+        step["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+        current["powerup"] = step;
+        current["action_attempted"] = step["accepted"] ? 1 : 0;
+        if (!step["accepted"]) {
+            current["command_accepted"] = 0;
+            current["outcome"] = "refused";
+            current["reason"] = step["reason"];
+            return;
+        }
+        if (parameters["fighting"]) {
+            players[0]->kill_ob(players[1]);
+            players[1]->kill_ob(players[0]);
+            players[0]->observation_heartbeat(0);
+            players[1]->observation_heartbeat(0);
+        }
+    }
+    if (arrayp(parameters["prepare_commands"])) {
+        require(member_array(parameters["collection_group"],
+            ({
+                "wudang-combination",
+                "shaolin-combination",
+                "emei-combination",
+                "gumu-combination",
+                "taohua-combination"
+            })) != -1 &&
+            member_array(current["method"], ({ "prepare", "round" })) != -1,
+            "configured original prepare sequence");
+        current["prepare_steps"] = ({});
+        launches = 0;
+        foreach (expectation in parameters["prepare_commands"]) {
+            action = expectation["action"];
+            require(stringp(action) && strsrch(action, "prepare ") == 0,
+                "original prepare command only");
+            step = ([ "action": action, "before": snapshot(players[0]) ]);
+            result = players[0]->force_me(action);
+            reason = query_notify_fail();
+            step["accepted"] = result;
+            step["reason"] = result ? "" : stringp(reason) && reason != "" ? reason : "原准备命令未受理";
+            step["after"] = snapshot(players[0]);
+            current["prepare_steps"] += ({ step });
+            if (result) launches++;
+        }
+        current["outcome"] = launches ? "observed" : "refused";
+        if (current["method"] == "round") {
+            COMBAT_D->fight(players[0], players[1]);
+            current["outcome"] = "observed";
+        } else if (!launches) current["reason"] = "原准备命令均未受理";
+        return;
+    }
+    if (arrayp(parameters["buff_steps"])) {
+        require(member_array(
+            parameters["collection_group"],
+            ({ "wudang-buffs", "shaolin-buffs", "emei-buffs", "gumu-buffs" })
+        ) != -1 && !parameters["fighting"] &&
+            sizeof(parameters["buff_steps"]) <= 6, "reviewed public buff sequence");
+        current["buff_steps"] = ({});
+        foreach (expectation in parameters["buff_steps"]) {
+            step = ([ "operation": copy(expectation), "before": snapshot(players[0]) ]);
+            if (!undefinedp(expectation["refill_neili"])) {
+                require(member_array(expectation["refill_neili"], ({ 6000, 8000 })) != -1,
+                    "explicit experimental refill");
+                players[0]->set("neili", expectation["refill_neili"]);
+            } else {
+                action = expectation["command"];
+                require(member_array(action, ({ "exert power", "exert tianmo" })) != -1,
+                    "original public buff command");
+                step["launches_before"] = sizeof(current["launches"]);
+                step["refusals_before"] = sizeof(current["refusals"]);
+                step["accepted"] = players[0]->force_me(action);
+                step["launches_after"] = sizeof(current["launches"]);
+                step["refusals_after"] = sizeof(current["refusals"]);
+                step["reason"] = !step["accepted"] && step["refusals_after"] > step["refusals_before"] ? current["refusals"][<1]["reason"] : "";
+            }
+            step["after"] = snapshot(players[0]);
+            current["buff_steps"] += ({ step });
+        }
+        current["outcome"] = sizeof(current["launches"]) ? "observed" : "refused";
+        current["command_accepted"] = sizeof(current["launches"]) > 0;
+        if (current["outcome"] == "refused") current["reason"] = current["buff_steps"][<1]["reason"];
+        if (parameters["persistence_probe"]) {
+            require(players[0]->observation_save_state(), "save isolated buff probe");
+            saved_state = read_file("/data/buff_snapshot.o");
+            restored_actor = new("/tests/actor");
+            current["persistence"] = ([ "before": snapshot(restored_actor),
+                "characters": strlen(saved_state), "sha256": hash("sha256", saved_state) ]);
+            current["persistence"]["restored"] = restored_actor->observation_restore_state();
+            restored_actor->stop_observation();
+            current["persistence"]["after"] = snapshot(restored_actor);
+            destruct(restored_actor);
+        }
+        return;
+    }
+    if (arrayp(parameters["repeat_actions"])) {
+        require(member_array(
+            parameters["collection_group"],
+            ({ "wudang-special", "shaolin-exert", "emei-exert", "emei-jiuyin-buff", "gumu-exert" })
+        ) != -1 && !parameters["fighting"] &&
+            sizeof(parameters["repeat_actions"]) <= 4, "configured repeated exert sequence");
+        current["repeat_steps"] = ({});
+        foreach (action in parameters["repeat_actions"]) {
+            require(member_array(action, parameters["collection_group"] == "gumu-exert" ?
+                ({ "exert powerup" }) : parameters["collection_group"] == "shaolin-exert" ?
+                ({
+                    "exert powerup",
+                    "exert tong"
+                }) : parameters["collection_group"] == "emei-jiuyin-buff" ?
+                ({
+                    "exert powerup",
+                    "exert shield",
+                    "perform dodge.guiyuan"
+                }) : ({ "exert powerup", "exert shield" })) != -1,
+                "reviewed exert command");
+            step = ([ "action": action, "before": snapshot(players[0]),
+                "launches_before": sizeof(current["launches"]),
+                "refusals_before": sizeof(current["refusals"]) ]);
+            step["accepted"] = players[0]->force_me(action);
+            step["after"] = snapshot(players[0]);
+            step["launches_after"] = sizeof(current["launches"]);
+            step["metrics"] = players[0]->query_observation();
+            step["refusals_after"] = sizeof(current["refusals"]);
+            step["reason"] = !step["accepted"] && step["refusals_after"] > step["refusals_before"] ? current["refusals"][<1]["reason"] : "";
+            current["repeat_steps"] += ({ step });
+        }
+        current["outcome"] = sizeof(current["launches"]) ? "observed" : "refused";
+        current["command_accepted"] = sizeof(current["launches"]) > 0;
+        return;
+    }
+    if (current["method"] == "upgrade" &&
+        member_array(
+            parameters["collection_group"],
+            ({ "quanzhen-study", "wudang-study", "gumu-research" })
+        ) != -1) {
+        grant = parameters["skill"];
+        require(parameters["cycles"] == 1 && action == "research " + grant + " 1" &&
+            parameters["primer"]["skill"] == grant && parameters["primer"]["amount"] == 10000000 &&
+            parameters["primer"]["weak_mode"] == 1, "configured original research upgrade route");
+        step = ([ "before": snapshot(players[0]), "action": action,
+            "implemented_by": function_exists(
+                "skill_improved",
+                load_object("/kungfu/skill/" + grant)
+            ) ]);
+        players[0]->improve_skill(grant, 10000000, 1);
+        step["primed"] = snapshot(players[0]);
+        step["accepted"] = players[0]->force_me(action);
+        step["after"] = snapshot(players[0]);
+        current["upgrades"] = ({ step });
+        current["outcome"] = step["after"]["skills"][grant] > step["before"]["skills"][grant] ? "observed" : "refused";
+        if (current["outcome"] == "refused") current["reason"] = "原研究未触发升级，详见前后快照";
+        return;
+    }
+    if (current["method"] == "upgrade") {
+        require(parameters["collection_group"] == "huashan-upgrade" &&
+            member_array(action, ({ "improve", "weak", "perform sword.jue" })) != -1,
+            "configured original upgrade route");
+        require(parameters["cycles"] >= 1 && parameters["cycles"] <= 2,
+            "configured upgrade observations");
+        current["upgrades"] = ({});
+        for (cycle = 0; cycle < parameters["cycles"]; cycle++) {
+            step = ([ "before": snapshot(players[0]) ]);
+            // Prime progress through the original weak-mode API, never edit
+            // learned[] or invoke the skill callback directly. Record the setup.
+            players[0]->improve_skill("dugu-jiujian", 10000000, 1);
+            step["primed"] = snapshot(players[0]);
+            step["action"] = action;
+            if (action == "perform sword.jue")
+                step["accepted"] = players[0]->force_me(action);
+            else
+                players[0]->improve_skill("dugu-jiujian", 0, action == "weak");
+            step["after"] = snapshot(players[0]);
+            current["upgrades"] += ({ step });
+        }
+        current["outcome"] = "observed";
+        return;
+    }
+    if (current["method"] == "scene") {
+        require(parameters["collection_group"] == "shaolin-fumo", "reviewed scene only");
+        players[0]->enable_player();
+        if (parameters["gifts"])
+            require(
+                players[0]->id(players[0]->query("id")),
+                "gift recipient discoverable by original ID"
+            );
+        "/tests/scene_observer"->reset_sample();
+        if (mapp(parameters["guardian_state"]))
+            current["scene_setup"] = "/tests/scene_observer"->prepare_guardian(parameters["guardian_state"]);
+        require(players[0]->move("/d/shaolin/qyping"), "initial scene position");
+        current["scene_steps"] = ({});
+        current["scene_attacks"] = ({});
+        current["scene_step"] = 0;
+        if (parameters["lifecycle"]) current["scene_lifecycle"] = ({});
+        players[0]->begin_teaching_messages();
+        if (parameters["companion"]) {
+            players[1]->enable_player();
+            require(
+                players[1]->id(players[1]->query("id")),
+                "companion discoverable by original ID"
+            );
+            require(players[1]->move("/d/shaolin/qyping"), "companion initial scene position");
+            step = ([ "command": "go in", "before": "/tests/scene_observer"->observe(players[1]) ]);
+            step["accepted"] = players[1]->force_me("go in");
+            step["after"] = "/tests/scene_observer"->observe(players[1]);
+            current["scene_companion_entry"] = step;
+        }
+        foreach (action in parameters["scene_steps"]) {
+            require(member_array(action, ({ "in", "out" })) != -1, "reviewed original route");
+            step = ([ "command": "go " + action,
+                "before": "/tests/scene_observer"->observe(players[0]) ]);
+            step["accepted"] = players[0]->force_me("go " + action);
+            step["after"] = "/tests/scene_observer"->observe(players[0]);
+            current["scene_steps"] += ({ step });
+            current["scene_step"]++;
+        }
+        if (parameters["gifts"]) {
+            current["scene_interactions"] = ({});
+            foreach (step in parameters["gift_commands"]) {
+                action = step["command"];
+                participant = step["side"] || 0;
+                require(participant == 0 || (participant == 1 && parameters["companion"]),
+                    "configured gift participant");
+                require(member_array(
+                    explode(action, " ")[0],
+                    ({ "ask", "give", "drop", "get" })
+                ) != -1,
+                    "reviewed original gift command");
+                step = ([ "command": action,
+                    "before": "/tests/scene_observer"->observe_gifts(
+                        players[0],
+                        parameters["companion"] ? players[1] : 0
+                    ) ]);
+                if (parameters["companion"]) step["side"] = participant;
+                step["accepted"] = players[participant]->force_me(action);
+                step["after"] = "/tests/scene_observer"->observe_gifts(
+                    players[0],
+                    parameters["companion"] ? players[1] : 0
+                );
+                current["scene_interactions"] += ({ step });
+            }
+        }
+        if (parameters["lifecycle"] && parameters["observe_seconds"] > 0)
+            players[0]->observation_heartbeat(1);
+        else current["scene_messages"] = players[0]->end_teaching_messages();
+        current["outcome"] = "observed";
+        return;
+    }
+    if (current["method"] == "teaching") {
+        if (parameters["teaching_profile"] == "shaolin-challenge") {
+            start_challenge(parameters);
+            return;
+        }
+        if (parameters["teaching_profile"] == "shaolin-promotion") {
+            current["teaching"] = ({});
+            current["outcome"] = "refused";
+            promotion_teacher = 0;
+            promotion_index = promotion_waiting = 0;
+            advance_promotion();
+            return;
+        }
+        if (parameters["teaching_profile"] == "shaolin-formation")
+            "/tests/formation_observer"->reset_sample();
+        if (member_array(parameters["teaching_profile"],
+            ({
+                "gumu-teachers",
+                "gumu-special",
+                "gumu-acquisition-learning",
+                "gumu-item-acquisition",
+                "gumu-recruit"
+            })) != -1) {
+            teacher = gumu_teacher;
+            require(objectp(teacher) && base_name(teacher) == parameters["teacher"]["path"] &&
+                teacher->query("id") == parameters["teacher"]["id"] &&
+                environment(teacher) == this_object(), "reuse exact original prepared teacher");
+        } else {
+            teacher = new(parameters["teacher"]["path"]);
+            require(teacher->move(this_object()), "teacher in observation room");
+        }
+        current["teaching"] = ({});
+        current["outcome"] = "refused";
+        foreach (expectation in parameters["teaching_expectations"]) {
+            // Only an explicitly source-pinned follow-up may change teacher.
+            // Keep the same connected student and all original state.
+            if (mapp(expectation["teacher"]) &&
+                base_name(teacher) != expectation["teacher"]["path"]) {
+                teacher = new(expectation["teacher"]["path"]);
+                require(teacher->move(this_object()), "follow-up teacher in observation room");
+            }
+            step = "/tests/teaching_observer"->observe_command(players[0], teacher,
+                expectation["action"] || action, parameters["monitored_grants"], expectation["offer"],
+                parameters["tracked_item"], 0, parameters["tonsure_name"], parameters["formation"],
+                parameters["teaching_profile"], gumu_item_context);
+            current["teaching"] += ({ step });
+            if (parameters["teaching_profile"] == "gumu-item-acquisition") {
+                gumu_item_owned += "/tests/teaching_observer"->gumu_item_objects(gumu_item_context);
+                if (step["item_after"]["stock"] < step["item_before"]["stock"] ||
+                    (parameters["lesson"] == "yinsuo" &&
+                        step["item_before"]["items"][0]["environment"] == file_name(teacher) &&
+                        step["item_after"]["items"][0]["environment"] != file_name(teacher)))
+                    current["outcome"] = "observed";
+            }
+            if (parameters["teaching_profile"] == "shaolin-formation") {
+                formation_teacher = teacher;
+                formation_started = time_ns() / 1000000000.0;
+                if (step["after"]["formation"]["requested"] > step["before"]["formation"]["requested"])
+                    current["outcome"] = "observed";
+            }
+            if (parameters["teaching_kind"] == "ordination" &&
+                (step["after"]["tonsure"]["pending"] > step["before"]["tonsure"]["pending"] ||
+                    (step["before"]["tonsure"]["recruitment"]["class"] != "bonze" &&
+                        step["after"]["tonsure"]["recruitment"]["class"] == "bonze")))
+                current["outcome"] = "observed";
+            if (parameters["teaching_kind"] == "apprenticeship" &&
+                step["after"]["master_id"] == parameters["teacher"]["id"] &&
+                (step["before"]["master_id"] != step["after"]["master_id"] ||
+                    step["before"]["master_name"] != step["after"]["master_name"]))
+                current["outcome"] = "observed";
+            if (parameters["teaching_kind"] == "letter_teaching" &&
+                step["item_before"]["holder"] != file_name(players[0]) &&
+                step["item_after"]["holder"] == file_name(players[0]))
+                current["outcome"] = "observed";
+            foreach (grant in parameters["monitored_grants"]) {
+                if (arrayp(step["after"]["grants"][grant])) {
+                    if (sizeof(step["after"]["grants"][grant] -
+                        (step["before"]["grants"][grant] || ({}))))
+                        current["outcome"] = "observed";
+                } else if (step["after"]["grants"][grant] > step["before"]["grants"][grant])
+                    current["outcome"] = "observed";
+            }
+            if (parameters["teaching_kind"] == "ordinary_learning" ||
+                parameters["teaching_profile"] == "gumu-acquisition-learning") {
+                foreach (grant in keys(step["after"]["skills"]))
+                    if (step["after"]["skills"][grant] > step["before"]["skills"][grant])
+                        current["outcome"] = "observed";
+                foreach (grant in keys(step["after"]["learned"]))
+                    if (step["after"]["learned"][grant] > step["before"]["learned"][grant])
+                        current["outcome"] = "observed";
+            }
+        }
+        if (current["outcome"] == "refused") current["reason"] = parameters["teaching_kind"] == "apprenticeship" ? "原命令未建立新师承，详见逐步状态及消息" : "原教学未增加领悟或学习进度，详见逐步状态及消息";
+        return;
+    }
+    if (current["method"] == "team") {
+        set("exits", ([ "east": "/tests/team_room" ]));
+        current["team_steps"] = ({});
+        foreach (expectation in parameters["steps"]) {
+            launches = sizeof(current["launches"]);
+            step = "/tests/team_observer"->observe_command(players, expectation);
+            step["launches_before"] = launches;
+            step["launches_after"] = sizeof(current["launches"]);
+            current["team_steps"] += ({ step });
+        }
+        current["outcome"] = sizeof(current["launches"]) ? "observed" : "refused";
+        if (current["outcome"] == "refused")
+            current["reason"] = sizeof(current["refusals"]) ? current["refusals"][<1]["reason"] : "原组阵命令未发动刀阵，详见逐步记录";
+        return;
+    }
+    if (parameters["collection_group"] == "gumu-needle-lifecycle") {
+        require(parameters["seed_mode"] == "original_perform" && parameters["seed_side"] == 0 &&
+            parameters["stop_combat_after_seed"] && action == parameters["seed_action"],
+            "reviewed original needle seed");
+        launches = sizeof(current["launches"]);
+        current["command_accepted"] = players[0]->force_me(action);
+        require(sizeof(current["launches"]) == launches + 1, "original needle seed launched");
+        current["outcome"] = "observed";
+        return;
+    }
+    if (current["method"] == "condition") {
+        require(member_array(parameters["collection_group"],
+            ({
+                "wudang-condition",
+                "emei-jiuyin-passive",
+                "gumu-poison"
+            })) != -1, "condition experiment");
+        if (parameters["collection_group"] == "emei-jiuyin-passive" && parameters["seed_by_hit"]) {
+            // This lifecycle reverses the roles: actor 0 receives the original palm passive.
+            result = "/kungfu/skill/cuixin-zhang"->hit_ob(players[1], players[0], 100, 0);
+            observe_passive(players[1], players[0], "cuixin-zhang", 100, 0, result, "interface");
+        }
+        if (parameters["collection_group"] == "gumu-poison" &&
+            parameters["seed_mode"] == "original_perform") {
+            require(parameters["seed_side"] == 1 && parameters["seed_action"] == "perform strike.shi" &&
+                parameters["stop_combat_after_seed"], "reviewed original poison seed");
+            launches = sizeof(current["launches"]);
+            current["command_accepted"] = players[1]->force_me(parameters["seed_action"]);
+            require(sizeof(current["launches"]) == launches + 1, "original poison seed launched");
+            require(players[0]->query("special_skill/piyi") ||
+                mapp(players[0]->query_condition("wudu_shenzhang")), "original poison applied");
+            foreach (ob in players) {
+                ob->remove_all_killer();
+                ob->remove_all_enemy(1);
+            }
+            current["combat_stopped_after_seed"] = ({
+                !players[0]->is_fighting(),
+                !players[1]->is_fighting()
+            });
+            require(current["combat_stopped_after_seed"][0] &&
+                current["combat_stopped_after_seed"][1], "isolated poison without combat");
+        }
+        current["outcome"] = "observed";
+        if (parameters["ticks"] > 0) players[0]->observation_heartbeat(1);
+        return;
+    }
+    if (current["method"] == "bout") {
+        current["outcome"] = "observed";
+        current["first"] = current["index"] % 2;
+        current["first_actor"] = -1;
+        current["second_started"] = 0;
+        observed = started;
+        busy_seconds = ({ 0.0, 0.0 });
+        busy_state = ({ 0, 0 });
+        players[current["first"]]->observation_heartbeat(1);
+        return;
+    }
+    if (action == "ordinary") {
+        COMBAT_D->do_attack(players[0], players[1], players[0]->query_temp("weapon"), TYPE_REGULAR);
+        current["outcome"] = "observed";
+    } else {
+        launches = sizeof(current["launches"]);
+        result = players[0]->force_me(action);
+        current["command_accepted"] = result;
+        if ((is_taohua_ding() || is_taohua_zhuan()) && !result && !sizeof(current["refusals"])) {
+            reason = players[0]->query_temp("notify_fail");
+            require(stringp(reason) && reason != "", "actual early DING command refusal");
+            current["refusals"] += ({ ([ "actor": file_name(players[0]), "reason": reason ]) });
+        }
+        if (current["method"] == "exercise") {
+            current["outcome"] = result ? "observed" : "refused";
+            if (!result) {
+                reason = query_notify_fail();
+                current["reason"] = stringp(reason) && reason != "" ? reason : "原打坐命令未受理";
+            }
+            return;
+        }
+        if (action == "test_interface") {
+            require(sizeof(current["interfaces"]), "observation interface invoked");
+            return;
+        }
+        if (current["method"] == "practice") {
+            step = snapshot(players[0]);
+            grant = parameters["skill"];
+            current["outcome"] = step["skills"][grant] > current["before"][0]["skills"][grant] || step["learned"][grant] > current["before"][0]["learned"][grant] ? "observed" : "refused";
+            if (current["outcome"] == "refused") {
+                reason = query_notify_fail();
+                current["reason"] = stringp(reason) && reason != "" ? reason : "原练习没有增加技能或进度";
+            }
+            return;
+        }
+        if (current["method"] == "research") {
+            // Original research command: acceptance alone can mean no study happened.
+            current["outcome"] = players[0]->query("learned_points") > current["before"][0]["learned_points"] ? "observed" : "refused";
+            if (current["outcome"] == "refused") {
+                reason = query_notify_fail();
+                current["reason"] = stringp(reason) && reason != "" ? reason : "原研究未消耗潜能或增加学习进度";
+            }
+            return;
+        }
+        current["outcome"] = sizeof(current["launches"]) > launches ? "observed" : "refused";
+        if (sizeof(current["launches"]) == launches)
+            current["reason"] = sizeof(current["refusals"]) ? current["refusals"][<1]["reason"] : "技能入口未返回成功";
+        if (!sizeof(current["launches"]) && parameters["collection_group"] == "wudang-lookup" &&
+            stringp(reason = players[0]->query_temp("notify_fail")))
+            current["reason"] = reason;
+    }
+}
+
+void observe_needle_hit(object weapon, object me, object victim, int damage_bonus) {
+    if (!active || !needle_collection()) return;
+    require(me == players[0] && victim == players[1], "needle participants");
+    current["needle_hits"] += ({ ([ "actor": 0, "target": 1,
+        "program": base_name(weapon), "object": file_name(weapon), "damage_bonus": damage_bonus ]) });
+}
+
+// Read the original skill timer and states only; never invoke or reschedule back().
+void observe_needle_restore(object target, string phase, int delay) {
+    mapping event;
+    if (!active || current["parameters"]["collection_group"] != "gumu-needle-lifecycle" ||
+        target != players[1]) return;
+    event = ([ "program": base_name(previous_object()), "function": "back", "side": 1,
+        "elapsed": time_ns() / 1000000000.0 - started ]);
+    if (phase == "scheduled") {
+        event["delay"] = delay;
+        current["restore_schedule"] = event;
+    } else {
+        event["phase"] = phase;
+        event["state"] = snapshot(target);
+        current["callbacks"] += ({ event });
+        if (phase == "after") call_out("finish_sample", 0);
+    }
+}
+
+void finish_needle_seed() {
+    object ob;
+    if (!active) return;
+    current["seed"] = ([ "method": "perform", "outcome": current["outcome"],
+        "before": current["before"], "immediate": current["immediate"],
+        "after": ({ snapshot(players[0]), snapshot(players[1]) }),
+        "metrics": current["immediate_metrics"], "attacks": current["attacks"],
+        "launches": current["launches"], "needle_hits": current["needle_hits"],
+        "ammo_cleanup": ([ "checked": 1, "object_exists": objectp(needle_object),
+            "handing_object": serializable(players[0]->query_temp("handing")) ]) ]);
+    foreach (ob in players) {
+        ob->remove_all_killer();
+        ob->remove_all_enemy(1);
+    }
+    current["combat_stopped_after_seed"] = ({
+        !players[0]->is_fighting(),
+        !players[1]->is_fighting()
+    });
+    require(current["combat_stopped_after_seed"][0] && current["combat_stopped_after_seed"][1],
+        "isolated original needle lifecycle without combat");
+    if (current["parameters"]["lifecycle"] == "bingpo_restore") {
+        require(mapp(current["restore_schedule"]) && players[1]->query_temp("bingpo"),
+            "original cold debuff and timer observed");
+    } else if (!current["parameters"]["ticks"]) {
+        finish_sample();
+        return;
+    } else {
+        require(mapp(players[1]->query_condition(current["parameters"]["condition_name"])),
+            "original needle applied poison before heartbeat");
+        players[1]->observation_heartbeat(1);
+    }
+    call_out("poll", 1);
+}
+
+void finish_sample() {
+    object ob, previous_teacher;
+    object *acquisition_owned;
+    mapping step;
+    if (!active) return;
+    if (is_npc_bout()) finish_npc_bout_observation();
+    if (current["parameters"]["collection_group"] == "gumu-npc") {
+        // Also recover exact references after a failed constructor/move/closure.
+        current["npc_observation"] = "/tests/npc_observer"->clear_gumu();
+        gumu_npc = 0;
+        gumu_npc_pending = 0;
+    }
+    if (current["method"] == "scene" && current["parameters"]["lifecycle"] &&
+        current["parameters"]["observe_seconds"] > 0 && current["outcome"] != "error") {
+        step = ([ "command": "go out", "before": "/tests/scene_observer"->observe(players[0]) ]);
+        step["accepted"] = players[0]->force_me("go out");
+        step["after"] = "/tests/scene_observer"->observe(players[0]);
+        current["scene_followup"] = step;
+        current["scene_messages"] = players[0]->end_teaching_messages();
+    }
+    if (current["parameters"]["teaching_profile"] == "shaolin-challenge" && current["outcome"] != "error") {
+        current["teaching"][<1]["after"] = "/tests/teaching_observer"->finish_challenge_wait(players[0]);
+        current["challenge_messages"] = players[0]->end_teaching_messages();
+    }
+    if (current["parameters"]["teaching_profile"] == "shaolin-formation" &&
+        current["parameters"]["observe_seconds"] > 0 && current["outcome"] != "error") {
+        current["teaching"][<1]["wait_after"] = "/tests/formation_observer"->observe(
+            players[0], formation_teacher, current["parameters"]["formation"]);
+        current["teaching"][<1]["wait_elapsed"] = time_ns() / 1000000000.0 - formation_started;
+    }
+    active = 0;
+    remove_call_out("poll");
+    remove_call_out("finish_sample");
+    remove_call_out("finish_needle_seed");
+    if (current["method"] == "bout" && current["outcome"] == "observed" &&
+        current["parameters"]["collection_group"] != "gumu-npc-bout") {
+        sample_busy();
+        current["busy_seconds"] = busy_seconds;
+    }
+    current["elapsed"] = time_ns() / 1000000000.0 - started;
+    if (current["parameters"]["collection_group"] == "gumu-throwing" || is_taohua_po())
+        current["ammo_cleanup"] = ([ "checked": 1, "object_exists": objectp(needle_object),
+            "handing_object": serializable(players[0]->query_temp("handing")) ]);
+    if (current["parameters"]["collection_group"] != "gumu-npc-bout") {
+        current["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+        current["metrics"] = ({ objectp(players[0]) ? players[0]->query_observation() : ([]),
+            objectp(players[1]) ? players[1]->query_observation() : ([]) });
+    }
+    observe_taohua_po_weapon("after");
+    if (current["parameters"]["collection_group"] == "wudang-lookup") {
+        current["lookup"]["after"] = lookup_snapshot(lookup_subject);
+        if (member_array(lookup_subject, players) == -1) destruct(lookup_subject);
+        lookup_subject = 0;
+    }
+    if (mapp(current["parameters"]["extra_target"])) {
+        current["extra_target_after"] = snapshot(players[2]);
+        current["extra_target_metrics"] = players[2]->query_observation();
+    }
+    current["dropped"] = ({});
+    foreach (ob in all_inventory(this_object())) {
+        if (member_array(ob, players) != -1) continue;
+        current["dropped"] += ({ ([ "object": file_name(ob), "name": ob->name(),
+            "type": ob->query("skill_type"), "no_wield": ob->query("no_wield") ]) });
+        if (current["parameters"]["collection_group"] == "gumu-advanced")
+            current["dropped"][<1]["value"] = ob->query("value");
+    }
+    foreach (ob in players) if (objectp(ob)) ob->stop_observation();
+    if (member_array(current["parameters"]["teaching_profile"],
+        ({
+            "gumu-teachers",
+            "gumu-special",
+            "gumu-acquisition-learning",
+            "gumu-item-acquisition",
+            "gumu-recruit"
+        })) != -1) {
+        if (objectp(gumu_teacher) && current["outcome"] != "error")
+            current["teacher_final"] = ([ "state": snapshot(gumu_teacher),
+                "autonomy": gumu_teacher_autonomy() ]);
+        if (current["parameters"]["teaching_profile"] == "gumu-item-acquisition") {
+            previous_teacher = gumu_previous_teacher;
+            acquisition_owned = copy(gumu_item_owned);
+        }
+        clear_gumu_teacher();
+        current["teacher_cleanup"] = ([ "pending": gumu_teacher_pending,
+            "object_exists": objectp(gumu_teacher) ]);
+        if (current["parameters"]["teaching_profile"] == "gumu-item-acquisition")
+            current["item_cleanup"] = ([ "previous_teacher_exists": objectp(previous_teacher),
+                "owned_remaining": sizeof(filter(acquisition_owned, (: objectp :))),
+                "singleton_exists": objectp(find_object("/clone/lonely/yinsuo")) ]);
+    }
+    map_delete(current, "parameters");
+    emit(current);
+    clear_taohua_zhuan_owned();
+    debug_message("DATA SAVED");
+    cursor++;
+    if (current["outcome"] == "error") {
+        debug_message("DATA SAMPLE ERROR");
+        shutdown(1);
+        return;
+    }
+    if (cursor % 20 == 0 || cursor == sizeof(jobs)) debug_message(sprintf(
+        "DATA %d/%d",
+        cursor,
+        sizeof(jobs)
+    ));
+    // Yield between completed samples, below the driver's call_out(0) nesting limit.
+    // No active combat, observation window or skill callback is shortened.
+    call_out("advance", cursor % 100 == 0 ? 1 : 0);
+}
+
+int record_failure(mapping details) {
+    if (!active) return 0;
+    current["outcome"] = "error";
+    current["reason"] = details["error"];
+    current["error_trace"] = serializable(details["trace"]);
+    finish_sample();
+    return 1;
+}
+
+void injected_callback_error() {
+    error("Injected collection callback failure.\n");
+}
+
+// Original death bookkeeping may lazy-load QUEST_D, whose scan starts these
+// world generators. They are outside a two-player martial experiment. Stop only
+// their original background timers; keep doKilled, death and skill callbacks.
+void stop_background_quests() {
+    object daemon;
+    string name;
+    current["background_stopped"] = ({});
+    foreach (name in ({
+        "capture",
+        "deliver",
+        "explore",
+        "judge",
+        "search",
+        "shen",
+        "supply",
+        "trace"
+    })) {
+        daemon = find_object("/adm/daemons/quest/" + name);
+        if (!objectp(daemon) || member_array(daemon, heart_beats()) == -1) continue;
+        require(
+            stringp(function_exists("stop", daemon)),
+            "original world generator stop interface"
+        );
+        daemon->stop();
+        require(member_array(daemon, heart_beats()) == -1, "background quest stopped");
+        current["background_stopped"] += ({ base_name(daemon) });
+    }
+}
+
+void advance() {
+    mixed failure;
+    int delay;
+    object ob, item;
+    clear_gumu_teacher();
+    if (cursor == sizeof(jobs)) {
+        debug_message("DATA COMPLETE");
+        shutdown(0);
+        return;
+    }
+    current = copy(jobs[cursor]);
+    current["kind"] = "sample";
+    current["launches"] = ({});
+    current["refusals"] = ({});
+    current["interfaces"] = ({});
+    if (current["parameters"]["collection_group"] == "gumu-combination")
+        current["prepare_steps"] = ({});
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "gumu-hubo", "gumu-temporal" })
+    ) != -1) {
+        current["hubo_steps"] = ({});
+        current["busy_calls"] = ({});
+        current["skill_messages"] = ({});
+    }
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "emei-npc", "gumu-npc", "gumu-npc-bout" })
+    ) != -1)
+        current["npc_direct"] = ({});
+    if (current["parameters"]["collection_group"] == "gumu-temporal") current["temporal_steps"] = ({});
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense" })) != -1)
+        current["defense_messages"] = ({});
+    if (current["parameters"]["collection_group"] == "shaolin-backlash")
+        current["backlash_messages"] = ({});
+    current["attacks"] = ({});
+    current["defenses"] = ({});
+    current["passives"] = ({});
+    if (needle_collection()) {
+        current["needle_hits"] = ({});
+        needle_object = 0;
+    }
+    taohua_po_target_weapon = 0;
+    if (current["parameters"]["collection_group"] == "gumu-needle-lifecycle")
+        current["incidental_callbacks"] = ({});
+    if (member_array(current["parameters"]["collection_group"],
+        ({
+            "gumu-weapons",
+            "gumu-unarmed-attack",
+            "gumu-zhi",
+            "gumu-quanzhen",
+            "gumu-bout",
+            "gumu-npc-bout",
+            "taohua-attack",
+            "taohua-combo",
+            "taohua-passive"
+        })) != -1) {
+        current["actions"] = ({});
+        current["skill_loads"] = ({});
+        passive_before = ([]);
+    }
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "gumu-quanzhen", "gumu-temporal", "taohua-ding", "taohua-zhuan", "taohua-direct" })
+    ) != -1)
+        current["directs"] = ({});
+    current["dodge_checks"] = ({});
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "wudang-passive", "wudang-bout" })
+    ) != -1) {
+        current["taiji_events"] = ({});
+    }
+    if (member_array(current["parameters"]["collection_group"],
+        ({
+            "wudang-passive",
+            "wudang-bout",
+            "shaolin-bout",
+            "emei-bout",
+            "gumu-bout",
+            "gumu-npc-bout"
+        })) != -1)
+        current["attack_rounds"] = ({});
+    current["callbacks"] = ({});
+    if (current["parameters"]["collection_group"] == "gumu-fireice")
+        current["fireice_followups"] = ({});
+    if (current["method"] == "exercise") current["exercise_steps"] = ({});
+    if (current["method"] == "healing") current["healing_steps"] = ({});
+    if (current["method"] == "condition" || member_array(current["parameters"]["collection_group"],
+        ({ "gumu-poison", "gumu-needle-lifecycle" })) != -1) {
+        current["condition_events"] = ({});
+        current["condition_heartbeats"] = ({});
+    }
+    current["terminals"] = ({});
+    current["reason"] = "";
+    active = 1;
+    started = time_ns() / 1000000000.0;
+    foreach (ob in all_inventory(this_object())) {
+        if (member_array(ob, players) == -1) {
+            foreach (item in deep_inventory(ob)) destruct(item);
+            destruct(ob);
+        }
+    }
+    failure = catch {
+        perform_sample();
+        stop_background_quests();
+    };
+    if (failure) {
+        current["outcome"] = "error";
+        current["reason"] = sprintf("%O", failure);
+        finish_sample();
+        return;
+    }
+    current["immediate"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    observe_taohua_po_weapon("immediate");
+    if (is_taohua_zhuan()) {
+        if (players[1]->is_ghost())
+            current["zhuan_death"] = taohua_zhuan_death_snapshot(players[1], players[0],
+                taohua_zhuan_corpse, taohua_zhuan_target_weapon, taohua_zhuan_before);
+        // The original command and death stack have fully returned; no later revival window.
+        finish_sample();
+        return;
+    }
+    if (current["parameters"]["collection_group"] == "gumu-temporal" &&
+        current["parameters"]["temporal_kind"] == "tuo-cooldown") {
+        players[0]->observation_heartbeat(1);
+        players[1]->observation_heartbeat(1);
+        call_out("poll", 1);
+        return;
+    }
+    if (current["parameters"]["collection_group"] == "gumu-needle-lifecycle") {
+        needle_object = players[0]->query_temp("handing");
+        current["immediate_metrics"] = ({
+            players[0]->query_observation(),
+            players[1]->query_observation()
+        });
+        // Let the original empty-stack cleanup complete before starting the next observation stage.
+        call_out("finish_needle_seed", 0);
+        return;
+    }
+    if (current["parameters"]["collection_group"] == "gumu-throwing") {
+        needle_object = players[0]->query_temp("handing");
+        // Original set_amount(0) queued its own destruction during perform.
+        // Observe after that callback, without ticking combat/conditions or destroying the item.
+        call_out("finish_sample", 0);
+        return;
+    }
+    if (is_taohua_po()) {
+        // Keep the pre-command references; only the original zero-delay stack cleanup runs.
+        call_out("finish_sample", 0);
+        return;
+    }
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "gumu-fireice", "gumu-poison" })
+    ) != -1)
+        current["immediate_metrics"] = ({ players[0]->query_observation(),
+            players[1]->query_observation() });
+    if (current["method"] == "condition" && current["parameters"]["collection_group"] == "gumu-poison" &&
+        current["parameters"]["ticks"] == 0) {
+        finish_sample();
+        return;
+    }
+    if (current["parameters"]["collection_group"] == "emei-jiuyin-learning")
+        current["practice_materials_after"] = practice_material_snapshot();
+    if (current["parameters"]["teaching_profile"] == "shaolin-challenge") {
+        call_out("poll", 1);
+        return;
+    }
+    if (current["parameters"]["teaching_profile"] == "shaolin-promotion") {
+        if (promotion_waiting) call_out("poll", 1);
+        else finish_sample();
+        return;
+    }
+    if (current["parameters"]["collection_group"] == "shaolin-hands")
+        current["immediate_attack_count"] = sizeof(current["attacks"]);
+    if (mapp(current["parameters"]["extra_target"]))
+        current["extra_target_immediate"] = snapshot(players[2]);
+    if (member_array(
+        current["method"],
+        ({ "bout", "exercise", "healing", "condition" })
+    ) != -1 && current["outcome"] == "observed") {
+        call_out("poll", 1);
+        return;
+    }
+    delay = current["parameters"]["observe_seconds"];
+    // Integer call_out deadlines are tick-aligned. Leave one tick so this
+    // observation window cannot finish just before the requested elapsed time.
+    if (delay > 0 && current["method"] == "scene" && current["parameters"]["lifecycle"]) delay++;
+    if (current["outcome"] == "observed" && member_array(current["parameters"]["collection_group"],
+        ({ "shaolin-palms", "shaolin-hands" })) != -1 &&
+        current["parameters"]["target_heartbeat"]) {
+        players[1]->observation_heartbeat(1);
+        call_out("poll", 1);
+        return;
+    }
+    if (delay > 0 && current["outcome"] == "observed") call_out("finish_sample", delay);
+    else finish_sample();
+}
+
+void start() {
+    mapping options;
+    observation_run_id = sprintf("%d", time_ns());
+    options = json_decode(read_file("/tests/options.json"));
+    jobs = options["jobs"];
+    fault = options["fault"];
+    advance();
+}
+
+void connected(object ob) {
+    mapping options;
+    int expected;
+    options = json_decode(read_file("/tests/options.json"));
+    expected = options["connections"] || 2;
+    require(member_array(expected, ({ 2, 3 })) != -1 && sizeof(players) < expected,
+        "configured connections only");
+    players += ({ ob });
+    if (sizeof(players) == expected) call_out("start", 0);
+}
+
+void create() {
+    set("short", "演武场");
+    set("long", "青石铺地，四下空旷，正宜切磋武艺。\n");
+    set("no_clean_up", 1);
+}
+
+#include "/tests/npc_bout_receivers.h"
+#include "/tests/taohua_ding_receivers.h"
+#include "/tests/taohua_xiao_receivers.h"
+#include "/tests/taohua_po_receivers.h"
+#include "/tests/taohua_zhuan_receivers.h"

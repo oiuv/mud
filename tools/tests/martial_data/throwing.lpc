@@ -1,0 +1,15 @@
+// A controlled ammunition stack using the real THROWING and COMBINED_ITEM.
+#include <weapon.h>
+inherit THROWING;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("演武金蛇锥", ({ "jinshe zhui", "practice weapon" }));
+    set("unit", "把");
+    set("base_unit", "枚");
+    set("base_weight", 10);
+    set("base_value", 1);
+    init_throwing(50);
+    setup();
+    set_amount(10);
+}
