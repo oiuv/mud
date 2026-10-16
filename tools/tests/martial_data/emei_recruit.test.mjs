@@ -46,7 +46,7 @@ test('峨嵋28个NPC399条件798记录，历史10866条件完整不变', () => {
     assert.equal(new Set(cases.map(c=>c.parameters.teacher.path)).size, 28);
     assert.equal(cases.filter(c=>c.parameters.variant==='baseline' && c.parameters.expected==='observed').length, 19);
     assert.equal(new Set(all.map(c=>c.id)).size, all.length);
-    const prior=all.filter(c=>!['emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior=all.filter(c=>!['emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length,10866); assert.equal(prior.reduce((n,c)=>n+c.samples,0),47404);
     assert.equal(sha256(JSON.stringify(prior)), '52309d7d589c04567d45ce48c91ef00314e12900a851769564fd8b5389296371');
     for (const c of cases) validateTeachingObservation(fixture(c), c);

@@ -44,7 +44,7 @@ function fixture(c) {
 test('少林63个NPC的原拜师入口独立覆盖，历史8449条件内容不变', () => {
     assert.equal(cases.length, 780); assert.equal(cases.reduce((n,c) => n+c.samples, 0), 1560);
     assert.equal(new Set(cases.map(c=>c.parameters.teacher.path)).size, 63);
-    const prior = all.filter(c=>c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior = all.filter(c=>c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length, 8449);
     assert.equal(sha256(JSON.stringify(prior)), '8057142e438f17fdcb5621c971ab4f67d810ab02b7011318f26b941227b1efad');
 });

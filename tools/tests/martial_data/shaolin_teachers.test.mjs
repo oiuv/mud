@@ -49,7 +49,7 @@ test('45教师722关系90技能闭合，旧6093条件不变', () => {
     for (const v of ['level10', 'below-cap', 'at-cap']) assert.equal(cases.filter(c => c.parameters.variant === v).length, 722);
     assert.equal(cases.length, 2356);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
-    const prior = all.filter(c => c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior = all.filter(c => c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length, 6093);
     assert.equal(sha256(JSON.stringify(prior)), 'be56bb6ef2eab38c5f054dfe72e08ec5faf3d8325df7deaafe5c2ecbad916a64');
     for (const c of cases) validateTeachingObservation(fixture(c), c);

@@ -1,10 +1,150 @@
 // A point observer used by the existing runner, not another executor.
 // No replacement of NPC callbacks, MASTER_D, ask/give, or player learning methods.
 
+// Exact point shape for the frozen taohua-learning validators; read-only.
+private varargs mapping taohua_learning_state(object student, string *grants, string profile) {
+    mapping values, family, recruitment, history, tao, result, qualification;
+    object pending, betrayer, weapon, secondary;
+    string key;
+
+    values = ([]);
+    foreach (key in grants) values[key] = student->query(key) || 0;
+    family = student->query("family");
+    history = ([]);
+    foreach (key in (member_array(
+        profile,
+        ({
+            "mingjiao-apprentice-learning",
+            "mingjiao-teachers",
+            "mingjiao-recruit",
+            "mingjiao-gift", "mingjiao-book"
+        })
+    ) != -1 ?
+        ({ "detach/明教", "betrayer/明教", "betrayer/times" }) :
+        ({ "detach/桃花岛", "betrayer/桃花岛", "betrayer/times" })))
+        history[key] = student->query(key);
+    pending = student->query_temp("pending/apprentice");
+    betrayer = student->query_temp("pending/betrayer");
+    recruitment = ([
+        "family": mapp(family) ? copy(family) : ([]),
+        "family_present": mapp(family) ? 1 : 0,
+        "name": student->query("name"),
+        "class": student->query("class") || "",
+        "title": student->query("title") || "",
+        "history": history,
+        "quest": copy(student->query("quest") || 0),
+        "temp_quest": copy(student->query_temp("quest") || 0),
+        "pending_apprentice": objectp(pending) ? file_name(pending) : "",
+        "pending_betrayer": objectp(betrayer) ? file_name(betrayer) : ""
+    ]);
+    tao = ([
+        "master": student->query_temp("taohua/master") || 0,
+        "countbook": student->query_temp("taohua/countbook") || 0
+    ]);
+    result = ([
+        "contribution": student->query("gongxian") || 0,
+        "jing": student->query("jing"),
+        "neili": student->query("neili"),
+        "max_neili": student->query("max_neili"),
+        "max_jingli": student->query("max_jingli") || 0,
+        "potential": student->query("potential") || 0,
+        "learned_points": student->query("learned_points") || 0,
+        "combat_exp": student->query("combat_exp"),
+        "shen": student->query("shen"),
+        "weiwang": student->query("weiwang") || 0,
+        "str": student->query("str"),
+        "int": student->query("int"),
+        "con": student->query("con"),
+        "dex": student->query("dex"),
+        "character": student->query("character"),
+        "effective_int": student->query_int(),
+        "effective_dex": student->query_dex(),
+        "effective_force": student->query_skill("force"),
+        "effective_dodge": student->query_skill("dodge"),
+        "skills": copy(student->query_skills() || ([])),
+        "learned": copy(student->query_learned() || ([])),
+        "mappings": copy(student->query_skill_map() || ([])),
+        "grants": values,
+        "reborn_family": student->query("reborn/family_name"),
+        "family": mapp(family) ? family["family_name"] || 0 : 0,
+        "master_id": mapp(family) ? family["master_id"] || 0 : 0,
+        "master_name": mapp(family) ? family["master_name"] || 0 : 0,
+        "recruitment": recruitment,
+        "taohua": tao
+    ]);
+    if (member_array(
+        profile,
+        ({
+            "mingjiao-apprentice-learning",
+            "mingjiao-teachers",
+            "mingjiao-recruit",
+            "mingjiao-gift", "mingjiao-book"
+        })
+    ) != -1) {
+        map_delete(result, "taohua");
+        qualification = ([]);
+        foreach (key in ({ "env/no_learn", "env/auto_regenerate", "special_skill/wuxing",
+            "tattoo/tattoo_str", "reborn/str", "tattoo/tattoo_int", "reborn/int",
+            "tattoo/tattoo_dex", "reborn/dex" })) qualification[key] = student->query(key);
+        result["qualification"] = qualification;
+        result["effective_str"] = student->query_str();
+    }
+    if (member_array(profile, ({ "mingjiao-recruit", "mingjiao-gift", "mingjiao-book" })) != -1)
+        result += ([ "gender": student->query("gender"), "born_family": student->query("born_family"),
+            "busy": "/tests/runner"->serializable(student->query_busy()) ]);
+    if (profile == "mingjiao-book") {
+        result["qualification"]["special_skill/clever"] = student->query("special_skill/clever");
+        result["conditions"] = copy(student->query_condition() || ([]));
+        result["fighting"] = !!student->is_fighting();
+        result["doing"] = student->query("doing");
+        result["study_time"] = student->query_temp("time/study");
+        result["room"] = "/tests/runner"->mingjiao_book_room_state(environment(student));
+        result["preparations"] = copy(student->query_skill_prepare() || ([]));
+        result["temp_apply"] = copy(student->query_temp("apply") || ([]));
+        result["effective_skills"] = ([]);
+        foreach (key in keys(result["skills"])) result["effective_skills"][key] = student->query_skill(key);
+    }
+    if (profile == "mingjiao-teachers") {
+        foreach (key in ({ "pigging", "guilty", "qiankun-except", "reborn/family_name" }))
+            result["qualification"][key] = student->query(key);
+        result["qualification"]["pigging"] = environment(student)->query("pigging");
+        result["qualification"]["qiankun-except"] = student->query_condition("qiankun-except");
+        result["gender"] = student->query("gender");
+        result["guilty"] = student->query("guilty");
+        result["conditions"] = copy(student->query_condition() || ([]));
+        result["busy"] = "/tests/runner"->serializable(student->query_busy());
+        result["fighting"] = !!student->is_fighting();
+        result["preparations"] = copy(student->query_skill_prepare() || ([]));
+        result["temp_apply"] = copy(student->query_temp("apply") || ([]));
+        result["effective_skills"] = ([]);
+        foreach (key in keys(result["skills"])) result["effective_skills"][key] = student->query_skill(key);
+        weapon = student->query_temp("weapon");
+        secondary = student->query_temp("secondary_weapon");
+        result["weapon"] = objectp(weapon) ? weapon->query("skill_type") : "none";
+        result["secondary_weapon"] = objectp(secondary) ? secondary->query("skill_type") : "none";
+        result["weapon_details"] = "/tests/runner"->equipment_snapshot(weapon);
+        result["secondary_weapon_details"] = "/tests/runner"->equipment_snapshot(secondary);
+        result["room_pigging"] = environment(student)->query("pigging");
+        result["encumbrance"] = student->query_encumbrance();
+    }
+    return result;
+}
+
 private varargs mapping teaching_state(object student, string *grants, string profile) {
     mapping values, result;
     string key;
 
+    if (profile == "taohua-learning") return taohua_learning_state(student, grants);
+    if (member_array(
+        profile,
+        ({
+            "mingjiao-apprentice-learning",
+            "mingjiao-teachers",
+            "mingjiao-recruit",
+            "mingjiao-gift", "mingjiao-book"
+        })
+    ) != -1)
+        return taohua_learning_state(student, grants, profile);
     values = ([]);
     foreach (key in grants) values[key] = student->query(key) || 0;
     result = ([
@@ -142,6 +282,131 @@ mapping gumu_item_state(mapping context) {
     return result;
 }
 
+// Full carrier chain for the five original taohua book singletons; read-only.
+mapping taohua_book_point(mapping context) {
+    mapping result, item_state, skill;
+    object holder, item, owner;
+    string role, key, path;
+    string *chain;
+
+    if (base_name(previous_object()) != "/tests/runner")
+        error("Book observation requires the isolated runner.\n");
+    if (!mapp(context) || !mapp(context["books"]))
+        error("Unreviewed taohua book context.\n");
+    result = ([ "carriers": ([]), "items": ({}) ]);
+    foreach (role, holder in context["carriers"]) {
+        if (!objectp(holder)) error("Book carrier disappeared.\n");
+        owner = environment(holder);
+        result["carriers"][role] = ([ "object": file_name(holder), "program": base_name(holder),
+            "environment": objectp(owner) ? file_name(owner) : 0,
+            "family": holder->query("family/family_name"),
+            "is_character": holder->is_character(),
+            "encumbrance": role == "room" ? 0 : holder->query_encumbrance(),
+            "max_encumbrance": holder->query_max_encumbrance(),
+            "inventory": map(all_inventory(holder), (: file_name :)) ]);
+    }
+    foreach (key, path in context["books"]) {
+        item = find_object(path);
+        if (!objectp(item)) {
+            result["items"] += ({ ([ "key": key, "exists": 0, "object": "", "program": "" ]) });
+            continue;
+        }
+        if (clonep(item) || base_name(item) != path) error("Original book singleton identity.\n");
+        chain = ({});
+        owner = environment(item);
+        while (objectp(owner)) {
+            if (member_array(file_name(owner), chain) != -1) error("Cyclic book ownership.\n");
+            chain += ({ file_name(owner) });
+            owner = environment(owner);
+        }
+        skill = copy(item->query("skill") || ([]));
+        item_state = ([ "key": key, "exists": 1, "object": file_name(item), "program": base_name(item),
+            "clonep": clonep(item), "id": item->query("id"),
+            "environment": objectp(environment(item)) ? file_name(environment(item)) : 0,
+            "owner_chain": chain, "weight": item->query_weight(),
+            "amount": item->query_amount(), "skill": skill ]);
+        result["items"] += ({ item_state });
+    }
+    return result;
+}
+
+// Observe stock and newly created original letters without loading either the book or other rooms.
+mapping mingjiao_book_point(mapping context) {
+    mapping result;
+    object room, carrier, item, owner;
+    object *seen;
+
+    if (base_name(previous_object()) != "/tests/runner" || !mapp(context) ||
+        context["books"]["qiankun_book"] != "/clone/book/qiankun_book")
+        error("Unreviewed Mingjiao book observation.\n");
+    result = taohua_book_point(context);
+    room = context["carriers"]["room"];
+    result["room"] = "/tests/runner"->mingjiao_book_room_state(room);
+    result["letters"] = ({});
+    seen = ({});
+    foreach (carrier in values(context["carriers"])) foreach (item in all_inventory(carrier)) {
+        if (base_name(item) != "/d/mingjiao/obj/yixin" || member_array(item, seen) != -1) continue;
+        seen += ({ item });
+        owner = environment(item);
+        result["letters"] += ({ ([ "object": file_name(item), "program": base_name(item),
+            "clonep": clonep(item), "id": item->query("id"),
+            "environment": objectp(owner) ? file_name(owner) : 0, "weight": item->query_weight() ]) });
+    }
+    return result;
+}
+
+// The original weapon singleton, not a cloned substitute or an inventory grant.
+mapping mingjiao_gift_point(mapping context) {
+    mapping result, state;
+    object holder, item, owner, weapon, secondary;
+    string role;
+    string *chain;
+
+    if (base_name(previous_object()) != "/tests/runner" || !mapp(context) ||
+        context["item"] != "/clone/lonely/huanlingjian" || !mapp(context["carriers"]))
+        error("Unreviewed original Mingjiao gift observation.\n");
+    result = ([ "carriers": ([]), "items": ({}) ]);
+    foreach (role, holder in context["carriers"]) {
+        if (!objectp(holder)) error("Gift carrier disappeared.\n");
+        owner = environment(holder);
+        weapon = holder->query_temp("weapon");
+        secondary = holder->query_temp("secondary_weapon");
+        result["carriers"][role] = ([ "object": file_name(holder), "program": base_name(holder),
+            "environment": objectp(owner) ? file_name(owner) : 0,
+            "name": holder->query("name"), "is_character": holder->is_character(),
+            "family": holder->query("family/family_name"),
+            "encumbrance": member_array(
+                role,
+                ({ "stage", "remote" })
+            ) != -1 ? 0 : holder->query_encumbrance(),
+            "max_encumbrance": holder->query_max_encumbrance(),
+            "inventory": map(all_inventory(holder), (: file_name :)),
+            "weapon": objectp(weapon) ? file_name(weapon) : "none",
+            "secondary_weapon": objectp(secondary) ? file_name(secondary) : "none",
+            "apply": copy(holder->query_temp("apply") || ([])) ]);
+    }
+    item = find_object(context["item"]);
+    if (!objectp(item) || clonep(item) || base_name(item) != context["item"])
+        error("Original gift singleton identity.\n");
+    chain = ({});
+    owner = environment(item);
+    while (objectp(owner)) {
+        if (member_array(file_name(owner), chain) != -1) error("Cyclic gift ownership.\n");
+        chain += ({ file_name(owner) });
+        owner = environment(owner);
+    }
+    state = ([ "object": file_name(item), "program": base_name(item), "clonep": clonep(item),
+        "id": item->query("id"), "environment": objectp(environment(item)) ? file_name(environment(item)) : 0,
+        "owner_chain": chain, "weight": item->query_weight(), "skill_type": item->query("skill_type"),
+        "flag": item->query("flag"), "consistence": item->query("consistence"),
+        "material": item->query("material"), "stable": item->query("stable"),
+        "equipped": item->query("equipped"), "is_weapon": item->is_weapon(),
+        "weapon_prop": copy(item->query("weapon_prop") || ([])),
+        "armor_prop": copy(item->query("armor_prop") || ([])) ]);
+    result["items"] = ({ state });
+    return result;
+}
+
 private mapping teaching_item(mapping item) {
     object ob, holder;
 
@@ -218,7 +483,8 @@ varargs mapping observe_command(
     string tonsure_name,
     mapping formation,
     string profile,
-    mapping item_context
+    mapping item_context,
+    mapping learning
 ) {
     mapping result;
     object book;
@@ -229,7 +495,15 @@ varargs mapping observe_command(
 
     if (base_name(previous_object()) != "/tests/runner")
         error("Teaching observation requires the isolated runner.\n");
-    if (!objectp(student) || !objectp(teacher) ||
+    if (member_array(
+        profile,
+        ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-book" })
+    ) != -1 && !objectp(teacher)) {
+        // The finite study/cancel route has no teacher NPC; never manufacture one.
+        if (!objectp(student) || !userp(student) || !interactive(student) || !playerp(student) ||
+            wizardp(student) || !mapp(learning))
+            error("Teaching observation requires a real student.\n");
+    } else if (!objectp(student) || !objectp(teacher) ||
         !userp(student) || !interactive(student) || !playerp(student) || wizardp(student) ||
         playerp(teacher) || !living(teacher) || !clonep(teacher) ||
         environment(student) != environment(teacher))
@@ -253,8 +527,8 @@ varargs mapping observe_command(
     }
     result = ([
         "student": file_name(student),
-        "teacher": file_name(teacher),
-        "teacher_program": base_name(teacher),
+        "teacher": objectp(teacher) ? file_name(teacher) : "none",
+        "teacher_program": objectp(teacher) ? base_name(teacher) : "none",
         "command": command,
         "before": teaching_state(student, grants, profile)
     ]);
@@ -276,9 +550,43 @@ varargs mapping observe_command(
             })
         ) != -1)
         result["teacher_skills"] = copy(teacher->query_skills() || ([]));
+    if (member_array(
+        profile,
+        ({
+            "taohua-learning",
+            "mingjiao-apprentice-learning",
+            "mingjiao-teachers",
+            "mingjiao-recruit", "mingjiao-gift", "mingjiao-book"
+        })
+    ) != -1) {
+        result["teacher_skills"] = objectp(teacher) ? copy(teacher->query_skills() || ([])) : ([]);
+        result["wall_time"] = time();
+        result["resolved_teacher"] = "none";
+        if (objectp(teacher)) {
+            if (present(teacher->query("id"), environment(student)) != teacher)
+                error("Original teacher resolves to the exact prepared NPC.
+");
+            result["resolved_teacher"] = file_name(teacher);
+        }
+        if (mapp(learning) && stringp(learning["book_path"])) {
+            book = find_object(learning["book_path"]);
+            result["resolved_book"] = objectp(book) && environment(book) == student ? file_name(book) : "";
+        }
+        if (mapp(learning) && mapp(learning["book_context"]))
+            result["item_before"] = profile == "mingjiao-book" ? mingjiao_book_point(learning["book_context"]) : taohua_book_point(learning["book_context"]);
+    }
+    if (profile == "mingjiao-teachers")
+        result["teacher_before"] = "/tests/runner"->mingjiao_teacher_state(teacher);
+    if (member_array(profile, ({ "mingjiao-recruit", "mingjiao-gift" })) != -1 && objectp(teacher))
+        result["teacher_before"] = "/tests/runner"->mingjiao_teacher_state(teacher);
+    if (profile == "mingjiao-gift") result["item_before"] = mingjiao_gift_point(item_context);
     if (!promotion && strsrch(command, "apprentice ") == 0) {
-        result["before"]["recruitment"] = recruitment_state(student, profile);
-        result["teacher_family"] = teacher->query("family") ? ([ "family_name": teacher->query("family/family_name"),
+        if (member_array(
+            profile,
+            ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit" })
+        ) == -1)
+            result["before"]["recruitment"] = recruitment_state(student, profile);
+        result["teacher_family"] = objectp(teacher) && teacher->query("family") ? ([ "family_name": teacher->query("family/family_name"),
             "generation": teacher->query("family/generation") ]): ([]);
         result["wall_time"] = time();
     }
@@ -297,12 +605,27 @@ varargs mapping observe_command(
         tracked_names = map(tracked, (: file_name :));
     }
     student->begin_teaching_messages();
+    if (member_array(
+        profile,
+        ({ "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-gift" })
+    ) != -1)
+        result["teacher_pending_recruit_before"] = objectp(teacher) && objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
     started = time_ns() / 1000000000.0;
     result["command_accepted"] = student->force_me(command);
     result["elapsed"] = time_ns() / 1000000000.0 - started;
     result["messages"] = student->end_teaching_messages();
     result["message_scope"] = "receive_message_apply_input_not_full_transcript";
     result["after"] = teaching_state(student, grants, profile);
+    if (profile == "mingjiao-teachers")
+        result["teacher_after"] = "/tests/runner"->mingjiao_teacher_state(teacher);
+    if (member_array(profile, ({ "mingjiao-recruit", "mingjiao-gift" })) != -1 && objectp(teacher))
+        result["teacher_after"] = "/tests/runner"->mingjiao_teacher_state(teacher);
+    if (profile == "mingjiao-gift") result["item_after"] = mingjiao_gift_point(item_context);
+    if (member_array(
+        profile,
+        ({ "taohua-learning", "mingjiao-book" })
+    ) != -1 && mapp(learning) && mapp(learning["book_context"]))
+        result["item_after"] = profile == "mingjiao-book" ? mingjiao_book_point(learning["book_context"]) : taohua_book_point(learning["book_context"]);
     if (promotion) result["after"]["promotion"] = promotion_state(student, teacher);
     if (stringp(tonsure_name)) result["after"]["tonsure"] = tonsure_state(student, tonsure_name);
     if (mapp(formation)) result["after"]["formation"] = "/tests/formation_observer"->observe(
@@ -311,9 +634,18 @@ varargs mapping observe_command(
         formation
     );
     if (!promotion && strsrch(command, "apprentice ") == 0) {
-        result["after"]["recruitment"] = recruitment_state(student, profile);
-        result["teacher_pending_recruit"] = objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
+        if (member_array(
+            profile,
+            ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit" })
+        ) == -1)
+            result["after"]["recruitment"] = recruitment_state(student, profile);
+        result["teacher_pending_recruit"] = objectp(teacher) && objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
     }
+    if (member_array(
+        profile,
+        ({ "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-gift" })
+    ) != -1)
+        result["teacher_pending_recruit"] = objectp(teacher) && objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
     if (mapp(tracked_item)) result["item_after"] = teaching_item(tracked_item);
     if (profile == "gumu-item-acquisition") {
         result["item_after"] = gumu_item_state(item_context);

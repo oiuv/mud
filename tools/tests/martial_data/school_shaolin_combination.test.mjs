@@ -120,7 +120,7 @@ test('未激发基本拳脚的原LPC零值正常保留，不伪造特殊武学',
 
 test('新分组必须记录准备顺序和出招明细，不以字段缺失绕过核查', () => {
     const source=readFileSync(root+'/tools/tests/martial_data/runner.lpc','utf8');
-    const snapshot=source.slice(source.indexOf('mapping snapshot(')).split('\n}\n')[0];
+    const snapshot=source.slice(source.indexOf('mapping snapshot(object ob) {')).split('\n}\n')[0];
     const attackObserver=source.slice(source.indexOf('void observe_attack(')).split('\n}\n')[0];
     for(const section of [snapshot,attackObserver]) {
         // Snapshot may have earlier group-specific fields unrelated to combat order.

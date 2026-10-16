@@ -12,7 +12,7 @@ const inventory = buildInventory(root), catalog = collectCatalog(root, inventory
 const relations = schoolRelations(inventory, catalog);
 // Preserve the historical inquiry/exchange assertions; real learn commands
 // have independent source and state tests in hong_learning.test.mjs.
-const historicalTeaching = c => !['feng', 'quanzhen', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-acquisition-learning', 'gumu-item-acquisition', 'gumu-recruit'].includes(c.parameters.teaching_profile) && c.parameters.teaching_kind !== 'ordinary_learning'
+const historicalTeaching = c => !['feng', 'quanzhen', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-acquisition-learning', 'gumu-item-acquisition', 'gumu-recruit', 'taohua-learning'].includes(c.parameters.teaching_profile) && c.parameters.teaching_kind !== 'ordinary_learning'
     && !['honghua', 'mingjiao', 'duan', 'tianlongsi', 'xueshan', 'xuedao', 'xingxiu', 'xuanming', 'tiezhang', 'shenlong', 'henshan', 'songshan', 'lingxiao', 'meizhuang', 'lingjiu', 'xiaoyao', 'miao', 'murong', 'ouyang', 'shang', 'zhenyuan'].some(g => c.parameters.teacher.path.includes('/' + g + '/'));
 const cases = teachingConditions(relations, catalog).filter(historicalTeaching);
 const isDamoSword = c => c.parameters.teacher.path.endsWith('/da-mo')

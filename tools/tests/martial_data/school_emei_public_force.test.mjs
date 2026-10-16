@@ -26,7 +26,7 @@ test('峨嵋公共内功接入正式与冒烟计划、专用校验和冻结输�
     const execution = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
     assert.ok(execution.includes("'tools/tests/martial_data/school_emei_public_force_cases.mjs'"));
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8');
-    assert.match(runner, /\(\{ "emei-public-force", "gumu-public-force" \}\)\) != -1\)\s*result\["not_living"\] = ob->query\("not_living"\)/);
+    assert.match(runner, /\(\{ "emei-public-force", "gumu-public-force", "mingjiao-public-force" \}\)\) != -1\)\s*result\["not_living"\] = ob->query\("not_living"\)/);
 });
 
 test('公共汇总区分受理、拒绝和受理无变化，不混淆两类气血或自损', () => {

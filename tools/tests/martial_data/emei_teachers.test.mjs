@@ -42,7 +42,7 @@ test('峨嵋28个NPC466关系33技能闭合，1497条件5836记录且旧9369条�
     assert.equal(cases.length, 1497); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5836);
     assert.equal(cases.filter(c => c.samples === 100).length, 29);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
-    const prior = all.filter(c => !['emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior = all.filter(c => !['emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length, 9369); assert.equal(prior.reduce((n, c) => n + c.samples, 0), 41568);
     assert.equal(sha256(JSON.stringify(prior)), 'dc9b2387aaf1b957d958d1784d5e99caa858bbdc5e27f7f2a901a59cd502b476');
     for (const c of cases) validateTeachingObservation(fixture(c), c);

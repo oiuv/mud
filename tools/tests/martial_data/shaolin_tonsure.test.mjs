@@ -42,7 +42,7 @@ function fixture(c) {
 
 test('15条剃度条件128样本，旧9284条件完整指纹不变', () => {
     assert.equal(cases.length, 15); assert.equal(cases.reduce((n,c) => n + c.samples, 0), 128);
-    const old = all.filter(c => !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const old = all.filter(c => !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length, 9284);
     assert.equal(sha256(JSON.stringify(old)), 'b7d176a3ef6f1edbed38ce4f93a84c9402705e7ee80f208674117d02e49b0e6d');
     for (const c of cases) assert.equal(c.parameters.actor.temp, undefined);

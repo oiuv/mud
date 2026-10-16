@@ -21,8 +21,26 @@ function pick(suffix) {
 
 test('万毒接入统一入口，不改变此前12057条件及307910计划记录', () => {
     const all = schoolCombatConditions(catalog);
-    const old = all.filter(c => !c.parameters.collection_group?.startsWith('gumu-') ||
-        ['gumu-control', 'gumu-direct', 'gumu-advanced', 'gumu-unarmed', 'gumu-combo', 'gumu-fireice'].includes(c.parameters.collection_group));
+    const old = all.filter(c => c.parameters.collection_group !== 'mingjiao-core' &&
+        c.parameters.collection_group !== 'mingjiao-qishang' &&
+        c.parameters.collection_group !== 'mingjiao-xinfa' &&
+        c.parameters.collection_group !== 'mingjiao-movement' &&
+        c.parameters.collection_group !== 'mingjiao-shengong' &&
+        c.parameters.collection_group !== 'mingjiao-shenghuo' &&
+        c.parameters.collection_group !== 'mingjiao-ling-learning' &&
+        c.parameters.collection_group !== 'mingjiao-ling-perform' &&
+        c.parameters.collection_group !== 'mingjiao-apprentice-learning' &&
+        c.parameters.collection_group !== 'mingjiao-public-force' &&
+        c.parameters.collection_group !== 'mingjiao-teachers' &&
+        c.parameters.collection_group !== 'mingjiao-recruit' &&
+        c.parameters.collection_group !== 'mingjiao-gift' &&
+        c.parameters.collection_group !== 'mingjiao-book' &&
+        c.parameters.collection_group !== 'mingjiao-qkd' &&
+        c.parameters.collection_group !== 'mingjiao-jiuyang' &&
+        c.parameters.collection_group !== 'mingjiao-jiuyang-learning' && c.parameters.collection_group !== 'mingjiao-jiuyang-direct' && c.parameters.collection_group !== 'mingjiao-jiuyang-remaining' && c.parameters.collection_group !== 'mingjiao-jiuyang-exert' && c.parameters.collection_group !== 'mingjiao-jiuyang-capacity' && c.parameters.collection_group !== 'mingjiao-jiuyang-research' && c.parameters.collection_group !== 'mingjiao-jiuyang-fusion' && c.parameters.collection_group !== 'mingjiao-remaining-perform' && !['mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group) && c.parameters.collection_group !== 'mingjiao-remaining-base' &&
+        !c.parameters.collection_group?.startsWith('taohua-') &&
+        (!c.parameters.collection_group?.startsWith('gumu-') ||
+        ['gumu-control', 'gumu-direct', 'gumu-advanced', 'gumu-unarmed', 'gumu-combo', 'gumu-fireice'].includes(c.parameters.collection_group)));
     assert.equal(old.length, 12057); assert.equal(old.reduce((n, c) => n + c.samples, 0), 307910);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         '4cf495793071e6a8a1dc0a6f5a3ab93f76c28d95ed9c79cfd21f268722064aa6');

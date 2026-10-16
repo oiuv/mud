@@ -45,7 +45,7 @@ export function summarizeTeachingRows(manifest, rows) {
         const p = condition.parameters;
         const summary = { id: condition.id, entry_id: condition.entry_id,
             kind: p.teaching_kind ?? 'ability_grant',
-            teacher: p.teacher.path, topic: p.topic, samples: selected.length,
+            teacher: p.teacher?.path ?? p.teaching_entry?.path ?? 'none', topic: p.topic, samples: selected.length,
             outcomes: { observed: selected.filter(r => r.outcome === 'observed').length,
                 refused: selected.filter(r => r.outcome === 'refused').length },
             steps: steps.length, asks: steps.filter(s => s.command_kind === 'ask').length,
@@ -130,12 +130,13 @@ export function summarizeTeachingRows(manifest, rows) {
             evidence: selected.map(r => ({ id: key(r), raw_sha256: r.raw_sha256 })),
         };
         conditions.push(summary);
-        if (!teachers.has(p.teacher.path)) teachers.set(p.teacher.path, {
-            path: p.teacher.path, group: p.teacher.path.split('/')[3], topics: new Set(),
+        const teacherPath = p.teacher?.path ?? p.teaching_entry?.path ?? 'none';
+        if (!teachers.has(teacherPath)) teachers.set(teacherPath, {
+            path: teacherPath, group: teacherPath.split('/')[3] ?? 'none', topics: new Set(),
             conditions: 0, samples: 0, observed: 0, refused: 0, steps: 0, asks: 0, gives: 0, learns: 0, learning_steps: 0,
             advanced_steps: 0, acquired_steps: 0, issues: new Set(),
         });
-        const teacher = teachers.get(p.teacher.path);
+        const teacher = teachers.get(teacherPath);
         teacher.topics.add(p.topic); teacher.conditions++;
         if (p.teaching_kind === 'apprenticeship') {
             teacher.apprentices = (teacher.apprentices ?? 0) + summary.apprentices;

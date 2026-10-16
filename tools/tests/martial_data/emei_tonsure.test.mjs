@@ -46,7 +46,7 @@ test('13个NPC的178条件1238样本；旧11303条件完整指纹不变', () => 
     assert.equal(cases.length, 178); assert.equal(cases.reduce((n,c) => n+c.samples, 0), 1238);
     assert.equal(new Set(cases.map(c => c.parameters.teacher.path)).size, 13);
     assert.equal(cases.filter(c => c.samples === 100).length, 9);
-    const old = all.filter(c => !['emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const old = all.filter(c => !['emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length, 11303); assert.equal(old.reduce((n,c) => n+c.samples, 0), 48278);
     assert.equal(sha256(JSON.stringify(old)), '5a76a55340ace73c6190e4a791b0da0ba2cd9d7e7a5dc08e2c40cd9e85346c38');
     assert.equal(new Set(all.map(c => c.id)).size, all.length);

@@ -29,6 +29,7 @@ import { gumuSpecialTeachingConditions, gumuSpecialTeachingSources } from './gum
 import { gumuAcquisitionLearningConditions, gumuAcquisitionLearningSources } from './gumu_acquisition_learning_cases.mjs';
 import { gumuItemAcquisitionConditions, gumuItemAcquisitionSources } from './gumu_item_acquisition_cases.mjs';
 import { gumuRecruitConditions, gumuRecruitSources } from './gumu_recruit_cases.mjs';
+import { taohuaLearningConditions, taohuaLearningSourcePaths } from './school_taohua_learning_cases.mjs';
 
 const reviewed = {
     'kungfu/class/ouyang/ouyangfeng.c': '8a049f7c31f5cdd612dd90f9e9e187e3eeb23e6563be841abb4c694def14427b',
@@ -222,7 +223,8 @@ function publicSource(path) {
         || emeiTeachersSources.includes(path) || emeiRecruitSources.includes(path) || emeiSpecialSources.includes(path)
         || emeiTonsureSources.includes(path) || gumuTeachersSources.includes(path)
         || gumuSpecialTeachingSources.includes(path) || gumuAcquisitionLearningSources.includes(path)
-        || gumuItemAcquisitionSources.includes(path) || gumuRecruitSources.includes(path),
+        || gumuItemAcquisitionSources.includes(path) || gumuRecruitSources.includes(path)
+        || taohuaLearningSourcePaths.includes(path),
         '未核对的教学依赖：' + path);
     const actual = realpathSync(join(root, path));
     assert.ok(isInside(root, actual), '教学源码越出仓库');
@@ -1764,7 +1766,8 @@ export function teachingConditions(relations, catalog, readSource = publicSource
         ...gumuSpecialTeachingConditions(relations, catalog, readSource),
         ...gumuAcquisitionLearningConditions(relations, catalog, readSource),
         ...gumuItemAcquisitionConditions(relations, catalog, readSource),
-        ...gumuRecruitConditions(relations, catalog, readSource)];
+        ...gumuRecruitConditions(relations, catalog, readSource),
+        ...taohuaLearningConditions(relations, catalog, readSource)];
 }
 
 // Acquire the prerequisite through the original NPC and retain its reward.
@@ -2492,7 +2495,12 @@ export function teachingEntries(conditions) {
             .filter(step => step.teaching_entry).map(step => step.teaching_entry);
         for (const entry of [primary, ...sequenceEntries]) {
             assert.equal(entry.role, 'teaching');
-            assert.ok(entry.path.startsWith('kungfu/class/'), '教学入口不是教师来源');
+            assert.ok(entry.path.startsWith('kungfu/class/')
+            || entry.path === 'cmds/skill/study.c'
+            || (condition.parameters.collection_group === 'mingjiao-book'
+                && ((entry.path === 'd/mingjiao/mishi.c' && entry.line === 35 && entry.function === 'do_ketou')
+                    || (entry.path === 'cmds/std/get.c' && entry.line === 12 && entry.function === 'main'))),
+            '教学入口不是教师来源或本组明确的原物品入口');
             assert.ok(condition.parameters.qualification_evidence
                 .some(s => s.path === entry.path && s.sha256 === entry.sha256), '教学入口缺少来源 hash');
             assert.equal(entry.id, `${entry.path}:${entry.line}:${entry.function}`, '教学入口身份字段不一致');

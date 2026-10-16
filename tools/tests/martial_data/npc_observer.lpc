@@ -5,6 +5,7 @@ private mapping gumu_result;
 private mapping gumu_bout_owned;
 private string *gumu_bout_items = ({});
 private string *gumu_bout_corpses = ({});
+private int mingjiao_bout;
 
 mapping state(object ob) {
     mapping result, properties, item_state;
@@ -309,12 +310,98 @@ mapping observe_gumu(mapping config, object target) {
 // The following staged API is for the separate natural-NPC bout only. It is not
 // registered in the collector yet; existing immediate observations keep their shape.
 mapping gumu_bout_state(object ob) {
-    mapping result;
+    mapping result, skills, mappings, effective, effective_mappings, prepared;
+    string key;
+    string *skill_keys;
     if (!objectp(ob)) return 0;
     result = gumu_state(ob);
     result["ghost"] = ob->is_ghost();
     result["conditions"] = "/tests/runner"->serializable(ob->query_condition());
+    if (mingjiao_bout) {
+        skills = ob->query_skills() || ([]);
+        mappings = ob->query_skill_map() || ([]);
+        prepared = ob->query_skill_prepare() || ([]);
+        effective = ([]);
+        effective_mappings = ([]);
+        skill_keys = keys(skills);
+        foreach (key in keys(mappings)) {
+            effective_mappings[key] = ob->query_skill_mapped(key);
+            if (member_array(key, skill_keys) == -1) skill_keys += ({ key });
+        }
+        foreach (key in skill_keys) effective[key] = ob->query_skill(key);
+        result["effective_mappings"] = effective_mappings;
+        result["effective_skills"] = effective;
+        result["preparation_order"] = keys(prepared);
+    }
     return result;
+}
+
+// Only these nine original programs are authorized for the separate Mingjiao
+// natural-bout window. Reuse ownership/capture/cleanup, never assign NPC input.
+mapping prepare_mingjiao_bout(mapping config, object target) {
+    mapping prep;
+    object blueprint, ob;
+    object *autonomous;
+    string name, skill;
+    mixed failure;
+    if (base_name(previous_object()) != "/tests/runner" || config["callback_index"] != -1 ||
+        member_array(config["path"], ({ "/kungfu/class/mingjiao/daijisi",
+            "/kungfu/class/mingjiao/fanyao", "/kungfu/class/mingjiao/lengqian",
+            "/kungfu/class/mingjiao/weiyixiao", "/kungfu/class/mingjiao/xiaozhao",
+            "/kungfu/class/mingjiao/xiexun", "/kungfu/class/mingjiao/yangxiao",
+            "/kungfu/class/mingjiao/yintianzheng", "/kungfu/class/mingjiao/zhangwuji" })) == -1 ||
+        this_player() != target || !interactive(target) || !userp(target) ||
+        !playerp(target) || wizardp(target))
+        error("Original Mingjiao NPC requires reviewed source and real player context.\n");
+    if (objectp(gumu_npc) || objectp(gumu_companion) || sizeof(gumu_owned))
+        error("Prior original NPC observation not cleaned.\n");
+    mingjiao_bout = 1;
+    gumu_target = target;
+    prep = ([ "entry_player": file_name(this_player()), "initializer_actor": "not_observed",
+        "loaded_before": ({}), "loaded_after": ({}), "created_npcs": ({}) ]);
+    foreach (skill in ({ "qishang-quan", "shenghuo-ling" }))
+        if (objectp(find_object("/kungfu/skill/" + skill)))
+            prep["loaded_before"] += ({ "/kungfu/skill/" + skill });
+    gumu_result = ([ "preparation": prep, "room": file_name(environment(target)),
+        "target_object": file_name(target) ]);
+    failure = catch {
+        gumu_npc = new(config["path"]);
+        gumu_owned += ({ gumu_npc }) + deep_inventory(gumu_npc);
+        prep["created_npcs"] += ({ file_name(gumu_npc) });
+        "/tests/runner"->set_gumu_npc_observation(gumu_npc);
+        if (!gumu_npc->move(environment(target))) error("Original Mingjiao NPC move failed.\n");
+        prep["npc_heartbeat_before"] = query_heart_beat(gumu_npc);
+        evaluate(bind((: set_heart_beat, 0 :), gumu_npc));
+        prep["npc_heartbeat_paused"] = query_heart_beat(gumu_npc);
+        blueprint = find_object(config["path"]);
+        prep["blueprint_heartbeat"] = query_heart_beat(blueprint);
+        autonomous = ({
+            gumu_npc,
+            blueprint
+        }) + deep_inventory(gumu_npc) + deep_inventory(blueprint);
+        prep["constructor_callbacks"] = gumu_callbacks(autonomous);
+        prep["returned_player"] = "/tests/runner"->serializable(this_player());
+        foreach (skill in ({ "qishang-quan", "shenghuo-ling" }))
+            if (objectp(find_object("/kungfu/skill/" + skill)))
+                prep["loaded_after"] += ({ "/kungfu/skill/" + skill });
+        if (prep["npc_heartbeat_paused"] || prep["blueprint_heartbeat"] ||
+            sizeof(prep["constructor_callbacks"])) error("Original NPC autonomous preparation is not immediate.\n");
+        gumu_bout_owned = ([]);
+        gumu_bout_items = ({});
+        gumu_bout_corpses = ({});
+        foreach (ob in gumu_owned) {
+            name = file_name(ob);
+            gumu_bout_owned[name] = ob;
+            if (ob != gumu_npc) gumu_bout_items += ({ name });
+        }
+        gumu_result["before"] = gumu_bout_state(gumu_npc);
+    };
+    if (failure) {
+        clear_gumu();
+        mingjiao_bout = 0;
+        error(stringp(failure) ? failure : sprintf("%O", failure));
+    }
+    return gumu_result;
 }
 
 mapping prepare_gumu_bout(mapping config, object target) {
@@ -422,5 +509,342 @@ mapping clear_gumu_bout() {
     gumu_bout_owned = 0;
     gumu_bout_items = ({});
     gumu_bout_corpses = ({});
+    mingjiao_bout = 0;
     return gumu_result;
+}
+
+// Scoped precondition for the taohua observer; mirrors the runner require apply.
+private void taohua_require(int condition, string message) {
+    if (!condition) error(message + "\n");
+}
+
+// Exact original taohua NPC observation. The Gumu/Emei observers above are unchanged.
+private object taohua_npc, taohua_companion, taohua_target;
+private object *taohua_owned = ({});
+private mapping taohua_result;
+
+string *taohua_loaded_skills() {
+    string skill;
+    string *result;
+    result = ({});
+    foreach (skill in get_dir("/kungfu/skill/")) {
+        if (strsrch(skill, ".c") < 0 && strsrch(skill, ".lpc") < 0) continue;
+        skill = replace_string(replace_string(skill, ".lpc", ""), ".c", "");
+        if (objectp(find_object("/kungfu/skill/" + skill)))
+            result += ({ "/kungfu/skill/" + skill });
+    }
+    return result;
+}
+
+mixed *taohua_callouts(object ob) {
+    mixed row;
+    mixed *result;
+    result = ({});
+    foreach (row in call_out_info())
+        if (objectp(row[0]) && row[0] == ob)
+            result += ({ ([ "owner": file_name(row[0]),
+                "function": "/tests/runner"->serializable(row[1]), "remaining": row[2]]) });
+    return result;
+}
+
+private mapping taohua_item_state(object item, int after, string kind) {
+    mapping result;
+    result = ([ "object": file_name(item), "program": base_name(item),
+        "name": item->query("name"), "clone": clonep(item),
+        "environment": objectp(environment(item)) ? file_name(environment(item)) : "",
+        "skill_type": item->query("skill_type"), "equipped": item->query("equipped"),
+        "consistence": item->query("consistence"),
+        "weapon_prop": copy(item->query("weapon_prop") || ([])),
+        "armor_prop": copy(item->query("armor_prop") || ([])) ]);
+    result["amount"] = item->query_amount();
+    result["weight"] = item->query_weight();
+    return result;
+}
+
+private mapping taohua_state(object ob, mapping cfg, int after, string kind) {
+    mapping result, properties;
+    object item, weapon;
+    string key;
+    mixed fun;
+    mixed *inventory, *callbacks, *owners;
+    int hand_level, level;
+    if (!objectp(ob)) return json_decode("null");
+    properties = ([]);
+    foreach (key in ({ "str", "int", "con", "dex", "qi", "eff_qi", "max_qi",
+        "jing", "eff_jing", "max_jing", "neili", "max_neili", "jiali", "combat_exp",
+        "gender", "shen", "id", "name", "chat_chance_combat", "potential", "family" }))
+        properties[key] = ob->query(key);
+    inventory = ({});
+    foreach (item in all_inventory(ob))
+        inventory += ({ taohua_item_state(item, after, kind) });
+    callbacks = ({});
+    owners = ({});
+    foreach (fun in ob->query("chat_msg_combat") || ({})) {
+        callbacks += ({ sprintf("%O", fun) });
+        owners += ({ file_name(ob) });
+    }
+    weapon = ob->query_temp("weapon");
+    foreach (key in ({ "unarmed", "cuff", "finger", "strike", "hand", "claw" })) {
+        level = ob->query_skill(key);
+        if (level > hand_level) hand_level = level;
+    }
+    result = ([ "object": file_name(ob), "program": base_name(ob), "name": ob->name(),
+        "clone": clonep(ob), "userp": userp(ob), "playerp": playerp(ob),
+        "interactive": interactive(ob), "wizardp": wizardp(ob), "living": living(ob),
+        "properties": properties, "skills": copy(ob->query_skills() || ([])),
+        "mappings": copy(ob->query_skill_map() || ([])),
+        "preparations": copy(ob->query_skill_prepare() || ([])),
+        "learned": copy(ob->query_learned() || ([])),
+        "inventory": inventory,
+        "weapon": weapon ? weapon->query("skill_type") : "none",
+        "weapon_object": objectp(weapon) ? file_name(weapon) : "",
+        "secondary_weapon_object": objectp(ob->query_temp("secondary_weapon")) ?
+        file_name(ob->query_temp("secondary_weapon")) : "",
+        "handing_object": objectp(ob->query_temp("handing")) ? file_name(ob->query_temp("handing")) : "",
+        "combat_callbacks": callbacks,
+        "combat_callback_owners": owners,
+        "busy": ob->query_busy(),
+        "callouts": taohua_callouts(ob),
+        "temp": "/tests/runner"->serializable(ob->query_entire_temp_dbase()),
+        "effective_str": ob->query_str(), "effective_dex": ob->query_dex() ]);
+    return result;
+}
+
+private mapping taohua_handle_probe(
+    object npc,
+    string fun,
+    int index,
+    object target,
+    int probe_before
+) {
+    mapping timer;
+    mixed *row, *after;
+    object owner_ob;
+    int probe_after, handle, remaining, delay, candidate;
+    string owner, timer_fun;
+    delay = -1;
+    owner = "";
+    owner_ob = 0;
+    timer_fun = fun;
+    after = call_out_info();
+    foreach (row in after) {
+        if (objectp(row[0]) && stringp(row[1]) &&
+            member_array(row[1], ({ "ding_end", "cuixin_end" })) != -1) {
+            taohua_require(delay < 0, "one original pending skill timer");
+            delay = row[2];
+            owner_ob = row[0];
+            timer_fun = row[1];
+            owner = function_exists(row[1], row[0]) || "";
+        }
+    }
+    if (delay < 0) return 0;
+    taohua_require(stringp(owner), "original timer owner program");
+    probe_after = call_out("taohua_noop", 999);
+    remove_call_out("taohua_noop");
+    handle = 0;
+    for (candidate = probe_before + 1; candidate < probe_after; candidate++) {
+        remaining = evaluate(bind((: find_call_out :), owner_ob), candidate);
+        if (remaining == delay) {
+            taohua_require(!handle, "one original pending call_out handle");
+            handle = candidate;
+        }
+    }
+    taohua_require(handle, "original call_out return handle found between probes");
+    remaining = evaluate(bind((: remove_call_out :), owner_ob), handle);
+    taohua_require(
+        remaining >= 0 && remaining <= delay,
+        "original handle removed with remaining delay"
+    );
+    timer = ([ "owner": owner, "function": timer_fun,
+        "actor_object": file_name(npc), "target_object": file_name(target),
+        "handle": handle, "delay": delay, "fired": 0,
+        "removed_remaining": remaining,
+        "remaining_after": taohua_callouts(owner_ob) ]);
+    return timer;
+}
+
+mapping observe_taohua(mapping config, object target) {
+    object item, victim;
+    int probe_mark, index, occupied;
+    mixed *setup_mark;
+    mapping prep, timer, singleton_state, cleanup;
+    mixed *callbacks, *rows;
+    mixed absent;
+    string key, path;
+    if (base_name(previous_object()) != "/tests/runner" ||
+        strsrch(config["path"], "/kungfu/class/taohua/") != 0 ||
+        this_player() != target || !interactive(target) || !userp(target) ||
+        !playerp(target) || wizardp(target))
+        error("Original taohua NPC requires reviewed source and real player context.\n");
+    if (objectp(taohua_npc) || objectp(taohua_companion) || sizeof(taohua_owned))
+        error("Prior original NPC observation not cleaned.\n");
+    absent = json_decode("null");
+    taohua_target = target;
+    prep = ([ "entry_player": file_name(this_player()), "initializer_actor": "not_observed",
+        "loaded_before": taohua_loaded_skills(), "created_npcs": ({}) ]);
+    taohua_result = ([ "preparation": prep, "steps": ({}), "room": file_name(environment(target)),
+        "target_object": file_name(target), "called": 0,
+        "callback_index": config["callback_index"], "callback_owner": "", "callback_repr": "",
+        "result": absent, "effect_callouts": ({}), "singletons": ({}) ]);
+    occupied = config["singleton_state"] == "occupied";
+    if (member_array(config["id"], ({ "huang", "chen" })) != -1) {
+        path = config["id"] == "huang" ? "/clone/lonely/yuxiao" : "/clone/lonely/book/zhenjing2";
+        item = find_object(path);
+        if (occupied) {
+            taohua_require(config["id"] == "huang" && !objectp(item),
+                "occupied jade only with unclaimed original singleton");
+            taohua_companion = new(config["path"]);
+            taohua_owned += ({ taohua_companion }) + deep_inventory(taohua_companion);
+            prep["created_npcs"] += ({ file_name(taohua_companion) });
+            if (!taohua_companion->move("/tests/team_room"))
+                error("Original companion move failed.\n");
+            evaluate(bind((: set_heart_beat, 0 :), taohua_companion));
+            item = find_object(path);
+            if (!objectp(item) || environment(item) != taohua_companion)
+                error("Original companion did not obtain the original singleton.\n");
+        } else if (objectp(item) && environment(item))
+            error("Do not take externally occupied original singleton.\n");
+        singleton_state = ([ "object": path, "clone": objectp(item) ? clonep(item) : 0,
+            "state": occupied ? "occupied" : "free",
+            "initial_environment": objectp(item) && environment(item) ?
+            file_name(environment(item)) : "",
+            "companion_before": objectp(taohua_companion) ?
+            taohua_state(taohua_companion, config, 0, "loadout") : absent,
+            "companion_after": absent,
+            "companion_room": objectp(taohua_companion) ?
+            file_name(environment(taohua_companion)) : "" ]);
+    }
+    taohua_npc = new(config["path"]);
+    taohua_owned += ({ taohua_npc }) + deep_inventory(taohua_npc);
+    prep["created_npcs"] += ({ file_name(taohua_npc) });
+    "/tests/runner"->set_taohua_npc_observation(taohua_npc);
+    if (!taohua_npc->move(environment(target))) error("Original taohua NPC move failed.\n");
+    // Fixed high-resource experiment input: re-apply the reviewed original
+    // property table, then top qi/jing/neili to their declared maxima before
+    // any measurement window opens.
+    foreach (key in keys(config["original"]["props"]))
+        taohua_npc->set(key, config["original"]["props"][key]);
+    taohua_npc->set("qi", taohua_npc->query("max_qi"));
+    taohua_npc->set("eff_qi", taohua_npc->query("max_qi"));
+    taohua_npc->set("jing", taohua_npc->query("max_jing"));
+    taohua_npc->set("eff_jing", taohua_npc->query("max_jing"));
+    taohua_npc->set("neili", taohua_npc->query("max_neili"));
+    if (objectp(taohua_companion)) {
+        taohua_companion->set("qi", taohua_companion->query("max_qi"));
+        taohua_companion->set("eff_qi", taohua_companion->query("max_qi"));
+        taohua_companion->set("jing", taohua_companion->query("max_jing"));
+        taohua_companion->set("eff_jing", taohua_companion->query("max_jing"));
+        taohua_companion->set("neili", taohua_companion->query("max_neili"));
+    }
+    prep["npc_heartbeat_before"] = query_heart_beat(taohua_npc);
+    evaluate(bind((: set_heart_beat, 0 :), taohua_npc));
+    prep["npc_heartbeat_paused"] = query_heart_beat(taohua_npc);
+    prep["blueprint_heartbeat"] = query_heart_beat(find_object(config["path"]));
+    prep["constructor_callbacks"] = taohua_callouts(taohua_npc);
+    if (objectp(taohua_companion))
+        prep["constructor_callbacks"] += taohua_callouts(taohua_companion);
+    prep["returned_player"] = "/tests/runner"->serializable(this_player());
+    prep["loaded_after"] = taohua_loaded_skills();
+    if (prep["npc_heartbeat_paused"] || prep["blueprint_heartbeat"] ||
+        sizeof(prep["constructor_callbacks"]))
+        error("Original NPC autonomous preparation is not immediate.\n");
+    index = config["callback_index"];
+    if (index >= 0) {
+        callbacks = taohua_npc->query("chat_msg_combat") || ({});
+        taohua_require(arrayp(callbacks) && index < sizeof(callbacks) && functionp(callbacks[index]),
+            "Unreviewed original taohua callback.
+");
+        taohua_result["called"] = 1;
+        taohua_result["callback_owner"] = file_name(taohua_npc);
+        taohua_result["callback_repr"] = sprintf("%O", callbacks[index]);
+        probe_mark = call_out("taohua_noop", 999);
+        setup_mark = "/tests/runner"->taohua_setup_mark();
+        taohua_npc->kill_ob(target);
+        target->kill_ob(taohua_npc);
+        // fight_ob re-arms the USER heartbeat; keep the original command window
+        // free of autonomous target strikes.
+        target->observation_heartbeat(0);
+        // The original kill_ob/fight setup strikes belong to preparation, not
+        // the measured command window: trim those setup events and restore the
+        // fixed high-resource start before the observed closure runs.
+        "/tests/runner"->taohua_trim_setup(setup_mark);
+        taohua_npc->set("qi", taohua_npc->query("max_qi"));
+        taohua_npc->set("eff_qi", taohua_npc->query("max_qi"));
+        taohua_npc->set("jing", taohua_npc->query("max_jing"));
+        taohua_npc->set("eff_jing", taohua_npc->query("max_jing"));
+        taohua_npc->set_busy(0);
+        target->set("neili", target->query("max_neili"));
+        target->set_busy(0);
+    }
+    taohua_result["before"] = taohua_state(taohua_npc, config, 0, config["effect"]);
+    if (mapp(singleton_state)) {
+        item = find_object(path);
+        taohua_require(objectp(item) && !clonep(item), "original singleton identity");
+        taohua_require(environment(item) == (objectp(taohua_companion) ? taohua_companion : taohua_npc),
+            "original singleton ownership after construction");
+        singleton_state["before_environment"] = file_name(environment(item));
+    }
+    if (index >= 0) {
+        taohua_result["result"] = evaluate(callbacks[index]);
+        timer = taohua_handle_probe(taohua_npc,
+            config["effect"] == "ding" ? "ding_end" : "cuixin_end",
+            index, target, probe_mark);
+        if (mapp(timer)) taohua_result["effect_callouts"] = ({ timer });
+    }
+    taohua_result["after"] = taohua_state(taohua_npc, config, 1, config["effect"]);
+    taohua_result["execution"] = ([ "target_active_after": objectp(target) &&
+        living(target) && environment(target) == environment(taohua_npc) ]);
+    if (mapp(singleton_state)) {
+        item = find_object(path);
+        singleton_state["after_environment"] = objectp(item) && environment(item) ? file_name(environment(item)) : "";
+        singleton_state["companion_after"] = objectp(taohua_companion) ? taohua_state(
+            taohua_companion,
+            config,
+            0,
+            "loadout"
+        ) : absent;
+        taohua_result["singletons"] = ({ singleton_state });
+    }
+    cleanup = ([ "enemies_removed": 1, "objects": ({}), "remaining_callbacks": ({}) ]);
+    victim = taohua_target;
+    if (objectp(victim)) {
+        victim->remove_enemy(taohua_npc);
+        victim->remove_killer(taohua_npc);
+        taohua_npc->remove_enemy(victim);
+        taohua_npc->remove_killer(victim);
+        if (objectp(taohua_companion)) {
+            victim->remove_enemy(taohua_companion);
+            victim->remove_killer(taohua_companion);
+            taohua_companion->remove_enemy(victim);
+            taohua_companion->remove_killer(victim);
+        }
+        if (victim->is_fighting(taohua_npc) || taohua_npc->is_fighting(victim))
+            cleanup["enemies_removed"] = 0;
+    }
+    foreach (item in ({ taohua_npc, taohua_companion })) {
+        if (!objectp(item)) continue;
+        evaluate(bind((: set_heart_beat, 0 :), item));
+    }
+    rows = copy(taohua_owned);
+    foreach (item in all_inventory(taohua_npc))
+        if (member_array(item, taohua_owned) == -1) taohua_owned += ({ item });
+    if (objectp(taohua_companion))
+        foreach (item in all_inventory(taohua_companion))
+            if (member_array(item, taohua_owned) == -1) taohua_owned += ({ item });
+    for (index = sizeof(taohua_owned) - 1; index >= 0; index--) {
+        item = taohua_owned[index];
+        if (!objectp(item)) continue;
+        key = file_name(item);
+        destruct(item);
+        cleanup["objects"] += ({ ([ "object": key, "destroyed": !objectp(item) ]) });
+    }
+    cleanup["remaining_callbacks"] = taohua_callouts(taohua_npc);
+    if (objectp(taohua_companion)) cleanup["remaining_callbacks"] += taohua_callouts(taohua_companion);
+    taohua_result["cleanup"] = cleanup;
+    taohua_result["destroyed"] = !objectp(taohua_npc) && !objectp(taohua_companion);
+    taohua_npc = 0;
+    taohua_companion = 0;
+    taohua_target = 0;
+    taohua_owned = ({});
+    return taohua_result;
 }

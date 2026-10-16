@@ -18,6 +18,7 @@ export function learningConditions(catalog) {
                 target: { skills: {}, mappings: {}, properties: {} },
                 interface: { object: `/kungfu/skill/${skill}`, function: 'valid_learn' },
                 action: 'test_interface', fighting: false, observe_seconds: 0,
+                observation: 'single_action_immediate', not_applicable: '',
                 qualification_sources: [source.path, 'feature/skill.c', ...extraSources],
                 expected, expected_reason: reason, known_issue: issue,
                 note: '直接观察原 valid_learn；不是师父传授或练功成功。只用真实技能 ID，不修正错误分支；预期值是待验证的当前行为，不代表设计正确。',
@@ -77,6 +78,10 @@ export function validateLearningRecord(raw, condition) {
     if (p.expected_reason) assert.ok(raw.reason.includes(p.expected_reason), '拒绝理由应来自目标分支');
     // Resources/state changes are a separate outcome, not silently accepted as
     // a harmless learning query. The runner also validates real player identity.
-    assert.deepEqual(raw.immediate, raw.before);
-    assert.deepEqual(raw.after, raw.before);
+    // 修订（2026-10-13 契约复核）：原命令拒绝会经原 notify_fail 通道留下临时标记
+    // （raw.reason 同源保存原文），属命令提示痕迹而非资源/技能/状态变化；比较时剥离该键。
+    // 资源、技能、属性等真实状态变化仍会因深度比较失败而拒绝（单测反例继续有效）。
+    const strip = s => { const t = { ...s, temp: { ...(s.temp ?? {}) } }; delete t.temp.notify_fail; return t; };
+    assert.deepEqual(raw.immediate.map(strip), raw.before.map(strip));
+    assert.deepEqual(raw.after.map(strip), raw.before.map(strip));
 }

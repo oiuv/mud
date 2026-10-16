@@ -127,7 +127,7 @@ test('固定24/734/24与两矩阵不改，报告消费原条件而非planned摘�
     }
     const source = readFileSync(join(root, 'tools/tests/martial_data/school_combat_report.mjs'), 'utf8');
     assert.match(source, /condition\.taohua_zhuan = taohuaZhuanReport\(rows\.filter\(r => r\.condition_id === condition\.id\),\s*conditions\.find\(c => c\.id === condition\.id\)\)/);
-    assert.match(source, /condition\.effects = condition\.npc_bout_effects \|\| condition\.parameters\.collection_group === 'taohua-zhuan' \? null/);
+    assert.match(source, /condition\.effects = condition\.npc_bout_effects \|\| \[[^\]]*'taohua-zhuan'[^\]]*\]\.includes\(condition\.parameters\.collection_group\) \? null/);
 });
 
 test('普通命中/失手/错误的命令成本、技能费及熟练分母分开', () => {

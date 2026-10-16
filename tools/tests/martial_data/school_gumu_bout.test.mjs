@@ -513,7 +513,8 @@ test('共享注册只尾追加16条；旧15709完整交锋与12024教学条件�
     assert.equal(hash(allSmoke.slice(0, 15709)), '57915b8fb932157702e317665cf1605661f55564317b12a213329071198b01eb');
     assert.deepEqual(all.slice(15709, 15725), cases); assert.deepEqual(allSmoke.slice(15709, 15725), smoke);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
-    const teaching = teachingConditions(schoolRelations(inventory, fullCatalog), fullCatalog);
+    const teaching = teachingConditions(schoolRelations(inventory, fullCatalog), fullCatalog)
+        .filter(c => c.parameters.teaching_profile !== 'taohua-learning');
     assert.equal(teaching.length, 12024); assert.equal(teaching.reduce((n, c) => n + c.samples, 0), 54522);
     assert.equal(hash(teaching), '718d60c2d081636ff92635b60bd24d3d93e736ae3f082b695df98fc2c214abf1');
     validateSchoolCombatPlan(cases, fullCatalog);

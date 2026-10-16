@@ -5,8 +5,13 @@ private int *npc_bout_beats = ({ -1, -1 });
 private object *npc_bout_corpses = ({});
 private mapping npc_bout_corpse_victims = ([]);
 
+int is_npc_bout_group() {
+    return member_array(current["parameters"]["collection_group"],
+        ({ "gumu-npc-bout", "mingjiao-npc-bout" })) != -1;
+}
+
 int is_npc_bout() {
-    return active && current["parameters"]["collection_group"] == "gumu-npc-bout";
+    return active && is_npc_bout_group();
 }
 
 int npc_bout_side(object ob) {
@@ -107,6 +112,8 @@ void observe_npc_choice(object ob, int index, function fun, string phase, mixed 
             "busy": serializable(ob->query_busy()), "fighting": ob->is_fighting(players[0]),
             "index": index, "owner": file_name(function_owner(fun)), "repr": sprintf("%O", fun),
             "return_observation": "pending", "terminal_event_index": -1 ]);
+        if (current["parameters"]["collection_group"] == "mingjiao-npc-bout")
+            event["before_state"] = npc_bout_state(ob);
         npc_bout_pending_choice = sizeof(bout["chat_choices"]);
         bout["chat_choices"] += ({ event });
         npc_bout_count(ob, "choices");
@@ -123,6 +130,8 @@ void observe_npc_choice(object ob, int index, function fun, string phase, mixed 
         "same selected closure return"
     );
     event["result"] = serializable(result);
+    if (current["parameters"]["collection_group"] == "mingjiao-npc-bout")
+        event["after_state"] = npc_bout_state(ob);
     event["return_observation"] = "observed";
     event["terminal_event_index"] = -1;
     npc_bout_pending_choice = -1;
@@ -242,6 +251,8 @@ void finish_npc_bout_observation() {
         event["return_observation"] = "not_observed";
         event["result"] = "not_observed";
         if (!undefinedp(event["before"])) event["after"] = "not_observed";
+        if (current["parameters"]["collection_group"] == "mingjiao-npc-bout" &&
+            !undefinedp(event["before_state"])) event["after_state"] = json_decode("null");
     }
     foreach (corpse in npc_bout_corpses) {
         require(objectp(corpse), "returned corpse remains observable before cleanup");

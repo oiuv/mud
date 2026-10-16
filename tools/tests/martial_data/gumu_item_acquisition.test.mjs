@@ -273,7 +273,8 @@ test('房间无负重接口的显式null/0不冒充零重量，其余人物及�
 });
 
 test('共享真实入口注册尾部84条件，旧11940完整有序JSON不变；计划校验不放宽', () => {
-    const registered = teachingConditions(relations, catalog);
+    const registered = teachingConditions(relations, catalog)
+        .filter(c => c.parameters.teaching_profile !== 'taohua-learning');
     assert.equal(registered.length, 12024); assert.equal(registered.reduce((n, c) => n + c.samples, 0), 54522);
     assert.equal(sha256(JSON.stringify(registered.slice(0, 11940))), 'e15ac7811b6322dc11c06b6669032b6d3bed869ccc041c0e7b030f540f94386e');
     assert.deepEqual(registered.filter(c => c.parameters.teaching_profile === 'gumu-item-acquisition'), cases);

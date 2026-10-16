@@ -85,11 +85,11 @@ test('追加两门身法167条件4450计划、209烟雾，旧13495条件完整�
 test('共享执行器观察实际房间、有效属性与接口归属，报告读取冻结条件', () => {
     const text = p => readFileSync(join(root, p), 'utf8');
     const runner = text('tools/tests/martial_data/runner.lpc');
-    assert.match(runner, /collection_group"\] == "gumu-movement"\) \{\s+result\["effective_int"\] = ob->query_int\(\);\s+result\["cultivation"\]\["env\/no_learn"\] = ob->query\("env\/no_learn"\);/);
-    assert.match(runner, /\(\{ "gumu-cultivation", "gumu-movement" \}\)\)[\s\S]*?call_other\(spec\["object"\], "valid_research", players\[0\]\)/);
+    assert.match(runner, /member_array\(current\["parameters"\]\["collection_group"\],\s+\(\{ "gumu-movement", "mingjiao-movement" \}\)\) != -1\) \{\s+result\["effective_int"\] = ob->query_int\(\);\s+result\["cultivation"\]\["env\/no_learn"\] = ob->query\("env\/no_learn"\);/);
+    assert.match(runner, /\(\{ "gumu-cultivation", "gumu-movement", "mingjiao-shengong" \}\)\)[\s\S]*?call_other\(spec\["object"\], "valid_research", players\[0\]\)/);
     assert.match(runner, /"configured original movement usage"\);\s+result = call_other\(spec\["object"\], "valid_enable", spec\["argument"\]\)/);
-    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning" \}\)\) != -1\)\s+current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists\(spec\["function"\],\s+load_object\(spec\["object"\]\)\)/);
-    assert.match(runner, /foreach \(room_key in \(\{ "practice_improve", "research_improve" \}\)\) \{\s+delete\(room_key\);\s+if \(\(parameters\["collection_group"\] == "gumu-movement" \|\|\s+\(parameters\["collection_group"\] == "gumu-weapon-learning" && room_key == "practice_improve"\) \|\|\s+\(parameters\["collection_group"\] == "gumu-research" && room_key == "research_improve"\)\)/);
+    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning",\s+"mingjiao-ling-learning" \}\)\) != -1\)\s+current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists\(spec\["function"\],\s+load_object\(spec\["object"\]\)\)/);
+    assert.match(runner, /foreach \(room_key in \(\{ "practice_improve", "research_improve" \}\)\) \{\s+delete\(room_key\);\s+if \(\(parameters\["collection_group"\] == "gumu-movement" \|\|[^)]*\|\|\s+\(parameters\["collection_group"\] == "gumu-weapon-learning" && room_key == "practice_improve"\) \|\|\s+\(member_array\(parameters\["collection_group"\],\s*\(\{ "gumu-research", "mingjiao-jiuyang-research" \}\)\) != -1 &&\s*room_key == "research_improve"\)\)/);
     const roomStart = runner.indexOf('current["movement_room"] =');
     assert.ok(roomStart > runner.indexOf('delete(room_key);', runner.indexOf('void perform_sample()')));
     assert.ok(roomStart < runner.indexOf('prepare_actor(0, parameters["actor"]);', roomStart));

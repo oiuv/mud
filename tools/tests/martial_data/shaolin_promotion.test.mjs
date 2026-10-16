@@ -54,7 +54,7 @@ function fixture(c) {
 
 test('55条推荐信条件不改历史9229条件，所有信物由原流程产生',()=>{
     assert.equal(cases.length,55);assert.equal(cases.reduce((n,c)=>n+c.samples,0),110);
-    const old=all.filter(c=>!['shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const old=all.filter(c=>!['shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length,9229);assert.equal(sha256(JSON.stringify(old)),
         '5e9d70e8b835dd2b9811090ea90c29a343ebc870ad780f6c85ac59962bece2a6');
     for(const c of cases){assert.equal(c.parameters.actor.temp,undefined);

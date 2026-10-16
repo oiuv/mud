@@ -90,7 +90,7 @@ test('峨嵋防御正式及烟雾完整接入，执行器冻结配置并保留�
         for (const c of selected) validateSchoolCombatRecord(row(c), c);
     }
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8');
-    assert.equal((runner.match(/"shaolin-defense", "emei-defense"/g) ?? []).length, 4);
+    assert.equal((runner.match(/"shaolin-defense",\s+"emei-defense"/g) ?? []).length, 4);
     assert.match(readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8'),
         /'tools\/tests\/martial_data\/school_emei_defense_cases\.mjs'/);
 });

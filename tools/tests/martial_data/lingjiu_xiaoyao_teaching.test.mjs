@@ -8,7 +8,7 @@ import { teachingConditions, teachingEntries } from './teaching_cases.mjs';
 
 const inventory = buildInventory(root), catalog = collectCatalog(root, inventory);
 const all = teachingConditions(schoolRelations(inventory, catalog), catalog)
-    .filter(c => !['feng', 'quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile))
+    .filter(c => !['feng', 'quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile))
     .filter(c => !['miao', 'murong', 'ouyang', 'shang', 'zhenyuan'].some(g => c.parameters.teacher.path.includes('/' + g + '/')));
 const cases = all.filter(c => ['lingjiu', 'xiaoyao'].some(g => c.parameters.teacher.path.includes('/' + g + '/')));
 const get = id => cases.find(c => c.id === 'teaching-' + id).parameters;

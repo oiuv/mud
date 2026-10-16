@@ -335,7 +335,7 @@ test('共享准备仅读本组真实字段、保留诊断槽位并清理场地�
     assert.match(runner, /"gumu-unarmed-learning"\) \{ result\["effective_int"\] = ob->query_int\(\); foreach \(key in \(\{ "character", "tattoo\/tattoo_str", "reborn\/str", "env\/no_learn", "doing" \}\)\)/);
     assert.ok(runner.includes('result["secondary_weapon_details"] = equipment_snapshot(secondary);'));
     assert.match(runner, /"gumu-unarmed-learning" && side == 0 && key == "apply\/str"/);
-    assert.match(runner, /"gumu-unarmed-learning" && side == 0 && config\["equipment"\]\["type"\] == "sword" && !config\["equipment"\]\["hold"\] && member_array\(config\["equipment"\]\["slot"\], \(\{ "weapon", "secondary_weapon" \}\)\) != -1/);
+    assert.match(runner, /"gumu-unarmed-learning", "taohua-zhuan" \}\)\) != -1 &&\s*side == 0 && config\["equipment"\]\["type"\] == "sword" && !config\["equipment"\]\["hold"\] &&\s*member_array\(config\["equipment"\]\["slot"\], \(\{ "weapon", "secondary_weapon" \}\)\) != -1/);
     const secondary = runner.slice(runner.indexOf('else if (config["equipment"]["slot"] == "secondary_weapon")'),
         runner.indexOf('else require(weapon->wield()'));
     assert.ok(secondary.includes('ob->set_temp("secondary_weapon", weapon);'));
@@ -345,7 +345,7 @@ test('共享准备仅读本组真实字段、保留诊断槽位并清理场地�
     assert.ok(start > runner.indexOf('delete(room_key);', runner.indexOf('void perform_sample()')));
     const room = runner.slice(start, runner.indexOf('prepare_actor(0, parameters["actor"]);', start));
     for (const key of ['no_fight', 'pigging', 'practice_improve']) assert.ok(room.includes(`"${key}": query("${key}")`));
-    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning" \}\)\) != -1\) current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists/);
+    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning", "mingjiao-ling-learning" \}\)\) != -1\) current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists/);
     const execution = read('tools/tests/martial_data/execution.mjs');
     for (const name of ['school_gumu_unarmed_learning_cases.mjs', 'school_gumu_weapon_learning_cases.mjs'])
         assert.ok(execution.includes(`'tools/tests/martial_data/${name}'`));
@@ -358,7 +358,7 @@ test('五毒与黯然用已有基本掌法拳脚预加载，清临时激发后�
     const start = runner.indexOf('if (!side && current["parameters"]["collection_group"] == "gumu-unarmed-learning"');
     const preparation = runner.slice(start, runner.indexOf('foreach (key, value in config["preparations"]', start));
     assert.ok(preparation.includes('load_usage = key == "wudu-shenzhang" ? "strike" : "unarmed";'));
-    assert.match(preparation, /ob->force_me\(current\["skill_load_context"\]\["command"\]\).*?ob->map_skill\(load_usage\); \} foreach \(key, value in config\["mappings"\]/);
+    assert.match(preparation, /ob->force_me\(current\["skill_load_context"\]\["command"\]\).*?ob->map_skill\(load_usage\); \}.*?foreach \(key, value in config\["mappings"\]/);
     assert.doesNotMatch(preparation, /set_skill\(|enable parry/);
     for (const [skill, usage] of [['wudu-shenzhang', 'strike'], ['sad-strike', 'unarmed']]) {
         const original = readFileSync(join(root, `kungfu/skill/${skill}.c`), 'utf8');

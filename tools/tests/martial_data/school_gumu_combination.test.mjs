@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { tokenize } from '../../../fluffos/tools/lpc-syntax/tokenizer.mjs';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -72,8 +73,28 @@ test('追加互备条件，不改变旧12428条件332564计划记录的完整内
     for (const c of cases) validateSchoolCombatRecord(row(c), c);
     assert.ok(readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8')
         .includes('tools/tests/martial_data/school_gumu_combination_cases.mjs'));
-    assert.match(readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8'),
-        /current\["interfaces"\] = \(\{\}\);\s+if \(current\["parameters"\]\["collection_group"\] == "gumu-combination"\)\s+current\["prepare_steps"\] = \(\{\}\);/);
+    const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8');
+    const exertInit = '    if (current["parameters"]["collection_group"] == "mingjiao-jiuyang-exert") {\n'
+        + '        current["actions"] = ({});\n        current["directs"] = ({});\n'
+        + '        current["busy_calls"] = ({});\n        current["skill_messages"] = ({});\n    }\n';
+    const remainingInit = '    if (is_mingjiao_remaining_perform()) {\n'
+        + '        current["actions"] = ({});\n        current["directs"] = ({});\n'
+        + '        current["busy_calls"] = ({});\n        current["skill_messages"] = ({});\n'
+        + '        current["perform_steps"] = ({});\n        current["needle_hits"] = ({});\n'
+        + '        passive_before = ([]);\n        remaining_perform_flower = 0;\n    }\n';
+    const baseInit = '    if (is_mingjiao_remaining_base()) {\n'
+        + '        current["actions"] = ({});\n        current["directs"] = ({});\n'
+        + '        current["busy_calls"] = ({});\n        current["skill_messages"] = ({});\n'
+        + '        current["interface_steps"] = ({});\n        passive_before = ([]);\n    }\n';
+    assert.equal(runner.split(baseInit).length, 2, 'one exact remaining-base-only initialization');
+    assert.equal(runner.split(remainingInit).length, 2, 'one exact remaining-perform-only initialization');
+    assert.equal(runner.split(exertInit).length, 2, 'one exact exert-only initialization');
+    const tokens = text => tokenize(text).filter(t => !['whitespace', 'comment', 'directive'].includes(t.kind))
+        .map(t => t.text).join(' ');
+    assert.equal(runner.split('current["interfaces"] = ({});').length, 2);
+    assert.ok(tokens(runner).includes(tokens('if (member_array(current["parameters"]["collection_group"], '
+        + '({ "gumu-combination", "mingjiao-combination" })) != -1) current["prepare_steps"] = ({});')),
+        'only the two explicit combination groups initialize preparation steps');
 });
 
 test('保留美女vliad错名，两掌仅向美女声明，其余无原接口，不增加反向许可', () => {

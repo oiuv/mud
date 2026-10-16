@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { appendFileSync, existsSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { attemptImporter, jsonlTail, missingJobs, sampleImporter, seriesLock, verifyAttemptStopped, verifyResume } from './continuation.mjs';
 import { createSeries, readSamples } from './ledger.mjs';
 import { parseArgs } from '../../collect_martial_data.mjs';
+import { replayHistoricalSamples } from './execution.mjs';
 
 const temp = () => mkdtempSync(join(tmpdir(), 'mud-martial-resume-unit-'));
 function fixture() {
@@ -97,4 +98,76 @@ test('运行原始记录必须来自该次请求的任务编号，不只核对�
     assert.throws(() => accept({ condition_id: 'b', index: 1 }), /不属于/);
     assert.throws(() => attemptImporter([...jobs, ...jobs], () => {}), /重复/);
     assert.equal(rows.length, 1);
+});
+
+function replayFixture() {
+    const f = fixture(), runs = join(f.directory, 'runs');
+    mkdirSync(runs);
+    const raw = Array.from({ length: 3 }, (_, index) => ({ condition_id: 'case-a', index,
+        outcome: 'observed', reason: '', proof: true }));
+    const jobs = raw.map(({ condition_id, index }) => ({ condition_id, index }));
+    const importer = () => sampleImporter(f.directory, f.manifest, row => assert.equal(row.proof, true));
+    const attempt = (name, records, requested = jobs, suffix = '') => {
+        const directory = join(runs, name), log = join(directory, 'mudlib/log');
+        mkdirSync(log, { recursive: true });
+        writeFileSync(join(directory, 'request.json'), JSON.stringify({ fingerprint: f.manifest.fingerprint,
+            jobs: requested }));
+        if (records !== undefined) writeFileSync(join(log, 'events.jsonl'),
+            records.map(row => JSON.stringify(row) + '\n').join('') + suffix);
+        return directory;
+    };
+    return { ...f, runs, raw, jobs, importer, attempt };
+}
+
+test('历史台账齐全但原件缺文件、空文件、无运行或缺槽，不能冒报完成', () => {
+    for (const scenario of ['missing', 'empty', 'no-attempt', 'orphan', 'torn']) {
+        const f = replayFixture(), initial = f.importer();
+        f.raw.forEach(row => initial.accept(row));
+        const before = f.raw.map(row => readFileSync(join(f.directory, 'samples', `case-a.${row.index}.json`)));
+        if (scenario === 'missing') f.attempt('attempt-a', undefined);
+        if (scenario === 'empty') f.attempt('attempt-a', []);
+        if (scenario === 'orphan') f.attempt('attempt-a', f.raw.slice(0, 2));
+        if (scenario === 'torn') f.attempt('attempt-a', f.raw.slice(0, 2), f.jobs, JSON.stringify(f.raw[2]));
+        const importer = f.importer();
+        assert.equal(missingJobs(f.manifest, importer.rows).length, 0, '仅台账的旧判据仍然齐全');
+        assert.throws(() => replayHistoricalSamples(f.runs, f.manifest, importer), /台账缺少对应完整原始记录/);
+        f.raw.forEach((row, i) => assert.deepEqual(readFileSync(join(f.directory, 'samples', `case-a.${row.index}.json`)), before[i]));
+    }
+});
+
+test('历史原件错请求槽、不同内容或验证失败仍拒绝，不能用其证明台账', () => {
+    for (const scenario of ['wrong-slot', 'changed', 'invalid']) {
+        const f = replayFixture(), initial = f.importer();
+        f.raw.forEach(row => initial.accept(row));
+        const records = structuredClone(f.raw);
+        if (scenario === 'changed') records[0].extra = 'different original';
+        if (scenario === 'invalid') records[0].proof = false;
+        f.attempt('attempt-a', records, scenario === 'wrong-slot' ? f.jobs.slice(1) : f.jobs);
+        assert.throws(() => replayHistoricalSamples(f.runs, f.manifest, f.importer()), /历史完整记录验证失败/);
+        assert.deepEqual(readSamples(f.directory, f.manifest).map(row => row.raw), f.raw);
+    }
+});
+
+test('完整原件可幂等重放或恢复未导入行，空尝试无台账仍可续行', () => {
+    for (const alreadyImported of [false, true]) {
+        const f = replayFixture();
+        if (alreadyImported) f.raw.forEach(row => f.importer().accept(row));
+        f.attempt('attempt-a', f.raw);
+        f.attempt('attempt-b', f.raw);
+        f.attempt('attempt-empty', undefined);
+        const importer = f.importer();
+        replayHistoricalSamples(f.runs, f.manifest, importer);
+        assert.equal(importer.rows.length, 3); assert.equal(importer.imported, alreadyImported ? 0 : 3);
+        assert.equal(missingJobs(f.manifest, importer.rows).length, 0);
+    }
+    for (const records of [undefined, []]) {
+        const f = replayFixture(); f.attempt('attempt-empty', records);
+        const importer = f.importer(); replayHistoricalSamples(f.runs, f.manifest, importer);
+        assert.equal(importer.rows.length, 0); assert.equal(missingJobs(f.manifest, importer.rows).length, 3);
+    }
+    const f = replayFixture();
+    f.attempt('attempt-torn', [f.raw[0]], f.jobs, JSON.stringify(f.raw[1]));
+    const importer = f.importer(); replayHistoricalSamples(f.runs, f.manifest, importer);
+    assert.equal(importer.rows.length, 1);
+    assert.deepEqual(missingJobs(f.manifest, importer.rows).map(job => job.index), [1, 2]);
 });

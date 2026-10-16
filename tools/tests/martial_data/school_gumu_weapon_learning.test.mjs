@@ -315,7 +315,7 @@ test('当前源码保留跨技能查询、玄铁场地拼写及九份固定费�
 
 test('共享接线仅开放本组字段并冻结本组模块，报告使用规范化行及冻结条件', () => {
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8').replace(/\s+/g, ' ');
-    assert.match(runner, /if \(current\["parameters"\]\["collection_group"\] == "gumu-weapon-learning" \|\| current\["parameters"\]\["teaching_profile"\] == "gumu-teachers"\) result\["id"\] = item->query\("id"\);/);
+    assert.match(runner, /collection_group"\] == "gumu-weapon-learning" \|\|\s*member_array\(current\["parameters"\]\["teaching_profile"\],\s*\(\{[^}]*"gumu-teachers"[^}]*\}\)\) != -1\)\s*result\["id"\] = item->query\("id"\);/);
     assert.match(runner, /"gumu-weapon-learning"\) \{ result\["effective_dex"\] = ob->query_dex\(\); result\["effective_int"\] = ob->query_int\(\); foreach \(key in \(\{ "character", "tattoo\/tattoo_dex", "reborn\/dex", "env\/no_learn" \}\)\)/);
     assert.match(runner, /"gumu-weapon-learning" && side == 0 && key == "apply\/dex" && value == 1/);
     assert.match(runner, /"gumu-weapon-learning" && side == 0 && stringp\(config\["equipment"\]\["id"\]\)/);
@@ -323,12 +323,12 @@ test('共享接线仅开放本组字段并冻结本组模块，报告使用规�
     assert.match(runner, /\(\{ "suxin-jian", "quanzhen-jian", "yinsuo-jinling", "sanwu-shou" \}\)/);
     assert.match(runner, /load_usage = member_array\(\s*key, \(\{ "suxin-jian", "quanzhen-jian" \}\)\s*\) != -1 \? "sword" : "whip";/);
     assert.match(runner, /"command": "enable " \+ load_usage \+ " " \+ key/);
-    assert.match(runner, /ob->force_me\(current\["skill_load_context"\]\["command"\]\).*?ob->map_skill\(load_usage\); \} foreach \(key, value in config\["mappings"\]/);
+    assert.match(runner, /ob->force_me\(current\["skill_load_context"\]\["command"\]\).*?ob->map_skill\(load_usage\); \}.*?foreach \(key, value in config\["mappings"\]/);
     assert.match(runner, /"gumu-weapon-learning" && room_key == "practice_improve"/);
     for (const key of ['no_fight', 'pigging', 'practice_improve', 'can_practice_xiantie-jian', 'can_practice_xuantie-jian'])
         assert.ok(runner.includes(`"${key}": query("${key}")`), key);
-    assert.match(runner, /foreach \(room_key in \(\{ "pigging", "can_practice_xiantie-jian", "can_practice_xuantie-jian" \}\)\) \{ delete\(room_key\); if \(\(parameters\["collection_group"\] == "gumu-weapon-learning" \|\| \(parameters\["collection_group"\] == "gumu-research" && room_key == "pigging"\)\)/);
-    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning" \}\)\) != -1\) current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists/);
+    assert.match(runner, /foreach \(room_key in \(\{ "pigging", "can_practice_xiantie-jian", "can_practice_xuantie-jian" \}\)\) \{ delete\(room_key\); if \(\(parameters\["collection_group"\] == "gumu-weapon-learning" \|\| \(member_array\(parameters\["collection_group"\], \(\{ "gumu-research", "mingjiao-jiuyang-research" \}\)\) != -1 && room_key == "pigging"\)[^)]*\|\|/);
+    assert.match(runner, /\(\{ "gumu-movement", "gumu-weapon-learning", "gumu-unarmed-learning", "mingjiao-ling-learning" \}\)\) != -1\) current\["interfaces"\]\[<1\]\["implemented_by"\] = function_exists/);
     const execution = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
     assert.ok(execution.includes("'tools/tests/martial_data/school_gumu_weapon_learning_cases.mjs'"));
     const report = readFileSync(join(root, 'tools/tests/martial_data/school_combat_report.mjs'), 'utf8');

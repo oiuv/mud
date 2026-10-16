@@ -1,0 +1,89 @@
+// Disposable real-USER input probe. No commands, account restore or fake clock.
+inherit ROOM;
+
+private object actor;
+private int hb_before, hb_after, reset_observed;
+
+mapping raw_value(mixed value) {
+    return ([ "kind": undefinedp(value) ? "undefined" : mapp(value) ? "mapping" :
+        intp(value) ? "int" : "other", "value": value ]);
+}
+
+mapping actor_state() {
+    mapping state;
+    string key;
+    state = ([ "object": file_name(actor), "interactive": interactive(actor),
+        "player": playerp(actor), "living": living(actor), "busy": actor->is_busy(),
+        "fighting": actor->is_fighting(), "skills": raw_value(actor->query_skills()),
+        "learned": raw_value(actor->query_learned()),
+        "mappings": raw_value(actor->query_skill_map()),
+        "preparations": raw_value(actor->query_skill_prepare()) ]);
+    foreach (key in ({ "qi", "eff_qi", "max_qi", "jing", "eff_jing", "max_jing",
+        "neili", "max_neili", "potential", "learned_points", "learned_experience", "doing" }))
+        state[key] = actor->query(key);
+    return state;
+}
+
+void emit_observation(string phase) {
+    mapping row;
+    float lower, upper;
+    int idle;
+    lower = time_ns() / 1000000000.0;
+    idle = query_idle(actor);
+    upper = time_ns() / 1000000000.0;
+    row = ([ "phase": phase, "idle": idle, "clock_lower": lower, "clock_upper": upper,
+        "time": time(), "hb_before": hb_before, "hb_after": hb_after,
+        "state": actor_state(), "counters": actor->query_observation() ]);
+    write_file("/log/idle_probe.jsonl", json_encode(row) + "\n");
+    debug_message("IDLE PROBE " + phase);
+}
+
+int strategy(object ob, int side) {
+    hb_before++;
+    // The inherited observation actor calls ::heart_beat() only on true.
+    return 1;
+}
+
+void after_heartbeat(int side) { hb_after++; }
+
+void terminal(object ob, int side, string reason) {
+    debug_message("IDLE PROBE TERMINAL " + reason);
+    shutdown(1);
+}
+
+void finish_probe() {
+    emit_observation("finish");
+    actor->stop_observation();
+    shutdown(reset_observed ? 0 : 1);
+}
+
+void observe_reset() {
+    emit_observation("after_lf");
+    reset_observed = query_idle(actor) <= 1;
+}
+
+void before_input() {
+    emit_observation("before_lf");
+    call_out("observe_reset", 1);
+    call_out("finish_probe", 2);
+}
+
+void connected(object ob) {
+    if (actor) {
+        debug_message("IDLE PROBE EXTRA CONNECTION");
+        shutdown(1);
+        return;
+    }
+    actor = ob;
+    actor->move(this_object());
+    actor->start_observation(0);
+    emit_observation("connected");
+    actor->observation_heartbeat(1);
+    call_out("before_input", 3);
+}
+
+void create() {
+    set("short", "静修室");
+    set("long", "静室中安静无声。\n");
+    set("no_clean_up", 1);
+}

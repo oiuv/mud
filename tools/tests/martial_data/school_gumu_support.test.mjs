@@ -324,7 +324,7 @@ test('驱除受理但未生效分母和强化步骤分母保持独立', () => {
 
 test('共享接线只向本组增加既有初态白名单、性格快照和冻结模块', () => {
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8').replace(/\s+/g, ' ');
-    assert.match(runner, /\(\{ "emei-healing", "emei-dispel", "emei-buffs", "gumu-public-force", "gumu-healing", "gumu-dispel", "gumu-buffs" \}\)\) != -1\) result\["cultivation"\]\["character"\] = ob->query\("character"\);/);
+    assert.match(runner, /\(\{ "emei-healing", "emei-dispel", "emei-buffs", "gumu-public-force", "mingjiao-public-force", "gumu-healing", "gumu-dispel", "gumu-buffs" \}\)\) != -1\) result\["cultivation"\]\["character"\] = ob->query\("character"\);/);
     assert.match(runner, /\(\{ "wudang-healing", "shaolin-healing", "emei-healing", "gumu-healing" \}\) \) != -1 && key == "tianmo" && value == 1/);
     assert.match(runner, /\(\{ "wudang-dispel", "wudang-condition", "shaolin-dispel", "emei-dispel", "gumu-dispel" \}\)\) != -1 && member_array\( key, \(\{ "drunk", "ill_kesou", "freezing", "damo_luanqi", "bandaged" \}\) \) != -1/);
     assert.match(runner, /if \(arrayp\(parameters\["buff_steps"\]\)\) \{ require\(member_array\( parameters\["collection_group"\], \(\{ "wudang-buffs", "shaolin-buffs", "emei-buffs", "gumu-buffs" \}\) \) != -1 && !parameters\["fighting"\] && sizeof\(parameters\["buff_steps"\]\) <= 6/);

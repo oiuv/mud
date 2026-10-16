@@ -278,6 +278,6 @@ test('共享consumer使用原冻结condition且排除通用效果，正式reader
     const source = read('tools/tests/martial_data/school_combat_report.mjs');
     assert.match(source, /condition\.taohua_bihai = taohuaBihaiReport\(rows\.filter\(r => r\.condition_id === condition\.id\),\s*conditions\.find\(c => c\.id === condition\.id\)\);/);
     assert.match(source, /else if \(condition\.parameters\.collection_group === 'taohua-bihai'\) condition\.effects = null;/);
-    assert.match(source, /report\.conditions\.filter\(c => !c\.taohua_combo && !c\.taohua_bihai &&/);
+    assert.match(source, /report\.conditions\.filter\(c => !c\.mingjiao_force_remaining && !c\.mingjiao_remaining_base && !c\.mingjiao_remaining_perform && !c\.mingjiao_teachers && !c\.mingjiao_apprentice_learning && !c\.mingjiao_ling_perform && !c\.mingjiao_ling_learning && !c\.mingjiao_shenghuo && !c\.mingjiao_shengong && !c\.mingjiao_movement && !c\.mingjiao_xinfa && !c\.mingjiao_qishang && !c\.mingjiao_core && !c\.taohua_combo && !c\.taohua_bihai &&/);
     assert.match(readSchoolCombat.toString(), /assert\.equal\(manifest\.identity\.execution\.smoke, false, '烟雾不是完整统计'\)/);
 });

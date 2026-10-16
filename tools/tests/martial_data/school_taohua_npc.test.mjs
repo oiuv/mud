@@ -300,6 +300,23 @@ test('原六击加成回收与熟练成长独立；兰花query_action300包含�
     invalid(choose('feng', 3), r => { r.npc_observation.after.properties.neili -= 300; }, { attackResult: -1 });
 });
 
+test('六击NPC资源独立于靶损失，不得用靶受伤掩盖NPC额外恢复', () => {
+    for (const c of [choose('feng', 3), choose('lu', 3), choose('rong', 1)]) {
+        for (const key of ['qi', 'eff_qi', 'jing', 'eff_jing']) {
+            for (const attackResult of [0, -1, -2]) {
+                invalid(c, r => {
+                    const n = r.npc_observation;
+                    n.after.properties[key] = n.before.properties[key] + 1;
+                }, { attackResult });
+            }
+            const lost = record(c);
+            lost.npc_observation.after.properties[key]--;
+            validateTaohuaNpcRecord(lost, c);
+        }
+        invalid(c, r => { r.after[0].qi++; }, { attackResult: -1 });
+    }
+});
+
 test('碧海与啸精神/创伤分列，啸实际零NPC费用与靶内力净差不能混淆', () => {
     const c = choose('huang', 4);
     validateTaohuaNpcRecord(record(c, { hit: false }), c);

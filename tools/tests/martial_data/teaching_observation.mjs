@@ -12,6 +12,7 @@ import { validateGumuSpecialTeachingRecord } from './gumu_special_teaching_cases
 import { validateGumuAcquisitionLearningRecord } from './gumu_acquisition_learning_cases.mjs';
 import { validateGumuItemAcquisitionRecord } from './gumu_item_acquisition_cases.mjs';
 import { validateGumuRecruitRecord } from './gumu_recruit_cases.mjs';
+import { validateTaohuaLearningRecord } from './school_taohua_learning_cases.mjs';
 
 function state(value, grants) {
     assert.ok(value && typeof value === 'object', '教学状态缺失');
@@ -483,7 +484,11 @@ export function validateTeachingRecord(raw, condition) {
         : profile === 'gumu-recruit'
             ? validateGumuRecruitRecord(raw, condition).map(s => ({ ...s,
                 command_kind: 'apprentice', advanced: s.recruited, acquired: false, contribution_spent: 0, jing_spent: 0 }))
-            : validateTeachingObservation(steps, condition);
+            : profile === 'taohua-learning'
+                ? validateTaohuaLearningRecord(raw, condition).map(s => ({ ...s,
+                    advanced: s.progressed || s.permission_added || s.recruited || s.acquired,
+                    jing_spent: s.jing_cost, contribution_spent: 0 }))
+                : validateTeachingObservation(steps, condition);
     assert.equal(raw.outcome, summaries.some(s => s.advanced) ? 'observed' : 'refused',
         '样本终态不能以询问受理代替实际领悟');
     for (const [stateName, stepState] of [['before', steps[0].before], ['after', steps.at(-1).after]]) {

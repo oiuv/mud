@@ -161,7 +161,7 @@ test('仅时序组补原输入别名并在准备阶段核对right与third精确�
     assert.ok(prepare);
     const names = prepare.slice(prepare.indexOf('ob->set("id"'), prepare.indexOf('foreach (key, value in config["properties"]'));
     assert.match(names, /else if \(current\["parameters"\]\["named_participants"\] \|\|\s*current\["parameters"\]\["collection_group"\] == "gumu-temporal"\)\s*ob->set_name\(side == 2 \? "旁试弟子" : side \? "右试弟子" : "左试弟子",\s*\(\{ side == 2 \? "third" : side \? "right" : "left" \}\)\);/);
-    assert.match(names, /ob->move\(this_object\(\)\);\s*if \(side && current\["parameters"\]\["collection_group"\] == "gumu-temporal"\) \{/);
+    assert.match(names, /ob->move\(this_object\(\)\);[\s\S]*?if \(side && current\["parameters"\]\["collection_group"\] == "gumu-temporal"\) \{/);
     assert.match(names, /require\(ob->id\(side == 2 \? "third" : "right"\), "original temporal target input alias"\);/);
     assert.match(names, /require\(present\(side == 2 \? "third" : "right", this_object\(\)\) == ob,\s*"original temporal target resolves to prepared actor"\);/);
     assert.equal(cases[0].parameters.action, 'perform unarmed.tuo right');

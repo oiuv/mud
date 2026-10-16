@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions } from './school_combat_cases.mjs';
 import { taohuaXiaoConditions, taohuaXiaoSourcePaths } from './school_taohua_xiao_cases.mjs';
 import { createSandbox, validateQualificationSources } from './execution.mjs';
@@ -50,9 +52,38 @@ test('新增头/条件/自检/报告依赖均冻结；原15文件48探针完整�
         const path = 'tools/tests/martial_data/' + name;
         assert.equal(snapshot.files[path], sha256(read(path)));
     }
-    assert.equal(snapshot.probes.length, 15);
-    assert.equal(snapshot.probes.reduce((n, p) => n + p.sites.length, 0), 48);
-    assert.equal(sha256(JSON.stringify(snapshot.probes)),
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = snapshot.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(snapshot.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(snapshot.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = snapshot.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(historicalProbes.reduce((n, p) => n + p.sites.length, 0), 48);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
         'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
     assert.match(read('tools/tests/martial_data/execution.mjs'),
         /copy\('tools\/tests\/martial_data\/taohua_xiao_receivers\.h', 'tests\/taohua_xiao_receivers\.h'\)/);

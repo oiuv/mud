@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 import { createSandbox, validateQualificationSources, validateRecord } from './execution.mjs';
 import { taohuaPassiveConditions, taohuaPassiveSourcePaths, validateTaohuaPassiveRecord,
@@ -121,7 +123,7 @@ test('PASSIVE只尾增16条件，保护冻结15952完整正式/烟雾顺序和�
     for (const smoke of [false, true]) {
         const key = smoke ? 'smoke' : 'formal';
         const all = schoolCombatConditions(catalog, { smoke })
-            .filter(c => c.parameters.collection_group !== 'taohua-combination');
+            .filter(c => !['taohua-combination', 'taohua-force', 'taohua-music', 'taohua-npc', 'mingjiao-core', 'mingjiao-qishang', 'mingjiao-xinfa', 'mingjiao-movement', 'mingjiao-shengong', 'mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform', 'mingjiao-apprentice-learning', 'mingjiao-public-force', 'mingjiao-teachers', 'mingjiao-recruit', 'mingjiao-gift', 'mingjiao-book', 'mingjiao-qkd', 'mingjiao-jiuyang', 'mingjiao-jiuyang-learning', 'mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining', 'mingjiao-jiuyang-exert', 'mingjiao-jiuyang-capacity', 'mingjiao-jiuyang-research', 'mingjiao-jiuyang-fusion', 'mingjiao-remaining-perform', 'mingjiao-remaining-base', 'mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group));
         const own = taohuaPassiveConditions(catalog, read, { smoke });
         assert.equal(all.length, 15968);
         assert.equal(new Set(all.map(c => c.id)).size, all.length);
@@ -160,9 +162,38 @@ test('PASSIVE真实输入冻结四新增工具与22来源，原15文件48锚点�
             assert.equal(c.parameters.source_evidence[path], actual.files[path], path);
     }
     validateQualificationSources(conditions, actual.files);
-    assert.equal(actual.probes.length, 15);
-    assert.equal(actual.probes.reduce((n, probe) => n + probe.sites.length, 0), 48);
-    assert.equal(sha256(JSON.stringify(actual.probes)),
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = actual.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(actual.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(actual.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = actual.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(historicalProbes.reduce((n, probe) => n + probe.sites.length, 0), 48);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
         'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
 });
 
@@ -318,7 +349,7 @@ test('实际runner六处窄接复用原hit_ob和双快照，不增攻击/RNG/冷
     assert.match(begin, /"taohua-passive"[\s\S]*?passive_before\[route\] = \(\{ snapshot\(me\), snapshot\(target\) \}\)/);
     assert.match(observe, /"taohua-passive"[\s\S]*?current\["passives"\]\[<1\]\["before"\] = passive_before\[route\]/);
     assert.match(observe, /current\["passives"\]\[<1\]\["after"\] = \(\{ snapshot\(me\), snapshot\(target\) \}\)/);
-    assert.match(flat(advance), /"taohua-passive" \}\)\) != -1\) \{ current\["actions"\] = \(\{\}\); current\["skill_loads"\] = \(\{\}\); passive_before = \(\[\]\);/);
+    assert.match(flat(advance), /"taohua-passive", "mingjiao-core", "mingjiao-qishang" \}\)\) != -1\) \{ current\["actions"\] = \(\{\}\); current\["skill_loads"\] = \(\{\}\); passive_before = \(\[\]\);/);
     const start = action.indexOf('} else if (spec["function"] == "hit_ob") {');
     const end = action.indexOf('    reason = query_notify_fail();', start);
     assert.ok(start >= 0 && end > start);

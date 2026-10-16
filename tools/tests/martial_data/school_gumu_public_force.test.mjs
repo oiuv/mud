@@ -222,12 +222,12 @@ test('公共发动者、命令实参、熟练度与恢复账缺失均拒绝，�
 
 test('共享接线只补性格与not_living观测，冻结原模块且报告按冻结条件分组', () => {
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8').replace(/\s+/g, ' ');
-    assert.match(runner, /member_array\(current\["parameters"\]\["collection_group"\], \(\{ "emei-public-force", "gumu-public-force" \}\)\) != -1\) result\["not_living"\] = ob->query\("not_living"\);/);
-    assert.match(runner, /\(\{ "emei-healing", "emei-dispel", "emei-buffs", "gumu-public-force", "gumu-healing", "gumu-dispel", "gumu-buffs" \}\)\) != -1\) result\["cultivation"\]\["character"\] = ob->query\("character"\);/);
+    assert.match(runner, /member_array\(current\["parameters"\]\["collection_group"\], \(\{ "emei-public-force", "gumu-public-force", "mingjiao-public-force" \}\)\) != -1\) result\["not_living"\] = ob->query\("not_living"\);/);
+    assert.match(runner, /\(\{ "emei-healing", "emei-dispel", "emei-buffs", "gumu-public-force", "mingjiao-public-force", "gumu-healing", "gumu-dispel", "gumu-buffs" \}\)\) != -1\) result\["cultivation"\]\["character"\] = ob->query\("character"\);/);
     assert.ok(readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8')
         .includes("'tools/tests/martial_data/school_gumu_public_force_cases.mjs'"));
     const report = readFileSync(join(root, 'tools/tests/martial_data/school_combat_report.mjs'), 'utf8');
-    assert.match(report, /\['wudang-public-force', 'shaolin-public-force', 'emei-public-force', 'gumu-public-force'\]\.includes\(condition.parameters.collection_group\)\)\s+condition.public_force = publicForceEffects\(rows.filter\(r => r.condition_id === condition.id\)\);/);
+    assert.match(report, /\['wudang-public-force', 'shaolin-public-force', 'emei-public-force', 'gumu-public-force', 'mingjiao-public-force'\]\.includes\(condition.parameters.collection_group\)\)\s+condition.public_force = publicForceEffects\(rows.filter\(r => r.condition_id === condition.id\)\);/);
 });
 
 test('公共内功报告保留归属和受理无变化，拒绝混入伤害与普通交锋表', () => {

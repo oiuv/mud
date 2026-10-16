@@ -97,7 +97,7 @@ test('20门原技能均继承空升级回调，无固有valid_research或难度�
     assert.match(readFileSync(join(root, 'inherit/skill/skill.c'), 'utf8'), /void\s+skill_improved\(object me\)\s*\{\s*\}/);
     const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8');
     assert.doesNotMatch(runner, /->skill_improved\s*\(/);
-    assert.match(runner, /member_array\(\s*parameters\["collection_group"\],\s*\(\{ "quanzhen-study", "wudang-study" \}\)\s*\)/);
+    assert.match(runner, /member_array\(\s*parameters\["collection_group"\],\s*\(\{ "quanzhen-study", "wudang-study"[^}]*\}\s*\)\s*\)/);
 });
 
 test('升级预置和真实收益分离；不得提前升级、扣内力或虚构回调', () => {

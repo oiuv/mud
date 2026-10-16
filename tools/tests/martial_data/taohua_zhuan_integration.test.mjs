@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions } from './school_combat_cases.mjs';
 import { taohuaZhuanConditions, taohuaZhuanSourcePaths } from './school_taohua_zhuan_cases.mjs';
 import { createSandbox, validateQualificationSources } from './execution.mjs';
@@ -24,7 +26,7 @@ const body = (source, name) => {
 test('旧15788完整条件与原顺序保持，仅尾追加原24条转乾坤', () => {
     for (const smoke of [false, true]) {
         const all = schoolCombatConditions(catalog, { smoke })
-            .filter(c => !['taohua-direct', 'taohua-control', 'taohua-attack', 'taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination'].includes(c.parameters.collection_group));
+            .filter(c => !['taohua-direct', 'taohua-control', 'taohua-attack', 'taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination', 'taohua-force', 'taohua-music', 'taohua-npc', 'mingjiao-core', 'mingjiao-qishang', 'mingjiao-xinfa', 'mingjiao-movement', 'mingjiao-shengong', 'mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform', 'mingjiao-apprentice-learning', 'mingjiao-public-force', 'mingjiao-teachers', 'mingjiao-recruit', 'mingjiao-gift', 'mingjiao-book', 'mingjiao-qkd', 'mingjiao-jiuyang', 'mingjiao-jiuyang-learning', 'mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining', 'mingjiao-jiuyang-exert', 'mingjiao-jiuyang-capacity', 'mingjiao-jiuyang-research', 'mingjiao-jiuyang-fusion', 'mingjiao-remaining-perform', 'mingjiao-remaining-base', 'mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group));
         assert.equal(all.length, 15812);
         assert.equal(new Set(all.map(c => c.id)).size, all.length);
         assert.equal(sha256(JSON.stringify(all.slice(0, 15788))), smoke
@@ -47,9 +49,38 @@ test('实际新工具冻结、原15文件48探针及43项来源全部对应', ()
         const path = 'tools/tests/martial_data/' + name;
         assert.equal(snapshot.files[path], sha256(read(path)), path);
     }
-    assert.equal(snapshot.probes.length, 15);
-    assert.equal(snapshot.probes.reduce((n, p) => n + p.sites.length, 0), 48);
-    assert.equal(sha256(JSON.stringify(snapshot.probes)),
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = snapshot.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(snapshot.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(snapshot.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = snapshot.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(historicalProbes.reduce((n, p) => n + p.sites.length, 0), 48);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
         'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
     const conditions = taohuaZhuanConditions(catalog);
     assert.equal(taohuaZhuanSourcePaths.length, 43);
@@ -75,9 +106,19 @@ test('真实原命令准备、direct双挂点与原昏迷三名单均接入', ()
     assert.match(runner, /gumu-unarmed-learning", "taohua-zhuan"/);
     assert.equal([...runner.matchAll(/"taohua-ding",\s*"taohua-xiao",\s*"taohua-po",\s*"taohua-zhuan"/g)].length, 3);
     assert.equal([...runner.matchAll(/"gumu-quanzhen",\s*"gumu-temporal",\s*"taohua-ding",\s*"taohua-zhuan"/g)].length, 2);
-    const perform = body(runner, 'perform_sample');
+    assert.equal(body(runner, 'is_mingjiao_remaining_perform').replace(/\s+/g, ' ').trim(),
+        'private int is_mingjiao_remaining_perform() { return current["parameters"]["collection_group"] == "mingjiao-remaining-perform"; }',
+        'project only the exact remaining-perform group');
+    const actual = body(runner, 'perform_sample');
+    // Remove only the exact new-group disjunct; the historical refusal gate stays unchanged.
+    const remainingGate = 'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining" ||\n'
+        + '            is_mingjiao_remaining_perform()';
+    assert.equal(actual.split(remainingGate).length, 2, 'one exact remaining-perform refusal disjunct');
+    const perform = actual.replace(remainingGate,
+        'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining"');
     const command = perform.indexOf('result = players[0]->force_me(action);');
-    const guard = perform.indexOf('if ((is_taohua_ding() || is_taohua_zhuan()) && !result && !sizeof(current["refusals"]))', command);
+    const relativeGuard = perform.slice(command).search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
+    const guard = relativeGuard < 0 ? -1 : command + relativeGuard;
     assert.ok(command >= 0 && guard > command, '只在原命令返回且没有已观测拒绝时补登记');
     const refusal = perform.slice(guard, perform.indexOf('if (current["method"] == "exercise")', guard));
     assert.match(refusal, /reason = players\[0\]->query_temp\("notify_fail"\)/);

@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 import { createSandbox, validateQualificationSources, validateRecord } from './execution.mjs';
 import { taohuaDirectConditions, taohuaDirectMoves, taohuaDirectSourcePaths,
@@ -100,7 +102,7 @@ function syntheticRecord(condition) {
 test('旧15812完整有序条件不变，仅尾追加四门直伤41条件1650/41', () => {
     for (const smoke of [false, true]) {
         const all = schoolCombatConditions(catalog, { smoke })
-            .filter(c => !['taohua-control', 'taohua-attack', 'taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination'].includes(c.parameters.collection_group));
+            .filter(c => !['taohua-control', 'taohua-attack', 'taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination', 'taohua-force', 'taohua-music', 'taohua-npc', 'mingjiao-core', 'mingjiao-qishang', 'mingjiao-xinfa', 'mingjiao-movement', 'mingjiao-shengong', 'mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform', 'mingjiao-apprentice-learning', 'mingjiao-public-force', 'mingjiao-teachers', 'mingjiao-recruit', 'mingjiao-gift', 'mingjiao-book', 'mingjiao-qkd', 'mingjiao-jiuyang', 'mingjiao-jiuyang-learning', 'mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining', 'mingjiao-jiuyang-exert', 'mingjiao-jiuyang-capacity', 'mingjiao-jiuyang-research', 'mingjiao-jiuyang-fusion', 'mingjiao-remaining-perform', 'mingjiao-remaining-base', 'mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group));
         assert.equal(all.length, 15853);
         assert.equal(new Set(all.map(c => c.id)).size, all.length);
         assert.equal(sha256(JSON.stringify(all.slice(0, 15812))), smoke
@@ -126,9 +128,38 @@ test('实际冻结新增四文件与既有报告依赖，15文件48位点探针�
         const path = 'tools/tests/martial_data/' + name;
         assert.equal(state.files[path], sha256(read(path)), path);
     }
-    assert.equal(state.probes.length, 15);
-    assert.equal(state.probes.reduce((n, p) => n + p.sites.length, 0), 48);
-    assert.equal(sha256(JSON.stringify(state.probes)),
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = state.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(state.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(state.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = state.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(historicalProbes.reduce((n, p) => n + p.sites.length, 0), 48);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
         'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
     assert.equal(taohuaDirectSourcePaths.length, 36);
     assert.equal(new Set(taohuaDirectSourcePaths).size, 36);

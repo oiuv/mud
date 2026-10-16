@@ -9,6 +9,7 @@ import { sha256 } from './inventory.mjs';
 import { validateRecord } from './execution.mjs';
 import { schoolSceneConditions, validateSchoolSceneRecord, fumoGifts } from './school_scene_cases.mjs';
 import { distribution } from './statistics.mjs';
+import { readMingjiaoRoute, mingjiaoRouteMarkdown } from './school_mingjiao_route_report.mjs';
 
 const json = path => JSON.parse(readFileSync(path, 'utf8'));
 const sampleKey = row => row.condition_id + '.' + row.index;
@@ -179,6 +180,8 @@ export function summarizeGiftTransfers(raw, condition) {
 export function readScenes(directory){
     directory=realpathSync(directory);
     const manifest=openSeries(directory);
+    if (manifest.identity.conditions.some(c=>c.parameters.collection_group==='mingjiao-route'))
+        return readMingjiaoRoute(directory);
     const execution=manifest.identity.execution;
     assert.equal(execution.collection,'school-scene');
     const attempts=readdirSync(join(directory,'runs')).sort();
@@ -228,6 +231,7 @@ export function readScenes(directory){
 }
 
 export function sceneMarkdown(r){
+    if (r.kind === 'mingjiao-route') return mingjiaoRouteMarkdown(r);
     return ['# 少林伏魔圈场景采集','',r.smoke?'仅烟雾，不作为正式随机分布。':'既定条件正式记录，不代表普通玩家过阵胜率。','',
         '| 条件 | 样本 | 原命令步骤 | 攻击调用／结算 | 气血支出均值／中位数／P95 |',
         '| --- | ---: | ---: | ---: | --- |',

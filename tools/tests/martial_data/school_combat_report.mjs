@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, realpathSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { newOutput } from '../../collect_martial_data.mjs';
+import { newOutput, root } from '../../collect_martial_data.mjs';
 import { openSeries, readSamples, digest } from './ledger.mjs';
-import { sha256 } from './inventory.mjs';
+import { sha256, buildInventory } from './inventory.mjs';
+import { collectCatalog } from './catalog.mjs';
 import { gumuNpcBoutReport, gumuNpcBoutMarkdown } from './school_gumu_npc_bout_report.mjs';
 import { taohuaDingReport, taohuaDingMarkdown } from './school_taohua_ding_report.mjs';
 import { taohuaXiaoReport, taohuaXiaoMarkdown } from './school_taohua_xiao_report.mjs';
@@ -18,6 +19,35 @@ import { taohuaComboEffects } from './school_taohua_combo_cases.mjs';
 import { taohuaBihaiEffects } from './school_taohua_bihai_cases.mjs';
 import { taohuaPassiveEffects, taohuaPassiveSourcePaths } from './school_taohua_passive_cases.mjs';
 import { taohuaCombinationEffects, taohuaCombinationPairs, taohuaCombinationSourcePaths } from './school_taohua_combination_cases.mjs';
+import { taohuaForceEffects, taohuaForceSourcePaths, taohuaForceAbsentPaths } from './school_taohua_force_cases.mjs';
+import { taohuaMusicEffects, taohuaMusicSourcePaths } from './school_taohua_music_cases.mjs';
+import { taohuaNpcEffects, taohuaNpcSources, taohuaNpcAbsentSources } from './school_taohua_npc_cases.mjs';
+import { mingjiaoCoreEffects } from './school_mingjiao_core_cases.mjs';
+import { mingjiaoQishangEffects, validateMingjiaoQishangLoads } from './school_mingjiao_qishang_cases.mjs';
+import { mingjiaoXinfaEffects } from './school_mingjiao_xinfa_cases.mjs';
+import { mingjiaoMovementEffects } from './school_mingjiao_movement_cases.mjs';
+import { mingjiaoShengongEffects } from './school_mingjiao_shengong_cases.mjs';
+import { mingjiaoShenghuoEffects, validateMingjiaoShenghuoLoads } from './school_mingjiao_shenghuo_cases.mjs';
+import { mingjiaoLingLearningEffects } from './school_mingjiao_ling_learning_cases.mjs';
+import { mingjiaoLingPerformEffects } from './school_mingjiao_ling_perform_cases.mjs';
+import { mingjiaoApprenticeLearningEffects } from './school_mingjiao_apprentice_learning_cases.mjs';
+import { mingjiaoTeachersEffects } from './school_mingjiao_teachers_cases.mjs';
+import { mingjiaoRecruitEffects } from './school_mingjiao_recruit_cases.mjs';
+import { mingjiaoGiftEffects } from './school_mingjiao_gift_cases.mjs';
+import { mingjiaoBookEffects } from './school_mingjiao_book_cases.mjs';
+import { mingjiaoQkdReport, mingjiaoQkdMarkdown } from './school_mingjiao_qkd_report.mjs';
+import { mingjiaoJiuyangReport, mingjiaoJiuyangMarkdown } from './school_mingjiao_jiuyang_report.mjs';
+import { mingjiaoJiuyangLearningReport, mingjiaoJiuyangLearningMarkdown } from './school_mingjiao_jiuyang_learning_report.mjs';
+import { mingjiaoJiuyangDirectReport, mingjiaoJiuyangDirectMarkdown } from './school_mingjiao_jiuyang_direct_report.mjs';
+import { mingjiaoJiuyangRemainingReport, mingjiaoJiuyangRemainingMarkdown } from './school_mingjiao_jiuyang_remaining_report.mjs';
+import { mingjiaoJiuyangExertReport, mingjiaoJiuyangExertMarkdown } from './school_mingjiao_jiuyang_exert_report.mjs';
+import { mingjiaoJiuyangCapacityReport, mingjiaoJiuyangCapacityMarkdown } from './school_mingjiao_jiuyang_capacity_report.mjs';
+import { mingjiaoJiuyangResearchReport, mingjiaoJiuyangResearchMarkdown } from './school_mingjiao_jiuyang_research_report.mjs';
+import { mingjiaoJiuyangFusionReport, mingjiaoJiuyangFusionMarkdown } from './school_mingjiao_jiuyang_fusion_report.mjs';
+import { mingjiaoRemainingPerformReport, mingjiaoRemainingPerformMarkdown } from './school_mingjiao_remaining_perform_report.mjs';
+import { mingjiaoRemainingBaseReport, mingjiaoRemainingBaseMarkdown } from './school_mingjiao_remaining_base_report.mjs';
+import { mingjiaoCombinationReport, mingjiaoCombinationMarkdown } from './school_mingjiao_combination_report.mjs';
+import { mingjiaoForceRemainingReport, mingjiaoForceRemainingMarkdown } from './school_mingjiao_force_remaining_report.mjs';
 import { summarizeSamples, distribution, probability } from './statistics.mjs';
 import { validateRecord } from './execution.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
@@ -684,6 +714,139 @@ export function taohuaCombinationReport(rows, condition) {
     };
 }
 
+export function taohuaForceReport(rows, condition) {
+    const p = condition?.parameters;
+    assert.equal(p?.collection_group, 'taohua-force');
+    assert.equal(p.school, 'taohua'); assert.equal(p.family, '桃花岛');
+    assert.equal(condition.stage, 'school');
+    assert.ok(typeof condition.id === 'string' && condition.id);
+    assert.ok(Number.isSafeInteger(condition.samples) && condition.samples > 0);
+    assert.ok(['exert', 'interface', 'research', 'practice'].includes(condition.method));
+    assert.ok(condition.method === 'interface' ? p.action === 'test_interface'
+        : typeof p.action === 'string' && p.action.startsWith(condition.method + ' '));
+    assert.ok(['single_action_immediate', 'timed_effect'].includes(p.observation));
+    assert.equal(p.observe_seconds, condition.method === 'exert' && p.variant === 'a7-expiry' ? 52 : 0);
+    assert.ok(['observed', 'refused'].includes(p.expected)); assert.equal(p.not_applicable, '');
+    assert.deepEqual(p.qualification_sources, taohuaForceSourcePaths);
+    assert.deepEqual(Object.keys(p.source_evidence ?? {}).sort(), [...taohuaForceSourcePaths].sort());
+    for (const path of taohuaForceSourcePaths) assert.match(p.source_evidence[path], /^[0-9a-f]{64}$/);
+    assert.deepEqual(p.absent_sources, taohuaForceAbsentPaths);
+    assert.ok(Array.isArray(rows));
+    const seen = new Set(), exceptional = [], refusals = [];
+    const counts = { observed: 0, refused: 0, error: 0, not_applicable: 0 };
+    for (const row of rows) {
+        assert.equal(row?.condition_id, condition.id); assert.equal(row.raw?.condition_id, condition.id);
+        assert.equal(row.raw.kind, 'sample'); assert.equal(row.raw.method, condition.method);
+        assert.ok(Number.isSafeInteger(row.index) && row.index >= 0 && row.index < condition.samples);
+        assert.equal(row.raw.index, row.index); assert.ok(!seen.has(row.index)); seen.add(row.index);
+        assert.ok(['observed', 'refused', 'error', 'not_applicable'].includes(row.outcome));
+        assert.equal(row.raw.outcome, row.outcome);
+        assert.equal(typeof row.reason, 'string'); assert.equal(row.reason, row.raw.reason);
+        counts[row.outcome]++;
+        if (row.outcome === 'error' || row.outcome === 'not_applicable') {
+            assert.ok(row.reason.trim(), '错误或未适用必须保留原理由');
+            exceptional.push({ index: row.index, outcome: row.outcome, reason: row.reason });
+        } else if (row.outcome === 'refused') refusals.push({ index: row.index, reason: row.reason });
+    }
+    const effects = taohuaForceEffects(rows, condition);
+    assert.equal(effects.samples, rows.length);
+    assert.equal(effects.validated_samples, counts.observed + counts.refused);
+    assert.equal(effects.unknown_samples, counts.error + counts.not_applicable);
+    // The validated per-record checks already separated interface returns, command
+    // acceptance, gross costs/recovery and callback pairs; never merge denominators.
+    return {
+        collection_group: 'taohua-force', condition_id: condition.id, variant: p.variant,
+        planned: condition.samples, recorded: rows.length, missing: condition.samples - rows.length,
+        counts, exceptional, refusals, effects,
+    };
+}
+
+export function taohuaMusicReport(rows, condition) {
+    const p = condition?.parameters;
+    assert.equal(p?.collection_group, 'taohua-music');
+    assert.equal(p.school, 'taohua'); assert.equal(p.family, '桃花岛');
+    assert.equal(condition.stage, 'school'); assert.equal(condition.method, 'music');
+    assert.ok(typeof condition.id === 'string' && condition.id);
+    assert.ok(Number.isSafeInteger(condition.samples) && condition.samples > 0);
+    assert.ok(['bihai', 'yuan'].includes(p.song));
+    assert.ok(['hand', 'weapon', 'ground', 'carry'].includes(p.instrument?.mode));
+    assert.ok(['single_action_immediate', 'timed_effect'].includes(p.observation));
+    assert.equal(p.observe_seconds, 0);
+    assert.ok(['observed', 'refused'].includes(p.expected)); assert.equal(p.not_applicable, '');
+    assert.deepEqual(Object.keys(p.source_evidence ?? {}).sort(), [...taohuaMusicSourcePaths].sort());
+    for (const path of taohuaMusicSourcePaths) assert.match(p.source_evidence[path], /^[0-9a-f]{64}$/);
+    assert.ok(p.ability_source?.entry_id?.endsWith(':do_effect'));
+    assert.ok(Array.isArray(rows));
+    const seen = new Set(), exceptional = [], refusals = [];
+    const counts = { observed: 0, refused: 0, error: 0, not_applicable: 0 };
+    for (const row of rows) {
+        assert.equal(row?.condition_id, condition.id); assert.equal(row.raw?.condition_id, condition.id);
+        assert.equal(row.raw.kind, 'sample'); assert.equal(row.raw.method, 'music');
+        assert.ok(Number.isSafeInteger(row.index) && row.index >= 0 && row.index < condition.samples);
+        assert.equal(row.raw.index, row.index); assert.ok(!seen.has(row.index)); seen.add(row.index);
+        assert.ok(['observed', 'refused', 'error', 'not_applicable'].includes(row.outcome));
+        assert.equal(row.raw.outcome, row.outcome);
+        assert.equal(typeof row.reason, 'string'); assert.equal(row.reason, row.raw.reason);
+        counts[row.outcome]++;
+        if (row.outcome === 'error' || row.outcome === 'not_applicable') {
+            assert.ok(row.reason.trim(), '错误或未适用必须保留原理由');
+            exceptional.push({ index: row.index, outcome: row.outcome, reason: row.reason });
+        } else if (row.outcome === 'refused') refusals.push({ index: row.index, reason: row.reason });
+    }
+    const effects = taohuaMusicEffects(rows, condition);
+    assert.equal(effects.counts.error, counts.error);
+    assert.equal(effects.counts.refused, counts.refused);
+    // Listener damage/heal and shared-heal arguments keep their own eligible
+    // denominators; acceptance is never treated as an effect.
+    return {
+        collection_group: 'taohua-music', condition_id: condition.id,
+        song: p.song, variant: p.variant, instrument_mode: p.instrument.mode,
+        planned: condition.samples, recorded: rows.length, missing: condition.samples - rows.length,
+        counts, exceptional, refusals, effects,
+    };
+}
+
+export function taohuaNpcReport(rows, condition) {
+    const p = condition?.parameters;
+    assert.equal(p?.collection_group, 'taohua-npc');
+    assert.equal(p.school, 'taohua'); assert.equal(p.family, '桃花岛');
+    assert.equal(condition.stage, 'school'); assert.equal(condition.method, 'npc');
+    assert.ok(typeof condition.id === 'string' && condition.id);
+    assert.ok(Number.isSafeInteger(condition.samples) && condition.samples > 0);
+    assert.ok(p.npc && typeof p.npc.path === 'string' && p.npc.path.startsWith('/kungfu/class/taohua/'));
+    assert.equal(p.action, 'observe_npc');
+    assert.equal(p.not_applicable, '');
+    const npcEvidence = Array.isArray(p.source_evidence) ? p.source_evidence : [];
+    assert.deepEqual(npcEvidence.map(e => e.path).sort(), [...new Set([...taohuaNpcSources])].sort());
+    for (const e of npcEvidence) assert.match(e.sha256, /^[0-9a-f]{64}$/);
+    assert.deepEqual(p.absent_sources, taohuaNpcAbsentSources);
+    assert.ok(Array.isArray(rows));
+    const seen = new Set(), exceptional = [], counts = { observed: 0, refused: 0, error: 0, not_applicable: 0 };
+    for (const row of rows) {
+        assert.equal(row?.condition_id, condition.id); assert.equal(row.raw?.condition_id, condition.id);
+        assert.equal(row.raw.kind, 'sample'); assert.equal(row.raw.method, 'npc');
+        assert.ok(Number.isSafeInteger(row.index) && row.index >= 0 && row.index < condition.samples);
+        assert.equal(row.raw.index, row.index); assert.ok(!seen.has(row.index)); seen.add(row.index);
+        assert.ok(['observed', 'error', 'not_applicable'].includes(row.outcome));
+        assert.equal(row.raw.outcome, row.outcome);
+        assert.equal(typeof row.reason, 'string'); assert.equal(row.reason, row.raw.reason);
+        counts[row.outcome]++;
+        if (row.outcome !== 'observed') {
+            assert.ok(row.reason.trim(), '错误或未适用必须保留原理由');
+            exceptional.push({ index: row.index, outcome: row.outcome, reason: row.reason });
+        }
+    }
+    const effects = taohuaNpcEffects(rows.filter(r => r.raw.outcome !== 'error'), condition);
+    // Loadout snapshots and closure calls are separate denominators; a returned
+    // 0 from the original closure is not a collection failure or a miss.
+    return {
+        collection_group: 'taohua-npc', condition_id: condition.id,
+        npc: { id: p.npc.id, path: p.npc.path, effect: p.npc.effect },
+        planned: condition.samples, recorded: rows.length, missing: condition.samples - rows.length,
+        counts, exceptional, effects,
+    };
+}
+
 export function wudangUnarmedEffects(rows) {
     const raw = rows.filter(r => r.outcome === 'observed').map(r => r.raw);
     return {
@@ -1014,6 +1177,7 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
     assert.equal(manifest.identity.execution.collection, 'school-combat');
     assert.equal(manifest.identity.execution.smoke, false, '烟雾不是完整统计');
     const catalog = json(join(directory, 'catalog.json'));
+    const sourceContext = { catalog, readSource: path => readFileSync(join(root, path), 'utf8') };
     assert.equal(catalog.source_fingerprint, manifest.identity.source_fingerprint);
     validateSchoolCombatPlan(conditions, catalog);
     const rows = readSamples(directory, manifest), evidence = new Map();
@@ -1028,6 +1192,10 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
         assert.ok(log.endsWith('\n'));
         const records = log.split('\n').filter(line => line.trim()).map(text => JSON.parse(text));
         validateSchoolRun(result, output, records, includeErrors);
+        const qishangRecords = records.filter(r => r.condition_id?.startsWith('school-mingjiao-qishang-'));
+        if (qishangRecords.length) validateMingjiaoQishangLoads(qishangRecords);
+        const shenghuoRecords = records.filter(r => r.condition_id?.startsWith('school-mingjiao-shenghuo-'));
+        if (shenghuoRecords.length) validateMingjiaoShenghuoLoads(shenghuoRecords);
         if (records.every(r => r.condition_id?.startsWith('school-gumu-unarmed-')
             && !r.condition_id.startsWith('school-gumu-unarmed-attack-')))
             validateGumuUnarmedLoads(records);
@@ -1054,16 +1222,141 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
     for (const row of rows) {
         const condition = conditions.find(c => c.id === row.condition_id);
         validateRecord(row.raw, condition);
-        validateSchoolCombatRecord(row.raw, condition);
+        validateSchoolCombatRecord(row.raw, condition, sourceContext);
         assert.equal(evidence.get(key(row)), row.raw_sha256, '原始日志与台账不符');
     }
     const report = summarizeSamples(manifest, rows, { npcBoutReport: gumuNpcBoutReport });
     for (const condition of report.conditions) {
         assert.equal(condition.missing, 0, '门派条件尚未采满');
-        if (condition.parameters.collection_group === 'taohua-combo') condition.effects = null;
+        if (['mingjiao-combination', 'mingjiao-npc-bout'].includes(condition.parameters.collection_group)) {
+            condition.effects = null;
+            condition.sides = null;
+            condition.bouts = null;
+            condition.mingjiao_combination = mingjiaoCombinationReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest,
+                sourceContext);
+        } else if (condition.parameters.collection_group === 'mingjiao-force-remaining') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_force_remaining = mingjiaoForceRemainingReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-remaining-base') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_remaining_base = mingjiaoRemainingBaseReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-remaining-perform') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_remaining_perform = mingjiaoRemainingPerformReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-fusion') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_fusion = mingjiaoJiuyangFusionReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-research') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_research = mingjiaoJiuyangResearchReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-capacity') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_capacity = mingjiaoJiuyangCapacityReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id), manifest);
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-exert') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_exert = mingjiaoJiuyangExertReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-direct') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_direct = mingjiaoJiuyangDirectReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-remaining') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_remaining = mingjiaoJiuyangRemainingReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang-learning') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang_learning = mingjiaoJiuyangLearningReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-jiuyang') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_jiuyang = mingjiaoJiuyangReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-qkd') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_qkd = mingjiaoQkdReport(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-book') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_book = mingjiaoBookEffects(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-gift') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_gift = mingjiaoGiftEffects(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-recruit') {
+            condition.effects = null;
+            condition.sides = null;
+            condition.mingjiao_recruit = mingjiaoRecruitEffects(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-teachers') {
+            condition.effects = null;
+            condition.mingjiao_teachers = mingjiaoTeachersEffects(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-apprentice-learning') {
+            condition.effects = null;
+            condition.mingjiao_apprentice_learning = mingjiaoApprenticeLearningEffects(
+                rows.filter(r => r.condition_id === condition.id), conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-ling-perform') {
+            condition.effects = null;
+            condition.mingjiao_ling_perform = mingjiaoLingPerformEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-ling-learning') {
+            condition.effects = null;
+            condition.mingjiao_ling_learning = mingjiaoLingLearningEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-shenghuo') {
+            condition.effects = null;
+            condition.mingjiao_shenghuo = mingjiaoShenghuoEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-shengong') {
+            condition.effects = null;
+            condition.mingjiao_shengong = mingjiaoShengongEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-movement') {
+            condition.effects = null;
+            condition.mingjiao_movement = mingjiaoMovementEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-xinfa') {
+            condition.effects = null;
+            condition.mingjiao_xinfa = mingjiaoXinfaEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-qishang') {
+            condition.effects = null;
+            condition.mingjiao_qishang = mingjiaoQishangEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'mingjiao-core') {
+            condition.effects = null;
+            condition.mingjiao_core = mingjiaoCoreEffects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'taohua-combo') condition.effects = null;
         else if (condition.parameters.collection_group === 'taohua-bihai') condition.effects = null;
         else if (condition.parameters.collection_group === 'taohua-passive') condition.effects = null;
         else if (condition.parameters.collection_group === 'taohua-combination') condition.effects = null;
+        else if (condition.parameters.collection_group === 'taohua-force') condition.effects = null;
+        else if (condition.parameters.collection_group === 'taohua-music') condition.effects = null;
+        else if (condition.parameters.collection_group === 'taohua-npc') condition.effects = null;
         else condition.effects = condition.npc_bout_effects || ['taohua-zhuan', 'taohua-control'].includes(condition.parameters.collection_group) ? null
             : condition.parameters.collection_group === 'taohua-attack' ? null
             : schoolCombatEffects(rows.filter(r => r.condition_id === condition.id));
@@ -1096,6 +1389,15 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
                 conditions.find(c => c.id === condition.id));
         if (condition.parameters.collection_group === 'taohua-passive')
             condition.taohua_passive = taohuaPassiveReport(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        if (condition.parameters.collection_group === 'taohua-npc')
+            condition.taohua_npc = taohuaNpcReport(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        if (condition.parameters.collection_group === 'taohua-music')
+            condition.taohua_music = taohuaMusicReport(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        if (condition.parameters.collection_group === 'taohua-force')
+            condition.taohua_force = taohuaForceReport(rows.filter(r => r.condition_id === condition.id),
                 conditions.find(c => c.id === condition.id));
         if (condition.parameters.collection_group === 'taohua-combination')
             condition.taohua_combination = taohuaCombinationReport(rows.filter(r => r.condition_id === condition.id),
@@ -1212,7 +1514,7 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
             condition.bout_effects = schoolBoutEffects(rows.filter(r => r.condition_id === condition.id));
         if (condition.parameters.collection_group === 'gumu-bout')
             condition.bout_effects = gumuSchoolBoutEffects(rows.filter(r => r.condition_id === condition.id), condition);
-        if (['wudang-public-force', 'shaolin-public-force', 'emei-public-force', 'gumu-public-force'].includes(condition.parameters.collection_group))
+        if (['wudang-public-force', 'shaolin-public-force', 'emei-public-force', 'gumu-public-force', 'mingjiao-public-force'].includes(condition.parameters.collection_group))
             condition.public_force = publicForceEffects(rows.filter(r => r.condition_id === condition.id));
         if (condition.parameters.collection_group === 'shaolin-public-force' && condition.parameters.ability === 'roar')
             condition.roar = shaolinRoarEffects(rows.filter(r => r.condition_id === condition.id));
@@ -1278,7 +1580,22 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
             errors: rows.filter(r => r.outcome === 'error').length } };
 }
 
-export function schoolCombatMarkdown(report) {
+export function schoolCombatMarkdown(report, manifest, rows, sourceContext) {
+    const expectedCombination = manifest?.identity?.conditions?.filter(c =>
+        ['mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group)) ?? [];
+    for (const original of expectedCombination) {
+        const summaries = report.conditions.filter(c => c.id === original.id);
+        assert.equal(summaries.length, 1, '原明教条件须有唯一报告，不以摘要标志省略源码校验');
+        assert.ok(summaries[0].mingjiao_combination, '原明教条件须重算原 manifest/rows');
+    }
+    const combination = report.conditions.filter(c => c.mingjiao_combination);
+    // Keep the legacy common table unchanged; these conditions have their own
+    // original-row recomputed section instead of fabricated two-USER effects.
+    if (combination.length) report = { ...report,
+        conditions: report.conditions.filter(c => !c.mingjiao_combination) };
+    if (combination.length && !sourceContext) sourceContext = {
+        catalog: collectCatalog(root, buildInventory(root)),
+        readSource: path => readFileSync(join(root, path), 'utf8') };
     const f = value => value === null ? '未知' : value.toFixed(2);
     const lines = ['# 门派组合：效果统计', '',
         `系列：\`${report.fingerprint}\`；证据摘要：\`${report.evidence_sha256}\`。`, '',
@@ -1288,9 +1605,12 @@ export function schoolCombatMarkdown(report) {
         '气血/创伤分列，不相加。即时忙乱与掉剑为样本次数，不等于中途触发次数；expiry/打坐与原心跳交锋按各条件时钟观察，其他条件只观察即时状态。不将即时结果当作持续实战收益。', '',
         '| 条件 | 正常/拒绝 | 对方气血支出均值 | 对方创伤均值 | 自身内力支出均值 | 对方即时忙乱样本 | 掉剑样本 |',
         '| --- | ---: | ---: | ---: | ---: | ---: | ---: |'];
-    for (const c of report.conditions.filter(c => !c.taohua_combo && !c.taohua_bihai && !c.taohua_passive && !c.taohua_combination && !c.taohua_attack && !c.taohua_control && !c.taohua_direct && !c.taohua_zhuan && !c.taohua_xiao && !c.taohua_ding && !c.taohua_po && !c.npc_bout_effects && !c.gumu_npc && !c.gumu_temporal && !c.gumu_zhi && !c.gumu_quanzhen && !c.gumu_research && !c.gumu_unarmed_learning && !c.gumu_weapon_learning && !c.gumu_exert && !c.gumu_movement && !c.gumu_hubo && !c.npc && !c.emei_defense && !c.shaolin_defense && !c.learning && !c.defense && !c.upgrade && !c.practice && !c.cultivation && !c.auxiliary && !c.study && !c.recovery && !c.bout_effects && !c.public_force && !c.healing && !c.dispel && !c.buffs && !c.lookup && !c.condition_ticks && !c.shaolin_exert && !c.shaolin_backlash)) lines.push(`| ${c.id} | ${c.counts.observed}/${c.counts.refused}`
+for (const c of report.conditions.filter(c => !c.mingjiao_force_remaining && !c.mingjiao_remaining_base && !c.mingjiao_remaining_perform && !c.mingjiao_teachers && !c.mingjiao_apprentice_learning && !c.mingjiao_ling_perform && !c.mingjiao_ling_learning && !c.mingjiao_shenghuo && !c.mingjiao_shengong && !c.mingjiao_movement && !c.mingjiao_xinfa && !c.mingjiao_qishang && !c.mingjiao_core && !c.taohua_combo && !c.taohua_bihai && !c.taohua_passive && !c.taohua_combination && !c.taohua_force && !c.taohua_music && !c.taohua_npc && !c.taohua_attack && !c.taohua_control && !c.taohua_direct && !c.taohua_zhuan && !c.taohua_xiao && !c.taohua_ding && !c.taohua_po && !c.npc_bout_effects && !c.gumu_npc && !c.gumu_temporal && !c.gumu_zhi && !c.gumu_quanzhen && !c.gumu_research && !c.gumu_unarmed_learning && !c.gumu_weapon_learning && !c.gumu_exert && !c.gumu_movement && !c.gumu_hubo && !c.npc && !c.emei_defense && !c.shaolin_defense && !c.learning && !c.defense && !c.upgrade && !c.practice && !c.cultivation && !c.auxiliary && !c.study && !c.recovery && !c.bout_effects && !c.public_force && !c.healing && !c.dispel && !c.buffs && !c.lookup && !c.condition_ticks && !c.shaolin_exert && !c.shaolin_backlash && !c.mingjiao_recruit && !c.mingjiao_gift && !c.mingjiao_book && !c.mingjiao_jiuyang && !c.mingjiao_qkd && !c.mingjiao_jiuyang_learning && !c.mingjiao_jiuyang_direct && !c.mingjiao_jiuyang_remaining && !c.mingjiao_jiuyang_exert && !c.mingjiao_jiuyang_capacity && !c.mingjiao_jiuyang_research && !c.mingjiao_jiuyang_fusion)) lines.push(`| ${c.id} | ${c.counts.observed}/${c.counts.refused}`
         + ` | ${f(c.sides[1].metrics.qi_cost.mean)} | ${f(c.sides[1].metrics.eff_qi_cost.mean)}`
         + ` | ${f(c.sides[0].metrics.neili_cost.mean)} | ${c.effects.target_controlled.successes} | ${c.effects.weapon_dropped.successes} |`);
+    for (const c of combination)
+        lines.push('', mingjiaoCombinationMarkdown(c.mingjiao_combination, manifest,
+            rows.filter(r => r.condition_id === c.id), sourceContext));
     for (const c of report.conditions.filter(c => c.npc_bout_effects))
         lines.push('', gumuNpcBoutMarkdown(c.npc_bout_effects));
     for (const c of report.conditions.filter(c => c.taohua_ding))
@@ -1666,6 +1986,105 @@ export function schoolCombatMarkdown(report) {
             '基本内功未映射特殊内功，加力0、无经络学，兰花额外选招及300内力扣费在本配置不可达；观测到零内力支出不能外推为这些武学普遍零成本。窗口仅即时0秒，没有自然心跳、持续交锋、自然DPS或养成成本证据。');
         for (const c of taohuaCombination)
             for (const entry of c.taohua_combination.exceptional)
+                lines.push('', `${entry.outcome === 'error' ? '错误' : '未适用'} ${text(c.id)}.${entry.index}：${text(entry.reason)}`);
+    }
+    const taohuaForce = report.conditions.filter(c => c.taohua_force);
+    if (taohuaForce.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        const spread = value => {
+            const unknown = Object.hasOwn(value, 'unknown') ? `，未知=${value.unknown}` : '';
+            return value.n ? `${f(value.mean)} [${f(value.p10)}, ${f(value.p90)}]（n=${value.n}${unknown}）`
+                : `未观察（n=0${unknown}）`;
+        };
+        lines.push('', '## 桃花岛·碧波神功强化/恢复与暗影浮香研修', '',
+            '强化、恢复、资格/容量接口、原研究与原练习分别计量；接口返回、命令执行成本、发动、进度和毛费用各有分母，不相加也不互相冒充。部分练习返回0仍保留已完成进度。强化到期沿原绑定回调与52秒窗口，不加速时钟。实验配功为输入，不代表师承或自然养成。', '',
+            '| 条件 | 方法 | 已记录/计划；正常/拒绝/错误/缺样本 | 接口返回分布 | 命令受理/尝试 | 发动 | 精神/气血毛恢复 | 内力毛扣 | 技能增长分布 | 到期回调对/秒 |',
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of taohuaForce) {
+            const s = c.taohua_force, e = s.effects;
+            lines.push(`| ${text(c.id)} | ${text(c.id.split('-')[3])} | ${s.recorded}/${s.planned}；${s.counts.observed}/${s.counts.refused}/${s.counts.error}/${s.missing}`
+                + ` | ${spread(e.interface_result)} | ${e.commands_accepted}/${e.command_attempts} | ${e.launches}`
+                + ` | ${spread(e.recovery.jing)}/${spread(e.recovery.qi)} | ${spread(e.costs.neili)}`
+                + ` | ${spread(e.learned_gain)} | ${e.callback_pairs}/${spread(e.expiry_seconds)} |`);
+        }
+        lines.push('', '| 条件 | 精神/气血/内力净差分布 | 忙乱 0/1/2/3 | 强化判定净变：攻/防/招架 | 部分练习样本 | 有进度样本 | 研究进度点分布 |',
+            '| --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of taohuaForce) {
+            const e = c.taohua_force.effects;
+            lines.push(`| ${text(c.id)} | ${spread(e.net.jing)}/${spread(e.net.qi)}/${spread(e.net.neili)}`
+                + ` | ${[0, 1, 2, 3].map(v => e.busy_histogram[v]).join('/')}`
+                + ` | ${spread(e.powers_delta.attack)}/${spread(e.powers_delta.dodge)}/${spread(e.powers_delta.parry)}`
+                + ` | ${e.partial_practice_samples} | ${e.progressed_samples} | ${spread(e.learned_points)} |`);
+        }
+        lines.push('', '毛费用与恢复是原计量计数，净值是前后差；负净值可能来自恢复，二者不合成。忙乱是即时整数状态，不折算自然结束秒数。强化判定为原 skill_power 读数之差，不是伤害或胜率。容量接口的数值是原查询返回，不证明培养成本或可学条件。', '');
+        for (const c of taohuaForce)
+            for (const entry of c.taohua_force.exceptional)
+                lines.push('', `${entry.outcome === 'error' ? '错误' : '未适用'} ${text(c.id)}.${entry.index}：${text(entry.reason)}`);
+    }
+    const taohuaMusic = report.conditions.filter(c => c.taohua_music);
+    if (taohuaMusic.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        const spread = value => {
+            const unknown = Object.hasOwn(value, 'unknown') ? `，未知=${value.unknown}` : '';
+            return value.n ? `${f(value.mean)} [${f(value.p10)}, ${f(value.p90)}]（n=${value.n}${unknown}）`
+                : `未观察（n=0${unknown}）`;
+        };
+        const rate = value => value.trials
+            ? `${value.successes}/${value.trials}；${f(value.rate * 100)}% [${f(value.low95 * 100)}, ${f(value.high95 * 100)}]%`
+            : '未知（分母0）';
+        lines.push('', '## 桃花岛·碧海潮生曲与桃花怨：原乐器演奏', '',
+            '原 play 命令经真实非巫师 USER 执行，不直接调用 do_effect；do_effect 只作入口来源证据。三位参与者（奏者、右试、旁试）分列，受理、命中资格、实际精神损伤/恢复和共享恢复参数各有分母；受理不等于生效。乐器准备（手持/佩带/置地/携带）与测量窗口分开，窗口内不搬人物或乐器。忙乱为即时整数，不折算秒。', '',
+            '| 条件 | 曲/方式 | 已记录/计划；正常/拒绝/错误/缺样本 | 受理/拒绝 | 受理中有任一效果 | 奏者忙乱分布 | 奏者精神/内力毛扣 | 共享恢复参数 | halt尝试 |',
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of taohuaMusic) {
+            const s = c.taohua_music, e = s.effects;
+            lines.push(`| ${text(c.id)} | ${text(s.song)}/${text(s.instrument_mode)} | ${s.recorded}/${s.planned}；${s.counts.observed}/${s.counts.refused}/${s.counts.error}/${s.missing}`
+                + ` | ${rate(e.acceptance)} | ${e.accepted_without_effect} 无效果/${e.any_effect_given_accepted.successes} 有`
+                + ` | ${[0, 1, 2, 3].map(v => (e.actor_busy.values ?? []).filter(n => n === v).length).join('/')}`
+                + ` | ${spread(e.actor_costs.jing)}/${spread(e.actor_costs.neili)}`
+                + ` | ${e.shared_heal_argument.n ? spread(e.shared_heal_argument) : '不适用'}`
+                + ` | ${e.halt_rejected_after_completed_play} |`);
+        }
+        lines.push('', '| 条件 | 听者 | 受理范围样本 | 源码可达判定 | 损伤/合格 | 损伤/受理 | 精神损伤分布 | 精神创伤分布 | 精神恢复分布 |',
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of taohuaMusic) {
+            for (const l of c.taohua_music.effects.listeners)
+                lines.push(`| ${text(c.id)} | ${text(l.id)} | ${l.accepted_scope_samples} | ${l.source_reachable_force_checks}`
+                    + ` | ${rate(l.damage_given_eligible)} | ${rate(l.any_effect_given_accepted)}`
+                    + ` | ${spread(l.jing_damage)} | ${spread(l.jing_wound)} | ${spread(l.jing_recovery)} |`);
+        }
+        lines.push('', '碧海潮生的内力差判定、奏者/听者有效曲艺比较与房间/存活/保护门槛为源码条件；合格而未伤、或判定不可达而未伤均保留为不同分母，不并成“失手”。桃花怨恢复上限取同次原数组调用的共享参数，逐人恢复不重抽；恢复与创伤分列，不抵消。', '');
+        for (const c of taohuaMusic)
+            for (const entry of c.taohua_music.exceptional)
+                lines.push('', `${entry.outcome === 'error' ? '错误' : '未适用'} ${text(c.id)}.${entry.index}：${text(entry.reason)}`);
+    }
+    const taohuaNpc = report.conditions.filter(c => c.taohua_npc);
+    if (taohuaNpc.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        const spread = value => {
+            const unknown = Object.hasOwn(value, 'unknown') ? `，未知=${value.unknown}` : '';
+            return value.n ? `${f(value.mean)} [${f(value.p10)}, ${f(value.p90)}]（n=${value.n}${unknown}）`
+                : `未观察（n=0${unknown}）`;
+        };
+        lines.push('', '## 桃花岛·原 NPC 配装与闭包', '',
+            '取确切原 NPC 与固定高资源靶、旁观 USER；配装快照与闭包调用分列，原方法返回 0/1 与命中、直伤输入分列。物品身份/属性只允许原单枚花瓣消耗；不改 NPC 数据、不补装备，不采自然心跳交锋。', '',
+            '| 条件 | NPC/效果 | 已记录/计划；正常/错误/缺样本 | 配装/闭包调用 | 返回0/1 | 普攻/直伤 | 直伤输入分布 | NPC内力净减 | 靶忙乱分布 |',
+            '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of taohuaNpc) {
+            const s = c.taohua_npc, e = s.effects;
+            lines.push(`| ${text(c.id)} | ${text(s.npc.id)}/${text(s.npc.effect)} | ${s.recorded}/${s.planned}；${s.counts.observed}/${s.counts.error}/${s.missing}`
+                + ` | ${e.loadouts}/${e.callbacks} | ${e.method_returned_zero}/${e.method_returned_one}`
+                + ` | ${e.ordinary_attacks}/${e.direct_calls} | ${spread(e.direct_damage_input)}`
+                + ` | ${spread(e.npc_net_neili_spent)} | ${spread(e.target_busy)} |`);
+        }
+        for (const c of taohuaNpc)
+            for (const entry of c.taohua_npc.exceptional)
                 lines.push('', `${entry.outcome === 'error' ? '错误' : '未适用'} ${text(c.id)}.${entry.index}：${text(entry.reason)}`);
     }
     const gumuNpc = report.conditions.filter(c => c.gumu_npc);
@@ -2059,7 +2478,7 @@ export function schoolCombatMarkdown(report) {
         for (const c of publicForce) {
             const e = c.public_force;
             const delta = Object.entries(e.apply_delta[0]).filter(([, value]) => value.mean !== 0)
-                .map(([key, value]) => `${key}:${f(value.mean)}`).join(', ') || '无';
+                .map(([key, value]) => `${key}:${f(value.mean)}`).join(', ') || (e.attempts ? '无' : '未观测');
             lines.push(`| ${c.id} | ${c.counts.observed}/${c.counts.refused}`
                 + ` | ${e.command_accepted}/${e.accepted_without_measured_change} | ${f(e.sides[0].cost.neili.mean)}`
                 + ` | ${['qi', 'eff_qi'].map(k => f(e.sides[0].net[k].mean)).join('/')}`
@@ -2290,7 +2709,7 @@ export function schoolCombatMarkdown(report) {
                 + ` | ${f(e.learned_gain.mean)} | ${f(e.qi_delta.mean)}/${f(e.neili_delta.mean)}/${f(e.jing_delta.mean)} |`);
         }
     }
-    const practice = report.conditions.filter(c => c.practice && !c.gumu_movement && !c.gumu_weapon_learning && !c.gumu_unarmed_learning);
+    const practice = report.conditions.filter(c => c.practice && !c.gumu_movement && !c.gumu_weapon_learning && !c.gumu_unarmed_learning && !c.mingjiao_ling_learning);
     if (practice.length) {
         lines.push('', '## 原命令练习：全部完成与部分进度分列', '',
             '保留零进度拒绝。完成次数是本批经原进度及费用核验的条件，不把命令返回0解释成必然没练成；普通dbase/force不是基本内功，也不是内力。', '',
@@ -2381,6 +2800,427 @@ export function schoolCombatMarkdown(report) {
         lines.push('', '| 目标持续条件 | 回调开始秒数均值 | 回调结束秒数均值 |', '| --- | ---: | ---: |');
         for (const c of targetTimed) lines.push(`| ${c.id} | ${f(c.effects.target_callback_start_seconds.mean)} | ${f(c.effects.target_callback_end_seconds.mean)} |`);
     }
+    const mingjiaoBook = report.conditions.filter(c => c.mingjiao_book);
+    if (mingjiaoBook.length) {
+        const text = value => String(value).replaceAll('|', '\\|').replace(/\r?\n/g, ' ');
+        const known = e => e.validated > 0 && e.unknown === 0;
+        const results = e => e.validated > 0 ? text(Object.entries(e.results)
+            .map(([key, n]) => `${key}:${n}`).join(', ')) : '未观测';
+        lines.push('', '## 明教乾坤秘籍：原磕头、拾取与有限研读', '',
+            '本组仅4个磕头、2个拾取、20个研读条件，52条样本计划对应56次原命令步骤；未采数据不计完成。'
+                + '书籍使用原单例取得路径，不把羊皮可以克隆的实现写成禁止克隆。'
+                + '密道开门、五秒关闭及三个首载顺序另属后续独立范围，不由本表宣称已测。'
+                + '命令受理与实际执行成本分列，受理不等于出书、收书或读成；无教师命令不冒普通授课。', '',
+            '### 出书库存与原拾取', '',
+            '磕头的耗库存、原单例出现、新遗信和拾取到玩家背包分别统计。'
+                + '重复磕头或书已有归属不补发，拾取容量599/600保持原600重量与同对象身份；清理不代替命令结束状态。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误/不适用/缺样 | 命令步数；受理/执行成本 | 磕头/拾取尝试 | 库存耗减/出书/新增遗信 | 收入玩家背包 | 原结果 | 核验/未知 |',
+            '| --- | ---: | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoBook.filter(c => c.parameters.teaching_kind === 'item-acquisition')) {
+            const e = c.mingjiao_book;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}/${c.counts.not_applicable}/${c.missing}`
+                + ` | ${known(e) ? `${e.commands}；${e.commands_accepted}/${e.command_execution_cost}` : '未观测'}`
+                + ` | ${known(e) ? `${e.ketou_calls}/${e.get_calls}` : '未观测'}`
+                + ` | ${known(e) ? `${e.stock_consumed}/${e.books_created}/${e.letters_created}` : '未观测'}`
+                + ` | ${known(e) ? e.player_receipts : '未观测'} | ${results(e)} | ${e.validated}/${e.unknown} |`);
+        }
+        lines.push('', '### 原研读成长与精神账', '',
+            '合法请求次数包含资格拒绝，不能当作实际迭代；非法次数命令独立计数。'
+                + '源码推导毛进度只按已核原循环和成长公式计算，不冒直接观测的improve参数；升级与实际净熟练分列。'
+                + '零级原强成长升一级并将净熟练归零，不能据此判作没有读成。'
+                + '悟性40、识字200的有效悟性60对应199精神费，原判定严格大于成本；精神399三读只完成两次，正常研读费398加直接清零1。'
+                + '310级、经验100万通过书籍经验门但仍被技能成长经验门拒绝，不混作311级书籍上限。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误/不适用/缺样 | 命令步数；受理/执行成本 | 研读命令/受理 | 合法请求次数/非法次数命令 | 实际迭代/升级 | 源码推导毛进度/净熟练 | 精神毛扣/研读费/清零损失 | 潜能支出/已用潜能增加 | 原结果 | 核验/未知 |',
+            '| --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoBook.filter(c => c.parameters.teaching_kind === 'study')) {
+            const e = c.mingjiao_book;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}/${c.counts.not_applicable}/${c.missing}`
+                + ` | ${known(e) ? `${e.commands}；${e.commands_accepted}/${e.command_execution_cost}` : '未观测'}`
+                + ` | ${known(e) ? `${e.study_calls}/${e.study_accepted}` : '未观测'}`
+                + ` | ${known(e) ? `${e.study_requested}/${e.study_invalid_times_commands}` : '未观测'}`
+                + ` | ${known(e) ? `${e.study_completed}/${e.upgrades}` : '未观测'}`
+                + ` | ${known(e) ? `${e.source_derived_gross}/${e.learned_net}` : '未观测'}`
+                + ` | ${known(e) ? `${e.jing_cost}/${e.study_fee}/${e.jing_writeoff}` : '未观测'}`
+                + ` | ${known(e) ? `${e.potential_cost}/${e.learned_points_added}` : '未观测'}`
+                + ` | ${results(e)} | ${e.validated}/${e.unknown} |`);
+        }
+        lines.push('', '错误、不适用和缺样不补零；含未知样本时合计未观测，原已核结果频数仍独立保留。'
+            + '现有修为、库存与书籍位置为实验初态，不证明自然取得前置或全部乾坤玩法。');
+    }
+    const mingjiaoGift = report.conditions.filter(c => c.mingjiao_gift);
+    if (mingjiaoGift.length) {
+        const text = value => String(value).replaceAll('|', '\\|').replace(/\r?\n/g, ' ');
+        const resultNames = { 'jing-low': '精神不足', 'other-family': '异门资格拒绝',
+            'other-master': '非直属资格拒绝', shen: '正气不足', unlearned: '未学逍遥剑法',
+            'skill-low': '剑法不足', 'already-owned': '本人已持有', 'peer-owned': '同门他人持有',
+            'outsider-owned': '异门他人持有', 'room-owned': '远处地面',
+            'player-receipt': '进入玩家背包', 'floor-receipt': '超重落地' };
+        lines.push('', '## 明教杨逍：幻灵剑原询问与单例交付', '',
+            '仅本批16个有限条件，32条样本对应34次原询问步骤；重复询问逐步记录。'
+                + '原命令受理、执行成本与精神费用分列，命令受理不等于获得幻灵剑。'
+                + '资格通过数按已核原返回分支推导，不是额外函数探针；精神不足未进入资格检查，不计通过。'
+                + '可用负重3999时原交付尝试成功但落在所在房间，4000时才进入背包；超重落地不是玩家收剑或资格失败。'
+                + '本人容器与本人直接持有都按本人已持有拒绝；同门他人、异门他人及远处地面分别保留原归属。'
+                + '师承、修为、单例位置与容量为实验初态，不证明自然养成；不自动装备、不出招、不作兵器强弱排名或完整明教覆盖声明。', '',
+            '| 条件 | 初态/对照 | 已采/计划 | 观察/拒绝/错误/不适用/缺样 | 命令步数；受理/执行成本 | 问话精神费/贡献费 | 资格通过/交付尝试 | 玩家收剑/落地 | 本人已持有 | 原结果 | 核验/未知 |',
+            '| --- | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoGift) {
+            const e = c.mingjiao_gift, known = e.validated > 0;
+            const results = Object.entries(e.results).map(([k, v]) => `${resultNames[k] ?? k}:${v}`).join(', ');
+            lines.push(`| ${c.id} | ${text(c.parameters.variant)} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}/${c.counts.not_applicable}/${c.missing}`
+                + ` | ${known ? `${e.commands}；${e.commands_accepted}/${e.command_execution_cost}` : '未观测'}`
+                + ` | ${known ? `${e.jing_cost}/${e.contribution_cost}` : '未观测'}`
+                + ` | ${known ? `${e.qualification_passed}/${e.grants_attempted}` : '未观测'}`
+                + ` | ${known ? `${e.player_receipts}/${e.floor_receipts}` : '未观测'}`
+                + ` | ${known ? e.already_owned : '未观测'}`
+                + ` | ${known ? text(results) : '未观测'} | ${e.validated}/${e.unknown} |`);
+        }
+        lines.push('', '错误、不适用与缺样不补零；原问话费用只核10–19的有限支持，不由两次观察估计概率。'
+            + '原教师构造及隐藏动作缓存上下文未观测，物品清理不代替原命令结束时的单例归属。');
+    }
+    const mingjiaoRecruit = report.conditions.filter(c => c.mingjiao_recruit);
+    if (mingjiaoRecruit.length) {
+        const text = value => String(value).replaceAll('|', '\\|').replace(/\r?\n/g, ' ');
+        lines.push('', '## 明教各教师：原拜师、请安与取消', '',
+            '仅本批有限条件下新增的师承计为拜师成功；亲传请安和转世认可不计新师承。'
+                + '命令受理与实际执行成本分列，受理不等于收徒；外派确认、取消和原等待状态独立记录。'
+                + '前置修为及既有同门／转世标记是实验输入，不证明完整自然养成或转世流程。'
+                + '张无忌既有拜师／普通授课另列，本批不重复；不把教师构造入口当作隐藏随机缓存已验证。'
+                + '本批不采普通学习、特殊授招或战斗，通用伤害表不适用。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误/不适用/缺样 | 命令步数；受理/执行成本 | 新师承/首次入派 | 请安/取消/外派确认 | 原结果 | 核验/未知 |',
+            '| --- | ---: | --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoRecruit) {
+            const e = c.mingjiao_recruit, known = e.validated > 0;
+            const results = Object.entries(e.results).map(([k, v]) => `${k}:${v}`).join(', ');
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}/${c.counts.not_applicable}/${c.missing}`
+                + ` | ${known ? `${e.commands}；${e.commands_accepted}/${e.command_execution_cost}` : '未观测'}`
+                + ` | ${known ? `${e.formal_apprenticeships}/${e.first_joins}` : '未观测'}`
+                + ` | ${known ? `${e.repeated_greetings}/${e.cancellations}/${e.betrayer_confirmations}` : '未观测'}`
+                + ` | ${known ? text(results) : '未观测'}`
+                + ` | ${e.validated}/${e.unknown} |`);
+        }
+        lines.push('', '错误、不适用与缺样不补成零次拜师；销毁教师的清理结果不代替原命令结束时的待拜师状态。');
+    }
+    const mingjiaoTeachers = report.conditions.filter(c => c.mingjiao_teachers);
+    if (mingjiaoTeachers.length) {
+        lines.push('', '## 明教各教师：原普通授课', '',
+            '逐原教师、技能与资格分列；初始师承／转世身份是实验输入，不证明自然获得。'
+                + '命令受理不等于学习增长；武学上限、教师原等级、知识类型、精神清零单列。'
+                + '真实双持不证明副手独立分支覆盖，不改原随机或全局动作缓存。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误 | 命令受理/实际执行代价 | 学习次数/已用潜能 | 精神毛扣/写减 | 学习净进度均值 | 原结果 | 核验/未知 |',
+            '| --- | ---: | --- | --- | --- | --- | ---: | --- | --- |');
+        for (const c of mingjiaoTeachers) {
+            const e = c.mingjiao_teachers, known = e.validated > 0;
+            const results = Object.entries(e.results).map(([k, v]) => `${k}:${v}`).join(', ');
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}`
+                + ` | ${known ? `${e.commands_accepted}/${e.command_execution_cost}` : '未观测'}`
+                + ` | ${known ? `${e.learned_iterations}/${e.learned_points}` : '未观测'}`
+                + ` | ${known ? `${e.jing_cost}/${e.jing_writeoff}` : '未知'}`
+                + ` | ${f(e.learned_net.mean)} | ${known ? results : '未观测'}`
+                + ` | ${e.validated}/${e.unknown} |`);
+        }
+    }
+    const mingjiaoApprenticeLearning = report.conditions.filter(c => c.mingjiao_apprentice_learning);
+    if (mingjiaoApprenticeLearning.length) {
+        lines.push('', '## 明教张无忌：原拜师与圣火令普通授课', '',
+            '师承由原非巫师USER的apprentice及原NPC的recruit建立，前置修为仍为实验输入，不代表完整自然养成。'
+                + '学习条件的拜师准备成功不等于learn有进展；授课上限、潜能不足和非亲传拒绝独立统计。'
+                + '随机增长只记录原终态与有限公式支持，不伪造隐藏随机；伤害表不适用。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误 | 实际新师承（其中学习准备） | 完成学习次数 | 精神毛扣／额外写减 | 学习净进度均值 | 核验／未知 |',
+            '| --- | ---: | --- | --- | ---: | --- | ---: | --- |');
+        for (const c of mingjiaoApprenticeLearning) {
+            const e = c.mingjiao_apprentice_learning;
+            const known = e.validated > 0;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${c.counts.observed}/${c.counts.refused}/${c.counts.error}`
+                + ` | ${known ? `${e.formal_apprenticeships}（${e.setup_apprenticeships}）` : '未观测'}`
+                + ` | ${known ? e.learned_iterations : '未观测'}`
+                + ` | ${known ? `${e.jing_cost}/${e.jing_writeoff}` : '未知'}`
+                + ` | ${f(e.learned_net.mean)} | ${e.validated}/${e.unknown} |`);
+        }
+    }
+    const mingjiaoLingPerform = report.conditions.filter(c => c.mingjiao_ling_perform);
+    if (mingjiaoLingPerform.length) {
+        const fraction = value => value.trials ? `${value.successes}/${value.trials}` : '未知（分母0）';
+        lines.push('', '## 明教圣火令：光华令、敛心令与吸焰令', '',
+            '仅三绝招40个有限原USER条件，39条原草案加末尾超重对照；不冒充完整师承、其他绝招或全明教已采齐。'
+                + '命令受理分母为已核验样本，判定分母只含已受理且实际进入判定的样本；拒绝、错误与不适用独立记录。'
+                + '光华/敛心直伤输入与实际气血损失、气血创伤、精神损失及精神创伤分列，不相加排名。'
+                + '失手或吸焰未调用直伤的输入为空而非数值0；未知不补零。敛心final是原同步处理，不估计自然延时收益。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误；核验/未知 | 命令受理/核验 | 判定成功/实际判定 | 直伤输入均值/输入样本 | 自身内力毛扣均值 | 自身/目标结束忙乱均值 | 弱熟练均值 |',
+            '| --- | ---: | --- | --- | --- | --- | ---: | --- | ---: |');
+        for (const c of mingjiaoLingPerform) {
+            const e = c.mingjiao_ling_perform;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.validated}/${e.unknown}`
+                + ` | ${fraction(e.accepted)} | ${fraction(e.gate)} | ${f(e.input_damage.mean)}/${e.input_damage.n}`
+                + ` | ${f(e.actor_neili_cost.mean)} | ${f(e.actor_busy.mean)}/${f(e.target_busy.mean)} | ${f(e.weak_gain.mean)} |`);
+        }
+        lines.push('', '### 气血、精神与装备原落点', '',
+            '五类目标资源毛账保留，不把敛心的精神损伤并入气血，也不把直伤输入当作最终扣血。结束忙乱不替代原过程中请求。'
+                + '磨损仅以光华成功样本为分母，未抽到磨损不证明永不磨损。'
+                + '吸焰位置仅按已核验原武器落点计数，位置比例分母为已记录的三种落点总和；正常与超重条件逐条分开，不合并成统一夺器率。'
+                + '资格拒绝后原武器仍在目标只表示原位置，不算受理后的判定失败；判定成功率使用上表独立分母。'
+                + '纳入怀中的文案不等于实际取得或自动装备：超重时原武器可能落入房间。', '',
+            '| 条件 | 目标气血/气血创伤均值 | 目标精神/精神创伤均值 | 目标内力毛扣均值 | 磨损/光华成功 | 原武器落点：自己/房间/仍在目标 |',
+            '| --- | --- | --- | ---: | --- | --- |');
+        for (const c of mingjiaoLingPerform) {
+            const e = c.mingjiao_ling_perform, positions = e.transfer.actor + e.transfer.room + e.transfer.target;
+            const location = positions ? `${e.transfer.actor}/${positions}；${e.transfer.room}/${positions}；${e.transfer.target}/${positions}` : '未记录/不适用（分母0）';
+            lines.push(`| ${c.id} | ${f(e.target_costs.qi.mean)}/${f(e.target_costs.eff_qi.mean)}`
+                + ` | ${f(e.target_costs.jing.mean)}/${f(e.target_costs.eff_jing.mean)} | ${f(e.target_costs.neili.mean)}`
+                + ` | ${fraction(e.wear)} | ${location} |`);
+        }
+    }
+    const mingjiaoLingLearning = report.conditions.filter(c => c.mingjiao_ling_learning);
+    if (mingjiaoLingLearning.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        const labels = values => Object.entries(values).map(([value, n]) => `${text(value)} × ${n}`).join('；') || '未知/未调用';
+        lines.push('', '## 明教圣火令：资格接口与原练习进度', '',
+            '仅40个确定性接口/练习条件，24接口与16练习分别记录；不证明自然拜师、教师上限、完整圣火令或全明教已经采齐。'
+                + '接口原数值0/文本返回、资格拒绝及命令返回分别保留，type文本不伪造为数值0。'
+                + '原先天悟性与有效膂力/悟性/身法分开核验，资格接口通过不代表已经自然学得对应等级。'
+                + '本批不选攻击动作、不估计极意冷载系数；来源/实现归属与实际效果分列，错误及不适用独立未知，不补零。', '',
+            '| 接口条件 | 已采/计划 | 观察/拒绝/错误；核验/未知 | 原数值返回均值/数值样本 | 原文本返回及频数 | 实际实现来源及频数 | 原已加载状态均值 | 有效膂力/悟性/身法均值 |',
+            '| --- | ---: | --- | --- | --- | --- | ---: | --- |');
+        for (const c of mingjiaoLingLearning.filter(c => c.method === 'interface')) {
+            const e = c.mingjiao_ling_learning;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.validated}/${e.unknown}`
+                + ` | ${f(e.interface.result.mean)}/${e.interface.result.n} | ${labels(e.interface.texts)}`
+                + ` | ${labels(e.interface.implemented_by)} | ${f(e.interface.loaded_before.mean)}`
+                + ` | ${f(e.effective.str.mean)}/${f(e.effective.int.mean)}/${f(e.effective.dex.mean)} |`);
+        }
+        lines.push('', '### 原练习：完整与部分完成、真实扣费', '',
+            '请求次数、已完成次数、熟练进度和原命令返回分列。返回0不等于零进度：请求三次但只完成两次仍保留部分进度及两次扣费。'
+                + '圣火令练习每次检查80点气血/内力，实际扣50点当前气血和70点内力；检查值不冒充收费值，部分完成不退款或补练。'
+                + '完成量与原提示用于说明完整/部分/拒绝，不将命令受理称为武学发动；没有攻击，不生成零伤害排名。', '',
+            '| 练习条件 | 已采/计划 | 观察/拒绝/错误；核验/未知 | 请求次数/完成均值 | 熟练增量均值 | 原命令返回均值/样本 | 当前气血/内力毛扣均值 | 原提示及频数 |',
+            '| --- | ---: | --- | --- | ---: | --- | --- | --- |');
+        for (const c of mingjiaoLingLearning.filter(c => c.method === 'practice')) {
+            const e = c.mingjiao_ling_learning;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.validated}/${e.unknown}`
+                + ` | ${c.parameters.repetitions}/${f(e.practice.completed.mean)} | ${f(e.practice.learned_gain.mean)}`
+                + ` | ${f(e.practice.command_accepted.mean)}/${e.practice.command_accepted.n}`
+                + ` | ${f(e.practice.qi_cost.mean)}/${f(e.practice.neili_cost.mean)} | ${labels(e.practice.notices)} |`);
+        }
+    }
+    const mingjiaoShenghuo = report.conditions.filter(c => c.mingjiao_shenghuo);
+    if (mingjiaoShenghuo.length) {
+        const fraction = value => value.trials ? `${value.successes}/${value.trials}` : '未知（分母0）';
+        lines.push('', '## 明教圣火令与圣火神功：普通攻击、残血令与被动联动', '',
+            '有限实验配功，普通攻击、残血令与直接被动接口分别采集，不冒充自然师承、完整实战或同成本强弱比较。'
+                + '主批保留原首次加载200级的全局极意招式；独立400/800级冷载条件不得混作逐样本重置或跨缓存伤害排名。'
+                + '残血令两分支均以原hit保护七次普通攻击，max_hit仅成功分支用于附加创伤；判定结果与神功实际调用资格分列。'
+                + '加力0、有效圣火令不足或扣费后内力不足的样本不能单独证明连击保护有效；隐藏随机抽签不反推。'
+                + '事件计数仅来自已核验的观察执行；普通攻击没有命令回执，接口返回0仍可完成观察，不把执行成功等同神功触发。'
+                + '拒绝、错误和未适用独立记录，分母0记未知，不补成零概率。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误；核验/未知 | 观察执行/核验 | 主攻击/追加/计划追加 | 神功调用/合资格/武学调用 | 神功触发/合资格；残血令成功/判定 |',
+            '| --- | ---: | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoShenghuo) {
+            const e = c.mingjiao_shenghuo;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.validated}/${e.unknown}`
+                + ` | ${fraction(e.acceptance)} | ${e.primary_attacks}/${e.additional_attacks}/${e.planned_additional}`
+                + ` | ${e.force_calls}/${e.eligible_force_calls}/${e.martial_calls}`
+                + ` | ${fraction(e.force_trigger)}；${fraction(e.can_gate)} |`);
+        }
+        lines.push('', '### 直接附伤、公共伤害与实际资源毛账', '',
+            '圣火令hit_ob直接气血损失/创伤与其后的公共攻击气血损失/创伤分列；递归外层记录不重复累计子攻击伤害。'
+                + '伤害与攻击次数分布只含已核验受理样本，内力、结束忙乱与弱熟练分布含已核验样本，二者分母不混用。'
+                + '五类资源毛扣保留于JSON；内力不虚构每击加力费用。忙乱请求及来源见原始busy_calls，结束忙乱不等于未请求。'
+                + 'attacks.after早于原普通攻击的后置忙乱中断，不能据此推定后置状态；本切片无新的自然到期回调。', '',
+            '| 条件 | 圣火令气血/创伤均值 | 公共气血/创伤均值 | 主攻击/追加均值 | 最大递归深度均值 | 内力毛扣/结束忙乱/弱熟练均值 | 缓存范围 |',
+            '| --- | --- | --- | --- | ---: | --- | --- |');
+        for (const c of mingjiaoShenghuo) {
+            const e = c.mingjiao_shenghuo;
+            lines.push(`| ${c.id} | ${f(e.ling_damage.mean)}/${f(e.ling_wound.mean)}`
+                + ` | ${f(e.public_damage.mean)}/${f(e.public_wound.mean)}`
+                + ` | ${f(e.primary_per_sample.mean)}/${f(e.additional_per_sample.mean)}`
+                + ` | ${f(e.max_depth.mean)} | ${f(e.neili_cost.mean)}/${f(e.busy.mean)}/${f(e.weak_progress.mean)}`
+                + ` | ${e.cache_scope} |`);
+        }
+    }
+    const mingjiaoShengong = report.conditions.filter(c => c.mingjiao_shengong);
+    if (mingjiaoShengong.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 明教圣火神功：资格、容量、研究与强化', '',
+            '普通USER有限配功，不冒充自然拜师或完整NPC教学。资格、内力容量、练习、研究、独有强化和公共恢复分别记录。'
+                + '本切片没有攻击，不把空攻击记录当作零伤害强弱结论，也未采圣火令联动hit_ob。'
+                + '研究正常费用、精神实际净损与不足时原清零净损分列；未完成研究不等于没有消耗，清零不冒充单次27点收费。'
+                + '接口文字/数值及其实现来源保留，未知不补零；非研究条件的研究费与清零量不适用。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误；未知 | 接口返回及样本数 | 命令尝试/受理/发动 | 完成/熟练均值；正进度/已核验 | 精神毛扣/研究费/清零净损均值 | 内力毛扣/当前气血恢复均值 |',
+            '| --- | ---: | --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoShengong) {
+            const e = c.mingjiao_shengong;
+            const interfaces = Object.entries(e.interface_values).map(([value, n]) => `${text(value)} × ${n}`).join('；') || '未知/未调用';
+            const progress = e.probability_scope === 'lifecycle_only' ? '仅生命周期'
+                : e.validated_samples ? `${e.progressed_samples}/${e.validated_samples}` : '未知（分母0）';
+            const research = c.method === 'research' ? `${f(e.research_fee.mean)}/${f(e.jing_writeoff.mean)}` : '不适用/不适用';
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.unknown_samples}`
+                + ` | ${interfaces} | ${e.command_attempts}/${e.commands_accepted}/${e.launches}`
+                + ` | ${f(e.completed.mean)}/${f(e.learned_gain.mean)}；${progress}`
+                + ` | ${f(e.costs.jing.mean)}/${research}`
+                + ` | ${f(e.costs.neili.mean)}/${f(e.recovery.qi.mean)} |`);
+        }
+        lines.push('', '### 真实临时属性与原自然回调', '',
+            '临时apply偏移与公共攻击/轻功/招架能力增量分列，apply/armor是属性观测，不推算减伤比例。'
+                + '20级powerup与40级shield的有限到期样本只证明对应原记录，不能推广全部等级或估计随机熟练率。'
+                + '弱熟练的随机结果由独立即时条件统计；自然回调对数和实际到期秒数不冒充持续实战收益。', '',
+            '| 条件 | apply攻击/轻功/招架/armor偏移均值 | 公共攻击/轻功/招架增量均值 | 忙乱0/1/2/3样本 | 回调对数/到期秒数均值 | 接口实现来源 |',
+            '| --- | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoShengong) {
+            const e = c.mingjiao_shengong;
+            lines.push(`| ${c.id} | ${f(e.apply_delta.attack.mean)}/${f(e.apply_delta.dodge.mean)}/${f(e.apply_delta.parry.mean)}/${f(e.apply_delta.armor.mean)}`
+                + ` | ${f(e.powers_delta.attack.mean)}/${f(e.powers_delta.dodge.mean)}/${f(e.powers_delta.parry.mean)}`
+                + ` | ${[0, 1, 2, 3].map(n => e.busy_histogram[n]).join('/')}`
+                + ` | ${e.callback_pairs}/${f(e.expiry_seconds.mean)} | ${e.implemented_by.map(text).join('；') || '未知/未调用'} |`);
+        }
+    }
+    const mingjiaoMovement = report.conditions.filter(c => c.mingjiao_movement);
+    if (mingjiaoMovement.length) {
+        const fraction = value => value.trials ? `${value.successes}/${value.trials}` : '未知（分母0）';
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 明教三轻功：资格、练习与防御接口', '',
+            '圣火步、青蝠身法、凌虚步使用有限实验配功；凌虚步仅按范遥实际自用关系纳入，不冒充自然师承或完整门派。'
+                + '接口值、实现来源、原练习命令、完成次数、熟练与资源毛账分列；missing表示函数不存在，零返回不证明接口已实现。'
+                + '闪避原文及其频数见JSON，保留冻结原文及已有文字问题，不将描述随机性当作防御成功率。'
+                + '事件数仅累计已核验样本，错误或未适用另记未知，不据此推定未知样本零事件。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误；未知 | 接口数值均值 | 命令尝试/受理 | 完成练习/熟练均值 | 自身当前气血/内力毛扣均值 | 接口实现来源及样本数 |',
+            '| --- | ---: | --- | ---: | --- | --- | --- | --- |');
+        for (const c of mingjiaoMovement) {
+            const e = c.mingjiao_movement;
+            const implementations = Object.entries(e.implemented_by).map(([source, n]) => `${text(source)} × ${n}`).join('；') || '未知/未调用';
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}；${e.unknown_samples}`
+                + ` | ${f(e.interface_result.mean)} | ${e.command_attempts}/${e.commands_accepted}`
+                + ` | ${f(e.completed_repetitions.mean)}/${f(e.learned_gain.mean)}`
+                + ` | ${f(e.costs.qi.mean)}/${f(e.costs.neili.mean)} | ${implementations} |`);
+        }
+        lines.push('', '### 普通防御与公共直伤分开观察', '',
+            '闪避、招架及普通取消的分母只含该条件已核验的ordinary样本；接口取消与BHinfo可观察副效应的分母只含valid_damage接口样本。'
+                + 'BHinfo不是伤害取消：零返回仍可留下可观察消息，不能据此倒推隐藏随机分支。'
+                + '直接伤害不并入普通防御率，基础/结算DP与青蝠额外DP百分比分列；不作DPS排名或跨实验配置强弱结论。', '',
+            '| 条件 | 原普攻/防御调用/取消调用 | 闪避/普攻；招架/普攻；取消/普攻 | 接口取消/接口；BHinfo副效应/接口 | 基础/结算DP均值 | 额外DP百分比均值 | 目标当前气血/伤势毛扣均值 |',
+            '| --- | --- | --- | --- | --- | ---: | --- |');
+        for (const c of mingjiaoMovement.filter(c => c.method === 'ordinary'
+            || ['valid_damage', 'do_damage'].includes(c.parameters.ability))) {
+            const e = c.mingjiao_movement;
+            lines.push(`| ${c.id} | ${e.primary_attacks}/${e.defense_calls}/${e.cancellation_calls}`
+                + ` | ${fraction(e.dodge)}；${fraction(e.parry)}；${fraction(e.cancel)}`
+                + ` | ${fraction(e.interface_cancel)}；${fraction(e.bhinfo_side_effect)}`
+                + ` | ${f(e.base_dp.mean)}/${f(e.settled_dp.mean)} | ${f(e.extra_dp_percent.mean)}`
+                + ` | ${f(e.target_costs.qi.mean)}/${f(e.target_costs.eff_qi.mean)} |`);
+        }
+    }
+    const mingjiaoXinfa = report.conditions.filter(c => c.mingjiao_xinfa);
+    if (mingjiaoXinfa.length) {
+        lines.push('', '## 明教圣火心法：强化、资格与容量', '',
+            '真实普通USER的实验配功，不冒充自然师承或完整明教。接口返回值、命令尝试、受理、发动、资源毛账与公共能力变化分别记录。'
+                + '强化的实际能力增量不等于临时apply数值；恢复调用公共内功入口，不代表圣火心法独有恢复。'
+                + '低功力即时条件采集随机熟练；两条自然到期仅核生命周期，不参与随机熟练率。拒绝仍列入已核验样本，未知不填零。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误 | 接口值均值 | 命令尝试/受理/发动 | 内力毛扣/当前气血恢复均值 | 公共攻击/轻功/招架增量均值 | 熟练均值；正进度/已核验 | 到期秒数均值/回调对数 |',
+            '| --- | ---: | --- | ---: | --- | --- | --- | --- | --- |');
+        for (const c of mingjiaoXinfa) {
+            const e = c.mingjiao_xinfa;
+            const progress = e.probability_scope === 'lifecycle_only' ? '仅生命周期'
+                : e.validated_samples ? `${e.progressed_samples}/${e.validated_samples}` : '未知（分母0）';
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}`
+                + ` | ${f(e.interface_result.mean)} | ${e.command_attempts}/${e.commands_accepted}/${e.launches}`
+                + ` | ${f(e.costs.neili.mean)}/${f(e.recovery.qi.mean)}`
+                + ` | ${f(e.powers_delta.attack.mean)}/${f(e.powers_delta.dodge.mean)}/${f(e.powers_delta.parry.mean)}`
+                + ` | ${f(e.learned_gain.mean)}；${progress} | ${f(e.expiry_seconds.mean)}/${e.callback_pairs} |`);
+        }
+    }
+    const qishang = report.conditions.filter(c => c.mingjiao_qishang);
+    if (qishang.length) {
+        const fraction = value => value.trials ? `${value.successes}/${value.trials}` : '未知（分母0）';
+        lines.push('', '## 明教七伤拳：原缓存、直伤与反噬', '',
+            'main共享首次200级原加载的极意参数；cold400和cold800分别使用独立驱动，不混作同一成长样本。'
+                + '实验靶基本内功与招架为3倍等级、无映射，不作同级胜率比较。伤字诀判定成功仍可能只反噬自身；'
+                + '发动、目标伤害、自伤及当前气血恢复分别记账，receive_heal不恢复有效气血。未观察到正恢复不证明随机分支未触发；完整分布和分母见JSON。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误 | 对方气血/伤势毛扣均值 | 自身气血/伤势毛扣均值 | 自身当前气血恢复均值 | 内力支出均值 | 外判成功/发动；自伤/资格；正恢复/资格 |',
+            '| --- | ---: | --- | --- | --- | ---: | ---: | --- |');
+        for (const c of qishang) {
+            const e = c.mingjiao_qishang;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}`
+                + ` | ${f(e.target_cost.qi.mean)}/${f(e.target_cost.eff_qi.mean)}`
+                + ` | ${f(e.actor_cost.qi.mean)}/${f(e.actor_cost.eff_qi.mean)}`
+                + ` | ${f(e.actor_recovery.qi.mean)} | ${f(e.neili_cost.mean)}`
+                + ` | ${fraction(e.gate_hit)}；${fraction(e.backlash)}；${fraction(e.recovery)} |`);
+        }
+    }
+    const mingjiaoCore = report.conditions.filter(c => c.mingjiao_core);
+    if (mingjiaoCore.length) {
+        lines.push('', '## 明教寒冰绵掌：普通攻击与连绵不绝首切片', '',
+            '靶基本招架为等级三倍、无映射；这是观察绝招原随机分支的实验条件，不作同级胜率比较。'
+                + '加力0不触发寒毒。临时apply/damage不等同徒手实际增伤；命令发动、判定加成和普通命中分列。', '',
+            '| 条件 | 已采/计划 | 观察/拒绝/错误 | 原攻击数均值 | 气血/伤势净损均值 | 内力支出均值 | 自身忙乱均值 | 加成成功/判定数 |',
+            '| --- | ---: | --- | ---: | --- | ---: | ---: | --- |');
+        for (const c of mingjiaoCore) {
+            const e = c.mingjiao_core;
+            lines.push(`| ${c.id} | ${c.recorded}/${c.planned}`
+                + ` | ${e.counts.observed}/${e.counts.refused}/${e.counts.error}`
+                + ` | ${f(e.attacks_per_accepted.mean)}`
+                + ` | ${f(e.damage_per_accepted.mean)}/${f(e.wound_per_accepted.mean)}`
+                + ` | ${f(e.actor_neili_cost.mean)} | ${f(e.actor_busy.mean)}`
+                + ` | ${e.bonus_given_accepted.successes}/${e.bonus_given_accepted.trials} |`);
+        }
+    }
+    for (const c of report.conditions.filter(c => c.mingjiao_qkd))
+        lines.push('', mingjiaoQkdMarkdown(c.mingjiao_qkd));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang))
+        lines.push('', mingjiaoJiuyangMarkdown(c.mingjiao_jiuyang));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_learning))
+        lines.push('', mingjiaoJiuyangLearningMarkdown(c.mingjiao_jiuyang_learning));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_direct))
+        lines.push('', mingjiaoJiuyangDirectMarkdown(c.mingjiao_jiuyang_direct));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_remaining))
+        lines.push('', mingjiaoJiuyangRemainingMarkdown(c.mingjiao_jiuyang_remaining));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_exert))
+        lines.push('', mingjiaoJiuyangExertMarkdown(c.mingjiao_jiuyang_exert));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_capacity))
+        lines.push('', mingjiaoJiuyangCapacityMarkdown(c.mingjiao_jiuyang_capacity, manifest));
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_research)) {
+        assert.ok(Array.isArray(rows), '九阳研究 Markdown 需要原始台账 rows');
+        lines.push('', mingjiaoJiuyangResearchMarkdown(c.mingjiao_jiuyang_research, manifest,
+            rows.filter(row => row.condition_id === c.id)));
+    }
+    for (const c of report.conditions.filter(c => c.mingjiao_jiuyang_fusion)) {
+        assert.ok(Array.isArray(rows), '九阳融合 Markdown 需要原始台账 rows');
+        lines.push('', mingjiaoJiuyangFusionMarkdown(c.mingjiao_jiuyang_fusion, manifest,
+            rows.filter(row => row.condition_id === c.id)));
+    }
+    for (const c of report.conditions.filter(c => c.mingjiao_remaining_perform)) {
+        assert.ok(Array.isArray(rows), '明教剩余绝招 Markdown 需要原始台账 rows');
+        lines.push('', mingjiaoRemainingPerformMarkdown(c.mingjiao_remaining_perform, manifest,
+            rows.filter(row => row.condition_id === c.id)));
+    }
+    for (const c of report.conditions.filter(c => c.mingjiao_remaining_base)) {
+        assert.ok(Array.isArray(rows), '明教剩余普通技能 Markdown 需要原始台账 rows');
+        lines.push('', mingjiaoRemainingBaseMarkdown(c.mingjiao_remaining_base, manifest,
+            rows.filter(row => row.condition_id === c.id)));
+    }
+    for (const c of report.conditions.filter(c => c.mingjiao_force_remaining)) {
+        assert.ok(Array.isArray(rows), '明教剩余内功 Markdown 需要原始台账 rows');
+        lines.push('', mingjiaoForceRemainingMarkdown(c.mingjiao_force_remaining, manifest,
+            rows.filter(row => row.condition_id === c.id)));
+    }
     lines.push('', '角色资格由实验配置提供，不代表教师当前可传授或同养成成本。旧中性兵器组不混算。',
         '只报告本系列条件；已采某门派部分能力不代表该门派全部技能或完整防御/回调/交锋覆盖。',
         '全局动作表的初始化与缓存保持原实现；未人为重算 this_player() 或随机系数。', '');
@@ -2393,7 +3233,9 @@ if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToP
         if (includeErrors) args.splice(args.indexOf('--include-errors'), 1);
         assert.ok((args.length === 1 || args.length === 2) && args.every(a => !a.startsWith('--')),
             '用法：node tools/tests/martial_data/school_combat_report.mjs 系列目录 [新的仓库外报告目录] [--include-errors]');
-        const report = readSchoolCombat(args[0], { includeErrors }), markdown = schoolCombatMarkdown(report);
+        const report = readSchoolCombat(args[0], { includeErrors });
+        const manifest = openSeries(args[0]);
+        const markdown = schoolCombatMarkdown(report, manifest, readSamples(args[0], manifest));
         if (args[1]) {
             const output = newOutput(args[1]);
             writeFileSync(join(output, 'school-combat.json'), JSON.stringify(report, null, 2) + '\n', { flag: 'wx' });

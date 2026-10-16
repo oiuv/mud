@@ -53,7 +53,7 @@ test('十八罗汉208条技能关系三点闭合，57项随机分布不冒充63�
 });
 
 test('既有5344条件19410样本内容哈希不变', () => {
-    const old = all.filter(c => c.parameters.teaching_profile !== 'shaolin-luohan' && c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const old = all.filter(c => c.parameters.teaching_profile !== 'shaolin-luohan' && c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length, 5344); assert.equal(old.reduce((n, c) => n + c.samples, 0), 19410);
     assert.equal(sha256(JSON.stringify(old)), '9a4280134434a9ffb42417dbaab7180f1b1ee93f6e1eb6546229367b475523e7');
 });

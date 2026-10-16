@@ -41,7 +41,7 @@ function observation(c) {
 }
 
 test('书信追加16条件和2入口，旧3159条件与未注入领悟保留', () => {
-    const prior = all.filter(c => !['feng', 'quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior = all.filter(c => !['feng', 'quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'shaolin-recruit', 'shaolin-promotion', 'shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length, 3175); assert.equal(cases.length, 16);
     assert.equal(teachingEntries(prior).length, 320); assert.equal(teachingEntries(cases).length, 2);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
@@ -78,7 +78,7 @@ test('拒绝假书信、错误持有者、预写领悟、重置资源和变更�
     for (const [mutate, pattern] of [
         [s => { s[0].item_after.clone = 1; }, /书信身份/],
         [s => { s[1].item_before.holder = '/tests/other#3'; }, /书信身份/],
-        [s => { s[0].before.grants[c.parameters.monitored_grants[0]] = 1; }, /预写领悟/],
+        [s => { s[0].before.grants[c.parameters.monitored_grants[0]] = 1; }, /预写未声明领悟/],
         [s => { s[1].before.contribution = 2200; }, /重置或注入/],
         [s => { s[1].item_after = s[1].item_before; }, /书信身份/],
     ]) {

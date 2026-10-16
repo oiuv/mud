@@ -227,6 +227,15 @@ export function buildInventory(root) {
             related_headers: sorted.filter(f => f.scope === 'header_dependency').length,
         }, groups, files: sorted,
         source_fingerprint: sha256(JSON.stringify(sorted.map(f => [f.path, f.sha256]))),
+        // Frozen no-teacher study routes reference public command sources outside
+        // the kungfu scan; pinned by content hash but kept out of the fingerprint.
+        public_command_files: ['cmds/skill/learn.c', 'cmds/skill/study.c',
+            'cmds/skill/apprentice.c', 'cmds/skill/recruit.c']
+            .map(path => {
+                const resolved = realpathSync(join(root, path));
+                assert.ok(isInside(root, resolved), `源码越界：${path}`);
+                return { path, sha256: sha256(readFileSync(resolved)) };
+            }),
     };
 }
 

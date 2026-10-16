@@ -3,6 +3,38 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
+import { mingjiaoCoreConditions, validateMingjiaoCoreRecord } from './school_mingjiao_core_cases.mjs';
+import { mingjiaoQishangConditions, validateMingjiaoQishangRecord } from './school_mingjiao_qishang_cases.mjs';
+import { mingjiaoXinfaConditions, validateMingjiaoXinfaRecord } from './school_mingjiao_xinfa_cases.mjs';
+import { mingjiaoMovementConditions, validateMingjiaoMovementRecord } from './school_mingjiao_movement_cases.mjs';
+import { mingjiaoShengongConditions, validateMingjiaoShengongRecord } from './school_mingjiao_shengong_cases.mjs';
+import { mingjiaoShenghuoConditions, validateMingjiaoShenghuoRecord } from './school_mingjiao_shenghuo_cases.mjs';
+import { mingjiaoLingLearningConditions, validateMingjiaoLingLearningRecord } from './school_mingjiao_ling_learning_cases.mjs';
+import { mingjiaoLingPerformConditions, validateMingjiaoLingPerformRecord } from './school_mingjiao_ling_perform_cases.mjs';
+import { mingjiaoApprenticeLearningConditions, validateMingjiaoApprenticeLearningRecord } from './school_mingjiao_apprentice_learning_cases.mjs';
+import { mingjiaoPublicForceConditions, validateMingjiaoPublicForceRecord } from './school_mingjiao_public_force_cases.mjs';
+import { mingjiaoTeachersConditions, validateMingjiaoTeachersRecord } from './school_mingjiao_teachers_cases.mjs';
+import { mingjiaoRecruitConditions, validateMingjiaoRecruitRecord } from './school_mingjiao_recruit_cases.mjs';
+import { mingjiaoGiftConditions, validateMingjiaoGiftRecord } from './school_mingjiao_gift_cases.mjs';
+import { mingjiaoBookConditions, validateMingjiaoBookRecord } from './school_mingjiao_book_cases.mjs';
+import { mingjiaoQkdConditions, validateMingjiaoQkdRecord } from './school_mingjiao_qkd_cases.mjs';
+import { mingjiaoJiuyangConditions, validateMingjiaoJiuyangRecord } from './school_mingjiao_jiuyang_cases.mjs';
+import { mingjiaoJiuyangLearningConditions, validateMingjiaoJiuyangLearningRecord } from './school_mingjiao_jiuyang_learning_cases.mjs';
+import { mingjiaoJiuyangDirectConditions, validateMingjiaoJiuyangDirectRecord } from './school_mingjiao_jiuyang_direct_cases.mjs';
+import { mingjiaoJiuyangRemainingConditions, validateMingjiaoJiuyangRemainingRecord } from './school_mingjiao_jiuyang_remaining_cases.mjs';
+import { mingjiaoJiuyangExertConditions, validateMingjiaoJiuyangExertRecord } from './school_mingjiao_jiuyang_exert_cases.mjs';
+import { mingjiaoJiuyangCapacityConditions } from './school_mingjiao_jiuyang_capacity_cases.mjs';
+import { validateMingjiaoJiuyangCapacityRecord } from './school_mingjiao_jiuyang_capacity_observation.mjs';
+import { mingjiaoJiuyangResearchConditions } from './school_mingjiao_jiuyang_research_cases.mjs';
+import { validateMingjiaoJiuyangResearchRecord } from './school_mingjiao_jiuyang_research_observation.mjs';
+import { mingjiaoJiuyangFusionConditions } from './school_mingjiao_jiuyang_fusion_cases.mjs';
+import { validateMingjiaoJiuyangFusionRecord } from './school_mingjiao_jiuyang_fusion_record.mjs';
+import { mingjiaoRemainingPerformConditions } from './school_mingjiao_remaining_perform_cases.mjs';
+import { validateMingjiaoRemainingPerformRecord } from './school_mingjiao_remaining_perform_record.mjs';
+import { mingjiaoRemainingBaseConditions } from './school_mingjiao_remaining_base_cases.mjs';
+import { validateMingjiaoRemainingBaseRecord } from './school_mingjiao_remaining_base_record.mjs';
+import { mingjiaoForceRemainingConditions } from './school_mingjiao_force_remaining_cases.mjs';
+import { validateMingjiaoForceRemainingRecord } from './school_mingjiao_force_remaining_record.mjs';
 import { taohuaDingConditions, validateTaohuaDingRecord } from './school_taohua_ding_cases.mjs';
 import { taohuaXiaoConditions, validateTaohuaXiaoRecord } from './school_taohua_xiao_cases.mjs';
 import { taohuaPoConditions, validateTaohuaPoRecord } from './school_taohua_po_cases.mjs';
@@ -14,6 +46,9 @@ import { taohuaComboConditions, validateTaohuaComboRecord } from './school_taohu
 import { taohuaBihaiConditions, validateTaohuaBihaiRecord } from './school_taohua_bihai_cases.mjs';
 import { taohuaPassiveConditions, validateTaohuaPassiveRecord } from './school_taohua_passive_cases.mjs';
 import { taohuaCombinationConditions, validateTaohuaCombinationRecord } from './school_taohua_combination_cases.mjs';
+import { taohuaForceConditions, validateTaohuaForceRecord } from './school_taohua_force_cases.mjs';
+import { taohuaMusicConditions, validateTaohuaMusicRecord } from './school_taohua_music_cases.mjs';
+import { taohuaNpcConditions, validateTaohuaNpcRecord } from './school_taohua_npc_cases.mjs';
 import { shaolinSwordConditions, validateShaolinSwordRecord } from './school_shaolin_sword_cases.mjs';
 import { shaolinWeaponConditions, validateShaolinWeaponRecord } from './school_shaolin_weapons_cases.mjs';
 import { shaolinAdditionalConditions, validateShaolinAdditionalRecord } from './school_shaolin_additional_cases.mjs';
@@ -113,6 +148,10 @@ import { gumuNpcConditions, validateGumuNpcRecord } from './school_gumu_npc_case
 import { gumuTemporalConditions, validateGumuTemporalRecord } from './school_gumu_temporal_cases.mjs';
 import { gumuBoutConditions, validateGumuBoutRecord } from './school_gumu_bout_cases.mjs';
 import { gumuNpcBoutConditions, validateGumuNpcBoutRecord } from './school_gumu_npc_bout_cases.mjs';
+import { mingjiaoCombinationConditions } from './school_mingjiao_combination_cases.mjs';
+import { createMingjiaoCombinationRecordValidator } from './school_mingjiao_combination_record.mjs';
+
+const mingjiaoCombinationValidators = new WeakMap();
 
 const sources = [
     'kungfu/skill/huashan-jian.c', 'kungfu/skill/huashan-shenfa.c',
@@ -283,11 +322,86 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...taohuaComboConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaBihaiConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaPassiveConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
-        ...taohuaCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke })];
+        ...taohuaCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...taohuaForceConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...taohuaMusicConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...taohuaNpcConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoCoreConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoQishangConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoXinfaConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoMovementConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoShengongConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoShenghuoConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoLingLearningConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoLingPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoApprenticeLearningConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoPublicForceConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoTeachersConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoRecruitConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoGiftConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoBookConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoQkdConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoJiuyangConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoJiuyangLearningConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoJiuyangDirectConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoJiuyangRemainingConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoJiuyangExertConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mingjiaoJiuyangCapacityConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoJiuyangResearchConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoJiuyangFusionConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoRemainingPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoRemainingBaseConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoForceRemainingConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke })];
 }
 
-export function validateSchoolCombatRecord(raw, condition) {
+export function validateSchoolCombatRecord(raw, condition, sourceContext) {
+    if (['mingjiao-combination', 'mingjiao-npc-bout'].includes(condition.parameters.collection_group)) {
+        assert.ok(sourceContext?.catalog && typeof sourceContext.readSource === 'function',
+            '明教互备／原NPC须绑定实际catalog与源码读取');
+        let cached = mingjiaoCombinationValidators.get(sourceContext.catalog);
+        if (!cached || cached.readSource !== sourceContext.readSource) {
+            cached = { readSource: sourceContext.readSource,
+                formal: createMingjiaoCombinationRecordValidator(sourceContext.catalog, sourceContext.readSource),
+                smoke: createMingjiaoCombinationRecordValidator(sourceContext.catalog, sourceContext.readSource, { smoke: true }) };
+            mingjiaoCombinationValidators.set(sourceContext.catalog, cached);
+        }
+        return cached[condition.parameters.run_mode](raw, condition);
+    }
+    if (condition.parameters.collection_group === 'mingjiao-force-remaining')
+        return validateMingjiaoForceRemainingRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-remaining-base')
+        return validateMingjiaoRemainingBaseRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-remaining-perform')
+        return validateMingjiaoRemainingPerformRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-fusion')
+        return validateMingjiaoJiuyangFusionRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-research') return validateMingjiaoJiuyangResearchRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-capacity') return validateMingjiaoJiuyangCapacityRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-exert') return validateMingjiaoJiuyangExertRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-remaining') return validateMingjiaoJiuyangRemainingRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-direct') return validateMingjiaoJiuyangDirectRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang-learning') return validateMingjiaoJiuyangLearningRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-jiuyang') return validateMingjiaoJiuyangRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-qkd') return validateMingjiaoQkdRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-book') return validateMingjiaoBookRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-gift') return validateMingjiaoGiftRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-recruit') return validateMingjiaoRecruitRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-teachers') return validateMingjiaoTeachersRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-public-force') return validateMingjiaoPublicForceRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-apprentice-learning') return validateMingjiaoApprenticeLearningRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-ling-perform') return validateMingjiaoLingPerformRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-ling-learning') return validateMingjiaoLingLearningRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-shenghuo') return validateMingjiaoShenghuoRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-shengong') return validateMingjiaoShengongRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-movement') return validateMingjiaoMovementRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-xinfa') return validateMingjiaoXinfaRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-qishang') return validateMingjiaoQishangRecord(raw, condition);
+    if (condition.parameters.collection_group === 'mingjiao-core') return validateMingjiaoCoreRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-combination') return validateTaohuaCombinationRecord(raw, condition);
+    if (condition.parameters.collection_group === 'taohua-force') return validateTaohuaForceRecord(raw, condition);
+    if (condition.parameters.collection_group === 'taohua-music') return validateTaohuaMusicRecord(raw, condition);
+    if (condition.parameters.collection_group === 'taohua-npc') return validateTaohuaNpcRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-passive') return validateTaohuaPassiveRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-bihai') return validateTaohuaBihaiRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-combo') return validateTaohuaComboRecord(raw, condition);

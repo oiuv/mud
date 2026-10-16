@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions } from './school_combat_cases.mjs';
 import { taohuaDingConditions } from './school_taohua_ding_cases.mjs';
 import { createSandbox, validateQualificationSources } from './execution.mjs';
@@ -47,8 +49,39 @@ test('15隔离处理文件48接点；DING真实原件/头/接线依赖冻结且�
         'school_taohua_ding_report.mjs', 'school_taohua_ding_report.test.mjs',
         'school_taohua_ding_cases.mjs', 'school_taohua_ding.test.mjs'])
         assert.equal(snapshot.files['tools/tests/martial_data/' + name], sha256(read('tools/tests/martial_data/' + name)));
-    assert.equal(snapshot.probes.length, 15);
-    assert.equal(snapshot.probes.reduce((n, p) => n + p.sites.length, 0), 48);
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = snapshot.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(snapshot.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(snapshot.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = snapshot.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
+        'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
+    assert.equal(historicalProbes.reduce((n, p) => n + p.sites.length, 0), 48);
     const probe = snapshot.probes.find(p => p.path === 'kungfu/skill/tanzhi-shentong/ding.c');
     assert.equal(probe.before, sha256(read(probe.path)));
     assert.equal(probe.sites.length, 2);
@@ -56,7 +89,25 @@ test('15隔离处理文件48接点；DING真实原件/头/接线依赖冻结且�
 });
 
 test('实际caller只在observe_callback入口读，快照/精确目标/禁招字段不伪造', () => {
-    const fn = body('observe_callback');
+    const actual = body('observe_callback');
+    const forceExpiry = "    if (active && is_mingjiao_force_remaining()) {\n"
+        + "        require(current[\"parameters\"][\"panel\"] == \"expiry\" && me == players[0] && previous_object() == me,\n"
+        + "            \"original force expiry USER callback\");\n"
+        + "        if (phase == \"before\") begin_force_event(\"expiry\");\n"
+        + "        current[\"callbacks\"] += ({ ([ \"side\": 0, \"phase\": phase,\n"
+        + "            \"elapsed\": time_ns() / 1000000000.0 - started, \"state\": snapshot(me) ]) });\n"
+        + "        if (phase == \"after\") {\n"
+        + "            end_force_event(\"expiry\");\n"
+        + "            // The original eval_function and its remove_effect have returned.\n"
+        + "            // Do not replace this with a call at the predicted delay.\n"
+        + "            call_out(\"finish_sample\", 0);\n"
+        + "        }\n"
+        + "        return;\n"
+        + "    }\n";
+    assert.equal(actual.split(forceExpiry).length, 2, 'one exact force-expiry callback branch');
+    assert.equal(body('is_mingjiao_force_remaining').replace(/\s+/g, ' ').trim(),
+        'int is_mingjiao_force_remaining() { return mapp(current) && mapp(current["parameters"]) && current["parameters"]["collection_group"] == "mingjiao-force-remaining"; }');
+    const fn = actual.replace(forceExpiry, '');
     assert.match(fn, /owner = previous_object\(\)/);
     assert.match(fn, /frames = call_stack\(2\)/);
     assert.ok(fn.indexOf('frames = call_stack(2)') < fn.indexOf('taohua_ding_callback(me, phase, owner, frames[1])'));
@@ -67,8 +118,17 @@ test('实际caller只在observe_callback入口读，快照/精确目标/禁招�
 });
 
 test('公共早拒绝只读取实际notify_fail，不造技能launch或替代原perform', () => {
-    const fn = body('perform_sample');
-    const start = fn.indexOf('if ((is_taohua_ding() || is_taohua_zhuan()) && !result && !sizeof(current["refusals"]))');
+    assert.equal(body('is_mingjiao_remaining_perform').replace(/\s+/g, ' ').trim(),
+        'private int is_mingjiao_remaining_perform() { return current["parameters"]["collection_group"] == "mingjiao-remaining-perform"; }',
+        'project only the exact remaining-perform group');
+    const actual = body('perform_sample');
+    // Remove only the exact new-group disjunct; the historical refusal gate stays unchanged.
+    const remainingGate = 'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining" ||\n'
+        + '            is_mingjiao_remaining_perform()';
+    assert.equal(actual.split(remainingGate).length, 2, 'one exact remaining-perform refusal disjunct');
+    const fn = actual.replace(remainingGate,
+        'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining"');
+    const start = fn.search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
     assert.ok(start >= 0);
     const gate = fn.slice(start).split('\n        }')[0];
     assert.match(gate, /players\[0\]->query_temp\("notify_fail"\)/);

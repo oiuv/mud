@@ -1,17 +1,236 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { EventEmitter, once } from 'node:events';
+import { createConnection, createServer } from 'node:net';
 import { root, parseArgs } from '../../collect_martial_data.mjs';
-import { buildInventory } from './inventory.mjs';
+import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
 import { profiles, weaponConditions } from './weapon_cases.mjs';
 import { collectionInput, launchProbes, huboPerformProbes, huboBusyProbes, combatActionProbes, validateRecord,
-    validateExpectedOutcomes } from './execution.mjs';
+    validateExpectedOutcomes, startInteractiveInput, classifyInteractiveClose, createSandbox } from './execution.mjs';
 import { missingJobs } from './continuation.mjs';
 import { abilityConditions, validateAbilityRecord } from './ability_cases.mjs';
+import { selectConditions, validateQualificationSources } from './execution.mjs';
+import { constants as bufferConstants } from 'node:buffer';
+import { mingjiaoRemainingPerformConditions } from './school_mingjiao_remaining_perform_cases.mjs';
 
 const catalog = collectCatalog(root, buildInventory(root));
+
+test('隔离副本保留真实USER存盘所需公共公告并登记来源，不开放整个help或私密数据', () => {
+    const output = mkdtempSync(join(tmpdir(), 'mud-martial-public-notice-'));
+    const snapshot = createSandbox(root, output);
+    const original = readFileSync(join(root, 'help/notice'));
+    assert.deepEqual(readFileSync(join(snapshot.sandbox, 'help/notice')), original);
+    assert.equal(snapshot.files['help/notice'], sha256(original));
+    assert.ok(original.toString('utf8').split(/\r?\n/).some(line => line.trim().length > 0));
+    for (const path of ['help/changelog', 'data/.env', 'data/player', 'u']) {
+        assert.equal(existsSync(join(snapshot.sandbox, path)), false, path);
+        assert.equal(snapshot.files[path], undefined, path);
+    }
+});
+
+class InputSocket extends EventEmitter {
+    destroyed = false;
+    writes = [];
+    write(payload) { this.writes.push(payload); return false; }
+    destroy(error) {
+        this.destroyed = true;
+        if (error) this.emit('error', error);
+        this.emit('close');
+    }
+}
+
+test('连接重置只在真实终态及完整已校验记录后分类；不依赖错误和stdio的先后', () => {
+    const completed = { code: 0, signal: null, interrupted: false, text: 'DATA SAVED\nDATA COMPLETE\n',
+        saved: 22, planned: 22, errors: 0, incomplete: 0 };
+    assert.equal(classifyInteractiveClose(completed), 'complete');
+    const pending = { ...completed, code: null, text: 'DATA SAVED\n' };
+    assert.equal(classifyInteractiveClose(pending), 'unexpected');
+    assert.equal(classifyInteractiveClose({ ...pending, ...completed }), 'complete');
+    for (const changed of [
+        { code: 1 }, { signal: 'SIGTERM' }, { saved: 21 }, { errors: 1 }, { incomplete: 1 },
+        { text: 'DATA SAVED\n' }, { text: 'prefix DATA COMPLETE\n' }, { text: 'DATA COMPLETE forged\n' },
+    ]) assert.equal(classifyInteractiveClose({ ...completed, ...changed }), 'unexpected');
+    assert.equal(classifyInteractiveClose({ ...completed, code: null, signal: 'SIGTERM', interrupted: true }), 'cancelled');
+    const recordedError = { ...completed, code: 1, saved: 2, text: 'DATA SAVED\nDATA SAMPLE ERROR: original failure\n' };
+    assert.equal(classifyInteractiveClose(recordedError), 'recorded_error');
+    for (const changed of [{ saved: 0 }, { code: 0 }, { code: null }, { signal: 'SIGTERM' },
+        { errors: 1 }, { incomplete: 1 }, { text: 'DATA FAIL\n' }])
+        assert.equal(classifyInteractiveClose({ ...recordedError, ...changed }), 'unexpected');
+});
+
+test('真实输入在 connect 首次写 LF并按周期再写；背压不重发，关闭和取消清理周期', async t => {
+    const sockets = Array.from({ length: 3 }, () => new InputSocket());
+    const records = sockets.map(() => []);
+    const stops = sockets.map((socket, i) => startInteractiveInput(socket, event => records[i].push(event), 10));
+    t.after(() => stops.forEach(stop => stop()));
+    assert.ok(sockets.every(socket => socket.writes.length === 0));
+    sockets.forEach(socket => socket.emit('connect'));
+    assert.deepEqual(sockets.map(socket => socket.writes), [['\n'], ['\n'], ['\n']]);
+    assert.ok(records.every(events => events[0].writable_buffer_available === false));
+    await new Promise(resolve => setTimeout(resolve, 40));
+    assert.ok(sockets.every(socket => socket.writes.length >= 2));
+    assert.ok(records.every(events => events[1].elapsed_seconds >= 0));
+    sockets[0].emit('close');
+    sockets[1].emit('end');
+    stops[2](); stops[2]();
+    const counts = sockets.map(socket => socket.writes.length);
+    await new Promise(resolve => setTimeout(resolve, 40));
+    assert.deepEqual(sockets.map(socket => socket.writes.length), counts);
+    for (const socket of sockets) for (const event of ['connect', 'end', 'close', 'error'])
+        assert.equal(socket.listenerCount(event), 0);
+});
+
+test('连接前取消不写入；同步写失败和异步 socket 错误保留正常错误通道并停止周期', async () => {
+    const cancelled = new InputSocket(), events = [];
+    const stop = startInteractiveInput(cancelled, event => events.push(event));
+    stop(); cancelled.emit('connect');
+    await new Promise(resolve => setTimeout(resolve, 20));
+    assert.equal(cancelled.writes.length, 0);
+    assert.deepEqual(events, []);
+    for (const synchronous of [false, true]) {
+        const socket = new InputSocket(), recorded = [], errors = [];
+        const error = Object.assign(new Error('socket write failed'), { code: 'EPIPE' });
+        socket.on('error', value => errors.push(value));
+        if (synchronous) socket.write = () => { throw error; };
+        startInteractiveInput(socket, event => recorded.push(event), 10);
+        socket.emit('connect');
+        if (!synchronous) socket.emit('error', error);
+        const count = socket.writes.length;
+        await new Promise(resolve => setTimeout(resolve, 30));
+        assert.equal(socket.writes.length, count);
+        assert.deepEqual(errors, [error]);
+        assert.equal(recorded.filter(event => event.kind === 'error').length, 1);
+        assert.equal(recorded.at(-1).code, 'EPIPE');
+    }
+    for (const interval of [0, -1, 60001, 1.5])
+        assert.throws(() => startInteractiveInput(new InputSocket(), () => {}, interval));
+});
+
+for (const count of [2, 3]) test(`${count} 个真实本机 socket 收到首次及周期 LF，清理后停止；不发送业务命令`, async t => {
+    const peers = [], clients = [], stops = [], received = new Map(), events = [];
+    let complete;
+    const enough = new Promise(resolve => { complete = resolve; });
+    const server = createServer(socket => {
+        peers.push(socket); received.set(socket, '');
+        socket.on('data', data => {
+            received.set(socket, received.get(socket) + data.toString('utf8'));
+            if (received.size === count && [...received.values()].every(text => text.length >= 2)) complete();
+        });
+    });
+    t.after(async () => {
+        stops.forEach(stop => stop()); clients.forEach(client => client.destroy());
+        peers.forEach(peer => peer.destroy());
+        await new Promise(resolve => server.close(resolve));
+    });
+    await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+    const timeout = setTimeout(() => complete(new Error('真实空行未收到')), 3000);
+    t.after(() => clearTimeout(timeout));
+    for (let i = 0; i < count; i++) {
+        const client = createConnection({ host: '127.0.0.1', port: server.address().port });
+        clients.push(client);
+        stops.push(startInteractiveInput(client, event => events.push({ client: i, ...event }), 15));
+        await once(client, 'connect');
+    }
+    assert.equal(await enough, undefined);
+    stops.forEach(stop => stop());
+    const written = events.length;
+    await new Promise(resolve => setTimeout(resolve, 40));
+    assert.equal(events.length, written);
+    assert.equal(received.size, count);
+    assert.ok([...received.values()].every(text => /^\n{2,}$/.test(text)));
+    assert.ok(events.every(event => event.kind === 'write' && event.bytes === 1 && event.elapsed_seconds >= 0));
+    assert.equal(new Set(events.map(event => event.client)).size, count);
+});
+
+test('空行驱动输入独立于原请求及样本；工具不改写 collectionInput', async t => {
+    const jobs = [{ condition_id: 'input-unchanged', parameters: { extra_target: true, observe_seconds: 400 } }];
+    const original = structuredClone(jobs), before = collectionInput(jobs, null);
+    const socket = new InputSocket();
+    const stop = startInteractiveInput(socket, () => {}, 10);
+    t.after(stop);
+    socket.emit('connect');
+    await new Promise(resolve => setTimeout(resolve, 40));
+    stop();
+    assert.deepEqual(jobs, original);
+    assert.deepEqual(collectionInput(jobs, null), before);
+    assert.ok(socket.writes.length >= 2);
+});
+
+test('CLI仅school-combat接受精确条件组；格式、重复及三种选择器互斥', () => {
+    const group = 'mingjiao-remaining-base';
+    assert.equal(parseArgs(['school-combat', '--case-group', group]).caseGroup, group);
+    assert.equal(parseArgs(['school-combat', '--case-group', group, '--smoke']).smoke, true);
+    for (const value of ['', 'Mingjiao', 'two groups', '../mingjiao', 'mingjiao/base'])
+        assert.throws(() => parseArgs(['school-combat', '--case-group', value]));
+    assert.throws(() => parseArgs(['school-combat', '--case-group', group, '--case-group', group]), /重复参数/);
+    for (const [a, b] of [['--case', '--case-prefix'], ['--case', '--case-group'], ['--case-prefix', '--case-group']]) {
+        for (const [first, second] of [[a, b], [b, a]])
+            assert.throws(() => parseArgs(['school-combat', first, group, second, group]), /不能同用/);
+    }
+    for (const command of ['inventory', 'coverage', 'weapons', 'weapon-special', 'abilities', 'teaching',
+        'school-team', 'school-scene', 'bouts', 'resume', 'statistics'])
+        assert.throws(() => parseArgs([command, '--case-group', group]), /无效参数/);
+    assert.throws(() => parseArgs(['resume', '--input', '.', '--case-group', group]), /无效参数/);
+    assert.equal(parseArgs(['resume', '--input', '.', '--case', 'saved-case']).case, 'saved-case');
+    const cli = readFileSync(join(root, 'tools/collect_martial_data.mjs'), 'utf8');
+    assert.ok(cli.includes('--case-group mingjiao-remaining-base（338条件，正式15670条，--smoke为676条）'));
+});
+
+test('条件组helper精确匹配且不改对象；原精确ID/前缀/无选择及续跑范围保持', () => {
+    const conditions = [
+        { id: 'same-prefix-a', parameters: { collection_group: 'group-a' } },
+        { id: 'same-prefix-b', parameters: { collection_group: 'group-ab' } },
+        { id: 'other', parameters: { collection_group: 'group-a' } },
+        { id: 'no-group' },
+    ];
+    const before = structuredClone(conditions);
+    assert.strictEqual(selectConditions(conditions, {}), conditions);
+    assert.deepEqual(selectConditions(conditions, { case: 'same-prefix-b' }), [conditions[1]]);
+    assert.deepEqual(selectConditions(conditions, { casePrefix: 'same-prefix-' }), conditions.slice(0, 2));
+    const selected = selectConditions(conditions, { caseGroup: 'group-a' });
+    assert.deepEqual(selected, [conditions[0], conditions[2]]);
+    assert.strictEqual(selected[0], conditions[0]); assert.strictEqual(selected[1], conditions[2]);
+    assert.deepEqual(selectConditions(conditions, { caseGroup: 'unknown' }), []);
+    for (const value of ['', null, 1, [], {}, 'Upper', 'two words', '../group'])
+        assert.throws(() => selectConditions(conditions, { caseGroup: value }), /条件组无效/);
+    for (const options of [{ case: 'other', casePrefix: 'same-' }, { case: 'other', caseGroup: 'group-a' },
+        { casePrefix: 'same-', caseGroup: 'group-a' }])
+        assert.throws(() => selectConditions(conditions, options), /不能同用/);
+    assert.deepEqual(conditions, before);
+    const source = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
+    assert.ok(source.includes('const allConditions = existing?.identity.conditions ?? makeConditions(catalog, options);'));
+    assert.ok(source.includes('const conditions = existing ? allConditions : selectConditions(allConditions, options);'));
+    const emptyGuard = "assert.ok(conditions.length, '条件不存在：' + (options.case ?? options.casePrefix ?? options.caseGroup));";
+    assert.equal(source.split(emptyGuard).length, 2);
+    const guardAt = source.indexOf(emptyGuard);
+    assert.ok(source.indexOf('createSandbox(', guardAt) > guardAt, '空选择须在创建隔离副本之前拒绝');
+});
+
+test('隔离配置使用启动工作目录，不将长证据路径写成驱动配置行', () => {
+    const source = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
+    assert.ok(source.includes("'mudlib directory : .'"));
+    assert.match(source, /spawn\(options\.driver, \['driver\.cfg'\], \{ cwd: sandbox,/);
+    assert.ok(!source.includes("'mudlib directory : ' + sandbox"));
+});
+
+test('公共演奏的完整来源在启动前核验，不只核验两项资格来源', () => {
+    const condition = abilityConditions(catalog, { smoke: true })
+        .find(c => c.parameters.collection_group === 'public-music');
+    assert.ok(condition);
+    const evidence = condition.parameters.source_evidence;
+    validateQualificationSources([condition], { ...evidence });
+    const path = Object.keys(evidence).find(path => !condition.parameters.qualification_sources.includes(path));
+    assert.ok(path, '应包含乐器或公共依赖');
+    const missing = { ...evidence }; delete missing[path];
+    assert.throws(() => validateQualificationSources([condition], missing));
+    assert.throws(() => validateQualificationSources([condition], { ...evidence, [path]: '0'.repeat(64) }));
+    const short = structuredClone(condition); delete short.parameters.source_evidence[path];
+    assert.throws(() => validateQualificationSources([short], short.parameters.source_evidence));
+});
 
 test('采集结果声明在创建隔离副本和启动驱动前检查，不等采样后才发现缺项', () => {
     const condition = expected => ({ id: 'declaration-test', parameters: { expected } });
@@ -34,11 +253,85 @@ test('完整批次的 UTF-8 输入容量覆盖全部样本，不受默认 read_f
     assert.ok(input.limits['maximum buffer size'] > input.bytes);
     assert.ok(input.limits['maximum array size'] >= jobs.length);
     assert.deepEqual(collectionInput([], null).limits, {
-        'maximum read file size': 262144, 'maximum string length': 1048576,
+        'maximum read file size': 262144, 'maximum string length': 64 * 1024 * 1024,
         'maximum buffer size': 1048576,
         'maximum array size': 15000,
     });
     assert.equal(collectionInput(Array(16000).fill(0), null).limits['maximum array size'], 16384);
+});
+
+test('小请求独立预留完整输出字符串空间，不按门派或观察窗口删减记录', () => {
+    const jobs = [{ condition_id: 'arbitrary-output', index: 0, method: 'interface', parameters: {} }];
+    const original = structuredClone(jobs), input = collectionInput(jobs, null);
+    assert.equal(input.text, JSON.stringify({ jobs, fault: null }) + '\n');
+    assert.deepEqual(jobs, original);
+    assert.equal(input.limits['maximum string length'], 64 * 1024 * 1024);
+    assert.equal(input.limits['maximum read file size'], 262144);
+    assert.equal(input.limits['maximum buffer size'], 1048576);
+    // Synthetic capacity coverage only: this is not an actual driver record.
+    const record = { events: Array.from({ length: 512 }, (_, index) => ({
+        index, description: '松风\n"原景"\\路径'.repeat(256),
+    })) };
+    const encoded = JSON.stringify(record) + '\n', bytes = Buffer.byteLength(encoded, 'utf8');
+    assert.ok(bytes > 1048576);
+    assert.ok(bytes < input.limits['maximum string length']);
+    assert.equal(encoded.at(-1), '\n');
+    assert.deepEqual(JSON.parse(encoded), record);
+});
+
+test('请求超过输出保底时仍按真实UTF-8字节扩容，原输入不截断', () => {
+    const jobs = [{ condition_id: 'large-input', parameters: { payload: 'x'.repeat(64 * 1024 * 1024) } }];
+    const input = collectionInput(jobs, null);
+    assert.ok(input.bytes > 64 * 1024 * 1024);
+    for (const name of ['maximum string length', 'maximum read file size', 'maximum buffer size'])
+        assert.equal(input.limits[name], input.bytes + 1);
+    assert.deepEqual(JSON.parse(input.text), { jobs, fault: null });
+});
+
+test('采集请求只去掉 JSON 排版，保留字段、字符串空白和三角色连接', () => {
+    const jobs = [{ condition_id: '原条件', index: 7, method: 'perform', parameters: {
+        extra_target: { id: '第三角色' }, source_evidence: { '原路径': 'a'.repeat(64) },
+        text: '  松岗\n"原文"  ', nullable: null, disabled: false, values: [0, 2],
+    } }];
+    const fault = { text: ' 保留空格 ' };
+    const input = collectionInput(jobs, fault);
+    const expected = { jobs, fault, connections: 3 };
+    assert.equal(input.text, JSON.stringify(expected) + '\n');
+    assert.deepEqual(JSON.parse(input.text), expected);
+    assert.equal(input.connections, 3);
+    assert.equal(input.bytes, Buffer.byteLength(input.text, 'utf8'));
+    assert.ok(input.bytes > input.text.length);
+});
+
+test('紧凑请求仍核验融合模式和独立 watchdog，不放宽执行身份', () => {
+    const jobs = [{ condition_id: 'fusion', index: 0, method: 'interface', parameters: {
+        collection_group: 'mingjiao-jiuyang-fusion', run_mode: 'formal',
+    } }];
+    const input = collectionInput(jobs, null, { smoke: false, fusion_watchdog_seconds: 30 });
+    assert.deepEqual(JSON.parse(input.text), { jobs, fault: null, fusion_watchdog_seconds: 30 });
+    assert.equal(input.connections, 2);
+    assert.throws(() => collectionInput(jobs, null), /watchdog/);
+    assert.throws(() => collectionInput(jobs, null, { smoke: true, fusion_watchdog_seconds: 30 }), /模式/);
+    assert.throws(() => collectionInput(jobs, null, { smoke: false, fusion_watchdog_seconds: 29 }), /watchdog/);
+});
+
+test('完整明教绝招窗口保留 16532 个任务，紧凑请求不超过 Node 字符串容量', () => {
+    const conditions = mingjiaoRemainingPerformConditions(catalog, path => readFileSync(join(root, path)));
+    let compact = 0, pretty = 0, count = 0;
+    // Sum individual job encodings instead of allocating a half-gigabyte test string.
+    for (const condition of conditions) for (let index = 0; index < condition.samples; index++) {
+        const job = { condition_id: condition.id, index, method: condition.method, parameters: condition.parameters };
+        const indented = JSON.stringify(job, null, 2);
+        compact += JSON.stringify(job).length;
+        pretty += indented.length + 4 * indented.split('\n').length;
+        count++;
+    }
+    compact += '{"jobs":[],"fault":null,"connections":3}\n'.length + count - 1;
+    pretty += JSON.stringify({ jobs: [], fault: null, connections: 3 }, null, 2).length + 3 + (count - 1) * 2;
+    assert.equal(conditions.length, 328);
+    assert.equal(count, 16532);
+    assert.ok(compact < bufferConstants.MAX_STRING_LENGTH, '原计划紧凑请求应可完整序列化');
+    assert.ok(pretty > compact, '只移除排版，不裁剪原始任务或来源字段');
 });
 
 test('十二类分别配置；针、箫、暗器没有借用普通剑的结果', () => {
@@ -84,7 +377,8 @@ test('正式条件保留样本量/成长参数和两档加力，烟雾拒绝不�
 });
 
 test('辅助机制独立配置；真实回调等待不缩短，学习检查不冒充教师传授', () => {
-    const cases = abilityConditions(catalog, { smoke: true });
+    const cases = abilityConditions(catalog, { smoke: true })
+        .filter(c => !c.id.startsWith('learning-') && !c.id.startsWith('skill-music-') && !c.id.startsWith('skill-inherited-'));
     assert.equal(cases.length, 12);
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 24);
     for (const c of cases) assert.ok(catalog.skills.some(s => s.entries.some(e => e.id === c.entry_id)));

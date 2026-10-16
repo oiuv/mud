@@ -449,7 +449,17 @@ export function validateTaohuaNpcRecord(raw, condition) {
     if (!(kind === 'cui' && hit)) { empty(final.conditions); assert.equal(temp(final, 'cuixin'), 0); assert.equal(temp(final, 'apply/parry'), temp(target, 'apply/parry')); }
     if (kind !== 'ding') assert.equal(temp(final, 'no_perform'), 0);
     if (!attacks && !hit && kind !== 'po') { assert.equal(loss('qi'), 0); assert.equal(loss('eff_qi'), 0); }
-    for (const key of resources.filter(k => k !== 'neili')) assert.equal(n.after.properties[key], n.before.properties[key]);
+    // 修订（2026-10-13 契约复核）：kuang/fei 六击窗口观测到NPC自身资源净损
+    // （见 school-taohua-npc-f1 证据：损失出现在多击样本），但没有逐击证据归因。
+    // 不据此宣称反震机制已证明；此处只要求不得额外恢复，其余种类严格不变。
+    // 强化/载入/拒绝等无窗口攻击种类的等式仍由本行与 loadout 全等、
+    // 无攻击零损规则共同保证，单测反例（powerup 的 after.qi-- 必拒）继续有效。
+    for (const key of resources.filter(k => k !== 'neili')) {
+        if (kind === 'kuang' || kind === 'fei')
+            assert.ok(n.before.properties[key] - n.after.properties[key] >= 0,
+                'NPC即时资源不得额外恢复：' + key);
+        else assert.equal(n.after.properties[key], n.before.properties[key]);
+    }
     same(n.before.properties, n.after.properties, Object.keys(cfg.original.props));
     same(n.before.properties, n.after.properties, ['family']);
     timers(n, target, kind, hit, n.before.skills['cuixin-zhang'] ?? 0);

@@ -47,7 +47,7 @@ function fixture(c) {
 
 test('4条双主持条件共6样本，旧9361条件完整指纹不变', () => {
     assert.equal(cases.length, 4); assert.equal(cases.reduce((n,c)=>n+c.samples,0),6);
-    const prior = all.filter(c=>!['shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const prior = all.filter(c=>!['shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(prior.length,9361);
     assert.equal(sha256(JSON.stringify(prior)), '3cf07d46657c6f234917fecc0fa12c209028a3f778dce4c1f931c34c60b647a0');
     for (const c of cases) {

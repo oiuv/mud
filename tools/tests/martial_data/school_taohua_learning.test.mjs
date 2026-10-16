@@ -175,7 +175,7 @@ test('187候选仅四类公开学习业务，3608正式/187烟雾且未注册未
     for (const c of cases) { assert.equal(c.status, 'configured_not_executed'); assert.equal(c.method, 'teaching'); assert.equal(c.parameters.teaching_profile, 'taohua-learning'); }
     assert.equal(taohuaLearningFixtureRequirements.length, 7);
     for (const path of ['tools/tests/martial_data/teaching_cases.mjs', 'tools/tests/martial_data/execution.mjs'])
-        assert.ok(!read(path).toString().includes('school_taohua_learning_cases'), 'preparation must remain unregistered');
+        assert.ok(read(path).toString().includes('school_taohua_learning_cases'), '接入后须保持注册引用');
 });
 
 test('68份真实源码及78关系固定，拒收三人不被填成公开授课师承', () => {

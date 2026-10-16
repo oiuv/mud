@@ -1,0 +1,197 @@
+// Temporary observation of original Mingjiao rooms. Never edit doors or exits.
+private nosave string *room_paths = ({
+    "/d/mingjiao/shandong", "/d/mingjiao/midao0", "/d/mingjiao/midao1",
+    "/d/mingjiao/midao5", "/d/mingjiao/midao9", "/d/mingjiao/mishi"
+});
+
+private void require_state(int condition, string reason) {
+    if (!condition) error("Isolated route observation: " + reason + ".\n");
+}
+
+private void require_runner() {
+    require_state(objectp(previous_object()) && base_name(previous_object()) == "/tests/runner",
+        "runner only");
+}
+
+private mapping room_point(string path) {
+    object room;
+    room = find_object(path);
+    if (!objectp(room)) return ([ "path": path, "exists": 0 ]);
+    return ([ "path": path, "exists": 1, "object": file_name(room),
+        "program": base_name(room), "clonep": clonep(room),
+        "exits": copy(room->query("exits") || ([])),
+        "doors": copy(room->query_doors() || ([])),
+        "door_implementation": function_exists("open_door", room),
+        "xin_count": room->query("xin_count"),
+        "inventory": map(all_inventory(room), (: file_name :)) ]);
+}
+
+private mapping book_point() {
+    object book, owner;
+    string *chain;
+    book = find_object("/clone/book/qiankun_book");
+    if (!objectp(book)) return ([ "exists": 0 ]);
+    chain = ({});
+    owner = environment(book);
+    while (objectp(owner)) {
+        chain += ({ file_name(owner) });
+        owner = environment(owner);
+    }
+    return ([ "exists": 1, "object": file_name(book), "program": base_name(book),
+        "clonep": clonep(book), "id": book->query("id"), "weight": book->query_weight(),
+        "environment": objectp(environment(book)) ? file_name(environment(book)) : "",
+        "owner_chain": chain, "skill": copy(book->query("skill") || ([])) ]);
+}
+
+private mapping *letter_points() {
+    object room, item;
+    mapping *result;
+    result = ({});
+    room = find_object("/d/mingjiao/mishi");
+    if (!objectp(room)) return result;
+    foreach (item in all_inventory(room)) {
+        if (base_name(item) != "/d/mingjiao/obj/yixin") continue;
+        result += ({ ([ "object": file_name(item), "program": base_name(item),
+            "clonep": clonep(item), "id": item->query("id"),
+            "weight": item->query_weight(), "environment": file_name(room) ]) });
+    }
+    return result;
+}
+
+private mapping *close_points() {
+    object room;
+    mixed *entry;
+    mapping *result;
+    result = ({});
+    room = find_object("/d/mingjiao/shandong");
+    if (!objectp(room)) return result;
+    foreach (entry in call_out_info()) {
+        if (entry[0] != room || entry[1] != "close") continue;
+        // Current driver returns owner/function/remaining, not callback arguments.
+        require_state(sizeof(entry) == 3 && intp(entry[2]), "original close tuple");
+        result += ({ ([ "object": file_name(room), "function": entry[1],
+            "remaining": entry[2], "tuple_size": sizeof(entry) ]) });
+    }
+    return result;
+}
+
+private mapping point(object player) {
+    mapping *rooms;
+    string path;
+    rooms = ({});
+    foreach (path in room_paths) rooms += ({ room_point(path) });
+    return ([ "wall_time": time(), "player": "/tests/runner"->snapshot(player),
+        "environment": file_name(environment(player)), "go_count": player->query("state/go"),
+        "encumbrance": player->query_encumbrance(),
+        "max_encumbrance": player->query_max_encumbrance(),
+        "inventory": map(all_inventory(player), (: file_name :)),
+        "rooms": rooms, "pending_close": close_points(),
+        "book": book_point(), "letters": letter_points() ]);
+}
+
+mapping observe(object player) {
+    require_runner();
+    require_state(objectp(player) && userp(player) && interactive(player) && !wizardp(player),
+        "ordinary connected USER");
+    return point(player);
+}
+
+mapping prepare(object player, mapping config) {
+    string path;
+    mapping result, step;
+    object room;
+    require_runner();
+    require_state(userp(player) && interactive(player) && !wizardp(player), "ordinary USER");
+    result = ([ "before": point(player), "load_steps": ({}) ]);
+    foreach (path in room_paths)
+        require_state(!objectp(find_object(path)), "no surviving room before preparation");
+    require_state(!objectp(find_object("/clone/book/qiankun_book")), "no surviving book");
+    if (config["route_mode"] == "cold") {
+        require_state(sizeof(config["load_order"]) == 3, "three explicit constructors");
+        foreach (path in config["load_order"]) {
+            require_state(member_array(path, ({
+                "/d/mingjiao/midao0", "/d/mingjiao/midao9", "/d/mingjiao/mishi"
+            })) != -1, "reviewed cold room");
+            step = ([ "path": path, "before": point(player) ]);
+            require_state(!objectp(find_object(path)), "constructor not already loaded");
+            room = load_object(path);
+            require_state(objectp(room) && !clonep(room), "original room blueprint");
+            step["after"] = point(player);
+            result["load_steps"] += ({ step });
+        }
+    } else {
+        require_state(!sizeof(config["load_order"]) &&
+            config["start_room"] == "/d/mingjiao/shandong", "only initial scene setup");
+    }
+    require_state(member_array(config["start_room"], room_paths) != -1, "reviewed initial room");
+    require_state(player->move(config["start_room"]), "initial experimental position");
+    result["after"] = point(player);
+    return result;
+}
+
+mapping command_step(object player, string action) {
+    mapping result;
+    float started;
+    require_runner();
+    require_state(member_array(action, ({
+        "break stone", "break men", "go enter", "go north", "go south", "go out",
+        "open north", "close north", "ketou", "get qiankunbook"
+    })) != -1, "reviewed original command");
+    result = ([ "kind": "command", "action": action, "before": point(player) ]);
+    player->begin_teaching_messages();
+    started = time_ns() / 1000000000.0;
+    result["accepted"] = player->force_me(action);
+    result["elapsed"] = time_ns() / 1000000000.0 - started;
+    result["messages"] = player->end_teaching_messages();
+    result["message_scope"] = "receive_message_apply_input_not_full_transcript";
+    result["failure"] = player->query_temp("notify_fail");
+    result["after"] = point(player);
+    return result;
+}
+
+mapping begin_wait(object player, int seconds) {
+    mapping result;
+    require_runner();
+    require_state(member_array(seconds, ({ 2, 4, 6 })) != -1, "reviewed wait");
+    result = ([ "kind": "wait", "seconds": seconds, "before": point(player),
+        "started": time_ns() / 1000000000.0 ]);
+    player->begin_teaching_messages();
+    return result;
+}
+
+mapping end_wait(object player, mapping step) {
+    require_runner();
+    step = copy(step);
+    step["elapsed"] = time_ns() / 1000000000.0 - step["started"];
+    step["after"] = point(player);
+    step["messages"] = player->end_teaching_messages();
+    step["message_scope"] = "receive_message_apply_input_not_full_transcript";
+    return step;
+}
+
+mapping cleanup(object player) {
+    object room, item, book;
+    string path;
+    mapping result;
+    require_runner();
+    result = ([ "before": point(player), "destroyed": ({}) ]);
+    book = find_object("/clone/book/qiankun_book");
+    if (objectp(book)) {
+        result["destroyed"] += ({ file_name(book) });
+        destruct(book);
+    }
+    require_state(player->move("/tests/runner"), "return experimental USER before room disposal");
+    foreach (path in room_paths) {
+        room = find_object(path);
+        if (!objectp(room)) continue;
+        foreach (item in all_inventory(room)) {
+            require_state(!userp(item), "never dispose occupied original room");
+            result["destroyed"] += ({ file_name(item) });
+            destruct(item);
+        }
+        result["destroyed"] += ({ file_name(room) });
+        destruct(room);
+    }
+    result["after"] = point(player);
+    return result;
+}

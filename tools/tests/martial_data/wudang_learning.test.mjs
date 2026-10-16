@@ -12,7 +12,7 @@ import { summarizeTeachingRows } from './teaching_report.mjs';
 
 const inventory = buildInventory(root), catalog = collectCatalog(root, inventory);
 const relations = schoolRelations(inventory, catalog), all = teachingConditions(relations, catalog)
-    .filter(c => c.parameters.teaching_profile !== 'shaolin-luohan' && c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    .filter(c => c.parameters.teaching_profile !== 'shaolin-luohan' && c.parameters.teaching_profile !== 'shaolin-teachers' && c.parameters.teaching_profile !== 'shaolin-recruit' && c.parameters.teaching_profile !== 'shaolin-promotion' && !['shaolin-tonsure', 'shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
 const cases = all.filter(c => c.parameters.teaching_profile === 'wudang');
 const get = suffix => structuredClone(cases.find(c => c.id === 'teaching-wudang-learn-' + suffix));
 

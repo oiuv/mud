@@ -16,7 +16,7 @@ test('新增4个低气血条件、8条样本；旧9365条件完整定义不变',
     assert.equal(cases.length, 4);
     assert.equal(cases.reduce((n,c) => n+c.samples, 0), 8);
     const old = all.filter(c => !c.parameters.challenge_scenario
-        && !['emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+        && !['emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length, 9365);
     assert.equal(sha256(JSON.stringify(old)), 'e0874390c46cb1fed862780b8af029f54d86ab1d427eff8850117246d8309cb3');
 });

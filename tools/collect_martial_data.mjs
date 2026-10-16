@@ -33,9 +33,32 @@ const help = `武学数据采集（只读游戏源码，不做平衡调整）
   --level N       weapons/bouts 实验基础/特殊武学等级，默认 200
   --bouts N       交锋每条件场数，默认 20，每场 30 秒；smoke 为 2 场、每场 3 秒
   --case ID       只采一个精确条件；新建系列或续缺项，不冒充整组完成
-  --case-prefix P teaching/school-combat/school-scene 新建系列仅采指定 ID 前缀；不与 --case 同用，续跑沿用已保存范围
-abilities 核验恢复、控制、增益/解除、弹药、缴械和学习接口，参数不与兵器组混算。
-weapon-special 独立采集普通／白绸鞭材质及加力对照，固定 200 级，不与旧中性系列混算。
+  --case-prefix P teaching/school-combat/school-scene/abilities 新建系列仅采指定 ID 前缀；续跑沿用已保存范围
+  --case-group G  仅 school-combat 新建系列按 collection_group 精确选择；与 --case、--case-prefix 两两互斥
+                 例：school-combat --case-group mingjiao-remaining-base（338条件，正式15670条，--smoke为676条）；计划不表示已采齐
+abilities 核验恢复、控制、增益/解除、弹药、缴械和学习接口，参数不与兵器组混算。skill-music- 前缀为11件公共演奏武学：55个valid_learn边界与39个原play/do_effect条件（含舞蛇曲有效等级49/50补充边界），默认4010计划记录（smoke 149）；演奏每条件默认100次，可用--samples指定。合奏、国歌附加攻击与完整回调另待采集，不以本组代替；只统计收集，不比强弱。
+learning- 前缀为六门全武学 valid_learn 接口边界（抽髓掌/冷月神功/轩辕箭/药王妙术/笑傲江湖曲/点沧海），共12条件24计划记录（smoke 24）；直接观察原接口返回与拒绝原句，不冒充教师传授或练功成功，错拼技能键只作缺席核验。
+skill-inherited- 前缀为20个纯继承技能的原valid_learn/type/valid_learn_level默认接口，60条件120计划记录（smoke 60）；返回值、真实继承来源及双USER完整状态分别核验，不表示20种玩法或兵器战斗效果已完成。
+school-mingjiao-core- 前缀为韦一笑路线寒冰绵掌普通攻击与连绵不绝的首个战斗切片；分200/400/800级及资格边界。实验靶基本招架为3倍等级且无映射，仅为观察原绝招两分支，不作同级胜率或公平强弱比较；加力0不覆盖寒毒，不代表明教全派完成。
+school-mingjiao-qishang-main- 为谢逊七伤拳普通攻击、魂魄飞扬、伤字诀及资格／反噬保护边界；首次200级加载的共享原缓存单列。cold400-／cold800-须分别使用新系列和独立驱动，不能与main混算；靶基础内功／招架为3倍等级且无映射，不作同成本强弱排名。
+school-mingjiao-xinfa- 为圣火心法学习资格、兼修／容量、原强化及公共调息有限切片，24条件146计划记录（smoke 48）；低等级即时强化100次观察随机熟练，32秒自然到期条件2次只验证生命周期，不能混算为概率或全明教完成。
+school-mingjiao-movement- 为圣火步、青蝠身法及范遥自用凌虚步的有限学习／练习与防御观察，86条件2622计划记录（smoke 172）；确定性练习、闪避加成台阶、随机消息与化解分列。青蝠副作用消息原样记录，公共直伤不调用轻功化解，不以接口效果冒充实战概率或本派教学资格。
+school-mingjiao-shengong- 为圣火神功资格、研究、容量、强化、护体及公共恢复的有限切片，51条件788计划记录（smoke 102）；研究收费和精神不足清零另账，20／40级原自然到期不代表全等级，暂不采圣火令联动连击或完整NPC教学。
+school-mingjiao-shenghuo-main- 为圣火令普攻、残血令与圣火神功命中联动的40条件1942计划记录（smoke 80）；cold400-／cold800-各100（smoke各2），须分别使用独立系列和驱动。原攻击、追加、附伤、公共创伤及忙乱请求分账，保留首载缓存；42条件不代表圣火令全部绝招或明教完成。
+school-mingjiao-ling-learning- 为圣火令学习资格与真实practice的40条件80计划记录（smoke 80）；接口返回0、拒绝及部分练习进度分列。无激发副作用预加载，沿真实USER上下文加载；不代表自然教学、其余绝招或完整明教。
+school-mingjiao-ling-perform- 为光华令、敛心令、吸焰令原命令的40条件1452计划记录（smoke 80）；原39项之外明确追加吸焰令超重条件。气血／精神／创伤、实际费用、弱熟练及同对象卸装／落点分别核验，不把失手当拒绝、成功提示当背包交付，也不代表自然教学或完整明教。
+  school-mingjiao-apprentice-learning- 为张无忌自然拜师与圣火令普通授课的有限19条件430计划记录（smoke 38）；先天／有效属性、实际师承、取消／重复拜师、普通授课上限与部分学习分列，不以拜师准备成功冒充学习增长。
+school-mingjiao-recruit- 为六教师自然拜师及范遥／小昭原入口限制的85条件170计划记录（smoke 170），302原apprentice/cancel命令；实际新师承、转世请安、意向／叛师确认、拒绝和取消分账，不代表前置自然养成、普通授课或全部明教完成。
+school-mingjiao-gift- 为杨逍原询问赠幻灵剑的16条件32计划记录（smoke 32），34次原ask；唯一物品身份、资格、实际到手／超重落地、已持有和询问费用分列，不代表自然拜师、装备效果或明教完成。
+ school-mingjiao-book- 为原密室领书、取书及乾坤秘籍研读的26条件52计划记录（smoke 52），56次原命令；物品出现／取得、原学习进度／升级、精神费用／余量清零分列。资格与初始位置为实验输入，石门路线、冷加载及完整明教另行采集。
+school-mingjiao-qkd- 为乾坤大挪移招架及原定时反击的39条件3430计划记录（smoke 78）；普通化解、实际排队、反击与离战早退分列，仅实际排队时等待，不代表全门派或自然养成。
+school-mingjiao-jiuyang- 为九阳被动、防御与徒手普攻的67条件2094计划记录（smoke 134）；转世/兵器许可用法、招架系数、原取消费用和原创伤分别观察。五perform、三exert、修养与完整交锋另待采，不把实验转世资格当自然养成。
+school-mingjiao-learning-jiuyang- 为九阳原学习资格、难度与禁止练习的37条件74计划记录（smoke 74），82次原命令；首次兵器许可与同角色重复资格分步观察，不冒充教师授课或实际成长。
+school-mingjiao-direct-jiuyang- 为混沌一阳、金阳破岭、骄阳劈天的54条件1186计划记录（smoke 108）；直接伤害、创伤、同步扣内力及原弱熟练分账，实验配功不冒自然养成。
+school-mingjiao-remaining-jiuyang- 为九曦混阳、魔光日无极的53条件2556计划记录（smoke 106）；九次普通攻击与被动附伤、双敌群攻及旁观者分别观察，内力毛消耗/恢复/净变化分账；三exert和修养尚待独立采集。
+school-mingjiao-exert-jiuyang- 为九阳powerup/shield/roar的独立运功条件；即时属性、逐敌损伤、拒绝前扣费与真实关系分列，自然解除保持原delay另采，不以即时结果代替生命周期；计划不表示已采齐。
+school-mingjiao-remaining-perform- 为明教剩余17个原绝招的328条件16532计划记录（smoke 656）；原命令、费用、普通攻击被动、即时控制和毒种、三角色挪移及真实花瓣分别观察。毒种不表示自然毒发或解除，实验资格不证明自然师承；计划数量不是已采数量。
+  weapon-special 独立采集普通／白绸鞭材质及加力对照，固定 200 级，不与旧中性系列混算。
 teaching 经原 ask/give/learn 与真实 NPC 采集授课、交书许可、学习进度和扣费；确定性条件 2 次，随机条件按计划增加，smoke 为 1 次。
 teaching-emei-learn- 前缀为28个峨嵋NPC的466条已学关系，1497条件5836计划记录；smoke为1497条。原learn、禁授、上限与实际进度分开，实验预设师承不证明NPC可拜师或正常养成可得。
 teaching-emei-recruit- 前缀为28个峨嵋NPC的原apprentice/recruit链路，验证门槛、改名、完整师承、意向、重复与取消；实验资格不证明自然养成。
@@ -76,7 +99,13 @@ school-emei-recovery- 为峨嵋三门内功的恢复与原心跳打坐，153条�
 school-emei-support- 为峨嵋原心跳疗伤、实际异常驱除与公共强化序列，477条件9186计划记录；smoke为840条。自然恢复、技能单跳、原halt、部分驱除及显式补给分账；存储探针不替代登录或死亡全链。
 school-emei-jiuyin- 为周芷若额外三门攻招的实验玩家采集，普攻、四入口、资格、费用、直接死亡与原催心减益解除分别统计；不代表NPC原配装或其余两门额外能力完成。
 school-emei-buff-jiuyin- 为易筋锻骨强化、护体和九阴归元的实验玩家采集，分别记录临时字段、实际属性与原时钟解除；不混入攻招前缀，不代表原NPC配装或防御能力完成。
+school-mingjiao-public-force- 为圣火心法／圣火神功公共运功即时作用，122条件1812计划记录（smoke 244）；替人疗伤、无异常驱除、聚气与天魔自损分列，roar/shot为原白名单拒绝。受控技能搭配不证明NPC自用、自然师承或完整生命周期。
+school-mingjiao-teachers- 为九位明教NPC其余普通授课与原资格边界，363条件11604计划记录（smoke 726）；普通／转世身份、知识教师上限、拒教、资源和真实装备分列。原learn1不清节流、不预写熟练；实验师承不证明自然收徒，不重复已采张无忌令法。
+school-taohua-force- 为碧波神功强化／恢复与暗影浮香练习／研究，29条件352计划记录（smoke 58）；原接口资格、容量查询、强化50秒到期、原研究／练习与部分进度分别记录，不改原游戏或时间。
+teaching-taohua- 前缀为桃花岛普通学习／拜师／五书取得和研读，187条件3608计划记录；smoke为187条。原learn、许可、随机进度、正式拜师、转介与原单例书载体链分开，实验师承/持书不证明自然养成；study无教师路线只扩展既有观察器，不制造NPC。
 school-scene 采集伏魔圈原go入场、退出及再入场；资格条件2次、含随机攻击条件100次（smoke 1次）。failure前缀另采低气血失败，followup条件按原时钟等待105/5秒并尝试退出。仅记录原行为，不把场景许可当作学会武功。
+  school-scene-mingjiao-route-main- 前缀另采原石门 break 门槛、实际扣费、5秒自然关门、密道行走和秘籍取得，共8条件16条（smoke 8）。返回1、开门、进入和物品交付分别统计，不造出口、不手动关门回调、不钳负内力。
+  school-scene-mingjiao-route-cold-9-mishi-0、school-scene-mingjiao-route-cold-mishi-9-0、school-scene-mingjiao-route-cold-0-mishi-9 各须用 --case 单独系列、单样本、独立驱动记录原房间首载顺序，不能合批或把预加载当玩家行走。
 gifts 前缀通过原 ask/give/drop/get 采集三件宝物的经验门槛、唯一归属、重复领取及归还；2次豁免条件与100次普通入场条件分列。
 special 前缀另采缺席／昏迷守阵者、大宗师及辈分优先级、双玩家原give转交；每条件2次，初态布置和原命令分别留证，不预写入场许可。
 例：node tools/collect_martial_data.mjs inventory
@@ -102,7 +131,8 @@ export function parseArgs(args) {
                 : ['teaching', 'school-team', 'school-scene'].includes(options.command) ? ['--output', '--driver', '--case',
                     ...(['teaching', 'school-scene'].includes(options.command) ? ['--case-prefix'] : [])]
                 : ['--output', '--driver', '--samples', '--case', ...(options.command === 'weapons' ? ['--level'] : []),
-                    ...(options.command === 'school-combat' ? ['--case-prefix'] : [])];
+                    ...(['school-combat', 'abilities'].includes(options.command) ? ['--case-prefix'] : []),
+                    ...(options.command === 'school-combat' ? ['--case-group'] : [])];
         assert.ok(allowed.includes(key) && args[i + 1] && !args[i + 1].startsWith('--'), `无效参数：${key}`);
         assert.ok(!seen.has(key), `重复参数：${key}`); seen.add(key);
         const value = args[++i];
@@ -111,10 +141,13 @@ export function parseArgs(args) {
             options[key.slice(2)] = Number(value);
         } else if (key === '--case' || key === '--case-prefix') {
             assert.ok(/^[a-z][a-z0-9_-]*$/.test(value), '条件 ID 无效'); options[key === '--case' ? 'case' : 'casePrefix'] = value;
+        } else if (key === '--case-group') {
+            assert.ok(/^[a-z][a-z0-9_-]*$/.test(value), '条件组无效'); options.caseGroup = value;
         } else options[key.slice(2)] = resolve(value);
     }
     if (['coverage', 'resume', 'statistics'].includes(options.command)) assert.ok(options.input, options.command + ' 需要 --input 系列目录');
     assert.ok(!(options.case && options.casePrefix), '--case 与 --case-prefix 不能同用');
+    assert.ok(!(options.caseGroup && (options.case || options.casePrefix)), '--case-group 与 --case、--case-prefix 不能同用');
     return options;
 }
 

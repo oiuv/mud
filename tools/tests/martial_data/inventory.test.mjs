@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync,
+    rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { buildInventory, isInside, scanSource, sha256 } from './inventory.mjs';
@@ -83,6 +84,9 @@ test('清单包含实际新增文件、共享头文件及循环 include，私密
     put('include/weapon.h', '#define AXE "/inherit/weapon/axe"\n');
     put('include/shared.h', '#include <globals.h>\n');
     put('data/private.h', 'SECRET_DO_NOT_READ');
+    const commands = ['learn', 'study', 'apprentice', 'recruit'];
+    for (const command of commands)
+        put('cmds/skill/' + command + '.c', 'int main() { return 1; }');
     const inventory = buildInventory(temp);
     assert.deepEqual(inventory.totals, { skill_top_level: 1, skill_nested: 1, skill_headers: 0,
         class_lpc: 1, class_headers: 1, class_directory_groups: 1, related_headers: 3 });
@@ -90,6 +94,40 @@ test('清单包含实际新增文件、共享头文件及循环 include，私密
     assert.equal(inventory.files.find(f => f.path.endsWith('act.c')).directives[0].status, 'unresolved');
     assert.equal(inventory.files.find(f => f.path.endsWith('foo.lpc')).directives[0].resolved, 'include/shared.h');
     for (const file of inventory.files) assert.equal(file.sha256, sha256(readFileSync(join(temp, file.path))));
+    assert.deepEqual(inventory.public_command_files, commands.map(command => ({
+        path: 'cmds/skill/' + command + '.c', sha256: sha256('int main() { return 1; }'),
+    })));
+    put('cmds/skill/study.c', 'int main() { return 2; }');
+    const changed = buildInventory(temp);
+    assert.equal(changed.source_fingerprint, inventory.source_fingerprint);
+    assert.deepEqual(changed.totals, inventory.totals);
+    assert.deepEqual(changed.files, inventory.files);
+    assert.deepEqual(changed.public_command_files, inventory.public_command_files.map(file =>
+        file.path === 'cmds/skill/study.c' ? { ...file, sha256: sha256('int main() { return 2; }') } : file));
+});
+
+test('公共命令先核真实路径，拒绝经目录链接读取仓库外字节', () => {
+    const temp = mkdtempSync(join(tmpdir(), 'mud-martial-command-boundary-'));
+    const publicRoot = join(temp, 'public'), outside = join(temp, 'outside-commands');
+    const link = join(publicRoot, 'cmds/skill');
+    const put = (path, source) => { mkdirSync(dirname(join(temp, path)), { recursive: true }); writeFileSync(join(temp, path), source); };
+    try {
+        put('public/kungfu/skill/foo.c', 'int valid_learn() { return 1; }');
+        mkdirSync(join(publicRoot, 'kungfu/class'), { recursive: true });
+        put('public/include/globals.h', ''); put('public/include/weapon.h', '');
+        for (const command of ['learn', 'study', 'apprentice', 'recruit'])
+            put('outside-commands/' + command + '.c', 'TEST_ONLY_OUTSIDE_PUBLIC_ROOT');
+        mkdirSync(dirname(link), { recursive: true });
+        symlinkSync(outside, link, process.platform === 'win32' ? 'junction' : 'dir');
+        assert.throws(() => buildInventory(publicRoot), /源码越界：cmds\/skill\/learn\.c/);
+    } finally {
+        const item = lstatSync(link, { throwIfNoEntry: false });
+        if (item) { assert.ok(item.isSymbolicLink()); unlinkSync(link); }
+        assert.equal(lstatSync(link, { throwIfNoEntry: false }), undefined);
+        const resolved = realpathSync(temp);
+        assert.equal(dirname(resolved), realpathSync(tmpdir()));
+        rmSync(resolved, { recursive: true, force: true });
+    }
 });
 
 test('当前库真实清单逐项覆盖；包含只有继承的基本功，未误当作零伤害', () => {

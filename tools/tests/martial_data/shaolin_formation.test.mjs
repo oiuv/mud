@@ -37,7 +37,7 @@ function fixture(c) {
 
 test('60条资格条件重复两次、两条自然等待单采，旧9299条件指纹不变', () => {
     assert.equal(cases.length, 62); assert.equal(cases.reduce((n,c) => n+c.samples, 0), 122);
-    const old = all.filter(c => !['shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers'].includes(c.parameters.teaching_profile));
+    const old = all.filter(c => !['shaolin-formation', 'shaolin-challenge', 'emei-teachers', 'emei-recruit', 'emei-special', 'emei-tonsure', 'gumu-teachers', 'gumu-special', 'gumu-recruit', 'gumu-item-acquisition', 'gumu-acquisition-learning', 'taohua-learning'].includes(c.parameters.teaching_profile));
     assert.equal(old.length, 9299);
     assert.equal(sha256(JSON.stringify(old)), '1c1e2724c70aaa6988c61d3b5ebd878f2cedd1952ca9f7535a8d721c6578d4a3');
     for (const c of cases) assert.equal(c.parameters.actor.temp, undefined);

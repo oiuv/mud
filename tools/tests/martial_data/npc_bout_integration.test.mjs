@@ -38,9 +38,14 @@ test('隔离源冻结头文件/专用报告/真实四条源链；旧10探针仍�
         'npc_bout_integration.test.mjs', 'school_gumu_npc_bout_cases.mjs',
         'school_gumu_npc_bout_report.mjs', 'school_gumu_npc_bout_report.test.mjs'])
         assert.equal(snapshot.files['tools/tests/martial_data/' + name], sha256(read('tools/tests/martial_data/' + name)));
-    assert.equal(snapshot.probes.filter(p => p.path !== 'kungfu/skill/tanzhi-shentong/ding.c').length, 14);
+    const fusion = snapshot.probes.filter(p => p.path === 'cmds/skill/yanlian.c');
+    assert.equal(fusion.length, 1); assert.equal(fusion[0].sites.length, 17);
+    assert.equal(fusion[0].before, 'd434aebcd23144b26e47309526113734f50298d4f53ace0f5ae4f3f9e042e436');
+    assert.equal(fusion[0].after, '56876cbe4096940d431bf7b6c93648e048b462b41d832b28ac8f401c567ff5f8');
+    const probes = snapshot.probes.filter(p => p.path !== 'cmds/skill/yanlian.c');
+    assert.equal(probes.filter(p => p.path !== 'kungfu/skill/tanzhi-shentong/ding.c').length, 14);
     for (const path of ['inherit/char/char.c', 'inherit/char/npc.c', 'feature/damage.c', 'adm/daemons/chard.c'])
-        assert.ok(snapshot.probes.some(p => p.path === path && p.before !== p.after && p.sites.length));
+        assert.ok(probes.some(p => p.path === path && p.before !== p.after && p.sites.length));
 });
 
 test('空/错误报告保留未知；统计与学校页面只用NPC专节，不用旁观USER计损', () => {

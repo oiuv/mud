@@ -341,5 +341,14 @@ test('隔离入口观察原tell_object消息，零忙乱返回后重新读取而
     assert.match(runner, /"function"\] == "skill_improved"[\s\S]*?type == "tell_object"[\s\S]*?current\["skill_messages"\] \+=/);
     assert.match(runner, /result = call_other\(players\[spec\["player_side"\]\], "start_busy", spec\["amount"\]\);[\s\S]*?if \(!spec\["amount"\]\)[\s\S]*?busy_call\["after"\] = serializable\(players\[spec\["player_side"\]\]->query_busy\(\)\);/);
     assert.doesNotMatch(runner, /call\["after"\] = call\["before"\]/);
-    assert.match(runner, /member_array\(\s*current\["parameters"\]\["collection_group"\],\s+\(\{ "gumu-hubo", "gumu-quanzhen", "gumu-temporal" \}\)\s*\) != -1\)\s+ob->restore_busy\(\(\{ config\["busy"\], 0 \}\)\)/);
+    const normalized = runner.replace(/\s+/g, ' ');
+    const remainingScope = '"mingjiao-qkd", "mingjiao-remaining-perform", "mingjiao-remaining-base" })) != -1 ||';
+    assert.equal(normalized.split(remainingScope).length, 2, 'only the exact added busy restoration scope');
+    assert.ok(normalized.replace(remainingScope, '"mingjiao-qkd" })) != -1 ||').includes(
+        'if (member_array(current["parameters"]["collection_group"], '
+        + '({ "gumu-hubo", "gumu-quanzhen", "gumu-temporal", "taohua-music", "mingjiao-qkd" })) != -1 || '
+        + '(!side && member_array(current["parameters"]["teaching_profile"], '
+        + '({ "gumu-recruit", "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-book" })) != -1)) '
+        + 'ob->restore_busy(({ config["busy"], 0 })); else ob->start_busy(config["busy"]);'
+    ), 'original exact busy restoration scopes and fallback remain');
 });

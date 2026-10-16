@@ -19,9 +19,11 @@ int attack() {
 }
 
 void continue_action() {
+    "/tests/runner"->observe_jiuyang_fusion_caller(this_object(), "before");
     "/tests/runner"->observe_exercise(this_object(), "before");
     "/tests/runner"->observe_healing(this_object(), "before");
     ::continue_action();
+    "/tests/runner"->observe_jiuyang_fusion_caller(this_object(), "after");
     "/tests/runner"->observe_healing(this_object(), "after");
     "/tests/runner"->observe_exercise(this_object(), "after");
 }

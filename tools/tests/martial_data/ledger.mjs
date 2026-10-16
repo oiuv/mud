@@ -41,7 +41,34 @@ function validateConditions(conditions) {
     digest(conditions);
 }
 
-export function createSeries(directory, { inventory, catalog, conditions, execution, teachingEntries = [], sceneEntries = [], npcEntries = [] }) {
+function validateFusionEntries(conditions, execution, entries) {
+    for (const condition of conditions.filter(c => c.parameters.collection_group === 'mingjiao-jiuyang-fusion')) {
+        assert.equal(execution.collection, 'school-combat');
+        assert.equal(typeof execution.smoke, 'boolean', '融合模式必须来自原执行身份');
+        assert.equal(condition.parameters.run_mode, execution.smoke ? 'smoke' : 'formal', '融合条件模式不匹配');
+        assert.equal(execution.fusion_watchdog_seconds, 30, '融合 watchdog 不得从空观察窗口推导');
+        const source = condition.parameters.source_entry;
+        const matches = entries.filter(entry => entry.id === condition.entry_id);
+        assert.equal(matches.length, 1, '融合入口必须唯一');
+        for (const key of ['id', 'path', 'sha256']) assert.equal(matches[0][key], source[key]);
+        assert.equal(execution.source_files?.[source.path], source.sha256, '融合入口必须绑定冻结源码');
+        if (condition.method === 'yanlian') {
+            assert.deepEqual(source, { id: 'cmds/skill/yanlian.c:12:main', path: 'cmds/skill/yanlian.c',
+                line: 12, function: 'main', role: 'command', sha256: source.sha256 });
+            assert.match(source.sha256, /^[a-f0-9]{64}$/);
+            assert.deepEqual(matches[0], source);
+        } else {
+            assert.equal(condition.method, 'interface');
+            assert.equal(source.role, 'interface');
+            const roles = { 'kungfu/skill/jiuyang-shengong.c:109:get_ready': 'other_function',
+                'kungfu/skill/jiuyang-shengong.c:181:query_sub_skills': 'query_or_gate' };
+            assert.ok(Object.hasOwn(roles, source.id), '融合查询必须是两个原接口');
+            assert.equal(matches[0].role, roles[source.id], '保留原 catalog 的入口角色');
+        }
+    }
+}
+
+export function createSeries(directory, { inventory, catalog, conditions, execution, teachingEntries = [], sceneEntries = [], npcEntries = [], commandEntries = [] }) {
     assert.equal(inventory.source_fingerprint, catalog.source_fingerprint, '清单与关系索引的源码不同');
     validateConditions(conditions);
     assert.ok(object(execution) && Object.keys(execution).length > 0, '缺少驱动/夹具版本');
@@ -51,10 +78,17 @@ export function createSeries(directory, { inventory, catalog, conditions, execut
     ]);
     for (const entry of teachingEntries) {
         assert.equal(entry.role, 'teaching', '附加入口必须是教学来源');
-        assert.ok(entry.path.startsWith('kungfu/class/') && Number.isSafeInteger(entry.line)
+        const bookEntry = conditions.some(c => c.parameters.collection_group === 'mingjiao-book'
+            && c.entry_id === entry.id)
+            && ((entry.path === 'd/mingjiao/mishi.c' && entry.line === 35 && entry.function === 'do_ketou')
+                || (entry.path === 'cmds/std/get.c' && entry.line === 12 && entry.function === 'main'));
+        assert.ok((entry.path.startsWith('kungfu/class/') || entry.path === 'cmds/skill/study.c' || bookEntry)
+            && Number.isSafeInteger(entry.line)
             && entry.line > 0 && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(entry.function), '教学入口定位无效');
         assert.equal(entry.id, `${entry.path}:${entry.line}:${entry.function}`, '教学入口身份不一致');
-        assert.ok(inventory.files?.some(f => f.path === entry.path && f.sha256 === entry.sha256),
+        assert.ok(inventory.files?.some(f => f.path === entry.path && f.sha256 === entry.sha256)
+            || (inventory.public_command_files ?? []).some(f => f.path === entry.path && f.sha256 === entry.sha256)
+            || (bookEntry && execution.source_files?.[entry.path] === entry.sha256),
             '教学入口不属于源码快照');
         assert.ok(!entries.some(e => e.id === entry.id), '教学入口重复');
         entries.push(entry);
@@ -73,12 +107,26 @@ export function createSeries(directory, { inventory, catalog, conditions, execut
     for (const entry of npcEntries) {
         assert.equal(entry.role, 'npc', 'NPC 配装不得冒充武学或教学入口');
         assert.equal(entry.id, entry.path);
-        assert.match(entry.path, /^kungfu\/class\/(?:emei\/[a-z0-9_-]+\.(?:c|lpc)|gumu\/(?:li|lin|longnv|yang)\.c)$/);
+        assert.match(entry.path, /^kungfu\/class\/(?:emei\/[a-z0-9_-]+\.(?:c|lpc)|gumu\/(?:li|lin|longnv|yang)\.c|taohua\/[a-z]+\.(?:c|lpc)|mingjiao\/(?:daijisi|fanyao|lengqian|weiyixiao|xiaozhao|xiexun|yangxiao|yintianzheng|zhangwuji)\.c)$/);
         assert.ok(inventory.files?.some(f => f.path === entry.path && f.sha256 === entry.sha256),
             'NPC 来源不属于当前源码快照');
         assert.ok(!entries.some(e => e.id === entry.id), 'NPC 来源重复');
         entries.push(entry);
     }
+    for (const entry of commandEntries) {
+        assert.equal(entry.role, 'command', '原命令入口不得冒充武学、教学或场景');
+        assert.equal(entry.id, 'cmds/skill/yanlian.c:12:main');
+        assert.equal(entry.path, 'cmds/skill/yanlian.c');
+        assert.equal(entry.line, 12); assert.equal(entry.function, 'main');
+        assert.match(entry.sha256, /^[a-f0-9]{64}$/);
+        assert.equal(execution.source_files?.[entry.path], entry.sha256, '命令入口不属于冻结源码');
+        assert.ok(conditions.some(c => c.parameters.collection_group === 'mingjiao-jiuyang-fusion'
+            && c.method === 'yanlian' && c.entry_id === entry.id
+            && digest(c.parameters.source_entry) === digest(entry)), '附加命令入口不属于所选融合条件');
+        assert.ok(!entries.some(e => e.id === entry.id), '命令入口重复');
+        entries.push(entry);
+    }
+    validateFusionEntries(conditions, execution, entries);
     for (const condition of conditions) assert.ok(entries.some(entry => entry.id === condition.entry_id),
         `条件引用的入口不在源码清单中：${condition.entry_id}`);
     const identity = { source_fingerprint: inventory.source_fingerprint,
@@ -99,6 +147,7 @@ export function openSeries(directory, expectedIdentity) {
     assert.equal(manifest.fingerprint, digest(manifest.identity), '系列清单被改写');
     assert.equal(manifest.identity.entries_sha256, digest(manifest.entries), '覆盖清单被改写');
     validateConditions(manifest.identity.conditions);
+    validateFusionEntries(manifest.identity.conditions, manifest.identity.execution, manifest.entries);
     if (expectedIdentity) assert.equal(digest(expectedIdentity), manifest.fingerprint,
         '源码、字典、驱动、夹具或参数不同，必须新建系列');
     return manifest;

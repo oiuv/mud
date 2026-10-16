@@ -5,6 +5,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
+import { mingjiaoJiuyangFusionProbes, restoreMingjiaoJiuyangFusionProbes }
+    from './school_mingjiao_jiuyang_fusion_probes.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 import { createSandbox, validateQualificationSources, validateRecord } from './execution.mjs';
 import { taohuaAttacks, taohuaAttackConditions, taohuaAttackSourcePaths,
@@ -79,7 +81,7 @@ function syntheticRecord(condition, { extra = false, result = 0, passive = true,
 test('旧15880完整有序矩阵不变，仅尾追加六门普攻25条件2108/25计划', () => {
     for (const smoke of [false, true]) {
         const all = schoolCombatConditions(catalog, { smoke })
-            .filter(c => !['taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination'].includes(c.parameters.collection_group));
+            .filter(c => !['taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination', 'taohua-force', 'taohua-music', 'taohua-npc', 'mingjiao-core', 'mingjiao-qishang', 'mingjiao-xinfa', 'mingjiao-movement', 'mingjiao-shengong', 'mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform', 'mingjiao-apprentice-learning', 'mingjiao-public-force', 'mingjiao-teachers', 'mingjiao-recruit', 'mingjiao-gift', 'mingjiao-book', 'mingjiao-qkd', 'mingjiao-jiuyang', 'mingjiao-jiuyang-learning', 'mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining', 'mingjiao-jiuyang-exert', 'mingjiao-jiuyang-capacity', 'mingjiao-jiuyang-research', 'mingjiao-jiuyang-fusion', 'mingjiao-remaining-perform', 'mingjiao-remaining-base', 'mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout'].includes(c.parameters.collection_group));
         assert.equal(all.length, 15905);
         assert.equal(new Set(all.map(c => c.id)).size, all.length);
         // Independently regenerated with preserved tctl-v1 modules and its original F1 catalog.
@@ -100,9 +102,30 @@ test('旧15880完整有序矩阵不变，仅尾追加六门普攻25条件2108/25
 
 test('实际冻结新增四文件和34来源，15文件48锚点探针没有扩张', () => {
     const state = snapshot();
+    const remainingMingjiaoFiles = [
+        'school_mingjiao_remaining_base_cases.mjs',
+        'school_mingjiao_remaining_base_cases.test.mjs',
+        'school_mingjiao_remaining_base_record.mjs',
+        'school_mingjiao_remaining_base_record.test.mjs',
+        'school_mingjiao_remaining_base_report.mjs',
+        'school_mingjiao_remaining_base_report.test.mjs',
+        'school_mingjiao_remaining_base_integration.test.mjs',
+        'school_mingjiao_force_remaining_cases.mjs',
+        'school_mingjiao_force_remaining_cases.test.mjs',
+        'school_mingjiao_force_remaining_record.mjs',
+        'school_mingjiao_force_remaining_record.test.mjs',
+        'school_mingjiao_force_remaining_report.mjs',
+        'school_mingjiao_force_remaining_report.test.mjs',
+        'school_mingjiao_combination_cases.mjs',
+        'school_mingjiao_combination_cases.test.mjs',
+        'school_mingjiao_combination_record.mjs',
+        'school_mingjiao_combination_record.test.mjs',
+        'school_mingjiao_combination_report.mjs',
+        'school_mingjiao_combination_report.test.mjs'];
     for (const name of ['school_taohua_attack_cases.mjs', 'school_taohua_attack.test.mjs',
         'school_taohua_attack_report.test.mjs', 'taohua_attack_integration.test.mjs',
-        'runner.lpc', 'execution.mjs', 'school_combat_cases.mjs', 'school_combat_report.mjs', 'statistics.mjs']) {
+        'runner.lpc', 'execution.mjs', 'school_combat_cases.mjs', 'school_combat_report.mjs', 'statistics.mjs',
+        ...remainingMingjiaoFiles]) {
         const path = 'tools/tests/martial_data/' + name;
         assert.equal(state.files[path], sha256(read(path)), path);
     }
@@ -113,12 +136,166 @@ test('实际冻结新增四文件和34来源，15文件48锚点探针没有扩�
         'school_taohua_passive_cases.mjs', 'school_taohua_passive.test.mjs',
         'school_taohua_passive_report.test.mjs', 'school_taohua_passive_integration.test.mjs',
         'school_taohua_combination_cases.mjs', 'school_taohua_combination.test.mjs',
-        'school_taohua_combination_report.test.mjs', 'school_taohua_combination_integration.test.mjs']
+        'school_taohua_combination_report.test.mjs', 'school_taohua_combination_integration.test.mjs',
+        'school_taohua_force_cases.mjs', 'school_taohua_force.test.mjs',
+        'school_taohua_force_report.test.mjs',
+        'school_taohua_learning_cases.mjs', 'school_taohua_learning.test.mjs',
+        'learning_cases.mjs',
+        'skill_music_cases.mjs',
+        'school_taohua_music_cases.mjs', 'school_taohua_music.test.mjs',
+        'school_taohua_npc_cases.mjs', 'school_taohua_npc.test.mjs',
+        'skill_music_cases.test.mjs', 'skill_inherited_cases.mjs', 'skill_inherited_cases.test.mjs',
+        'school_mingjiao_core_cases.mjs', 'school_mingjiao_core_cases.test.mjs',
+        'school_mingjiao_core_integration.test.mjs',
+        'school_mingjiao_qishang_cases.mjs', 'school_mingjiao_qishang_cases.test.mjs',
+        'school_mingjiao_qishang_integration.test.mjs',
+        'school_mingjiao_xinfa_cases.mjs', 'school_mingjiao_xinfa_cases.test.mjs',
+        'school_mingjiao_xinfa_integration.test.mjs',
+        'school_mingjiao_movement_cases.mjs', 'school_mingjiao_movement_cases.test.mjs',
+        'school_mingjiao_movement_integration.test.mjs',
+        'school_mingjiao_shengong_cases.mjs', 'school_mingjiao_shengong_cases.test.mjs',
+        'school_mingjiao_shengong_integration.test.mjs',
+        'school_mingjiao_shenghuo_cases.mjs', 'school_mingjiao_shenghuo_cases.test.mjs',
+        'school_mingjiao_shenghuo_integration.test.mjs',
+        'school_mingjiao_ling_learning_cases.mjs', 'school_mingjiao_ling_learning_cases.test.mjs',
+        'school_mingjiao_ling_learning_integration.test.mjs',
+        'school_mingjiao_ling_perform_cases.mjs', 'school_mingjiao_ling_perform_cases.test.mjs',
+        'school_mingjiao_ling_perform_integration.test.mjs',
+        'school_mingjiao_apprentice_learning_cases.mjs', 'school_mingjiao_apprentice_learning.test.mjs',
+        'school_mingjiao_apprentice_learning_integration.test.mjs',
+        'school_mingjiao_public_force_cases.mjs', 'school_mingjiao_public_force_cases.test.mjs',
+        'school_mingjiao_public_force_integration.test.mjs',
+        'school_mingjiao_teachers_cases.mjs', 'school_mingjiao_teachers_cases.test.mjs',
+        'school_mingjiao_teachers_integration.test.mjs',
+        'school_mingjiao_recruit_cases.mjs', 'school_mingjiao_recruit_cases.test.mjs',
+        'school_mingjiao_recruit_integration.test.mjs', 'school_mingjiao_recruit_report.test.mjs',
+        'school_mingjiao_gift_cases.mjs', 'school_mingjiao_gift_cases.test.mjs',
+        'school_mingjiao_gift_integration.test.mjs', 'school_mingjiao_gift_report.test.mjs',
+        'school_mingjiao_book_cases.mjs', 'school_mingjiao_book_cases.test.mjs',
+        'school_mingjiao_book_integration.test.mjs', 'school_mingjiao_book_report.test.mjs',
+        'route_observer.lpc', 'school_mingjiao_route_cases.mjs', 'school_mingjiao_route_cases.test.mjs',
+        'school_mingjiao_route_integration.test.mjs', 'school_mingjiao_route_report.mjs',
+        'school_mingjiao_route_report.test.mjs',
+        'school_mingjiao_qkd_cases.mjs', 'school_mingjiao_qkd_cases.test.mjs',
+        'school_mingjiao_qkd_integration.test.mjs', 'school_mingjiao_qkd_report.mjs',
+        'school_mingjiao_qkd_report.test.mjs',
+        'school_mingjiao_jiuyang_cases.mjs', 'school_mingjiao_jiuyang_cases.test.mjs',
+        'school_mingjiao_jiuyang_integration.test.mjs', 'school_mingjiao_jiuyang_report.mjs',
+        'school_mingjiao_jiuyang_report.test.mjs',
+        'school_mingjiao_jiuyang_learning_cases.mjs', 'school_mingjiao_jiuyang_learning_cases.test.mjs',
+        'school_mingjiao_jiuyang_learning_integration.test.mjs', 'school_mingjiao_jiuyang_learning_report.mjs',
+        'school_mingjiao_jiuyang_learning_report.test.mjs',
+        'school_mingjiao_jiuyang_direct_cases.mjs', 'school_mingjiao_jiuyang_direct_cases.test.mjs',
+        'school_mingjiao_jiuyang_direct_integration.test.mjs', 'school_mingjiao_jiuyang_direct_report.mjs',
+        'school_mingjiao_jiuyang_direct_report.test.mjs',
+        'school_mingjiao_jiuyang_remaining_cases.mjs', 'school_mingjiao_jiuyang_remaining_cases.test.mjs',
+        'school_mingjiao_jiuyang_remaining_integration.test.mjs', 'school_mingjiao_jiuyang_remaining_report.mjs',
+        'school_mingjiao_jiuyang_remaining_report.test.mjs',
+        'school_mingjiao_jiuyang_exert_cases.mjs', 'school_mingjiao_jiuyang_exert_cases.test.mjs',
+        'school_mingjiao_jiuyang_exert_integration.test.mjs', 'school_mingjiao_jiuyang_exert_report.mjs',
+        'school_mingjiao_jiuyang_exert_report.test.mjs',
+        'school_mingjiao_jiuyang_capacity_cases.mjs', 'school_mingjiao_jiuyang_capacity_cases.test.mjs',
+        'school_mingjiao_jiuyang_capacity_observation.mjs', 'school_mingjiao_jiuyang_capacity_observation.test.mjs',
+        'school_mingjiao_jiuyang_capacity_report.mjs', 'school_mingjiao_jiuyang_capacity_report.test.mjs',
+        'school_mingjiao_jiuyang_capacity_integration.test.mjs',
+        'school_mingjiao_jiuyang_research_cases.mjs',
+        'school_mingjiao_jiuyang_research_cases.test.mjs',
+        'school_mingjiao_jiuyang_research_observation.mjs',
+        'school_mingjiao_jiuyang_research_observation.test.mjs',
+        'school_mingjiao_jiuyang_research_report.mjs',
+        'school_mingjiao_jiuyang_research_report.test.mjs',
+        'school_mingjiao_jiuyang_research_integration.test.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+        'school_mingjiao_remaining_perform_cases.mjs',
+        'school_mingjiao_remaining_perform_cases.test.mjs',
+        'school_mingjiao_remaining_perform_record.mjs',
+        'school_mingjiao_remaining_perform_record.test.mjs',
+        'school_mingjiao_remaining_perform_report.mjs',
+        'school_mingjiao_remaining_perform_report.test.mjs',
+        'school_mingjiao_remaining_perform_integration.test.mjs', ...remainingMingjiaoFiles]
         .map(name => 'tools/tests/martial_data/' + name);
-    assert.equal(Object.keys(state.files).filter(path => !comboFiles.includes(path)).length, 10380);
-    assert.equal(state.probes.length, 15);
-    assert.equal(state.probes.reduce((n, p) => n + p.sites.length, 0), 48);
-    assert.equal(sha256(JSON.stringify(state.probes)),
+    assert.equal(state.files['help/notice'], sha256(read('help/notice')), 'new public notice outside legacy snapshot');
+    assert.equal(Object.keys(state.files).filter(path => path !== 'help/notice' && !comboFiles.includes(path)).length, 10380);
+    for (const name of ['school_taohua_music_cases.mjs', 'school_taohua_music.test.mjs',
+        'school_taohua_npc_cases.mjs', 'school_taohua_npc.test.mjs', 'skill_music_cases.test.mjs',
+        'skill_inherited_cases.mjs', 'skill_inherited_cases.test.mjs',
+        'school_mingjiao_core_cases.mjs', 'school_mingjiao_core_cases.test.mjs',
+        'school_mingjiao_core_integration.test.mjs',
+        'school_mingjiao_qishang_cases.mjs', 'school_mingjiao_qishang_cases.test.mjs',
+        'school_mingjiao_qishang_integration.test.mjs',
+        'school_mingjiao_xinfa_cases.mjs', 'school_mingjiao_xinfa_cases.test.mjs',
+        'school_mingjiao_xinfa_integration.test.mjs',
+        'school_mingjiao_movement_cases.mjs', 'school_mingjiao_movement_cases.test.mjs',
+        'school_mingjiao_movement_integration.test.mjs',
+        'school_mingjiao_shengong_cases.mjs', 'school_mingjiao_shengong_cases.test.mjs',
+        'school_mingjiao_shengong_integration.test.mjs',
+        'school_mingjiao_shenghuo_cases.mjs', 'school_mingjiao_shenghuo_cases.test.mjs',
+        'school_mingjiao_shenghuo_integration.test.mjs',
+        'school_mingjiao_ling_learning_cases.mjs', 'school_mingjiao_ling_learning_cases.test.mjs',
+        'school_mingjiao_ling_learning_integration.test.mjs',
+        'school_mingjiao_ling_perform_cases.mjs', 'school_mingjiao_ling_perform_cases.test.mjs',
+        'school_mingjiao_ling_perform_integration.test.mjs',
+        'school_mingjiao_apprentice_learning_cases.mjs', 'school_mingjiao_apprentice_learning.test.mjs',
+        'school_mingjiao_apprentice_learning_integration.test.mjs',
+        'school_mingjiao_public_force_cases.mjs', 'school_mingjiao_public_force_cases.test.mjs',
+        'school_mingjiao_public_force_integration.test.mjs',
+        'school_mingjiao_teachers_cases.mjs', 'school_mingjiao_teachers_cases.test.mjs',
+        'school_mingjiao_teachers_integration.test.mjs',
+        'school_mingjiao_recruit_cases.mjs', 'school_mingjiao_recruit_cases.test.mjs',
+        'school_mingjiao_recruit_integration.test.mjs', 'school_mingjiao_recruit_report.test.mjs',
+        'school_mingjiao_gift_cases.mjs', 'school_mingjiao_gift_cases.test.mjs',
+        'school_mingjiao_gift_integration.test.mjs', 'school_mingjiao_gift_report.test.mjs',
+        'school_mingjiao_book_cases.mjs', 'school_mingjiao_book_cases.test.mjs',
+        'school_mingjiao_book_integration.test.mjs', 'school_mingjiao_book_report.test.mjs',
+        'route_observer.lpc', 'school_mingjiao_route_cases.mjs', 'school_mingjiao_route_cases.test.mjs',
+        'school_mingjiao_route_integration.test.mjs', 'school_mingjiao_route_report.mjs',
+        'school_mingjiao_route_report.test.mjs']) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(state.files[path], sha256(read(path)), path);
+    }
+    // Only the separately reviewed yanlian probe is projected out of the old 15/48 baseline.
+    const fusionPath = 'cmds/skill/yanlian.c';
+    const fusionProbes = state.probes.filter(p => p.path === fusionPath);
+    assert.equal(fusionProbes.length, 1);
+    const fusionSource = read(fusionPath);
+    const prepared = mingjiaoJiuyangFusionProbes(fusionSource, { collectionGroup: 'mingjiao-jiuyang-fusion' });
+    assert.equal(prepared.sites.length, 17);
+    assert.deepEqual(fusionProbes[0], { path: fusionPath, before: sha256(fusionSource),
+        after: sha256(prepared.changed), sites: prepared.sites });
+    assert.equal(state.files[fusionPath], sha256(fusionSource));
+    assert.equal(restoreMingjiaoJiuyangFusionProbes(prepared.changed), fusionSource);
+    for (const name of [
+        'school_mingjiao_jiuyang_fusion_cases.mjs',
+        'school_mingjiao_jiuyang_fusion_cases.test.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.mjs',
+        'school_mingjiao_jiuyang_fusion_observation.test.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.mjs',
+        'school_mingjiao_jiuyang_fusion_probes.test.mjs',
+        'school_mingjiao_jiuyang_fusion_record.mjs',
+        'school_mingjiao_jiuyang_fusion_record.test.mjs',
+        'school_mingjiao_jiuyang_fusion_report.mjs',
+        'school_mingjiao_jiuyang_fusion_report.test.mjs',
+        'school_mingjiao_jiuyang_fusion_integration.test.mjs',
+        'jiuyang_fusion_receivers.h',
+    ]) {
+        const path = 'tools/tests/martial_data/' + name;
+        assert.equal(state.files[path], sha256(read(path)), path);
+    }
+    const historicalProbes = state.probes.filter(p => p.path !== fusionPath);
+    assert.equal(historicalProbes.length, 15);
+    assert.equal(historicalProbes.reduce((n, p) => n + p.sites.length, 0), 48);
+    assert.equal(sha256(JSON.stringify(historicalProbes)),
         'f348cc66c355fe076d78cbf6d897ec962168f3c6e4d8369caf9248dda9deac6a');
     assert.equal(taohuaAttackSourcePaths.length, 34);
     assert.equal(new Set(taohuaAttackSourcePaths).size, 34);
@@ -259,7 +436,7 @@ test('runner仅复用已选动作和被动快照，普通攻击一次且不重�
     assert.match(body(runner, 'observe_passive'), /current\["passives"\]\[<1\]\["before"\] = passive_before\[route\]/);
     assert.match(take, /member_array\(current\["parameters"\]\["collection_group"\],[\s\S]*?"taohua-attack"[\s\S]*?result\["fighting_opponent"\]/);
     assert.match(take, /result\["conditions"\] = serializable\(ob->query_condition\(\)\)/);
-    const branch = /if \(current\["parameters"\]\["collection_group"\] == "taohua-attack"\)\s*\{([\s\S]*?)\n    \}/.exec(take);
+    const branch = /member_array\(current\["parameters"\]\["collection_group"\],\s+\(\{ "taohua-attack", "taohua-passive", "taohua-combination"[^}]*\}\)\) != -1\)\s*\{([\s\S]*?)\n    \}/.exec(take);
     assert.ok(branch, '独立只读ATTACK快照分支');
     assert.match(branch[1], /result\["cultivation"\]\["character"\] = ob->query\("character"\)/);
     assert.match(branch[1], /secondary = ob->query_temp\("secondary_weapon"\)/);
@@ -273,7 +450,7 @@ test('runner仅复用已选动作和被动快照，普通攻击一次且不重�
     const ordinary = /if \(action == "ordinary"\)\s*\{([\s\S]*?)\n    \} else \{/.exec(perform);
     assert.ok(ordinary, '保留公共普通攻击分支');
     assert.equal((ordinary[1].match(/COMBAT_D->do_attack\(/g) ?? []).length, 1);
-    assert.match(ordinary[1], /COMBAT_D->do_attack\(players\[0\], players\[1\], players\[0\]->query_temp\("weapon"\), TYPE_REGULAR\)/);
+    assert.match(ordinary[1], /COMBAT_D->do_attack\(\s*players\[0\],\s*players\[1\],\s*players\[0\]->query_temp\("weapon"\),\s*TYPE_REGULAR\s*\)/);
     assert.doesNotMatch(ordinary[1], /query_action|force_me|random\(|call_out\(/);
     assert.doesNotMatch(body(runner, 'observe_direct'), /"taohua-attack"/);
     assert.doesNotMatch(runner, /#include\s+["<]taohua_attack_receivers\.h[">]/);

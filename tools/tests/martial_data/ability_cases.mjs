@@ -1,6 +1,12 @@
 // Mechanism checks, deliberately separate from same-level weapon comparisons.
 import { weaponConditions } from './weapon_cases.mjs';
 import assert from 'node:assert/strict';
+import { learningConditions, validateLearningRecord } from './learning_cases.mjs';
+import { skillMusicLearnConditions, skillMusicConditions, validateSkillMusicRecord } from './skill_music_cases.mjs';
+import { skillInheritedConditions, validateSkillInheritedRecord } from './skill_inherited_cases.mjs';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { root } from '../../collect_martial_data.mjs';
 
 export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}) {
     const result = [], weapons = weaponConditions(catalog, { smoke: true });
@@ -64,11 +70,18 @@ export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}
         add('ability-ma001-flute-' + level, 'yuxiao-jian/qing', 'perform', p);
         result.at(-1).parameters.qualification_sources.push('kungfu/skill/chuixiao-jifa.c');
     }
-    return result;
+    const readSource = path => readFileSync(join(root, path));
+    return [...result, ...learningConditions(catalog),
+        ...skillMusicLearnConditions(catalog, readSource),
+        ...skillMusicConditions(catalog, readSource, { smoke, samples }),
+        ...skillInheritedConditions(catalog, readSource, { smoke })];
 }
 
 // Fixture acceptance, not a balance target. Values follow these explicit cases.
-export function validateAbilityRecord(raw) {
+export function validateAbilityRecord(raw, condition) {
+    if (raw.condition_id.startsWith('learning-')) return validateLearningRecord(raw, condition);
+    if (raw.condition_id.startsWith('skill-music-')) return validateSkillMusicRecord(raw, condition);
+    if (raw.condition_id.startsWith('skill-inherited-')) return validateSkillInheritedRecord(raw, condition);
     const actor = raw.immediate[0], target = raw.immediate[1], final = raw.after;
     switch (raw.condition_id) {
         case 'ability-recover':

@@ -210,7 +210,7 @@ test('命中后到达原轻功化解接口必须留证，不能把观测器过�
         validateGumuDefenseRecord(r, c);
     }
     assert.match(readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8'),
-        /route == "ordinary-dodge" && member_array[\s\S]*?\(\{ "emei-shexing", "gumu-defense" \}\)/);
+        /route == "ordinary-dodge" && member_array[\s\S]*?\(\{\s*"emei-shexing",\s*"gumu-defense",\s*"mingjiao-movement"\s*\}\)/);
 });
 
 test('完整身份、资源账和接口元数据不可缺失，不把未知、额外绝招或心跳伪作有效记录', () => {
