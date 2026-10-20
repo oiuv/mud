@@ -149,5 +149,5 @@ test('报告消费端传完整原condition而非planned汇总；精神与内力�
     assert.match(markdown, /未观察（n=0，未知=0）/);
     const report = read('tools/tests/martial_data/school_combat_report.mjs');
     assert.match(report, /condition\.taohua_xiao = taohuaXiaoReport\(rows\.filter\(r => r\.condition_id === condition\.id\),\s*conditions\.find\(c => c\.id === condition\.id\)\)/);
-    assert.match(report, /filter\(c => (?:!c\.[a-z_]+ && )*!c\.taohua_xiao && !c\.taohua_ding/);
+    assert.match(report, /filter\(c => (?:!c\.[a-z_0-9]+ && )*!c\.taohua_xiao && !c\.taohua_ding/);
 });

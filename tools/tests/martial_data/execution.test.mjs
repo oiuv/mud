@@ -25,6 +25,10 @@ test('隔离副本保留真实USER存盘所需公共公告并登记来源，不�
     const original = readFileSync(join(root, 'help/notice'));
     assert.deepEqual(readFileSync(join(snapshot.sandbox, 'help/notice')), original);
     assert.equal(snapshot.files['help/notice'], sha256(original));
+    for (let n = 1; n <= 29; n++) {
+        const path = `tools/tests/martial_data/b${n}_perform_cases.mjs`;
+        assert.equal(snapshot.files[path], sha256(readFileSync(join(root, path))), path);
+    }
     assert.ok(original.toString('utf8').split(/\r?\n/).some(line => line.trim().length > 0));
     for (const path of ['help/changelog', 'data/.env', 'data/player', 'u']) {
         assert.equal(existsSync(join(snapshot.sandbox, path)), false, path);
@@ -378,7 +382,7 @@ test('正式条件保留样本量/成长参数和两档加力，烟雾拒绝不�
 
 test('辅助机制独立配置；真实回调等待不缩短，学习检查不冒充教师传授', () => {
     const cases = abilityConditions(catalog, { smoke: true })
-        .filter(c => !c.id.startsWith('learning-') && !c.id.startsWith('skill-music-') && !c.id.startsWith('skill-inherited-'));
+        .filter(c => !c.id.startsWith('learning-') && !c.id.startsWith('skill-music-') && !c.id.startsWith('skill-inherited-') && !c.id.startsWith('public-special-'));
     assert.equal(cases.length, 12);
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 24);
     for (const c of cases) assert.ok(catalog.skills.some(s => s.entries.some(e => e.id === c.entry_id)));

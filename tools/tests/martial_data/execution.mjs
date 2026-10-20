@@ -37,6 +37,7 @@ import { taohuaPassiveSourcePaths } from './school_taohua_passive_cases.mjs';
 import { taohuaCombinationSourcePaths, taohuaCombinationPairs, taohuaCombinationSkills } from './school_taohua_combination_cases.mjs';
 import { skillMusicSourcePaths } from './skill_music_cases.mjs';
 import { skillInheritedSourcePaths } from './skill_inherited_cases.mjs';
+import { publicSpecialSourcePaths } from './public_special_cases.mjs';
 import { mingjiaoCoreSourcePaths } from './school_mingjiao_core_cases.mjs';
 import { mingjiaoQishangSourcePaths } from './school_mingjiao_qishang_cases.mjs';
 import { mingjiaoXinfaSourcePaths, mingjiaoXinfaAbsentPaths } from './school_mingjiao_xinfa_cases.mjs';
@@ -444,8 +445,8 @@ export function createSandbox(root, output) {
     for (const type of ['sword', 'hammer'])
         putCopy(`tests/crafted_${type}.lpc`, crafted.replaceAll('AXE', type.toUpperCase()).replaceAll('init_axe', 'init_' + type));
     for (const path of ['tools/collect_martial_data.mjs', 'tools/bench_weapon_balance.mjs',
-        ...['execution', 'continuation', 'inventory', 'catalog', 'ledger', 'weapon_cases', 'ability_cases', 'learning_cases', 'skill_music_cases', 'bout_cases', 'weapon_special_cases',
-            'school_relations', 'school_dependencies', 'teaching_cases', 'teaching_report', 'statistics', 'skill_inherited_cases', 'hong_learning_cases', 'chen_learning_cases', 'quanzhen_learning_cases', 'wudang_learning_cases', 'shaolin_learning_cases', 'shaolin_teachers_cases', 'shaolin_recruit_cases', 'recruit_observation', 'shaolin_promotion_cases', 'promotion_observation',
+        ...['execution', 'continuation', 'inventory', 'catalog', 'ledger', 'weapon_cases', 'ability_cases', 'learning_cases', 'skill_music_cases', 'school_slice1_cases', 'school_slice1_cases.test', 'school_slice1_preparation.test', 'school_slice2_cases', 'school_slice2_cases.test', 'school_slice2_preparation.test', 'school_slice3_cases', 'school_slice3_cases.test', 'school_slice4_cases', 'school_slice4_cases.test', 'school_slice5_cases', 'school_slice5_cases.test', 'school_slice6_cases', 'school_slice6_cases.test', 'school_slice7_cases', 'school_slice7_cases.test', 'school_slice8_cases', 'school_slice8_cases.test', 'b1_perform_cases', 'b1_perform_cases.test', 'b2_perform_cases', 'b2_perform_cases.test', 'b3_perform_cases', 'b3_perform_cases.test', 'b4_perform_cases', 'b4_perform_cases.test', 'b5_perform_cases', 'b5_perform_cases.test', 'b6_perform_cases', 'b6_perform_cases.test', 'b7_perform_cases', 'b7_perform_cases.test', 'b8_perform_cases', 'b8_perform_cases.test', 'b9_perform_cases', 'b9_perform_cases.test', 'b10_perform_cases', 'b10_perform_cases.test', 'b11_perform_cases', 'b11_perform_cases.test', 'b12_perform_cases', 'b12_perform_cases.test', 'b13_perform_cases', 'b13_perform_cases.test', 'b14_perform_cases', 'b14_perform_cases.test', 'b15_perform_cases', 'b15_perform_cases.test', 'b16_perform_cases', 'b16_perform_cases.test', 'b17_perform_cases', 'b17_perform_cases.test', 'b18_perform_cases', 'b18_perform_cases.test', 'b19_perform_cases', 'b19_perform_cases.test', 'b20_perform_cases', 'b20_perform_cases.test', 'b21_perform_cases', 'b21_perform_cases.test', 'b22_perform_cases', 'b22_perform_cases.test', 'b23_perform_cases', 'b23_perform_cases.test', 'b24_perform_cases', 'b24_perform_cases.test', 'b25_perform_cases', 'b25_perform_cases.test', 'b26_perform_cases', 'b26_perform_cases.test', 'b27_perform_cases', 'b27_perform_cases.test', 'b28_perform_cases', 'b28_perform_cases.test', 'b29_perform_cases', 'b29_perform_cases.test', 'bout_cases', 'weapon_special_cases',
+            'school_relations', 'school_dependencies', 'teaching_cases', 'teaching_report', 'statistics', 'skill_inherited_cases', 'public_special_cases', 'hong_learning_cases', 'chen_learning_cases', 'quanzhen_learning_cases', 'wudang_learning_cases', 'shaolin_learning_cases', 'shaolin_teachers_cases', 'shaolin_recruit_cases', 'recruit_observation', 'shaolin_promotion_cases', 'promotion_observation',
             'shaolin_tonsure_cases', 'tonsure_observation', 'emei_teachers_cases', 'emei_recruit_cases', 'emei_special_cases', 'emei_tonsure_cases', 'gumu_teachers_cases',
             'shaolin_formation_cases', 'formation_observation',
             'shaolin_challenge_cases', 'shaolin_challenge_failure_cases', 'challenge_observation', 'school_scene_cases',
@@ -1397,6 +1398,14 @@ export function validateQualificationSources(conditions, files, sourceContext) {
             for (const [path, hash] of Object.entries(evidence)) {
                 assert.match(hash, /^[a-f0-9]{64}$/, '公共演奏来源摘要无效：' + path);
                 assert.equal(files[path], hash, '公共演奏来源未复制或字节改变：' + path);
+            }
+        } else if (condition.parameters.collection_group === 'public-special') {
+            const p = condition.parameters, evidence = p.source_evidence;
+            assert.ok(evidence && typeof evidence === 'object' && !Array.isArray(evidence), '公共特殊效果缺少来源摘要');
+            assert.deepEqual(Object.keys(evidence), [...publicSpecialSourcePaths], '公共特殊效果来源清单不完整');
+            for (const [path, hash] of Object.entries(evidence)) {
+                assert.match(hash, /^[a-f0-9]{64}$/, '公共特殊效果来源摘要无效：' + path);
+                assert.equal(files[path], hash, '公共特殊效果来源未复制或字节改变：' + path);
             }
         } else if (condition.parameters.collection_group === 'taohua-music') {
             const p = condition.parameters, evidence = p.source_evidence;

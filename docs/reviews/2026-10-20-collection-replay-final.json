@@ -1,0 +1,1882 @@
+{
+  "format": 1,
+  "node": "v24.21.0",
+  "created": "2026-10-20T02:22:10.395Z",
+  "tool_sha256": {
+    "tools/review_martial_data.mjs": "f328592fa7693b0918f26c9795c86cfe08beb4623810751122a6224a969fdb3b",
+    "tools/tests/martial_data/ability_cases.mjs": "651c2d0af72fe678421df2f32a28b3cec263970c26d34713736a271582206ee2",
+    "tools/tests/martial_data/action_tables.mjs": "697cb745ca54ae8a4f1a3bf084dfa994eaf415b5e9232a73dcb7e0e089170f96",
+    "tools/tests/martial_data/action_tables.test.mjs": "07a77364108fa3b81f8b557b12debe94d723bd2eb0d13b900340614fac728a7e",
+    "tools/tests/martial_data/b10_perform_cases.mjs": "f73d695fdba002e58b1029e9bf9ad368c24f21b9289c2e9de4f5b97600c0a3e2",
+    "tools/tests/martial_data/b10_perform_cases.test.mjs": "6afaac137e311d44f9de9a53295e45ca4a184b5df130db534445dced6169fda6",
+    "tools/tests/martial_data/b11_perform_cases.mjs": "9d59032f04662744642f26341afd86b6a4dc38c4c9b33ca03f05399fef07cc9b",
+    "tools/tests/martial_data/b11_perform_cases.test.mjs": "b1c8c99889ed65764314b928a7dc49d84e6003127d5b3978411bb714f7ea9bb7",
+    "tools/tests/martial_data/b12_perform_cases.mjs": "f707d1c96980a66de74d73e7869cd5b9b7a76667d3513d53ae26901cda2a60a3",
+    "tools/tests/martial_data/b12_perform_cases.test.mjs": "343aefee32dfafd36cb00999637662fea9d489211b48645559278354056608ff",
+    "tools/tests/martial_data/b13_perform_cases.mjs": "2a844de355d26aafe29d9bac34ad442c57f7b74d7f6805d2376a699a4c75091d",
+    "tools/tests/martial_data/b13_perform_cases.test.mjs": "d960dde7253082dd5c8131acb4680a701366ee23acb03a9eae5180ca9133caca",
+    "tools/tests/martial_data/b14_perform_cases.mjs": "95e2039688055fd1eceabaea92390dfb30d70083b121be778d573abc9fc76655",
+    "tools/tests/martial_data/b14_perform_cases.test.mjs": "25f378288f0546a6ecc875601cfdc91be5ac81800f0988f7ec13eac07f5c0f7e",
+    "tools/tests/martial_data/b15_perform_cases.mjs": "23157ca00535ee6f355a48f46a3f3d24f28d9cd7d4c1e0ce3643070e7b828f76",
+    "tools/tests/martial_data/b15_perform_cases.test.mjs": "5da8ea92d605dda1d46c1b3a6bdab11a659ff37a1ef7df14ff0e185975c3f9cf",
+    "tools/tests/martial_data/b16_perform_cases.mjs": "747e19c73a22848f6941173b03260feeabb831a8f32e94e279c517241b18eda4",
+    "tools/tests/martial_data/b16_perform_cases.test.mjs": "e7fa874dd8965d5a258061ce45c582d9dba8376a6c78888e5fbcea9e38e66f93",
+    "tools/tests/martial_data/b17_perform_cases.mjs": "b88c45d03fe73f169401ed80565c3055a34ad4e5d7368b0b329ab6100950d592",
+    "tools/tests/martial_data/b17_perform_cases.test.mjs": "1888da02bba7dbfa9baff3c3151d49166e9ff2bdbd8b17d87d6723809555334a",
+    "tools/tests/martial_data/b18_perform_cases.mjs": "064ac1758c1b42a60f9ee146dbcab5e17e5e659f4bc185bf7f0889ad77f5f7f1",
+    "tools/tests/martial_data/b18_perform_cases.test.mjs": "d7fa3795dfc668689ceea8cfd1153686316206b91ba550fa4d99004f460dae8b",
+    "tools/tests/martial_data/b19_perform_cases.mjs": "b365e0dba4d99c463ece23d1fcc97193f2b1300d045f0db33ee263995dde5a03",
+    "tools/tests/martial_data/b19_perform_cases.test.mjs": "4c397b4221e88819b12325098816f0e1a641885777fa5f2bc504a3cd8014f535",
+    "tools/tests/martial_data/b1_perform_cases.mjs": "078e790e58f233899732242fba38fccfcc9a5c9fa83d8849548f5b49dec4633a",
+    "tools/tests/martial_data/b1_perform_cases.test.mjs": "1046def1a7b1a4503f4c1002780ec6bda7d733ed4efb0f18ff661ce92f840e7f",
+    "tools/tests/martial_data/b20_perform_cases.mjs": "11fc61664502a5ca337fe7c22725f5a862d5cd49885774eaaa4acdfca5e0ecfc",
+    "tools/tests/martial_data/b20_perform_cases.test.mjs": "390f81b5c575b3036b7292a2bd98dc41f32f4f2a1762a58c2d317412c1cd96ca",
+    "tools/tests/martial_data/b21_perform_cases.mjs": "56e18d498d4229a9e9578d84f061044ec1e57f73727744bfe5fe5d07c2aa3eb8",
+    "tools/tests/martial_data/b21_perform_cases.test.mjs": "5681c0fefc62d15105bb186edaffae3ff2b7210af8f86dfc2563f5630c5309f8",
+    "tools/tests/martial_data/b22_perform_cases.mjs": "b9acdce056120d87e444e9dde69afc120062f2c6381c454b9290d52c1f71df9e",
+    "tools/tests/martial_data/b22_perform_cases.test.mjs": "ad5bd43e51660a64154ed336b488b465d9fc850a0dd53e435b6630b49f45c5e9",
+    "tools/tests/martial_data/b23_perform_cases.mjs": "0f5402667a0c8fda9b12a8dc249b816b8cf5da29d742f0527eb0b3b76e315e82",
+    "tools/tests/martial_data/b23_perform_cases.test.mjs": "5c1a702af88941ef8c6658abf90243c3f18e3f5404355e05a317bfe6ab2f8d4c",
+    "tools/tests/martial_data/b24_perform_cases.mjs": "e4e55815e6895c3ff4a691c59796f084c095ec388b43d82a9a933d41a837931f",
+    "tools/tests/martial_data/b24_perform_cases.test.mjs": "adf70a71bf4a7d933a46099205da49bbfd5fb403aa9054afd3f41327add89b09",
+    "tools/tests/martial_data/b25_perform_cases.mjs": "2f81053d321ad00e89126c0aa95030ff5c2ab318ee0c7129c8108f532a33d8d7",
+    "tools/tests/martial_data/b25_perform_cases.test.mjs": "d323973feb8bfc27081e869e45365a6f38fc9866b23aa5e4023a6106a4099fff",
+    "tools/tests/martial_data/b26_perform_cases.mjs": "2c2ab284cae16f2dac4ccbb71266dd378decfc3cf42dc0bf02315d5793d9a27d",
+    "tools/tests/martial_data/b26_perform_cases.test.mjs": "22c29b9182ad172deaebbc11260c4974df27482da7d94c28c3b3122e998d2a16",
+    "tools/tests/martial_data/b27_perform_cases.mjs": "e5daa417a07f0da1ac67bfa0358837f93d18263fc6d02465522af8dd7ebe7253",
+    "tools/tests/martial_data/b27_perform_cases.test.mjs": "dffb1c8ee1fbf7920afba2d320a223a619dbc1794e25a5817d116c28c4784a2c",
+    "tools/tests/martial_data/b28_perform_cases.mjs": "082a907b774670725639fd4c386ac253cd95112b6bd4f8b0d39b4cfaa27b26f0",
+    "tools/tests/martial_data/b28_perform_cases.test.mjs": "c6c0b6dcdc5bb3da4dfe46b7b38491abe549e96373717074a92d43a6fef49272",
+    "tools/tests/martial_data/b29_perform_cases.mjs": "d2884f0379adc67d9524a520e15823e18dc09d605607eaf9e1b025f30a85418d",
+    "tools/tests/martial_data/b29_perform_cases.test.mjs": "b1c2ec60a2ec210556cffadb4418d43d5ef68ddc34f845f5dc4f2c23330c9262",
+    "tools/tests/martial_data/b2_perform_cases.mjs": "c39da6384fda2e7c042e49384b36ea12b9ca6ed9b26a8533b0030cd81bb0130f",
+    "tools/tests/martial_data/b2_perform_cases.test.mjs": "3625d925b50e1d3c438520b2e4949ad9dacd5e0c218be22699fa822c8e2c6e4f",
+    "tools/tests/martial_data/b3_perform_cases.mjs": "7f7bf7530bf8437c8dcce2a520f56bfe0f376cb287353e9ef59b061d8fdd63fa",
+    "tools/tests/martial_data/b3_perform_cases.test.mjs": "b0ddc910331e4453cb5532eaea11116765e311cdfcfe55a597da505aca1b7339",
+    "tools/tests/martial_data/b4_perform_cases.mjs": "3fd4336b0c6c749fe9129cc0edc9c377f5749cc984c333ae7016e2a2cff19e1a",
+    "tools/tests/martial_data/b4_perform_cases.test.mjs": "69002248934d7680119312ba6cfa8c66281b08fd9086408aef70f46e398ff04a",
+    "tools/tests/martial_data/b5_perform_cases.mjs": "2918c5a852f147a6cb6d75cea79a2a1851316ce32744fd669e98f08c2c379040",
+    "tools/tests/martial_data/b5_perform_cases.test.mjs": "4a5eb9850f167bfcd2eb5a16b145b593bdcba0bee4bf14a44ebd80aa8fb99431",
+    "tools/tests/martial_data/b6_perform_cases.mjs": "5ee2e4719c1233042778f31ce1d6c29e8d54947661ba7c1e3ece46c2ca105a63",
+    "tools/tests/martial_data/b6_perform_cases.test.mjs": "643067507b1140d2a8b05caac6ebb09370dc6e247ef2e1637e22e09caecc5d84",
+    "tools/tests/martial_data/b7_perform_cases.mjs": "aa14723596dec64b0355d852660646bfa8784866c2f596922a08b91297045106",
+    "tools/tests/martial_data/b7_perform_cases.test.mjs": "7d52e7b5944c782e6564db8700a22dfd0a97a7865918f412fd617c4d70f3b240",
+    "tools/tests/martial_data/b8_perform_cases.mjs": "8e981bf379550ac5f63fafac4316ec54a8329adb5d12a7d725f1e1be323cf7a5",
+    "tools/tests/martial_data/b8_perform_cases.test.mjs": "5e8b67282f461631e0684dafffe30280233e27718ce04c9da9aa164aad7918ed",
+    "tools/tests/martial_data/b9_perform_cases.mjs": "c045d3df471d524bea2d3567bde8eee3ff35262370435eabf0b3e52c05e2b7ac",
+    "tools/tests/martial_data/b9_perform_cases.test.mjs": "fb300e31abc71e5bab24574f6f4b0d029f24fc6a66c73e232319d9092d6a81a0",
+    "tools/tests/martial_data/baseline_report.mjs": "112cbdf5954e5e91916610e6e8ff2b31a388f571e5b27138d0811590a96ac030",
+    "tools/tests/martial_data/baseline_report.test.mjs": "189dac227c7b8353a3ab853b425d28d3260cbe01de55525663549e4889639a86",
+    "tools/tests/martial_data/bout_cases.mjs": "4d910acf5ceb07b3a2047f5d2c8d34738b5c37781552759cdc3878dc6deb1e05",
+    "tools/tests/martial_data/bout_cases.test.mjs": "2092c668ead438819d3f6d8b09aba8e01409e3b91048feadac31a93882f0f6aa",
+    "tools/tests/martial_data/bout_report.mjs": "eb0021575b2fbcd1c4c5f22c707b4da57b4e5bf093761115055ede08846ed397",
+    "tools/tests/martial_data/bout_report.test.mjs": "77312ed8eebf344427ba6edf158037189e12172a1931de757772572885cc13b5",
+    "tools/tests/martial_data/callback_relations.mjs": "8e6b6e46707300334f3963b3686bf20a306a1805290d31a18c9b891db15d31b0",
+    "tools/tests/martial_data/callback_relations.test.mjs": "bdb67d865e66f65df9991d3d1a154579e72873f5c3ca6e051509f200b3355316",
+    "tools/tests/martial_data/catalog.mjs": "1af81d4f999cd1f9cee533ddcfef178a84047eb84efd292ea4c21f8c6441da0e",
+    "tools/tests/martial_data/catalog.test.mjs": "8dd5d5af66cd5da6f2d208bbfe97d6bb44693cc3519ae0bf448b408455a2f518",
+    "tools/tests/martial_data/challenge_observation.mjs": "a3adafce318e4c5defe8abb7d1cba0bca2de470f0777a73444f9639b25083764",
+    "tools/tests/martial_data/chen_learning.test.mjs": "461dbd8480be5b9a4c3328814a5de51096f4ba45508a494b7d48335a1035383d",
+    "tools/tests/martial_data/chen_learning_cases.mjs": "e3975d1e6de40e8ae838e395049297bf90c6638acd938ed724cab06c787706fc",
+    "tools/tests/martial_data/collection_review.mjs": "9a407ce88a4790ba5f0cc697b26afbe48578cebc5887e0139b3bd61d6af1ac28",
+    "tools/tests/martial_data/collection_review.test.mjs": "a06e72262b3d183c144c9ffabeb16e5e167dd25e026dda9585ec828f4dfa86dc",
+    "tools/tests/martial_data/continuation.mjs": "61e7b4f4af7c3426b3bd32099a30287138835c3a00396d6c5cd1dcc3064110de",
+    "tools/tests/martial_data/continuation.test.mjs": "fa3c3ed9943eb9bd5f364be560278481d51ba43aea2c584f7cbe32b8ed577a1c",
+    "tools/tests/martial_data/duan_teaching.test.mjs": "3b15b31a8a4eac8d04a722c39d35817a5b4cd6c7040e6e46e75e1f21367c9299",
+    "tools/tests/martial_data/emei_recruit.test.mjs": "04b0925abcbfa865dcb7de4cc2e69de9647ae9c62222d56f93b4179f2023835d",
+    "tools/tests/martial_data/emei_recruit_cases.mjs": "d67d0387b1ace134730dec0f4a6552370054a47ca1418f7413376e69e3d61721",
+    "tools/tests/martial_data/emei_special.test.mjs": "1e7f38720c3fea019e9723be91cda73a75aff532c6edc80031a85fe88149fed5",
+    "tools/tests/martial_data/emei_special_cases.mjs": "60a633e3b5c4a14e2afaad51e1d3f580267685b77f54e7cc3e901958933b0f82",
+    "tools/tests/martial_data/emei_teachers.test.mjs": "a2fd0519d5c9b6dffe028b43747202ade580280060bd294197ebf42935029cf5",
+    "tools/tests/martial_data/emei_teachers_cases.mjs": "4e9df1ef4e91fb8382dfb202095ddb3fc99ab2502a712d9a2b3f8846f1ad42a4",
+    "tools/tests/martial_data/emei_tonsure.test.mjs": "d058d15c736d8088638cb651892d25e69e06d488c83464af0a8385b5cf72bc4e",
+    "tools/tests/martial_data/emei_tonsure_cases.mjs": "4fcf6b88c662520ffedf58e0c7e700fbe005b3223550290f51f33e009ae0fb53",
+    "tools/tests/martial_data/execution.mjs": "8c8cfd4a43f67033fb1f2682de67aea6715f94441bdccf7da7a37cc43c263d56",
+    "tools/tests/martial_data/execution.test.mjs": "6bf75e83237f45072cf9271266e1b00157ff2d30ee0c0624b8f398c848cc17b2",
+    "tools/tests/martial_data/feng_teaching.test.mjs": "3a4eceb6623cf42bd266cf7823baaf63b41c023d003bcfacb916485a6ed56f57",
+    "tools/tests/martial_data/feng_teaching_cases.mjs": "4856e92d93e1ae14fb95f6aef6c326cfa2c659a049bd18ca2aac135f9d33fcc2",
+    "tools/tests/martial_data/formation_observation.mjs": "c3638cfb2f260ddc34d96589cd5f01cee86dc2ff90fe8b3cd1e3c41f5c6ea173",
+    "tools/tests/martial_data/gumu_acquisition_learning.test.mjs": "bb7c779b3e7221ac76e91216829edbdb0b7caf0094e7b529899c5ca4d8876ba5",
+    "tools/tests/martial_data/gumu_acquisition_learning_cases.mjs": "5346803d77c2ed1d55dd31e27c9c6ecb63847dd6e28f53efeccf10a383bbe0af",
+    "tools/tests/martial_data/gumu_item_acquisition.test.mjs": "e8e5a9cb765a5e1ab71c85fb14981122c18015e351a21a6a9efcc6bef2949e79",
+    "tools/tests/martial_data/gumu_item_acquisition_cases.mjs": "eca1187cc9f3b74120261ea244ea3858c70c19a01e449c9fdd3a913ffb4e602e",
+    "tools/tests/martial_data/gumu_recruit.test.mjs": "ee86b5dc4e5ced4f74901ac218a3aef749d660c14d08fcffda2ffaf4aa2f3fa7",
+    "tools/tests/martial_data/gumu_recruit_cases.mjs": "7c64b42610b597bd7f1ec78b1c361e77030a2d2264235afe909e78c8fd1feef4",
+    "tools/tests/martial_data/gumu_special_teaching.test.mjs": "54f385992314a099248d5cd54e6580a1514b6b6858e63f966712332b3094ceb1",
+    "tools/tests/martial_data/gumu_special_teaching_cases.mjs": "c297f629b39ac0878e5d0d1d713e6a227a7bf5254c78a63409725c16f48eca8a",
+    "tools/tests/martial_data/gumu_teachers.test.mjs": "f6796e3aff30ffeb0fe43adcbc1e668f9c22398960bfa1ea9098dbaf25ab58cf",
+    "tools/tests/martial_data/gumu_teachers_cases.mjs": "abbdadaa47cb1fc91f465704cb3ddc71e9b82a5682101c59367bc7b9d53bb474",
+    "tools/tests/martial_data/henshan_songshan_teaching.test.mjs": "b2780292e42b55f20a41e6b136ad87026ac344529bd5480d3304e827cdea762c",
+    "tools/tests/martial_data/hong_learning.test.mjs": "7aaea680283befa540b62e5ba88ee33eea2b197e0267f609f3b6a2e2d43431c6",
+    "tools/tests/martial_data/hong_learning_cases.mjs": "229745f85ad7389b44d18976bba9fe8e81c92f67ae478003d8d6c3bbbfea4ba0",
+    "tools/tests/martial_data/honghua_teaching.test.mjs": "081e38ee5119b413dc507c4db470cf2e0c68500bd627ff5fa7207a7e00ddf857",
+    "tools/tests/martial_data/inventory.mjs": "ee9d2bc2d367bc2a4938ccf3f36dcc045a904b032561a98f419ad373954bb5cf",
+    "tools/tests/martial_data/inventory.test.mjs": "11274cad989de81c12d22ec76d59c29e3c01a71327c92ffe8afc2440858d1f24",
+    "tools/tests/martial_data/learning_cases.mjs": "8cfc00406e1a38fe7147d3db2a6fb672509f5a92b508888933d4d1c774aceb20",
+    "tools/tests/martial_data/learning_cases.test.mjs": "9a52f0a0a4022b19d9d8a7a613b86cdd35e781028868da3b33051e9a5a2b8009",
+    "tools/tests/martial_data/ledger.mjs": "8634c132cbf1068a2a6301b3422d3571c0616bc6f6586a30ed3c18c939308df6",
+    "tools/tests/martial_data/ledger.test.mjs": "c5e6330d9eee73f9e5e4ffbda80afc3cdb7cb3069172ace942f7fc86b947c49b",
+    "tools/tests/martial_data/lingjiu_xiaoyao_teaching.test.mjs": "ead05cf99d35fb1a7a476c1cad152e1a0ac6271a7facf398bf3c5a316562831d",
+    "tools/tests/martial_data/lingxiao_meizhuang_teaching.test.mjs": "c82e34e872f2f29dbeeae81c0c929cd44d8c7047d64c17027f9138df51c106ec",
+    "tools/tests/martial_data/meizhuang_intro.test.mjs": "d0abb2d2fe11f2a44e3c9bbba9dcc5dadaafb7ea4e898657d53d6cb91e77557e",
+    "tools/tests/martial_data/meizhuang_intro_cases.mjs": "ef7fedf6876fe7210d968982f0a86c96bdb76a3d6373ef25ddd0a4427eae16e7",
+    "tools/tests/martial_data/miao_murong_teaching.test.mjs": "f3c307ed5c97b9d314af80b2d0aa74e64220d0c4a492ac6fae012d43366dd90e",
+    "tools/tests/martial_data/mingjiao_teaching.test.mjs": "a32550ca3d6b23640492e0605bc74ca5a43ddca6619bc25901686f169778a849",
+    "tools/tests/martial_data/npc_bout_integration.test.mjs": "8228fdda64e087237ec8398f321ae1ea2897ed4b80a564f664e1876020eb6246",
+    "tools/tests/martial_data/npc_bout_probes.mjs": "af44663cda81f148b0f0b24c18e74f27df76ae9b21c07739ee0a810eabe0e7aa",
+    "tools/tests/martial_data/npc_bout_probes.test.mjs": "344c46bef58207967630a1eae8be519f8ccbe6f8949cd4e31ee72c72974e14ab",
+    "tools/tests/martial_data/npc_observer_phase.test.mjs": "eb447b1c7355d01d421ccfd1b3965737f6ad31675a6cb8bb604bd327b3d4575f",
+    "tools/tests/martial_data/ouyang_shang_zhenyuan_teaching.test.mjs": "80d2c8ec5b721406d81621b3e4e91f0a84d7c19f8453c753c3beb16a0555a550",
+    "tools/tests/martial_data/promotion_observation.mjs": "6b4024f878700c194b86a2d5dd28ff35a32e433690f2beae043c61a1c6e02b68",
+    "tools/tests/martial_data/public_special_cases.mjs": "b590c15ba6ccbfe915bac4d9495e465feec14a9fb515efcefa5de626dee5ed27",
+    "tools/tests/martial_data/public_special_cases.test.mjs": "24279bcbed821419b2cdcb7b1ed9a823309bf092b536f47d8303fc4911646ba8",
+    "tools/tests/martial_data/quanzhen_learning.test.mjs": "50cc482159e1403e554e8f322527b75c82e7988e09e2cab9592f18db19253281",
+    "tools/tests/martial_data/quanzhen_learning_cases.mjs": "775dd146c5290a307be00ef84596bff4b514265ba0041022c29a80d7e19c517e",
+    "tools/tests/martial_data/recruit_observation.mjs": "427fd2940f8ae9365f89d231a907de2d542378a8bf4001984aaaf2659d0b1976",
+    "tools/tests/martial_data/school_combat_cases.mjs": "6204965aa22c404bfa8dada637fddb0a09bddf763501889a7238fc6c452c6534",
+    "tools/tests/martial_data/school_combat_cases.test.mjs": "a0df4662b25fec6500b2f18aab681e9a5dcad570280aa078d560b5f68352d66a",
+    "tools/tests/martial_data/school_combat_report.mjs": "6b4ebfa0972304d4d3e5ea0592b40971a9550b9f1e821776ef83b08b82d4fe34",
+    "tools/tests/martial_data/school_combat_report.test.mjs": "1dc61b098364ff424e2cfff85adfb93cc22a6a15f450e2f1a647764166955540",
+    "tools/tests/martial_data/school_dependencies.mjs": "3097aa08a89b133a0a981d9b263f61b98476b9d745c76985cbf277bf063b9ed6",
+    "tools/tests/martial_data/school_dependencies.test.mjs": "dd70778eb9726e59ef63cf41ab89905e7a0edd2065aad6b51d1ba452c50f77e2",
+    "tools/tests/martial_data/school_emei_bout.test.mjs": "dd786468db13df05f066daca09ba3143d218cda8e38d6163cf4ceccecf8c46d2",
+    "tools/tests/martial_data/school_emei_bout_cases.mjs": "e9f363783c9aa99f326aa98ba00ff7f377e56f0773d7cd31f7a216f7027c8aa2",
+    "tools/tests/martial_data/school_emei_combination.test.mjs": "c3f64f85bb4e5225665570ff98d835fbeb163280804a906fb712d86195d01b09",
+    "tools/tests/martial_data/school_emei_combination_cases.mjs": "a19e7e8ff8539c2315ad80870916fd7e6259846f9742068270e62dea5bce95fb",
+    "tools/tests/martial_data/school_emei_cultivation.test.mjs": "51774886f97ef6ed01955b9d2b83190d8601a74553b93702028b4880d6f052f9",
+    "tools/tests/martial_data/school_emei_cultivation_cases.mjs": "7e2ca929202ef59719b00d5c5e59da75194573f263ec45312f8a2c24d6d81b06",
+    "tools/tests/martial_data/school_emei_defense.test.mjs": "a9375dda25a1e1b324d8b35ad815cdb35988cda64b5b13826f76c18d81072264",
+    "tools/tests/martial_data/school_emei_defense_cases.mjs": "44316ffca1094bb6af0f2306ce79ea968933c248adf9838b5e75a5cd0ca33d71",
+    "tools/tests/martial_data/school_emei_exert.test.mjs": "a261b5d240236afcd1a2c720e807294ae7619bb1d0f14f3066df72976dcc7939",
+    "tools/tests/martial_data/school_emei_exert_cases.mjs": "671f7185c33163b7405722e845991193937eb7a6c676d31ea156f755ebf3f312",
+    "tools/tests/martial_data/school_emei_jiuyin.test.mjs": "9be5d20694bf7c776a0197062496d992a7ddd2b2b06f75ec64aca0009a30390a",
+    "tools/tests/martial_data/school_emei_jiuyin_buff.test.mjs": "bf2655255e08888aff07d46a04df1748810fcad40f76851c2e410547b7e511d4",
+    "tools/tests/martial_data/school_emei_jiuyin_buff_cases.mjs": "f5b57e7ba7d213e188f6b83953d3b079e5fc72dc62210f58a8e53318195191a2",
+    "tools/tests/martial_data/school_emei_jiuyin_cases.mjs": "b393fd4d4510ee639dac71c46dcc81fdf20ed9edda8c74aeebd46e823911a1bd",
+    "tools/tests/martial_data/school_emei_jiuyin_learning.test.mjs": "44fed4da934cf6ee1c08dd2d456f603f95b794b60793417b7816d38414f8699b",
+    "tools/tests/martial_data/school_emei_jiuyin_learning_cases.mjs": "7e3d9f8d7bfbbbaef3b954bd40bd2aa6435948c3a7832f3493372dc13ae908f8",
+    "tools/tests/martial_data/school_emei_jiuyin_passive.test.mjs": "b900c90bc809886327bc06dcbc2959f992de30c4304adaf74e8253e20cd378f6",
+    "tools/tests/martial_data/school_emei_jiuyin_passive_cases.mjs": "31780fde2d1ac7015f573fb8600ace42fb7970dfac3c79fed58bf10d759e3162",
+    "tools/tests/martial_data/school_emei_learning.test.mjs": "86708b2a3dba8d8a4a8233a2cbfb0a712d90a47f6f0a574f36a4f4274d4e7488",
+    "tools/tests/martial_data/school_emei_learning_cases.mjs": "4f70def543c01eb6b5068b6223cb26bf92114dbe220593fd2d54f2a5d6a0f6fd",
+    "tools/tests/martial_data/school_emei_npc.test.mjs": "92959e8413935262f071cb3715f89a7d2f5338bc695090372dd14b1bba98e759",
+    "tools/tests/martial_data/school_emei_npc_cases.mjs": "3887e5a723c8d067babaa653706c62c3f5cc32359234b4a11b56aaf744b9857c",
+    "tools/tests/martial_data/school_emei_public_force.test.mjs": "7b9814490710262787ee054eb300e9973441ac40ab2b55d4ad9fdcbd3b39822f",
+    "tools/tests/martial_data/school_emei_public_force_cases.mjs": "86f044575018d745879af9e71c1110666d9c0ac8f21485494774f048f73cd008",
+    "tools/tests/martial_data/school_emei_recovery.test.mjs": "cb2b07e8210add8795bcf47f8d0ea3513b1659df49068cbff2fb930edb3f0425",
+    "tools/tests/martial_data/school_emei_recovery_cases.mjs": "8ac7ba63d1c2b629ae5f7da0cc9f1c8501fa04615d50e9db8935d9fe4685bd64",
+    "tools/tests/martial_data/school_emei_shexing.test.mjs": "960aef8298a9456637cadcd21ebb45dfd0d2f1ff38268622739d50975e76bb48",
+    "tools/tests/martial_data/school_emei_shexing_cases.mjs": "cabcc903ac3f78e40b2c479ac8c2aa07f2a330c067e5512721e60d8776bbc458",
+    "tools/tests/martial_data/school_emei_support.test.mjs": "9ce2d59f9bb72d5e1364db749956756a74580adf9846e66a08f8e550b849af3e",
+    "tools/tests/martial_data/school_emei_support_cases.mjs": "02822bb737191c799a2c57994199cc7fdd6b437adcb26af8294c507e2f864769",
+    "tools/tests/martial_data/school_emei_unarmed.test.mjs": "069ef093e3dd82801485770cdec67e3ab11e8a32de9294d03da71979ed9bd3d3",
+    "tools/tests/martial_data/school_emei_unarmed_cases.mjs": "47a7b7ca9b364ddaff09952b00744232cdc9247e77e7c22da6fa6f802b0b8fb6",
+    "tools/tests/martial_data/school_emei_weapons.test.mjs": "1c8f77925a46bf0e151dff3eee92b546822c8f42d85a937de93b2bcb3e510261",
+    "tools/tests/martial_data/school_emei_weapons_cases.mjs": "aac8126e59134d48f1b8668a27c314e48ad8482f3a68d1ab418f2062c01daf61",
+    "tools/tests/martial_data/school_emei_yijin.test.mjs": "c2feffc05afdcee59272678234ec2fe35a8150e50eca54d41e678bc607fec1c1",
+    "tools/tests/martial_data/school_emei_yijin_cases.mjs": "724148595ef3fe1076b91e9d1224496d4ab53519e48ff27da7f8a2893f80c3a9",
+    "tools/tests/martial_data/school_gumu_advanced.test.mjs": "cba8f75259036eb0a2bbd1050cd2ba9b168eba9f788e1e3bb2c3752a5234700d",
+    "tools/tests/martial_data/school_gumu_advanced_cases.mjs": "9799bbcb1df1cc2290584c80b086abd59774761cb196c927a6b98a1c72716111",
+    "tools/tests/martial_data/school_gumu_bout.test.mjs": "3c4090a3608eaa3269b08c14451f84fd80abb58ab6cb60c1ca36dc8cd835c4ba",
+    "tools/tests/martial_data/school_gumu_bout_cases.mjs": "b51751c52883d9eba92dbf66c62cefb778efb44671623a94d3b083dd2a3e0f64",
+    "tools/tests/martial_data/school_gumu_combination.test.mjs": "5c123f38f3eb6a7f8b037f6eafa4a4a068eeb9e8dafef9a882197a3e2f8766e1",
+    "tools/tests/martial_data/school_gumu_combination_cases.mjs": "d9f36a8fdfe75c71ea268e9ecabf1aa7407c0ef96b05a33c7bdc81dccf09cec0",
+    "tools/tests/martial_data/school_gumu_combo.test.mjs": "b9be2942df4b96077ee43a663fcf21cff1294d03f43d94f1465610852a16e11d",
+    "tools/tests/martial_data/school_gumu_combo_cases.mjs": "ca1b2172645b2e6c92df7b3b9d89dd964d7b8fcb4ff234f5d77e702b1466f0bb",
+    "tools/tests/martial_data/school_gumu_control.test.mjs": "351f4947484bbe8c957ba18ee54461038ca7d97f2a3b3f35cb5f518a6d531335",
+    "tools/tests/martial_data/school_gumu_control_cases.mjs": "990fe75c368566f13c0bd5bba735d0769038e3668b9b6849e7d86792d7ced15a",
+    "tools/tests/martial_data/school_gumu_cultivation.test.mjs": "d0fbbf6d7e5c658cae6c7ae6d569f2219baf4707a9aa81995d83a020807486d2",
+    "tools/tests/martial_data/school_gumu_cultivation_cases.mjs": "bf6867308dea1ca748bba3660952c4f475fab3d4b5d49175f9b2b7d65d4e2e54",
+    "tools/tests/martial_data/school_gumu_defense.test.mjs": "35f2e652d5bb0a2ac5a443bd19759832f169e4ec1e2ae57d15151a6c6a30208a",
+    "tools/tests/martial_data/school_gumu_defense_cases.mjs": "da6f8ba74f46981534c20ea439f663dac17089514b0c96f7ebb4eaef7faf9d23",
+    "tools/tests/martial_data/school_gumu_direct.test.mjs": "247c2f30381c303951add9c8a62203f85c56fda1d28a2b9598dd7e1e869c97c0",
+    "tools/tests/martial_data/school_gumu_direct_cases.mjs": "27c37773d4bdcf3caffab5d04988323a854b375d5ab9a62d8707bc1d9b35b789",
+    "tools/tests/martial_data/school_gumu_exert.test.mjs": "d0291e6ba0a3c4a15ae2aa9cecd711add523b0c3213f888a8e81f179a3801243",
+    "tools/tests/martial_data/school_gumu_exert_cases.mjs": "145d2d52ef8968c1ec0f2eac0d4e08cac8181e103f0163c65aafcdb92eba7e41",
+    "tools/tests/martial_data/school_gumu_fireice.test.mjs": "99788e1301fa08726fd9d8e913b07c9fb252d69b1a1db45e6441112b2d2e1546",
+    "tools/tests/martial_data/school_gumu_fireice_cases.mjs": "3824e5b7c2dfb13578d091e7d5f7eea597273f422b6629761301e2f0faf8fc8d",
+    "tools/tests/martial_data/school_gumu_force_inputs.test.mjs": "8ab6c42802b668cde3bb4272d75237565ded5ad5c9765dca84111aff47a9f470",
+    "tools/tests/martial_data/school_gumu_force_inputs_cases.mjs": "4e5021114ac110e6e47e9b1739eb8d6c315916cde92f41b3716ab918423d0962",
+    "tools/tests/martial_data/school_gumu_hubo.test.mjs": "e52fd4e12252e0ae57d134df62be8c7c194bebf4726a33d8a6e5a4cc97134be1",
+    "tools/tests/martial_data/school_gumu_hubo_cases.mjs": "615471b07e52df8db8fa68d347b3795b28413d62da06021a4268431a0a596ecb",
+    "tools/tests/martial_data/school_gumu_movement.test.mjs": "e27f23686b1085d70e1447800297f63dd28ff028f079286d60a9cd4e0f609123",
+    "tools/tests/martial_data/school_gumu_movement_cases.mjs": "caa510dd9b675acccadfca926e736884ba39c35eb3cafaf226f5888174d8374b",
+    "tools/tests/martial_data/school_gumu_needle_lifecycle.test.mjs": "4483d81882063cd00fbf87e7f74bae52a672e101809865229f7209c841ace07b",
+    "tools/tests/martial_data/school_gumu_needle_lifecycle_cases.mjs": "a4396cae669a2a5da82a58b6ae56bfa03b0848e2f5de50bed00e5b2375854e97",
+    "tools/tests/martial_data/school_gumu_npc.test.mjs": "9dc454dcf387e219f71632fcbe7f9eb0a57f688cb69bcee1e13d17f5300b350a",
+    "tools/tests/martial_data/school_gumu_npc_bout.test.mjs": "24a43f8a3df1f0e29d3782fdadcc3225588e7588894848987048202e44020cca",
+    "tools/tests/martial_data/school_gumu_npc_bout_cases.mjs": "a48a482069654de9d61ae0c8762b201efb92e24902823450f28bae5abfac95ac",
+    "tools/tests/martial_data/school_gumu_npc_bout_report.mjs": "5a0ad3d5abbdade42bd640cf85b7f395da8d61b8dea34d91fae8b375d5e19d23",
+    "tools/tests/martial_data/school_gumu_npc_bout_report.test.mjs": "e8c243552fbc858afba9626ae4fb214d3ff092f9f6ef3f1d9d4380701f994a3d",
+    "tools/tests/martial_data/school_gumu_npc_cases.mjs": "10d0f261d66589e1a33dc98b037f685a076c7c3a7ab28147ba05eebd4caa47e3",
+    "tools/tests/martial_data/school_gumu_poison.test.mjs": "6110551132ad1c73d5e3095b645789d330a7b9d8870634899bf9af9caf3fe7fe",
+    "tools/tests/martial_data/school_gumu_poison_cases.mjs": "ecf136336410704debcf0afb98d7d55ac87c66c75bb141f64190f388257c4c56",
+    "tools/tests/martial_data/school_gumu_public_force.test.mjs": "177d2c97ffdf33566ad442b5329fddd3c0f79a987fa858811e4b4a94f4e097e3",
+    "tools/tests/martial_data/school_gumu_public_force_cases.mjs": "c79bc30f8bbaeef5846b34900d0b179619984d80ad3bdd5d367586cfde94b717",
+    "tools/tests/martial_data/school_gumu_quanzhen.test.mjs": "4d19c7488c7856dc326244f3e0bccd80453f58aeeadc826007b2490f7f21e81f",
+    "tools/tests/martial_data/school_gumu_quanzhen_cases.mjs": "ac16c9de7b8da8876d98b3119dba10295406626fa76ae19e1bafc2c14a47f091",
+    "tools/tests/martial_data/school_gumu_recovery.test.mjs": "88bb0bcc627f742d264a87af43df9016a7ac733e3abe5ebd2441c593196b2a49",
+    "tools/tests/martial_data/school_gumu_recovery_cases.mjs": "11da87319aa58c294552941716b2e842d504afac940540cd904f02b0d944d0e5",
+    "tools/tests/martial_data/school_gumu_research.test.mjs": "88f0bac17647f8ae41193fc162e04b7b4fe70ca91c1a2985a9f01af290d419ae",
+    "tools/tests/martial_data/school_gumu_research_cases.mjs": "5790969043e745f2001f7425b19403a2d0960218c362d4caf096afed3c336286",
+    "tools/tests/martial_data/school_gumu_support.test.mjs": "4a4baa226c681a319987caf03e0dd1919ed2625e1b972dd8b2245bf7f27c0dcf",
+    "tools/tests/martial_data/school_gumu_support_cases.mjs": "20f69a6484509a939a9d641c74be38e4263341b7234515141f360df0c935b181",
+    "tools/tests/martial_data/school_gumu_temporal.test.mjs": "f4d8223e698b129a44ff77fce4063fce21e7a305b08b718144a690b648aec02c",
+    "tools/tests/martial_data/school_gumu_temporal_cases.mjs": "d251bb04bd57e6537a63bf552f5154e8c1a571cade2f6aaf30b5efe526ff648b",
+    "tools/tests/martial_data/school_gumu_throwing.test.mjs": "620e11d2e8721f8642b676395a2bb0927ec391349379bcd6b465b1c9cd7f1cae",
+    "tools/tests/martial_data/school_gumu_throwing_cases.mjs": "32ecd8235705fdc9c3ecae17b1e2c2afcbb2b8a2442db76c22a9595466956016",
+    "tools/tests/martial_data/school_gumu_unarmed.test.mjs": "16e4322f332bb4226e5e1e2319ef013a6b02f002a5899b3a7d118a1ef2a5c413",
+    "tools/tests/martial_data/school_gumu_unarmed_attack.test.mjs": "096ea0a6785bdc81efea2d0f139270acff62e571c1a9ba5db83969bede11aa17",
+    "tools/tests/martial_data/school_gumu_unarmed_attack_cases.mjs": "151b8e72aaea7475005191c2b4628de0a2a565cfaa811cdc9561126f24563c87",
+    "tools/tests/martial_data/school_gumu_unarmed_cases.mjs": "69bde538bc00d123cd565a88680617b70d81ca43aaa21d5e039a863a9d899279",
+    "tools/tests/martial_data/school_gumu_unarmed_learning.test.mjs": "24daba47e5dda977d365b5ce14b25952697f0429af7e0c899f94ad6067f4b308",
+    "tools/tests/martial_data/school_gumu_unarmed_learning_cases.mjs": "64e4baba89ca10e4658ac7b5c089b84ffff70a1ac4f400c490f9585903ad1c2c",
+    "tools/tests/martial_data/school_gumu_weapon_learning.test.mjs": "499f04d0df1631a5f8a0c014113863e784bb02b1a53fd7829260d04b8099b55f",
+    "tools/tests/martial_data/school_gumu_weapon_learning_cases.mjs": "8749c24e8e1c334934c356b7549e2120dae71380375c7842755d08fb0c800167",
+    "tools/tests/martial_data/school_gumu_weapons.test.mjs": "98f95bb99c5c8296b1f787b791d28849b03d621af4e18d09d95a16b8bcd7fe79",
+    "tools/tests/martial_data/school_gumu_weapons_cases.mjs": "a3212825c734bb5d2c607027c2d96d223a82628c9dfc4ea6053b97f0d0e0b681",
+    "tools/tests/martial_data/school_gumu_zhi.test.mjs": "52f666bfe3128748fcbad8cc7973e970d89722ca85e553db8a70dacf5fe4d160",
+    "tools/tests/martial_data/school_gumu_zhi_cases.mjs": "7a0b55e99d6ed19c0b312e19d0e685ee3487528ab713d185532110430cfb040c",
+    "tools/tests/martial_data/school_huashan_advanced.test.mjs": "b56124de6f33551da26bb7c647d027d49d7f5bc9dd2c753badb4ba863cfd9b5a",
+    "tools/tests/martial_data/school_huashan_advanced_cases.mjs": "fa7dc58c8958eb32fef0700473f9338da110d2f575ff26bc8a0c6bd2cf1215b5",
+    "tools/tests/martial_data/school_huashan_defense.test.mjs": "30e9ab50689e8875128b255a40b1128fb330a3e519174f716a77b78618be2480",
+    "tools/tests/martial_data/school_huashan_defense_cases.mjs": "119c73229e5460397f8720ae6e9acc2f6dc280fd0f7451daba71fda78ba1f21b",
+    "tools/tests/martial_data/school_huashan_learning.test.mjs": "ffa6f9ac192ec3c2227deb52aedbe9eacf656f7579792c21bd1152c40e0abfc1",
+    "tools/tests/martial_data/school_huashan_learning_cases.mjs": "9ca1b17789b052cbddfcd35548c8e40e6d35fd917d53ef2f94fc9cab385c6353",
+    "tools/tests/martial_data/school_huashan_upgrade.test.mjs": "06d3abc04e530930e270139b9b8a9cdd3cbbe90e624686b83004effe061f6676",
+    "tools/tests/martial_data/school_huashan_upgrade_cases.mjs": "05b6213ce26eb10c886ec42112f40eece81d339679307c6e33fe07c488e0a549",
+    "tools/tests/martial_data/school_mingjiao_apprentice_learning.test.mjs": "6d68e4c209ce60a1c068d40be3b28f4c2376e6b0bf581be3adf739e9cd1c4e5c",
+    "tools/tests/martial_data/school_mingjiao_apprentice_learning_cases.mjs": "8da81aa874783f130e4775203dc5e7dfce2dbbc7c1a0e323b59e94bc17649a3a",
+    "tools/tests/martial_data/school_mingjiao_apprentice_learning_integration.test.mjs": "954c6f065192e99f7b91b3c4392294c3e9c8903699a1600a11af102ee00b9b0c",
+    "tools/tests/martial_data/school_mingjiao_book_cases.mjs": "0b1d7ea2da13d4597cbe42842754dc548b1f85a7b8601e69040a90754411f542",
+    "tools/tests/martial_data/school_mingjiao_book_cases.test.mjs": "2f44447c0ec33b84867a87ccc9401efe7133378976448cb90e32856a410b4c8b",
+    "tools/tests/martial_data/school_mingjiao_book_integration.test.mjs": "39bd4052811b788d0e82fe9c9c0fe99d02b2117297afd093e955811c00ea186a",
+    "tools/tests/martial_data/school_mingjiao_book_report.test.mjs": "db3b00719af9d7a4722864c6acadcd1aa0d8aabcb7eecf3e3067a75022d4ab0b",
+    "tools/tests/martial_data/school_mingjiao_combination_cases.mjs": "6de381bd3d8c703ad4e36c40984cd8e8a2e39d7a7c0e1e02f0fdae6e0e8f6717",
+    "tools/tests/martial_data/school_mingjiao_combination_cases.test.mjs": "d1771e23adb40af40119a78fa2c3500395779895a6b122dc973855742277aad8",
+    "tools/tests/martial_data/school_mingjiao_combination_record.mjs": "1f795404b086435b85e566c4bf6f94525149d0600e4c7f7e5eb2bbeb28957d17",
+    "tools/tests/martial_data/school_mingjiao_combination_record.test.mjs": "53a4ed0b51fb0de4d4992f2404378dd92805e14fba3524faf57a90487c3abb79",
+    "tools/tests/martial_data/school_mingjiao_combination_report.mjs": "a85789a60c4a528d8a08751d0adb04a7f67ebf5ddc96ecbe753a221c72d48471",
+    "tools/tests/martial_data/school_mingjiao_combination_report.test.mjs": "6d246be49cad69547d2ad923c29938e8e1bfbee76d0980018c76c8d3f9871b0c",
+    "tools/tests/martial_data/school_mingjiao_core_cases.mjs": "c7b53ab3c837915af3a812a77c3f48fca68ded20469681d843685136ae3e6b96",
+    "tools/tests/martial_data/school_mingjiao_core_cases.test.mjs": "47c94e8d533fac69ae187ac7c366b2656036eb0a46a0464e4a1429883c76e18d",
+    "tools/tests/martial_data/school_mingjiao_core_integration.test.mjs": "6eb5a2622828443bcbec19a52837ffba630a83c253b2a0877d71dfa3a6355e9b",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_cases.mjs": "bc90f7177df92254f086cc8787123a7b1e83f185ec26b1d4fd571880bb783e3e",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_cases.test.mjs": "42b1e208dfd2f227e1f4e368c3a83b9d204b9da7af87189591623fee250e5811",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_record.mjs": "9cb4216f98fbbcdd66c39b1062f54277d059ad6f71e50a3ab537da40dd8f166f",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_record.test.mjs": "a50dd0a882751e403a03d13dc0438f15a6df3961d9c748b955d24fb3a9c99ad0",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_report.mjs": "6277196959767e8f71df9e145061ef88afa4fbf34c65667841f9062abccd1b74",
+    "tools/tests/martial_data/school_mingjiao_force_remaining_report.test.mjs": "b5791f8c668243b25952f9c5c15bcdcea07185a7184b8edb67a59431f1963bcf",
+    "tools/tests/martial_data/school_mingjiao_gift_cases.mjs": "4916c5ff59999ff121f53e94e798e2135ab04e7e0ae24349f49d1ca951b87e0c",
+    "tools/tests/martial_data/school_mingjiao_gift_cases.test.mjs": "d1bcb6af8ff9558bc0ca0e268c862f77f3890a6d1901f341cdb235bd14fe5655",
+    "tools/tests/martial_data/school_mingjiao_gift_integration.test.mjs": "806c5abb77566b76685a65358ee117d96b07e649a30e4af0a57e7ba8a452b75e",
+    "tools/tests/martial_data/school_mingjiao_gift_report.test.mjs": "6f9b6069b0624a0d4f4de782aa8ff66f1b6e0c1a7223e444c270120c40167dbd",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_cases.mjs": "0340307580b6d38135ac542b0331258a7e73cc78f571a4c887295da4494e9efd",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_cases.test.mjs": "64f4b584005d2ef9bb2452ad0319bcfadadf45af16bcdccccf44b09f86d94bf7",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_integration.test.mjs": "d70d7193501d630409c9cf81e1ad5d4b8c2bc10a7a2431ee1be0f853a2cebf96",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_observation.mjs": "6557a494b2f81a1d71c0e3bc373b0ec1b13e78660a49b2b21c8a5edeaab26dbd",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_observation.test.mjs": "7a48e34edc70633d93a58c6448e4c90f096abf0ec142e08d7c616e49200a0fba",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_report.mjs": "bcf24ffa56e26837dcec3dc6a77c2626cc17a3b5cc8504ae75e95fdfe177f158",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_capacity_report.test.mjs": "f87c94fd2bf919850b6e7b74811ee52e8a6c81a70e7601b48ab8072d71c5f721",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_cases.mjs": "f3bf9a65aa390bf268614a67d628d60b5e6f6ba2c78def8ce843a2e31f73739a",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_cases.test.mjs": "234f605a1679472384d2cc3df07cdbf80522dfa3bdd11790b117087d3d62aec5",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_direct_cases.mjs": "eee752e4e865bc0f4b4a3f8d37b97108c7bb107c16d1e2e5e7f5056404415f6c",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_direct_cases.test.mjs": "683de8bae1a1d50af58b836ccf017876bf3f15139302a73f3b8586b5f9a3139b",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_direct_integration.test.mjs": "596f8fa5630cabbc33967c4003ac761ec0ce48ef16d0d5c914b43103b7450c8b",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_direct_report.mjs": "7ebe62abbb0ac0c446739c7e9ef78b770d09bb069f1dad2ef24eb7ef53cd880b",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_direct_report.test.mjs": "9fc58d1a853b815a186c87a4e2dd9e748efaf869fe233b0df72feb973b41cda5",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_exert_cases.mjs": "8453d6afa763b5525c0b018587d3e4daa593dcfcabdfb2da4d6c6a4473ecc151",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_exert_cases.test.mjs": "11649ade9843b0cb2ee637279ae569e9153c9aaaaf17788ad0d0be526d43a80a",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_exert_integration.test.mjs": "91562e37e38f7699916e6cc8061fb6e561dca9c788212916ffbf137c70b68a25",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_exert_report.mjs": "020f1a7cb7690ffa8032cbe13bbfbd233c16b41f9e71e93319fab4d1e01124c8",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_exert_report.test.mjs": "4ad2170c2edcdc953c1bfaf0b9b5a104945f652e0135bfe382cbdb276fc8d1bb",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_cases.mjs": "9ba5d158ff6d3ba8140ca9c588486de01e84e2f68325193b6c6d4a74430da741",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_cases.test.mjs": "41b99af47c7c360b84daf6b104ca6bbd8837c045585f5c08b80b7b80dfe2ce7b",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_integration.test.mjs": "bbd3f5cd11f54fbc8f2630aa47eba72b8815d5e74b641b715a59d8d4a2078ca0",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_observation.mjs": "825a44737563d4d68c7a79bcc032e0447f5dfb5236a4d69aafcff2e2b40b8f26",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_observation.test.mjs": "426d9f3ddf3867939e8b348e5b4c25b3ae5e180259a2ecfe8b43afbab91003c6",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_probes.mjs": "3445c51ed0b64be34fa2f19b4dd2b40d4815200a31e1ed90678fc017b042d21c",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_probes.test.mjs": "88d35633b3b714592e44d66185e0750366d5308986eea7601de0dc0154697931",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_record.mjs": "35e0ad5d16d17124d52df4877a402d30bbe1b422cbd442e49dcc946d6d6aa418",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_record.test.mjs": "943ae7b923947b1d65c6afd6495f421d449910a1dd7ae98276ed3cc134c69967",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_report.mjs": "f5a44868d04d10267d011e6df17c72a4f7bce0bdde655b24a446bd30f829325d",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_fusion_report.test.mjs": "a401ba782d58e6f7a5f6262fbab2d80e0166a0bd8ebb8695f44de26387abc58e",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_integration.test.mjs": "f6c67cfa61c374feafa3038d8d9252a21c0d596e8c8c258a07a4393bd738687c",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_learning_cases.mjs": "68be60dc2aee8f3b90a99780435d8b718904e38c0c59c641755684c5107b0284",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_learning_cases.test.mjs": "5b7978c7c91b628900e28ffcc8d4a2f7de44c6533446951d4ac2c2f0e6cef3a3",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_learning_integration.test.mjs": "7e41b3359622d4fc19515bea4831e9646a62a46b2eec9fd9ef8f3a6b53a95871",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_learning_report.mjs": "0884ed2c94c1ccb64ea1b79d98801be0a02b8bcce8b40c11f2f5f33678c27a05",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_learning_report.test.mjs": "3f51b3916694a1e743980fadd2b02c9bfc9903be5b8b4a7e720c24147e30d868",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_remaining_cases.mjs": "1c532d7605147d1ec5236eea2e7321f99461e374812f8e93e45349c02a2c98c2",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_remaining_cases.test.mjs": "2dbc2f2d4c210ec56726928bcb46951bcc649d44da46a2c2438321b5b6cf4102",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_remaining_integration.test.mjs": "5a68d2a2ab70fa8e6298b8299e0bdcf161c8301bbef5bb82f978c26ab81e573b",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_remaining_report.mjs": "3b1793279341d179179e9b25cb66dca8067b7e4fad1ed71806a1c0695daefcbe",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_remaining_report.test.mjs": "d1aa524b5b6acf34c1c40bd7a3e7954d00e702e46b4e4132e370adcaf9e487dc",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_report.mjs": "81c29c0fc4996571b871f994959811c580387071469da1fcaaa0913dafb99283",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_report.test.mjs": "c74b816c4fe8aa2574357d7238c1acfe492a85c1445eb0ac9ce76ab528f6de0c",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_cases.mjs": "edba97184cd8af2d0b2ea1fa4d9d7fd54292340ff5b792b3d822bb175686c375",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_cases.test.mjs": "abe77990def9e3ef3f95133d89e9e088f4287054770717d4a5e0a81b9980af66",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_integration.test.mjs": "b556685ac89d875fe395743f1934e387238f750e7193d299e1c21a0f66b3b993",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_observation.mjs": "d788ecd364ac73eec04476dd5dc5da270186cd6847393e66f5ce6b7ac2f8a2e2",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_observation.test.mjs": "67ffc85a373f0b627429b2d05c27952a813397e05a7d885eccfee63184510c1f",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_report.mjs": "f253db4bc862bd91aa5e6151e6e7483170643ec66084425c03605f71a4931832",
+    "tools/tests/martial_data/school_mingjiao_jiuyang_research_report.test.mjs": "52ddbfb4ffada67e78d7c003165aa8be60524db549d30e05e8a99a47f1f66e05",
+    "tools/tests/martial_data/school_mingjiao_ling_learning_cases.mjs": "5d551485b00a30acd1fa24f36007e44de2f0232707bf41d5b0e8e5bd4636ccb6",
+    "tools/tests/martial_data/school_mingjiao_ling_learning_cases.test.mjs": "1a03358c1938ceba859d3b94b527e93e691076b1daacd736e1efeec340da2202",
+    "tools/tests/martial_data/school_mingjiao_ling_learning_integration.test.mjs": "f5e1b768a1161e1c8292e19c7462fc2c9ac7940aa471bf32a109fb86d6307220",
+    "tools/tests/martial_data/school_mingjiao_ling_perform_cases.mjs": "edaa95e6987d904e7164a3fa377f28f9a9fc8253dcfabb5a103f7fbbafd55f8f",
+    "tools/tests/martial_data/school_mingjiao_ling_perform_cases.test.mjs": "e9a9d34f5e8dfc3d9d21e596485fcb09c08ed9da53494e71e91c4e6c731eb509",
+    "tools/tests/martial_data/school_mingjiao_ling_perform_integration.test.mjs": "a458228666bc08970a6fe98fac781df7e37e16cb09ecc19179e9c37e4c92f254",
+    "tools/tests/martial_data/school_mingjiao_movement_cases.mjs": "305ef8172fab0c20b8ecc45e2aa1f3b4278e574b6384a702113c9bdf5806d711",
+    "tools/tests/martial_data/school_mingjiao_movement_cases.test.mjs": "9996445418d83c6a234bd86b32a144954eec8881bc122d796c3e3c923be4f94e",
+    "tools/tests/martial_data/school_mingjiao_movement_integration.test.mjs": "365bc09fa332e22b78c8a1efc7a16e68f73c9a7326feb55ff50f85b41e2479f5",
+    "tools/tests/martial_data/school_mingjiao_public_force_cases.mjs": "e83ecf31c360ff473820e7fccb2c62e607f81c961e0bf743fe7bd7593b70ec2e",
+    "tools/tests/martial_data/school_mingjiao_public_force_cases.test.mjs": "51906aac7cbe34efe7ce473138de7b0cf2330204024cb2d86a1961ada786090e",
+    "tools/tests/martial_data/school_mingjiao_public_force_integration.test.mjs": "eed13f5725ff6b4e2d8e3d80f28712ba202aae9caa73c8a37142aaa8c0c30f4b",
+    "tools/tests/martial_data/school_mingjiao_qishang_cases.mjs": "716b873b84c9d234511a0158f0901793b7e99fe997ecf8b403aebd4fb7e7e583",
+    "tools/tests/martial_data/school_mingjiao_qishang_cases.test.mjs": "6f9f1da5dd097a00766be03a29ab0850d15ecbb86337f645f1ba9bf0a812925e",
+    "tools/tests/martial_data/school_mingjiao_qishang_integration.test.mjs": "eafbd6f5857b08cf00684a8be17a9d40d935231d4135bbf56108b28d94d7102b",
+    "tools/tests/martial_data/school_mingjiao_qkd_cases.mjs": "91185b66dc4f18cfaf93c5747aa12c1cd5e63e849d71c41e7cf6ec061e1fd377",
+    "tools/tests/martial_data/school_mingjiao_qkd_cases.test.mjs": "e970298d8ef562ac1c2c7ace4420cc75b6ab9d3bb5d1c964db33180220c70dea",
+    "tools/tests/martial_data/school_mingjiao_qkd_integration.test.mjs": "cea1b22e5833e0a4e0d31d0a2ebf7ff2ea5e91b2de3b36dbfb0af046a2c8a2da",
+    "tools/tests/martial_data/school_mingjiao_qkd_report.mjs": "2c250f0ef1cf75b94e8004baf04daede0364507debe2d8624177e3487bb9c324",
+    "tools/tests/martial_data/school_mingjiao_qkd_report.test.mjs": "d69dbfee5e77867ee8415c72049d29372521ad8fe5d1cb70cff0939a77533937",
+    "tools/tests/martial_data/school_mingjiao_recruit_cases.mjs": "53712de7d25354b193ac24dad16a02807adba008f91b23b66fc8469d88011278",
+    "tools/tests/martial_data/school_mingjiao_recruit_cases.test.mjs": "bb70b6885700770b55afdf3cccb4ffe47ad88ddface8f5125178ec8d78db6b4c",
+    "tools/tests/martial_data/school_mingjiao_recruit_integration.test.mjs": "de1c11886daf2d1b34ca899ed41ec51e620381a63bc5fb3e58297773b75a9c7b",
+    "tools/tests/martial_data/school_mingjiao_recruit_report.test.mjs": "ba883a2c92c6a37584e5a0f3254938495c2173ab13000cea5e0f74596cf7784c",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_cases.mjs": "d847be0a0b63d7a513070a6b9e8e70438f8cffd6da1c6a159f05045b3edd3901",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_cases.test.mjs": "718614cd719c960bae9377d1fce1f772d1ea8337e48f7f213cc47af5b13c29ae",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_integration.test.mjs": "6ef97c82454b5a66d30ea67b0783c20006084138298352d02cfa27f2e9461c76",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_record.mjs": "48102b1ecbd89396ec11a331f2686dd711bf0799685a9c7c1d4d5dcf1b5c167e",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_record.test.mjs": "1d807877c9fd787fe4018472b7a9ccc58a928163011f43df52825d57e05f2671",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_report.mjs": "2990f15ef8a3020ecee0554fe22838ca40f57cbd742276d23044c28e982a0aa7",
+    "tools/tests/martial_data/school_mingjiao_remaining_base_report.test.mjs": "9b1760869d1aba132a04c50efdf646821c5ff9d458ae0079e5f4d9addf24d4e7",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_cases.mjs": "e82e76bb8d07fd022e525b4cd91f4f739c50f4e077634e38588f54778bf8d4f9",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_cases.test.mjs": "8ad73c0f76a576693f36156c7a06ab0fa952f1e7e119dc3afafeeb8abe468eae",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_integration.test.mjs": "6274ccc6ab2685861ba6c72b77c872bc65f2db7f730d0a606ccfad5bf8ba2d3a",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_record.mjs": "fdf9ee4e0dca2593e1416ebfcfa2070be60c3a97521acc77416800c819d431de",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_record.test.mjs": "542d2aeb913f736d4bdce31562e3457235d7ce5b87c749e93103ac0831d0de6d",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_report.mjs": "abacb2a091d916ccf6ddb6ad069694f0e10608990b7bc9e95c4cb7aedeee3bb7",
+    "tools/tests/martial_data/school_mingjiao_remaining_perform_report.test.mjs": "cf2b70cc9a0bb8123d4aaf843b54dbd263f5f128229c0abc36ce2acb3c738781",
+    "tools/tests/martial_data/school_mingjiao_remaining_producers_integration.test.mjs": "6e0eac52c1cfce095d90b21a3cd0f3070f98559a5df37635aeb30ff2ba333e2e",
+    "tools/tests/martial_data/school_mingjiao_route_cases.mjs": "5f638214241d8ce68f781ce52b5d1b75025b8ebc1cfc16079645bc00a9db6075",
+    "tools/tests/martial_data/school_mingjiao_route_cases.test.mjs": "1383e8d754c772b14e0b3f8a00ba5b2df8e502778d265894e752e4254e463fcb",
+    "tools/tests/martial_data/school_mingjiao_route_integration.test.mjs": "209d5060eabb334f21bc29121d55d182f4d088df635f99e07756e6387fe60034",
+    "tools/tests/martial_data/school_mingjiao_route_report.mjs": "ca5ed61adbecbefe48e8669bce99ac99fb5d628fa938b07352f070d7a351f70d",
+    "tools/tests/martial_data/school_mingjiao_route_report.test.mjs": "9cc45c1717ede1fb74b8b2a07bd9273e936e3b00b8db489c4c1ca7b30132f3f7",
+    "tools/tests/martial_data/school_mingjiao_shenghuo_cases.mjs": "19001519e4b4f50636317f4905b85987a6d8699ffc40a16ed5c17636e8121c9b",
+    "tools/tests/martial_data/school_mingjiao_shenghuo_cases.test.mjs": "cd522a300493c8233bd97fa3ec094415d268b2de7cb86181bd7231f838738bb3",
+    "tools/tests/martial_data/school_mingjiao_shenghuo_integration.test.mjs": "3036c2452d8b7252de2ab090b49c1dafb3cccf0826e588e68b904725172b62b1",
+    "tools/tests/martial_data/school_mingjiao_shengong_cases.mjs": "a29348780e2525c8fd642ac03e4cbfcac45f9a73e375d6cebb403e4df0a4d43d",
+    "tools/tests/martial_data/school_mingjiao_shengong_cases.test.mjs": "420f37d457a07f04d35a273a175441de3f541d6e6b185a4324b4772759366255",
+    "tools/tests/martial_data/school_mingjiao_shengong_integration.test.mjs": "be75c9da1f4f144c026498a2e658ba656e9119d82c72e1aa33728fd3c357c78a",
+    "tools/tests/martial_data/school_mingjiao_teachers_cases.mjs": "4f2edae9b42de7651899fd0d7c1a6062a9982b6079b80bec1804033a41ec2dce",
+    "tools/tests/martial_data/school_mingjiao_teachers_cases.test.mjs": "2c798adaff60250d69db13847117576531eedd4b3b1690b39665f0a31827d94a",
+    "tools/tests/martial_data/school_mingjiao_teachers_integration.test.mjs": "ab85ce9a6f363132501731f9a4b0700ccecf7c39e5948a132592b6c31acd2120",
+    "tools/tests/martial_data/school_mingjiao_xinfa_cases.mjs": "ca85e4025e03eecb367a739cd875b2f07788dccb3f5e1fbd7702c3461d9a50cf",
+    "tools/tests/martial_data/school_mingjiao_xinfa_cases.test.mjs": "22e3db402031d64e81360a57a9b6b17db006cf300b970f6a0daa23e4021e2b5e",
+    "tools/tests/martial_data/school_mingjiao_xinfa_integration.test.mjs": "826484596f11ee454b07c350fe41779c388e14fb347a4d8f37011edf0038d18e",
+    "tools/tests/martial_data/school_public_force_report.mjs": "73b2d108ec3948f315fbef38f57539278da3d9588e8011d2b98d32bcddd0a65e",
+    "tools/tests/martial_data/school_public_force_report.test.mjs": "26a9ce31605a63070b0c4bc608629932894242b2ec148d6d4d1f7989b267529a",
+    "tools/tests/martial_data/school_quanzhen_advanced.test.mjs": "d3050e465e5ac2cc4b7d97a90e76bcc202bfcf5cb8a5a8c651d27f836054c61f",
+    "tools/tests/martial_data/school_quanzhen_advanced_cases.mjs": "5f4d0b5563ea57ac0162085a8f908cd71cbc3441a05596140b77626f2c3a973c",
+    "tools/tests/martial_data/school_quanzhen_auxiliary.test.mjs": "f52c9ad7acc127acb56cc7c7301be471613aa0b6b88507154596537443d296a6",
+    "tools/tests/martial_data/school_quanzhen_auxiliary_cases.mjs": "baf87d925e504b61467bfdb6ee3a0fb6ea6f05fd5a0aa6ddf5cd2dbe1ee50427",
+    "tools/tests/martial_data/school_quanzhen_basic.test.mjs": "2918efe26e657377f245c7f650d944524b5783298679a5289cd319f7c4ffb6a9",
+    "tools/tests/martial_data/school_quanzhen_basic_cases.mjs": "d443aa4facafa5b66d6528ac8085ae04ec168941f0ead205ef95c557ead4dee4",
+    "tools/tests/martial_data/school_quanzhen_cultivation.test.mjs": "2a2d0a902dbfa9f3ae9637c0e3ea09e0f4fd02237b9d5fe0828303e7dee9fa2a",
+    "tools/tests/martial_data/school_quanzhen_cultivation_cases.mjs": "121f576ddc39f93b6edbfcfa292436e2b3b777c8d1e17d71e75f09c2ab9c955b",
+    "tools/tests/martial_data/school_quanzhen_defense.test.mjs": "60ff9a8bd88ed8c949995e59f12beb7420adeb9b23d6a7cd207d32f0f5a1ff0c",
+    "tools/tests/martial_data/school_quanzhen_defense_cases.mjs": "89a33671e92fb864d3aac0038b412ee35193860a89fe63f310ef6d499e3a47ea",
+    "tools/tests/martial_data/school_quanzhen_practice.test.mjs": "dd0e65a472eab0cda907917ca1e862db430209f10f24819432549634ddbac802",
+    "tools/tests/martial_data/school_quanzhen_practice_cases.mjs": "ba88dcdb147149774127734508d52c4e2dbddb961c2050fa948d5ee609399281",
+    "tools/tests/martial_data/school_quanzhen_recovery.test.mjs": "5210115c8dd45be199b47009ac39c5ea1396a0a266b6124eeb37ba7826e6a12b",
+    "tools/tests/martial_data/school_quanzhen_recovery_cases.mjs": "d42901edc45b4680c02eed80c0e6e6686e5996fcc04b6f891fdfa83dc1472a58",
+    "tools/tests/martial_data/school_quanzhen_study.test.mjs": "d584412857c1b26376d9f6787b57142f0243f689a4eaad23685c21197cf17ad0",
+    "tools/tests/martial_data/school_quanzhen_study_cases.mjs": "64853ec5f2f1b8fde041dca374486461b64589950b36d8686aa91bff6705d1c5",
+    "tools/tests/martial_data/school_quanzhen_sword.test.mjs": "9a6857133ed52c11960f23fc4adaf831626530bd214a5db266a23fc004ad412e",
+    "tools/tests/martial_data/school_quanzhen_sword_cases.mjs": "470af3b18b0601850b43a1d530b85538f150390d676c622168ed53f80d064448",
+    "tools/tests/martial_data/school_relations.mjs": "39797f63b2da7c562d62b61c4735f91cd98f04c5ef28be55f0a77f0aa8f939d3",
+    "tools/tests/martial_data/school_relations.test.mjs": "0c6197115820d64bea10371549002c70e77f29bfd7082f919f5af6011c287b1d",
+    "tools/tests/martial_data/school_scene.test.mjs": "867fde96a7f3147ce5af9bdc17eed9b5ede8697556eef89495971e8e46d9f142",
+    "tools/tests/martial_data/school_scene_cases.mjs": "888bf5735887d6b382678045c6819f333f3bf3921acfdbcaba211398abd7347f",
+    "tools/tests/martial_data/school_scene_gifts.test.mjs": "dfd3e9fb323187415b8db1da2d0c788e05bbc26549485f1a71c87342596f34a1",
+    "tools/tests/martial_data/school_scene_lifecycle.test.mjs": "bf7c55eda525b880e3aec8f85aa5526e05be023158b09837f673a2c16d943225",
+    "tools/tests/martial_data/school_scene_report.mjs": "9afd8dc6d18405ebef7e9f519765984831ce8bad3912ca145d9765beb0b75a4f",
+    "tools/tests/martial_data/school_scene_special.test.mjs": "b95264964d45f64784eadcaf9d8cb9fe87f2ccd10ef8efe3c2c25eb0a9910a43",
+    "tools/tests/martial_data/school_shaolin_additional.test.mjs": "8cc89ae1238a14b888c7d947aef506d17a0513da2358a5e8f7e15403544d7304",
+    "tools/tests/martial_data/school_shaolin_additional_cases.mjs": "fca57617a24cba8a5207e4a639795bf51c5be741f40d172c4a904b95913d32bd",
+    "tools/tests/martial_data/school_shaolin_backlash.test.mjs": "84095fd7ae05fc7b666ce8296942956d1dd6c5b0800624bf9a7e7ba92bddc75d",
+    "tools/tests/martial_data/school_shaolin_backlash_cases.mjs": "572a7e8fa19c235215c8f3bbb4a6ba819ab010753da3f62420b9a325ca60ae05",
+    "tools/tests/martial_data/school_shaolin_bout.test.mjs": "0e062bdbe730b97c9507dd8c070641c9bea7ea21eec74842e8414fd3f16e4e98",
+    "tools/tests/martial_data/school_shaolin_bout_cases.mjs": "e1367e6132e24805278e807795a6565410e7ac7bdde5036e29b64a0ca11adad1",
+    "tools/tests/martial_data/school_shaolin_combination.test.mjs": "268f9c9ad738d0b62882cdfe006f04e2505a23987ba0f5ae4bb5979bbadc34d7",
+    "tools/tests/martial_data/school_shaolin_combination_cases.mjs": "6f5bb1ea7a6d2fb3fbab65a40c0abd9651db4b17d5aedbc12c43a18a02e3f99a",
+    "tools/tests/martial_data/school_shaolin_cultivation.test.mjs": "b643828a8ede322bb2b90ddb63fa47e1af313311993dd2f1b47c527fef296ed5",
+    "tools/tests/martial_data/school_shaolin_cultivation_cases.mjs": "2129f2a187f1abe189171a8f4ccd6a15728bd4cf150c5ab593577c34fa841d2d",
+    "tools/tests/martial_data/school_shaolin_defense.test.mjs": "a6f84d76f48edd15f84de6f707a9f0e674d1dca397a302e16af4bbc3dabea19b",
+    "tools/tests/martial_data/school_shaolin_defense_cases.mjs": "f3e84b7d74875ad666b826627408ba1d5f0a65f9e7f3652b6300ca0f03b23de7",
+    "tools/tests/martial_data/school_shaolin_exert.test.mjs": "8e6beb3b2f435065874d2190df7c40494f9ecea1761d6fbc7b12af2c1b4f05c8",
+    "tools/tests/martial_data/school_shaolin_exert_cases.mjs": "7b10d1f29ec2509d84380724b5ed7108a641960a77ce9b9a47ff000397756ba9",
+    "tools/tests/martial_data/school_shaolin_fingers.test.mjs": "9fd81ff372dbd9dd8c7640d527eee1ff53de6cb6f08f923f6b304e2788c68ec2",
+    "tools/tests/martial_data/school_shaolin_fingers_cases.mjs": "16ce403330370678c89affe3481b7b2eeaed904d7d7a92a95d6fad8f3c902446",
+    "tools/tests/martial_data/school_shaolin_fists.test.mjs": "810bbb6e9d6ab08062fd2667b031edf519a2daad862afed07a37288047f5a47f",
+    "tools/tests/martial_data/school_shaolin_fists_cases.mjs": "e5bda4555914b488854dc0a0e3987f89cd195767e579ec31b82eab377f3cb866",
+    "tools/tests/martial_data/school_shaolin_hands.test.mjs": "27887f538143ea850763aba3e8becd4c237b2d530f15fb6fbe519c743d4d3792",
+    "tools/tests/martial_data/school_shaolin_hands_cases.mjs": "972458be22d9c4e3e3c26b21ff7c46ef0b7eec53c35f82250b302e91cbb642d9",
+    "tools/tests/martial_data/school_shaolin_learning.test.mjs": "e23c666996ff3259d688f6e5013b10861bf45d6ee6795e11cfa556882617749e",
+    "tools/tests/martial_data/school_shaolin_learning_cases.mjs": "1ffe0bbc972fc09ef33076b63f26f8b215c82489aa69abbc08a65836a7ea115c",
+    "tools/tests/martial_data/school_shaolin_palms.test.mjs": "4e194c4a4b74a1342d3f53c90cb2bd5d9a3640205b57b8d9dbf46396f0c9b2ea",
+    "tools/tests/martial_data/school_shaolin_palms_cases.mjs": "2e98574cbd71f5068b5b97747d0d418af48cea3267eeafefaf19805db220a603",
+    "tools/tests/martial_data/school_shaolin_public_force.test.mjs": "a573002d5850259bddbaaae968c6809edfd6763b1329c798d7ba60b24335da9a",
+    "tools/tests/martial_data/school_shaolin_public_force_cases.mjs": "d05f39e62976494dd526c4f24343f3b301d0ccb092e7a199584321e331640609",
+    "tools/tests/martial_data/school_shaolin_recovery.test.mjs": "1cbdd3a843a83fcd049bfab0ae05bbe47605a8ed5bdf6f7985703576e3bc5e18",
+    "tools/tests/martial_data/school_shaolin_recovery_cases.mjs": "a3d12c9b3c67ef359870402dcfc8a7d861e8e8a1e6c300fcde550ce5cdb1593c",
+    "tools/tests/martial_data/school_shaolin_support.test.mjs": "a37426ac36806bf9915016c99ed6a9c7780f205e9663640fc43673b49e92cb53",
+    "tools/tests/martial_data/school_shaolin_support_cases.mjs": "6007327be539253d68a1387927ea9b13f42943b64feb8566f737429d473bf62d",
+    "tools/tests/martial_data/school_shaolin_sword.test.mjs": "e5dc44205a02146d4908af0e230ed3c8c46809f33c27b78f2bf2ce7d1281e544",
+    "tools/tests/martial_data/school_shaolin_sword_cases.mjs": "2cfdf9eb6e415b2b4e647f49955662baf8c83df8332a2b0df25e8246f821fb4f",
+    "tools/tests/martial_data/school_shaolin_unarmed_learning.test.mjs": "3a575f9bc51cc7a7a1b1a715a17218ca0ecf9eaa39ff18d345fd48dd7880b821",
+    "tools/tests/martial_data/school_shaolin_unarmed_learning_cases.mjs": "874bea92af67938223712d46fcc8ed7a33dc1fee6c706023df7488a5b841bb2d",
+    "tools/tests/martial_data/school_shaolin_weapons.test.mjs": "fab773524530ae4c8ab741834ee61c110874e602fc9964f07c3befc4054a1da5",
+    "tools/tests/martial_data/school_shaolin_weapons_cases.mjs": "8d8c535f4b4844a777046f80f1795e3872b7b5114e2f6ba1893b71346de4058c",
+    "tools/tests/martial_data/school_slice1_cases.mjs": "164d936a82fa66a451a50568715f2a2370537a4273dc235e1d8777350b1ba6e0",
+    "tools/tests/martial_data/school_slice1_cases.test.mjs": "f0f35342c82bb859be0abbec8c1781bcc3ed0d2bac497e9afee034cc536c1491",
+    "tools/tests/martial_data/school_slice1_preparation.test.mjs": "cf5571866b561b6140a85d38b4038fcd52e8f7692307fdec7d11487c20eeaa1e",
+    "tools/tests/martial_data/school_slice2_cases.mjs": "f82d67e1f4fae0ad5a58aada69610f0ea66baa21ac2ab424a1b537f89e4c4956",
+    "tools/tests/martial_data/school_slice2_cases.test.mjs": "2d09f26b3183a3b1fea354e5da14f6fe4229255cdc3d3aae2e53fcb88eb67b69",
+    "tools/tests/martial_data/school_slice2_preparation.test.mjs": "0b7b5a79e4ba82ea6351d07fdafda6a8fb040ffcf7f747e5fe0a22b2784013d9",
+    "tools/tests/martial_data/school_slice3_cases.mjs": "fe95ede404678abf0f66bb2d5f0e090e5763a1637081ff51146cda1e86e03fd1",
+    "tools/tests/martial_data/school_slice3_cases.test.mjs": "c9c8e13681d14829deee591441d11bd9e36d43655c06a309994328909fe838c1",
+    "tools/tests/martial_data/school_slice4_cases.mjs": "13b1659ec2a58354f8250cb08f54bba2eacd763e56683c4ed2da7dda40cd14d3",
+    "tools/tests/martial_data/school_slice4_cases.test.mjs": "7708ddbcdb1ff7cae1334e609eb9b5706e786c32f46d3a03d6e6e6d35f07c3a7",
+    "tools/tests/martial_data/school_slice5_cases.mjs": "5d2903783b1b4572446cccf433f4d7086df6f12d9becc98f30e21a21e028a194",
+    "tools/tests/martial_data/school_slice5_cases.test.mjs": "5f24aae9be4901ba8db456f117fa1505789ca34a2580d3bc315b30263f62ee33",
+    "tools/tests/martial_data/school_slice6_cases.mjs": "572209399b016c51e6d68cc4de79353452c0ca315859bcbad480421a9176d5b7",
+    "tools/tests/martial_data/school_slice6_cases.test.mjs": "46776e8fb26fa67fc2700291584aa6b715ba9b1d26db26c446d6c48425916860",
+    "tools/tests/martial_data/school_slice7_cases.mjs": "91b144f199a0dc3aa7c9634d0f21aff20e5e65c6de7f62d1791db50fcb150542",
+    "tools/tests/martial_data/school_slice7_cases.test.mjs": "ef40938d9698e6c2ae9939aef740de8afb253d1d810eb596420becfe9c2e3af6",
+    "tools/tests/martial_data/school_slice8_cases.mjs": "7b9d6df136bc7f0275a8081016e9e1fb3216246f527108d0973c83bdea1ac10e",
+    "tools/tests/martial_data/school_slice8_cases.test.mjs": "b3d9fdcbb5b3e7c38ea08e9d2a806daba71e41fe80048631219a57e74434edf6",
+    "tools/tests/martial_data/school_slice8_preparation.test.mjs": "9d6fa03c749b7da8f333fc76a68824f32e0f6915e7bbe4a89c6fd791982d1ecb",
+    "tools/tests/martial_data/school_taohua_attack.test.mjs": "4e39e15243610ab10a64094219232ec459f6e46d44c6721f146689c5143d774b",
+    "tools/tests/martial_data/school_taohua_attack_cases.mjs": "ef042851f393074a88dd7d280eca65b8a4fef9f0a23e526723cbbaeca8e50127",
+    "tools/tests/martial_data/school_taohua_attack_report.test.mjs": "473929f6adf033270e8ab609181abb42ec186e63d1503a1081b29e79e2792c37",
+    "tools/tests/martial_data/school_taohua_bihai.test.mjs": "51542d11badf4cbf470cb2c329f429ea0e5c9bc0a1738b9ccc917bb7f1c32006",
+    "tools/tests/martial_data/school_taohua_bihai_cases.mjs": "2aee950ba2822274d22b4264ef054015b02e56040ea6e03e1011dbaafd5488cb",
+    "tools/tests/martial_data/school_taohua_bihai_integration.test.mjs": "106a2b86bf4f5ed3c96b9d38547fc5858622db9c5e1e3a7ce6a88e65bc1c3142",
+    "tools/tests/martial_data/school_taohua_bihai_report.test.mjs": "97abb17fb3b012377caf8292b3f3e84801464658bc2d45e8505b1ff1b73d76d7",
+    "tools/tests/martial_data/school_taohua_combination.test.mjs": "2185e3f41c92eabca394437cd38c528da1df37d9a4edbe26b3c5f6c60b35af28",
+    "tools/tests/martial_data/school_taohua_combination_cases.mjs": "74d8e8e931640fdb378ef69da013644c5de09097cfe1eb1ea20b47f90a04bb85",
+    "tools/tests/martial_data/school_taohua_combination_integration.test.mjs": "955843b088ad7d0248a1d3ad10ef99954cfe74f3e55ba6a1a0d7dd19f70fd0d6",
+    "tools/tests/martial_data/school_taohua_combination_report.test.mjs": "8da935b75718a004cbef4da41e9baf9d348db06fe97771d6ed73a48673b7363b",
+    "tools/tests/martial_data/school_taohua_combo.test.mjs": "c86402c1270f066d942777aa214dc58d8f292bb78593155571a69a2c49e1a897",
+    "tools/tests/martial_data/school_taohua_combo_cases.mjs": "5978f8a1b0d249868364eff14ae83911446c8e351303ce4b2ef7cbf74f1c43ef",
+    "tools/tests/martial_data/school_taohua_combo_report.test.mjs": "028ccba0d8d9a2a54e5f9f0cda8696bb1ccf70c99f86b16f0afda9c910728d94",
+    "tools/tests/martial_data/school_taohua_control.test.mjs": "9ade12ea6b740de96aa0bf58307750242545414c738c1f46d2d172dcdf838efe",
+    "tools/tests/martial_data/school_taohua_control_cases.mjs": "ca15f23a2e90a90f6e614d25d0154a118b2a1d1d371b9343a41508b969dd60ce",
+    "tools/tests/martial_data/school_taohua_control_report.test.mjs": "b140726be9a73fa596851df86ee8e090f18914d253b5f74c6e241edb5f688fb9",
+    "tools/tests/martial_data/school_taohua_ding.test.mjs": "815095c125ca738582ce3e2c06648ae6a2b7498803add1c0827b81438310e537",
+    "tools/tests/martial_data/school_taohua_ding_cases.mjs": "a1488a1787760da37efa29d62eb9be22382bc6b578ec15eec534ac6375333a4b",
+    "tools/tests/martial_data/school_taohua_ding_report.mjs": "8c70a1c4e69a3986497a964502be1ee3b3ff60add6b10e02ac16b631e71d8d6d",
+    "tools/tests/martial_data/school_taohua_ding_report.test.mjs": "833e968d6bd3d32d5cd098b5087345b70f717cc39e733fa7b71be8b63b528889",
+    "tools/tests/martial_data/school_taohua_direct.test.mjs": "9182078f391df146c0bfa70afe26942905e38c79d81b93129b65c84ea5973613",
+    "tools/tests/martial_data/school_taohua_direct_cases.mjs": "12a6759c96f195e14c5e14d830ddb08a094f8ce23e4f12dfa07dade50d2c12a7",
+    "tools/tests/martial_data/school_taohua_direct_report.test.mjs": "0886896ff6fc6a02069f62fe80dae352c845c5e37952fa732e1cde4c91044f04",
+    "tools/tests/martial_data/school_taohua_force.test.mjs": "2b043b0f05af80dd768b39e1dfc13bc31890a9b1ae988a0bfba304d42ddd8c4c",
+    "tools/tests/martial_data/school_taohua_force_cases.mjs": "df5d002f7112c7d642b0b0cac65432dd82febb72dc5e33db019d97cb1740da7e",
+    "tools/tests/martial_data/school_taohua_force_report.test.mjs": "172e5df1cbd112145b842e4b74e96064d91658dfe57f990066b78da4d7be6cee",
+    "tools/tests/martial_data/school_taohua_learning.test.mjs": "5ad0d8d48d10fa5ab6e1f10fcf67f357f8156f15ed59b9b0711371ee573290dd",
+    "tools/tests/martial_data/school_taohua_learning_cases.mjs": "399d4238bfc4323c1c91e3c9eb9f5424424d8b2f40037eeafd1de3b00daf1e1d",
+    "tools/tests/martial_data/school_taohua_music.test.mjs": "bd239a3798b03827c147fd375d990303c83ce8dd938785d96176d6308b88a3fc",
+    "tools/tests/martial_data/school_taohua_music_cases.mjs": "68e5770cd6376cc80adeb957fda1a6cbb71a55e4419056e54163aefc51c2780d",
+    "tools/tests/martial_data/school_taohua_npc.test.mjs": "3f592d3dd19a57bdefe1fb1baffa7b633f83a48be738c02df6248966aeb8680b",
+    "tools/tests/martial_data/school_taohua_npc_cases.mjs": "7ca35881b6b9640b7b5f47e40129dd569b041941df8feda0121d53e7072efd5f",
+    "tools/tests/martial_data/school_taohua_passive.test.mjs": "edc1604632676b8167dd4b9580f16375015971ecd1ef3e98588361227a14aa18",
+    "tools/tests/martial_data/school_taohua_passive_cases.mjs": "8a607edc9d73ca1b78a69f644a73c199beae369229fe1d53df86c89d3ce4ebb3",
+    "tools/tests/martial_data/school_taohua_passive_integration.test.mjs": "99031c10d9d254186188b355a9082c925fec0b1b5dc553723bed75765aa1bf2a",
+    "tools/tests/martial_data/school_taohua_passive_report.test.mjs": "ec49cc560e30d9651356bc728e8ea64b71bde03603d254e8d0e0f8d10ca969dd",
+    "tools/tests/martial_data/school_taohua_po.test.mjs": "0fca250d25f2b1d56352bb3a2e267bbb9cc7c07da950541473e2b2f2133f02e6",
+    "tools/tests/martial_data/school_taohua_po_cases.mjs": "e3beae02e617284bd43f2e31e0ccdbb22f9ff7fa050322da123e877818d0d702",
+    "tools/tests/martial_data/school_taohua_xiao.test.mjs": "fd9399b09775df9528600a5a3bbfe11644cd5b132e11832239dc09fc43b49285",
+    "tools/tests/martial_data/school_taohua_xiao_cases.mjs": "026a5a863fd565e177284a5b08f04f134c8dac7b6ea93b1e518d5f49ec9a117e",
+    "tools/tests/martial_data/school_taohua_xiao_report.mjs": "aba98ef5a7543aea62fe36b9b896c28b3198017c230dab1d1c71ee176fe86d80",
+    "tools/tests/martial_data/school_taohua_xiao_report.test.mjs": "84d4f793ceed1657f90ca71e381d901414e90b2c459befcba2d4b0cf1095a039",
+    "tools/tests/martial_data/school_taohua_zhuan.test.mjs": "562fe222fe14ad54631813cd945d74019ef17addb580d9f8cdf7b4cd8523c683",
+    "tools/tests/martial_data/school_taohua_zhuan_cases.mjs": "07959c059e29f054d5fb7d4ca40401c3f0802b9fd4428e3bbd06b38d35737363",
+    "tools/tests/martial_data/school_taohua_zhuan_report.test.mjs": "12c834fa33792914a531da9f9afb0f1035b768805ba6d644c71a101bd8b5c73f",
+    "tools/tests/martial_data/school_team_cases.mjs": "318842ec34a1cba67709880deb3365a3b0735fb4af25e940f944a581c5564306",
+    "tools/tests/martial_data/school_team_cases.test.mjs": "c3a1d5e8e9bb760b065f1df8349099a575a2bd0486700d02519eb0cb4d512cc3",
+    "tools/tests/martial_data/school_team_report.mjs": "7866604a18c0f527f3d7dcc79e7adc8756c9307b7266b92c83c9c5bdfd153bc4",
+    "tools/tests/martial_data/school_wudang_bout.test.mjs": "16f90c9b139ba1196a368e409cecdd0027a531d1f71cdf15b1f8c1c19d5abb31",
+    "tools/tests/martial_data/school_wudang_bout_cases.mjs": "8b36126c7475b57393832c57e251375f8dcead66ecef6c4e94bc34232d4521f2",
+    "tools/tests/martial_data/school_wudang_buffs.test.mjs": "47b7fbb9e5e32579aea7703f7c423ac98ec543ad0a6135a677c881edc826986a",
+    "tools/tests/martial_data/school_wudang_buffs_cases.mjs": "41db8c1db23ab98106eb7b0d0a933359e3ac23606ae45a3a81f8efe9c22cd30a",
+    "tools/tests/martial_data/school_wudang_combination.test.mjs": "921b83aed3487ccc214a6f9c0082b275d62fc3fa67a2ba71b7d2d8af9c770dbd",
+    "tools/tests/martial_data/school_wudang_combination_cases.mjs": "00f5d57b2f5b2f766b4b2a608ac9edd5d25d0cb3db1ea18f02011ecfe9df4b10",
+    "tools/tests/martial_data/school_wudang_condition.test.mjs": "71f858f9a1e4c0aa362b894eb689b5fd93909fc310d9ff61a06cbd253ba6cb40",
+    "tools/tests/martial_data/school_wudang_condition_cases.mjs": "488421e15dedacaf3a5d864d0a6f09b1f46dd805c30b3052a3769ae5dd2662f8",
+    "tools/tests/martial_data/school_wudang_core.test.mjs": "ca2a4acc38d8d803d4fb8d920878c67d931d38641fef6a5c9bdabdd2a1e269ae",
+    "tools/tests/martial_data/school_wudang_core_cases.mjs": "1414f7f8eb3613951609f7a1e309fc7f8b062d445fa049eefc5e91fe0a0caa3c",
+    "tools/tests/martial_data/school_wudang_cultivation.test.mjs": "2be63785c77a2e118b4e3feb041cc473412b996c40c2355e6a9b1be23e8f770a",
+    "tools/tests/martial_data/school_wudang_cultivation_cases.mjs": "37841b4f5aa0b7f42ab75d5d30e5aabb35ee81710eb66da1884b039d2c87f0d6",
+    "tools/tests/martial_data/school_wudang_defense.test.mjs": "3f3b3fe4001e0c5405ae98341b02bc6fdd2b49407f2cae155804a18b631dd05a",
+    "tools/tests/martial_data/school_wudang_defense_cases.mjs": "ba3816be9e80c891b0867731b55b0328f6cd9f87110199b75012c9992edfeb30",
+    "tools/tests/martial_data/school_wudang_dispel.test.mjs": "2fc3c7f591ff2f0089439f2f13adb4d52724a8114302feb48a4aa7dc75a2cf31",
+    "tools/tests/martial_data/school_wudang_dispel_cases.mjs": "898ae1dddff5ca40540726dd16866913c026ebdb92ed1614ff8a2e05aae046b6",
+    "tools/tests/martial_data/school_wudang_healing.test.mjs": "28356248a9c62caef042398e0005afdafaf14884c225ac8a8a78a9934826b808",
+    "tools/tests/martial_data/school_wudang_healing_cases.mjs": "b8f37ca3b85a3e0177a2ceea228c374dced406a22f8f09858a47e69511bea3c5",
+    "tools/tests/martial_data/school_wudang_learning.test.mjs": "a06b90e1473dcfdb851b0c1f3570197ac2b4313d99ba248c93611c481c99e813",
+    "tools/tests/martial_data/school_wudang_learning_cases.mjs": "aecf8a1d230a0735bb120e2a8b2476151e6610d9b78278b64324290773806be9",
+    "tools/tests/martial_data/school_wudang_lookup.test.mjs": "81348e01396fe926c2d495e05dbf5bc94c74a9f24d26cf9514964773269a8af8",
+    "tools/tests/martial_data/school_wudang_lookup_cases.mjs": "1983e96f1ca0baa114cb89813168569bf8ba4fc4ddb36074c24412b1614400bc",
+    "tools/tests/martial_data/school_wudang_passive.test.mjs": "ad7439b93c45efb9f7970d311d6d9955c773dff21721afca4202b31c6e47ce38",
+    "tools/tests/martial_data/school_wudang_passive_cases.mjs": "8a4630abd62341f975adaffaf3dd899e910504c8263939b6818a8dbccb66891a",
+    "tools/tests/martial_data/school_wudang_public_force.test.mjs": "a968a8995a245667c674023f529928c2c222ed33e266dce7f00fc865fae1e458",
+    "tools/tests/martial_data/school_wudang_public_force_cases.mjs": "87a7b5192da71bbdec0eba43ac602435fd145ba8a9bda78dd41cf5f1cc303c81",
+    "tools/tests/martial_data/school_wudang_recovery.test.mjs": "164b3c817bbcf0efab08a8f3f8e6fdb2e35a5130bf13770cc73d5beb2128d06a",
+    "tools/tests/martial_data/school_wudang_recovery_cases.mjs": "1c8df162489fb685226fdb4d2f037ac06e17cd9bd8107bc4fd8e2111ced874a8",
+    "tools/tests/martial_data/school_wudang_shenmen.test.mjs": "51a1a70b60ae92a0561895c33b45325557baa37ac06924271966e39e206f2648",
+    "tools/tests/martial_data/school_wudang_shenmen_cases.mjs": "575533b433d274a3eb4c054141b159b016fa3940c9e842502a05b70cc7a60ed4",
+    "tools/tests/martial_data/school_wudang_special.test.mjs": "2db649155f1865f1aca781fd9d7c04e0a67ec3bd8c10c4c9fdce449c7df64f9a",
+    "tools/tests/martial_data/school_wudang_special_cases.mjs": "622806568640bb8ee30ee77d4fdce5173da265eadfb60369cdad83433316e350",
+    "tools/tests/martial_data/school_wudang_study.test.mjs": "3434f77a48e26e92f271775d2b134fa39f660955acc18f2b3933a29cfeeee1d8",
+    "tools/tests/martial_data/school_wudang_study_cases.mjs": "dd6fc2bb9d245e5249018c3715f05769b46fee2a7aa634191488b014bf0535d7",
+    "tools/tests/martial_data/school_wudang_sword.test.mjs": "d732aa9e379a4b287cbea9a3ca4b109cd848e72fe91f72d7b7238b32b59528e1",
+    "tools/tests/martial_data/school_wudang_sword_cases.mjs": "5a02b121ff9b6f71fe6a3481f5339da1f2c87535eabb21dbeecf2173abefbeaf",
+    "tools/tests/martial_data/school_wudang_unarmed.test.mjs": "6f6a1a7fa338782c51d9bf74253f40394303b54bbd32ccd849ef8507cf205db6",
+    "tools/tests/martial_data/school_wudang_unarmed_cases.mjs": "3746ea56e42c32e844127a37697ee8182c218c241d58af4ba8d1721c2c1da622",
+    "tools/tests/martial_data/school_wudang_weapons.test.mjs": "18d027a42e761465473ff4a41d584a9ee45c6c385a22ec3aadd0fa74312dbd45",
+    "tools/tests/martial_data/school_wudang_weapons_cases.mjs": "71a6220c2dbdd301b7b3d93cdc37689d4c5602a397bd9d466bfb1cedf18ca0bd",
+    "tools/tests/martial_data/shang_letter.test.mjs": "335b127dbc955bd3c7d7bf4fc68524f2e7006846fb236e53e59da0dfb27dbe5e",
+    "tools/tests/martial_data/shang_letter_cases.mjs": "92d0f4acd8dc0fde328384690b207b040be814a62293df1ddd9a3383af5a7d75",
+    "tools/tests/martial_data/shaolin_challenge.test.mjs": "a107d1f541f1cd58f7ff06b674e4a8bfd1d0b91e46730483e4db6226fa5594a0",
+    "tools/tests/martial_data/shaolin_challenge_cases.mjs": "80e3e1b4ad67c232ba912e74ad6340c7daa4abfb9595dc9308bc6c5f718d8e7b",
+    "tools/tests/martial_data/shaolin_challenge_failure.test.mjs": "728b27acb022ff1e427e54a7f1da0675778507a4fabe4f96e6c15ed01f04ec64",
+    "tools/tests/martial_data/shaolin_challenge_failure_cases.mjs": "526a38068070f0ea7a4615d1aac981c66bde121fd974ed1bd079cac00dbf982f",
+    "tools/tests/martial_data/shaolin_formation.test.mjs": "874c78cb08d6ac2ebfc1ca4006d2191b0da31ef0b29f89c5d9bd6e719ac419ae",
+    "tools/tests/martial_data/shaolin_formation_cases.mjs": "f2df3a8e1c35c011151094c9cc4e82a545fba881784b502674bfd1b8a94b0517",
+    "tools/tests/martial_data/shaolin_learning.test.mjs": "8e2c06aa1cc40fcd6537507b556e191e00bd06177491d5a90710d1dbe07fb406",
+    "tools/tests/martial_data/shaolin_learning_cases.mjs": "3b353b89d7c11a84266891b01ac4af0da9f33115290882329b61acd6fff5f3ac",
+    "tools/tests/martial_data/shaolin_promotion.test.mjs": "8a609d87ceec820f89af668e89f14b573a381226dbd78f8fb2cfa41edb47454d",
+    "tools/tests/martial_data/shaolin_promotion_cases.mjs": "51bc9001be525cb9f26f53b7adbe063df6859baf675f6121aca3998fef254366",
+    "tools/tests/martial_data/shaolin_recruit.test.mjs": "fb880b639db3d754e316f5772d2c7f79310618b0235ec83b490a8fba438ef5a7",
+    "tools/tests/martial_data/shaolin_recruit_cases.mjs": "6d05a43e416f97598c6025676bfcbcecc84a88a2ca7e9606c00e006a16202663",
+    "tools/tests/martial_data/shaolin_teachers.test.mjs": "402fe5b5be1e84c346b78ead1624097df1d61962fff759e16659d68eff923234",
+    "tools/tests/martial_data/shaolin_teachers_cases.mjs": "86ccb512496450a8ec56e3b92b91f3ea3787490af365d64d43bbfe94fcf017d1",
+    "tools/tests/martial_data/shaolin_tonsure.test.mjs": "82296f121b6838612e931ca8b52948f05191cfc43f0eb978db457a57a2a26cd2",
+    "tools/tests/martial_data/shaolin_tonsure_cases.mjs": "a2c19de630dd1c4c4839d275700785cede07cf42edf9962018b1eb6fb4abc82c",
+    "tools/tests/martial_data/skill_inherited_cases.mjs": "1fb3720774c81f1c2709250c22657e5ee835a1fd4cabf8cbf26b594931bdd0f7",
+    "tools/tests/martial_data/skill_inherited_cases.test.mjs": "c9b188603303c7c3e8594aebe7788dab5853560be2434dbebcb56c0b0393108d",
+    "tools/tests/martial_data/skill_music_cases.mjs": "3a45a3225cbc68c169702e55ad7a5d908df8e93766a7a531103b17308bc2b546",
+    "tools/tests/martial_data/skill_music_cases.test.mjs": "56b4f1cb204116792440e688d41b7a08e2552fd4d6e945b4b88b2bb9c566f07f",
+    "tools/tests/martial_data/statistics.mjs": "7b28e1328eb0789f643312487ef23e925f610c55f5899ae32434f08d36689384",
+    "tools/tests/martial_data/statistics.test.mjs": "90d27428da63e6ea6ada1b7d97db57652a776e0df0dbc841b2b99d2394bfb0eb",
+    "tools/tests/martial_data/taohua_attack_integration.test.mjs": "8a8d7b1aae0bd88b8b97fe9eb60e92b5761fb667ffcb36f213c7a7e1504124f8",
+    "tools/tests/martial_data/taohua_combo_integration.test.mjs": "147b1a34ea6fec9bd4ece98fc21a8c9484306359c039cf3c3ecd376fa955cbc1",
+    "tools/tests/martial_data/taohua_control_integration.test.mjs": "6c39d50dbba0d536c8387287dcac468a50fbf5280c8dbe084932b1992e8239af",
+    "tools/tests/martial_data/taohua_ding_integration.test.mjs": "c34f6ec27be0ceed57484908ca16b3540770410696b561065f6aa41d447a53f8",
+    "tools/tests/martial_data/taohua_ding_probes.mjs": "4a11104ea6b0e6bbd705f39ff7ca1b8521e6665d00bb4f21a04559da07180960",
+    "tools/tests/martial_data/taohua_ding_probes.test.mjs": "72dbbd68d7a732bb828c531ea14328810d4837f56eee6ffb5fe709d2bb9a1dcf",
+    "tools/tests/martial_data/taohua_ding_receivers.test.mjs": "31ffdb20d12626e796f4d27dd87f2d922c13283893f599d70430b8663efc1f00",
+    "tools/tests/martial_data/taohua_direct_integration.test.mjs": "0a0c1fd1d958fcd345b4255cbf8c2a21d1903396c33d23cba94076707874b6cf",
+    "tools/tests/martial_data/taohua_po_integration.test.mjs": "f1912a4abeff80abc162df196cb2fe9ed3c6f2d50cff011a6005e7f33c487ca8",
+    "tools/tests/martial_data/taohua_po_report_integration.test.mjs": "779effd21fbf4e8198080eafd068dc035a0ea37904c91e84398e3023920150ae",
+    "tools/tests/martial_data/taohua_preparation.test.mjs": "6aa2de414137ba52ad0f00e41b68bb374d43157aa2921fe8c47fbe4eaecca5f3",
+    "tools/tests/martial_data/taohua_xiao_integration.test.mjs": "cd3cd6ae3bc86b6b807344a5bdca6884ed87f082b9543b0d000bd692ff2184ba",
+    "tools/tests/martial_data/taohua_zhuan_integration.test.mjs": "ab6bcf397546d8890fa979956f8d5c1ed43e6acaa7160d3b85efa34520cd3f82",
+    "tools/tests/martial_data/teaching_cases.mjs": "afb2de720d9ed55f11d9f8bb210f58f1e37a461fcb3b12cf5d2f6bf1abd6efb7",
+    "tools/tests/martial_data/teaching_cases.test.mjs": "043e4df4469b9186c2d2ecd203cdf2382428c14a4aeef22935b01dc36ae2ce5b",
+    "tools/tests/martial_data/teaching_observation.mjs": "5bfcf6d32f444aff4a4a09c4350d072446756ca273b5f90950652f33ae1feb83",
+    "tools/tests/martial_data/teaching_observation.test.mjs": "f8b5a4739d126f9cdfcc43218b31a21de5f484d4d4baf4341c7dc5980f23cb7d",
+    "tools/tests/martial_data/teaching_report.mjs": "e051a92458b5db8708d3359cffcf67d188f60f8763ceea45f0fd4e2145fa929a",
+    "tools/tests/martial_data/teaching_report.test.mjs": "2f120b331f137ca2af5501707a08ce1c78bff303d149901b260f0ca3435f8ba7",
+    "tools/tests/martial_data/tiezhang_shenlong_teaching.test.mjs": "6aa819420bdda7d7a8647fbbd71da3b07ec4c73b566cd59a3e7dfcf34469e008",
+    "tools/tests/martial_data/tonsure_observation.mjs": "ac15c9b44e170b7f4c37b63b394d7e8a54dd630075dc774415cd39a76857e51e",
+    "tools/tests/martial_data/verify_continuation.mjs": "e70dadf30fe0564c1be05e5ae1f062a4f5e9de391e7ca002fa3bb022438817fb",
+    "tools/tests/martial_data/weapon_cases.mjs": "d2fa539ba9764137c436ea92c1c37cb3101f3099c80642c79f722069b5f376d9",
+    "tools/tests/martial_data/weapon_report.mjs": "c59e4d4cbc180acb182bd421804a7734dce9d9c4a12976460da4432db2c63494",
+    "tools/tests/martial_data/weapon_report.test.mjs": "9d350af497d7f444637fb7e0654720a426731a13a19b4282c69aa480baf2c3e5",
+    "tools/tests/martial_data/weapon_special_cases.mjs": "f9be3d82b1da67ad0f7e86511c255e98c7421f448a721ae2134b3d91e3b009b2",
+    "tools/tests/martial_data/weapon_special_cases.test.mjs": "5144159fb35be8be03ad53b4e80cc85258980b3b57d2f6de3653a514b94c8a06",
+    "tools/tests/martial_data/weapon_special_report.mjs": "0e7532670313f9125348dd92149856eb31a96ee6d75d72b2c171c2aa53958247",
+    "tools/tests/martial_data/wudang_learning.test.mjs": "b37a459f923476dcdeb6e90c92df91c0b26728d546f2aada6dc39f927a7bd89e",
+    "tools/tests/martial_data/wudang_learning_cases.mjs": "37a0b99c9ef96dcd39415116bb7e29d5c9fd1bcc3803508291afbff54a186d62",
+    "tools/tests/martial_data/xingxiu_xuanming_teaching.test.mjs": "329883a50f482e10bac1e5ad32f7256feeb5ba33b75831526c8b2527e6f0511e",
+    "tools/tests/martial_data/xueshan_xuedao_teaching.test.mjs": "c2ebbb616f5a8ec68589d03962e4b40b1668e815fd13678f923495cb516aadb3"
+  },
+  "definitions": {
+    "declarations": 506,
+    "active_placements": 498,
+    "unique_declared_paths": 470,
+    "unique_active_paths": 465,
+    "duplicates": [
+      {
+        "path": "kungfu/skill/damo-jian/sanjue.c",
+        "placements": [
+          {
+            "batch": 1,
+            "key": "damo-jian/sanjue",
+            "active": true
+          },
+          {
+            "batch": 24,
+            "key": "damo-jian/sanjue",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/yiyang-zhi/heal.c",
+        "placements": [
+          {
+            "batch": 5,
+            "key": "yiyang-zhi/heal",
+            "active": true
+          },
+          {
+            "batch": 25,
+            "key": "yiyang-zhi/heal",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/jingang-buhuaiti/jingang.c",
+        "placements": [
+          {
+            "batch": 8,
+            "key": "jingang-buhuaiti/jingang",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "jingang-buhuaiti/jingang",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/ningxue-zhang/xue.c",
+        "placements": [
+          {
+            "batch": 14,
+            "key": "ningxue-zhang/xue",
+            "active": true
+          },
+          {
+            "batch": 21,
+            "key": "ningxue-zhang/xue",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/hamagong/perform/zhen.c",
+        "placements": [
+          {
+            "batch": 17,
+            "key": "hamagong/zhen",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "hamagong/zhen",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/qiankun-jian/riyue.c",
+        "placements": [
+          {
+            "batch": 17,
+            "key": "qiankun-jian/riyue",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "qiankun-jian/riyue",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/qiankun-jian/ni.c",
+        "placements": [
+          {
+            "batch": 17,
+            "key": "qiankun-jian/ni",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "qiankun-jian/ni",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/wudoumi-shengong/perform/gui.c",
+        "placements": [
+          {
+            "batch": 18,
+            "key": "wudoumi-shengong/gui",
+            "active": true
+          },
+          {
+            "batch": 25,
+            "key": "wudoumi-shengong/gui",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/taixuan-gong/perform/hun.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "taixuan-gong/hun",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "taixuan-gong/hun",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/taixuan-gong/perform/jing.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "taixuan-gong/jing",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "taixuan-gong/jing",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/taixuan-gong/perform/po.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "taixuan-gong/po",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "taixuan-gong/po",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/taixuan-gong/perform/xuan.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "taixuan-gong/xuan",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "taixuan-gong/xuan",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/never-defeated/perform/lei.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "never-defeated/lei",
+            "active": true
+          },
+          {
+            "batch": 25,
+            "key": "never-defeated/lei",
+            "active": true
+          },
+          {
+            "batch": 28,
+            "key": "never-defeated/lei",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/never-defeated/perform/po.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "never-defeated/po",
+            "active": true
+          },
+          {
+            "batch": 28,
+            "key": "never-defeated/po",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/never-defeated/perform/tianhua.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "never-defeated/tianhua",
+            "active": true
+          },
+          {
+            "batch": 28,
+            "key": "never-defeated/tianhua",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/never-defeated/perform/wanli.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "never-defeated/wanli",
+            "active": true
+          },
+          {
+            "batch": 28,
+            "key": "never-defeated/wanli",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/never-defeated/perform/yuce.c",
+        "placements": [
+          {
+            "batch": 19,
+            "key": "never-defeated/yuce",
+            "active": true
+          },
+          {
+            "batch": 28,
+            "key": "never-defeated/yuce",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/ningxue-shenzhao/ji.c",
+        "placements": [
+          {
+            "batch": 21,
+            "key": "ningxue-shenzhao/ji",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "ningxue-shenzhao/ji",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/zhemei-shou/hua.c",
+        "placements": [
+          {
+            "batch": 22,
+            "key": "zhemei-shou/hua",
+            "active": true
+          },
+          {
+            "batch": 25,
+            "key": "zhemei-shou/hua",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/dugu-jiujian/jue.c",
+        "placements": [
+          {
+            "batch": 22,
+            "key": "dugu-jiujian/jue",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "dugu-jiujian/jue",
+            "active": false
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/dugu-jiujian/po.c",
+        "placements": [
+          {
+            "batch": 22,
+            "key": "dugu-jiujian/po",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "dugu-jiujian/po",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/dugu-jiujian/qi.c",
+        "placements": [
+          {
+            "batch": 22,
+            "key": "dugu-jiujian/qi",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "dugu-jiujian/qi",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/six-finger/qi.c",
+        "placements": [
+          {
+            "batch": 23,
+            "key": "six-finger/qi",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "six-finger/qi",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/six-finger/zong.c",
+        "placements": [
+          {
+            "batch": 23,
+            "key": "six-finger/zong",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "six-finger/zong",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/jinshe-jian/shi.c",
+        "placements": [
+          {
+            "batch": 23,
+            "key": "jinshe-jian/shi",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "jinshe-jian/shi",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/kuihua-mogong/perform/wswd.c",
+        "placements": [
+          {
+            "batch": 23,
+            "key": "kuihua-mogong/wswd",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "kuihua-mogong/wswd",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/yujian-shu/yujian.c",
+        "placements": [
+          {
+            "batch": 23,
+            "key": "yujian-shu/yujian",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "yujian-shu/yujian",
+            "active": false
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/jinshe-zhang/fugu.c",
+        "placements": [
+          {
+            "batch": 24,
+            "key": "jinshe-zhang/fugu",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "jinshe-zhang/fugu",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/jinshe-jian/wan.c",
+        "placements": [
+          {
+            "batch": 24,
+            "key": "jinshe-jian/wan",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "jinshe-jian/wan",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/bluesea-force/perform/mie.c",
+        "placements": [
+          {
+            "batch": 25,
+            "key": "bluesea-force/mie",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "bluesea-force/mie",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/xiaoli-feidao/fei.c",
+        "placements": [
+          {
+            "batch": 25,
+            "key": "xiaoli-feidao/fei",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "xiaoli-feidao/fei",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/five-avoid/break.c",
+        "placements": [
+          {
+            "batch": 27,
+            "key": "five-avoid/break",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "five-avoid/break",
+            "active": false
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/bluesea-force/perform/bo.c",
+        "placements": [
+          {
+            "batch": 27,
+            "key": "bluesea-force/bo",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "bluesea-force/bo",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/jinshe-jian/kun.c",
+        "placements": [
+          {
+            "batch": 27,
+            "key": "jinshe-jian/kun",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "jinshe-jian/kun",
+            "active": true
+          }
+        ]
+      },
+      {
+        "path": "kungfu/skill/yunv-jian/mei.c",
+        "placements": [
+          {
+            "batch": 27,
+            "key": "yunv-jian/mei",
+            "active": true
+          },
+          {
+            "batch": 29,
+            "key": "yunv-jian/mei",
+            "active": true
+          }
+        ]
+      }
+    ],
+    "pending": [
+      {
+        "batch": 29,
+        "key": "lonely-sword/jue",
+        "path": "kungfu/skill/lonely-sword/jue.c",
+        "disposition": "pending_review",
+        "reason": "演练型绝招（非战斗），提高剑法与独孤九剑，不进战斗夹具"
+      },
+      {
+        "batch": 29,
+        "key": "six-finger/zongheng",
+        "path": "kungfu/skill/six-finger/zongheng.c",
+        "disposition": "pending_review",
+        "reason": "six-finger 分发到 liumai-shenjian/ 目录，zongheng.c 不在该目录，运行期不可达"
+      },
+      {
+        "batch": 29,
+        "key": "dugu-jiujian/jue",
+        "path": "kungfu/skill/dugu-jiujian/jue.c",
+        "disposition": "pending_review",
+        "reason": "演练型绝招（非战斗），提高剑法与独孤九剑，不进战斗夹具"
+      },
+      {
+        "batch": 29,
+        "key": "yujian-shu/yujian",
+        "path": "kungfu/skill/yujian-shu/yujian.c",
+        "disposition": "pending_review",
+        "reason": "御剑飞升含 call_out 循环多段，即时窗口无法覆盖重复段"
+      },
+      {
+        "batch": 29,
+        "key": "jinshe-zhui/tuwu",
+        "path": "kungfu/skill/jinshe-zhui/tuwu.c",
+        "disposition": "pending_review",
+        "reason": "需专用金蛇锥道具（id jinshe zhui），通用投射弹药不匹配"
+      },
+      {
+        "batch": 29,
+        "key": "xuanyuan-arrow/baibu",
+        "path": "kungfu/skill/xuanyuan-arrow/baibu.c",
+        "disposition": "pending_review",
+        "reason": "需 is_arrow() 箭矢道具，通用投射弹药不匹配"
+      },
+      {
+        "batch": 29,
+        "key": "taixuan-gong/xuan-top",
+        "path": "kungfu/skill/taixuan-gong/xuan.c",
+        "disposition": "pending_review",
+        "reason": "taixuan-gong 分发到 perform/ 目录，顶层 xuan.c 不经 perform_action_file 可达"
+      },
+      {
+        "batch": 29,
+        "key": "five-avoid/break",
+        "path": "kungfu/skill/five-avoid/break.c",
+        "disposition": "pending_review",
+        "reason": "五遁绝杀经 COMBAT_D->fight() 多轮循环，超出单动作即时窗口"
+      }
+    ],
+    "limitation": "Declarations are not executed coverage. Pending fixture/window items are not N/A acceptance."
+  },
+  "series": [
+    {
+      "directory": "C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-school-slice2-f1-20261017",
+      "fingerprint": "976e586ad46ca61ee622904ba268fbf6c20d125eed6e86336a6b232b7d2262bf",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "smoke": false,
+      "runs": [
+        {
+          "attempt": "attempt-o4wg7U",
+          "process": {
+            "pid": 44252,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 904,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "snapshot_gaps": [],
+      "planned": 904,
+      "recorded": 904,
+      "outcomes": {
+        "observed": 870,
+        "refused": 34,
+        "error": 0,
+        "not_applicable": 0
+      },
+      "replayed": 904,
+      "passed": 904,
+      "failures": [],
+      "missing": [],
+      "pending": [],
+      "missing_samples": 0,
+      "complete": true
+    },
+    {
+      "directory": "C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-b1-f1-20261017",
+      "fingerprint": "6d94c49a9551315831bbab9aad1c3172223f0c85acba923c07823e74e892214f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "smoke": false,
+      "runs": [
+        {
+          "attempt": "attempt-d1XYdA",
+          "process": {
+            "pid": 41568,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 2216,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "snapshot_gaps": [],
+      "planned": 2216,
+      "recorded": 2216,
+      "outcomes": {
+        "observed": 2158,
+        "refused": 58,
+        "error": 0,
+        "not_applicable": 0
+      },
+      "replayed": 2216,
+      "passed": 2216,
+      "failures": [],
+      "missing": [],
+      "pending": [],
+      "missing_samples": 0,
+      "complete": true
+    },
+    {
+      "directory": "C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-b20-f2-20261019",
+      "fingerprint": "b858cf650cea49bf0d2fa3fe9df197f3115137726a7e58bbf5e80c208a0f1e80",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "smoke": false,
+      "runs": [
+        {
+          "attempt": "attempt-ORplVZ",
+          "process": {
+            "pid": 50728,
+            "code": 1,
+            "signal": null
+          },
+          "imported": 2191,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        },
+        {
+          "attempt": "attempt-TBKQP0",
+          "process": {
+            "pid": 70804,
+            "code": 1,
+            "signal": null
+          },
+          "imported": 1,
+          "validation_errors": [
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "snapshot_gaps": [],
+      "planned": 2192,
+      "recorded": 2192,
+      "outcomes": {
+        "observed": 2144,
+        "refused": 46,
+        "error": 2,
+        "not_applicable": 0
+      },
+      "replayed": 2190,
+      "passed": 2190,
+      "failures": [],
+      "missing": [],
+      "pending": [
+        {
+          "slot": "b20-lingbo-weibu-ling-already-active.0",
+          "outcome": "error",
+          "reason": "\"*DATA FAIL: configured starting state\n\""
+        },
+        {
+          "slot": "b20-lingbo-weibu-ling-already-active.1",
+          "outcome": "error",
+          "reason": "\"*DATA FAIL: configured starting state\n\""
+        }
+      ],
+      "missing_samples": 0,
+      "complete": false
+    },
+    {
+      "directory": "C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-b23-f1-20261019",
+      "fingerprint": "24b5fac5bc2f8920db48d5cbca6eae80a21d7857f5ffa59d93aae61e052462f2",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "smoke": false,
+      "runs": [
+        {
+          "attempt": "attempt-nsAs2X",
+          "process": {
+            "pid": 63468,
+            "code": 1,
+            "signal": null
+          },
+          "imported": 2000,
+          "validation_errors": [
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "snapshot_gaps": [],
+      "planned": 2352,
+      "recorded": 2000,
+      "outcomes": {
+        "observed": 1966,
+        "refused": 34,
+        "error": 0,
+        "not_applicable": 0
+      },
+      "replayed": 2000,
+      "passed": 2000,
+      "failures": [],
+      "missing": [
+        {
+          "condition": "b23-sanfen-jianshu-haishi-baseline-l300",
+          "indices": [
+            96,
+            97,
+            98,
+            99
+          ]
+        },
+        {
+          "condition": "b23-sanfen-jianshu-haishi-gate-sword-149",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-sanfen-jianshu-haishi-gate-sword-150",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-sanfen-jianshu-haishi-hit",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-sanfen-jianshu-haishi-miss",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-yinsuo-jinling-feng-baseline-l300",
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99
+          ]
+        },
+        {
+          "condition": "b23-yinsuo-jinling-feng-gate-level-139",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-yinsuo-jinling-feng-gate-level-140",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-yinsuo-jinling-feng-hit",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-yinsuo-jinling-feng-miss",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-yujian-shu-yujian-baseline-l300",
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99
+          ]
+        },
+        {
+          "condition": "b23-yujian-shu-yujian-gate-sword-399",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-yujian-shu-yujian-gate-sword-400",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-yujian-shu-yujian-hit",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-yujian-shu-yujian-miss",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-zhougong-jian-mang-baseline-l300",
+          "indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99
+          ]
+        },
+        {
+          "condition": "b23-zhougong-jian-mang-gate-level-139",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-zhougong-jian-mang-gate-level-140",
+          "indices": [
+            0,
+            1
+          ]
+        },
+        {
+          "condition": "b23-zhougong-jian-mang-hit",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "condition": "b23-zhougong-jian-mang-miss",
+          "indices": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "pending": [],
+      "missing_samples": 352,
+      "complete": false
+    },
+    {
+      "directory": "C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-b8-f1-20261018",
+      "complete": false,
+      "integrity_error": "ENOENT: no such file or directory, open 'C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-b8-f1-20261018\\series.json'"
+    },
+    {
+      "directory": "C:\\Users\\oiuv\\AppData\\Local\\Temp\\mud-martial-data-TmUTVa",
+      "fingerprint": "b66df5e97284a9fa5c3d9c612aa6c45f2d271d392a68c8a6afdcfba1831d7737",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "smoke": true,
+      "runs": [
+        {
+          "attempt": "attempt-jcMxdM",
+          "process": {
+            "pid": 28632,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 1,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "snapshot_gaps": [],
+      "planned": 1,
+      "recorded": 1,
+      "outcomes": {
+        "observed": 0,
+        "refused": 1,
+        "error": 0,
+        "not_applicable": 0
+      },
+      "replayed": 1,
+      "passed": 1,
+      "failures": [],
+      "missing": [],
+      "pending": [],
+      "missing_samples": 0,
+      "complete": true
+    }
+  ],
+  "limitation": "Per-series replay, not cross-series deduplication or full 4.2 acceptance. No sum is a project sample total."
+}

@@ -1,0 +1,971 @@
+// B28 generate/misc bucket perform batch (18).
+// direct 8 / combo 6 / control 1 / instant_death 1 / special 2.
+// These are performs from skills with no formal school assignment,
+// taught only by generate/misc/none/ultra class NPCs.
+// Finite reviewed conditions only; no game-code writes and no balance claims.
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { distribution, probability } from './statistics.mjs';
+
+const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+const health = ['qi', 'eff_qi', 'jing', 'eff_jing', 'neili'];
+const defaults = {
+    qi: 10000, eff_qi: 10000, max_qi: 10000, jing: 10000,
+    eff_jing: 10000, max_jing: 10000, neili: 8000, max_neili: 8000, jiali: 0,
+    jingli: 6000, max_jingli: 6000,
+    combat_exp: 100000000, str: 36, int: 36, con: 36, dex: 36, shen: -200000,
+    gender: '男性', character: '心狠手辣'
+};
+
+const noneFamilies = ['侠客盟'];
+const generateFamilies = ['侠客盟'];
+const miscFamilies = ['侠客盟'];
+const ultraFamilies = ['侠客盟'];
+
+export const b28SourcePaths = [
+    'kungfu/skill/dongyang-dao.c', 'kungfu/skill/dongyang-dao/luan.c',
+    'kungfu/skill/dongyang-dao/zhan.c',
+    'kungfu/skill/dragon-strike.c', 'kungfu/skill/dragon-strike/lei.c',
+    'kungfu/skill/dragon-strike/xiang.c',
+    'kungfu/skill/mizong-houquan.c', 'kungfu/skill/mizong-houquan/zhou.c',
+    'kungfu/skill/never-defeated.c',
+    'kungfu/skill/never-defeated/perform/juemie.c',
+    'kungfu/skill/never-defeated/perform/lei.c',
+    'kungfu/skill/never-defeated/perform/po.c',
+    'kungfu/skill/never-defeated/perform/tianhua.c',
+    'kungfu/skill/never-defeated/perform/wanli.c',
+    'kungfu/skill/never-defeated/perform/yuce.c',
+    'kungfu/skill/qishi-ji.c', 'kungfu/skill/qishi-ji/chong.c',
+    'kungfu/skill/qishi-ji/juan.c',
+    'kungfu/skill/tianchang-zhang.c', 'kungfu/skill/tianchang-zhang/huang.c',
+    'kungfu/skill/wushen-jian.c', 'kungfu/skill/wushen-jian/qian.c',
+    'kungfu/skill/xiyang-jian.c', 'kungfu/skill/xiyang-jian/ci.c',
+    'kungfu/skill/xue-dao.c', 'kungfu/skill/xue-dao/shendao.c',
+    'kungfu/skill/xue-dao/xueyu.c',
+    'kungfu/skill/sword.c', 'kungfu/skill/blade.c',
+    'kungfu/skill/strike.c', 'kungfu/skill/hand.c',
+    'kungfu/skill/cuff.c', 'kungfu/skill/staff.c',
+    'kungfu/skill/whip.c', 'kungfu/skill/hammer.c',
+    'kungfu/skill/claw.c', 'kungfu/skill/finger.c',
+    'kungfu/skill/unarmed.c', 'kungfu/skill/throwing.c',
+    'kungfu/skill/dodge.c', 'kungfu/skill/force.c', 'kungfu/skill/parry.c',
+    'kungfu/skill/club.c', 'kungfu/skill/axe.c', 'kungfu/skill/dagger.c',
+    'kungfu/skill/spear.lpc', 'kungfu/skill/martial-cognize.c',
+    'cmds/skill/perform.c', 'inherit/skill/skill.c', 'inherit/skill/force.c',
+    'feature/skill.c', 'feature/attack.c', 'feature/damage.c',
+    'feature/attribute.c', 'feature/condition.c', 'feature/action.c',
+    'mudcore/inherit/action.c', 'feature/dbase.c', 'mudcore/inherit/dbase.c',
+    'feature/equip.c', 'feature/name.c', 'feature/sserver.c',
+    'feature/team.c',
+    'clone/user/user.c', 'inherit/char/char.c', 'adm/daemons/combatd.c',
+    'adm/single/simul_efun/message.c', 'include/globals.h', 'include/combat.h',
+    'mudcore/include/ansi.h',
+];
+// Reviewed original source bytes; drift requires renewed review.
+export const b28ReviewedSourceHash = 'PENDING';
+
+const schools = {
+    // ---- combo 6 ----
+    'dongyang-dao/luan': {
+        skill: 'dongyang-dao', ability: 'luan', abilityPath: 'luan',
+        usage: 'blade', grant: null,
+        forceSkill: 'force', kind: 'combo', weapon: 'blade', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '东洋刀法「乱刀诀」',
+        fee: 100,
+        comboAttacks: 5, comboBusyMin: 1, comboBusyMax: 5,
+        gates: [
+            { key: 'neili', pair: [99, 100], field: 'neili',
+                refusal: '你的真气不够，无法施展「乱刀诀」！\n' },
+            { key: 'force', pair: [99, 100], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功火候不够，难以施展「乱刀诀」！\n' },
+            { key: 'level', pair: [79, 80], field: 'skill',
+                refusal: '你的东洋刀法还不到家，无法使用乱刀诀！\n' },
+        ],
+    },
+    'dragon-strike/xiang': {
+        skill: 'dragon-strike', ability: 'xiang', abilityPath: 'xiang',
+        usage: 'strike', grant: null,
+        forceSkill: 'force', kind: 'combo', weapon: null, prepared: 'strike',
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '降龙十八掌「龙翔九天」',
+        fee: 300, qiFee: 100,
+        comboAttacks: 6, comboBusyMin: 1, comboBusyMax: 5,
+        comboHitBonus: true,
+        gates: [
+            { key: 'max-neili', pair: [1999, 2000], field: 'max_neili',
+                refusal: '你的内力修为还不够，无法施展「龙翔九天」。\n' },
+            { key: 'neili', pair: [499, 500], field: 'neili',
+                refusal: '你的真气不够！\n' },
+            { key: 'qi', pair: [799, 800], field: 'qi',
+                refusal: '你的体力现在不够！\n' },
+            { key: 'level', pair: [149, 150], field: 'skill',
+                refusal: '你的降龙十八掌火候不够，无法使用「龙翔九天」！\n' },
+            { key: 'force', pair: [299, 300], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够，无法使用「龙翔九天」！\n' },
+        ],
+    },
+    'mizong-houquan/zhou': {
+        skill: 'mizong-houquan', ability: 'zhou', abilityPath: 'zhou',
+        usage: 'cuff', grant: null,
+        forceSkill: 'force', kind: 'combo', weapon: null, prepared: null,
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '迷踪猴拳「破釜沉舟」',
+        feePerAttack: 50,
+        comboAttacksMin: 1, comboAttacksMax: 7,
+        // start_busy(random(n)) after n-1 attacks, n = 2+random(skill/40) capped 8
+        // so busy is 0..7 when the baseline skill is 300 and nothing is prepared.
+        comboBusyMin: 0, comboBusyMax: 7,
+        gates: [
+            { key: 'level', pair: [199, 200], field: 'skill',
+                refusal: '你的猴拳不够娴熟!\n' },
+            { key: 'neili', pair: [499, 500], field: 'neili',
+                refusal: '你现在内力太弱，不能使用「破釜沉舟」。\n' },
+        ],
+    },
+    'qishi-ji/chong': {
+        skill: 'qishi-ji', ability: 'chong', abilityPath: 'chong',
+        usage: 'spear', grant: 'can_perform/qishi-ji/chong',
+        forceSkill: 'force', kind: 'combo', weapon: 'spear', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '圣骑士戟「冲刺攻击」',
+        fee: 100,
+        comboAttacks: 6, comboBusyMin: 1, comboBusyMax: 6,
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你圣骑士戟修为不够，难以施展「冲刺攻击」。\n' },
+            { key: 'force', pair: [149, 150], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够，难以施展「冲刺攻击」。\n' },
+            { key: 'neili', pair: [199, 200], field: 'neili',
+                refusal: '你现在的真气不够，难以施展「冲刺攻击」。\n' },
+        ],
+    },
+    'wushen-jian/qian': {
+        skill: 'wushen-jian', ability: 'qian', abilityPath: 'qian',
+        usage: 'sword', grant: 'can_perform/wushen-jian/qian',
+        forceSkill: 'force', kind: 'combo', weapon: 'sword', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '衡山五神剑「千剑纵横势」',
+        feePerAttack: 30,
+        comboAttacksMin: 4, comboAttacksMax: 9,
+        comboBusyMin: 1, comboBusyMax: 4,
+        comboHitBonus: true,
+        gates: [
+            { key: 'level', pair: [199, 200], field: 'skill',
+                refusal: '你的衡山五神剑不够娴熟，难以施展「千剑纵横势」。\n' },
+            { key: 'neili', pair: [299, 300], field: 'neili',
+                refusal: '你的真气不够，难以施展「千剑纵横势」。\n' },
+        ],
+    },
+    'xue-dao/xueyu': {
+        skill: 'xue-dao', ability: 'xueyu', abilityPath: 'xueyu',
+        usage: 'blade', grant: null,
+        forceSkill: 'force', kind: 'combo', weapon: 'blade', prepared: null,
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '血刀刀法「血雨」',
+        fee: 100,
+        comboAttacks: 5, comboBusyMin: 1, comboBusyMax: 5,
+        comboHitBonus: true,
+        gates: [
+            { key: 'level', pair: [69, 70], field: 'skill',
+                refusal: '你的血刀刀法不够娴熟，不会使用「血雨」。\n' },
+            { key: 'force', pair: [119, 120], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够高。\n' },
+            { key: 'neili', pair: [99, 100], field: 'neili',
+                refusal: '你现在真气不够，不能使用「血雨」。\n' },
+        ],
+    },
+    // ---- direct 8 ----
+    'dongyang-dao/zhan': {
+        skill: 'dongyang-dao', ability: 'zhan', abilityPath: 'zhan',
+        usage: 'blade', grant: null,
+        forceSkill: 'force', kind: 'direct', weapon: 'blade', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '东洋刀法「迎风一刀斩」',
+        feeHit: 100, feeMiss: 50,
+        hitBusy: 2, missBusy: 3,
+        hitFormula: 'ap-dp', apSkills: [['blade', 1]],
+        dpSkills: [['force', 1]], directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [69, 70], field: 'skill',
+                refusal: '你的东洋刀法不够娴熟，不会使用「迎风一刀斩」。\n' },
+            { key: 'force', pair: [119, 120], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够高，难以运用「迎风一刀斩」。\n' },
+            { key: 'neili', pair: [299, 300], field: 'neili',
+                refusal: '你现在真气不够，不能使用「迎风一刀斩」。\n' },
+        ],
+    },
+    'dragon-strike/lei': {
+        skill: 'dragon-strike', ability: 'lei', abilityPath: 'lei',
+        usage: 'strike', grant: 'can_perform/dragon-strike/lei',
+        forceSkill: 'force', kind: 'direct', weapon: null, prepared: 'strike',
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '降龙十八掌「雷霆一击」',
+        feeHit: 400, feeMiss: 0,
+        hitBusy: 3, missBusy: 3,
+        hitFormula: 'ap-dp', apSkills: [['strike', 1], ['str', 10]],
+        dpSkills: [['dodge', 1], ['dex', 10]], directType: 'UNARMED',
+        gates: [
+            { key: 'force', pair: [249, 250], field: 'effective-skill', skillName: 'force',
+                refusal: '你内功修为不够，难以施展「雷霆一击」。\n' },
+            { key: 'max-neili', pair: [2499, 2500], field: 'max_neili',
+                refusal: '你内力修为不够，难以施展「雷霆一击」。\n' },
+            { key: 'level', pair: [179, 180], field: 'skill',
+                refusal: '你降龙十八掌火候不够，难以施展「雷霆一击」。\n' },
+            { key: 'neili', pair: [599, 600], field: 'neili',
+                refusal: '你现在真气不够，难以施展「雷霆一击」。\n' },
+        ],
+    },
+    'never-defeated/juemie': {
+        skill: 'never-defeated', ability: 'juemie', abilityPath: 'perform/juemie',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'direct', weapon: 'sword', prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「天地绝灭」',
+        feeHit: 120, feeMiss: 50,
+        hitBusy: 2, missBusy: 2,
+        hitFormula: 'ap-dp',
+        apSkills: [['never-defeated', 1.5], ['int', 20], ['martial-cognize', 1]],
+        dpSkills: [['dodge', 1], ['dex', 20], ['martial-cognize', 1]],
+        directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [119, 120], field: 'skill',
+                refusal: '你的不败神功还不够娴熟，不能使用天地绝灭！\n' },
+            { key: 'neili', pair: [199, 200], field: 'neili',
+                refusal: '你的内力不够，不能使用天地绝灭！\n' },
+        ],
+    },
+    'never-defeated/wanli': {
+        skill: 'never-defeated', ability: 'wanli', abilityPath: 'perform/wanli',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'direct', weapon: 'sword', prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「晴空万里」',
+        feeHit: 200, feeMiss: 20,
+        hitBusy: 2, missBusy: 2,
+        targetBusyHit: { min: 1, max: 3 },
+        hitFormula: 'ap-force',
+        apSkills: [['never-defeated', 1.5], ['martial-cognize', 1]],
+        dpSkills: [['parry', 1], ['martial-cognize', 1]],
+        directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [119, 120], field: 'skill',
+                refusal: '你的不败神功还不够娴熟，不能使用晴空万里。\n' },
+            { key: 'neili', pair: [199, 200], field: 'neili',
+                refusal: '你现在内力太弱，不能使用晴空万里。\n' },
+        ],
+    },
+    'qishi-ji/juan': {
+        skill: 'qishi-ji', ability: 'juan', abilityPath: 'juan',
+        usage: 'spear', grant: 'can_perform/qishi-ji/juan',
+        forceSkill: 'force', kind: 'direct', weapon: 'spear', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '圣骑士戟「旋转卷刺」',
+        feeHit: 50, feeMiss: 30,
+        hitBusy: 2, missBusy: 3,
+        hitFormula: 'ap-dp', apSkills: [['spear', 1]],
+        dpSkills: [['parry', 1]], directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你圣骑士戟修为不够，难以施展「旋转卷刺」。\n' },
+            { key: 'force', pair: [149, 150], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够，难以施展「旋转卷刺」。\n' },
+            { key: 'neili', pair: [199, 200], field: 'neili',
+                refusal: '你现在的真气不够，难以施展「旋转卷刺」。\n' },
+        ],
+    },
+    'tianchang-zhang/huang': {
+        skill: 'tianchang-zhang', ability: 'huang', abilityPath: 'huang',
+        usage: 'strike', grant: null,
+        forceSkill: 'force', kind: 'direct', weapon: null, prepared: null,
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '天长掌法「地老天荒」',
+        feeHit: 120, feeMiss: 50,
+        hitBusy: 2, missBusy: 3,
+        hitFormula: 'ap-dp', apSkills: [['strike', 0.5], ['tianchang-zhang', 1]],
+        dpSkills: [['force', 1]], directType: 'REMOTE',
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的天长掌法修为有限，不能使用「地老天荒」！\n' },
+            { key: 'neili', pair: [149, 150], field: 'neili',
+                refusal: '你的真气不够，无法运用「地老天荒」！\n' },
+        ],
+    },
+    'xiyang-jian/ci': {
+        skill: 'xiyang-jian', ability: 'ci', abilityPath: 'ci',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'direct', weapon: 'sword', prepared: null,
+        families: generateFamilies, actorFamily: '侠客盟',
+        title: '西洋剑术「刺剑」',
+        feeHit: 70, feeMiss: 30,
+        hitBusy: 2, missBusy: 3,
+        hitFormula: 'ap-dp', apSkills: [['sword', 1]],
+        dpSkills: [['parry', 1]], directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [69, 70], field: 'skill',
+                refusal: '你的西洋剑术不够娴熟，不会使用「刺剑」。\n' },
+            { key: 'force', pair: [119, 120], field: 'effective-skill', skillName: 'force',
+                refusal: '你的内功修为不够高，难以运用「刺剑」。\n' },
+            { key: 'neili', pair: [299, 300], field: 'neili',
+                refusal: '你现在真气不够，不能使用「刺剑」。\n' },
+        ],
+    },
+    'xue-dao/shendao': {
+        skill: 'xue-dao', ability: 'shendao', abilityPath: 'shendao',
+        usage: 'blade', grant: 'can_perform/xue-dao/shendao',
+        forceSkill: 'force', kind: 'direct', weapon: 'blade', prepared: null,
+        families: miscFamilies, actorFamily: '侠客盟',
+        title: '血刀刀法「祭血神刀」',
+        feeHit: 350, feeMiss: 100,
+        hitBusy: 2, missBusy: 2,
+        selfWound: 50,
+        hitFormula: 'random-blade', apSkills: [['blade', 1]],
+        dpSkills: [['force', 0.5]], directType: 'WEAPON',
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你血刀刀法不够娴熟，使不出「祭血神刀」。\n' },
+            { key: 'force', pair: [99, 100], field: 'effective-skill', skillName: 'force',
+                refusal: '你内功火候不够，难以施展「祭血神刀」。\n' },
+            { key: 'max-neili', pair: [1199, 1200], field: 'max_neili',
+                refusal: '你的内力修为不足，无法运足内力。\n' },
+            { key: 'neili', pair: [399, 400], field: 'neili',
+                refusal: '你现在真气不够，无法将「祭血神刀」使完！\n' },
+            { key: 'qi', pair: [99, 100], field: 'qi',
+                refusal: '你还敢使这招？找死啊！\n' },
+            { key: 'shen', pair: [-999, -1000], field: 'shen',
+                refusal: '你为人不够凶残，还无法领会「祭血神刀」的奥妙。\n' },
+        ],
+    },
+    // ---- control 1 ----
+    'never-defeated/tianhua': {
+        skill: 'never-defeated', ability: 'tianhua', abilityPath: 'perform/tianhua',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'control', weapon: 'sword', prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「天花乱坠」',
+        fee: 0,
+        hitBusy: 0, missBusy: 1,
+        hitFormula: 'ap-dp',
+        apSkills: [['never-defeated', 1.5], ['martial-cognize', 1]],
+        dpSkills: [['parry', 1], ['martial-cognize', 1]],
+        targetBusy: { div: 45, add: 2, useAp: true },
+        alreadyBusyRefusal: true,
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的不败神功不够深厚，不会使用天花乱坠。\n' },
+        ],
+    },
+    // ---- instant_death 1 ----
+    'never-defeated/lei': {
+        skill: 'never-defeated', ability: 'lei', abilityPath: 'perform/lei',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'instant_death', weapon: 'sword', prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「天打雷劈」',
+        fee: 60,
+        hitBusyMin: 1, hitBusyMax: 2, missBusyMin: 1, missBusyMax: 2,
+        instantDeathFormula: 'exp', expDiv: 10000,
+        gates: [
+            { key: 'level', pair: [149, 150], field: 'skill',
+                refusal: '你的不败神功还不够娴熟，不能使用天打雷劈！\n' },
+            { key: 'neili', pair: [299, 300], field: 'neili',
+                refusal: '你的真气不够！\n' },
+        ],
+    },
+    // ---- special 2 ----
+    'never-defeated/po': {
+        skill: 'never-defeated', ability: 'po', abilityPath: 'perform/po',
+        usage: 'sword', grant: null,
+        forceSkill: 'force', kind: 'special', weapon: 'sword', prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「破字诀」',
+        fee: 100,
+        specialKind: 'combo_disarm',
+        comboAttacksMin: 4, comboAttacksMax: 7,
+        comboBusyMin: 1, comboBusyMax: 8,
+        // Full combo: start_busy(1+random(n)) with n=4+random(4).
+        // No-attack branches: miss sets busy 3+random(2); partial hit only
+        // locks the target and leaves the actor's busy unchanged (0).
+        noComboBusyMin: 0, noComboBusyMax: 4,
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的不败神功等级不够，无法施展破字诀！\n' },
+            { key: 'neili', pair: [149, 150], field: 'neili',
+                refusal: '你现在真气不够！\n' },
+        ],
+    },
+    'never-defeated/yuce': {
+        skill: 'never-defeated', ability: 'yuce', abilityPath: 'perform/yuce',
+        usage: 'throwing', grant: null,
+        forceSkill: 'force', kind: 'special', weapon: null, prepared: null,
+        families: ultraFamilies, actorFamily: '侠客盟',
+        title: '不败神功「御策诀」',
+        fee: 120,
+        specialKind: 'throwing',
+        handing: 'throwing',
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的不败神功火候不够，不会施展御策诀。\n' },
+            { key: 'neili', pair: [149, 150], field: 'neili',
+                refusal: '你内力不够了。\n' },
+        ],
+    },
+};
+
+export const b28Schools = schools;
+
+// Every gate except the one being probed must pass, so the baseline is raised
+// to each gate's high value. Otherwise an earlier gate masks the intended one
+// and the refusal text no longer matches.
+const gateFloor = cfg => {
+    const skills = {}, properties = {};
+    const raise = (bag, key, value) => { bag[key] = bag[key] === undefined ? value : Math.max(bag[key], value); };
+    for (const gate of cfg.gates) {
+        const high = gate.pair[1];
+        switch (gate.field) {
+            case 'skill': raise(skills, gate.skillName ?? cfg.skill, high); break;
+            case 'neili': raise(properties, 'neili', high); break;
+            case 'qi': raise(properties, 'qi', high); break;
+            case 'max_neili': raise(properties, 'max_neili', high); break;
+            case 'jingli': raise(properties, 'jingli', high); break;
+            case 'jing': raise(properties, 'jing', high); break;
+            case 'shen': raise(properties, 'shen', high); break;
+            case 'str': raise(properties, 'str', high); break;
+            case 'con': raise(properties, 'con', high); break;
+            case 'dex': raise(properties, 'dex', high + 20); break;
+            case 'dodge': raise(skills, 'dodge', high); break;
+            case 'effective-force': raise(skills, cfg.forceSkill, high); break;
+            case 'effective-dodge': raise(skills, 'shaolin-shenfa', high + 1); break;
+            case 'effective-skill': {
+                const name = gate.skillName ?? cfg.skill;
+                raise(skills, name, (high + 1) * 2);
+                break;
+            }
+        }
+    }
+    return { skills, properties };
+};
+
+const gateEdit = (cfg, gate, value, isLow) => {
+    switch (gate.field) {
+        case 'skill': return { skills: { [gate.skillName ?? cfg.skill]: value } };
+        case 'neili': return { properties: { neili: value } };
+        case 'qi': return { properties: { qi: value } };
+        case 'max_neili': return { properties: { max_neili: value } };
+        case 'jingli': return { properties: { jingli: value } };
+        case 'jing': return { properties: { jing: value } };
+        case 'shen': return { properties: { shen: value } };
+        case 'str': return { properties: { str: value } };
+        case 'con': return { properties: { con: value } };
+        case 'dex': return { properties: { dex: value - 20 } };
+        case 'dodge': return { skills: { dodge: value } };
+        case 'effective-force': return { skills: { force: 0, [cfg.forceSkill]: value } };
+        case 'effective-dodge': return { skills: { dodge: 0, 'shaolin-shenfa': value + 1 } };
+        case 'effective-skill': {
+            const name = gate.skillName ?? cfg.skill;
+            if (name === 'force' && cfg.forceSkill && cfg.forceSkill !== 'force')
+                return { skills: { force: 0, [cfg.forceSkill]: value } };
+            return { skills: { [name]: isLow ? value * 2 : (value + 1) * 2 } };
+        }
+        default: return { skills: { [gate.field]: value } };
+    }
+};
+
+export function b28PerformConditions(catalog, readSource, { smoke = false, samples = 100 } = {}) {
+    assert.equal(typeof readSource, 'function');
+    assert.ok(Number.isSafeInteger(samples) && samples > 0);
+    const source_evidence = Object.fromEntries(b28SourcePaths.map(path => {
+        const bytes = readSource(path);
+        assert.ok((typeof bytes === 'string' || Buffer.isBuffer(bytes)) && bytes.length, path);
+        return [path, hash(bytes)];
+    }));
+    if (b28ReviewedSourceHash !== 'PENDING')
+        assert.equal(hash(JSON.stringify(Object.entries(source_evidence))), b28ReviewedSourceHash,
+            'Reviewed B28 sources changed; re-review before sampling');
+    const result = [];
+    for (const [key, cfg] of Object.entries(schools)) {
+        const abilityKey = cfg.abilityPath ?? cfg.ability;
+        const base = catalog.skills.find(s => s.id === cfg.skill);
+        const ability = catalog.skills.find(s => s.id === `${cfg.skill}/${abilityKey}`);
+        assert.equal(base?.path, `kungfu/skill/${cfg.skill}.c`);
+        assert.equal(ability?.path, `kungfu/skill/${cfg.skill}/${abilityKey}.c`);
+        assert.equal(base.sha256, source_evidence[base.path]);
+        assert.equal(ability.sha256, source_evidence[ability.path]);
+        const performEntry = ability.entries.find(e => e.role === 'perform')?.id;
+        assert.ok(performEntry?.startsWith(ability.path + ':'), key);
+        const level = 300;
+        const floor = gateFloor(cfg);
+        function add(variant, extra = {}) {
+            const skills = {
+                dodge: 200, parry: 200, force: 0, 'shaolin-shenfa': 200,
+                [cfg.usage]: level, [cfg.skill]: level,
+                [cfg.forceSkill]: level,
+                'martial-cognize': 200, poison: 200,
+                ...(cfg.extraSkills ?? {}),
+            };
+            for (const u of ['sword', 'unarmed', 'dodge', 'hand', 'cuff', 'strike', 'staff', 'finger', 'blade', 'throwing', 'parry', 'club', 'whip', 'claw', 'dagger', 'axe', 'hammer', 'spear'])
+                if (cfg.usage === u) skills[u] = Math.max(skills[u] ?? 0, level);
+            for (const [k, v] of Object.entries(floor.skills))
+                skills[k] = Math.max(skills[k] ?? 0, v);
+            Object.assign(skills, extra.skills);
+            for (const [k, v] of Object.entries(skills)) if (v === undefined) delete skills[k];
+            const properties = {
+                ...defaults, 'family/family_name': cfg.actorFamily ?? cfg.families[0],
+                ...(cfg.grant ? { [cfg.grant]: cfg.grantValue ?? 1 } : {}),
+                ...(cfg.extraProperties ?? {}),
+            };
+            for (const [k, v] of Object.entries(floor.properties))
+                properties[k] = Math.max(properties[k] ?? 0, v);
+            Object.assign(properties, extra.properties);
+            const actor = {
+                skills,
+                mappings: {
+                    dodge: 'shaolin-shenfa',
+                    ...(cfg.forceSkill && cfg.forceSkill !== 'force'
+                        ? { force: cfg.forceSkill } : {}),
+                    [cfg.usage]: cfg.skill,
+                    ...(cfg.extraMappings ?? {}), ...extra.mappings
+                },
+                preparations: extra.preparations ?? (cfg.prepared
+                    ? { [cfg.prepared]: cfg.preparedSkill ?? cfg.skill } : {}),
+                properties,
+                ...(cfg.weapon ? { equipment: { type: cfg.weapon, hold: false } } : {}),
+                ...(cfg.handing ? { equipment: { type: cfg.handing, hold: true, amount: 10 } } : {}),
+            };
+            if ('actorEquipment' in extra) {
+                if (extra.actorEquipment) actor.equipment = extra.actorEquipment;
+                else delete actor.equipment;
+            }
+            const target = {
+                skills: { force: 200, dodge: 200, parry: 200, sword: 200, medical: 200,
+                    ...extra.targetSkills },
+                mappings: {}, preparations: {},
+                properties: { ...defaults, shen: 0, ...extra.targetProperties },
+                equipment: extra.targetWeapon
+                    ? { type: extra.targetWeaponType ?? 'sword', hold: false }
+                    : { type: 'sword', hold: false },
+                ...(extra.targetBusy ? { busy: 2 } : {}),
+            };
+            if (extra.actorTemp) actor.temp = { ...(actor.temp ?? {}), ...extra.actorTemp };
+            result.push({
+                id: `b28-${cfg.skill}-${cfg.ability}-${variant}`, stage: 'school',
+                entry_id: performEntry, method: 'perform',
+                samples: smoke ? (extra.refusal ? 1 : 2) : (extra.refusal ? 2 : extra.samples ?? samples),
+                parameters: {
+                    school: 'b28', family: cfg.actorFamily ?? cfg.families[0],
+                    families: [...cfg.families],
+                    collection_group: 'b28-perform', skill: cfg.skill, usage: cfg.usage,
+                    ability: cfg.ability, kind: cfg.kind, level, variant, actor, target,
+                    named_participants: true, fighting: true,
+                    target_state: 'living',
+                    action: extra.action ?? `perform ${cfg.usage}.${cfg.ability} right`,
+                    observation: 'single_action_immediate', observe_seconds: 0,
+                    expected: extra.refusal ? 'refused' : 'observed',
+                    refusal: extra.refusal ?? '', refusal_scope: extra.refusal ? 'ability' : '',
+                    not_applicable: '', source_evidence: { ...source_evidence },
+                    qualification_sources: [...b28SourcePaths],
+                    ability_source: { path: ability.path, sha256: ability.sha256, entry_id: performEntry },
+                    base_source: { path: base.path, sha256: base.sha256 },
+                    qualification_note: `${cfg.title}${cfg.families.join('、')}generate/misc杂项：原公开命令、`
+                        + '单备、加力0、真实非巫师USER。'
+                        + '修为与领悟为显式实验初态，不代表拜师或自然养成。'
+                        + `families为${cfg.families.join('、')}派perform销账，`
+                        + '同一样本计入该派入口覆盖。即时窗口，不采自然心跳/到期。'
+                        + 'generate/misc桶无正式派归属，按原分支记账。'
+                        + '只收集数据，不比较强弱。',
+                },
+            });
+        }
+        const primary = cfg.gates[0];
+        add(`baseline-l${level}`, { samples: smoke ? 2 : samples });
+        for (const gate of cfg.gates.filter(g => g.key === primary.key)) {
+            const [low, high] = gate.pair;
+            add(`gate-${gate.key}-${low}`, {
+                ...gateEdit(cfg, gate, low, true),
+                refusal: gate.refusal, samples: 2
+            });
+            add(`gate-${gate.key}-${high}`, { ...gateEdit(cfg, gate, high, false), samples: 2 });
+        }
+        if (cfg.kind === 'control' && !cfg.skipTargetBusy) {
+            add('target-busy', {
+                targetBusy: true,
+                refusal: '右试弟子目前正自顾不暇，放胆攻击吧！\n',
+            });
+        }
+    }
+    return result;
+}
+
+const copy = value => value === undefined ? undefined : structuredClone(value);
+const num = value => typeof value === 'number' && Number.isFinite(value) ? value : 0;
+const sparse = (bag, key) => num(bag?.[key]);
+
+function assertActorShape(side) {
+    for (const k of ['object', 'id']) assert.equal(typeof side[k], 'string', k);
+    for (const k of health) assert.ok(num(side[k]) >= 0, k);
+}
+
+function temp(side, key) {
+    let node = side.temp ?? {};
+    for (const part of key.split('/')) node = node?.[part];
+    return node;
+}
+
+function allowDerived(expected, actual) {
+    expected.effective_skills = copy(actual.effective_skills ?? {});
+    for (const key of ['effective_str', 'effective_con', 'effective_int', 'effective_dex'])
+        if (Object.hasOwn(actual, key)) expected[key] = actual[key];
+        else delete expected[key];
+}
+
+function stableState(before, after, mutate, { weaponSteal = false } = {}) {
+    const expected = copy(before), actual = copy(after);
+    delete expected.temp.notify_fail; delete actual.temp.notify_fail;
+    for (const side of [expected, actual]) {
+        if (side.temp && side.temp.fight) {
+            const fight = side.temp.fight;
+            for (const k of ['attack', 'dodge', 'parry'])
+                assert.ok(fight[k] === null || Number.isSafeInteger(fight[k]), 'fight temp shape');
+            delete side.temp.fight;
+        }
+        if (side.temp) delete side.temp.block_msg;
+        if (side.temp) delete side.temp.action_flag;
+        if (side.temp) delete side.temp.die_reason;
+        if (side.temp) delete side.temp.guarding;
+        if (side.temp && side.temp.apply) {
+            for (const k of Object.keys(side.temp.apply))
+                if (side.temp.apply[k] === 0) delete side.temp.apply[k];
+        }
+        if (side.weapon_details) side.weapon_details.consistence = 0;
+        if (side.handing_details && Object.keys(side.handing_details).length)
+            side.handing_details.consistence = 0;
+        if (weaponSteal) {
+            if (side.temp?.apply) { delete side.temp.apply.damage; delete side.temp.apply.dodge; }
+            if (side.temp) delete side.temp.weapon;
+            delete side.weapon; delete side.weapon_damage; delete side.weapon_flag;
+            delete side.weapon_details; delete side.equipment;
+        }
+    }
+    if (mutate) mutate(expected);
+    for (const side of [expected, actual]) {
+        if (side.temp && side.temp.apply) {
+            for (const k of Object.keys(side.temp.apply))
+                if (side.temp.apply[k] === 0) delete side.temp.apply[k];
+        }
+    }
+    assert.deepEqual(actual, expected, 'unexplained state mutation');
+}
+
+function assertLearnGain(after, skill) {
+    const learned = after.learned ?? {};
+    for (const k of Object.keys(learned)) assert.equal(k, skill, 'unexpected learned key');
+    assert.ok([0, 1].includes(learned[skill] ?? 0), 'original single-use learn gain');
+}
+
+function effectiveSkill(b, name) {
+    const raw = sparse(b.skills, name);
+    const mapped = b.mappings?.[name];
+    return mapped ? Math.trunc(raw / 2) + sparse(b.skills, mapped) : Math.trunc(raw / 2);
+}
+
+function computeAp(cfg, b) {
+    let ap = 0;
+    for (const [name, coef] of cfg.apSkills ?? []) {
+        const v = cfg.useEffectiveAp ? effectiveSkill(b, name) : sparse(b.skills, name);
+        ap += v * coef;
+    }
+    return ap;
+}
+
+function expectedTargetBusy(cfg, b) {
+    const t = cfg.targetBusy;
+    if (t.useAp) {
+        const ap = computeAp(cfg, b);
+        return Math.trunc(ap / t.div) + (t.add ?? 0);
+    }
+    const name = t.skill ?? t.useSkill ?? cfg.skill;
+    const level = t.useEffective ? effectiveSkill(b, name) : sparse(b.skills, name);
+    return Math.trunc(level / t.div) + (t.add ?? 0);
+}
+
+function targetBusyRange(cfg, b) {
+    const t = cfg.targetBusy;
+    if (t.randomBase !== undefined) {
+        const name = t.useSkill ?? t.skill ?? cfg.skill;
+        const level = t.useEffective ? effectiveSkill(b, name) : sparse(b.skills, name);
+        const n = Math.trunc(level / t.randomDiv);
+        return [t.randomBase, t.randomBase + Math.max(n, 1) - 1];
+    }
+    if (t.randomN !== undefined) {
+        const base = expectedTargetBusy(cfg, b);
+        return [base, base + t.randomN - 1];
+    }
+    const base = expectedTargetBusy(cfg, b);
+    return [base, base];
+}
+
+export function validateB28Record(raw, condition) {
+    const p = condition.parameters, cfg = schools[`${p.skill}/${p.ability}`];
+    assert.ok(cfg, 'known B28 entry');
+    assert.equal(p.collection_group, 'b28-perform');
+    assert.deepEqual(p.families, cfg.families);
+    assert.equal(p.kind, cfg.kind);
+    assert.equal(raw.kind, 'sample'); assert.equal(raw.condition_id, condition.id);
+    assert.equal(raw.method, 'perform');
+    assert.ok(Number.isSafeInteger(raw.index) && raw.index >= 0 && raw.index < condition.samples);
+    assert.ok(Number.isFinite(raw.elapsed) && raw.elapsed >= 0);
+    if (['error', 'not_applicable'].includes(raw.outcome)) {
+        assert.ok(typeof raw.reason === 'string' && raw.reason.trim());
+        return null;
+    }
+    const accepted = p.expected === 'observed';
+    assert.equal(raw.outcome, p.expected);
+    for (const k of ['before', 'immediate', 'after', 'metrics']) assert.equal(raw[k]?.length, 2, k);
+    for (const k of ['attacks', 'passives', 'defenses', 'dodge_checks', 'interfaces',
+        'callbacks', 'dropped', 'terminals', 'launches', 'refusals'])
+        assert.ok(Array.isArray(raw[k]), k);
+    for (const k of ['actions', 'directs']) if (Object.hasOwn(raw, k)) assert.ok(Array.isArray(raw[k]), k);
+    assert.deepEqual(raw.after, raw.immediate, 'immediate-only window');
+    const b = raw.before[0], t = raw.before[1], a = raw.immediate[0], v = raw.immediate[1];
+    assertActorShape(b); assertActorShape(t);
+    for (const side of [0, 1]) {
+        for (const k of ['quick', 'riposte', 'heartbeats'])
+            assert.equal(sparse(raw.metrics[side], k), 0, k);
+        for (const k of health)
+            if (side === 0) assert.equal(sparse(raw.metrics[side], k + '_recovery'), 0, k);
+            else assert.ok(sparse(raw.metrics[side], k + '_recovery') >= 0, k);
+    }
+    for (const [k, want] of Object.entries(p.actor.skills ?? {})) assert.equal(sparse(b.skills, k), want, k);
+    for (const [k, want] of Object.entries(p.target.skills ?? {})) assert.equal(sparse(t.skills, k), want, k);
+    if (!accepted) {
+        assert.deepEqual(raw.launches, []); assert.deepEqual(raw.attacks, []);
+        assert.deepEqual(raw.directs ?? [], []);
+        assert.equal(typeof raw.reason, 'string');
+        assert.equal(raw.reason.replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, ''), p.refusal);
+        assert.deepEqual(raw.refusals, [{ actor: b.object, reason: raw.reason }]);
+        stableState(b, a);
+        return { accepted: false, kind: cfg.kind };
+    }
+    assert.deepEqual(raw.refusals, []);
+    assert.ok(raw.reason === '' || raw.reason === null);
+    assert.equal(raw.launches.length, 1);
+    assert.equal(raw.launches[0].skill, cfg.skill);
+    if (cfg.kind === 'combo') return validateB28Combo(raw, condition, cfg, p, b, t, a, v);
+    if (cfg.kind === 'direct') return validateB28Direct(raw, condition, cfg, p, b, t, a, v);
+    if (cfg.kind === 'control') return validateB28Control(raw, condition, cfg, p, b, t, a, v);
+    if (cfg.kind === 'instant_death') return validateB28InstantDeath(raw, condition, cfg, p, b, t, a, v);
+    return validateB28Special(raw, condition, cfg, p, b, t, a, v);
+}
+
+function validateB28Combo(raw, condition, cfg, p, b, t, a, v) {
+    const attacks = raw.attacks.filter(x => x.actor === 0 && x.target === 1);
+    const fee = b.neili - a.neili;
+    const qiCost = b.qi - a.qi;
+    if (cfg.feePerAttack !== undefined) {
+        assert.ok(fee > 0, 'combo fee positive');
+        assert.ok(qiCost >= 0 && qiCost <= (cfg.qiFee ?? 0), 'combo qi fee');
+    } else {
+        assert.ok(fee >= (cfg.fee ?? 0), 'combo fee floor');
+        assert.ok(qiCost >= 0 && qiCost <= (cfg.qiFee ?? 0), 'combo qi fee range');
+    }
+    const maxAttacks = cfg.comboAttacks ?? cfg.comboAttacksMax ?? 8;
+    const minAttacks = cfg.comboAttacksMin ?? 1;
+    assert.ok(attacks.length >= minAttacks && attacks.length <= maxAttacks, 'combo attack count');
+    assert.ok(num(a.busy) >= (cfg.comboBusyMin ?? 0) && num(a.busy) <= (cfg.comboBusyMax ?? 6), 'combo busy range');
+    for (const at of attacks) assert.ok([0, -1, -2].includes(at.result));
+    assert.equal(raw.directs?.length ?? 0, 0, 'combo has no directs');
+    assert.equal(sparse(raw.metrics[0], 'direct'), 0, 'no direct metric');
+    assertLearnGain(a, p.skill);
+    stableState(b, a, e => {
+        e.neili -= fee; e.qi -= qiCost; e.busy = a.busy; e.learned = a.learned;
+        e.temp.apply = copy(a.temp.apply ?? {});
+        if (a.temp && a.temp.perform_wushenjian !== undefined
+            && Object.keys(a.temp.perform_wushenjian ?? {}).length === 0) {
+            if (!e.temp) e.temp = {};
+            e.temp.perform_wushenjian = {};
+        }
+        allowDerived(e, a);
+    });
+    stableState(t, v, e => {
+        e.qi = v.qi; e.eff_qi = v.eff_qi; e.jing = v.jing; e.eff_jing = v.eff_jing;
+        e.busy = v.busy; e.neili = v.neili;
+        e.conditions = copy(v.conditions ?? null);
+        allowDerived(e, v);
+    });
+    return {
+        accepted: true, kind: 'combo',
+        hit: attacks.some(x => x.result === 0),
+        hits: attacks.filter(x => x.result === 0).length,
+    };
+}
+
+function validateB28Direct(raw, condition, cfg, p, b, t, a, v) {
+    const directs = raw.directs ?? [];
+    const miss = directs.length === 0 && sparse(raw.metrics[0], 'direct') === 0;
+    assert.ok(directs.length <= 1, 'at most one do_damage per perform');
+    const directCount = sparse(raw.metrics[0], 'direct');
+    assert.ok(directCount >= 0, 'direct count');
+    assert.equal(sparse(raw.metrics[1], 'direct'), 0, 'direct');
+    const paid = b.neili - a.neili;
+    let fee;
+    if (miss) fee = cfg.feeMiss ?? 0;
+    else fee = cfg.feeHit ?? 0;
+    assert.equal(paid, fee, 'branch fee');
+    const busyAfter = num(a.busy);
+    const busyMin = miss ? (cfg.missBusyMin ?? cfg.missBusy ?? cfg.hitBusy ?? 0)
+        : (cfg.hitBusyMin ?? cfg.hitBusy ?? 0);
+    const busyMax = miss ? (cfg.missBusyMax ?? cfg.missBusy ?? cfg.hitBusy ?? 0)
+        : (cfg.hitBusyMax ?? cfg.hitBusy ?? 0);
+    assert.ok(busyAfter >= busyMin && busyAfter <= busyMax, 'busy range');
+    if (cfg.selfWound) {
+        assert.ok(b.qi - a.qi >= cfg.selfWound, 'self wound applied');
+    }
+    if (miss) {
+        assertLearnGain(a, p.skill);
+        const spent = b.neili - a.neili;
+        stableState(b, a, e => {
+            e.neili -= spent; e.busy = a.busy; e.learned = a.learned;
+            if (cfg.selfWound) { e.qi = a.qi; e.eff_qi = a.eff_qi; }
+            allowDerived(e, a);
+        });
+        stableState(t, v);
+        return { accepted: true, kind: 'direct', hit: false };
+    }
+    let input;
+    if (directs.length === 1) {
+        assert.equal(directs[0].actor, 0); assert.equal(directs[0].target, 1);
+        input = num(directs[0].damage);
+        assert.ok(input > 0, 'positive damage input');
+    } else {
+        input = num(t.qi) - num(v.qi);
+        assert.ok(input > 0, 'qi drop without directs');
+    }
+    assertLearnGain(a, p.skill);
+    const spent = b.neili - a.neili;
+    stableState(b, a, e => {
+        e.neili -= spent; e.busy = a.busy; e.learned = a.learned;
+        if (cfg.selfWound) { e.qi = a.qi; e.eff_qi = a.eff_qi; }
+        allowDerived(e, a);
+    });
+    stableState(t, v, e => {
+        e.qi = v.qi; e.eff_qi = v.eff_qi; e.jing = v.jing; e.eff_jing = v.eff_jing;
+        e.busy = v.busy; e.neili = v.neili;
+        e.conditions = copy(v.conditions ?? null);
+        allowDerived(e, v);
+    });
+    return { accepted: true, kind: 'direct', hit: true, input };
+}
+
+function validateB28Control(raw, condition, cfg, p, b, t, a, v) {
+    const fee = b.neili - a.neili;
+    const busyAfter = num(a.busy);
+    const hit = num(v.busy) > 0;
+    const busyMin = hit ? (cfg.hitBusyMin ?? cfg.hitBusy ?? 0) : (cfg.missBusyMin ?? cfg.missBusy ?? 0);
+    const busyMax = hit ? (cfg.hitBusyMax ?? cfg.hitBusy ?? 0) : (cfg.missBusyMax ?? cfg.missBusy ?? 0);
+    assert.ok(busyAfter >= busyMin && busyAfter <= busyMax, 'control busy range');
+    if (cfg.targetBusy && hit) {
+        const [lo, hi] = targetBusyRange(cfg, b);
+        assert.ok(num(v.busy) >= lo && num(v.busy) <= hi, 'target busy formula');
+    }
+    assert.equal(fee, hit ? (cfg.feeHit ?? cfg.fee ?? 0) : (cfg.feeMiss ?? cfg.fee ?? 0), 'control fee');
+    assertLearnGain(a, p.skill);
+    stableState(b, a, e => {
+        e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        allowDerived(e, a);
+    });
+    stableState(t, v, e => {
+        e.busy = v.busy;
+        allowDerived(e, v);
+    });
+    return { accepted: true, kind: 'control', hit };
+}
+
+function validateB28InstantDeath(raw, condition, cfg, p, b, t, a, v) {
+    const fee = b.neili - a.neili;
+    assert.equal(fee, cfg.fee, 'instant death fee');
+    const busyAfter = num(a.busy);
+    assert.ok(busyAfter >= (cfg.hitBusyMin ?? 1) && busyAfter <= (cfg.hitBusyMax ?? 2), 'busy range');
+    assertLearnGain(a, p.skill);
+    stableState(b, a, e => {
+        e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        allowDerived(e, a);
+    });
+    // Target may die or survive; allow qi changes on target
+    stableState(t, v, e => {
+        e.qi = v.qi; e.eff_qi = v.eff_qi; e.busy = v.busy;
+        allowDerived(e, v);
+    });
+    return { accepted: true, kind: 'instant_death', hit: true };
+}
+
+function validateB28Special(raw, condition, cfg, p, b, t, a, v) {
+    const fee = b.neili - a.neili;
+    assert.ok(fee >= (cfg.fee ?? 0), 'special fee floor');
+    if (cfg.specialKind === 'throwing') {
+        assertLearnGain(a, p.skill);
+        stableState(b, a, e => {
+            e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+            e.qi = a.qi;
+            if (a.ammunition !== undefined) e.ammunition = a.ammunition;
+            if (e.handing_details) e.handing_details.weight = a.handing_details?.weight;
+            allowDerived(e, a);
+        });
+        stableState(t, v, e => {
+            e.qi = v.qi; e.eff_qi = v.eff_qi; e.jing = v.jing; e.eff_jing = v.eff_jing;
+            e.busy = v.busy; e.neili = v.neili;
+            e.conditions = copy(v.conditions ?? null);
+            allowDerived(e, v);
+        });
+        return { accepted: true, kind: 'special', hit: true, specialKind: 'throwing' };
+    }
+    // combo_disarm: full combo lands 4..7 attacks; miss and partial-hit
+    // branches return after zero do_attack calls (partial only locks target).
+    const attacks = raw.attacks.filter(x => x.actor === 0 && x.target === 1);
+    const busyAfter = num(a.busy);
+    if (attacks.length === 0) {
+        assert.ok(busyAfter >= (cfg.noComboBusyMin ?? 0) && busyAfter <= (cfg.noComboBusyMax ?? 4),
+            'special no-combo busy range');
+    } else {
+        assert.ok(attacks.length >= (cfg.comboAttacksMin ?? 1)
+            && attacks.length <= (cfg.comboAttacksMax ?? 8), 'special combo attack count');
+        assert.ok(busyAfter >= (cfg.comboBusyMin ?? 0) && busyAfter <= (cfg.comboBusyMax ?? 6),
+            'special busy range');
+    }
+    assertLearnGain(a, p.skill);
+    stableState(b, a, e => {
+        e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        e.temp.apply = copy(a.temp.apply ?? {});
+        allowDerived(e, a);
+    });
+    stableState(t, v, e => {
+        e.qi = v.qi; e.eff_qi = v.eff_qi; e.jing = v.jing; e.eff_jing = v.eff_jing;
+        e.busy = v.busy; e.neili = v.neili;
+        e.conditions = copy(v.conditions ?? null);
+        allowDerived(e, v);
+    }, { weaponSteal: true });
+    return {
+        accepted: true, kind: 'special',
+        hit: attacks.some(x => x.result === 0) || (attacks.length === 0 && num(v.busy) > num(t.busy)),
+        specialKind: 'combo_disarm',
+    };
+}
+
+export function b28Effects(rows, condition) {
+    const counts = { observed: 0, refused: 0, error: 0, not_applicable: 0 };
+    const known = [];
+    for (const row of rows) {
+        assert.equal(row.condition_id, condition.id);
+        assert.equal(row.raw.condition_id, condition.id);
+        assert.equal(row.raw.outcome, row.outcome);
+        assert.ok(Object.hasOwn(counts, row.outcome));
+        counts[row.outcome]++;
+        if (['observed', 'refused'].includes(row.outcome)) known.push(validateB28Record(row.raw, condition));
+    }
+    const accepted = known.filter(k => k && k.accepted);
+    return {
+        counts, samples: rows.length,
+        accepted: probability(accepted.length, known.length),
+        hits: probability(accepted.filter(k => k && k.hit).length, accepted.length),
+        inputs: distribution(known.filter(k => k && k.input !== undefined).map(k => k.input)),
+    };
+}

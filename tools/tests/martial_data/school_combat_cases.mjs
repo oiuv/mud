@@ -49,6 +49,14 @@ import { taohuaCombinationConditions, validateTaohuaCombinationRecord } from './
 import { taohuaForceConditions, validateTaohuaForceRecord } from './school_taohua_force_cases.mjs';
 import { taohuaMusicConditions, validateTaohuaMusicRecord } from './school_taohua_music_cases.mjs';
 import { taohuaNpcConditions, validateTaohuaNpcRecord } from './school_taohua_npc_cases.mjs';
+import { slice1Conditions, validateSlice1Record } from './school_slice1_cases.mjs';
+import { slice2Conditions, validateSlice2Record } from './school_slice2_cases.mjs';
+import { slice3Conditions, validateSlice3Record } from './school_slice3_cases.mjs';
+import { slice4Conditions, validateSlice4Record } from './school_slice4_cases.mjs';
+import { slice5Conditions, validateSlice5Record } from './school_slice5_cases.mjs';
+import { slice6Conditions, validateSlice6Record } from './school_slice6_cases.mjs';
+import { slice7Conditions, validateSlice7Record } from './school_slice7_cases.mjs';
+import { slice8Conditions, validateSlice8Record } from './school_slice8_cases.mjs';
 import { shaolinSwordConditions, validateShaolinSwordRecord } from './school_shaolin_sword_cases.mjs';
 import { shaolinWeaponConditions, validateShaolinWeaponRecord } from './school_shaolin_weapons_cases.mjs';
 import { shaolinAdditionalConditions, validateShaolinAdditionalRecord } from './school_shaolin_additional_cases.mjs';
@@ -150,6 +158,35 @@ import { gumuBoutConditions, validateGumuBoutRecord } from './school_gumu_bout_c
 import { gumuNpcBoutConditions, validateGumuNpcBoutRecord } from './school_gumu_npc_bout_cases.mjs';
 import { mingjiaoCombinationConditions } from './school_mingjiao_combination_cases.mjs';
 import { createMingjiaoCombinationRecordValidator } from './school_mingjiao_combination_record.mjs';
+import { b1PerformConditions, validateB1Record } from './b1_perform_cases.mjs';
+import { b2PerformConditions, validateB2Record } from './b2_perform_cases.mjs';
+import { b3PerformConditions, validateB3Record } from './b3_perform_cases.mjs';
+import { b4PerformConditions, validateB4Record } from './b4_perform_cases.mjs';
+import { b5PerformConditions, validateB5Record } from './b5_perform_cases.mjs';
+import { b6PerformConditions, validateB6Record } from './b6_perform_cases.mjs';
+import { b7PerformConditions, validateB7Record } from './b7_perform_cases.mjs';
+import { b8PerformConditions, validateB8Record } from './b8_perform_cases.mjs';
+import { b9PerformConditions, validateB9Record } from './b9_perform_cases.mjs';
+import { b10PerformConditions, validateB10Record } from './b10_perform_cases.mjs';
+import { b11PerformConditions, validateB11Record } from './b11_perform_cases.mjs';
+import { b12PerformConditions, validateB12Record } from './b12_perform_cases.mjs';
+import { b13PerformConditions, validateB13Record } from './b13_perform_cases.mjs';
+import { b14PerformConditions, validateB14Record } from './b14_perform_cases.mjs';
+import { b15PerformConditions, validateB15Record } from './b15_perform_cases.mjs';
+import { b16PerformConditions, validateB16Record } from './b16_perform_cases.mjs';
+import { b17PerformConditions, validateB17Record } from './b17_perform_cases.mjs';
+import { b18PerformConditions, validateB18Record } from './b18_perform_cases.mjs';
+import { b19PerformConditions, validateB19Record } from './b19_perform_cases.mjs';
+import { b20PerformConditions, validateB20Record } from './b20_perform_cases.mjs';
+import { b21PerformConditions, validateB21Record } from './b21_perform_cases.mjs';
+import { b22PerformConditions, validateB22Record } from './b22_perform_cases.mjs';
+import { b23PerformConditions, validateB23Record } from './b23_perform_cases.mjs';
+import { b24PerformConditions, validateB24Record } from './b24_perform_cases.mjs';
+import { b25PerformConditions, validateB25Record } from './b25_perform_cases.mjs';
+import { b26PerformConditions, validateB26Record } from './b26_perform_cases.mjs';
+import { b27PerformConditions, validateB27Record } from './b27_perform_cases.mjs';
+import { b28PerformConditions, validateB28Record } from './b28_perform_cases.mjs';
+import { b29PerformConditions, validateB29Record } from './b29_perform_cases.mjs';
 
 const mingjiaoCombinationValidators = new WeakMap();
 
@@ -352,7 +389,44 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...mingjiaoRemainingPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...mingjiaoRemainingBaseConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...mingjiaoCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
-        ...mingjiaoForceRemainingConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke })];
+        ...mingjiaoForceRemainingConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...slice1Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice2Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice3Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice4Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice5Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice6Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice7Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...slice8Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b1PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b2PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b3PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b4PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b5PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b6PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b7PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b8PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b9PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b10PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b11PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b12PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b13PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b14PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b15PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b16PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b17PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b18PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b19PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b20PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b21PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b22PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b23PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b24PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b25PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b26PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b27PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b28PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...b29PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples })];
 }
 
 export function validateSchoolCombatRecord(raw, condition, sourceContext) {
@@ -402,6 +476,43 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (condition.parameters.collection_group === 'taohua-force') return validateTaohuaForceRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-music') return validateTaohuaMusicRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-npc') return validateTaohuaNpcRecord(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice1-')) return validateSlice1Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice2-')) return validateSlice2Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice3-')) return validateSlice3Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice4-')) return validateSlice4Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice5-')) return validateSlice5Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice6-')) return validateSlice6Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice7-')) return validateSlice7Record(raw, condition);
+    if (condition.parameters.collection_group?.startsWith('slice8-')) return validateSlice8Record(raw, condition);
+    if (condition.parameters.collection_group === 'b1-perform') return validateB1Record(raw, condition);
+    if (condition.parameters.collection_group === 'b2-perform') return validateB2Record(raw, condition);
+    if (condition.parameters.collection_group === 'b3-perform') return validateB3Record(raw, condition);
+    if (condition.parameters.collection_group === 'b4-perform') return validateB4Record(raw, condition);
+    if (condition.parameters.collection_group === 'b5-perform') return validateB5Record(raw, condition);
+    if (condition.parameters.collection_group === 'b6-perform') return validateB6Record(raw, condition);
+    if (condition.parameters.collection_group === 'b7-perform') return validateB7Record(raw, condition);
+    if (condition.parameters.collection_group === 'b8-perform') return validateB8Record(raw, condition);
+    if (condition.parameters.collection_group === 'b9-perform') return validateB9Record(raw, condition);
+    if (condition.parameters.collection_group === 'b10-perform') return validateB10Record(raw, condition);
+    if (condition.parameters.collection_group === 'b11-perform') return validateB11Record(raw, condition);
+    if (condition.parameters.collection_group === 'b12-perform') return validateB12Record(raw, condition);
+    if (condition.parameters.collection_group === 'b13-perform') return validateB13Record(raw, condition);
+    if (condition.parameters.collection_group === 'b14-perform') return validateB14Record(raw, condition);
+    if (condition.parameters.collection_group === 'b15-perform') return validateB15Record(raw, condition);
+    if (condition.parameters.collection_group === 'b16-perform') return validateB16Record(raw, condition);
+    if (condition.parameters.collection_group === 'b17-perform') return validateB17Record(raw, condition);
+    if (condition.parameters.collection_group === 'b18-perform') return validateB18Record(raw, condition);
+    if (condition.parameters.collection_group === 'b19-perform') return validateB19Record(raw, condition);
+    if (condition.parameters.collection_group === 'b20-perform') return validateB20Record(raw, condition);
+    if (condition.parameters.collection_group === 'b21-perform') return validateB21Record(raw, condition);
+    if (condition.parameters.collection_group === 'b22-perform') return validateB22Record(raw, condition);
+    if (condition.parameters.collection_group === 'b23-perform') return validateB23Record(raw, condition);
+    if (condition.parameters.collection_group === 'b24-perform') return validateB24Record(raw, condition);
+    if (condition.parameters.collection_group === 'b25-perform') return validateB25Record(raw, condition);
+    if (condition.parameters.collection_group === 'b26-perform') return validateB26Record(raw, condition);
+    if (condition.parameters.collection_group === 'b27-perform') return validateB27Record(raw, condition);
+    if (condition.parameters.collection_group === 'b28-perform') return validateB28Record(raw, condition);
+    if (condition.parameters.collection_group === 'b29-perform') return validateB29Record(raw, condition);
     if (condition.parameters.collection_group === 'taohua-passive') return validateTaohuaPassiveRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-bihai') return validateTaohuaBihaiRecord(raw, condition);
     if (condition.parameters.collection_group === 'taohua-combo') return validateTaohuaComboRecord(raw, condition);

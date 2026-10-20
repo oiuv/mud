@@ -23,6 +23,43 @@ import { taohuaForceEffects, taohuaForceSourcePaths, taohuaForceAbsentPaths } fr
 import { taohuaMusicEffects, taohuaMusicSourcePaths } from './school_taohua_music_cases.mjs';
 import { taohuaNpcEffects, taohuaNpcSources, taohuaNpcAbsentSources } from './school_taohua_npc_cases.mjs';
 import { mingjiaoCoreEffects } from './school_mingjiao_core_cases.mjs';
+import { slice1Effects } from './school_slice1_cases.mjs';
+import { slice2Effects } from './school_slice2_cases.mjs';
+import { slice3Effects } from './school_slice3_cases.mjs';
+import { slice4Effects } from './school_slice4_cases.mjs';
+import { slice5Effects } from './school_slice5_cases.mjs';
+import { slice6Effects } from './school_slice6_cases.mjs';
+import { slice7Effects } from './school_slice7_cases.mjs';
+import { slice8Effects } from './school_slice8_cases.mjs';
+import { b1Effects } from './b1_perform_cases.mjs';
+import { b2Effects } from './b2_perform_cases.mjs';
+import { b3Effects } from './b3_perform_cases.mjs';
+import { b4Effects } from './b4_perform_cases.mjs';
+import { b5Effects } from './b5_perform_cases.mjs';
+import { b6Effects } from './b6_perform_cases.mjs';
+import { b7Effects } from './b7_perform_cases.mjs';
+import { b8Effects } from './b8_perform_cases.mjs';
+import { b9Effects } from './b9_perform_cases.mjs';
+import { b10Effects } from './b10_perform_cases.mjs';
+import { b11Effects } from './b11_perform_cases.mjs';
+import { b12Effects } from './b12_perform_cases.mjs';
+import { b13Effects } from './b13_perform_cases.mjs';
+import { b14Effects } from './b14_perform_cases.mjs';
+import { b15Effects } from './b15_perform_cases.mjs';
+import { b16Effects } from './b16_perform_cases.mjs';
+import { b17Effects } from './b17_perform_cases.mjs';
+import { b18Effects } from './b18_perform_cases.mjs';
+import { b19Effects } from './b19_perform_cases.mjs';
+import { b20Effects } from './b20_perform_cases.mjs';
+import { b21Effects } from './b21_perform_cases.mjs';
+import { b22Effects } from './b22_perform_cases.mjs';
+import { b23Effects } from './b23_perform_cases.mjs';
+import { b24Effects } from './b24_perform_cases.mjs';
+import { b25Effects } from './b25_perform_cases.mjs';
+import { b26Effects } from './b26_perform_cases.mjs';
+import { b27Effects } from './b27_perform_cases.mjs';
+import { b28Effects } from './b28_perform_cases.mjs';
+import { b29Effects } from './b29_perform_cases.mjs';
 import { mingjiaoQishangEffects, validateMingjiaoQishangLoads } from './school_mingjiao_qishang_cases.mjs';
 import { mingjiaoXinfaEffects } from './school_mingjiao_xinfa_cases.mjs';
 import { mingjiaoMovementEffects } from './school_mingjiao_movement_cases.mjs';
@@ -1350,6 +1387,139 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
             condition.effects = null;
             condition.mingjiao_core = mingjiaoCoreEffects(rows.filter(r => r.condition_id === condition.id),
                 conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice1-')) {
+            condition.effects = null;
+            condition.slice1 = slice1Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice2-')) {
+            condition.effects = null;
+            condition.slice2 = slice2Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice3-')) {
+            condition.effects = null;
+            condition.slice3 = slice3Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice4-')) {
+            condition.effects = null;
+            condition.slice4 = slice4Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice5-')) {
+            condition.effects = null;
+            condition.slice5 = slice5Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice6-')) {
+            condition.effects = null;
+            condition.slice6 = slice6Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice7-')) {
+            condition.effects = null;
+            condition.slice7 = slice7Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group?.startsWith('slice8-')) {
+            condition.effects = null;
+            condition.slice8 = slice8Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b1-perform') {
+            condition.effects = null;
+            condition.b1 = b1Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b2-perform') {
+            condition.effects = null;
+            condition.b2 = b2Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b3-perform') {
+            condition.effects = null;
+            condition.b3 = b3Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b4-perform') {
+            condition.effects = null;
+            condition.b4 = b4Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b5-perform') {
+            condition.effects = null;
+            condition.b5 = b5Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b6-perform') {
+            condition.effects = null;
+            condition.b6 = b6Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b7-perform') {
+            condition.effects = null;
+            condition.b7 = b7Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b8-perform') {
+            condition.effects = null;
+            condition.b8 = b8Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b9-perform') {
+            condition.effects = null;
+            condition.b9 = b9Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b10-perform') {
+            condition.effects = null;
+            condition.b10 = b10Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b11-perform') {
+            condition.effects = null;
+            condition.b11 = b11Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b12-perform') {
+            condition.effects = null;
+            condition.b12 = b12Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b13-perform') {
+            condition.effects = null;
+            condition.b13 = b13Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b14-perform') {
+            condition.effects = null;
+            condition.b14 = b14Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b15-perform') {
+            condition.effects = null;
+            condition.b15 = b15Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b16-perform') {
+            condition.effects = null;
+            condition.b16 = b16Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
+        } else if (condition.parameters.collection_group === 'b19-perform') {
+            condition.b19 = b19Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b20-perform') {
+            condition.b20 = b20Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b21-perform') {
+            condition.b21 = b21Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b22-perform') {
+            condition.b22 = b22Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b23-perform') {
+            condition.b23 = b23Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b24-perform') {
+            condition.b24 = b24Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b25-perform') {
+            condition.b25 = b25Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b26-perform') {
+            condition.b26 = b26Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b27-perform') {
+            condition.b27 = b27Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b28-perform') {
+            condition.b28 = b28Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b29-perform') {
+            condition.b29 = b29Effects(rows.filter(r => r.condition_id === condition.id),
+                condition);
+        } else if (condition.parameters.collection_group === 'b17-perform') {
+            condition.effects = null;
+            condition.b17 = b17Effects(rows.filter(r => r.condition_id === condition.id),
+                conditions.find(c => c.id === condition.id));
         } else if (condition.parameters.collection_group === 'taohua-combo') condition.effects = null;
         else if (condition.parameters.collection_group === 'taohua-bihai') condition.effects = null;
         else if (condition.parameters.collection_group === 'taohua-passive') condition.effects = null;
@@ -1605,7 +1775,7 @@ export function schoolCombatMarkdown(report, manifest, rows, sourceContext) {
         '气血/创伤分列，不相加。即时忙乱与掉剑为样本次数，不等于中途触发次数；expiry/打坐与原心跳交锋按各条件时钟观察，其他条件只观察即时状态。不将即时结果当作持续实战收益。', '',
         '| 条件 | 正常/拒绝 | 对方气血支出均值 | 对方创伤均值 | 自身内力支出均值 | 对方即时忙乱样本 | 掉剑样本 |',
         '| --- | ---: | ---: | ---: | ---: | ---: | ---: |'];
-for (const c of report.conditions.filter(c => !c.mingjiao_force_remaining && !c.mingjiao_remaining_base && !c.mingjiao_remaining_perform && !c.mingjiao_teachers && !c.mingjiao_apprentice_learning && !c.mingjiao_ling_perform && !c.mingjiao_ling_learning && !c.mingjiao_shenghuo && !c.mingjiao_shengong && !c.mingjiao_movement && !c.mingjiao_xinfa && !c.mingjiao_qishang && !c.mingjiao_core && !c.taohua_combo && !c.taohua_bihai && !c.taohua_passive && !c.taohua_combination && !c.taohua_force && !c.taohua_music && !c.taohua_npc && !c.taohua_attack && !c.taohua_control && !c.taohua_direct && !c.taohua_zhuan && !c.taohua_xiao && !c.taohua_ding && !c.taohua_po && !c.npc_bout_effects && !c.gumu_npc && !c.gumu_temporal && !c.gumu_zhi && !c.gumu_quanzhen && !c.gumu_research && !c.gumu_unarmed_learning && !c.gumu_weapon_learning && !c.gumu_exert && !c.gumu_movement && !c.gumu_hubo && !c.npc && !c.emei_defense && !c.shaolin_defense && !c.learning && !c.defense && !c.upgrade && !c.practice && !c.cultivation && !c.auxiliary && !c.study && !c.recovery && !c.bout_effects && !c.public_force && !c.healing && !c.dispel && !c.buffs && !c.lookup && !c.condition_ticks && !c.shaolin_exert && !c.shaolin_backlash && !c.mingjiao_recruit && !c.mingjiao_gift && !c.mingjiao_book && !c.mingjiao_jiuyang && !c.mingjiao_qkd && !c.mingjiao_jiuyang_learning && !c.mingjiao_jiuyang_direct && !c.mingjiao_jiuyang_remaining && !c.mingjiao_jiuyang_exert && !c.mingjiao_jiuyang_capacity && !c.mingjiao_jiuyang_research && !c.mingjiao_jiuyang_fusion)) lines.push(`| ${c.id} | ${c.counts.observed}/${c.counts.refused}`
+for (const c of report.conditions.filter(c => !c.slice1 && !c.slice2 && !c.slice3 && !c.slice4 && !c.slice5 && !c.slice6 && !c.slice7 && !c.slice8 && !c.b1 && !c.b2 && !c.b3 && !c.b4 && !c.b5 && !c.b6 && !c.b7 && !c.b8 && !c.b9 && !c.b10 && !c.b11 && !c.b12 && !c.b13 && !c.b14 && !c.b15 && !c.b16 && !c.b17 && !c.b18 && !c.b19 && !c.b20 && !c.b21 && !c.b22 && !c.b23 && !c.b24 && !c.b25 && !c.b26 && !c.b27 && !c.b28 && !c.b29 && !c.mingjiao_force_remaining && !c.mingjiao_remaining_base && !c.mingjiao_remaining_perform && !c.mingjiao_teachers && !c.mingjiao_apprentice_learning && !c.mingjiao_ling_perform && !c.mingjiao_ling_learning && !c.mingjiao_shenghuo && !c.mingjiao_shengong && !c.mingjiao_movement && !c.mingjiao_xinfa && !c.mingjiao_qishang && !c.mingjiao_core && !c.taohua_combo && !c.taohua_bihai && !c.taohua_passive && !c.taohua_combination && !c.taohua_force && !c.taohua_music && !c.taohua_npc && !c.taohua_attack && !c.taohua_control && !c.taohua_direct && !c.taohua_zhuan && !c.taohua_xiao && !c.taohua_ding && !c.taohua_po && !c.npc_bout_effects && !c.gumu_npc && !c.gumu_temporal && !c.gumu_zhi && !c.gumu_quanzhen && !c.gumu_research && !c.gumu_unarmed_learning && !c.gumu_weapon_learning && !c.gumu_exert && !c.gumu_movement && !c.gumu_hubo && !c.npc && !c.emei_defense && !c.shaolin_defense && !c.learning && !c.defense && !c.upgrade && !c.practice && !c.cultivation && !c.auxiliary && !c.study && !c.recovery && !c.bout_effects && !c.public_force && !c.healing && !c.dispel && !c.buffs && !c.lookup && !c.condition_ticks && !c.shaolin_exert && !c.shaolin_backlash && !c.mingjiao_recruit && !c.mingjiao_gift && !c.mingjiao_book && !c.mingjiao_jiuyang && !c.mingjiao_qkd && !c.mingjiao_jiuyang_learning && !c.mingjiao_jiuyang_direct && !c.mingjiao_jiuyang_remaining && !c.mingjiao_jiuyang_exert && !c.mingjiao_jiuyang_capacity && !c.mingjiao_jiuyang_research && !c.mingjiao_jiuyang_fusion)) lines.push(`| ${c.id} | ${c.counts.observed}/${c.counts.refused}`
         + ` | ${f(c.sides[1].metrics.qi_cost.mean)} | ${f(c.sides[1].metrics.eff_qi_cost.mean)}`
         + ` | ${f(c.sides[0].metrics.neili_cost.mean)} | ${c.effects.target_controlled.successes} | ${c.effects.weapon_dropped.successes} |`);
     for (const c of combination)
@@ -3163,6 +3333,748 @@ for (const c of report.conditions.filter(c => !c.mingjiao_force_remaining && !c.
                 + ` | ${f(e.actor_cost.qi.mean)}/${f(e.actor_cost.eff_qi.mean)}`
                 + ` | ${f(e.actor_recovery.qi.mean)} | ${f(e.neili_cost.mean)}`
                 + ` | ${fraction(e.gate_hit)}；${fraction(e.backlash)}；${fraction(e.recovery)} |`);
+        }
+    }
+    const slice1 = report.conditions.filter(c => c.slice1);
+    if (slice1.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片首批（gaibang/xiaoyao/kunlun/duan）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + '控制/增益类按原字段记账；实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice1) {
+            const e = c.slice1;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice2 = report.conditions.filter(c => c.slice2);
+    if (slice2.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第二批（wudu/tiezhang/shenlong/xuanming）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'wudu 双掌、shenlong 三段、xuanming 双 do_damage 按原分支费用记账。'
+            + '实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice2) {
+            const e = c.slice2;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice3 = report.conditions.filter(c => c.slice3);
+    if (slice3.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第三批（lingjiu/murong/xingxiu/honghua）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'murong 连击按原 do_attack 序列记账，xingxiu 命中带 corpse_poison 与精神伤创。'
+            + '实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice3) {
+            const e = c.slice3;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice4 = report.conditions.filter(c => c.slice4);
+    if (slice4.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第四批（xueshan/xuedao/riyue/jueqing）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'xuedao 命中/落空均带自身气血伤创，riyue 命中附带真气涣散，'
+            + 'jueqing 命中忙乱 1-2。实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice4) {
+            const e = c.slice4;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice5 = report.conditions.filter(c => c.slice5);
+    if (slice5.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第五批（henshan/songshan/lingxiao/tianlongsi）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'songshan 命中忙乱 2-3、落空 2-4，lingxiao 非标准命中判定，'
+            + 'tianlongsi 无授权门且需男性。实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice5) {
+            const e = c.slice5;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice6 = report.conditions.filter(c => c.slice6);
+    if (slice6.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第六批（meizhuang/miao/ouyang/zhenyuan）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'meizhuang 双免疫支、miao skill<260 掉剑且费用两分支均 500，'
+            + 'ouyang 目标忙乱 1、zhenyuan 非标准命中判定。实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice6) {
+            const e = c.slice6;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice7 = report.conditions.filter(c => c.slice7);
+    if (slice7.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第七批（shang/hu/none+ultra）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。直伤类按 combatd 原支持集校验；'
+            + 'hu 四分位命中、none 无授权门且零内力、ultra 反向命中且绝招在 perform 子目录。'
+            + '实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice7) {
+            const e = c.slice7;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const slice8 = report.conditions.filter(c => c.slice8);
+    if (slice8.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 门派代表切片第八批（tangmen/xiakedao/yunlong）', '',
+            '每派 1 个特有绝招 + 普通攻击代表 + valid_learn 边界；只采代表切片，'
+            + '不代表该派全部武学已测，也不作强弱比较。tangmen 为 receive 类（wound=100%伤害），'
+            + 'xiakedao percentRange 80-84 且反向命中，yunlong 非标准命中。'
+            + '实验修为不代表拜师或自然养成。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of slice8) {
+            const e = c.slice8;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b1 = report.conditions.filter(c => c.b1);
+    if (b1.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 慕容×少林共享 perform 批量（20 招）', '',
+            '两派销账；kind 分发 direct 11/control 2/buff 4/combo 3。'
+            + '达摩清心/乱气教师键互换按源码原样记录。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b1) {
+            const e = c.b1;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b2 = report.conditions.filter(c => c.b2);
+    if (b2.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 太极系四派共享 perform 批量（10 招）', '',
+            '红花会/明教/神龙教/武当四派销账；kind 分发 direct 7/control 1/buff 1/combo 1。'
+            + '太极图为 receive_damage 直伤。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b2) {
+            const e = c.b2;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b3 = report.conditions.filter(c => c.b3);
+    if (b3.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 天龙×血刀×雪山共享 perform 批量（10 招）', '',
+            '大理段家/血刀门/大轮寺三派销账；kind 分发 direct 6/control 1/combo 3。'
+            + '象跌势与真·般若极的内力碾压即倒分支、龙吞势临时标记、若悲零费用按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b3) {
+            const e = c.b3;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b4 = report.conditions.filter(c => c.b4);
+    if (b4.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 华山共享 perform 批量（8 招）', '',
+            '辟邪剑法华山/日月/少林三派销账、华山剑法华山/日月/慕容/神龙四派销账；kind 分发 direct 4/control 2/combo 2。'
+            + '鬼影夺目致盲、破元剑闪封招、天外飞龙掷剑落场、夺命连环三仙剑三段直伤均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b4) {
+            const e = c.b4;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b5 = report.conditions.filter(c => c.b5);
+    if (b5.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 段真×绝铁共享 perform 批量（15 招）', '',
+            '先天功/一阳指大理段家与全真教两派销账、铁掌/穿心/飞龙/铁线绝情谷与铁掌帮两派销账；'
+            + 'kind 分发 direct 7/combo 5/control 1/heal 1。'
+            + '神威浩荡与五阴焚灭的内力碾压即倒、神威浩荡碎甲、阳关三叠三段与三中封内、'
+            + '阴阳磨寒热掌劲、龙飞势掷杖落场、九穹绝刹掌自伤气血、起死回生非战斗疗伤均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b5) {
+            const e = c.b5;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b6 = report.conditions.filter(c => c.b6);
+    if (b6.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 商家×镇远与杂簇共享 perform 批量（19 招）', '',
+            '商家堡/八卦门、丐帮/桃花岛、关外胡家/中原苗家及六合/六阳/折梅/泼墨杂簇两派销账；'
+            + 'kind 分发 direct 14/combo 3/control 1/buff 1（含掌中夹镖 receive 直伤）。'
+            + '绊字诀内力碾压即倒、掌中夹镖暗器消耗、八卦震与神卦天印非标准命中、'
+            + '生死符寒毒与精神创伤、封字诀临时招架增益均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b6) {
+            const e = c.b6;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b7 = report.conditions.filter(c => c.b7);
+    if (b7.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 少林独有 perform 批量（21 招）', '',
+            '少林派独有绝招销账；'
+            + 'kind 分发 direct 17/combo 2/control 1/buff 1（含凌空指穴与大手印 receive 直伤）。'
+            + '万佛朝宗与赤血重爪内力碾压、燃木真焰临时增益、拈花拂穴按经验判定、'
+            + '菩提寂灭自伤、凌空指穴与大手印直接伤血均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b7) {
+            const e = c.b7;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b8 = report.conditions.filter(c => c.b8);
+    if (b8.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 少林独有尾批 perform 批量（15 招）', '',
+            '少林派独有尾批绝招销账；'
+            + 'kind 分发 direct 4/combo 6/buff 4/control 1（含慈悲字诀 receive 直伤）。'
+            + '罗汉降魔与红霞贯日直伤、来去若无形连击、修罗焰多段、慈悲字诀直接伤血与后续连击、'
+            + '断云决与金龙疾空与震雷乾坤连击、避云遮日内力碾压、神龙再现与金刚不坏与即世即空与一苇渡江临时增益、'
+            + '缠绕诀按经验判定均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b8) {
+            const e = c.b8;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b9 = report.conditions.filter(c => c.b9);
+    if (b9.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 日月独有 perform 批量（16 招）', '',
+            '日月神教独有绝招销账；'
+            + 'kind 分发 direct 10/combo 4/control 2（含星罗棋布暗器散射 receive 直伤）。'
+            + '惊虹一笔与环环相扣与乾坤一击与开天辟地与无痕杀与天地归元直伤、'
+            + '大智若愚与反璞归真掌力直伤（反璞归真另有后续连击）、'
+            + '天蝎藏针与断脉破岳连击、绝命七杀与天旋地转连击带攻击加成、'
+            + '大巧若拙与跗骨缠魂目标忙乱、星罗棋布暗器散射直接伤血与消耗、'
+            + '百鬼恸哭非标准命中均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b9) {
+            const e = c.b9;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b10 = report.conditions.filter(c => c.b10);
+    if (b10.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 绝情独有 perform 批量（15 招）', '',
+            '绝情谷独有绝招销账；'
+            + 'kind 分发 direct 6/combo 4/control 5。'
+            + '落雷式与破阳刀与魂飞魄散与破碎虚空与泰山压顶直伤、'
+            + '狂风式与寒冰环与万念俱灰与日月无华与天绝锁目标忙乱、'
+            + '横空出世直伤高百分比、阴阳环与九星连珠与天刀落云式与千山孤鸿影连击'
+            + '（阴阳环与千山孤鸿影命中带攻击加成）均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b10) {
+            const e = c.b10;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b11 = report.conditions.filter(c => c.b11);
+    if (b11.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 丐帮独有 perform 批量（13 招）', '',
+            '丐帮独有绝招销账；'
+            + 'kind 分发 direct 7/multi 1/control 2/combo 1（含金针渡劫 receive 直伤）。'
+            + '亢龙有悔三掌连击、震惊百里与绝命一踢与焚阳剑与傲尘剑与五丁开山直伤、'
+            + '双龙取水夺械、飞龙在天连击、观日神诀直伤后九剑连击、'
+            + '缠丝擒拿命中忙乱、铁爪锁喉内力碾压即倒、仙游诀目标忙乱、'
+            + '金针渡劫暗器散射直接伤血与消耗均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b11) {
+            const e = c.b11;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b12 = report.conditions.filter(c => c.b12);
+    if (b12.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 红花会独有 perform 批量（13 招）', '',
+            '红花会独有绝招销账；'
+            + 'kind 分发 direct 8/combo 2/control 1/multi 1/buff 1。'
+            + '战神轰天诀与诛天刹神内力碾压即倒、百花错乱命中忙乱、'
+            + '百花错易与夺命连环连击、缚字诀与千头万绪鞭索控制、'
+            + '化蝶临时身法增益、催魂掌毒伤、刀影重重与雷霆万钧与追魂夺命直伤、'
+            + '诛天刹神夺械、掌藏龙暗器散射直接伤血与消耗均按原分支记账。只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b12) {
+            const e = c.b12;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b13 = report.conditions.filter(c => c.b13);
+    if (b13.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 华山独有 11 + 段氏独有尾 2 perform 批量（13 招）', '',
+            '华山独有绝招 11 招与段氏独有尾 2 招销账；'
+            + 'kind 分发 direct 6/combo 2/control 2/multi 1/buff 1/array 1。'
+            + '宁氏一剑与风起云涌与惊天一剑与破石一击与混元无极与苍松式直伤、'
+            + '华岳三神峰三段连斩、封闭手与飞絮飘渺目标忙乱、'
+            + '雷动九天临时力道身法增益、风扫落叶与五绝连环连击均按原分支记账；'
+            + '双剑和壁须两人组队，本批只记原无队伍拒绝，成功刀阵由 school_team 批次覆盖。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b13) {
+            const e = c.b13;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b14 = report.conditions.filter(c => c.b14);
+    if (b14.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 嵩山独有 11 + 玄冥独有 11 perform 批量（22 招）', '',
+            '嵩山独有绝招 11 招与玄冥独有绝招 11 招销账；'
+            + 'kind 分发 direct 8/combo 5/control 8/multi 1。'
+            + '踏雪无痕与神光再现与如梦如幻与无影掌与蛟龙抱与卷字决与残月刺目标忙乱、'
+            + '极天寒掌与破山斧与剑气冲霄与皓月穿空与通天彻地与只手遮天与真龙聚直伤、'
+            + '千掌环与九曲十八弯与缤纷雪舞与掌打飞花与内点乾坤连击均按原分支记账；'
+            + '天外玉龙含 real_perform 精髓分支，只手遮天含内力碾压反噬分支，'
+            + '惊涛骇浪两掌连击分段扣费并各自施加玄冥寒毒。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b14) {
+            const e = c.b14;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b15 = report.conditions.filter(c => c.b15);
+    if (b15.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 全真独有 10 + 衡山独有 9 perform 批量（19 招）', '',
+            '全真独有绝招 10 招与衡山独有绝招 9 招销账；'
+            + 'kind 分发 direct 9/combo 4/control 4/multi 1/sacrifice 1。'
+            + '玄门金锁与空明若玄与流云叠影与烟云锁身目标忙乱、'
+            + '朝拜天罡与三花聚顶与剑指南山与群星璀璨与空空如也与紫盖回翔与排山倒海与青天揽日月与乱剑覆花直伤、'
+            + '重阳连环掌与峰连碧罗与落英纷飞与一剑落九雁连击、破穹云蛟三掌各自判定均按原分支记账；'
+            + '玉石俱焚含内力碾压同归分支，烟云锁身含夺械分支。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b15) {
+            const e = c.b15;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b16 = report.conditions.filter(c => c.b16);
+    if (b16.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 苗家独有 9 + 五毒独有 9 perform 批量（18 招）', '',
+            '苗家独有绝招 9 招与五毒独有绝招 9 招销账；'
+            + 'kind 分发 direct 10/combo 3/control 2/multi 1/duo 1/throwing 1。'
+            + '云边摘月与盘鹰诀目标忙乱、丹阳劲与翅展九州与残阳劲与魁星点元与黄龙吐珠与搏虎诀与腾蛇诀与毒蟾掌与夺命连环直伤、'
+            + '五岳为开与剑舞千秋与锁龙诀连击、毒龙双锥两剑各自判定、金钩夺魄三分支、无影针暗器消耗均按原分支记账；'
+            + '金钩夺魄含内力碾压即死与夺械分支。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b16) {
+            const e = c.b16;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b17 = report.conditions.filter(c => c.b17);
+    if (b17.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 胡家独有 8 + 欧阳独有 8 + 昆仑独有 8 perform 批量（24 招）', '',
+            '关外胡家独有绝招 8 招、欧阳世家独有绝招 8 招与昆仑派独有绝招 8 招销账；'
+            + 'kind 分发 direct 9/control 4/combo 2/multi 1/throwing 2/buff 2/sacrifice 1/special 3。'
+            + '风卷霹雳上九天与雄霸群山与横扫千军与千蛇万噬与柔字诀与石破天惊与无声无色与损筋诀与逆转乾坤直伤、'
+            + '奔拳快打与灵蛇缠身与点字诀与日入空山目标忙乱、千蛇出洞与日月乾坤连击、蟾震九天三掌各自判定、'
+            + '星光闪烁与流星电闪暗器消耗、作茧自缚与飞天神行临时增益、玉碎昆冈内力碾压同归分支均按原分支记账；'
+            + '蛇毒奇巧仅对蛇类目标生效，非蛇目标按原拒绝记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b17) {
+            const e = c.b17;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
+        }
+    }
+    const b22 = report.conditions.filter(c => c.b22);
+    if (b22.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 凌霄 2 + 桃花 2 + 灵鹫/逍遥尾 3 + none 3 perform 批量（10 招）', '',
+            '凌霄城独有绝招 2 招、桃花岛独有绝招 2 招、灵鹫宫与逍遥派尾批绝招 3 招与侠客盟 none 独有绝招 3 招销账；'
+            + 'kind 分发 direct 3/combo 2/multi 1/special 3/practice 1。'
+            + '神倒鬼跌三连环三段直伤、冷剑决与天诛龙蛟诀与云霞幻生直伤、'
+            + '夺命催心含催心标记与招架削弱、化妖功含内力碾压即死与收伤分支、破气式封内、'
+            + '天升剑诀与总破式连击、总诀式演练均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b22) {
+            const e = c.b22;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b23 = report.conditions.filter(c => c.b23);
+    if (b23.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 多段直伤 21 招 perform 批量', '',
+            '少林寺 2 + 大理段家 2 + 慕容世家 1 + 丐帮 1 + 凌霄城 1 + 梅庄 1 + 衡山派 1 + 峨嵋派 1'
+            + ' + 玄冥教 1 + 神龙教 1 + 侠客盟 8 多段直伤销账；kind 均为 multi_stage。'
+            + '真·六道轮回与六合连环诀与无形剑气与万剑纵横与参合剑气与亢龙有悔与清流剑与风雷四击'
+            + '与五神朝元势与西子捧心与玄冥双行与神龙再现与三板斧与刀剑七重天与金蛇噬天'
+            + '与夺命连环爪与无双无对与海市蜃楼与风神诀与御剑飞升与剑芒多段直伤均按原分支记账，各段独立判定。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b23) {
+            const e = c.b23;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b24 = report.conditions.filter(c => c.b24);
+    if (b24.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 连击 13 招 perform 批量', '',
+            '少林派 2 + 武当派 1 + 慕容世家 1 + 古墓派 2 + 云龙门 1 + 桃花岛 1 + 侠客盟 5 连击销账；kind 均为 combo。'
+            + '达摩三绝剑与狂风落叶与三环套月与北斗七星剑与迅雷击与连环剑与断字诀与狂风绝技'
+            + '与附骨缠身与蛇影万道与落字诀与西洋连环剑与百花错乱连击均按原分支记账，逐击经原普通攻击结算。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b24) {
+            const e = c.b24;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b25 = report.conditions.filter(c => c.b25);
+    if (b25.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 即死 5 + 治疗 2 perform 批量', '',
+            '逍遥派 1 + 灵鹫宫 1 + 大理段家 2 + 侠客盟 3 即死疗伤销账；kind 分发 instant_death 5/heal 2。'
+            + '化妖功含内力碾压即死、五阴焚灭与天打雷劈含经验判定与即死分支、小李飞刀必杀并消耗暗器、'
+            + '归去来兮两段掌劲各自判定、起死回生与一阳指运功疗伤非战斗恢复均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b25) {
+            const e = c.b25;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b26 = report.conditions.filter(c => c.b26);
+    if (b26.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 控制/缴械 perform 批量（未覆盖集）', '',
+            '全真教 1 + 丐帮 2 + 衡山派 2 控制缴械销账；kind 分发 control 4/disarm 1。'
+            + '缠字诀与回峰蜿蜒势与凌空指穴目标忙乱、擒龙手夺械，均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b26) {
+            const e = c.b26;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b27 = report.conditions.filter(c => c.b27);
+    if (b27.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 杂项 perform 批量（纯消息/标记/杂项）', '',
+            '侠客盟 8 + 明教 2 + 慕容世家 1 + 星宿派 1 + 大理段家 1 + 古墓派 2 + 血刀门 1 + 凌霄城 1 杂项销账；'
+            + 'kind 分发 control 12/buff 2/multi 1。'
+            + '碧海清波与缠字诀与牧野鹰扬与七星指穴等非标准控制目标忙乱、'
+            + '虚无缥缈与金钟罩临时增益标记、五遁绝杀多轮攻击，均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b27) {
+            const e = c.b27;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b28 = report.conditions.filter(c => c.b28);
+    if (b28.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## generate/misc 桶 perform 批量（无正式派归属 18 招）', '',
+            'generate/misc 桶无正式派归属，侠客盟销账；'
+            + 'kind 分发 direct 8/combo 6/control 1/instant_death 1/special 2。'
+            + '东洋刀法乱刀诀与迎风一刀斩、降龙十八掌雷霆一击与龙翔九天、迷踪猴拳破釜沉舟、'
+            + '不败神功天地绝灭与天打雷劈与破字诀与天花乱坠与晴空万里与御策诀、'
+            + '圣骑士戟冲刺攻击与旋转卷刺、天长掌法地老天荒、衡山五神剑千剑纵横势、'
+            + '西洋剑术刺剑、血刀祭血神刀与血雨均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b28) {
+            const e = c.b28;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b29 = report.conditions.filter(c => c.b29);
+    if (b29.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 无 grant 公共/任务武学 perform 批量（55 招）', '',
+            '公共/任务武学无正式派归属，侠客盟销账；'
+            + 'kind 分发见批次说明。'
+            + '南海玄功碧海清波与绝戮斩诛仙决与五阴焚灭与玄黄连环掌、独孤九剑总诀式与破字诀与剑意、'
+            + '六脉神剑无形剑气与六脉剑气与万剑纵横与纵横、金蛇剑掌锥系、玉女剑与无双无对、御剑飞升、'
+            + '百步穿杨、神照经无影拳舞与无影神拳、中平枪法定岳七方、独孤九剑四式、葵花魔功五式、'
+            + '九阳神功五式、太玄功五式、蟾震九天、大挪移、小李飞刀、五遁绝杀、金刚不坏护体、凝血疾电、'
+            + '乾坤神剑三式均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b29) {
+            const e = c.b29;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b21 = report.conditions.filter(c => c.b21);
+    if (b21.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 镇远 4 + 商家 4 + 云龙 4 + 峨嵋 4 + 雪山 4 perform 批量（20 招）', '',
+            '八卦门独有绝招 4 招、商家堡独有绝招 4 招、云龙门独有绝招 4 招、峨嵋派独有绝招 4 招与大轮寺独有绝招 4 招销账；'
+            + 'kind 分发 direct 9/combo 5/control 1/buff 1/throwing 2/multi 1/special 2。'
+            + '镖中现掌与背心钉与混沌初开与犀牛望月转回还与佛光初现与灭剑与云龙三现直伤、'
+            + '乾坤一掷与金莲幻生暗器消耗、缠字诀目标忙乱、'
+            + '翻卦连环掌与天残剑诀与疾电与缤纷雪舞与五轮连转连击、'
+            + '圆满势临时招架增益、绝剑多段直伤、破元通虚封内、截筋断脉含精神伤与目标忙乱均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b21) {
+            const e = c.b21;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b20 = report.conditions.filter(c => c.b20);
+    if (b20.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 星宿 5 + 铁掌 5 + 血刀 5 + 逍遥 5 perform 批量（20 招）', '',
+            '星宿派独有绝招 5 招、铁掌帮独有绝招 5 招、血刀门独有绝招 5 招与逍遥派独有绝招 5 招销账；'
+            + 'kind 分发 direct 10/control 2/combo 5/special 2/buff 1。'
+            + '炼心弹与腐尸毒直伤含火毒/尸毒、掌心雷与春雷炸空与孤雁出群与血浪滔天与祭血神刀与捕风捉影与攀阳邀月与流月剑诀直伤、'
+            + '如蛆附骨与无影神刀目标忙乱、冰雪纷飞与五雷连闪与赤炼神刀与流星火雨与如意六刀连击、'
+            + '碧焰滔天自损内力上限、噬血穹苍直伤后连击、洛神凌波临时身法增益均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b20) {
+            const e = c.b20;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b19 = report.conditions.filter(c => c.b19);
+    if (b19.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 武当 7 + 天龙 6 + 侠客 5 + ultra 5 perform 批量（23 招）', '',
+            '武当派独有绝招 7 招、大理段家独有绝招 6 招、侠客岛独有绝招 5 招与侠客盟 ultra 独有绝招 5 招销账；'
+            + 'kind 分发 direct 9/combo 5/control 3/multi 2/receive 1/special 1/throwing 1。'
+            + '隔山打牛与太极初升与乱环诀与柔月穿空与绝户神抓与焚身与无形剑气与赤焰暴长与晴空万里直伤、'
+            + '谁与争锋与天寰神炎与六脉剑气与太玄激劲与破字诀连击、神门刺与神指点穴与天花乱坠目标忙乱、'
+            + '万剑纵横与白首太玄经多段直伤、乘风破浪直接伤血、御策诀暗器消耗、天打雷劈含经验判定与即死分支均按原分支记账。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b19) {
+            const e = c.b19;
+            lines.push('| ' + text(c.id) + ' | ' + c.recorded + '/' + c.planned + ' | ' + e.counts.observed + '/' + e.counts.refused
+                + ' | ' + (e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—')
+                + ' | ' + (e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—') + ' |');
+        }
+    }
+    const b18 = report.conditions.filter(c => c.b18);
+    if (b18.length) {
+        const text = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;').replaceAll('|', '\\|').replaceAll('`', '&#96;')
+            .replaceAll('\x1b', '\\x1b').replace(/\r\n|\r|\n/g, '<br>');
+        lines.push('', '## 唐门 7 + 灵鹫 7 + 梅庄 7 + 神龙 7 perform 批量（28 招）', '',
+            '唐门世家独有绝招 7 招、灵鹫宫独有绝招 7 招、梅庄独有绝招 7 招与神龙教独有绝招 7 招销账；'
+            + 'kind 分发 direct 10/control 3/combo 5/multi 1/throwing 5/buff 2/special 4。'
+            + '七子刚镖与散花天女与幻遁寒星与射日诀暗器消耗、心有千千结与云雾暗点与闪剑诀目标忙乱、'
+            + '流花掠影与幻剑诀与七弦连环诛与诗意纵横与飞仙术连击、归去来兮两段掌劲各自判定、'
+            + '回梦与破靛神砂与海渊式与冰坚地狱与摧心断肠与辣手化骨与神龙初现与电光四射与神笔封穴直伤均按原分支记账；'
+            + '破神诀含内力碾压即死分支，唱仙法吼字决含内力比较与先扣费后拒绝分支，'
+            + '七弦无形音含精神伤与免疫分支，随风而舞含经验判定与自伤离场。'
+            + '只收集数据，不比较强弱。', '',
+            '| 条件 | 已记录/计划 | 观察/拒绝 | 命中率 | 直伤输入分布 |',
+            '| --- | --- | --- | --- | --- |');
+        for (const c of b18) {
+            const e = c.b18;
+            lines.push(`| ${text(c.id)} | ${c.recorded}/${c.planned} | ${e.counts.observed}/${e.counts.refused}`
+                + ` | ${e.hits && e.hits.trials ? f(e.hits.rate * 100) + '%' : '—'}`
+                + ` | ${e.inputs.n ? f(e.inputs.mean) + ' [ ' + f(e.inputs.p10) + ', ' + f(e.inputs.p90) + ' ]' : '—'} |`);
         }
     }
     const mingjiaoCore = report.conditions.filter(c => c.mingjiao_core);

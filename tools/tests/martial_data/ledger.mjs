@@ -53,9 +53,10 @@ function validateFusionEntries(conditions, execution, entries) {
         for (const key of ['id', 'path', 'sha256']) assert.equal(matches[0][key], source[key]);
         assert.equal(execution.source_files?.[source.path], source.sha256, '融合入口必须绑定冻结源码');
         if (condition.method === 'yanlian') {
-            assert.deepEqual(source, { id: 'cmds/skill/yanlian.c:12:main', path: 'cmds/skill/yanlian.c',
-                line: 12, function: 'main', role: 'command', sha256: source.sha256 });
-            assert.match(source.sha256, /^[a-f0-9]{64}$/);
+            const { sha256: frozenSha, ...identified } = source;
+            assert.deepEqual(identified, { id: 'cmds/skill/yanlian.c:12:main', path: 'cmds/skill/yanlian.c',
+                line: 12, function: 'main', role: 'command' });
+            assert.match(frozenSha, /^[a-f0-9]{64}$/);
             assert.deepEqual(matches[0], source);
         } else {
             assert.equal(condition.method, 'interface');

@@ -4,9 +4,11 @@ import assert from 'node:assert/strict';
 import { learningConditions, validateLearningRecord } from './learning_cases.mjs';
 import { skillMusicLearnConditions, skillMusicConditions, validateSkillMusicRecord } from './skill_music_cases.mjs';
 import { skillInheritedConditions, validateSkillInheritedRecord } from './skill_inherited_cases.mjs';
-import { readFileSync } from 'node:fs';
+import { publicSpecialConditions, validatePublicSpecialRecord } from './public_special_cases.mjs';
+import { readFileSync, realpathSync } from 'node:fs';
 import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
+import { isInside } from './inventory.mjs';
 
 export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}) {
     const result = [], weapons = weaponConditions(catalog, { smoke: true });
@@ -70,11 +72,16 @@ export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}
         add('ability-ma001-flute-' + level, 'yuxiao-jian/qing', 'perform', p);
         result.at(-1).parameters.qualification_sources.push('kungfu/skill/chuixiao-jifa.c');
     }
-    const readSource = path => readFileSync(join(root, path));
+    const readSource = path => {
+        const actual = realpathSync(join(root, path));
+        assert.ok(isInside(root, actual), '能力源码越出仓库');
+        return readFileSync(actual);
+    };
     return [...result, ...learningConditions(catalog),
         ...skillMusicLearnConditions(catalog, readSource),
         ...skillMusicConditions(catalog, readSource, { smoke, samples }),
-        ...skillInheritedConditions(catalog, readSource, { smoke })];
+        ...skillInheritedConditions(catalog, readSource, { smoke }),
+        ...publicSpecialConditions(catalog, readSource, { smoke, samples: 2 })];
 }
 
 // Fixture acceptance, not a balance target. Values follow these explicit cases.
@@ -82,6 +89,7 @@ export function validateAbilityRecord(raw, condition) {
     if (raw.condition_id.startsWith('learning-')) return validateLearningRecord(raw, condition);
     if (raw.condition_id.startsWith('skill-music-')) return validateSkillMusicRecord(raw, condition);
     if (raw.condition_id.startsWith('skill-inherited-')) return validateSkillInheritedRecord(raw, condition);
+    if (raw.condition_id.startsWith('public-special-')) return validatePublicSpecialRecord(raw, condition);
     const actor = raw.immediate[0], target = raw.immediate[1], final = raw.after;
     switch (raw.condition_id) {
         case 'ability-recover':

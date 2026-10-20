@@ -605,6 +605,36 @@ mapping snapshot(object ob) {
         result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
         result["secondary_weapon_details"] = equipment_snapshot(secondary);
     }
+    if (strsrch(current["parameters"]["collection_group"], "slice1-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice2-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice3-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice4-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice5-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice6-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice7-") == 0 ||
+        strsrch(current["parameters"]["collection_group"], "slice8-") == 0)
+        result["cultivation"]["character"] = ob->query("character");
+    if (current["parameters"]["collection_group"] == "b1-perform" ||
+        current["parameters"]["collection_group"] == "b2-perform" ||
+        current["parameters"]["collection_group"] == "b3-perform" ||
+        current["parameters"]["collection_group"] == "b4-perform" ||
+        current["parameters"]["collection_group"] == "b5-perform" ||
+        current["parameters"]["collection_group"] == "b6-perform" ||
+        current["parameters"]["collection_group"] == "b7-perform" ||
+        current["parameters"]["collection_group"] == "b8-perform" ||
+        current["parameters"]["collection_group"] == "b9-perform" ||
+        current["parameters"]["collection_group"] == "b10-perform" ||
+        current["parameters"]["collection_group"] == "b11-perform" ||
+        current["parameters"]["collection_group"] == "b12-perform" ||
+        current["parameters"]["collection_group"] == "b13-perform" ||
+        current["parameters"]["collection_group"] == "b14-perform" ||
+        current["parameters"]["collection_group"] == "b15-perform" ||
+        current["parameters"]["collection_group"] == "b16-perform" ||
+        current["parameters"]["collection_group"] == "b17-perform" ||
+        current["parameters"]["collection_group"] == "b18-perform") {
+        result["cultivation"]["character"] = ob->query("character");
+        result["effective_dex"] = ob->query_dex();
+    }
     if (current["parameters"]["collection_group"] == "mingjiao-core") {
         result["cultivation"]["character"] = ob->query("character");
         result["cultivation"]["can_perform/hanbing-mianzhang/jue"] = ob->query("can_perform/hanbing-mianzhang/jue");
@@ -989,6 +1019,26 @@ void prepare_practice_materials(mapping parameters) {
     current["practice_materials_before"] = practice_material_snapshot();
 }
 
+// Skill performs may queue delayed callbacks that captured a sample actor
+// (e.g. kuihua-mogong wswd check_wd(me) at +3s). call_out_info() exposes the
+// owner, not the arguments, so drop every pending /kungfu/ timer before the
+// actor is destructed; otherwise the callback fires with a destructed me and
+// errors in call_other(0, ...). Runner-owned timers are left untouched.
+void release_skill_call_outs() {
+    mixed *row;
+    object owner;
+    string fun;
+    foreach (row in call_out_info()) {
+        owner = row[0];
+        if (!objectp(owner) || owner == this_object()) continue;
+        if (strsrch(base_name(owner), "/kungfu/") != 0) continue;
+        fun = row[1];
+        if (!stringp(fun) || fun == "<timer>") continue;
+        // remove_call_out(name) drops one pending entry; drain duplicates.
+        while (evaluate(bind((: remove_call_out :), owner), fun) >= 0);
+    }
+}
+
 void prepare_actor(int side, mapping config) {
     object ob, old, weapon, item, held;
     string key, load_usage;
@@ -1003,6 +1053,7 @@ void prepare_actor(int side, mapping config) {
     require(efun::exec(ob, old), "transfer connection");
     players[side] = ob;
     foreach (item in all_inventory(old)) destruct(item);
+    release_skill_call_outs();
     destruct(old);
     ob->set("id", side == 2 ? "third" : side ? "right" : "left");
     if (current["method"] == "team")
@@ -1347,6 +1398,21 @@ void prepare_actor(int side, mapping config) {
                     config["equipment"]["amount"] > 0, "positive initial ammunition");
                 weapon->set_amount(config["equipment"]["amount"]);
             }
+        } else if ((current["parameters"]["collection_group"] == "b9-perform" ||
+            current["parameters"]["collection_group"] == "b11-perform" ||
+            current["parameters"]["collection_group"] == "b12-perform" ||
+            current["parameters"]["collection_group"] == "b17-perform" ||
+            current["parameters"]["collection_group"] == "b18-perform" ||
+            current["parameters"]["collection_group"] == "b20-perform" ||
+            current["parameters"]["collection_group"] == "b21-perform" ||
+            current["parameters"]["collection_group"] == "b25-perform") &&
+            config["equipment"]["type"] == "throwing") {
+            require(side == 0 && config["equipment"]["hold"] &&
+                !undefinedp(config["equipment"]["amount"]) &&
+                intp(config["equipment"]["amount"]) && config["equipment"]["amount"] > 0,
+                "positive throwing ammunition");
+            weapon = new("/tests/throwing");
+            weapon->set_amount(config["equipment"]["amount"]);
         } else weapon = new("/tests/" + config["equipment"]["type"]);
         if (!undefinedp(config["equipment"]["weight"])) {
             require(current["parameters"]["collection_group"] == "gumu-advanced" &&
@@ -1390,20 +1456,32 @@ void prepare_actor(int side, mapping config) {
         } else require(weapon->wield() && ob->query_temp("weapon") == weapon, "weapon wielded");
     }
     if (mapp(config["secondary_equipment"])) {
-        require(side == 0 && member_array(current["parameters"]["collection_group"],
-            ({
-                "mingjiao-teachers",
-                "mingjiao-jiuyang-direct",
-                "mingjiao-jiuyang-remaining"
-            })) != -1 &&
-            config["secondary_equipment"]["program"] == "/clone/weapon/dagger" &&
-            config["secondary_equipment"]["type"] == "dagger" && objectp(weapon) &&
-            ob->query_temp("weapon") == weapon && !ob->query_temp("secondary_weapon"),
-            "finite normal dual-wield teaching control");
-        item = new("/clone/weapon/dagger");
-        require(item->move(ob) && item->wield() && ob->query_temp("weapon") == weapon &&
-            ob->query_temp("secondary_weapon") == item && item != weapon,
-            "original dagger wield enters the real secondary slot");
+        if (current["parameters"]["collection_group"] == "b23-perform") {
+            require(side == 0 && config["secondary_equipment"]["type"] == "blade" &&
+                objectp(weapon) && ob->query_temp("weapon") == weapon &&
+                !ob->query_temp("handing"),
+                "b23 dual-wield blade handing");
+            item = new("/tests/blade");
+            require(item->move(ob) && ob->force_me("hand " + item->query("id")) &&
+                ob->query_temp("weapon") == weapon &&
+                ob->query_temp("handing") == item && item != weapon,
+                "b23 blade enters the real handing slot");
+        } else {
+            require(side == 0 && member_array(current["parameters"]["collection_group"],
+                ({
+                    "mingjiao-teachers",
+                    "mingjiao-jiuyang-direct",
+                    "mingjiao-jiuyang-remaining"
+                })) != -1 &&
+                config["secondary_equipment"]["program"] == "/clone/weapon/dagger" &&
+                config["secondary_equipment"]["type"] == "dagger" && objectp(weapon) &&
+                ob->query_temp("weapon") == weapon && !ob->query_temp("secondary_weapon"),
+                "finite normal dual-wield teaching control");
+            item = new("/clone/weapon/dagger");
+            require(item->move(ob) && item->wield() && ob->query_temp("weapon") == weapon &&
+                ob->query_temp("secondary_weapon") == item && item != weapon,
+                "original dagger wield enters the real secondary slot");
+        }
     }
     if (current["parameters"]["collection_group"] == "taohua-bihai") {
         require(ob->query_temp("handing") == held && ob->query_temp("weapon") == weapon,
@@ -1447,6 +1525,8 @@ void prepare_actor(int side, mapping config) {
             (is_mingjiao_remaining_base() && side == 1 && key == "nopoison" && value == 1) ||
             (is_mingjiao_remaining_perform() && !side &&
                 current["parameters"]["variant"] == "no-perform" && key == "no_perform" && value == 1) ||
+            (current["parameters"]["collection_group"] == "b4-perform" && side == 1 &&
+                ((key == "block_msg/all" && value == 1) || (key == "no_perform" && value == 1))) ||
             (current["parameters"]["collection_group"] == "mingjiao-jiuyang-exert" &&
                 ((!side && ((key == "apply/attack" && value == 7) ||
                     (key == "apply/parry" && value == 11) || (key == "apply/dodge" && value == 13) ||
@@ -1575,6 +1655,102 @@ void prepare_actor(int side, mapping config) {
                             key,
                             ({ "cbd_sheshen", "zg_zuida", "sl_leidong", "powerup" })
                         ) != -1) ||
+                    (current["parameters"]["collection_group"] == "b1-perform" && intp(value) &&
+                        ((side == 1 && member_array(key,
+                            ({
+                                "powerup",
+                                "damo_qingxin",
+                                "apply/attack",
+                                "apply/defense"
+                            })) != -1) ||
+                            (side == 0 && member_array(key,
+                                ({
+                                    "powerup",
+                                    "brz_feng",
+                                    "cbd_sheshen",
+                                    "jingang",
+                                    "zg_zuida"
+                                })) != -1))) ||
+                    (current["parameters"]["collection_group"] == "b2-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "tjj_sui", "apply/attack", "apply/defense" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b3-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "long_tun", "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b6-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "feng_zijue", "apply/parry", "pfm_tiandao",
+                                "apply/attack", "apply/damage" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b7-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "zhen_yan", "apply/attack", "apply/defense",
+                                "apply/damage", "rulai-zhang/hit_msg" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b8-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "xian", "jingangbuhuai", "sl_leidong", "dujiang",
+                                "apply/attack", "apply/defense", "apply/damage",
+                                "apply/armor", "apply/force", "apply/dodge", "apply/parry",
+                                "dex" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b9-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b10-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b11-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack", "apply/unarmed_damage" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b12-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack", "dex", "hua_die" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b13-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack", "str", "dex", "lei" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b14-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b15-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b16-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "apply/attack" })) != -1) ||
+                    (current["parameters"]["collection_group"] == "b17-perform" &&
+                        ((side == 0 && member_array(key,
+                            ({
+                                "apply/attack",
+                                "apply/dodge",
+                                "dex",
+                                "ccz_jian",
+                                "fei_tian"
+                            })) != -1) ||
+                            (side == 1 && key == "feixing" && value == 1))) ||
+                    (current["parameters"]["collection_group"] == "b18-perform" &&
+                        ((side == 0 && member_array(key,
+                            ({
+                                "powerup",
+                                "chang",
+                                "apply/attack",
+                                "apply/dodge",
+                                "apply/defense",
+                                "apply/dex"
+                            })) != -1) ||
+                            (side == 1 && member_array(key,
+                                ({ "feixing", "powerup", "chang" })) != -1))) ||
+                    (current["parameters"]["collection_group"] == "b21-perform" &&
+                        ((side == 0 && member_array(key,
+                            ({ "yuan_man", "apply/parry" })) != -1) ||
+                            (side == 1 && key == "no_exert"))) ||
+                    (current["parameters"]["collection_group"] == "b22-perform" &&
+                        ((side == 0 && member_array(key,
+                            ({ "cuixin" })) != -1) ||
+                            (side == 1 && member_array(key,
+                                ({ "cuixin", "no_exert" })) != -1))) ||
+                    (current["parameters"]["collection_group"] == "b25-perform" &&
+                        side == 0 && key == "powerup" && value == 1) ||
+                    (current["parameters"]["collection_group"] == "b27-perform" &&
+                        side == 0 && member_array(key,
+                            ({ "shenxing", "jinzhongzhao" })) != -1) ||
                     (current["parameters"]["collection_group"] == "shaolin-additional" && side == 0 && key == "zhen_yan") ||
                     (current["parameters"]["collection_group"] == "shaolin-fists" && side == 0 && key == "jingang") ||
                     (current["parameters"]["collection_group"] == "shaolin-palms" && side == 0 &&
@@ -1585,6 +1761,11 @@ void prepare_actor(int side, mapping config) {
                     ) != -1 && key == "tianmo" && value == 1) ||
                     (!side && current["parameters"]["teaching_profile"] == "gumu-recruit" &&
                         key == "apply/per" && value == 20))) ||
+            (current["parameters"]["collection_group"] == "b20-perform" && side == 0 &&
+                current["parameters"]["skill"] == "lingbo-weibu" &&
+                current["parameters"]["ability"] == "ling" &&
+                current["parameters"]["variant"] == "already-active" &&
+                key == "lingbo" && value == 1) ||
             (current["parameters"]["collection_group"] == "public-music" &&
                 side > 0 && key == "love" && stringp(value)),
             "configured starting state");
@@ -1616,6 +1797,8 @@ void prepare_actor(int side, mapping config) {
                     key,
                     ({ "drunk", "ill_kesou", "freezing", "damo_luanqi", "bandaged" })
                 ) != -1) || (current["parameters"]["collection_group"] == "shaolin-weapons" &&
+                side == 0 && key == "drunk" && intp(value) && value > 0) ||
+            (current["parameters"]["collection_group"] == "b1-perform" &&
                 side == 0 && key == "drunk" && intp(value) && value > 0) ||
             (current["parameters"]["collection_group"] == "emei-jiuyin-passive" &&
                 key == "cuixin_zhang" && mapp(value)) ||
@@ -1817,7 +2000,63 @@ varargs void observe_direct(object me, object target, int type, int damage, int 
             "mingjiao-jiuyang",
             "mingjiao-jiuyang-direct",
             "mingjiao-remaining-perform",
-            "mingjiao-remaining-base"
+            "mingjiao-remaining-base",
+            "slice1-gaibang",
+            "slice1-xiaoyao",
+            "slice1-kunlun",
+            "slice1-duan",
+            "slice2-wudu",
+            "slice2-tiezhang",
+            "slice2-shenlong",
+            "slice2-xuanming",
+            "slice3-lingjiu",
+            "slice3-murong",
+            "slice3-xingxiu",
+            "slice3-honghua",
+            "slice4-xueshan",
+            "slice4-xuedao",
+            "slice4-riyue",
+            "slice4-jueqing",
+            "slice5-henshan",
+            "slice5-songshan",
+            "slice5-lingxiao",
+            "slice5-tianlongsi",
+            "slice6-meizhuang",
+            "slice6-miao",
+            "slice6-ouyang",
+            "slice6-zhenyuan",
+            "slice7-shang",
+            "slice7-hu",
+            "slice7-none",
+            "slice7-ultra",
+            "slice8-tangmen",
+            "slice8-xiakedao",
+            "slice8-yunlong",
+            "b1-perform",
+            "b2-perform",
+            "b3-perform",
+            "b4-perform",
+            "b5-perform",
+            "b6-perform",
+            "b7-perform",
+            "b8-perform",
+            "b9-perform",
+            "b10-perform",
+            "b11-perform",
+            "b12-perform",
+            "b13-perform",
+            "b14-perform",
+            "b15-perform",
+            "b16-perform",
+            "b17-perform",
+            "b18-perform",
+            "b19-perform",
+            "b20-perform",
+            "b21-perform",
+            "b22-perform",
+            "b23-perform",
+            "b24-perform",
+            "b26-perform"
         })) != -1) {
         weapon = me->query_temp("weapon");
         current["directs"] += ({ ([ "actor": member_array(me, players),
@@ -1986,6 +2225,7 @@ void begin_passive(object me, object target, string route) {
     }
     if (!active || member_array(current["parameters"]["collection_group"],
         ({
+            "public-special",
             "gumu-weapons",
             "gumu-unarmed-attack",
             "gumu-zhi",
@@ -2052,6 +2292,7 @@ void observe_passive(
         "target_busy_after": serializable(target->query_busy()) ]) });
     if (active && (is_mingjiao_force_remaining() || member_array(current["parameters"]["collection_group"],
         ({
+            "public-special",
             "gumu-weapons",
             "gumu-unarmed-attack",
             "gumu-zhi",
@@ -3582,6 +3823,8 @@ int do_interface() {
     } else if (spec["function"] == "hit_ob") {
         require(
             spec["object"] == "/kungfu/skill/xiantian-gong" ||
+            (current["parameters"]["collection_group"] == "public-special" &&
+                spec["object"] == "/kungfu/skill/qixian-wuxingjian") ||
             (current["parameters"]["collection_group"] == "emei-jiuyin-passive" &&
                 member_array(spec["object"], ({ "/kungfu/skill/jiuyin-baiguzhao",
                     "/kungfu/skill/cuixin-zhang" })) != -1) ||
@@ -5852,6 +6095,23 @@ void advance() {
     current["launches"] = ({});
     current["refusals"] = ({});
     current["interfaces"] = ({});
+    if (member_array(current["parameters"]["collection_group"],
+        ({ "slice1-gaibang", "slice1-xiaoyao", "slice1-kunlun", "slice1-duan",
+            "slice2-wudu", "slice2-tiezhang", "slice2-shenlong", "slice2-xuanming",
+            "slice3-lingjiu", "slice3-murong", "slice3-xingxiu", "slice3-honghua",
+            "slice4-xueshan", "slice4-xuedao", "slice4-riyue", "slice4-jueqing",
+            "slice5-henshan", "slice5-songshan", "slice5-lingxiao", "slice5-tianlongsi",
+            "slice6-meizhuang", "slice6-miao", "slice6-ouyang", "slice6-zhenyuan",
+            "slice7-shang", "slice7-hu", "slice7-none", "slice7-ultra",
+            "slice8-tangmen", "slice8-xiakedao", "slice8-yunlong",
+            "b1-perform", "b2-perform", "b3-perform", "b4-perform", "b5-perform", "b6-perform", "b7-perform",
+            "b8-perform", "b9-perform", "b10-perform", "b11-perform", "b12-perform",
+            "b13-perform", "b14-perform", "b15-perform", "b16-perform", "b17-perform",
+            "b18-perform", "b19-perform", "b20-perform", "b21-perform", "b22-perform",
+            "b23-perform", "b24-perform", "b26-perform" })) != -1) {
+        current["actions"] = ({});
+        current["directs"] = ({});
+    }
     if (is_mingjiao_force_remaining()) {
         current["actions"] = ({});
         current["directs"] = ({});

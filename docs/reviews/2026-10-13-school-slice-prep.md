@@ -48,4 +48,7 @@
 
 ## 状态
 
-仅预研；公共演奏批（子代理实施中）完成前不启动。工具侧复用，不新增观察框架。
+- **首批（gaibang/xiaoyao/kunlun/duan）已完成**：892/892 正式、0 错误（E/review-school-slice1-f2-20261016），见[结果](2026-10-16-school-slice1-results.md)。
+- **第 2 批（wudu/tiezhang/shenlong/xuanming）已完成**：904/904 正式、0 错误（E/review-school-slice2-f1-20261017），见[结果](2026-10-17-school-slice2-results.md)。[预研文档](2026-10-16-school-slice2-prep.md)。
+- **第 3 批（lingjiu/murong/xingxiu/honghua）预研完成**，实施中。[预研文档](2026-10-17-school-slice3-prep.md)。
+- **累计 2 批 8 派 1796 正式样本 + 公共演奏 3810 + 纯继承 120**。后续批次按同模式推进。

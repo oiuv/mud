@@ -1550,3 +1550,18 @@ cmds/skill/study.c 959dfa7ca36af988fda4c33f387564cf1a2ad48f8b7268cd138925ecded20
 这不是游戏错误。完整入口复核后确认：`cmds/skill/perform.c` 的 `main()` 对普通单招直接 `return result`；只有 `and/twice` 组合分支可能在某招失败后仍返回 1，表示命令已处理。旧固定评测只使用单招，因此不能把这个组合分支的限制套到其 `perform_launched` 上。此前仅根据函数末段做出的宽泛说明已纠正。
 
 原始记录保持不变。新采集夹具将单独观察真实技能调用结果与命令受理，供后续组合招式区分每次发动，不靠更改游戏命令返回值解决。旧两批基线仍按原参数运行，单招返回值的语义没有改变；发动也不等于命中或产生伤害。
+
+## MA-135：打狗棒/乾坤剑/一阳指动作表在加载期求值 this_player()
+
+- 类型：逻辑错误（与已修复的弹指神通/参合指同类，见提交 `c44de8f2` 与 MA 修复记录）。影响：模块级动作表在**首次加载**时求值 `this_player()->query_skill(...)`；若加载发生在无 this_player 的上下文（如隔离采集器的 map_skill），技能对象加载失败/映射不生效；游戏内首次加载经原玩家命令则正常。
+- 位置：[`dagou-bang.c:38-42`](../../kungfu/skill/dagou-bang.c#L38)、[`qiankun-jian.c:106-110`](../../kungfu/skill/qiankun-jian.c#L106)、[`yiyang-zhi.c:144-148`](../../kungfu/skill/yiyang-zhi.c#L144)。凌波微步 `lingbo-weibu.c` 无此模式。
+- 实证：2026-10-16 切片批首个正式条件 `school-slice1-gaibang-ordinary-baseline-l200` 的 map_skill 失败（`effective skill mapping` 校验拒绝），改用原玩家 `enable` 首次加载上下文后可采（同 wudu-shenzhang 既有模式）。
+- 处置：只登记不修游戏；采集侧以原玩家首次加载上下文绕行（runner.lpc slice1-first-load 块）。
+
+## MA-136：shenzhaojing valid_enable 与 perform 前置条件错配致两式死代码
+
+kungfu/skill/shenzhaojing.c 的 valid_enable 在 2017-02-01 改为仅允许 force 槽，但 kungfu/skill/shenzhaojing/perform/wu.c:28 与 ying.c:25 的前置条件仍是 。由于 valid_enable 不开放 unarmed 映射，该前置条件在当前游戏代码下永远不可满足，两式成为死代码。
+
+同文件被注释掉的旧版 valid_enable 曾在等级≥180 时开放 unarmed/parry，推测为重构遗漏。采集时按源码原样记录为恒拒绝，不修改游戏源码。
+
+另静态审计发现同类 usage/valid_enable 错配：qiankun-danuoyi 与 jingang-buhuaiti 的 valid_enable 仅开放 parry（perform 若用 unarmed 则映射失效）、taixuan-gong/jing 的 sword 槽受 can_learned/taixuan-gong/enable_weapon 门控、jiuyang-shengong 非 force 槽需 reborn。

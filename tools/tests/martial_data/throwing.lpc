@@ -9,6 +9,7 @@ void create() {
     set("base_unit", "枚");
     set("base_weight", 10);
     set("base_value", 1);
+    set("poison", ([ "level": 100 ]));
     init_throwing(50);
     setup();
     set_amount(10);
