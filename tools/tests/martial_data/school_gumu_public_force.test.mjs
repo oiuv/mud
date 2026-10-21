@@ -73,7 +73,7 @@ function row(c) {
 test('182条件2716计划注册新系列，烟雾同参数，旧13896条件完整指纹不变', () => {
     const smoke = gumuPublicForceConditions(catalog, { smoke: true });
     const all = schoolCombatConditions(catalog).slice(0, 14078);
-    const registered = new Set(all.map(c => c.id)), old = all.filter(c => c.parameters.collection_group !== 'gumu-public-force');
+    const registered = new Set(all.map(c => c.id)), old = all.filter(c => !['gumu-public-force', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(cases.length, 182); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 2716);
     assert.equal(smoke.reduce((n, c) => n + c.samples, 0), 364);
     assert.equal(cases.filter(c => c.parameters.expected === 'observed').length, 105);

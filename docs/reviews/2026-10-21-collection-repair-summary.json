@@ -1,0 +1,3014 @@
+{
+  "format": 1,
+  "review_date": "2026-10-21",
+  "scope": "30 selected G4/G5 series; not whole project or task 4.2 acceptance",
+  "evidence_root": "C:/tools/msys64/home/oiuv/mud-evidence/martial-data/review-repair-20261021",
+  "full_replay_sha256": "e81e836d825da139667c506d656a6f0591344635f249825136471599afc7451a",
+  "preservation_sha256": "ea02527bdee742020e0f960942210bc91186771d3276157146548ff128821625",
+  "tool_hashes_location": "replay.json/tool_sha256",
+  "unit_tests": {
+    "tests": 3077,
+    "pass": 3077,
+    "fail": 0,
+    "exit": 0,
+    "duration_ms": 656668.1531
+  },
+  "smoke": {
+    "series": "review-slice-combination-repair-smoke2-20261021",
+    "conditions": 282,
+    "samples": 564,
+    "pass": 564,
+    "formal": false
+  },
+  "supplemental": [
+    {
+      "file": "collection-codex-repair-20261021-final.log",
+      "sha256": "26e56f7dc1b4cf839b2411c19250edc5d0e49e421c45a24ca786b17679dab2b9"
+    },
+    {
+      "file": "collection-codex-repair-20261021-v1.log",
+      "sha256": "1a0a4c81cd9e126e3a955c8fcd5bc46d07116f2785b76199c5c5f7b6f380125a"
+    },
+    {
+      "file": "collection-g5-final.log",
+      "sha256": "603ab84a5d87f613d8e7fe9410a474e30bacd302aa428d29b332534b681dea9b"
+    },
+    {
+      "file": "collection-slice-repair-smoke2-20261021.log",
+      "sha256": "af7c90728c9a6d800927c0ebbcfadeac236f3d9d9083e9be7dc437f24bb18da0"
+    },
+    {
+      "file": "repair-perform-replay-20261021.json",
+      "sha256": "f76c620d3d5e8e6401cf1ece98cdf43afdf02766f8e869d1f00089f3e0ad0de3"
+    },
+    {
+      "file": "repair-combination-replay-20261021.json",
+      "sha256": "5d0eb4fa5626599da4254cfa66a9444653da52d3110ac18b7b15f64e13fa2753"
+    },
+    {
+      "file": "repair_summary_20261021.mjs",
+      "sha256": "fb93eb912fb6c7debfcb8d889aba8ab0e70219ae749365c1ca3043100501da5b"
+    },
+    {
+      "file": "repair_evidence_20261021.mjs",
+      "sha256": "7918d6fc5a26304d6960cf4cd31485f9354cd81af0795fbf2672f660ac387f62"
+    },
+    {
+      "file": "parallel_archives_20261021.mjs",
+      "sha256": "4b6586b8cf8586cecf1704d554c2b2b1b8922082c3f2c77ee1cc9b6c50364776"
+    }
+  ],
+  "attempts": 9084,
+  "unique_slots": 8484,
+  "repeated_attempts": 600,
+  "groups": {
+    "slice-combination": {
+      "conditions": 282,
+      "complete_conditions": 211,
+      "planned": 7424,
+      "attempts": 7424,
+      "recorded_slots": 7424,
+      "passed_slots": 422,
+      "multi_version_slots": 0
+    },
+    "quanzhen-bout": {
+      "conditions": 12,
+      "complete_conditions": 12,
+      "planned": 240,
+      "attempts": 240,
+      "recorded_slots": 240,
+      "passed_slots": 240,
+      "multi_version_slots": 0
+    },
+    "huashan-bout": {
+      "conditions": 12,
+      "complete_conditions": 9,
+      "planned": 240,
+      "attempts": 460,
+      "recorded_slots": 180,
+      "passed_slots": 180,
+      "multi_version_slots": 100
+    },
+    "mingjiao-bout": {
+      "conditions": 13,
+      "complete_conditions": 11,
+      "planned": 260,
+      "attempts": 480,
+      "recorded_slots": 220,
+      "passed_slots": 220,
+      "multi_version_slots": 20
+    },
+    "taohua-bout": {
+      "conditions": 12,
+      "complete_conditions": 9,
+      "planned": 240,
+      "attempts": 200,
+      "recorded_slots": 180,
+      "passed_slots": 180,
+      "multi_version_slots": 20
+    },
+    "wudang-bout-perform": {
+      "conditions": 4,
+      "complete_conditions": 2,
+      "planned": 80,
+      "attempts": 80,
+      "recorded_slots": 40,
+      "passed_slots": 40,
+      "multi_version_slots": 40
+    },
+    "shaolin-bout-perform": {
+      "conditions": 4,
+      "complete_conditions": 4,
+      "planned": 80,
+      "attempts": 80,
+      "recorded_slots": 80,
+      "passed_slots": 80,
+      "multi_version_slots": 0
+    },
+    "emei-bout-perform": {
+      "conditions": 4,
+      "complete_conditions": 4,
+      "planned": 80,
+      "attempts": 80,
+      "recorded_slots": 80,
+      "passed_slots": 80,
+      "multi_version_slots": 0
+    },
+    "gumu-bout-perform": {
+      "conditions": 2,
+      "complete_conditions": 2,
+      "planned": 40,
+      "attempts": 40,
+      "recorded_slots": 40,
+      "passed_slots": 40,
+      "multi_version_slots": 0
+    }
+  },
+  "current_plan": [
+    {
+      "id": "school-quanzhen-bout-chongyang-shenzhang-zhongnan-zhi-l400-jiali0-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "f3d0b1836ff72f2e2ebc641af6001182357910845087cb25700c5df9eeafb317"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-chongyang-shenzhang-zhongnan-zhi-l400-jiali0-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "ea8d9914e5973c0b9443db66f36faa8dd1bed3434a9e047f218e0d0eae03d0ef"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-chongyang-shenzhang-zhongnan-zhi-l400-jiali50-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "67854516dafb5de934080dce5df53f6d1c89af83692f8e20ec1aaa6b350436d1"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-chongyang-shenzhang-zhongnan-zhi-l400-jiali50-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "6c4d3ae5fd322c040e316bd45632b6ba3b5d783fbdb25903b464f4331a336c80"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-haotian-zhang-qixing-shou-l400-jiali0-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "c7e4073b0c6ead74239c15d676fa1d354ce4ecaa4c7af4defbf7485ad2f81672"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-haotian-zhang-qixing-shou-l400-jiali0-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "10e141e6fa49ac93f6dfda951bf2ecda88044cb48a4e9044a29d94fce39fadca"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-haotian-zhang-qixing-shou-l400-jiali50-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "48d24fcb112190ee09e749bdcacf41ce873bafa81b62b6f138d5b7ffe027f172"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-haotian-zhang-qixing-shou-l400-jiali50-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "d74dc22315df3669f63d9c19fca142d428ceba6312cd550048ccadf7e6f4b276"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-kongming-quan-l400-jiali0-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "d9de2212c40c91cb994c74a017033ad8ee852d607bb2ba50e03df0a694484ae8"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-kongming-quan-l400-jiali0-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "1c5675627448bac49570f425f3af0f42b6e91c0bd71ed73d19ff81c3f84146d9"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-kongming-quan-l400-jiali50-ordinary",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "e08fb5576336086fbf724d5aa00033e7d8fec8ab6380884af9b0ab2cc6a98a5b"
+      ]
+    },
+    {
+      "id": "school-quanzhen-bout-kongming-quan-l400-jiali50-perform",
+      "group": "quanzhen-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "4fab9611a1c0108728b9d34a6eca435a352e33e5c40a08ea6ead29bb140cb0fc"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-poyu-quan-hunyuan-zhang-l400-jiali0-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "331b3df565956171b335ae3f582f7237ba17139f3be66504f569c43806955800"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-poyu-quan-hunyuan-zhang-l400-jiali0-perform",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "263742b447387483c593e54667b0dea1619c50b87b958ec22a10f9700b14844b"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-poyu-quan-hunyuan-zhang-l400-jiali50-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "93e2fd4929fe59e7d53cca074b33a0f0c444e2c6ffbea07ada2606cc2244a7e4"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-poyu-quan-hunyuan-zhang-l400-jiali50-perform",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "df1057e08639f53a0ba9b8ce6a12d3228a75a36bb912c9a37e8044581566b255"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali0-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali0-perform",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "aac65f290c594ac6d8e304d38895c1303b933bd6c5100ae9d9663021b2eeee56"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali50-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali50-perform",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "4f963b46fbe763a46706b33f35dfbaf6596c7ef4e14b16eedfda8b8e64c6fa33"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-huashan-quanfa-huashan-zhangfa-l400-jiali0-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "bc5f3453d2557ace9001689a44c45d2bf5e93cf12abb90ef25cd3af8c4632bf9"
+      ]
+    },
+    {
+      "id": "school-huashan-bout-huashan-quanfa-huashan-zhangfa-l400-jiali50-ordinary",
+      "group": "huashan-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "cbe65bf75b9667522f44fc241b22bf796d97dbf40b6b6cfb5a455a35e484c574"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-yinfeng-dao-tougu-zhen-l400-jiali0-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "929e4cbd32d841ab1c9ed074371e91558a1996a6526cf8760dcf48234d0e954a"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-yinfeng-dao-tougu-zhen-l400-jiali0-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "706894892d49cd4f4c00c1150e34f066240470543b57a719392893afd1ddedef"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-yinfeng-dao-tougu-zhen-l400-jiali50-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "5a5f587795d3be2c60f26860f720ffcd7c49adc606022c60786738296130998c"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-yinfeng-dao-tougu-zhen-l400-jiali50-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "4bd2fe2f634b8d0021e9c4c1448acd02d05c30ebd5b277c2e17da92d9914af1c"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali0-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali0-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali50-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali50-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "0e9c9aac11eaabeb0d1cf42330d9ca728f4ac3a092e9074d1e0a65b1c291b8b1"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-pili-quan-l400-jiali0-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "67bf7bb1e0c80d9974e8cc5f09c2a1aa5432877013e2cf01f6db7552639d94d5"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-pili-quan-l400-jiali0-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "33cff84246fb772b003a6e78f1f6a9f9d279e19339e9511966d195c098d6de7d"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-pili-quan-l400-jiali50-ordinary",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "747866107c0e341b3ea07c86f503cf48858dabd5fec1f3d0d1ef2389617bda67"
+      ]
+    },
+    {
+      "id": "school-mingjiao-bout-pili-quan-l400-jiali50-perform",
+      "group": "mingjiao-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "35e6b0490ab1a6071ab532368358bfb83b8875515c415845fdcc5645f91ccc79"
+      ]
+    },
+    {
+      "id": "school-taohua-bout-xuanfeng-tui-pikong-zhang-l400-jiali0-ordinary",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-taohua-bout-xuanfeng-tui-pikong-zhang-l400-jiali0-perform",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-taohua-bout-xuanfeng-tui-pikong-zhang-l400-jiali50-ordinary",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-taohua-bout-xuanfeng-tui-pikong-zhang-l400-jiali50-perform",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali0-ordinary",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "5e36c4d39be79c58cecec10e4754e1b0d2f5d77e86f5cb881d268b28e4b6a365"
+      ]
+    },
+    {
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali0-perform",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "272bcc8f878f0adefb74d62e7f43df6157c96421c9c5aabeafafdd7b8d78257b"
+      ]
+    },
+    {
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali50-ordinary",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "a5f7ecbeae4c4ea167b3004c8942d82a106da9052d35295d92ef56d14b7d828e"
+      ]
+    },
+    {
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali50-perform",
+      "group": "taohua-bout",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "3b2bd254c9328d5f0b6b2cb9cfe6b5f3fb5ae75f3c210161f2c9f1bf3bd2d0b1"
+      ]
+    },
+    {
+      "id": "school-wudang-bout-perform-taiji-quan-l400-jiali0",
+      "group": "wudang-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "ae7a1f02e2d9aa31b8bcffde52fb8ee3359414de2e7fab55753322ae5039b833"
+      ]
+    },
+    {
+      "id": "school-wudang-bout-perform-taiji-quan-l400-jiali50",
+      "group": "wudang-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "7c36ad34ec3feb9a10e2d471823c3639341aed4d95f0b8092a0c6d8fc7523ccf"
+      ]
+    },
+    {
+      "id": "school-wudang-bout-perform-taiji-jian-l400-jiali0",
+      "group": "wudang-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-wudang-bout-perform-taiji-jian-l400-jiali50",
+      "group": "wudang-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "frozen_condition_sha256": []
+    },
+    {
+      "id": "school-shaolin-bout-perform-damo-jian-l400-jiali0",
+      "group": "shaolin-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "124b3a85ae758658573bc3b440e868e04aff2177d4c7678f6308bc0f8b473ae6"
+      ]
+    },
+    {
+      "id": "school-shaolin-bout-perform-damo-jian-l400-jiali50",
+      "group": "shaolin-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "3e9bdd433e1c6cfb8e49fb0e15fb3744da1122c232e433383496483c35dbd4d0"
+      ]
+    },
+    {
+      "id": "school-shaolin-bout-perform-luohan-quan-l400-jiali0",
+      "group": "shaolin-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "9c45b2a3324f51f24d36093c95d0106cd3a434cbc01c39f6dd7737e68ee11169"
+      ]
+    },
+    {
+      "id": "school-shaolin-bout-perform-luohan-quan-l400-jiali50",
+      "group": "shaolin-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "35c0c3384c31c905dcc690ceb00d7a35508bd01e1a7928ef56a7078c730e6d1f"
+      ]
+    },
+    {
+      "id": "school-emei-bout-perform-emei-jian-l400-jiali0",
+      "group": "emei-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "acbadbad607d97b4d58e43f64ba1ec452f97bb9c16496ffabf9fc6666b82be78"
+      ]
+    },
+    {
+      "id": "school-emei-bout-perform-emei-jian-l400-jiali50",
+      "group": "emei-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "c359dc0d4934c1d5e1dde0c87b99035e041f5b884e520a98ed4c14081781ca91"
+      ]
+    },
+    {
+      "id": "school-emei-bout-perform-huifeng-jian-l400-jiali0",
+      "group": "emei-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "3cc0738b5f4fff0f4f568b380a64beb068bc82e409cfd0d320aef2531d862d26"
+      ]
+    },
+    {
+      "id": "school-emei-bout-perform-huifeng-jian-l400-jiali50",
+      "group": "emei-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "c4e9338496590860f09c9d37a7fffd4f2862155df669662611c87579c4b95ab4"
+      ]
+    },
+    {
+      "id": "school-gumu-bout-perform-meinv-quan-l400-jiali0",
+      "group": "gumu-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "8d722ca800225c01aa9557682cfacf0b4fd3584ba46e718a39461d3e54e95c30"
+      ]
+    },
+    {
+      "id": "school-gumu-bout-perform-meinv-quan-l400-jiali50",
+      "group": "gumu-bout-perform",
+      "planned": 20,
+      "compatible_passed_slots": 20,
+      "missing_indices": [],
+      "frozen_condition_sha256": [
+        "6d7ebbfe14062dff110fe1c7e171bde5275b7ce10c5fd6dbe90a46a1a5e7fb90"
+      ]
+    }
+  ],
+  "current_plan_note": "Coverage mapping only: all condition fields compared except qualification_note and qualification_sources; frozen hashes/source/execution cohorts retained separately. Not pooled statistics or same-driver-version acceptance.",
+  "missing_or_failed_conditions": [
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-duan-jinyu-quan-wuluo-zhang-solo-l200",
+      "condition_sha256": "769d41ffdb709bbde25dc64852dccfe14cfea8d0142b30f804083d5e7a42129f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-duan-jinyu-quan-wuluo-zhang-pair-l200",
+      "condition_sha256": "b2f623480040d1d278e3f27155d3bfb5b86d1cad8bafc60b71ec1b103354ed47",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-gaibang-jueming-tui-tongchui-zhang-solo-l200",
+      "condition_sha256": "bff7dcadf5b293bb7251ae55747d22dd048c7f9546cbde6c87f8751d1355cc16",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-gaibang-jueming-tui-tongchui-zhang-pair-l200",
+      "condition_sha256": "6095d315c7bf871a0af725e7c6260c72945e11595ce7d34d8855332bbed897f7",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-henshan-biluo-zhang-henshan-quan-solo-l200",
+      "condition_sha256": "f516508ab7439806d643fe9c9a5f13bd4c39a0070bdf9209f77b7d6f80bd719b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-henshan-biluo-zhang-henshan-quan-pair-l200",
+      "condition_sha256": "11c9ade62e82a289f23a1f06cf30e042b9a5d14d093bf91850d3119d23706f28",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-honghua-taiji-quan-wudang-zhang-solo-l200",
+      "condition_sha256": "b58db8c24d6d9eeae63b5e9329faba2a18c306d7f856fa195e8d83017a22c954",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-honghua-taiji-quan-wudang-zhang-pair-l200",
+      "condition_sha256": "ef5204b1b0be33b81bb60ed3231fdd48a77614a6b6ec59f6663620552456b12b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-hu-chuncan-zhang-hujia-quan-solo-l200",
+      "condition_sha256": "ba9a4fc0c4ade3bc7d6b1e2572ce2739246e6f48b78fbf56f84d944d565930ae",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-hu-chuncan-zhang-hujia-quan-pair-l200",
+      "condition_sha256": "08688b59ded8288f34dea4f4e68ff58f3a96ce1fff88e71240fbe09d520b4f96",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-jueqing-chuanxin-zhang-tiexian-quan-solo-l200",
+      "condition_sha256": "e1564bb0929254e5c0e200e2669dc5f1ca87ce8850b60548443da29f15136e64",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-jueqing-chuanxin-zhang-tiexian-quan-pair-l200",
+      "condition_sha256": "ef4285f5863ebc8e47c0768686591836d19ee6378d95d83cf7a6611d4c58840e",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-kunlun-kunlun-zhang-zhentian-quan-solo-l200",
+      "condition_sha256": "d303b5c131e4f7505cf7104f31e36548bbb64cdb871790d080b365dda9a5c58f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-kunlun-kunlun-zhang-zhentian-quan-pair-l200",
+      "condition_sha256": "9cd230e8fbc78b44cd4b207cbcdb3d7c0be214a19f2f48539a8bc91a71017572",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-kunlun-sanyin-shou-kunlun-zhang-solo-l200",
+      "condition_sha256": "1bc2837a4a93476975bd6b15a8da93f2cfe0333e1d72159f67cbfdf17ed5e3f5",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-kunlun-sanyin-shou-kunlun-zhang-pair-l200",
+      "condition_sha256": "f62d086175795930f942dc13f6a73c839ad471ecb3fb5e2c449dc5f790ac96c2",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingjiu-dusha-zhang-lansha-shou-solo-l200",
+      "condition_sha256": "466422b7cfa09bcc6065e7f263a7c9468be5fa763040904d1e7787e97b90ea27",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingjiu-dusha-zhang-lansha-shou-pair-l200",
+      "condition_sha256": "170b308fa27f6ec5f3996402819a783bc95fbf2177fc0db821d699f0039d166b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingjiu-liuyang-zhang-zhemei-shou-solo-l200",
+      "condition_sha256": "dacf972ef610ebba7ad0f762af7a16e9a3b690c0e6f426c9832a3d8df20a12c6",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingjiu-liuyang-zhang-zhemei-shou-pair-l200",
+      "condition_sha256": "c1fb328769d908d46749d07fb99903b778246b01882c842fa824e5be504c2616",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingxiao-lingxiao-quan-piaoxu-zhang-solo-l200",
+      "condition_sha256": "9ed91c7f2dbed7299d3e481f1a4dc449a599b9eed2fe3b84d5abe0e739ab51ca",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-lingxiao-lingxiao-quan-piaoxu-zhang-pair-l200",
+      "condition_sha256": "0e3f42c5b6d1c706ebba2bc9cd45e88fb91f275a8e5450cbcf5e18d75802c4a2",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-meizhuang-longzhua-gong-qianye-shou-solo-l200",
+      "condition_sha256": "0a8571535a8b30f1267e3267ba16404b6e303a91493e6b4dc71cc18f0091163d",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-meizhuang-longzhua-gong-qianye-shou-pair-l200",
+      "condition_sha256": "6dad3a0b40057a1d8b6fdb2f885111439ab24de07e0337fba0a0cab93afec56f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-miao-chongtian-zhang-panlong-zhao-solo-l200",
+      "condition_sha256": "3e4a46777c74dfa56a1a018b240c83f2fccf6f637f7c015e8b2812bd494c80cf",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-miao-chongtian-zhang-panlong-zhao-pair-l200",
+      "condition_sha256": "d9409a295278628c663de3492be14a9fbbd9ee2ab6793b8ce6a7537c2dbaf7b4",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-banruo-zhang-yizhi-chan-solo-l200",
+      "condition_sha256": "98a23d25aad9952c845fc8919c0a1619a41ace0cef8fd9fe38557e11b68b18f8",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-banruo-zhang-yizhi-chan-pair-l200",
+      "condition_sha256": "290815649ec6fc1f4b8dc57e48aafb8858357695b80be22609965ae25717ab39",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-nianhua-zhi-sanhua-zhang-solo-l200",
+      "condition_sha256": "1d4a7c0870049558a94fdc412a9eec6ad306d80713ed48f6b161297d9b0e2c42",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-nianhua-zhi-sanhua-zhang-pair-l200",
+      "condition_sha256": "e3b175d15e857d16c4f47279bfd4e2a07521468b37e548bed8394e450b4b39ce",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-fengyun-shou-yingzhua-gong-solo-l200",
+      "condition_sha256": "a6ed81e28690c776e2a17e03bfc06d77ceddf05c6637b185f420b4c9ab095ab7",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-murong-fengyun-shou-yingzhua-gong-pair-l200",
+      "condition_sha256": "0089b20517c5996aa1c2aac49467804b748d91070636fb6f78d2790b334ff03e",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-ouyang-lingshe-quan-shedu-qiqiao-solo-l200",
+      "condition_sha256": "016ee54c5479f2c12d1cffb2f73f9b4414889470aaf1057c4b1ada60f17b47ac",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-ouyang-lingshe-quan-shedu-qiqiao-pair-l200",
+      "condition_sha256": "e8eba4f8b104f7bcea703076ae42aebbd44cbcb44a97709d99db67572439e3d7",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-riyue-poyue-zhao-zhenyu-quan-solo-l200",
+      "condition_sha256": "274e02388ab052cdb2414ef02844344c65577bec6d605a168f0ef5c508d9fea9",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-riyue-poyue-zhao-zhenyu-quan-pair-l200",
+      "condition_sha256": "68b37b1f1732c7a479fa0cacab34c024734c1084c6cbf96bde6508dda9a6c44b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shang-bagua-quan-bagua-zhang-solo-l200",
+      "condition_sha256": "db30ebd6b181196714b8ea54c7113e8ea4fcd06e62291600f877c1e05a14d32d",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shang-bagua-quan-bagua-zhang-pair-l200",
+      "condition_sha256": "f6d4d12509929fcaab2b3d24a8c7cee6d8e899749d7c79795eac73073ca94425",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shenlong-chousui-zhang-sanyin-wugongzhao-solo-l200",
+      "condition_sha256": "1e82679fed5bef2d458b60608ada34275bf9a678024e731e365d2ff11aed423d",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shenlong-chousui-zhang-sanyin-wugongzhao-pair-l200",
+      "condition_sha256": "5b743cfa81322189ab8658bc27d05ee0b873e0dc020b563d127593af7fa077fc",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shenlong-huagu-mianzhang-shenlong-bashi-solo-l200",
+      "condition_sha256": "72eef37f1e32a88692b4b81aeab7cb511fe927f22c185c228d38ee417fcbf9a1",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-shenlong-huagu-mianzhang-shenlong-bashi-pair-l200",
+      "condition_sha256": "96e7aea3437a7b81bc01176327e41087f0685670fcdc7044977a8723eb989882",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-songshan-songshan-quan-songshan-zhang-solo-l200",
+      "condition_sha256": "b1269f18bb0e66ff7d30935e8b6d9d737fdcecb04861c5a7923706bafe86d780",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-songshan-songshan-quan-songshan-zhang-pair-l200",
+      "condition_sha256": "eddb91abd8864f567c58cee89d6b8863fe12895c5be5e5a3d380f6427bc91486",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tianlongsi-dashou-yin-yujiamu-quan-solo-l200",
+      "condition_sha256": "4127120bbdd5526155fed7cd70f2dfc5aa5365bf38c72eb884d33c062911ab01",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tianlongsi-dashou-yin-yujiamu-quan-pair-l200",
+      "condition_sha256": "9f4676e47cc7c7075faeec8cfe94b03c270a329a9b13dd751d9b9b70781f4e27",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tianlongsi-huoyan-dao-dashou-yin-solo-l200",
+      "condition_sha256": "1314e703e846e000c81e93a7d9cc40f091631c4aede872715ab0f1df2f8bb2b8",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tianlongsi-huoyan-dao-dashou-yin-pair-l200",
+      "condition_sha256": "ce164cabb7a524048fe2f2c612a0e1a5b0facaef256c05e958ddf37c8264dc96",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tiezhang-chuanxin-zhang-tiexian-quan-solo-l200",
+      "condition_sha256": "9897ae4838ad5f4362bd3dbbabbd1acdf21140d9c3277657bc1ba1073e77ed81",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-tiezhang-chuanxin-zhang-tiexian-quan-pair-l200",
+      "condition_sha256": "c5a22df01d4e1263069ac1780977192229c1732081442a352fc966fdb71b68b5",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-wudu-tianchan-zhang-wusheng-zhao-solo-l200",
+      "condition_sha256": "c6d78ee36635c30aa35c61a566f217f0c7370ae39db28dc4d7d16a49176a840b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-wudu-tianchan-zhang-wusheng-zhao-pair-l200",
+      "condition_sha256": "e8dc77f0cb85b1164bcc74e1bdb7ef52ecec3fafae309c20d69401b352ed2e3b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xiaoyao-liuyang-zhang-zhemei-shou-solo-l200",
+      "condition_sha256": "dd03f333b4a3ab08ab2d67e83bdb39f48920a4b406c26eb73754a99572c4f3e6",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xiaoyao-liuyang-zhang-zhemei-shou-pair-l200",
+      "condition_sha256": "102cd721b7245da7c509dd9a00dc23925fe6662043f5f38e25bc22b095897a65",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xiaoyao-panyang-zhang-qingyun-shou-solo-l200",
+      "condition_sha256": "42f36ba119003442f7b06e42c8c76d1fdca6c12c423e7a6f2d3dc628e44fe744",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xiaoyao-panyang-zhang-qingyun-shou-pair-l200",
+      "condition_sha256": "cf46f7227e5b7b1bccb4d097049a2a9b61691596f72fb1458645dd6693477e54",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xingxiu-chousui-zhang-sanyin-wugongzhao-solo-l200",
+      "condition_sha256": "efecaf8bdefee7d5ba01fd16c503278e7dbce7e04827b4d09113f0befd641d58",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xingxiu-chousui-zhang-sanyin-wugongzhao-pair-l200",
+      "condition_sha256": "cdd1e7c887895b877f80969a04f233e15d9a77150c3ff6c72b53a9aa7846a285",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuanming-dulong-shenzhua-xuanming-zhang-solo-l200",
+      "condition_sha256": "84c1d7437a3e84dd74b6d2862d670041cf47b76011c0429265279a94b8a530ef",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuanming-dulong-shenzhua-xuanming-zhang-pair-l200",
+      "condition_sha256": "e3e8edb256ec4a720632459c7c4310d50619a9fc4833d6f8ebb2b42cb3c9ca99",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuanming-piaofeng-quan-feihua-zhang-solo-l200",
+      "condition_sha256": "69b7589bf2521437abd39e250d07f390d3aede5cc324e050bfaa7169cd421894",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuanming-piaofeng-quan-feihua-zhang-pair-l200",
+      "condition_sha256": "7a9ba917ff1d15b8c56ae314ac6dd7aa039be4a5bf939b5afa2aab6b1b5d3b40",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuedao-dashou-yin-yujiamu-quan-solo-l200",
+      "condition_sha256": "fd295e74bb43a09dcba94cad8c50f1d83fc1b2e4c10a0bc480f310c22eaec206",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xuedao-dashou-yin-yujiamu-quan-pair-l200",
+      "condition_sha256": "f09765948980809dd8bd469c7fe9bbd435ab55dca0f6d4065256153e99ff5679",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xueshan-dashou-yin-yujiamu-quan-solo-l200",
+      "condition_sha256": "6bf321342bbc8a4adfe7658c7ea934d673acb2d832d21cf3ff111215209ad3fa",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-xueshan-dashou-yin-yujiamu-quan-pair-l200",
+      "condition_sha256": "d1d5e76e1fdc7c247e70d93ac97943223a3aab3ae26c336b4eb4092f2dab3a15",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-yunlong-yunlong-shou-yunlong-zhua-solo-l200",
+      "condition_sha256": "a1528f184f09f212a78a4bf083882977f0ff3f00a9237ea1e546378de4c58f22",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-yunlong-yunlong-shou-yunlong-zhua-pair-l200",
+      "condition_sha256": "4c67bd14db5266021c5363c65a559653a53d6ca6c8fe8bb07e51aecaf86baa66",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-zhenyuan-bagua-quan-bagua-zhang-solo-l200",
+      "condition_sha256": "4e8dd8834456a7940827687902bd7f45da651f55817725a273b4a783812fcaf3",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-zhenyuan-bagua-quan-bagua-zhang-pair-l200",
+      "condition_sha256": "b3f410c12f7a797606aff781b1a60cf4d496b1d15d13b68e9715892ad595800c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 100,
+      "recorded": 100,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 100
+    },
+    {
+      "group": "slice-combination",
+      "id": "school-slice-combination-jueqing-pokong-quan-guhong-zhang-guhong-zhang-allows-pokong-quan-l200",
+      "condition_sha256": "e871dc7e6fabdb3d3434e1feca6d547ae004daf7c873383a538d2c2fe96c140c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 2,
+      "recorded": 2,
+      "passed": 0,
+      "missing_indices": [],
+      "failed_slots": 2
+    },
+    {
+      "group": "huashan-bout",
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali0-perform",
+      "condition_sha256": "eafdf10b5db3f4335cac6b2a0d99e5af726a8f6d7ef4f594e7424c6a9ee50912",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "huashan-bout",
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali50-ordinary",
+      "condition_sha256": "357dbb7a428dd307aa50f1b6754a172fecbd7c07dd50f61153fb20b0854d17b1",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "huashan-bout",
+      "id": "school-huashan-bout-huashan-quan-huashan-zhang-l400-jiali50-perform",
+      "condition_sha256": "0c9304d1d118b8e8fb6a113d1a1310b22c722ee6090cc003b4f2ca695cce3ecf",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "mingjiao-bout",
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali0-perform",
+      "condition_sha256": "ce5c9a9ea419ce71186a45ca24a5773312cf05fe8493f2b9b6576f293c26c01f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "mingjiao-bout",
+      "id": "school-mingjiao-bout-nianhua-zhi-sanhua-zhang-l400-jiali50-perform",
+      "condition_sha256": "e8e5b4a9b7f4f4a2b7110b3315cc530bc955d76e7ee2b1f140e143635b22ad15",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "taohua-bout",
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali0-perform",
+      "condition_sha256": "8d688034e5ab734b6c9287830df85cec79f5c17b9cc57972f0709affe018a68b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "taohua-bout",
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali50-ordinary",
+      "condition_sha256": "d91d32ce51621b1c34f6d936766216765c767c0d3f4e613e5d949ba100080984",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "taohua-bout",
+      "id": "school-taohua-bout-lanhua-shou-luoying-shenzhang-l400-jiali50-perform",
+      "condition_sha256": "e900042250f119c48bc633bcd04ea2209279b8c5cb398d6888ac9d9b1f977da7",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "wudang-bout-perform",
+      "id": "school-wudang-bout-perform-taiji-jian-l400-jiali0",
+      "condition_sha256": "770f74eadf5cef48fd4ecad07c57ca7ffe64b5ad780cd317a2ba4645c1fa9770",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    },
+    {
+      "group": "wudang-bout-perform",
+      "id": "school-wudang-bout-perform-taiji-jian-l400-jiali50",
+      "condition_sha256": "3696cb012a57b1648d8a98a89bdeae160cd495b9c6b752390bf3cf068800923f",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "planned": 20,
+      "recorded": 0,
+      "passed": 0,
+      "missing_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failed_slots": 0
+    }
+  ],
+  "series": [
+    {
+      "directory": "mud-martial-slice-combination-f5-20261021",
+      "fingerprint": "32946f3b17c5e635f2bcb889d27f1ed536c5a0d7493bd25bd6096470650e8aa4",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "b6d3c8b44fefff092897bb2209628c135e3f6af079dd7fbdfe658908e6e70604",
+      "smoke": false,
+      "complete": false,
+      "replayed": 7424,
+      "passed": 422,
+      "failed": 7002,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-1eiCwf",
+          "process": {
+            "pid": 59872,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 7424,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "bd0c5999f5221230c564b2273278c38567937f29ecfda58aa04781c9a4756cc5"
+    },
+    {
+      "directory": "mud-martial-quanzhen-bout-f1-v2-20261021",
+      "fingerprint": "1e569908375c4ff912a88d2252158c8ac34cbd2ebc573bab22f4b96ad07d9cf1",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "106a4f8002c0d95b7c349013c8d234719726082795e4ee31dcefb9dec29015be",
+      "smoke": false,
+      "complete": true,
+      "replayed": 240,
+      "passed": 240,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-X7FeRA",
+          "process": {
+            "pid": 69520,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 240,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "58aa2a105047e681769d9586ebf53a8e14ee493dee2950357c1819beccd7bf54"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f2-20261021",
+      "fingerprint": "b1f6494c8c0d024adb715e7cf7ffa4378a32b0d60e192f44c338ae7d586b89bb",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "6183f8b3ff5c0298fb90e728536cc5c28e8a33a798aeefa26b349b3953868519",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 100,
+      "runs": [
+        {
+          "attempt": "attempt-fDd1xr",
+          "process": {
+            "pid": 49484,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "387f3d4f5aff3fb5e972fdf4b6bafd7cb2b1dd34219ce4fa83fe52d9c603c887"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f4-20261021",
+      "fingerprint": "c7e848a4c21004b9a6072e2632bb3e7fc5371cd9dbdf02f4a53ab546f8ba0234",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 100,
+      "runs": [
+        {
+          "attempt": "attempt-Sl4f3R",
+          "process": {
+            "pid": 17888,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "333fd54e26c61c8de13b52a894fc504c3d322410c32e1b650438a2f2e4c8f5f6"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f5-20261021",
+      "fingerprint": "c7e848a4c21004b9a6072e2632bb3e7fc5371cd9dbdf02f4a53ab546f8ba0234",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 100,
+      "runs": [
+        {
+          "attempt": "attempt-Lp2kVp",
+          "process": {
+            "pid": 51736,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "b7e329615e60804a2269d7faa75a29fec7989eab6c22c2b7e755f4fbb8afa009"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f6-20261021",
+      "fingerprint": "6fbf395e9a5e5632ececc4c4271a25b0f8f5144393a491079809cb4e2f669f1d",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 100,
+      "runs": [
+        {
+          "attempt": "attempt-mztCOJ",
+          "process": {
+            "pid": 47868,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "6ac96fb687e4135fc23c0f64d1b484df40470fa43ca32ac917cde7295055000d"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f7-20261021",
+      "fingerprint": "62758ea9172407a986fdbc7cc715f01fd81b98365e5ecdce9d70040eb86908c9",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-DdFKhz",
+          "process": {
+            "pid": 44468,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "426060f8b667009f726b16811960876b344d4181fa31d0d7e8ca64ef157973a9"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f8-20261021",
+      "fingerprint": "426a871d59d214efe00322f2678fa70f7a8de589aa772d1743ab866442d82980",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": true,
+      "replayed": 40,
+      "passed": 40,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-ozmtSI",
+          "process": {
+            "pid": 59560,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 40,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "ddfa11a6e43a518da64a86f82bd5151d0ce5a7077d7062144e3efc9eae2e5693"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-f9-20261021",
+      "fingerprint": "585a6ee12d019238f5634195ce74e24935c13ca39e225babb220de511346a1ed",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "f086a3541a3905187ec515a00b4c32c8cb7e01eb0f2ae079380e6f5095b1c4a3",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-VvHmp7",
+          "process": {
+            "pid": 47936,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "2ec09f4b31d770dcb808d54f0ee84fe32d4ad6ea35ec50b8029f4685c73353bb"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-final1-20261021",
+      "complete": false,
+      "integrity_error": "ENOENT: no such file or directory, scandir 'C:\\tools\\msys64\\home\\oiuv\\mud-evidence\\martial-data\\review-repair-20261021\\mud-martial-huashan-bout-final1-20261021\\samples'",
+      "archive_sha256": "e1f233e16b58d3256eabd0322b0e22b7aa306ce8de74e6f68beff505ed8a243d"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-final2-20261021",
+      "fingerprint": "4dd384073b21a632e2e446ee67963ece153e2d979fd2bb777f410f31cda2116c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "d7ee5d57f71d70344b4898d8b4a34f625c7c17e60463d72b9bd07cb3768a175b",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-1w1bi2",
+          "process": {
+            "pid": 27448,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "0ad0f3139a88e38ac719b0e54edab9ac94e15f49601493d57b393f59ef0a7254"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-final3-20261021",
+      "fingerprint": "7a3c4a2f5a9808867b71affd429f10894e703b90b238a74d5fdc64b11b0cfac1",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "d7ee5d57f71d70344b4898d8b4a34f625c7c17e60463d72b9bd07cb3768a175b",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-AAH4hS",
+          "process": {
+            "pid": 31132,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "c579598bc088a83446696e0e0acdb870a2cef58cfe8e0ebf126eed3cde12ef65"
+    },
+    {
+      "directory": "mud-martial-huashan-bout-final4-20261021",
+      "fingerprint": "7a3c4a2f5a9808867b71affd429f10894e703b90b238a74d5fdc64b11b0cfac1",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "d7ee5d57f71d70344b4898d8b4a34f625c7c17e60463d72b9bd07cb3768a175b",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-DEb1mw",
+          "process": {
+            "pid": 66608,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "a68e3c4f49e325d0ac55782cff49b242977d1b8008d884df03d85434204faaab"
+    },
+    {
+      "directory": "mud-martial-mingjiao-bout-f3-20261021",
+      "fingerprint": "afefeb57e9243afd2e45d6e02fec499f8925f4f8df03be45844ea78c0942968c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 140,
+      "runs": [
+        {
+          "attempt": "attempt-08pSbd",
+          "process": {
+            "pid": 63936,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "4b443cecf5b0734fdfca645fb937dbbf5e34e6c5c311fbf011b93ad929d9aab6"
+    },
+    {
+      "directory": "mud-martial-mingjiao-bout-f4-20261021",
+      "fingerprint": "afefeb57e9243afd2e45d6e02fec499f8925f4f8df03be45844ea78c0942968c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 140,
+      "runs": [
+        {
+          "attempt": "attempt-p9i6rE",
+          "process": {
+            "pid": 33584,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "c38690bba7456aa0afa2c3003d7c3fb9a70bce78bc673d63b332f869d48316c5"
+    },
+    {
+      "directory": "mud-martial-mingjiao-bout-f5-20261021",
+      "fingerprint": "afefeb57e9243afd2e45d6e02fec499f8925f4f8df03be45844ea78c0942968c",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 140,
+      "runs": [
+        {
+          "attempt": "attempt-3uf9G1",
+          "process": {
+            "pid": 66784,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "1460d9ce4567065fd07f12aa0c51cca2ffa1c9826b9eb744fa74b0aad68f03a2"
+    },
+    {
+      "directory": "mud-martial-mingjiao-bout-f6-20261021",
+      "fingerprint": "22dc55165161e355986f11a0386a5ea0db03b21eb2a1d9556cdfc9171d13e143",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-r3QgE9",
+          "process": {
+            "pid": 34596,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "a15a79af9738b774060b4a89f480a8caad4381b42ccf63d7de30f7468ac7eb7a"
+    },
+    {
+      "directory": "mud-martial-mingjiao-bout-f7-20261021",
+      "fingerprint": "bc1362bfe6c32c2354fdc1a92165d24a0a6ae3eaa77caad4fa513ab57388ff29",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": true,
+      "replayed": 80,
+      "passed": 80,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-FjmA2Q",
+          "process": {
+            "pid": 25956,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 80,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "d46bd2b4a053abea10d6b83f352489042e8e76e6305ed729aeb8d4415f6898dd"
+    },
+    {
+      "directory": "mud-martial-mj-bout-final2-20261021",
+      "fingerprint": "521405d67eeecc9f154deaa54ff06df04513c06611126d752e5d9270fa1301ca",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "d7ee5d57f71d70344b4898d8b4a34f625c7c17e60463d72b9bd07cb3768a175b",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-q6Q5hi",
+          "process": {
+            "pid": 3432,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "1a8d2a79c2831ca3f07759400766c0b871b1c245d3104e337051c22d04724ab3"
+    },
+    {
+      "directory": "mud-martial-mj-bout-final3-20261021",
+      "fingerprint": "521405d67eeecc9f154deaa54ff06df04513c06611126d752e5d9270fa1301ca",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "d7ee5d57f71d70344b4898d8b4a34f625c7c17e60463d72b9bd07cb3768a175b",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-jDjRtX",
+          "process": {
+            "pid": 57516,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "f906b180507ff87d6a562a1c10ffb63f5ee2a467a7eacce2fcf05b3dfe467af6"
+    },
+    {
+      "directory": "mud-martial-mj-bout-rest1-20261021",
+      "fingerprint": "be6c39b907ed19d6f224667e3a79f25654063fcd6c26225d5c836c56c3083776",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": true,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-imm8Jn",
+          "process": {
+            "pid": 15020,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 20,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "7df7d56027f955d4aaebe3679f7ff41625c6c4c844206a200f3d59e1a3d7b36a"
+    },
+    {
+      "directory": "mud-martial-mj-bout-rest3-20261021",
+      "fingerprint": "6ec1a38973971dca57115fdee6fa5048d796d5f18b96cd07bcb07e61d7958653",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "f086a3541a3905187ec515a00b4c32c8cb7e01eb0f2ae079380e6f5095b1c4a3",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-iU5JMz",
+          "process": {
+            "pid": 71188,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "dca243f53c246ad5fe1992f744e74baab468f142716cd180e3d7211a78dfbdd5"
+    },
+    {
+      "directory": "mud-martial-taohua-bout-f4-20261021",
+      "fingerprint": "c21221eb51933e1a695fb0aa4af4e536d1d0ce3cd7de5b4bf5be3dd41d8d4861",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "14d00d50e9342d694cd53c12a93131ff6a130a5969576c053d086e801ee90c6a",
+      "smoke": false,
+      "complete": false,
+      "replayed": 100,
+      "passed": 100,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-PgP02K",
+          "process": {
+            "pid": 14712,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 100,
+          "validation_errors": [
+            {
+              "line": 101,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "209701c9802f1daf1cf0a2ba06342d7a28470c565d35abf5da2c2c89749af975"
+    },
+    {
+      "directory": "mud-martial-taohua-bout-f5-20261021",
+      "fingerprint": "dfd9a1e0d565d43756ea39dfb430477486aabfe91119e1fd0f395f6efa03260a",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": false,
+      "replayed": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "missing": 60,
+      "runs": [
+        {
+          "attempt": "attempt-8wEPme",
+          "process": {
+            "pid": 41508,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 20,
+          "validation_errors": [
+            {
+              "line": 21,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "849dab4b95e68231d5babfbe41b1d51f1d93636ad6d7ebfd3e5294d5c86f4533"
+    },
+    {
+      "directory": "mud-martial-th-bout-rest2-20261021",
+      "fingerprint": "d7a18686e715338458c91391f9dab012be80758da368053c27b6b95525fa1625",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "f086a3541a3905187ec515a00b4c32c8cb7e01eb0f2ae079380e6f5095b1c4a3",
+      "smoke": false,
+      "complete": true,
+      "replayed": 80,
+      "passed": 80,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-Bh2SpE",
+          "process": {
+            "pid": 42664,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 80,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "8e5076791ac443c7ac1ecbb499612ded9bc66f78c5aec8ad8ee810e30e419e72"
+    },
+    {
+      "directory": "mud-martial-bout-perform-f3-20261021",
+      "fingerprint": "9a1fb49ed405430b959917c759cdc6b90618ef8a460887f044313f34cdba381b",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "55c2cd327384accddbb327cffdc2416c0d46504064ccbc50d248063177024f71",
+      "smoke": false,
+      "complete": false,
+      "replayed": 40,
+      "passed": 40,
+      "failed": 0,
+      "pending": 0,
+      "missing": 40,
+      "runs": [
+        {
+          "attempt": "attempt-8qy58t",
+          "process": {
+            "pid": 58008,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 40,
+          "validation_errors": [
+            {
+              "line": 41,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "593068f5ceb531032a71b45fc3dd810e707df7d3ce0834c2d49865faf3946f3b"
+    },
+    {
+      "directory": "mud-martial-bout-perform-f4-20261021",
+      "fingerprint": "77d8f745f09c79a461893682f23a3d976f2ae54351066858b2bcaddbdb168431",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "14d00d50e9342d694cd53c12a93131ff6a130a5969576c053d086e801ee90c6a",
+      "smoke": false,
+      "complete": false,
+      "replayed": 40,
+      "passed": 40,
+      "failed": 0,
+      "pending": 0,
+      "missing": 40,
+      "runs": [
+        {
+          "attempt": "attempt-5DFoFp",
+          "process": {
+            "pid": 62964,
+            "code": null,
+            "signal": "SIGTERM"
+          },
+          "imported": 40,
+          "validation_errors": [
+            {
+              "line": 41,
+              "error": "绝招交锋组没有实际发动；不能以普攻结果替代"
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 0
+            },
+            {
+              "error": "Client error: ECONNRESET",
+              "client": 1
+            }
+          ],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "6771a394369279b5b17026025863c7b32701f4f2e9b94cef75400266f1826858"
+    },
+    {
+      "directory": "mud-martial-bout-perform-shaolin-f2-20261021",
+      "fingerprint": "cd3800b39cf87670a61fe9c5b480552d030a97785c431d850681bf78fc571783",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "fb9f17385e0d748329ecdf9dccc6bc6dec0c01954e70ecde1097a35a33fe8218",
+      "smoke": false,
+      "complete": true,
+      "replayed": 80,
+      "passed": 80,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-NTWTlh",
+          "process": {
+            "pid": 32364,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 80,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "f372d4a1f012f583a5e1bdfe84c5d4f49a90048f391d6042f2434eff4152305a"
+    },
+    {
+      "directory": "mud-martial-bout-perform-emei-20261021",
+      "fingerprint": "add76cbc8638e084398a53583d9dcfe3067ada2e661ceaed20d1e3919650d880",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": true,
+      "replayed": 80,
+      "passed": 80,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-e5GrDb",
+          "process": {
+            "pid": 17880,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 80,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "ac831a1a74ae8b5bdce5fd3166a67502a55cf45ad548471a20d954f029308121"
+    },
+    {
+      "directory": "mud-martial-bout-perform-gumu-20261021",
+      "fingerprint": "3becf5cbe12613490dedb2cbc90e8533ac9ff0fc876b9df4778e60725f172d74",
+      "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+      "execution_sha256": "8b485412ffaade3c76975eae542cbf54171e8679fe7765bb7d5495320d665df1",
+      "smoke": false,
+      "complete": true,
+      "replayed": 40,
+      "passed": 40,
+      "failed": 0,
+      "pending": 0,
+      "missing": 0,
+      "runs": [
+        {
+          "attempt": "attempt-zxaXsR",
+          "process": {
+            "pid": 1856,
+            "code": 0,
+            "signal": null
+          },
+          "imported": 40,
+          "validation_errors": [],
+          "incomplete_bytes": 0
+        }
+      ],
+      "archive_sha256": "7faea13cabc4ae5d3fa43faf023002f497b4755ae89a41d5c45b34b174b7cb8c"
+    }
+  ],
+  "acceptance": {
+    "openspec": "10/17",
+    "task_4_2": false,
+    "next": "Continue 4.2; do not start 4.3"
+  },
+  "limitation": "Coverage of supplied frozen conditions only. Execution versions stay separate; no pooled distribution or full 4.2 acceptance."
+}

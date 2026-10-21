@@ -13,7 +13,7 @@ const by = (move, suffix = '', level = 200) => cases.find(c => c.parameters.abil
 test('全真基础批独立82条件5162样本，旧355条件不变', () => {
     assert.equal(cases.length, 82); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5162);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 30);
-    assert.equal(schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery'].includes(c.parameters.collection_group)).length, 437);
+    assert.equal(schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group)).length, 437);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));
     assert.ok(cases.every(c => entries.has(c.entry_id)));

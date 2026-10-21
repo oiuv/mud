@@ -1,5 +1,5 @@
 // B29 no-grant public/quest perform batch (55).
-// 55 declarations: 47 generated entries and 8 pending source/fixture/window reviews.
+// 55 declarations: 47 generated entries, 6 pending fixtures and 2 unreachable dispatch paths.
 // Public/quest skills with no formal school assignment (侠客盟 ledger).
 // Finite reviewed conditions only; no game-code writes and no balance claims.
 import assert from 'node:assert/strict';
@@ -1557,18 +1557,73 @@ const schools = {
 
 export const b29Schools = schools;
 
-// These are unresolved collection limitations, NOT accepted coverage exceptions.
-// Preserve the reasons for follow-up; only a source-backed disposition can close them.
-export const b29Pending = {
-    'lonely-sword/jue': '演练型绝招（非战斗），提高剑法与独孤九剑，不进战斗夹具',
-    'six-finger/zongheng': 'six-finger 分发到 liumai-shenjian/ 目录，zongheng.c 不在该目录，运行期不可达',
-    'dugu-jiujian/jue': '演练型绝招（非战斗），提高剑法与独孤九剑，不进战斗夹具',
-    'yujian-shu/yujian': '御剑飞升含 call_out 循环多段，即时窗口无法覆盖重复段',
-    'jinshe-zhui/tuwu': '需专用金蛇锥道具（id jinshe zhui），通用投射弹药不匹配',
-    'xuanyuan-arrow/baibu': '需 is_arrow() 箭矢道具，通用投射弹药不匹配',
-    'five-avoid/break': '五遁绝杀经 COMBAT_D->fight() 多轮循环，超出单动作即时窗口',
-    'taixuan-gong/xuan-top': 'taixuan-gong 分发到 perform/ 目录，顶层 xuan.c 不经 perform_action_file 可达',
+// Deferred dispositions: a missing fixture is not a whole-project N/A.
+// These generate no samples in this batch; the collection obligation remains.
+// 演练型: non-combat practice performs (perform(object me), refuse while fighting).
+// 分发不可达: perform_action_file dispatches elsewhere; this file is not reachable.
+// 缺专用道具: requires a unique item id / is_arrow(); generic ammo cannot match.
+// 多段窗口: call_out loop or COMBAT_D->fight() multi-round exceeds single-action window.
+export const b29Dispositions = {
+    'lonely-sword/jue': {
+        disposition: 'pending_fixture',
+        category: '演练型',
+        reason: '演练型绝招（非战斗）：perform(object me) 无目标，战斗中拒绝「总诀式」不能在战斗中演练，'
+            + '提高剑法与独孤九剑；不进战斗夹具',
+        evidence: 'kungfu/skill/lonely-sword/jue.c:5 perform(object me)、:19 is_fighting() 拒绝',
+    },
+    'six-finger/zongheng': {
+        disposition: 'unreachable_dispatch',
+        category: '分发不可达',
+        reason: 'six-finger 分发到 liumai-shenjian/ 目录，zongheng.c 不在该目录，运行期不可达；'
+            + '顶层 six-finger/zongheng.c 不经 perform_action_file 路径',
+        evidence: 'kungfu/skill/six-finger.c:517-518 perform_action_file → liumai-shenjian/；'
+            + 'kungfu/skill/liumai-shenjian/ 无 zongheng.c',
+    },
+    'dugu-jiujian/jue': {
+        disposition: 'pending_fixture',
+        category: '演练型',
+        reason: '演练型绝招（非战斗）：perform(object me) 无目标，战斗中拒绝「总诀式」不能在战斗中演练，'
+            + '提高剑法与独孤九剑；不进战斗夹具',
+        evidence: 'kungfu/skill/dugu-jiujian/jue.c:7 perform(object me)、:24 is_fighting() 拒绝',
+    },
+    'yujian-shu/yujian': {
+        disposition: 'pending_fixture',
+        category: '多段窗口',
+        reason: '御剑飞升含 call_out 循环多段（perform2 反复 call_out），即时窗口无法覆盖重复段',
+        evidence: 'kungfu/skill/yujian-shu/yujian.c:61/68/124/131 call_out("perform2") 循环',
+    },
+    'jinshe-zhui/tuwu': {
+        disposition: 'pending_fixture',
+        category: '缺专用道具',
+        reason: '需专用金蛇锥道具（id jinshe zhui），通用投射弹药不匹配',
+        evidence: 'kungfu/skill/jinshe-zhui/tuwu.c:22 weapon->query("id") != "jinshe zhui"',
+    },
+    'xuanyuan-arrow/baibu': {
+        disposition: 'pending_fixture',
+        category: '缺专用道具',
+        reason: '需 is_arrow() 箭矢道具，通用投射弹药不匹配',
+        evidence: 'kungfu/skill/xuanyuan-arrow/baibu.c:21 !weapon->is_arrow()',
+    },
+    'five-avoid/break': {
+        disposition: 'pending_fixture',
+        category: '多段窗口',
+        reason: '五遁绝杀经 COMBAT_D->fight() 多轮循环（while count--），超出单动作即时窗口',
+        evidence: 'kungfu/skill/five-avoid/break.c:35/47 while (count--) COMBAT_D->fight',
+    },
+    'taixuan-gong/xuan-top': {
+        disposition: 'unreachable_dispatch',
+        category: '分发不可达',
+        reason: 'taixuan-gong 分发到 perform/ 目录，顶层 xuan.c 不经 perform_action_file 可达；'
+            + '实际入口为 taixuan-gong/perform/xuan.c（另计覆盖）',
+        evidence: 'kungfu/skill/taixuan-gong.c:333-339 perform_action_file → taixuan-gong/perform/；'
+            + '顶层 taixuan-gong/xuan.c 不在分发路径',
+    },
 };
+
+// Skip map for condition generation: keys that produce no combat samples.
+export const b29Pending = Object.fromEntries(
+    Object.entries(b29Dispositions).map(([key, v]) => [key, v.reason])
+);
 
 
 // Every gate except the one being probed must pass, so the baseline is raised

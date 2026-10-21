@@ -104,7 +104,7 @@ test('B26 batch matrix', () => {
         assert.equal(c.stage, 'school');
         assert.equal(c.method, 'perform');
         assert.equal(c.parameters.collection_group, 'b26-perform');
-        assert.ok(['全真教', '丐帮', '衡山派'].includes(c.parameters.families[0]));
+        assert.ok(['全真教', '丐帮', '衡山派', '古墓派', '大理段家'].includes(c.parameters.families[0]));
         kinds[c.parameters.kind] = (kinds[c.parameters.kind] ?? 0) + 1;
         if (c.id.endsWith('baseline-l300')) kinds['bl-' + c.parameters.kind] = (kinds['bl-' + c.parameters.kind] ?? 0) + 1;
     }
@@ -199,9 +199,9 @@ test('B26 effects', () => {
     assert.equal(e.hits.trials, 1);
 });
 
-test('B26 all 5 dispatchable', () => {
+test('B26 all 7 dispatchable', () => {
     for (const [key, cfg] of Object.entries(b26Schools)) {
         assert.ok(['control', 'disarm'].includes(cfg.kind), key);
     }
-    assert.equal(Object.keys(b26Schools).length, 5);
+    assert.equal(Object.keys(b26Schools).length, 7); // 5 batch1 + 2 batch2 residual control
 });

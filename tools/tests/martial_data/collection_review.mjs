@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { openSeries, readSamples } from './ledger.mjs';
+import { digest, openSeries, readSamples } from './ledger.mjs';
 import { sha256 } from './inventory.mjs';
 import { validateRecord } from './execution.mjs';
 
@@ -58,6 +58,24 @@ async function validatorFor(condition) {
         const module = await import(`./school_slice${slice[1]}_cases.mjs`);
         return module[`validateSlice${slice[1]}Record`];
     }
+    const combination = {
+        'wudang-combination': ['school_wudang_combination_cases.mjs', 'validateWudangCombinationRecord'],
+        'shaolin-combination': ['school_shaolin_combination_cases.mjs', 'validateShaolinCombinationRecord'],
+        'emei-combination': ['school_emei_combination_cases.mjs', 'validateEmeiCombinationRecord'],
+        'gumu-combination': ['school_gumu_combination_cases.mjs', 'validateGumuCombinationRecord'],
+        'quanzhen-combination': ['school_quanzhen_combination_cases.mjs', 'validateQuanzhenCombinationRecord'],
+        'huashan-combination': ['school_huashan_combination_cases.mjs', 'validateHuashanCombinationRecord'],
+        'slice-combination': ['school_slice_combination_cases.mjs', 'validateSliceCombinationRecord'],
+    };
+    if (combination[group]) {
+        const module = await import('./' + combination[group][0]);
+        return module[combination[group][1]];
+    }
+    if (/^(quanzhen|huashan|mingjiao|taohua)-bout$/.test(group)
+        || /^(wudang|shaolin|emei|gumu)-bout-perform$/.test(group)) {
+        const module = await import('./school_combat_cases.mjs');
+        return module.validateSchoolCombatRecord;
+    }
     throw new Error(`Unsupported replay group (not counted as passed): ${group}`);
 }
 
@@ -84,7 +102,51 @@ export async function reviewSeries(directory) {
         .filter(p => !manifest.identity.execution.source_files?.[p]);
     return { directory, fingerprint: manifest.fingerprint,
         source_fingerprint: manifest.identity.source_fingerprint,
+        execution_sha256: digest(manifest.identity.execution),
+        conditions: manifest.identity.conditions.map(c => ({ id: c.id, sha256: digest(c),
+            group: c.parameters.collection_group, planned: c.samples,
+            recorded_indices: rows.filter(r => r.condition_id === c.id).map(r => r.index) })),
         smoke: manifest.identity.execution.smoke ?? null, runs, snapshot_gaps: snapshotGaps, ...replay };
+}
+
+// A repeated run is another attempt, not another planned sample position.
+// Cross-version slots are coverage only; retain cohorts and never pool their statistics.
+export function summarizeSeriesCoverage(series) {
+    const conditions = new Map();
+    let attempts = 0;
+    for (const s of series.filter(s => s.smoke === false && !s.integrity_error)) {
+        const failed = new Set([...s.failures, ...s.pending].map(f => f.slot));
+        for (const c of s.conditions) {
+            const key = `${s.source_fingerprint}:${c.sha256}`;
+            const entry = conditions.get(key) ?? { id: c.id, group: c.group, condition_sha256: c.sha256,
+                source_fingerprint: s.source_fingerprint, planned: c.planned, slots: new Map() };
+            for (const index of c.recorded_indices) {
+                attempts++;
+                const slot = entry.slots.get(index) ?? { index, attempts: [] };
+                slot.attempts.push({ directory: s.directory, execution_sha256: s.execution_sha256,
+                    passed: !failed.has(`${c.id}.${index}`) });
+                entry.slots.set(index, slot);
+            }
+            conditions.set(key, entry);
+        }
+    }
+    const groups = {};
+    const details = [...conditions.values()].map(c => {
+        const slots = [...c.slots.values()].sort((a, b) => a.index - b.index);
+        const passed = slots.filter(s => s.attempts.some(a => a.passed)).length;
+        const g = groups[c.group] ??= { conditions: 0, complete_conditions: 0, planned: 0,
+            attempts: 0, recorded_slots: 0, passed_slots: 0, multi_version_slots: 0 };
+        g.conditions++; g.complete_conditions += Number(passed === c.planned); g.planned += c.planned;
+        g.attempts += slots.reduce((n, s) => n + s.attempts.length, 0);
+        g.recorded_slots += slots.length; g.passed_slots += passed;
+        g.multi_version_slots += slots.filter(s => new Set(s.attempts.map(a => a.execution_sha256)).size > 1).length;
+        return { ...c, slots };
+    });
+    const recorded = Object.values(groups).reduce((n, g) => n + g.recorded_slots, 0);
+    return { attempts, recorded_slots: recorded, repeated_attempts: attempts - recorded,
+        groups, conditions: details,
+        excluded: series.filter(s => s.smoke !== false || s.integrity_error).map(s => s.directory),
+        limitation: 'Coverage of supplied frozen conditions only. Execution versions stay separate; no pooled distribution or full 4.2 acceptance.' };
 }
 
 export async function reviewDefinitions() {
@@ -96,7 +158,8 @@ export async function reviewDefinitions() {
             declarations++;
             const path = `kungfu/skill/${cfg.skill}/${cfg.abilityPath ?? cfg.ability}.c`;
             const reason = module[`b${n}Pending`]?.[key];
-            if (reason) pending.push({ batch: n, key, path, disposition: 'pending_review', reason });
+            if (reason) pending.push({ batch: n, key, path,
+                disposition: module[`b${n}Dispositions`]?.[key]?.disposition ?? 'pending_review', reason });
             else activePlacements++;
             const placements = paths.get(path) ?? [];
             placements.push({ batch: n, key, active: !reason }); paths.set(path, placements);

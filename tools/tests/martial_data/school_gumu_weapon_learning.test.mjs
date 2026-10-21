@@ -99,7 +99,7 @@ test('注册后旧14555条件的完整正式及冒烟JSON指纹不变', () => {
         [true, 14555, 24716, '271c497e6e61a252b0a5a232075506875aaf9c0f7a48325204ceb77c8b6ef773'],
     ]) {
         const all = schoolCombatConditions(catalog, { smoke }).slice(0, 15029), old = all.filter(c =>
-            c.parameters.collection_group !== 'gumu-weapon-learning');
+            !['gumu-weapon-learning', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
         assert.equal(old.length, count); assert.equal(old.reduce((n, c) => n + c.samples, 0), samples);
         assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), hash);
         assert.equal(all.length, 15029);

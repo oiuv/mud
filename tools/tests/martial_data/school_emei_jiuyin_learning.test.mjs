@@ -47,7 +47,7 @@ function record(c) {
 test('追加独立条件，不改变旧11334条件的内容及样本计划', () => {
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
-    const old = historical.filter(c => ![jiuyinLearningGroup, 'emei-jiuyin-passive', 'emei-npc', 'emei-bout'].includes(c.parameters.collection_group));
+    const old = historical.filter(c => ![jiuyinLearningGroup, 'emei-jiuyin-passive', 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11334); assert.equal(old.reduce((n, c) => n + c.samples, 0), 282812);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), '2a097823c67c52bd34909caa4cfafc4dadecdc7a9eb750bfb2f49c82282d10c2');
     assert.deepEqual(all.filter(c => c.parameters.collection_group === jiuyinLearningGroup), cases);

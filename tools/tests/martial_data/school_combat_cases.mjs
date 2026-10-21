@@ -81,6 +81,8 @@ import { quanzhenCultivationConditions, validateQuanzhenCultivationRecord } from
 import { quanzhenAuxiliaryConditions, validateQuanzhenAuxiliaryRecord } from './school_quanzhen_auxiliary_cases.mjs';
 import { quanzhenStudyConditions, validateQuanzhenStudyRecord } from './school_quanzhen_study_cases.mjs';
 import { quanzhenRecoveryConditions, validateQuanzhenRecoveryRecord } from './school_quanzhen_recovery_cases.mjs';
+import { quanzhenCombinationConditions, validateQuanzhenCombinationRecord } from './school_quanzhen_combination_cases.mjs';
+import { huashanCombinationConditions, validateHuashanCombinationRecord } from './school_huashan_combination_cases.mjs';
 import { wudangSwordConditions, validateWudangSwordRecord } from './school_wudang_sword_cases.mjs';
 import { wudangCoreConditions, validateWudangCoreRecord } from './school_wudang_core_cases.mjs';
 import { wudangDefenseConditions, validateWudangDefenseRecord } from './school_wudang_defense_cases.mjs';
@@ -156,6 +158,12 @@ import { gumuNpcConditions, validateGumuNpcRecord } from './school_gumu_npc_case
 import { gumuTemporalConditions, validateGumuTemporalRecord } from './school_gumu_temporal_cases.mjs';
 import { gumuBoutConditions, validateGumuBoutRecord } from './school_gumu_bout_cases.mjs';
 import { gumuNpcBoutConditions, validateGumuNpcBoutRecord } from './school_gumu_npc_bout_cases.mjs';
+import { quanzhenBoutConditions, validateQuanzhenBoutRecord } from './school_quanzhen_bout_cases.mjs';
+import { huashanBoutConditions, validateHuashanBoutRecord } from './school_huashan_bout_cases.mjs';
+import { mingjiaoBoutConditions, validateMingjiaoBoutRecord } from './school_mingjiao_bout_cases.mjs';
+import { taohuaBoutConditions, validateTaohuaBoutRecord } from './school_taohua_bout_cases.mjs';
+import { sliceCombinationConditions, validateSliceCombinationRecord } from './school_slice_combination_cases.mjs';
+import { boutPerformConditions, validateBoutPerformRecord } from './school_bout_perform_cases.mjs';
 import { mingjiaoCombinationConditions } from './school_mingjiao_combination_cases.mjs';
 import { createMingjiaoCombinationRecordValidator } from './school_mingjiao_combination_record.mjs';
 import { b1PerformConditions, validateB1Record } from './b1_perform_cases.mjs';
@@ -360,6 +368,7 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...taohuaBihaiConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaPassiveConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...taohuaBoutConditions(catalog, { smoke }),
         ...taohuaForceConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaMusicConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...taohuaNpcConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
@@ -389,6 +398,7 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...mingjiaoRemainingPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...mingjiaoRemainingBaseConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...mingjiaoCombinationConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...mingjiaoBoutConditions(catalog, { smoke }),
         ...mingjiaoForceRemainingConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...slice1Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...slice2Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
@@ -398,6 +408,8 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...slice6Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...slice7Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...slice8Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...sliceCombinationConditions(catalog, { smoke, samples }),
+        ...boutPerformConditions(catalog, { smoke }),
         ...b1PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b2PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b3PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
@@ -426,7 +438,11 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...b26PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b27PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b28PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
-        ...b29PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples })];
+        ...b29PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...quanzhenCombinationConditions(catalog, { smoke, samples }),
+        ...quanzhenBoutConditions(catalog, { smoke }),
+        ...huashanCombinationConditions(catalog, { smoke, samples }),
+        ...huashanBoutConditions(catalog, { smoke })];
 }
 
 export function validateSchoolCombatRecord(raw, condition, sourceContext) {
@@ -484,6 +500,7 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (condition.parameters.collection_group?.startsWith('slice6-')) return validateSlice6Record(raw, condition);
     if (condition.parameters.collection_group?.startsWith('slice7-')) return validateSlice7Record(raw, condition);
     if (condition.parameters.collection_group?.startsWith('slice8-')) return validateSlice8Record(raw, condition);
+    if (condition.parameters.collection_group === 'slice-combination') return validateSliceCombinationRecord(raw, condition);
     if (condition.parameters.collection_group === 'b1-perform') return validateB1Record(raw, condition);
     if (condition.parameters.collection_group === 'b2-perform') return validateB2Record(raw, condition);
     if (condition.parameters.collection_group === 'b3-perform') return validateB3Record(raw, condition);
@@ -597,9 +614,14 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'wudang-condition') return validateWudangConditionRecord(raw, condition);
     if (p.collection_group === 'wudang-lookup') return validateWudangLookupRecord(raw, condition);
     if (p.collection_group === 'wudang-buffs') return validateWudangBuffRecord(raw, condition);
-    assert.ok(p.school === 'huashan' || (p.school === 'wudang' && ['wudang-sword', 'wudang-core', 'wudang-defense', 'wudang-passive', 'wudang-special', 'wudang-weapons', 'wudang-shenmen', 'wudang-unarmed', 'wudang-learning', 'wudang-cultivation', 'wudang-study', 'wudang-recovery', 'wudang-combination', 'wudang-bout', 'wudang-public-force', 'wudang-healing', 'wudang-dispel'].includes(p.collection_group)) || (p.school === 'quanzhen' && ['quanzhen-sword', 'quanzhen-basic', 'quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery'].includes(p.collection_group)));
+    assert.ok(p.school === 'huashan' || p.school === 'taohua' || p.school === 'mingjiao' || p.school === 'shaolin' || p.school === 'emei' || p.school === 'gumu'
+        || p.collection_group?.endsWith('-bout-perform')
+        || (p.school === 'wudang' && ['wudang-sword', 'wudang-core', 'wudang-defense', 'wudang-passive', 'wudang-special', 'wudang-weapons', 'wudang-shenmen', 'wudang-unarmed', 'wudang-learning', 'wudang-cultivation', 'wudang-study', 'wudang-recovery', 'wudang-combination', 'wudang-bout', 'wudang-public-force', 'wudang-healing', 'wudang-dispel'].includes(p.collection_group))
+        || (p.school === 'quanzhen' && ['quanzhen-sword', 'quanzhen-basic', 'quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'quanzhen-bout'].includes(p.collection_group)));
     assert.ok(['single_action_immediate', 'timed_effect'].includes(p.observation)
-        || (['wudang-passive', 'wudang-bout'].includes(p.collection_group) && p.observation === 'original_heartbeat_bout'));
+        || (['wudang-passive', 'wudang-bout', 'quanzhen-bout', 'huashan-bout', 'mingjiao-bout', 'taohua-bout', 'shaolin-bout', 'emei-bout', 'gumu-bout'].includes(p.collection_group)
+            || p.collection_group?.endsWith('-bout-perform'))
+        && p.observation === 'original_heartbeat_bout');
     assert.equal(raw.outcome, p.expected);
     for (const [side, config] of [[0, p.actor], [1, p.target]]) {
         const before = raw.before[side];
@@ -635,6 +657,13 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'quanzhen-auxiliary') return validateQuanzhenAuxiliaryRecord(raw, condition);
     if (p.collection_group === 'quanzhen-study') return validateQuanzhenStudyRecord(raw, condition);
     if (p.collection_group === 'quanzhen-recovery') return validateQuanzhenRecoveryRecord(raw, condition);
+    if (p.collection_group === 'quanzhen-combination') return validateQuanzhenCombinationRecord(raw, condition);
+    if (p.collection_group === 'quanzhen-bout') return validateQuanzhenBoutRecord(raw, condition);
+    if (p.collection_group === 'huashan-combination') return validateHuashanCombinationRecord(raw, condition);
+    if (p.collection_group === 'huashan-bout') return validateHuashanBoutRecord(raw, condition);
+    if (p.collection_group === 'mingjiao-bout') return validateMingjiaoBoutRecord(raw, condition);
+    if (p.collection_group === 'taohua-bout') return validateTaohuaBoutRecord(raw, condition);
+    if (p.collection_group?.endsWith('-bout-perform')) return validateBoutPerformRecord(raw, condition);
     if (p.collection_group === 'huashan-learning') return validateHuashanLearningRecord(raw, condition);
     if (p.collection_group === 'huashan-defense') return validateHuashanDefenseRecord(raw, condition);
     if (p.collection_group === 'huashan-upgrade') return validateHuashanUpgradeRecord(raw, condition);

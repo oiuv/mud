@@ -22,6 +22,7 @@ const quanzhenFamilies = ['全真教'];
 const gaibangFamilies = ['丐帮'];
 const henshanFamilies = ['衡山派'];
 const gumuFamilies = ['古墓派'];
+const duanFamilies = ['大理段家'];
 
 export const b26SourcePaths = [
     'kungfu/skill/quanzhen-jian.c', 'kungfu/skill/quanzhen-jian/chan.c',
@@ -30,6 +31,8 @@ export const b26SourcePaths = [
     'kungfu/skill/tianluo-diwang.c', 'kungfu/skill/tianluo-diwang/wang.c',
     'kungfu/skill/tiangang-zhi.c', 'kungfu/skill/tiangang-zhi/ling.c',
     'kungfu/skill/dragon-strike.c', 'kungfu/skill/dragon-strike/qin.c',
+    'kungfu/skill/tianluo-diwang.c', 'kungfu/skill/tianluo-diwang/wang.c',
+    'kungfu/skill/pangen-cuojiefu.c', 'kungfu/skill/pangen-cuojiefu/cuo.c',
     'kungfu/skill/sword.c', 'kungfu/skill/staff.c', 'kungfu/skill/strike.c',
     'kungfu/skill/finger.c', 'kungfu/skill/whip.c', 'kungfu/skill/hand.c',
     'kungfu/skill/cuff.c', 'kungfu/skill/throwing.c', 'kungfu/skill/club.c',
@@ -136,6 +139,45 @@ const schools = {
                 refusal: '你降龙十八掌火候不够，难以施展「擒龙手」。\n' },
             { key: 'neili', pair: [399, 400], field: 'neili',
                 refusal: '你现在真气不够，难以施展「擒龙手」。\n' },
+        ],
+    },
+    // ---- batch 2: residual control, source-verified 2026-10-20 ----
+    'tianluo-diwang/wang': {
+        skill: 'tianluo-diwang', ability: 'wang', abilityPath: 'wang',
+        usage: 'strike', grant: 'can_perform/tianluo-diwang/wang',
+        forceSkill: 'hunyuan-yiqi', kind: 'control', weapon: null, prepared: 'strike',
+        families: gumuFamilies, actorFamily: '古墓派',
+        title: '天罗地网掌「天罗地网」',
+        fee: 60, meBusyHitMin: 2, meBusyHitMax: 3, meBusyMiss: 1,
+        targetBusy: { skill: 'tianluo-diwang', div: 16, add: 2 },
+        targetBusyRefusalMark: '！',
+        gates: [
+            { key: 'level', pair: [59, 60], field: 'skill',
+                refusal: '你的天罗地网掌还不够娴熟，无法施展「天罗地网」。\n' },
+            { key: 'dodge', pair: [39, 40], field: 'dodge',
+                refusal: '你的轻功修为不够，无法施展「天罗地网」。\n' },
+            { key: 'neili', pair: [69, 70], field: 'neili',
+                refusal: '你现在真气不够，无法使用「天罗地网」。\n' },
+        ],
+    },
+    'pangen-cuojiefu/cuo': {
+        skill: 'pangen-cuojiefu', ability: 'cuo', abilityPath: 'cuo',
+        usage: 'axe', grant: 'can_perform/pangen-cuojiefu/cuo',
+        forceSkill: 'hunyuan-yiqi', kind: 'control', weapon: 'axe', prepared: null,
+        families: duanFamilies, actorFamily: '大理段家',
+        title: '盘根错节斧「错字诀」',
+        fee: 30, meBusyHit: 0, meBusyMiss: 2,
+        targetBusy: { skill: 'pangen-cuojiefu', div: 18, add: 1 },
+        targetBusyRefusalMark: '。',
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你盘根错节斧不够娴熟，难以施展「错字诀」。\n' },
+            { key: 'force', pair: [119, 120], field: 'effective-force',
+                refusal: '你的内功火候不够，难以施展「错字诀」。\n' },
+            { key: 'max-neili', pair: [799, 800], field: 'max_neili',
+                refusal: '你的内力修为不够，难以施展「错字诀」。\n' },
+            { key: 'neili', pair: [99, 100], field: 'neili',
+                refusal: '你现在真气不够，难以施展「错字诀」。\n' },
         ],
     },
 };

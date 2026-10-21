@@ -87,7 +87,7 @@ test('追加153条件2070计划、153烟雾，旧13662条件377662计划完整�
     assert.equal(createHash('sha256').update(JSON.stringify(cases)).digest('hex'),
         '4869d96a6e487d8c2a63df5b5b6c6822aab7444b04132e6f853eb1b43327822b');
     const registered = schoolCombatConditions(catalog).slice(0, 13815);
-    const old = registered.filter(c => c.parameters.collection_group !== 'gumu-recovery');
+    const old = registered.filter(c => !['gumu-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 13662); assert.equal(old.reduce((n, c) => n + c.samples, 0), 377662);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         'a61f48d21b7ec3e0e7c8f2db10328b3b51f998515cc13e0fa96c1a14469ed7bb');

@@ -17,7 +17,7 @@ test('内功修养146条件3526样本，原744条件36180样本不变', () => {
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 42);
     assert.equal(cases.filter(c => c.method === 'research').length, 60);
     assert.equal(new Set(cases.map(c => c.id)).size, 146);
-    const old = all.filter(c => !['quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery'].includes(c.parameters.collection_group));
+    const old = all.filter(c => !['quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 744); assert.equal(old.reduce((n, c) => n + c.samples, 0), 36180);
     assert.ok(cases.every(c => catalog.skills.some(s => s.path === c.entry_id)));
 });

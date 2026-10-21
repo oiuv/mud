@@ -7,7 +7,8 @@ import { collectCatalog } from './catalog.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 
 const catalog = collectCatalog(root, buildInventory(root));
-const cases = schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan');
+const cases = schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan'
+    && !['huashan-combination', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform'].includes(c.parameters.collection_group));
 const original = cases.filter(c => !c.parameters.skill);
 
 test('门派采集独立入口和明确覆盖范围，不改变旧兵器/教学条件', () => {

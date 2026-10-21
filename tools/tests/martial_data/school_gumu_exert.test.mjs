@@ -97,7 +97,7 @@ test('三个原入口追加81条件3298计划，旧13815条件379732计划完整
     const hash = conditions => createHash('sha256').update(JSON.stringify(conditions)).digest('hex');
     assert.equal(hash(cases), 'fceb79222ac46900cac7090ab802ef41a8633c44dbee23483bde426c5c5fc8db');
     assert.equal(hash(smoke), '580a7e16dab178b5322864c424a7177cd1fc2693c17eb1be8285491f6d90863e');
-    const old = all.filter(c => c.parameters.collection_group !== 'gumu-exert');
+    const old = all.filter(c => !['gumu-exert', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 13815); assert.equal(old.reduce((n, c) => n + c.samples, 0), 379732);
     assert.equal(hash(old), '15f211c604963fa739a1561f69881a1425ca98b8ae94b0331e704a0e97f8555a');
     assert.deepEqual(all.filter(c => c.parameters.collection_group === 'gumu-exert'), cases);

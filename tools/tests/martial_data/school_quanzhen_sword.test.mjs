@@ -16,7 +16,8 @@ test('全真三剑六绝招独立63条件，旧华山292条件保持原样', () 
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 3556);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 28);
     assert.equal(new Set(cases.map(c => c.id)).size, 63);
-    assert.equal(schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan').length, 292);
+    assert.equal(schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan'
+        && !['huashan-combination', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform'].includes(c.parameters.collection_group)).length, 292);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));
     assert.ok(cases.every(c => entries.has(c.entry_id)));
     assert.ok(cases.every(c => c.parameters.actor.properties['family/family_name'] === '全真教'));

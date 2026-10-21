@@ -36,7 +36,7 @@ function record(c, max = false) {
 test('易筋独立注册，旧11122条件全内容指纹保持，全部来源存在', () => {
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
-    const old = historical.filter(c => !['emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout'].includes(c.parameters.collection_group));
+    const old = historical.filter(c => !['emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11122); assert.equal(old.reduce((n, c) => n + c.samples, 0), 275136);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         '561261e7806471626789372bc2f332257556ae1546d1c536bc6c4055f9ebef3a');

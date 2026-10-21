@@ -190,6 +190,7 @@ test('施展、直伤结算、控制和未知分母分别保留，不称为胜�
 test('已有11877条件完整指纹不变，统一入口实际分发本批验证', () => {
     const all = schoolCombatConditions(catalog);
     const old = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school)
+        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group)
         || ['gumu-control', 'gumu-direct', 'gumu-advanced'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11877); assert.equal(old.reduce((n, c) => n + c.samples, 0), 300102);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),

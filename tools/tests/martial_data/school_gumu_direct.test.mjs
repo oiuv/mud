@@ -77,6 +77,7 @@ test('古墓四项直伤：独立93条件4008计划记录，所有来源与烟�
 test('接入统一分发，原11683条件的数量和完整JSON指纹不变', () => {
     const all = schoolCombatConditions(catalog);
     const old = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school)
+        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group)
         || c.parameters.collection_group === 'gumu-control');
     assert.equal(old.length, 11683);
     assert.equal(old.reduce((n, c) => n + c.samples, 0), 292266);

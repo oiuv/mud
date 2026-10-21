@@ -18,7 +18,8 @@ test('153恢复条件2070样本，旧1278条件46068样本保留', () => {
     assert.equal(new Set(cases.map(c => c.id)).size, 153);
     assert.equal(quanzhenRecoveryConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 153);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').reduce((n, c) => n + c.samples, 0), 90);
-    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && c.parameters.collection_group !== 'quanzhen-recovery');
+    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school)
+        && !['quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 1278); assert.equal(old.reduce((n, c) => n + c.samples, 0), 46068);
     assert.ok(cases.filter(c => c.method === 'exercise').every(c => c.samples === 2));
 });

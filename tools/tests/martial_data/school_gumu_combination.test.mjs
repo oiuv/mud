@@ -93,8 +93,8 @@ test('追加互备条件，不改变旧12428条件332564计划记录的完整内
         .map(t => t.text).join(' ');
     assert.equal(runner.split('current["interfaces"] = ({});').length, 2);
     assert.ok(tokens(runner).includes(tokens('if (member_array(current["parameters"]["collection_group"], '
-        + '({ "gumu-combination", "mingjiao-combination" })) != -1) current["prepare_steps"] = ({});')),
-        'only the two explicit combination groups initialize preparation steps');
+        + '({ "gumu-combination", "mingjiao-combination", "quanzhen-combination", "huashan-combination", "slice-combination" })) != -1) current["prepare_steps"] = ({});')),
+        'explicit combination groups initialize preparation steps');
 });
 
 test('保留美女vliad错名，两掌仅向美女声明，其余无原接口，不增加反向许可', () => {

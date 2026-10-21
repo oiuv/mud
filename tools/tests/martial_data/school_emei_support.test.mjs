@@ -19,7 +19,7 @@ test('峨嵋辅助477条件9186计划记录注册且旧10482条件完整指纹�
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
     const old = historical.filter(c => !c.id.startsWith('school-emei-support-')
-        && !['emei-jiuyin', 'emei-jiuyin-buff', 'emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout'].includes(c.parameters.collection_group));
+        && !['emei-jiuyin', 'emei-jiuyin-buff', 'emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 10482); assert.equal(old.reduce((n, c) => n + c.samples, 0), 263566);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         'c9ffc7f6728d9bd2be0b78443fef4f0e91051e1dddc0f8fae6b883ae4c61150c');

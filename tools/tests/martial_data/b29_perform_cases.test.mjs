@@ -7,7 +7,7 @@ import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
 import {
     b29SourcePaths, b29ReviewedSourceHash, b29PerformConditions, validateB29Record,
-    b29Effects, b29Schools, b29Pending
+    b29Effects, b29Schools, b29Pending, b29Dispositions
 } from './b29_perform_cases.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
@@ -250,13 +250,17 @@ test('B29 contract shape', () => {
     }
 });
 
-test('B29 deferred entries remain documented as pending, not completed N/A', () => {
-    assert.ok(Object.keys(b29Pending).length >= 5);
-    for (const [key, reason] of Object.entries(b29Pending)) {
-        assert.ok(reason.length > 5, key);
+test('B29 deferred entries distinguish missing fixtures from unreachable dispatch', () => {
+    assert.equal(Object.keys(b29Dispositions).length, 8);
+    assert.equal(Object.values(b29Dispositions).filter(v => v.disposition === 'pending_fixture').length, 6);
+    for (const [key, info] of Object.entries(b29Dispositions)) {
+        assert.equal(info.disposition, info.category === '分发不可达' ? 'unreachable_dispatch' : 'pending_fixture', key);
+        assert.ok(['演练型', '分发不可达', '缺专用道具', '多段窗口'].includes(info.category), key);
+        assert.ok(info.reason.length > 5, key);
+        assert.ok(info.evidence.length > 5, key);
         assert.ok(b29Schools[key], key);
     }
-    // Deferred entries generate no samples and remain pending, not accepted N/A.
+    // Skipping this batch does not close whole-project effect coverage.
     for (const c of cases) {
         assert.ok(!b29Pending[`${c.parameters.skill}/${c.parameters.ability}`], c.id);
     }

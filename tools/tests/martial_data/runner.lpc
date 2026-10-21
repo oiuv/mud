@@ -875,6 +875,9 @@ mapping snapshot(object ob) {
             "shaolin-combination",
             "emei-combination",
             "gumu-combination",
+            "quanzhen-combination",
+            "huashan-combination",
+            "slice-combination",
             "emei-jiuyin-buff",
             "taohua-combination",
             "mingjiao-combination",
@@ -884,6 +887,14 @@ mapping snapshot(object ob) {
             "emei-bout",
             "gumu-bout",
             "gumu-npc-bout",
+            "quanzhen-bout",
+            "huashan-bout",
+            "mingjiao-bout",
+            "taohua-bout",
+            "gumu-bout-perform",
+            "emei-bout-perform",
+            "shaolin-bout-perform",
+            "wudang-bout-perform",
             "shaolin-sword",
             "shaolin-weapons",
             "shaolin-fists",
@@ -1892,6 +1903,9 @@ void observe_attack(object me, object target, int attack_type, int result, int d
                 "shaolin-combination",
                 "emei-combination",
                 "gumu-combination",
+                "quanzhen-combination",
+                "huashan-combination",
+                "slice-combination",
                 "gumu-quanzhen",
                 "taohua-combination",
                 "mingjiao-combination",
@@ -1899,6 +1913,14 @@ void observe_attack(object me, object target, int attack_type, int result, int d
                 "shaolin-bout",
                 "emei-bout",
                 "gumu-bout",
+                "quanzhen-bout",
+                "huashan-bout",
+                "mingjiao-bout",
+                "taohua-bout",
+                "gumu-bout-perform",
+                "emei-bout-perform",
+                "shaolin-bout-perform",
+                "wudang-bout-perform",
                 "taohua-combo",
                 "mingjiao-core",
                 "mingjiao-qishang",
@@ -2111,7 +2133,21 @@ void observe_attack_round(object me, int before, int result) {
     }
     if (!active || member_array(
         current["parameters"]["collection_group"],
-        ({ "wudang-passive", "wudang-bout", "shaolin-bout", "emei-bout", "gumu-bout" })
+        ({
+            "wudang-passive",
+            "wudang-bout",
+            "shaolin-bout",
+            "emei-bout",
+            "gumu-bout",
+            "quanzhen-bout",
+            "huashan-bout",
+            "mingjiao-bout",
+            "taohua-bout",
+            "gumu-bout-perform",
+            "emei-bout-perform",
+            "shaolin-bout-perform",
+            "wudang-bout-perform"
+        })
     ) == -1) return;
     current["attack_rounds"] += ({ ([ "actor": member_array(me, players), "before": before,
         "after": me->query_temp("combat_time"), "result": result,
@@ -3748,6 +3784,9 @@ int do_interface() {
                 "shaolin-combination",
                 "emei-combination",
                 "gumu-combination",
+                "quanzhen-combination",
+                "huashan-combination",
+                "slice-combination",
                 "mingjiao-combination"
             })) != -1 &&
             spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
@@ -5094,6 +5133,9 @@ void perform_sample() {
                 "shaolin-combination",
                 "emei-combination",
                 "gumu-combination",
+                "quanzhen-combination",
+                "huashan-combination",
+                "slice-combination",
                 "taohua-combination"
                 , "mingjiao-combination"
             })) != -1 &&
@@ -6145,7 +6187,13 @@ void advance() {
         current["skill_messages"] = ({});
     }
     if (member_array(current["parameters"]["collection_group"],
-        ({ "gumu-combination", "mingjiao-combination" })) != -1)
+        ({
+            "gumu-combination",
+            "mingjiao-combination",
+            "quanzhen-combination",
+            "huashan-combination",
+            "slice-combination"
+        })) != -1)
         current["prepare_steps"] = ({});
     if (member_array(
         current["parameters"]["collection_group"],
@@ -6283,6 +6331,14 @@ void advance() {
             "emei-bout",
             "gumu-bout",
             "gumu-npc-bout",
+            "quanzhen-bout",
+            "huashan-bout",
+            "mingjiao-bout",
+            "taohua-bout",
+            "gumu-bout-perform",
+            "emei-bout-perform",
+            "shaolin-bout-perform",
+            "wudang-bout-perform",
             "mingjiao-npc-bout"
         })) != -1)
         current["attack_rounds"] = ({});

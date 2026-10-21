@@ -2,12 +2,12 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { reviewDefinitions, reviewSeries, reviewToolHashes } from './tests/martial_data/collection_review.mjs';
+import { reviewDefinitions, reviewSeries, reviewToolHashes, summarizeSeriesCoverage } from './tests/martial_data/collection_review.mjs';
 
 export async function main(args) {
     if (args.includes('--help') || args.length === 0) {
         console.log('Usage: node tools/review_martial_data.mjs [--out NEW.json] SERIES_DIR ...');
-        console.log('Read-only replay of existing B1-B29 / slice1-8 evidence; no driver, models or new samples.');
+        console.log('Read-only replay of B1-B29, slices, combinations and registered school bouts; no driver or new samples.');
         console.log('Reports missing/error/N/A separately; exits 1 for incomplete or failed evidence. --out never overwrites.');
         return;
     }
@@ -25,12 +25,13 @@ export async function main(args) {
     const root = fileURLToPath(new URL('../', import.meta.url));
     const report = { format: 1, node: process.version, created: new Date().toISOString(),
         tool_sha256: reviewToolHashes(root), definitions: await reviewDefinitions(), series: [],
-        limitation: 'Per-series replay, not cross-series deduplication or full 4.2 acceptance. No sum is a project sample total.' };
+        limitation: 'Replay plus formal slot union, not full 4.2 acceptance. Execution cohorts and smoke remain separate.' };
     for (const directory of directories) {
         console.error(`Reviewing ${directory}`);
         try { report.series.push(await reviewSeries(directory)); }
         catch (error) { report.series.push({ directory, complete: false, integrity_error: error.message }); }
     }
+    report.coverage = summarizeSeriesCoverage(report.series);
     const text = JSON.stringify(report, null, 2) + '\n';
     if (output) writeFileSync(output, text, { flag: 'wx' });
     else console.log(text);

@@ -14,7 +14,7 @@ const find = suffix => { const c = cases.find(c => c.id.endsWith(suffix)); asser
 
 test('少林公共能力新增272条件5444样本，旧6895条件160724样本不变', () => {
     assert.equal(cases.length, 272); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5444);
-    const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old = all.filter(c => !['shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout'].includes(c.parameters.collection_group));
+    const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old = all.filter(c => !['shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
     assert.equal(old.length, 6895); assert.equal(old.reduce((n, c) => n + c.samples, 0), 160724);
     assert.deepEqual(all.filter(c => c.parameters.collection_group === 'shaolin-public-force'), cases);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
