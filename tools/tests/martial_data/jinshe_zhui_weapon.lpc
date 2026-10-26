@@ -1,0 +1,22 @@
+// Test fixture: jinshe zhui (golden snake dart) for jinshe-zhui/tuwu perform.
+// Only the isolated launcher loads this; no game source changes.
+#include <weapon.h>
+inherit THROWING;
+
+void create() {
+    if (clonep()) set_default_object(__FILE__);
+    set_name("金蛇锥", ({ "jinshe zhui", "jinshe", "zhui" }));
+    // Ensure query("id") returns "jinshe zhui" for tuwu.c's identity check.
+    set("id", "jinshe zhui");
+    set("unit", "枚");
+    // base_weight is per-unit; set_amount() computes total = amount * base_weight.
+    set("base_weight", 10);
+    // init_throwing/setup return early on clones (blueprint-only init);
+    // set the same properties explicitly so clones always have them.
+    set("weapon_prop/damage", 50);
+    set("flag", 8);  // POINTED
+    set("no_wield", "暗器不是用来装备的。\n");
+    set("skill_type", "throwing");
+    set("consistence", 100);
+    set_amount(50);
+}

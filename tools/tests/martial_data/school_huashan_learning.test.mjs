@@ -18,7 +18,7 @@ test('学习条件独立前缀，三档命令采样与边界/查询检查分开'
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 960);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 18);
     assert.equal(cases.filter(c => c.samples === 100).length, 9);
-    const previous = all.filter(c => !['huashan-learning', 'huashan-defense', 'huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const previous = all.filter(c => !['huashan-learning', 'huashan-defense', 'huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(previous.length, 144);
     assert.equal(previous.reduce((n, c) => n + c.samples, 0), 11460);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));

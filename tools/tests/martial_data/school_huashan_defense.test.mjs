@@ -21,7 +21,7 @@ test('防御78条件4174样本，保留旧183条件，不将接口零值判作�
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 4174);
     assert.equal(cases.filter(c => c.samples === 100).length, 41);
     assert.ok(cases.every(c => c.parameters.expected === 'observed'));
-    const previous = all.filter(c => !['huashan-defense', 'huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const previous = all.filter(c => !['huashan-defense', 'huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(previous.length, 183);
     assert.equal(previous.reduce((n, c) => n + c.samples, 0), 12420);
     assert.ok(cases.every(c => c.entry_id === catalog.skills.find(s => s.id === 'dugu-jiujian').path));

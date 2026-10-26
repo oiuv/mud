@@ -18,7 +18,7 @@ const cases = emeiNpcConditions(catalog);
 test('原NPC批覆盖28配置与8原闭包，不改旧11544条件', () => {
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
-    const old = historical.filter(c => ![emeiNpcGroup, 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = historical.filter(c => ![emeiNpcGroup, 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11544); assert.equal(old.reduce((n, c) => n + c.samples, 0), 289308);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), '89e542db4bd6d8ba5c200b38eff5456bd83288c151737fcacfbadc31c4ca9bb7');
     assert.equal(cases.length, 36); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 216);

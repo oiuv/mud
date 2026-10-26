@@ -1501,12 +1501,21 @@ const schools = {
         grant: null,
         forceSkill: "force",
         kind: "special",
-        weapon: null,
-        prepared: null,
+        feeHit: 300,
+        feeMiss: 100,
+        weapon: "throwing",
+        prepared: "throwing",
         families: ["侠客盟"],
         actorFamily: "侠客盟",
         title: "金蛇锥法「金蛇吐雾」",
-        gates: [],
+        // tuwu.c:32 skill<100、:35 neili<300；:24 手持金蛇锥且 amount>=1 由 equipment 保证
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的金蛇锥法不够娴熟，不会使用金蛇吐雾。\n' },
+            { key: 'neili', pair: [299, 300], field: 'neili',
+                refusal: '你内力不够了。\n' },
+        ],
+        equipment: { program: '/tests/jinshe_zhui_weapon', type: 'throwing', hold: true, hand_id: 'jinshe zhui' },
     },
     'xuanyuan-arrow/baibu': {
         skill: "xuanyuan-arrow",
@@ -1516,12 +1525,20 @@ const schools = {
         grant: null,
         forceSkill: "force",
         kind: "special",
-        weapon: null,
-        prepared: null,
+        fee: 80,
+        weapon: "throwing",
+        prepared: "throwing",
         families: ["侠客盟"],
         actorFamily: "侠客盟",
         title: "轩辕箭法「百步穿杨」",
-        gates: [],
+        // baibu.c:30 skill<100、:33 neili<100；:26 amount<3 由弹药夹具保证
+        gates: [
+            { key: 'level', pair: [99, 100], field: 'skill',
+                refusal: '你的轩辕箭法不够娴熟，不会使用百步穿杨。\n' },
+            { key: 'neili', pair: [99, 100], field: 'neili',
+                refusal: '你内力不够了。\n' },
+        ],
+        equipment: { program: '/tests/xuanyuan_arrow_weapon', type: 'throwing', hold: true, is_arrow: true, hand_id: 'xuanyuan arrow' },
     },
     'taixuan-gong/xuan-top': {
         skill: "taixuan-gong",
@@ -1592,18 +1609,8 @@ export const b29Dispositions = {
         reason: '御剑飞升含 call_out 循环多段（perform2 反复 call_out），即时窗口无法覆盖重复段',
         evidence: 'kungfu/skill/yujian-shu/yujian.c:61/68/124/131 call_out("perform2") 循环',
     },
-    'jinshe-zhui/tuwu': {
-        disposition: 'pending_fixture',
-        category: '缺专用道具',
-        reason: '需专用金蛇锥道具（id jinshe zhui），通用投射弹药不匹配',
-        evidence: 'kungfu/skill/jinshe-zhui/tuwu.c:22 weapon->query("id") != "jinshe zhui"',
-    },
-    'xuanyuan-arrow/baibu': {
-        disposition: 'pending_fixture',
-        category: '缺专用道具',
-        reason: '需 is_arrow() 箭矢道具，通用投射弹药不匹配',
-        evidence: 'kungfu/skill/xuanyuan-arrow/baibu.c:21 !weapon->is_arrow()',
-    },
+
+
     'five-avoid/break': {
         disposition: 'pending_fixture',
         category: '多段窗口',
@@ -1742,8 +1749,9 @@ export function b29PerformConditions(catalog, readSource, { smoke = false, sampl
                 preparations: extra.preparations ?? (cfg.prepared
                     ? { [cfg.prepared]: cfg.preparedSkill ?? cfg.skill } : {}),
                 properties,
-                ...(cfg.weapon ? { equipment: { type: cfg.weapon, hold: false } } : {}),
-                ...(cfg.handing ? { equipment: { type: cfg.handing, hold: true, amount: 10 } } : {}),
+                ...(cfg.equipment ? { equipment: cfg.equipment } :
+                    cfg.handing ? { equipment: { type: cfg.handing, hold: true, amount: 10 } } :
+                        cfg.weapon ? { equipment: { type: cfg.weapon, hold: false } } : {}),
             };
             if ('actorEquipment' in extra) {
                 if (extra.actorEquipment) actor.equipment = extra.actorEquipment;
@@ -2139,6 +2147,8 @@ function validateB29MultiStage(raw, condition, cfg, p, b, t, a, v) {
     assertLearnGain(a, p.skill);
     stableState(b, a, e => {
         e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        if (a.ammunition !== undefined) e.ammunition = a.ammunition;
+        if (e.handing_details && a.handing_details?.weight !== undefined) e.handing_details.weight = a.handing_details.weight;
         e.temp.apply = copy(a.temp.apply ?? {});
         if (a.temp) { for (const k of Object.keys(a.temp)) { if (k !== 'apply' && k !== 'notify_fail' && k !== 'fight' && k !== 'block_msg' && k !== 'action_flag' && k !== 'die_reason' && k !== 'guarding') { if (!e.temp) e.temp = {}; e.temp[k] = copy(a.temp[k]); } } }
         allowDerived(e, a);
@@ -2161,6 +2171,8 @@ function validateB29Buff(raw, condition, cfg, p, b, t, a, v) {
     assertLearnGain(a, p.skill);
     stableState(b, a, e => {
         e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        if (a.ammunition !== undefined) e.ammunition = a.ammunition;
+        if (e.handing_details && a.handing_details?.weight !== undefined) e.handing_details.weight = a.handing_details.weight;
         e.temp.apply = copy(a.temp.apply ?? {});
         if (a.temp) { for (const k of Object.keys(a.temp)) { if (k !== 'apply' && k !== 'notify_fail' && k !== 'fight' && k !== 'block_msg' && k !== 'action_flag' && k !== 'die_reason' && k !== 'guarding') { if (!e.temp) e.temp = {}; e.temp[k] = copy(a.temp[k]); } } }
         allowDerived(e, a);
@@ -2179,6 +2191,7 @@ function validateB29Special(raw, condition, cfg, p, b, t, a, v) {
         assertLearnGain(a, p.skill);
         stableState(b, a, e => {
             e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+            if (a.ammunition !== undefined) e.ammunition = a.ammunition;
             e.temp.apply = copy(a.temp.apply ?? {});
             if (a.temp) { for (const k of Object.keys(a.temp)) { if (k !== 'apply' && k !== 'notify_fail' && k !== 'fight' && k !== 'block_msg' && k !== 'action_flag' && k !== 'die_reason' && k !== 'guarding') { if (!e.temp) e.temp = {}; e.temp[k] = copy(a.temp[k]); } } }
             allowDerived(e, a);
@@ -2207,6 +2220,8 @@ function validateB29Special(raw, condition, cfg, p, b, t, a, v) {
     assertLearnGain(a, p.skill);
     stableState(b, a, e => {
         e.neili -= fee; e.busy = a.busy; e.learned = a.learned;
+        if (a.ammunition !== undefined) e.ammunition = a.ammunition;
+        if (e.handing_details && a.handing_details?.weight !== undefined) e.handing_details.weight = a.handing_details.weight;
         e.temp.apply = copy(a.temp.apply ?? {});
         if (a.temp) { for (const k of Object.keys(a.temp)) { if (k !== 'apply' && k !== 'notify_fail' && k !== 'fight' && k !== 'block_msg' && k !== 'action_flag' && k !== 'die_reason' && k !== 'guarding') { if (!e.temp) e.temp = {}; e.temp[k] = copy(a.temp[k]); } } }
         allowDerived(e, a);

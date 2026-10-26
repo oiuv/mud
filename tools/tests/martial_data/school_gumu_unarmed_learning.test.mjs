@@ -101,7 +101,7 @@ test('新增徒手组不改变旧15029条件的完整正式及烟雾JSON', () =>
         [true, 25190, 'f84ef0e6d57f7bf9397e36ff0a2f1c0d6d7ce6895dff8ed5e50e8c79186e2e02'],
     ]) {
         const all = schoolCombatConditions(catalog, { smoke }).slice(0, 15378), old = all.filter(c =>
-            !['gumu-unarmed-learning', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+            !['gumu-unarmed-learning', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
         assert.equal(old.length, 15029); assert.equal(old.reduce((n, c) => n + c.samples, 0), samples);
         assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), hash);
         assert.equal(all.length, 15378); assert.equal(all.reduce((n, c) => n + c.samples, 0), smoke ? 25539 : 396578);

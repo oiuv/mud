@@ -15,7 +15,7 @@ const find = suffix => cases.find(c => c.id.endsWith(suffix));
 test('全真练习及金锁136条件664样本，保留旧608条件35516样本', () => {
     assert.equal(cases.length, 136); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 664);
     assert.equal(cases.filter(c => c.method === 'practice').length, 125);
-    const old = all.filter(c => !['quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = all.filter(c => !['quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 608); assert.equal(old.reduce((n, c) => n + c.samples, 0), 35516);
     assert.equal(new Set(cases.map(c => c.id)).size, 136);
     assert.equal(quanzhenPracticeProfiles.length, 15);

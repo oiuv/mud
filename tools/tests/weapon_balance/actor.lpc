@@ -4,6 +4,11 @@ inherit USER_OB;
 private mapping counters = ([]);
 private int tracking;
 private int side;
+private string flee_room;
+
+void set_flee_room(string room) {
+    flee_room = room;
+}
 
 void observe_resource(string resource, int delta) {
     string key;
@@ -14,11 +19,18 @@ void observe_resource(string resource, int delta) {
 
 mixed set(string key, mixed value) {
     mixed before, result;
+    string dest;
     before = query(key);
     result = ::set(key, value);
     if (member_array(key, ({ "neili", "qi", "eff_qi", "jing", "eff_jing" })) != -1 &&
         intp(before) && intp(query(key)))
         observe_resource(key, query(key) - before);
+    if (key == "qi" && flee_room && intp(before) && intp(query(key))
+        && query(key) < before && environment()) {
+        dest = flee_room;
+        flee_room = 0;
+        move(dest);
+    }
     return result;
 }
 

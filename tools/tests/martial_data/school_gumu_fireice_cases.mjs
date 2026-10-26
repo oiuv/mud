@@ -80,6 +80,57 @@ export function gumuFireiceConditions(catalog, { smoke = false, samples = 100 } 
     return result;
 }
 
+// G6: target faint/departure before perform2 followup — separate group appended at end
+export function gumuFireiceG6Conditions(catalog, { smoke = false } = {}) {
+    const result = [];
+    const source = catalog.skills.find(s => s.id === 'fireice-strike/binghuo');
+    const entry = source?.entries.find(e => e.role === 'perform')?.id;
+    assert.ok(entry, 'missing fireice entry');
+    function add(suffix, extra) {
+        const level = 200;
+        const actor = {
+            skills: { strike: level, 'fireice-strike': level, parry: level, force: level,
+                'yunv-xinjing': level, dodge: level, 'yunv-shenfa': level },
+            mappings: { strike: 'fireice-strike', parry: 'fireice-strike', force: 'yunv-xinjing', dodge: 'yunv-shenfa' },
+            preparations: { strike: 'fireice-strike' },
+            properties: { neili: 6000, max_neili: 6000, jiali: 0, combat_exp: 10000000,
+                str: 36, int: 36, con: 36, dex: 36, gender: '女性', character: '光明磊落',
+                'family/family_name': '古墓派', 'can_perform/fireice-strike/binghuo': 0 },
+        };
+        const target = {
+            skills: { force: 200, parry: 2, dodge: 200, sword: 200 },
+            mappings: {}, preparations: {},
+            properties: { combat_exp: 10000000, jiali: 0, gender: '男性', character: '光明磊落',
+                ...extra.targetProperties },
+            equipment: { type: 'sword', hold: false },
+            ...(extra.targetFlee ? { flee_room: extra.targetFlee } : {}),
+        };
+        result.push({
+            id: `school-gumu-fireice-l${level}-${suffix}`, stage: 'school', entry_id: entry,
+            method: 'perform', samples: smoke ? 2 : 2,
+            parameters: { school: 'gumu', family: '古墓派', collection_group: 'gumu-fireice-g6',
+                skill: 'fireice-strike', ability: 'binghuo', usage: 'strike', level,
+                combination: 'fireice-strike+yunv-xinjing+yunv-shenfa', actor, target,
+                fighting: true, action: 'perform strike.binghuo', expected: 'observed', not_applicable: '',
+                observation: 'original_zero_delay_followup', observe_seconds: 1,
+                qualification_sources: [source.path, 'kungfu/skill/fireice-strike.c', 'kungfu/skill/yunv-xinjing.c',
+                    'kungfu/skill/yunv-shenfa.c', 'feature/damage.c', 'feature/equip.c'],
+                qualification_note: `G6场景：${suffix}。`
+                    + (extra.targetFlee
+                        ? '目标受击后经 flee_room 钩子移至旁观室，perform2 检测 same_room=0 并安全退出（return 0，不扣第二掌费用）。'
+                        : '目标低 HP 被第一掌击倒（qi<=0），但 receive_damage 不同步调 die/unconcious；'
+                            + 'call_out(0) 先于 heart_beat 执行，perform2 入口 living()=1，第二掌正常发动。'
+                            + '此场景证明异步死亡时序，不是 !living(target) 安全退出分支。')
+                    + '保留原 call_out(0) 与 perform2 检查，不直接调用回调。',
+            },
+        });
+    }
+    add('target-faint', { targetProperties: { qi: 100, max_qi: 100 } });
+    add('target-faint-boundary', { targetProperties: { qi: 350, max_qi: 350 } });
+    add('target-depart', { targetFlee: '/tests/bystander_room' });
+    return result;
+}
+
 function counter(metrics, side, key) {
     assert.ok(metrics?.[side] && typeof metrics[side] === 'object' && !Array.isArray(metrics[side]));
     const value = Object.hasOwn(metrics[side], key) ? metrics[side][key] : 0;
@@ -180,6 +231,52 @@ export function validateGumuFireiceRecord(raw, c) {
         if (second) assert.ok(b.effective_skills.dodge - 1 > Math.trunc(bt.effective_skills.dodge / 2));
     }
     if (!second) for (const key of ['qi', 'eff_qi']) assert.equal(et[key], t[key]);
+}
+
+export function validateGumuFireiceG6Record(raw, c) {
+    const p = c.parameters;
+    assert.equal(p.collection_group, 'gumu-fireice-g6'); assert.equal(c.method, 'perform');
+    assert.equal(raw.outcome, p.expected);
+    for (const key of ['before', 'immediate', 'after']) assert.equal(raw[key]?.length, 2, key);
+    assert.ok(Array.isArray(raw.fireice_followups), 'fireice_followups');
+    assert.equal(raw.launches.length, 1); assert.equal(raw.launches[0].skill, 'fireice-strike');
+    // Must have actual metrics (cost/damage)
+    const metrics = raw.metrics?.[0];
+    assert.ok(metrics, 'metrics present');
+    assert.ok((metrics.neili_cost ?? 0) > 0, 'first palm costs neili');
+    const isDepart = c.id.includes('target-depart');
+    const isFaint = c.id.includes('target-faint');
+    // G6: after first palm, target state reflects the scenario
+    const targetAfter = raw.after?.[1];
+    assert.ok(targetAfter, 'target after state');
+    if (isFaint) {
+        assert.ok(targetAfter.qi <= 0, `faint target qi must be <= 0, got ${targetAfter.qi}`);
+    }
+    const scheduled = raw.fireice_followups.length > 0;
+    const first = raw.immediate_metrics?.[0]?.neili_cost ?? 0;
+    const total = raw.metrics?.[0]?.neili_cost ?? 0;
+    // Both faint and depart MUST have callback record (observer fires at perform2 entry)
+    if (isFaint || isDepart) {
+        assert.ok(scheduled, `${isFaint ? 'faint' : 'depart'} case must have fireice_followups record`);
+    }
+    if (scheduled) {
+        const event = raw.fireice_followups[0];
+        assert.equal(event.phase, 'entry'); assert.equal(event.function, 'perform2');
+        if (isDepart) {
+            // binghuo.c perform2: environment(me) != environment(target) → return 0
+            assert.equal(event.same_room, 0, 'departed target: same_room must be 0');
+            assert.equal(event.target_living, 1, 'departed target still alive');
+            // No second palm cost after departure (return 0, no neili deducted)
+            assert.equal(total, first, 'no second palm cost after departure');
+        } else if (isFaint) {
+            // Low-HP async death: qi<=0 but living()=1 at call_out(0) time (heart_beat
+            // has not yet processed unconcious/die). perform2 proceeds with second palm.
+            // This is async-death evidence, NOT the !living(target) safe-exit branch.
+            assert.equal(event.same_room, 1, 'faint target stays in room');
+            assert.equal(event.target_living, 1,
+                'async death: target_living=1 at call_out(0) entry (heart_beat unconcious not yet run)');
+        }
+    }
 }
 
 export function gumuFireiceEffects(records) {

@@ -1074,6 +1074,7 @@ void prepare_actor(int side, mapping config) {
         ob->set_name(side == 2 ? "旁试弟子" : side ? "右试弟子" : "左试弟子",
             ({ side == 2 ? "third" : side ? "right" : "left" }));
     ob->move(this_object());
+    if (config["flee_room"]) ob->set_flee_room(config["flee_room"]);
     if (is_taohua_ding()) require(present(side ? "right" : "left", this_object()) == ob,
         "original DING input resolves to exact USER");
     if (is_taohua_xiao()) {
@@ -1341,6 +1342,17 @@ void prepare_actor(int side, mapping config) {
                 "explicit crafted test weapon");
             weapon = new("/tests/crafted_" + config["equipment"]["type"]);
             require(weapon->is_item_make(), "original crafted weapon identity");
+        } else if (config["equipment"]["program"] == "/tests/jinshe_zhui_weapon") {
+            require(side == 0 && config["equipment"]["hold"] &&
+                config["equipment"]["hand_id"] == "jinshe zhui",
+                "explicit jinshe zhui ammunition");
+            weapon = new("/tests/jinshe_zhui_weapon");
+        } else if (config["equipment"]["program"] == "/tests/xuanyuan_arrow_weapon") {
+            require(side == 0 && config["equipment"]["hold"] &&
+                config["equipment"]["is_arrow"],
+                "explicit xuanyuan arrow ammunition");
+            weapon = new("/tests/xuanyuan_arrow_weapon");
+            require(weapon->is_arrow(), "original arrow identity");
         } else if (current["parameters"]["collection_group"] == "mingjiao-ling-perform") {
             require((side == 0 || (side == 1 && current["parameters"]["ability"] == "xi")) &&
                 !config["equipment"]["hold"] && member_array(config["equipment"]["program"],
@@ -1416,7 +1428,8 @@ void prepare_actor(int side, mapping config) {
             current["parameters"]["collection_group"] == "b18-perform" ||
             current["parameters"]["collection_group"] == "b20-perform" ||
             current["parameters"]["collection_group"] == "b21-perform" ||
-            current["parameters"]["collection_group"] == "b25-perform") &&
+            current["parameters"]["collection_group"] == "b25-perform" ||
+            current["parameters"]["collection_group"] == "b30-perform") &&
             config["equipment"]["type"] == "throwing") {
             require(side == 0 && config["equipment"]["hold"] &&
                 !undefinedp(config["equipment"]["amount"]) &&
@@ -2682,7 +2695,7 @@ void observe_callback(object me, string phase) {
 }
 
 void observe_fireice_followup(object me, object target) {
-    if (!active || current["parameters"]["collection_group"] != "gumu-fireice" ||
+    if (!active || strsrch(current["parameters"]["collection_group"], "gumu-fireice") != 0 ||
         me != players[0] || target != players[1] ||
         base_name(previous_object()) != "/kungfu/skill/fireice-strike/binghuo") return;
     current["fireice_followups"] += ({ ([ "phase": "entry", "function": "perform2",
@@ -4005,6 +4018,18 @@ int do_interface() {
 void init() { add_action("do_interface", "test_interface"); }  // Point observations still have no autonomous heartbeat. Bouts use the original
 // USER heartbeat, including regeneration; only the chosen command is automated.
 int strategy(object ob, int side) {
+    if (active && current["parameters"]["collection_group"] == "composite-synthesis") {
+        if (side || ob != players[0] || !current["yanlian_accepted"] ||
+            current["outcome"] == "error") return 0;
+        current["yanlian_steps"] += ({ ([
+            "driver_heartbeat": 1,
+            "step_before": ob->query_temp("pending/practice"),
+            "busy_before": serializable(ob->query_busy()),
+            "elapsed_before": time_ns() / 1000000000.0 - started
+        ]) });
+        ob->count_event("heartbeats");
+        return 1;
+    }
     if (active && is_mingjiao_force_remaining()) {
         if (side || ob != players[0] || current["outcome"] != "observed" ||
             member_array(
@@ -4093,6 +4118,16 @@ int strategy(object ob, int side) {
 }
 
 void after_heartbeat(int side) {
+    if (active && current["parameters"]["collection_group"] == "composite-synthesis") {
+        require(
+            !side && sizeof(current["yanlian_steps"]),
+            "original synthesis heartbeat completion"
+        );
+        current["yanlian_steps"][<1]["step_after"] = players[0]->query_temp("pending/practice");
+        current["yanlian_steps"][<1]["busy_after"] = serializable(players[0]->query_busy());
+        current["yanlian_steps"][<1]["elapsed"] = time_ns() / 1000000000.0 - started;
+        return;
+    }
     if (active && is_mingjiao_force_remaining()) {
         require(!side, "force actor-only original heartbeat");
         // Seal full natural HB before the separate original halt or terminal.
@@ -4295,6 +4330,38 @@ void poll_gumu_temporal() {
 
 void poll() {
     mapping state, step;
+    mixed busy;
+    if (active && current["method"] == "yanlian" && current["yanlian_accepted"]) {
+        // Poll observes only. The driver's USER heartbeat owns continue_action().
+        busy = players[0]->query_busy();
+        if (busy && time_ns() / 1000000000.0 - started < current["parameters"]["observe_seconds"]) {
+            call_out("poll", 1);
+            return;
+        }
+        // Check skill state: distinguish busy timeout from get_finish failure
+        state = snapshot(players[0]);
+        if (state["skills"][current["parameters"]["skill"]] > 0) {
+            current["outcome"] = "observed";
+            current["reason"] = "";
+            current["yanlian_terminal"] = "synthesized";
+        } else if (busy) {
+            // Busy loop still active after observe_seconds: timeout
+            current["outcome"] = "error";
+            current["reason"] = "test env timeout: yanlian busy loop requires game heartbeats";
+            current["yanlian_terminal"] = "timeout";
+        } else {
+            current["outcome"] = "refused";
+            if (!players[0]->query_temp("pending/practice")) {
+                current["yanlian_terminal"] = "finish_refused";
+                current["reason"] = "原演练完成，合成检查未通过，主技能未生成";
+            } else {
+                current["yanlian_terminal"] = "practice_stopped";
+                current["reason"] = "原演练提前结束，未进入合成检查";
+            }
+        }
+        finish_sample();
+        return;
+    }
     if (active && is_mingjiao_force_remaining()) {
         if (time_ns() / 1000000000.0 - started >= current["parameters"]["watchdog_seconds"]) {
             current["outcome"] = "error";
@@ -4826,17 +4893,22 @@ void perform_sample() {
                 , "mingjiao-jiuyang-remaining"
                 , "mingjiao-jiuyang-exert"
                 , "mingjiao-remaining-perform"
+                , "b30-perform"
             })) != -1 && sizeof(players) == 3,
             "configured third connected target");
         prepare_actor(2, parameters["extra_target"]);
         if (member_array(
             parameters["collection_group"],
-            ({ "wudang-special", "gumu-temporal" })
+            ({ "wudang-special", "gumu-temporal", "b30-perform" })
         ) != -1 || ((parameters["collection_group"] == "mingjiao-jiuyang-remaining" ||
             is_mingjiao_remaining_perform()) &&
             parameters["extra_target_fighting"])) {
             players[0]->kill_ob(players[2]);
             players[2]->kill_ob(players[0]);
+            if (parameters["target_fighting_extra"]) {
+                players[1]->kill_ob(players[2]);
+                players[2]->kill_ob(players[1]);
+            }
         }
         players[2]->observation_heartbeat(0);
         if (member_array(parameters["collection_group"],
@@ -5813,6 +5885,24 @@ void perform_sample() {
             }
             return;
         }
+        if (current["method"] == "yanlian") {
+            // yanlian synthesis: command accepted + busy loop completes → main skill created
+            debug_message("YANLIAN: result=" + result + " action=" + action);
+            if (!result) {
+                current["outcome"] = "refused";
+                reason = players[0]->query_temp("notify_fail");
+                if (!stringp(reason) || reason == "") reason = query_notify_fail();
+                current["reason"] = stringp(reason) && reason != "" ? reason : "原演练命令未受理";
+                return;
+            }
+            // Command accepted; poll until busy loop completes
+            current["yanlian_accepted"] = 1;
+            current["yanlian_clock"] = "original-user-heartbeat";
+            current["yanlian_steps"] = ({});
+            players[0]->observation_heartbeat(1);
+            call_out("poll", 1);
+            return;
+        }
         if (current["method"] == "research") {
             // Original research command: acceptance alone can mean no study happened.
             current["outcome"] = players[0]->query("learned_points") > current["before"][0]["learned_points"] ? "observed" : "refused";
@@ -5894,6 +5984,26 @@ void finish_needle_seed() {
         players[1]->observation_heartbeat(1);
     }
     call_out("poll", 1);
+}
+
+void poll_yanlian_synthesis() {
+    mapping step;
+    string grant;
+    mixed busy;
+    if (!active || current["method"] != "yanlian") { finish_sample(); return; }
+    busy = players[0]->query_busy();
+    if (busy) { call_out("poll_yanlian_synthesis", 1); return; }
+    // Busy loop finished; check skill state
+    step = snapshot(players[0]);
+    grant = current["parameters"]["skill"];
+    if (step["skills"][grant] > 0) {
+        current["outcome"] = "observed";
+        current["reason"] = "";
+    } else {
+        current["outcome"] = "refused";
+        current["reason"] = "演练结束但主技能未生成，详见技能状态";
+    }
+    finish_sample();
 }
 
 void finish_sample() {
@@ -6150,7 +6260,8 @@ void advance() {
             "b8-perform", "b9-perform", "b10-perform", "b11-perform", "b12-perform",
             "b13-perform", "b14-perform", "b15-perform", "b16-perform", "b17-perform",
             "b18-perform", "b19-perform", "b20-perform", "b21-perform", "b22-perform",
-            "b23-perform", "b24-perform", "b26-perform" })) != -1) {
+            "b23-perform", "b24-perform", "b26-perform", "b30-perform",
+            "npc-grant-perform" })) != -1) {
         current["actions"] = ({});
         current["directs"] = ({});
     }
@@ -6343,7 +6454,8 @@ void advance() {
         })) != -1)
         current["attack_rounds"] = ({});
     current["callbacks"] = ({});
-    if (current["parameters"]["collection_group"] == "gumu-fireice")
+    if (current["parameters"]["collection_group"] == "gumu-fireice" ||
+        current["parameters"]["collection_group"] == "gumu-fireice-g6")
         current["fireice_followups"] = ({});
     if (current["method"] == "exercise") current["exercise_steps"] = ({});
     if (current["method"] == "healing") current["healing_steps"] = ({});
@@ -6389,6 +6501,11 @@ void advance() {
         return;
     }
     current["immediate"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    observe_taohua_po_weapon("immediate");
+    if (current["method"] == "yanlian" && current["yanlian_accepted"]) {
+        // Busy loop poll already scheduled in perform_sample
+        return;
+    }
     if (is_mingjiao_force_remaining()) {
         current["immediate_metrics"] = ({
             players[0]->query_observation(),
@@ -6491,7 +6608,7 @@ void advance() {
     }
     if (member_array(
         current["parameters"]["collection_group"],
-        ({ "gumu-fireice", "gumu-poison" })
+        ({ "gumu-fireice", "gumu-fireice-g6", "gumu-poison" })
     ) != -1)
         current["immediate_metrics"] = ({ players[0]->query_observation(),
             players[1]->query_observation() });

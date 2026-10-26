@@ -24,7 +24,7 @@ test('武当太极剑71条件2200样本，历史1431条件保持原样', () => {
     assert.equal(cases.length, 71); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 2200);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 37);
     const old = all.filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school)
-        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 1431); assert.equal(old.reduce((n, c) => n + c.samples, 0), 48138);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));

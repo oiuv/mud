@@ -12,7 +12,7 @@ import { shaolinDefenseProfiles, shaolinDefenseConditions, validateShaolinDefens
 const catalog=collectCatalog(root,buildInventory(root)), cases=shaolinDefenseConditions(catalog);
 const find=suffix=>{const c=cases.find(c=>c.id.endsWith(suffix));assert.ok(c,suffix);return c;};
 test('少林防御767条件35638样本，旧8161条件完整指纹不变',()=>{
-    const all=schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)),old=all.filter(c=>!['shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const all=schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)),old=all.filter(c=>!['shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length,8161);assert.equal(old.reduce((n,c)=>n+c.samples,0),192460);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         'e1d8c311bba1aed1b4af2a0866be2aefe113021296abd5915674c1a2f915bdf0');

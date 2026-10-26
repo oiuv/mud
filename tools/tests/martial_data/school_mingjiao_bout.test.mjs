@@ -10,9 +10,9 @@ import { mingjiaoBoutConditions, validateMingjiaoBoutRecord } from './school_min
 const catalog = collectCatalog(root, buildInventory(root));
 const cases = mingjiaoBoutConditions(catalog);
 
-test('明教三组合12条件（普通+绝招×加力0/50）；烟雾独立', () => {
-    assert.equal(cases.length, 12);
-    assert.equal(cases.reduce((n, c) => n + c.samples, 0), 240);
+test('明教三组合18条件（普通+绝招×加力0/50/210）；烟雾独立', () => {
+    assert.equal(cases.length, 18);
+    assert.equal(cases.reduce((n, c) => n + c.samples, 0), 360);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     for (const c of cases) {
         assert.equal(c.method, 'bout');
@@ -24,8 +24,8 @@ test('明教三组合12条件（普通+绝招×加力0/50）；烟雾独立', ()
     }
     const ordinary = cases.filter(c => c.parameters.strategy === 'ordinary');
     const perform = cases.filter(c => c.parameters.strategy === 'perform');
-    assert.equal(ordinary.length, 6);
-    assert.equal(perform.length, 6);
+    assert.equal(ordinary.length, 9);
+    assert.equal(perform.length, 9);
 });
 
 test('烟雾条件2样本3秒', () => {

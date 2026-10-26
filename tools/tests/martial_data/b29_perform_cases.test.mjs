@@ -251,8 +251,10 @@ test('B29 contract shape', () => {
 });
 
 test('B29 deferred entries distinguish missing fixtures from unreachable dispatch', () => {
-    assert.equal(Object.keys(b29Dispositions).length, 8);
-    assert.equal(Object.values(b29Dispositions).filter(v => v.disposition === 'pending_fixture').length, 6);
+    // jinshe-zhui/tuwu、xuanyuan-arrow/baibu 已建专用弹药夹具并转入可采配置，
+    // 不再计 pending_fixture；余 4 项演练/多段窗口 + 2 项分发不可达。
+    assert.equal(Object.keys(b29Dispositions).length, 6);
+    assert.equal(Object.values(b29Dispositions).filter(v => v.disposition === 'pending_fixture').length, 4);
     for (const [key, info] of Object.entries(b29Dispositions)) {
         assert.equal(info.disposition, info.category === '分发不可达' ? 'unreachable_dispatch' : 'pending_fixture', key);
         assert.ok(['演练型', '分发不可达', '缺专用道具', '多段窗口'].includes(info.category), key);
@@ -358,6 +360,6 @@ test('B29 all dispatchable', () => {
         if (b29Pending[key]) continue;
         assert.ok(['direct', 'combo', 'control', 'instant_death', 'special', 'buff', 'multi_stage'].includes(cfg.kind), key);
     }
-    assert.equal(Object.keys(b29Schools).length, 55); // 47 implemented + 8 pending entries
-    assert.equal(Object.keys(b29Schools).length, 47 + Object.keys(b29Pending).length);
+    assert.equal(Object.keys(b29Schools).length, 55); // 49 implemented + 6 pending entries
+    assert.equal(Object.keys(b29Schools).length, 49 + Object.keys(b29Pending).length);
 });

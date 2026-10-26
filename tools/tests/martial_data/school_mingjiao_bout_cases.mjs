@@ -15,7 +15,7 @@ export function mingjiaoBoutConditions(catalog, { smoke = false } = {}) {
     const properties = { str: 36, int: 36, con: 36, dex: 36, combat_exp: 10000000,
         qi: 10000, eff_qi: 10000, max_qi: 10000, neili: 6000, max_neili: 6000, jiali: 0 };
     return mingjiaoBoutProfiles.flatMap(profile =>
-        [0, 50].flatMap(jiali =>
+        [0, 50, 210].flatMap(jiali =>
             ['ordinary', 'perform'].map(strategy => {
                 const { skill, usage, pair, teacher, perform } = profile;
                 const armed = false;  // yinfeng-dao is unarmed (strike);

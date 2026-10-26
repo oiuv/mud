@@ -1565,3 +1565,20 @@ kungfu/skill/shenzhaojing.c 的 valid_enable 在 2017-02-01 改为仅允许 forc
 同文件被注释掉的旧版 valid_enable 曾在等级≥180 时开放 unarmed/parry，推测为重构遗漏。采集时按源码原样记录为恒拒绝，不修改游戏源码。
 
 另静态审计发现同类 usage/valid_enable 错配：qiankun-danuoyi 与 jingang-buhuaiti 的 valid_enable 仅开放 parry（perform 若用 unarmed 则映射失效）、taixuan-gong/jing 的 sword 槽受 can_learned/taixuan-gong/enable_weapon 门控、jiuyang-shengong 非 force 槽需 reborn。
+
+## MA-137：百步穿杨弹药下限文案与代码判定不符
+
+kungfu/skill/xuanyuan-arrow/baibu.c 的绝招门槛文案写「至少要有一支箭你才能施展百步穿杨」，但代码判定为 `weapon->query_amount() < 3`，实际需要至少 3 支箭。
+
+- 类型：文案错误（玩家可见提示与实际条件不一致）。影响：玩家持 1–2 支箭时按提示理解应可施展，实际被拒，提示与行为矛盾。
+- 位置：[`baibu.c:25-26`](../../kungfu/skill/xuanyuan-arrow/baibu.c#L25)（`query_amount() < 3` 与同处 `notify_fail` 文案）。
+- 实证：2026-10-24 核对源码门槛时发现；采集侧 `xuanyuan-arrow/baibu` 条件按代码判定（≥3）配置弹药，不按文案。
+- 处置：只登记不修游戏。本条不影响既有样本；采集以源码判定为准。
+
+## MA-138：以柔破钢在选择实际对手前缓存武器
+
+- 状态：**源码确认，未修复**。[原运功解析器](../../inherit/skill/skill.c#L90)未指定目标时将施术者自身传入；[break 第 12 行](../../kungfu/skill/lingyuan-xinfa/break.c#L12)先从该目标缓存 `target_w`，之后第 14–17 行才切换为实际战斗对手。第 35 行检查的却是切换后对手的装备，第 38–40 行继续使用旧缓存，二者归属不一致。
+- 当施术者空手、对手持器且缴械判定成功时，缓存仍为 0，后续对象调用存在确定的错误路径；施术者持器时则可能操作错误一方的武器。这里只确认控制流和归属错误，不推算实服发生率，也不把它归为 FluffOS 限制。
+- 显式目标采集 `smoke-break-targetfix2-20261026` 的 2 条记录经当前消费者核实，确实掉落同一目标武器；这只覆盖显式目标路径，不能据此声称默认目标问题消失。
+- 同处还允许“仅有副手武器”通过第 35 行，但缓存只读取主手；该分支也须后续修复和独立回归。
+- 源码 SHA256：`058b3d8f6dd67c43a1c7e45a25019997b2272e358ec9375c27ca58d4fe021fca`。按采集项目边界，本轮只登记，不改游戏、数值或原始证据。

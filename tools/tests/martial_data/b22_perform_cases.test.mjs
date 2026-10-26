@@ -237,9 +237,10 @@ test('B22 effects', () => {
     assert.equal(e.hits.trials, 1);
 });
 
-test('B22 all 10 kind dispatchable', () => {
+test('B22 all 11 kind dispatchable', () => {
     for (const [key, cfg] of Object.entries(b22Schools)) {
         assert.ok(['direct', 'combo', 'multi', 'special', 'practice'].includes(cfg.kind), key);
     }
-    assert.equal(Object.keys(b22Schools).length, 10);
+    // 含 dugu-jiujian/jue、lonely-sword/jue 两个非战斗演练（kind=practice, nonCombat）
+    assert.equal(Object.keys(b22Schools).length, 11);
 });

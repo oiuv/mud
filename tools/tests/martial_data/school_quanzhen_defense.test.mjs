@@ -17,7 +17,7 @@ const find = suffix => cases.find(c => c.id.endsWith(suffix));
 
 test('全真防御83条件5556样本，不改变此前525条件的定义与采样数', () => {
     assert.equal(cases.length, 83); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5556);
-    const old = all.filter(c => !['quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = all.filter(c => !['quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 525); assert.equal(old.reduce((n, c) => n + c.samples, 0), 29960);
     assert.equal(cases.filter(c => c.samples === 100).length, 55);
     assert.equal(new Set(cases.map(c => c.id)).size, 83);

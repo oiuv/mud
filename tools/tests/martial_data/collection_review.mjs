@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { digest, openSeries, readSamples } from './ledger.mjs';
 import { sha256 } from './inventory.mjs';
 import { validateRecord } from './execution.mjs';
+import { observedEffectSources } from './observed_effect_sources.mjs';
 
 export function summarizeReplay(conditions, rows, validate) {
     const result = { planned: conditions.reduce((n, c) => n + c.samples, 0), recorded: rows.length,
@@ -66,28 +67,46 @@ async function validatorFor(condition) {
         'quanzhen-combination': ['school_quanzhen_combination_cases.mjs', 'validateQuanzhenCombinationRecord'],
         'huashan-combination': ['school_huashan_combination_cases.mjs', 'validateHuashanCombinationRecord'],
         'slice-combination': ['school_slice_combination_cases.mjs', 'validateSliceCombinationRecord'],
+        'composite-synthesis': ['school_composite_synthesis_cases.mjs', 'validateCompositeSynthesisRecord'],
+        'gumu-fireice-g6': ['school_gumu_fireice_cases.mjs', 'validateGumuFireiceG6Record'],
+        'b30-perform': ['school_npc_grant_cases.mjs', 'validateNpcGrantPerformRecord'],
+        'public-exert': ['school_public_exert_cases.mjs', 'validatePublicExertRecord'],
     };
     if (combination[group]) {
         const module = await import('./' + combination[group][0]);
         return module[combination[group][1]];
     }
-    if (/^(quanzhen|huashan|mingjiao|taohua)-bout$/.test(group)
-        || /^(wudang|shaolin|emei|gumu)-bout-perform$/.test(group)) {
+    if (/^(quanzhen|huashan|mingjiao|taohua|wudang|shaolin|emei|gumu)-bout$/.test(group)
+        || /^(wudang|shaolin|emei|gumu)-bout-perform$/.test(group)
+        || /^(mingjiao|gumu|taohua|emei)(-npc-bout|-npc)$/.test(group)) {
         const module = await import('./school_combat_cases.mjs');
         return module.validateSchoolCombatRecord;
     }
     throw new Error(`Unsupported replay group (not counted as passed): ${group}`);
 }
 
-export async function reviewSeries(directory) {
+export async function reviewSeries(directory, sourceContext = null) {
     const manifest = openSeries(directory);
     // readSamples checks frozen condition hashes, raw hashes and slot identities.
     const rows = readSamples(directory, manifest);
+    if (!sourceContext)
+        sourceContext = { catalog: JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8')) };
     const validators = new Map();
     for (const c of manifest.identity.conditions)
         validators.set(c.id, await validatorFor(c));
     const replay = summarizeReplay(manifest.identity.conditions, rows,
-        (raw, c) => { validateRecord(raw, c); validators.get(c.id)(raw, c); });
+        (raw, c) => { validateRecord(raw, c); validators.get(c.id)(raw, c, sourceContext); });
+    const frozenCatalog = sourceContext?.catalog ?? JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8'));
+    const failed = new Set([...replay.failures, ...replay.pending].map(f => f.slot));
+    const entryRef = c => {
+        const legacyExert = c.parameters.collection_group === 'public-exert'
+            ? observedEffectSources[`exert:${c.parameters.skill}/${c.parameters.ability}`] : null;
+        return frozenCatalog.skills.flatMap(s => s.entries
+            .filter(e => legacyExert ? s.path === legacyExert.path && s.sha256 === legacyExert.sha256
+                && e.role === 'exert' : e.id === c.entry_id)
+            .map(e => ({ id: e.id, role: e.role, path: s.path, sha256: s.sha256,
+                function: e.function, binding: legacyExert ? 'reviewed-exert-source-contract' : 'frozen-entry-id' })))[0] ?? null;
+    };
     const runsDir = join(directory, 'runs');
     const runs = existsSync(runsDir) ? readdirSync(runsDir).flatMap(name => {
         const path = join(runsDir, name, 'result.json');
@@ -98,15 +117,54 @@ export async function reviewSeries(directory) {
     }) : [];
     const groups = new Set(manifest.identity.conditions.map(c => c.parameters.collection_group));
     const snapshotGaps = [...groups].filter(g => /^b\d+-perform$/.test(g)).map(g =>
-        `tools/tests/martial_data/${g.replace('-perform', '_perform_cases')}.mjs`)
+        g === 'b30-perform' ? 'tools/tests/martial_data/school_npc_grant_cases.mjs'
+            : `tools/tests/martial_data/${g.replace('-perform', '_perform_cases')}.mjs`)
         .filter(p => !manifest.identity.execution.source_files?.[p]);
     return { directory, fingerprint: manifest.fingerprint,
         source_fingerprint: manifest.identity.source_fingerprint,
         execution_sha256: digest(manifest.identity.execution),
         conditions: manifest.identity.conditions.map(c => ({ id: c.id, sha256: digest(c),
             group: c.parameters.collection_group, planned: c.samples,
+            entry: entryRef(c),
+            passed_observed: rows.filter(r => r.condition_id === c.id && r.outcome === 'observed'
+                && !failed.has(`${c.id}.${r.index}`)).length,
+            passed_refused: rows.filter(r => r.condition_id === c.id && r.outcome === 'refused'
+                && !failed.has(`${c.id}.${r.index}`)).length,
             recorded_indices: rows.filter(r => r.condition_id === c.id).map(r => r.index) })),
         smoke: manifest.identity.execution.smoke ?? null, runs, snapshot_gaps: snapshotGaps, ...replay };
+}
+
+// Entry touch coverage of supplied evidence only, not callback/lifecycle acceptance.
+// Join by frozen source hash + function, never by a filename declaration alone.
+export function summarizeEntryCoverage(series, catalog) {
+    const entries = catalog.skills.flatMap(s => s.entries
+        .filter(e => ['perform', 'exert'].includes(e.role))
+        .map(e => ({ id: e.id, role: e.role, path: s.path, sha256: s.sha256,
+            function: e.function, formal: [], smoke: [], unknown_mode: [], refused: [] })));
+    const index = new Map(entries.map(e => [`${e.path}:${e.sha256}:${e.function}`, e]));
+    const unbound = [];
+    for (const s of series.filter(s => !s.integrity_error)) for (const c of s.conditions) {
+        if (!c.passed_observed && !c.passed_refused) continue;
+        const e = c.entry && index.get(`${c.entry.path}:${c.entry.sha256}:${c.entry.function}`);
+        if (!e) {
+            unbound.push({ directory: s.directory, condition: c.id, entry: c.entry,
+                reason: 'No matching current perform/exert source version; not counted' });
+            continue;
+        }
+        const ref = { directory: s.directory, condition: c.id, execution_sha256: s.execution_sha256,
+            passed_observed: c.passed_observed, passed_refused: c.passed_refused };
+        if (c.passed_observed) e[s.smoke === false ? 'formal' : s.smoke === true ? 'smoke' : 'unknown_mode'].push(ref);
+        if (c.passed_refused) e.refused.push(ref);
+    }
+    const roles = Object.fromEntries(['perform', 'exert'].map(role => {
+        const all = entries.filter(e => e.role === role);
+        return [role, { source_entries: all.length,
+            formal_observed: all.filter(e => e.formal.length).length,
+            smoke_only_observed: all.filter(e => !e.formal.length && e.smoke.length).length,
+            no_verified_observed: all.filter(e => !e.formal.length && !e.smoke.length).map(e => e.id) }];
+    }));
+    return { roles, entries, unbound,
+        limitation: 'Only supplied series, source-matched passed observed records. Smoke, refusal, unknown mode and callbacks do not establish formal full coverage.' };
 }
 
 // A repeated run is another attempt, not another planned sample position.

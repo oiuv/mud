@@ -18,7 +18,7 @@ const find = suffix => cases.find(c => c.id.endsWith(suffix));
 test('升级31条件1434样本，原261条件16594样本保持独立', () => {
     assert.equal(cases.length, 31);
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 1434);
-    const prior = all.filter(c => !['huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const prior = all.filter(c => !['huashan-upgrade', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(prior.length, 261);
     assert.equal(prior.reduce((n, c) => n + c.samples, 0), 16594);
     assert.ok(cases.every(c => c.parameters.actor.properties.int === 39));

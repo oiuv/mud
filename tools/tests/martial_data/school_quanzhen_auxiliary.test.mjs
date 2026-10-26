@@ -17,7 +17,7 @@ const find = suffix => cases.find(c => c.id.endsWith(suffix));
 test('辅助采集79条件2118样本；旧890条件39706样本不变', () => {
     assert.equal(cases.length, 79); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 2118);
     assert.equal(new Set(cases.map(c => c.id)).size, 79);
-    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 890); assert.equal(old.reduce((n, c) => n + c.samples, 0), 39706);
     assert.equal(quanzhenAuxiliaryConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 158);
 });

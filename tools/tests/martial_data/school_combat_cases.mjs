@@ -133,7 +133,7 @@ import { gumuDirectConditions, validateGumuDirectRecord } from './school_gumu_di
 import { gumuAdvancedConditions, validateGumuAdvancedRecord } from './school_gumu_advanced_cases.mjs';
 import { gumuUnarmedConditions, validateGumuUnarmedRecord } from './school_gumu_unarmed_cases.mjs';
 import { gumuComboConditions, validateGumuComboRecord } from './school_gumu_combo_cases.mjs';
-import { gumuFireiceConditions, validateGumuFireiceRecord } from './school_gumu_fireice_cases.mjs';
+import { gumuFireiceConditions, gumuFireiceG6Conditions, validateGumuFireiceRecord, validateGumuFireiceG6Record } from './school_gumu_fireice_cases.mjs';
 import { gumuPoisonConditions, validateGumuPoisonRecord } from './school_gumu_poison_cases.mjs';
 import { gumuWeaponConditions, validateGumuWeaponRecord } from './school_gumu_weapons_cases.mjs';
 import { gumuUnarmedAttackConditions, validateGumuUnarmedAttackRecord } from './school_gumu_unarmed_attack_cases.mjs';
@@ -164,6 +164,9 @@ import { mingjiaoBoutConditions, validateMingjiaoBoutRecord } from './school_min
 import { taohuaBoutConditions, validateTaohuaBoutRecord } from './school_taohua_bout_cases.mjs';
 import { sliceCombinationConditions, validateSliceCombinationRecord } from './school_slice_combination_cases.mjs';
 import { boutPerformConditions, validateBoutPerformRecord } from './school_bout_perform_cases.mjs';
+import { compositeSynthesisConditions, validateCompositeSynthesisRecord } from './school_composite_synthesis_cases.mjs';
+import { npcGrantPerformConditions, validateNpcGrantPerformRecord } from './school_npc_grant_cases.mjs';
+import { publicExertConditions, validatePublicExertRecord } from './school_public_exert_cases.mjs';
 import { mingjiaoCombinationConditions } from './school_mingjiao_combination_cases.mjs';
 import { createMingjiaoCombinationRecordValidator } from './school_mingjiao_combination_record.mjs';
 import { b1PerformConditions, validateB1Record } from './b1_perform_cases.mjs';
@@ -410,6 +413,7 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...slice8Conditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...sliceCombinationConditions(catalog, { smoke, samples }),
         ...boutPerformConditions(catalog, { smoke }),
+        ...compositeSynthesisConditions(catalog, { smoke }),
         ...b1PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b2PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...b3PerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
@@ -442,7 +446,13 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...quanzhenCombinationConditions(catalog, { smoke, samples }),
         ...quanzhenBoutConditions(catalog, { smoke }),
         ...huashanCombinationConditions(catalog, { smoke, samples }),
-        ...huashanBoutConditions(catalog, { smoke })];
+        ...huashanBoutConditions(catalog, { smoke }),
+        // G6: target faint/departure before fireice perform2 followup (appended at end)
+        ...gumuFireiceG6Conditions(catalog, { smoke }),
+        // 4.3: NPC grant perform entries (17 skills × 2 conditions)
+        ...npcGrantPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        // 5.2: public exert abilities (powerup/shield/heal)
+        ...publicExertConditions(catalog, { smoke })];
 }
 
 export function validateSchoolCombatRecord(raw, condition, sourceContext) {
@@ -565,6 +575,9 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (condition.parameters.collection_group === 'gumu-weapons') return validateGumuWeaponRecord(raw, condition);
     if (condition.parameters.collection_group === 'gumu-poison') return validateGumuPoisonRecord(raw, condition);
     if (condition.parameters.collection_group === 'gumu-fireice') return validateGumuFireiceRecord(raw, condition);
+    if (condition.parameters.collection_group === 'gumu-fireice-g6') return validateGumuFireiceG6Record(raw, condition);
+    if (condition.parameters.collection_group === 'b30-perform') return validateNpcGrantPerformRecord(raw, condition, sourceContext);
+    if (condition.parameters.collection_group === 'public-exert') return validatePublicExertRecord(raw, condition, sourceContext);
     if (condition.parameters.collection_group === 'gumu-combo') return validateGumuComboRecord(raw, condition);
     if (condition.parameters.collection_group === 'gumu-unarmed') return validateGumuUnarmedRecord(raw, condition);
     if (condition.parameters.collection_group === 'gumu-advanced') return validateGumuAdvancedRecord(raw, condition);
@@ -578,6 +591,7 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (condition.parameters.collection_group === 'emei-yijin') return validateEmeiYijinRecord(raw, condition);
     if (condition.parameters.collection_group === 'emei-jiuyin-buff') return validateEmeiJiuyinBuffRecord(raw, condition);
     if (condition.parameters.collection_group === 'emei-jiuyin') return validateEmeiJiuyinRecord(raw, condition);
+    if (condition.parameters.collection_group === 'composite-synthesis') return validateCompositeSynthesisRecord(raw, condition);
     if (raw.outcome === 'error') return;
     const p = condition.parameters;
     if (['emei-healing', 'emei-dispel', 'emei-buffs'].includes(p.collection_group))
@@ -615,10 +629,11 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'wudang-lookup') return validateWudangLookupRecord(raw, condition);
     if (p.collection_group === 'wudang-buffs') return validateWudangBuffRecord(raw, condition);
     assert.ok(p.school === 'huashan' || p.school === 'taohua' || p.school === 'mingjiao' || p.school === 'shaolin' || p.school === 'emei' || p.school === 'gumu'
+        || p.school === 'gaibang' || p.school === 'honghua' || p.collection_group === 'b30-perform' || p.collection_group === 'public-exert'
         || p.collection_group?.endsWith('-bout-perform')
         || (p.school === 'wudang' && ['wudang-sword', 'wudang-core', 'wudang-defense', 'wudang-passive', 'wudang-special', 'wudang-weapons', 'wudang-shenmen', 'wudang-unarmed', 'wudang-learning', 'wudang-cultivation', 'wudang-study', 'wudang-recovery', 'wudang-combination', 'wudang-bout', 'wudang-public-force', 'wudang-healing', 'wudang-dispel'].includes(p.collection_group))
         || (p.school === 'quanzhen' && ['quanzhen-sword', 'quanzhen-basic', 'quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'quanzhen-bout'].includes(p.collection_group)));
-    assert.ok(['single_action_immediate', 'timed_effect'].includes(p.observation)
+    assert.ok(['single_action_immediate', 'timed_effect', 'original_yanlian_synthesis'].includes(p.observation)
         || (['wudang-passive', 'wudang-bout', 'quanzhen-bout', 'huashan-bout', 'mingjiao-bout', 'taohua-bout', 'shaolin-bout', 'emei-bout', 'gumu-bout'].includes(p.collection_group)
             || p.collection_group?.endsWith('-bout-perform'))
         && p.observation === 'original_heartbeat_bout');
@@ -664,6 +679,7 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'mingjiao-bout') return validateMingjiaoBoutRecord(raw, condition);
     if (p.collection_group === 'taohua-bout') return validateTaohuaBoutRecord(raw, condition);
     if (p.collection_group?.endsWith('-bout-perform')) return validateBoutPerformRecord(raw, condition);
+    if (p.collection_group === 'composite-synthesis') return validateCompositeSynthesisRecord(raw, condition);
     if (p.collection_group === 'huashan-learning') return validateHuashanLearningRecord(raw, condition);
     if (p.collection_group === 'huashan-defense') return validateHuashanDefenseRecord(raw, condition);
     if (p.collection_group === 'huashan-upgrade') return validateHuashanUpgradeRecord(raw, condition);

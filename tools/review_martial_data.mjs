@@ -2,7 +2,9 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { reviewDefinitions, reviewSeries, reviewToolHashes, summarizeSeriesCoverage } from './tests/martial_data/collection_review.mjs';
+import { reviewDefinitions, reviewSeries, reviewToolHashes, summarizeSeriesCoverage, summarizeEntryCoverage } from './tests/martial_data/collection_review.mjs';
+import { buildInventory } from './tests/martial_data/inventory.mjs';
+import { collectCatalog } from './tests/martial_data/catalog.mjs';
 
 export async function main(args) {
     if (args.includes('--help') || args.length === 0) {
@@ -32,6 +34,7 @@ export async function main(args) {
         catch (error) { report.series.push({ directory, complete: false, integrity_error: error.message }); }
     }
     report.coverage = summarizeSeriesCoverage(report.series);
+    report.entry_coverage = summarizeEntryCoverage(report.series, collectCatalog(root, buildInventory(root)));
     const text = JSON.stringify(report, null, 2) + '\n';
     if (output) writeFileSync(output, text, { flag: 'wx' });
     else console.log(text);

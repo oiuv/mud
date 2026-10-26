@@ -18,7 +18,7 @@ test('少林修养305条件6784样本；旧6050条件140120计划样本不变', 
     assert.equal(cases.length, 305); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 6784);
     assert.equal(cases.filter(c => c.method === 'research').length, 109);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 81);
-    const old = all.filter(c => !['shaolin-cultivation', 'shaolin-exert', 'shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = all.filter(c => !['shaolin-cultivation', 'shaolin-exert', 'shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 6050); assert.equal(old.reduce((n, c) => n + c.samples, 0), 140120);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
     assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'shaolin-cultivation').reduce((n, c) => n + c.samples, 0), 368);

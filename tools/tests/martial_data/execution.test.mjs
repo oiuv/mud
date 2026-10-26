@@ -29,6 +29,12 @@ test('隔离副本保留真实USER存盘所需公共公告并登记来源，不�
         const path = `tools/tests/martial_data/b${n}_perform_cases.mjs`;
         assert.equal(snapshot.files[path], sha256(readFileSync(join(root, path))), path);
     }
+    for (const name of ['observed_effects.mjs', 'observed_effect_sources.mjs',
+        'observed_effects_test_fixture.mjs', 'school_npc_grant_cases.test.mjs',
+        'school_public_exert_cases.test.mjs']) {
+        const path = `tools/tests/martial_data/${name}`;
+        assert.equal(snapshot.files[path], sha256(readFileSync(join(root, path))), path);
+    }
     assert.ok(original.toString('utf8').split(/\r?\n/).some(line => line.trim().length > 0));
     for (const path of ['help/changelog', 'data/.env', 'data/player', 'u']) {
         assert.equal(existsSync(join(snapshot.sandbox, path)), false, path);

@@ -15,7 +15,7 @@ const catalog = collectCatalog(root, buildInventory(root)), cases = shaolinSuppo
 const group = name => cases.filter(c => c.parameters.collection_group === 'shaolin-' + name);
 
 test('少林辅助追加636条件12248条计划，全部旧条件字节级指纹不变', () => {
-    const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old = all.filter(c => !c.id.startsWith('school-shaolin-support-') && !['shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old = all.filter(c => !c.id.startsWith('school-shaolin-support-') && !['shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 7167); assert.equal(old.reduce((n, c) => n + c.samples, 0), 166168);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         '731e84993f9183a0c183db1aff46ae0c91b248d936c549d62bd3438131feee40');

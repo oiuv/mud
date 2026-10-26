@@ -440,6 +440,9 @@ export function createSandbox(root, output) {
         putCopy(`tests/${type}.lpc`, template.replaceAll('AXE', type.toUpperCase()).replaceAll('init_axe', 'init_' + type));
     }
     const craftedPath = 'tools/tests/martial_data/crafted_weapon.lpc';
+    // Special item fixtures for pending G3/5.3 entries
+    copy('tools/tests/martial_data/jinshe_zhui_weapon.lpc', 'tests/jinshe_zhui_weapon.lpc');
+    copy('tools/tests/martial_data/xuanyuan_arrow_weapon.lpc', 'tests/xuanyuan_arrow_weapon.lpc');
     const crafted = readFileSync(join(root, craftedPath), 'utf8');
     files[craftedPath] = sha256(crafted);
     for (const type of ['sword', 'hammer'])
@@ -565,6 +568,16 @@ export function createSandbox(root, output) {
             'tools/tests/martial_data/school_quanzhen_bout_cases.mjs',
             'tools/tests/martial_data/school_slice_combination_cases.mjs',
             'tools/tests/martial_data/school_slice_combination.test.mjs',
+            'tools/tests/martial_data/school_composite_synthesis_cases.mjs',
+            'tools/tests/martial_data/school_composite_synthesis.test.mjs',
+            'tools/tests/martial_data/school_composite_synthesis_validation.test.mjs',
+            'tools/tests/martial_data/school_npc_grant_cases.mjs',
+            'tools/tests/martial_data/school_public_exert_cases.mjs',
+            'tools/tests/martial_data/observed_effects.mjs',
+            'tools/tests/martial_data/observed_effect_sources.mjs',
+            'tools/tests/martial_data/observed_effects_test_fixture.mjs',
+            'tools/tests/martial_data/school_npc_grant_cases.test.mjs',
+            'tools/tests/martial_data/school_public_exert_cases.test.mjs',
             'tools/tests/martial_data/school_bout_perform_cases.mjs',
             'tools/tests/martial_data/school_bout_perform.test.mjs',
             'tools/tests/martial_data/school_emei_public_force_cases.mjs',
@@ -778,8 +791,14 @@ export function validateRecord(raw, condition) {
             assert.ok(['/d/items/throwing/taohua_ban', '/tests/sword'].includes(equipment.program),
                 'PO演员原物品路径不在明确清单');
         }
-        assert.equal(details.program, originalNeedle || originalPo || originalShenghuo || originalMingjiaoTeacher || originalDefenseSword || originalJiuyangDirect || originalRemainingFlower ? equipment.program
-            : '/tests/' + (crafted ? 'crafted_' : '') + equipment.type, '装备初始化类别不符');
+        // Use explicit equipment.program when set (e.g. jinshe_zhui_weapon,
+        // xuanyuan_arrow_weapon); otherwise derive from type.
+        assert.equal(details.program,
+            originalNeedle || originalPo || originalShenghuo || originalMingjiaoTeacher
+            || originalDefenseSword || originalJiuyangDirect || originalRemainingFlower
+            || (condition.parameters.collection_group === 'b29-perform' && equipment.program)
+                ? equipment.program
+                : '/tests/' + (crafted ? 'crafted_' : '') + equipment.type, '装备初始化类别不符');
         assert.ok(Number.isFinite(details.weight) && details.weight > 0, '缺少实际装备重量');
         if (!equipment.hold && !secondary) {
             assert.equal(details.flag, raw.before[0].weapon_flag);

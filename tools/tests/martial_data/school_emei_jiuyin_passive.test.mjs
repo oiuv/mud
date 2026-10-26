@@ -17,7 +17,7 @@ const pick = suffix => { const c = cases.find(c => c.id.endsWith(suffix)); asser
 test('新附伤批不改变旧11499条件与286670样本计划', () => {
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
-    const old = historical.filter(c => ![jiuyinPassiveGroup, 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+    const old = historical.filter(c => ![jiuyinPassiveGroup, 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11499); assert.equal(old.reduce((n, c) => n + c.samples, 0), 286670);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), '168f9744f0adecc3c9087818eebd60afc5b99f104b1eeb1822b6453d70c0d880');
     assert.deepEqual(all.filter(c => c.parameters.collection_group === jiuyinPassiveGroup), cases);

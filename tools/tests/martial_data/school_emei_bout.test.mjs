@@ -15,7 +15,7 @@ const catalog = collectCatalog(root, buildInventory(root)), cases = emeiBoutCond
 test('峨嵋16组合32条件640场；原11580条件指纹不变', () => {
     const all = schoolCombatConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school)
-        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout'].includes(c.parameters.collection_group));
+        && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     const old = historical.filter(c => c.parameters.collection_group !== emeiBoutGroup);
     assert.equal(old.length, 11580); assert.equal(old.reduce((n, c) => n + c.samples, 0), 289524);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
