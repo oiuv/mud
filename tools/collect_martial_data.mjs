@@ -9,6 +9,7 @@ import { coverage, coverageMarkdown } from './tests/martial_data/ledger.mjs';
 import { runWeapons, runAbilities, runBouts, runWeaponSpecial, runTeaching, runSchoolCombat, runSchoolTeam, runSchoolScene, resumeCollection } from './tests/martial_data/execution.mjs';
 import { collectStatistics, statisticsMarkdown } from './tests/martial_data/statistics.mjs';
 import { gumuNpcBoutReport, gumuNpcBoutMarkdown } from './tests/martial_data/school_gumu_npc_bout_report.mjs';
+import { emeiNpcBoutReport, emeiNpcBoutMarkdown } from './tests/martial_data/school_emei_npc_bout_report.mjs';
 
 export const root = realpathSync(resolve(dirname(fileURLToPath(import.meta.url)), '..'));
 const help = `武学数据采集（只读游戏源码，不做平衡调整）
@@ -150,6 +151,18 @@ gifts 前缀通过原 ask/give/drop/get 采集三件宝物的经验门槛、唯�
 special 前缀另采缺席／昏迷守阵者、大宗师及辈分优先级、双玩家原give转交；每条件2次，初态布置和原命令分别留证，不预写入场许可。
 例：node tools/collect_martial_data.mjs inventory
 当前 inventory 只生成公开源码的词法清单，不启动游戏或测量战斗效果。
+school-s1-duan- 前缀补段氏组合两成员（金玉拳/五罗轻烟掌）的独立能力：无特殊内功48条件1272正式/96烟雾；school-s1-duan-force- 为另12条件1200正式/24烟雾，激发同档段氏心法，核对真实原内功调用与费用。全部60条件2472正式/120烟雾，分系列统计；三档普攻与加力分列，学习门槛、副手及练习接口费用独立，不代表实际授课或练习命令进度。
+school-s1-duan-perform- 另补金玉满堂man/风云变幻bian，38条件1256正式/76烟雾；原命令、直伤和五击、加力扣费、拒绝与副手差异分列。总school-s1-duan-范围为98条件3728正式/196烟雾，旧系列身份不改，不把全部记录合成同一效果分布。
+  school-s1-piaoxu- 补凌霄城飘絮掌独立窗口，46条件1270正式/92烟雾；普通攻击、使用/组合查询、学习与练习接口、原piao三击分开，记录原雪山内功回调费用。实验领悟不证明教师传授，接口不冒充完整养成或交锋。
+  school-s1-yunlong- 补云龙手/云龙爪73条件1910正式/146烟雾；hand/claw/unarmed原路径分别观察，不给爪补招架；学习/练习及招式名查询单列，MA-013缺名称原值保留，不补造绝招或实际传授。
+  school-s1-panlong- 补苗家盘龙爪本体29条件646正式/58烟雾；普攻/接口分开，有效爪法门槛和练习双手拒绝按原实现验证，tan绝招不在本窗口中。
+  school-s1-miao-tan- 云中探爪19条件628正式/38烟雾；原perform命令、直伤与失手费用/忙乱、加力和资格边界分列，实验领悟不证明书房canwu自然取得。
+  school-s1-dusha- 毒砂掌本体39条件1646正式/78烟雾；普攻、即时砂毒、学习/练习接口分开，不冒实际授课、完整毒发或拦杀手互备效果。
+  school-s1-shadu-life- 为独立砂毒原心跳6条件110正式/12烟雾；100条原回调种毒后毒发解除，其余免疫/护毒/无抗力机制各2条，不冒原普攻触发率或未限抗力的完整周期。
+  school-s1-qianye- 千叶手本体38条件664正式/76烟雾；普攻、用途/组合、学习/练习及名称查询分列，无特殊内功激发，不冒黄钟公原配装、教学、绝招或完整互备。
+  school-s1-sanyin- 三阴蜈蚣爪本体39条件764正式/78烟雾；保留极意首次加载来源与共享随机常量，200/201和名称缺失分列；学习双手拒绝、练习持器原样允许，不冒完整互备或NPC授课。
+  school-s1-mizong- 密宗三门本体141条件2928正式/282烟雾；普攻、接口、火焰刀原创伤/首次加载及练习扣费分账，不将tianlongsi目录当实际家族，不冒鸠摩智授课、全部绝招或完整互备。
+  school-scene --case-prefix school-scene-miao-study- 为苗家书房canwu/think原命令，30条件1726正式/60烟雾；原随机领悟、武学进度、费用和拒绝分列，不预填新领悟或循环到成功。
 只额外读取公共名称字典 data/e2c_dict.o，不读取其他存档、正式配置和密钥。
 输出 inventory.json、catalog.json 与 summary.md；教学和适用类别仍需实测。
 weapons/weapon-special/abilities/teaching/school-combat/school-team/school-scene/bouts/resume 会在临时 MUDLIB 启动真实驱动和两个回环连接，不连接正式服或模型。
@@ -238,8 +251,8 @@ if (process.argv[1] && realpathSync(process.argv[1]) === realpathSync(fileURLToP
         else if (options.command === 'school-scene') await runSchoolScene(root, newOutput(options.output), options);
         else if (options.command === 'bouts') await runBouts(root, newOutput(options.output), options);
         else if (options.command === 'statistics') {
-            const report = collectStatistics(options.input, { npcBoutReport: gumuNpcBoutReport });
-            const markdown = statisticsMarkdown(report, { npcBoutMarkdown: gumuNpcBoutMarkdown });
+            const report = collectStatistics(options.input, { npcBoutReport: gumuNpcBoutReport, emeiNpcBoutReport });
+            const markdown = statisticsMarkdown(report, { npcBoutMarkdown: gumuNpcBoutMarkdown, emeiNpcBoutMarkdown });
             console.log(markdown);
             if (options.output) {
                 const output = newOutput(options.output);

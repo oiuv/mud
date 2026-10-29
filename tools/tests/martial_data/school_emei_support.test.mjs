@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -16,7 +17,7 @@ const catalog = collectCatalog(root, buildInventory(root)), cases = emeiSupportC
 const group = name => cases.filter(c => c.parameters.collection_group === 'emei-' + name);
 
 test('峨嵋辅助477条件9186计划记录注册且旧10482条件完整指纹不变', () => {
-    const all = schoolCombatConditions(catalog);
+    const all = preOctober29SchoolConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
     const old = historical.filter(c => !c.id.startsWith('school-emei-support-')
         && !['emei-jiuyin', 'emei-jiuyin-buff', 'emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));

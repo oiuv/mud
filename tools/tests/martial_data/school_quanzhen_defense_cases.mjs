@@ -26,6 +26,7 @@ export function quanzhenDefenseConditions(catalog, { smoke = false, samples = 10
             properties: { jiali: 0, neili: 6000, max_neili: 6000 },
         };
         if (extra.actorWeapon) actor.equipment = { type: 'sword', hold: false };
+        if (extra.actorSecondary) actor.equipment = { type: 'sword', hold: false, slot: 'secondary_weapon' };
         const target = {
             skills: { force: 600, parry: passive ? 600 : level, dodge: 600, unarmed: passive ? 600 : level,
                 ...(!passive ? { [skill]: level } : {}) },
@@ -34,7 +35,7 @@ export function quanzhenDefenseConditions(catalog, { smoke = false, samples = 10
             ...(extra.targetWeapon ? { equipment: { type: 'sword', hold: false } } : {}),
             ...(extra.busy ? { busy: 2 } : {}),
         };
-        result.push({ id: `school-quanzhen-defense-${skill}-${ability}-l${level}${extra.suffix ?? ''}`,
+        result.push({ id: `school-quanzhen-${extra.boundary ? 'boundary' : 'defense'}-${skill}-${ability}-l${level}${extra.suffix ?? ''}`,
             stage: 'school', entry_id: source.path, method,
             samples: smoke ? 2 : extra.checks ?? (['hit_ob', 'query_effect_parry'].includes(ability) ? 2 : samples),
             parameters: { school: 'quanzhen', family: '全真教', collection_group: 'quanzhen-defense',
@@ -50,11 +51,15 @@ export function quanzhenDefenseConditions(catalog, { smoke = false, samples = 10
                     ...(ability === 'hit_ob' ? { factor: extra.factor ?? 0 } : {}),
                 } } : {}),
                 fighting: ability === 'ordinary' || ability === 'direct', observe_seconds: 0,
+                ...(extra.unconscious ? { target_state: 'unconscious' } : {}),
+                ...(extra.unconscious && skill === 'kongming-quan' ? { original_enable_context: true } : {}),
                 not_applicable: '', expected: 'observed',
                 qualification_sources: [source.path, 'adm/daemons/combatd.c', 'feature/skill.c',
                     'feature/attribute.c', 'feature/damage.c', 'include/combat.h', 'kungfu/skill/unarmed.c',
-                    'kungfu/skill/xuanmen-neigong.c', 'kungfu/class/quanzhen/wang.c', 'kungfu/class/quanzhen/zhou.c'],
-                qualification_note: '真实非巫师USER；防御条件左方固定进攻者、右方受测招架，不复制完整NPC。先天附加条件左方同时激发/准备先天功，资格由实验赋值。valid_damage仅查询、direct经原UNARMED/WEAPON_ATTACK结算、ordinary保留原反击；先天hit_ob接口不代替整次攻击。str600是独立人为边界，不证明正常角色可得；同级不代表同养成成本。',
+                    'kungfu/skill/xuanmen-neigong.c', 'kungfu/class/quanzhen/wang.c', 'kungfu/class/quanzhen/zhou.c',
+                    ...(extra.boundary ? ['feature/equip.c', 'inherit/char/char.c', 'feature/action.c'] : [])],
+                qualification_note: '真实非巫师USER；防御条件左方固定进攻者、右方受测招架，不复制完整NPC。先天附加条件左方同时激发/准备先天功，资格由实验赋值。valid_damage仅查询、direct经原UNARMED/WEAPON_ATTACK结算、ordinary保留原反击；先天hit_ob接口不代替整次攻击。str600是独立人为边界，不证明正常角色可得；同级不代表同养成成本。'
+                    + (extra.boundary ? '额外边界与旧83条件分开：179/180保留原有效映射判定；副手使用真实测试剑的显式诊断放置，无主手、不伪称正常wield路径；非存活用原unconcious准备后记录，仅查询原防御接口，不攻击或手动推进心跳。空明非存活边界先由受测者原enable命令建立首载上下文，保留全局动作表缓存，不伪称无上下文首载安全。' : ''),
             } });
     }
     for (const skill of ['jinguan-yusuo', 'kongming-quan']) {
@@ -80,14 +85,34 @@ export function quanzhenDefenseConditions(catalog, { smoke = false, samples = 10
     for (const level of [200, 400, 800]) for (const jiali of [0, 50]) add('xiantian-gong', 'ordinary', level,
         { properties: { jiali }, suffix: '-jiali' + jiali });
     add('xiantian-gong', 'ordinary', 400, { properties: { str: 600, jiali: 50 }, suffix: '-str600-jiali50' });
+    for (const raw of [179, 180]) add('xiantian-gong', 'hit_ob', 400,
+        { boundary: true, damage: 1000, skills: { 'xiantian-gong': raw }, suffix: '-raw' + raw });
+    add('xiantian-gong', 'hit_ob', 400,
+        { boundary: true, damage: 1000, actorSecondary: true, suffix: '-secondary-only' });
+    for (const skill of ['jinguan-yusuo', 'kongming-quan']) add(skill, 'valid_damage', 800,
+        { boundary: true, unconscious: true, checks: 2, suffix: '-unconscious' });
     return result;
 }
 
 export function validateQuanzhenDefenseRecord(raw, condition) {
     const p = condition.parameters, [attacker, defender] = raw.before;
     assert.equal(raw.launches.length, 0);
-    assert.equal(attacker.weapon, p.actor.equipment?.type ?? 'none');
+    assert.equal(attacker.weapon, p.actor.equipment?.slot === 'secondary_weapon' ? 'none' : p.actor.equipment?.type ?? 'none');
     assert.equal(defender.weapon, p.target.equipment?.type ?? 'none');
+    if (p.target_state === 'unconscious') {
+        assert.equal(raw.preparation?.after.living, 0);
+        assert.equal(defender.living, 0); assert.equal(defender.ghost ?? 0, 0);
+    }
+    if (p.original_enable_context) {
+        assert.equal(raw.skill_load_context?.actor, defender.object);
+        assert.equal(raw.skill_load_context.command, 'enable parry kongming-quan');
+        assert.ok([0, 1].includes(raw.skill_load_context.already_loaded));
+        assert.deepEqual(raw.skill_load_context.skills, defender.skills);
+    }
+    if (p.actor.equipment?.slot === 'secondary_weapon') {
+        assert.equal(attacker.secondary_weapon, 'sword');
+        assert.equal(attacker.secondary_weapon_details.program, '/tests/sword');
+    }
     if (p.observation_role === 'offensive-passive') {
         const calls = xiantianPassives(raw);
         assert.deepEqual(attacker.preparations, p.actor.preparations);
@@ -106,9 +131,15 @@ export function validateQuanzhenDefenseRecord(raw, condition) {
         assert.equal(calls.length, 1); assert.equal(calls[0].route, 'interface');
         assert.equal(raw.interfaces.length, 1); assert.deepEqual(raw.interfaces[0].result, calls[0].result);
         const input = p.interface.damage;
-        const success = input >= 150 && p.level >= 180 && attacker.neili >= 300 && attacker.weapon === 'none'
+        const success = input >= 150 && attacker.skills['xiantian-gong'] >= 180
+            && attacker.neili >= 300 && attacker.weapon === 'none' && (attacker.secondary_weapon ?? 'none') === 'none'
             && attacker.mappings.force === 'xiantian-gong' && attacker.mappings.unarmed === 'xiantian-gong'
             && attacker.preparations.unarmed === 'xiantian-gong' && Math.trunc(input / 6) > defender.effective_con;
+        if (condition.id.includes('school-quanzhen-boundary') && !p.actor.equipment) {
+            const enabled = attacker.skills['xiantian-gong'] >= 180;
+            assert.equal(attacker.mapped_unarmed, enabled ? 'xiantian-gong' : 0);
+            assert.equal(attacker.mapped_parry, enabled ? 'xiantian-gong' : 0);
+        }
         assert.equal(Boolean(calls[0].result), success);
         assert.equal(raw.metrics[0].neili_cost ?? 0, success ? 30 : 0);
         assert.equal(raw.metrics[1].eff_qi_cost ?? 0, success ? Math.trunc((input - 100) / 3) : 0);

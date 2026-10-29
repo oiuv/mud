@@ -78,7 +78,8 @@ async function validatorFor(condition) {
     }
     if (/^(quanzhen|huashan|mingjiao|taohua|wudang|shaolin|emei|gumu)-bout$/.test(group)
         || /^(wudang|shaolin|emei|gumu)-bout-perform$/.test(group)
-        || /^(mingjiao|gumu|taohua|emei)(-npc-bout|-npc)$/.test(group)) {
+        || /^(mingjiao|gumu|taohua|emei)(-npc-bout|-npc)$/.test(group)
+        || group === 'mingjiao-combination') {
         const module = await import('./school_combat_cases.mjs');
         return module.validateSchoolCombatRecord;
     }
@@ -98,15 +99,6 @@ export async function reviewSeries(directory, sourceContext = null) {
         (raw, c) => { validateRecord(raw, c); validators.get(c.id)(raw, c, sourceContext); });
     const frozenCatalog = sourceContext?.catalog ?? JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8'));
     const failed = new Set([...replay.failures, ...replay.pending].map(f => f.slot));
-    const entryRef = c => {
-        const legacyExert = c.parameters.collection_group === 'public-exert'
-            ? observedEffectSources[`exert:${c.parameters.skill}/${c.parameters.ability}`] : null;
-        return frozenCatalog.skills.flatMap(s => s.entries
-            .filter(e => legacyExert ? s.path === legacyExert.path && s.sha256 === legacyExert.sha256
-                && e.role === 'exert' : e.id === c.entry_id)
-            .map(e => ({ id: e.id, role: e.role, path: s.path, sha256: s.sha256,
-                function: e.function, binding: legacyExert ? 'reviewed-exert-source-contract' : 'frozen-entry-id' })))[0] ?? null;
-    };
     const runsDir = join(directory, 'runs');
     const runs = existsSync(runsDir) ? readdirSync(runsDir).flatMap(name => {
         const path = join(runsDir, name, 'result.json');
@@ -125,13 +117,42 @@ export async function reviewSeries(directory, sourceContext = null) {
         execution_sha256: digest(manifest.identity.execution),
         conditions: manifest.identity.conditions.map(c => ({ id: c.id, sha256: digest(c),
             group: c.parameters.collection_group, planned: c.samples,
-            entry: entryRef(c),
+            entry: resolveEntryReference(c, frozenCatalog),
             passed_observed: rows.filter(r => r.condition_id === c.id && r.outcome === 'observed'
                 && !failed.has(`${c.id}.${r.index}`)).length,
             passed_refused: rows.filter(r => r.condition_id === c.id && r.outcome === 'refused'
                 && !failed.has(`${c.id}.${r.index}`)).length,
             recorded_indices: rows.filter(r => r.condition_id === c.id).map(r => r.index) })),
         smoke: manifest.identity.execution.smoke ?? null, runs, snapshot_gaps: snapshotGaps, ...replay };
+}
+
+// six-finger.c::perform_action_file dispatches to liumai-shenjian, not the
+// identically named files under six-finger/. Preserve erroneous old references
+// for audit, but never count them or silently relabel old evidence as new data.
+const reviewedPerformRedirects = {
+    'six-finger': { path: 'kungfu/skill/six-finger.c',
+        sha256: '7fda80d2616c837bc505ed231fe0a505303516279221da38fb25bf84a9316d31',
+        directory: 'kungfu/skill/liumai-shenjian/' },
+};
+
+export function resolveEntryReference(condition, catalog) {
+    const p = condition.parameters;
+    const legacyExert = p.collection_group === 'public-exert'
+        ? observedEffectSources[`exert:${p.skill}/${p.ability}`] : null;
+    const entry = catalog.skills.flatMap(s => s.entries
+        .filter(e => legacyExert ? s.path === legacyExert.path && s.sha256 === legacyExert.sha256
+            && e.role === 'exert' : e.id === condition.entry_id)
+        .map(e => ({ id: e.id, role: e.role, path: s.path, sha256: s.sha256,
+            function: e.function, binding: legacyExert ? 'reviewed-exert-source-contract' : 'frozen-entry-id' })))[0] ?? null;
+    const redirect = reviewedPerformRedirects[p.skill];
+    if (!entry || entry.role !== 'perform' || !redirect) return entry;
+    const dispatcher = catalog.skills.find(s => s.path === redirect.path);
+    const expectedPath = redirect.directory + p.ability + '.c';
+    const valid = dispatcher?.sha256 === redirect.sha256 && entry.path === expectedPath;
+    return { ...entry, binding_valid: valid,
+        dispatcher: { path: redirect.path, sha256: dispatcher?.sha256 ?? null },
+        expected_path: expectedPath,
+        ...(valid ? {} : { binding_error: 'Frozen entry does not match the reviewed perform dispatcher source; not counted' }) };
 }
 
 // Entry touch coverage of supplied evidence only, not callback/lifecycle acceptance.
@@ -145,10 +166,11 @@ export function summarizeEntryCoverage(series, catalog) {
     const unbound = [];
     for (const s of series.filter(s => !s.integrity_error)) for (const c of s.conditions) {
         if (!c.passed_observed && !c.passed_refused) continue;
-        const e = c.entry && index.get(`${c.entry.path}:${c.entry.sha256}:${c.entry.function}`);
+        const e = c.entry?.binding_valid !== false && c.entry
+            && index.get(`${c.entry.path}:${c.entry.sha256}:${c.entry.function}`);
         if (!e) {
             unbound.push({ directory: s.directory, condition: c.id, entry: c.entry,
-                reason: 'No matching current perform/exert source version; not counted' });
+                reason: c.entry?.binding_error ?? 'No matching current perform/exert source version; not counted' });
             continue;
         }
         const ref = { directory: s.directory, condition: c.id, execution_sha256: s.execution_sha256,

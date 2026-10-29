@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -13,7 +14,7 @@ const catalog = collectCatalog(root, buildInventory(root)), cases = shaolinCombi
 const find = suffix => { const c=cases.find(c=>c.id.endsWith(suffix)); assert.ok(c,suffix); return c; };
 
 test('少林互备358条件14044样本，旧7803条件完整指纹不变', () => {
-    const all=schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old=all.filter(c=>!['shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+    const all=preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), old=all.filter(c=>!['shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length,7803);assert.equal(old.reduce((n,c)=>n+c.samples,0),178416);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         '3651f13b699db9196f845be9b72610c1b4f7308d277e63423ce879aca7eea380');

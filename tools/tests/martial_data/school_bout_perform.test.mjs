@@ -60,6 +60,12 @@ test('G5 绝招策略校验：需有实际发动', async () => {
         bad(copy => { copy.launches = []; });
         bad(copy => { delete copy.before[0].object; delete copy.launches[0].actor; });
         bad(copy => { copy.launches[0].actor = copy.before[1].object; });
+        bad(copy => { copy.launches[0].skill = 'other-skill'; });
+        bad(copy => { copy.launches[0].argument = 'other_move'; });
+        bad(copy => { delete copy.launches[0].skill; });
+        bad(copy => { delete copy.launches[0].argument; });
+        bad(copy => { copy.launches.push({ actor: copy.before[0].object,
+            skill: c.parameters.skill, argument: 'other_move' }); });
         bad(copy => { copy.before[0].weapon = 'wrong'; });
         bad(copy => { copy.before[0].skills = {}; });
         bad(copy => { copy.before[0].mappings = {}; });

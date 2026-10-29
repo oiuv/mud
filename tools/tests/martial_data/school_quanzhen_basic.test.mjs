@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { root } from '../../collect_martial_data.mjs';
@@ -13,11 +14,11 @@ const by = (move, suffix = '', level = 200) => cases.find(c => c.parameters.abil
 test('全真基础批独立82条件5162样本，旧355条件不变', () => {
     assert.equal(cases.length, 82); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5162);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 30);
-    assert.equal(schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group)).length, 437);
+    assert.equal(preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-advanced', 'quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group)).length, 437);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));
     assert.ok(cases.every(c => entries.has(c.entry_id)));
-    const smoke = schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'quanzhen-basic');
+    const smoke = preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'quanzhen-basic');
     assert.equal(smoke.reduce((n, c) => n + c.samples, 0), 163);
 });
 

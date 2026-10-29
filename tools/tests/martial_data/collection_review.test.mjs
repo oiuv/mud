@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { summarizeReplay, reviewDefinitions, summarizeSeriesCoverage, summarizeEntryCoverage } from './collection_review.mjs';
+import { summarizeReplay, reviewDefinitions, summarizeSeriesCoverage, summarizeEntryCoverage,
+    resolveEntryReference } from './collection_review.mjs';
 
 test('review separates missing, error, N/A and failed validation from success', () => {
     const conditions = [{ id: 'c', samples: 5 }];
@@ -63,4 +64,35 @@ test('entry coverage joins actual passed records by source version, never declar
     const r = summarizeEntryCoverage([{ ...s, conditions: [drift] }], catalog);
     assert.equal(r.unbound.length, 1);
     assert.equal(r.roles.perform.smoke_only_observed, 0);
+});
+
+test('redirected perform preserves old wrong identity without crediting either physical entry', () => {
+    const dispatcher = { path: 'kungfu/skill/six-finger.c',
+        sha256: '7fda80d2616c837bc505ed231fe0a505303516279221da38fb25bf84a9316d31', entries: [] };
+    const skill = path => ({ path, sha256: 'ability-hash', entries: [
+        { id: path + ':1:perform', role: 'perform', function: 'perform' },
+    ] });
+    const wrong = skill('kungfu/skill/six-finger/qi.c');
+    const actual = skill('kungfu/skill/liumai-shenjian/qi.c');
+    const catalog = { skills: [dispatcher, wrong, actual] };
+    const condition = { entry_id: wrong.entries[0].id,
+        parameters: { collection_group: 'b23-perform', skill: 'six-finger', ability: 'qi' } };
+    const ref = resolveEntryReference(condition, catalog);
+    assert.equal(ref.path, wrong.path);
+    assert.equal(ref.expected_path, actual.path);
+    assert.equal(ref.binding_valid, false);
+    for (const smoke of [true, false]) {
+        const report = summarizeEntryCoverage([{ directory: 'old', smoke, conditions: [
+            { id: 'c', entry: ref, passed_observed: 100, passed_refused: 2 },
+        ] }], catalog);
+        assert.equal(report.roles.perform.formal_observed, 0);
+        assert.equal(report.roles.perform.smoke_only_observed, 0);
+        assert.equal(report.unbound.length, 1);
+        assert.match(report.unbound[0].reason, /dispatcher/);
+        assert.ok(report.entries.every(e => e.refused.length === 0));
+    }
+    condition.entry_id = actual.entries[0].id;
+    assert.equal(resolveEntryReference(condition, catalog).binding_valid, true);
+    dispatcher.sha256 = 'unreviewed-dispatcher';
+    assert.equal(resolveEntryReference(condition, catalog).binding_valid, false);
 });

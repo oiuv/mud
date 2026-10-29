@@ -105,9 +105,16 @@ export function validateBoutPerformRecord(raw, condition) {
     validateAttackRoundCounts(raw);
     assert.equal(typeof raw.before[0].object, 'string', '须记录真实施展对象');
     assert.ok(raw.before[0].object.length > 0);
-    // Must have at least one launch by the real actor, not undefined === undefined.
-    assert.ok(raw.launches.some(row => row.actor === raw.before[0].object),
-        '绝招策略组没有实际发动');
+    // Bind the observed launch to the configured command, not merely its actor.
+    const action = /^perform ([a-z-]+)\.([a-z_]+)$/.exec(p.action);
+    assert.ok(action, '绝招策略命令格式错误');
+    assert.equal(action[1], p.usage, '绝招策略须通过实际激发类别施展');
+    const launches = raw.launches.filter(row => row.actor === raw.before[0].object);
+    assert.ok(launches.length > 0, '绝招策略组没有实际发动');
+    for (const launch of launches) {
+        assert.equal(launch.skill, p.skill, '实际发动武学与交锋条件不符');
+        assert.equal(launch.argument, action[2], '实际发动绝招与交锋条件不符');
+    }
     for (const [side, config] of [[0, p.actor], [1, p.target]]) {
         const before = raw.before[side];
         assert.equal(before.userp, 1);

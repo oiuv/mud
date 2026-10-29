@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -21,8 +22,9 @@ test('全真研究309条件4244样本，旧969条件41824样本不变', () => {
     assert.equal(quanzhenStudyConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 618);
     assert.ok(cases.every(c => !('move' in c.parameters.actor.skills)));
     assert.throws(() => quanzhenStudyConditions({ skills: catalog.skills.filter(s => s.id !== 'sword') }), /必须有真实定义/);
-    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
-    assert.equal(old.length, 969); assert.equal(old.reduce((n, c) => n + c.samples, 0), 41824);
+    const old = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school) && !['quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+    const legacy = old.filter(c => !c.parameters.target_busy_lifecycle && !c.id.startsWith('school-quanzhen-boundary-'));
+    assert.equal(legacy.length, 969); assert.equal(legacy.reduce((n, c) => n + c.samples, 0), 41824);
 });
 
 test('普通研究的分段与相关基本功按原整数公式，不套用force倍率', () => {

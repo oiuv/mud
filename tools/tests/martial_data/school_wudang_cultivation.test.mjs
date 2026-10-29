@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -9,7 +10,7 @@ import { schoolCombatConditions, validateSchoolCombatRecord } from './school_com
 import { wudangForces, wudangForceBonus, wudangForceCapacity, wudangResearchBound, wudangCultivationInterface } from './school_wudang_cultivation_cases.mjs';
 import { schoolCultivationEffects, schoolAuxiliaryEffects } from './school_combat_report.mjs';
 
-const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
+const catalog = collectCatalog(root, buildInventory(root)), all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
 const cases = all.filter(c => c.parameters.collection_group === 'wudang-cultivation');
 const find = suffix => { const c = cases.find(c => c.id.endsWith(suffix)); assert.ok(c, suffix); return c; };
 
@@ -20,7 +21,7 @@ test('武当修养241条件4892样本，既有2465条件75312样本不变', () =
     const old = all.filter(c => !['wudang-cultivation', 'wudang-study', 'wudang-recovery', 'wudang-combination', 'wudang-bout', 'wudang-public-force', 'wudang-healing', 'wudang-dispel', 'wudang-buffs', 'wudang-lookup', 'wudang-condition', 'shaolin-sword', 'shaolin-weapons', 'shaolin-additional', 'shaolin-fists', 'shaolin-palms', 'shaolin-fingers', 'shaolin-hands', 'shaolin-weapon-learning', 'shaolin-unarmed-learning', 'shaolin-cultivation', 'shaolin-exert', 'shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 2465); assert.equal(old.reduce((n, c) => n + c.samples, 0), 75312);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-cultivation').reduce((n, c) => n + c.samples, 0), 482);
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-cultivation').reduce((n, c) => n + c.samples, 0), 482);
     for (const c of cases) for (const p of c.parameters.qualification_sources) assert.ok(existsSync(join(root, p)), p);
 });
 

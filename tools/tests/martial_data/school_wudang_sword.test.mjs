@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { root } from '../../collect_martial_data.mjs';
@@ -8,7 +9,7 @@ import { wudangSwordMoves } from './school_wudang_sword_cases.mjs';
 import { wudangSwordEffects } from './school_combat_report.mjs';
 
 const catalog = collectCatalog(root, buildInventory(root));
-const all = schoolCombatConditions(catalog), cases = all.filter(c => c.parameters.collection_group === 'wudang-sword');
+const all = preOctober29SchoolConditions(catalog), cases = all.filter(c => c.parameters.collection_group === 'wudang-sword');
 const by = (move, suffix = '', level = 200) => cases.find(c => c.id === `school-wudang-sword-${move}-l${level}${suffix}`);
 function raw(c, direct = 0) {
     const before = [c.parameters.actor, c.parameters.target].map(config => ({
@@ -29,7 +30,7 @@ test('武当太极剑71条件2200样本，历史1431条件保持原样', () => {
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     const entries = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));
     assert.ok(cases.every(c => entries.has(c.entry_id)));
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-sword')
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-sword')
         .reduce((n, c) => n + c.samples, 0), 140);
 });
 

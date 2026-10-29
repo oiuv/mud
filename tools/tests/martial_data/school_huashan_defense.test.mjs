@@ -12,6 +12,7 @@ import { schoolDefenseEffects } from './school_combat_report.mjs';
 
 const catalog = collectCatalog(root, buildInventory(root));
 const all = schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan'
+    && c.parameters.collection_group !== 'huashan-duration'
     && c.parameters.collection_group !== 'huashan-combination');
 const cases = all.filter(c => c.parameters.collection_group === 'huashan-defense');
 const find = suffix => cases.find(c => c.id.endsWith(suffix));

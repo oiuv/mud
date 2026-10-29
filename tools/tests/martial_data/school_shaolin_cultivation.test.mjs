@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -10,7 +11,7 @@ import { shaolinForces, shaolinCultivationFields, shaolinForceBonus, shaolinForc
     shaolinResearchBound, shaolinCultivationInterface } from './school_shaolin_cultivation_cases.mjs';
 import { schoolCultivationEffects, schoolAuxiliaryEffects } from './school_combat_report.mjs';
 
-const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
+const catalog = collectCatalog(root, buildInventory(root)), all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
 const cases = all.filter(c => c.parameters.collection_group === 'shaolin-cultivation');
 const find = suffix => { const c = cases.find(c => c.id.endsWith(suffix)); assert.ok(c, suffix); return c; };
 
@@ -21,7 +22,7 @@ test('少林修养305条件6784样本；旧6050条件140120计划样本不变', 
     const old = all.filter(c => !['shaolin-cultivation', 'shaolin-exert', 'shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 6050); assert.equal(old.reduce((n, c) => n + c.samples, 0), 140120);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'shaolin-cultivation').reduce((n, c) => n + c.samples, 0), 368);
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'shaolin-cultivation').reduce((n, c) => n + c.samples, 0), 368);
     for (const c of cases) for (const p of c.parameters.qualification_sources) assert.ok(existsSync(join(root, p)), p);
 });
 

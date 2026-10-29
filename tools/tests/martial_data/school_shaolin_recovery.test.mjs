@@ -1,3 +1,4 @@
+import { preOctober29Conditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
@@ -20,7 +21,7 @@ test('少林恢复204条件2760样本，原6419条件147620样本保持', () => 
     assert.equal(cases.filter(c => c.method === 'exercise').length, 84);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 60);
     assert.equal(shaolinRecoveryConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 204);
-    const old = all.filter(c => !['shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+    const old = preOctober29Conditions(all).filter(c => !['shaolin-recovery', 'shaolin-backlash', 'shaolin-public-force', 'shaolin-healing', 'shaolin-dispel', 'shaolin-buffs', 'shaolin-combination', 'shaolin-defense', 'shaolin-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 6419); assert.equal(old.reduce((n, c) => n + c.samples, 0), 147620);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
     for (const c of cases) {

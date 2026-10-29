@@ -97,10 +97,18 @@ export function publicExertConditions(catalog, { smoke = false } = {}) {
                     ...(g.move === 'tui' && skillId === 'hamagong' ? { max_neili: 5000, neili: 5000 } : {}),
                     [`can_exert/${skillId}/${g.move}`]: expected === 'observed' ? 1 : 0,
                 },
+                // hamagong/tan needs poison item in hand
+                ...(g.move === 'tan' && skillId === 'hamagong'
+                    ? { equipment: { program: '/tests/poison_item', type: 'throwing', hold: true, hand_id: 'poison' } } : {}),
             };
-            // hamagong/hui needs hmg_dzjm temp (from reserve)
+            // hamagong/hui needs hmg_dzjm temp + reserve attribute gains (positive)
             const actorTemp = (g.move === 'hui' && skillId === 'hamagong')
-                ? { hmg_dzjm: 200 } : undefined;
+                ? { hmg_dzjm: 200,
+                    'apply/dodge': Math.trunc(200 / 3),
+                    'apply/parry': Math.trunc(200 / 3),
+                    'apply/armor': Math.trunc(200 / 2),
+                    'apply/dispel_poison': Math.trunc(200 / 2) }
+                : undefined;
             const target = {
                 skills: { force: 200, dodge: 200, parry: 200 }, mappings: {}, preparations: {},
                 properties: { qi: 10000, eff_qi: 10000, max_qi: 10000, jing: 10000, eff_jing: 10000, max_jing: 10000, neili: 3000, max_neili: 3000, jingli: 1000, max_jingli: 1000, jiali: 0, combat_exp: 100000000, str: 36, int: 36, con: 36, dex: 36, gender: '男性', character: '光明磊落' },
@@ -148,6 +156,45 @@ const rawLevel = skill => b => b.skills[skill];
 const forceLevel = b => b.effective_skills.force;
 const thirds = level => b => ({ 'apply/attack': Math.trunc(level(b) / 3), 'apply/defense': Math.trunc(level(b) / 3) });
 const armor = level => b => ({ 'apply/armor': Math.trunc(level(b) / 2) });
+
+// A missing condition alone cannot distinguish a legitimate miss from failed loading.
+// Legacy hit records remain usable; legacy no-effect records need branch evidence.
+function validateTanResult(raw) {
+    const [before, target] = raw.before, [after, end] = raw.after;
+    assert.equal(target.conditions?.poison ?? null, null, 'tan target must start without poison');
+    const poisoned = end.conditions?.poison;
+    const trace = raw.tan_result;
+    if (trace !== undefined) {
+        assert.equal(trace.owner, '/kungfu/skill/hamagong/exert/tan', 'tan branch source');
+        assert.equal(trace.actor, before.object, 'tan branch actor');
+        assert.equal(trace.target, target.object, 'tan branch target');
+        assert.equal(trace.item, before.handing_details.object, 'tan original poison item');
+        assert.equal(trace.poison_type, 'poison', 'tan poison condition type');
+        assert.equal(trace.poison?.id, 'hamagong-tan', 'tan poison source id');
+        assert.equal(trace.poison?.level, 100, 'tan poison level');
+        assert.equal(trace.poison?.duration, 10, 'tan poison duration');
+        assert.ok(['blocked', 'dodged', 'hit'].includes(trace.branch), 'unknown tan branch');
+        const forceMin = Math.trunc(after.neili / 2), forceMax = forceMin + after.neili - 1;
+        const ap = Math.trunc(before.skills.poison / 2) + before.effective_skills.force;
+        const dodgeMin = Math.trunc(ap / 2), dodgeMax = dodgeMin + ap - 1;
+        const dp = Math.trunc(target.effective_skills.dodge * 3 / 2);
+        if (trace.branch === 'blocked') assert.ok(forceMin < target.neili, 'impossible tan block');
+        else {
+            assert.ok(forceMax >= target.neili, 'tan cannot pass force gate');
+            if (trace.branch === 'dodged') assert.ok(dodgeMin < dp, 'impossible tan dodge');
+            else assert.ok(dodgeMax >= dp, 'tan cannot pass dodge gate');
+        }
+        if (trace.branch !== 'hit') {
+            assert.equal(poisoned ?? null, null, 'miss must not apply poison');
+            return;
+        }
+    }
+    assert.ok(poisoned, trace ? 'tan hit did not apply poison' : 'tan no-effect record lacks original branch evidence');
+    assert.equal(poisoned.id, 'hamagong-tan', 'applied poison source id');
+    assert.equal(poisoned.level, 100, 'applied poison level');
+    assert.equal(poisoned.remain, 1000, 'applied poison amount');
+}
+
 const buffContracts = {
     'beiming-shengong/powerup': [100, thirds(rawLevel('beiming-shengong'))],
     'beiming-shengong/shield': [100, armor(rawLevel('beiming-shengong'))],
@@ -266,6 +313,7 @@ export function validatePublicExertRecord(raw, condition, sourceContext) {
             cost(raw, 0, 'neili', 200); range(busy(a), 2, 3, 'poison busy');
             assert.ok(b.handing_details.object, 'original poison item');
             assert.equal(a.handing, 'none', 'poison consumed');
+            validateTanResult(raw);
         } else if (key === 'hamagong/tui') {
             const direct = counter(raw, 0, 'direct'); range(direct, 0, 1, 'tui direct');
             cost(raw, 0, 'neili', direct ? 300 : 200);

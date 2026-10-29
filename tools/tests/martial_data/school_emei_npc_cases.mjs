@@ -40,7 +40,7 @@ export function emeiNpcConditions(catalog, { smoke = false } = {}) {
 }
 
 export function npcEntries(conditions) {
-    return [...new Map(conditions.filter(c => [emeiNpcGroup, 'gumu-npc', 'gumu-npc-bout'].includes(c.parameters.collection_group))
+    return [...new Map(conditions.filter(c => [emeiNpcGroup, 'gumu-npc', 'gumu-npc-bout', 'emei-npc-bout'].includes(c.parameters.collection_group))
         .map(c => [c.entry_id, c.parameters.npc.source])).values()];
 }
 

@@ -8,6 +8,7 @@ import { openSeries, readSamples, digest } from './ledger.mjs';
 import { sha256, buildInventory } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
 import { gumuNpcBoutReport, gumuNpcBoutMarkdown } from './school_gumu_npc_bout_report.mjs';
+import { emeiNpcBoutReport, emeiNpcBoutMarkdown } from './school_emei_npc_bout_report.mjs';
 import { taohuaDingReport, taohuaDingMarkdown } from './school_taohua_ding_report.mjs';
 import { taohuaXiaoReport, taohuaXiaoMarkdown } from './school_taohua_xiao_report.mjs';
 import { taohuaPoEffects } from './school_taohua_po_cases.mjs';
@@ -1262,7 +1263,7 @@ export function readSchoolCombat(directory, { includeErrors = false } = {}) {
         validateSchoolCombatRecord(row.raw, condition, sourceContext);
         assert.equal(evidence.get(key(row)), row.raw_sha256, '原始日志与台账不符');
     }
-    const report = summarizeSamples(manifest, rows, { npcBoutReport: gumuNpcBoutReport });
+    const report = summarizeSamples(manifest, rows, { npcBoutReport: gumuNpcBoutReport, emeiNpcBoutReport });
     for (const condition of report.conditions) {
         assert.equal(condition.missing, 0, '门派条件尚未采满');
         if (['mingjiao-combination', 'mingjiao-npc-bout'].includes(condition.parameters.collection_group)) {
@@ -1782,7 +1783,7 @@ for (const c of report.conditions.filter(c => !c.slice1 && !c.slice2 && !c.slice
         lines.push('', mingjiaoCombinationMarkdown(c.mingjiao_combination, manifest,
             rows.filter(r => r.condition_id === c.id), sourceContext));
     for (const c of report.conditions.filter(c => c.npc_bout_effects))
-        lines.push('', gumuNpcBoutMarkdown(c.npc_bout_effects));
+        lines.push('', (c.parameters.collection_group === 'emei-npc-bout' ? emeiNpcBoutMarkdown : gumuNpcBoutMarkdown)(c.npc_bout_effects));
     for (const c of report.conditions.filter(c => c.taohua_ding))
         lines.push('', taohuaDingMarkdown(c.taohua_ding));
     for (const c of report.conditions.filter(c => c.taohua_xiao))

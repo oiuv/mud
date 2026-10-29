@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { collectCatalog } from './catalog.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 import { shenmenPassiveEffects } from './school_combat_report.mjs';
 
-const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
+const catalog = collectCatalog(root, buildInventory(root)), all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
 const cases = all.filter(c => c.parameters.collection_group === 'wudang-shenmen');
 const by = suffix => cases.find(c => c.id === 'school-wudang-shenmen-' + suffix);
 
@@ -19,7 +20,7 @@ test('神门被动33条件2516样本；旧1914条件67056样本保持', () => {
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
     assert.equal(cases.filter(c => c.method === 'ordinary').length, 12);
     for (const c of cases) for (const path of c.parameters.qualification_sources) assert.ok(existsSync(join(root, path)), path);
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-shenmen')
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-shenmen')
         .reduce((n, c) => n + c.samples, 0), 66);
 });
 

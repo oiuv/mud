@@ -6,6 +6,7 @@ private mapping gumu_bout_owned;
 private string *gumu_bout_items = ({});
 private string *gumu_bout_corpses = ({});
 private int mingjiao_bout;
+private int emei_bout;
 
 mapping state(object ob) {
     mapping result, properties, item_state;
@@ -317,7 +318,7 @@ mapping gumu_bout_state(object ob) {
     result = gumu_state(ob);
     result["ghost"] = ob->is_ghost();
     result["conditions"] = "/tests/runner"->serializable(ob->query_condition());
-    if (mingjiao_bout) {
+    if (mingjiao_bout || emei_bout) {
         skills = ob->query_skills() || ([]);
         mappings = ob->query_skill_map() || ([]);
         prepared = ob->query_skill_prepare() || ([]);
@@ -336,30 +337,35 @@ mapping gumu_bout_state(object ob) {
     return result;
 }
 
-// Only these nine original programs are authorized for the separate Mingjiao
-// natural-bout window. Reuse ownership/capture/cleanup, never assign NPC input.
-mapping prepare_mingjiao_bout(mapping config, object target) {
+// Separate fixed entries authorize the nine Mingjiao programs or Zhou only.
+// Reuse original construction/ownership/capture/cleanup, never assign NPC input.
+private mapping prepare_original_bout(mapping config, object target, int is_emei) {
     mapping prep;
     object blueprint, ob;
     object *autonomous;
     string name, skill;
+    string *load_skills;
     mixed failure;
     if (base_name(previous_object()) != "/tests/runner" || config["callback_index"] != -1 ||
-        member_array(config["path"], ({ "/kungfu/class/mingjiao/daijisi",
-            "/kungfu/class/mingjiao/fanyao", "/kungfu/class/mingjiao/lengqian",
-            "/kungfu/class/mingjiao/weiyixiao", "/kungfu/class/mingjiao/xiaozhao",
-            "/kungfu/class/mingjiao/xiexun", "/kungfu/class/mingjiao/yangxiao",
-            "/kungfu/class/mingjiao/yintianzheng", "/kungfu/class/mingjiao/zhangwuji" })) == -1 ||
+        (is_emei ? config["path"] != "/kungfu/class/emei/zhou" :
+            member_array(config["path"], ({ "/kungfu/class/mingjiao/daijisi",
+                "/kungfu/class/mingjiao/fanyao", "/kungfu/class/mingjiao/lengqian",
+                "/kungfu/class/mingjiao/weiyixiao", "/kungfu/class/mingjiao/xiaozhao",
+                "/kungfu/class/mingjiao/xiexun", "/kungfu/class/mingjiao/yangxiao",
+                "/kungfu/class/mingjiao/yintianzheng", "/kungfu/class/mingjiao/zhangwuji" })) == -1) ||
         this_player() != target || !interactive(target) || !userp(target) ||
         !playerp(target) || wizardp(target))
-        error("Original Mingjiao NPC requires reviewed source and real player context.\n");
+        error("Original NPC bout requires reviewed source and real player context.\n");
     if (objectp(gumu_npc) || objectp(gumu_companion) || sizeof(gumu_owned))
         error("Prior original NPC observation not cleaned.\n");
-    mingjiao_bout = 1;
+    mingjiao_bout = !is_emei;
+    emei_bout = is_emei;
+    load_skills = is_emei ? ({ "jiuyin-baiguzhao", "cuixin-zhang", "shexing-lifan",
+        "yijin-duangu", "yinlong-bian" }) : ({ "qishang-quan", "shenghuo-ling" });
     gumu_target = target;
     prep = ([ "entry_player": file_name(this_player()), "initializer_actor": "not_observed",
         "loaded_before": ({}), "loaded_after": ({}), "created_npcs": ({}) ]);
-    foreach (skill in ({ "qishang-quan", "shenghuo-ling" }))
+    foreach (skill in load_skills)
         if (objectp(find_object("/kungfu/skill/" + skill)))
             prep["loaded_before"] += ({ "/kungfu/skill/" + skill });
     gumu_result = ([ "preparation": prep, "room": file_name(environment(target)),
@@ -381,7 +387,7 @@ mapping prepare_mingjiao_bout(mapping config, object target) {
         }) + deep_inventory(gumu_npc) + deep_inventory(blueprint);
         prep["constructor_callbacks"] = gumu_callbacks(autonomous);
         prep["returned_player"] = "/tests/runner"->serializable(this_player());
-        foreach (skill in ({ "qishang-quan", "shenghuo-ling" }))
+        foreach (skill in load_skills)
             if (objectp(find_object("/kungfu/skill/" + skill)))
                 prep["loaded_after"] += ({ "/kungfu/skill/" + skill });
         if (prep["npc_heartbeat_paused"] || prep["blueprint_heartbeat"] ||
@@ -399,9 +405,19 @@ mapping prepare_mingjiao_bout(mapping config, object target) {
     if (failure) {
         clear_gumu();
         mingjiao_bout = 0;
+        emei_bout = 0;
         error(stringp(failure) ? failure : sprintf("%O", failure));
     }
     return gumu_result;
+}
+
+mapping prepare_mingjiao_bout(mapping config, object target) {
+    return prepare_original_bout(config, target, 0);
+}
+
+// Exact Zhou entry; shared construction never assigns NPC attributes or gear.
+mapping prepare_emei_bout(mapping config, object target) {
+    return prepare_original_bout(config, target, 1);
 }
 
 mapping prepare_gumu_bout(mapping config, object target) {
@@ -510,6 +526,7 @@ mapping clear_gumu_bout() {
     gumu_bout_items = ({});
     gumu_bout_corpses = ({});
     mingjiao_bout = 0;
+    emei_bout = 0;
     return gumu_result;
 }
 

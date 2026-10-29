@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -226,7 +227,7 @@ test('统计保留未知，攻击次数不是命中数，空手不纳入失去�
 });
 
 test('接入统一分发，原11776条件及完整JSON指纹不变', () => {
-    const all = schoolCombatConditions(catalog);
+    const all = preOctober29SchoolConditions(catalog);
     const old = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school)
         && !['quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group)
         || ['gumu-control', 'gumu-direct'].includes(c.parameters.collection_group));

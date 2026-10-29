@@ -354,6 +354,37 @@ mapping snapshot(object ob) {
     result["playerp"] = playerp(ob);
     result["wizardp"] = wizardp(ob);
     result["living"] = living(ob);
+    if (member_array(current["parameters"]["collection_group"],
+        ({
+            "quanzhen-defense",
+            "s1-duan-members",
+            "s1-duan-perform",
+            "s1-piaoxu",
+            "s1-yunlong", "s1-panlong", "s1-panlong-tan", "s1-dusha", "s1-qianye", "s1-sanyin", "s1-mizong"
+        })) != -1) {
+        secondary = ob->query_temp("secondary_weapon");
+        result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
+        result["secondary_weapon_details"] = equipment_snapshot(secondary);
+        result["mapped_unarmed"] = ob->query_skill_mapped("unarmed");
+        result["mapped_parry"] = ob->query_skill_mapped("parry");
+    }
+    if (current["parameters"]["collection_group"] == "s1-duan-perform") {
+        result["character"] = ob->query("character");
+        result["duan_grants"] = ([ "man": serializable(ob->query("can_perform/jinyu-quan/man")),
+            "bian": serializable(ob->query("can_perform/wuluo-zhang/bian")) ]);
+    }
+    if (current["parameters"]["collection_group"] == "s1-piaoxu") {
+        result["character"] = ob->query("character");
+        result["piao_grant"] = serializable(ob->query("can_perform/piaoxu-zhang/piao"));
+    }
+    if (current["parameters"]["collection_group"] == "s1-panlong-tan") {
+        result["character"] = ob->query("character");
+        result["tan_grant"] = serializable(ob->query("can_perform/panlong-zhao/tan"));
+    }
+    if (current["parameters"]["collection_group"] == "miao-study")
+        result["tan_grant"] = serializable(ob->query("can_perform/panlong-zhao/tan"));
+    if (current["parameters"]["collection_group"] == "s1-yunlong")
+        result["character"] = ob->query("character");
     if (current["parameters"]["collection_group"] == "mingjiao-jiuyang-exert") {
         result["not_living"] = ob->query("not_living");
         result["effective_int"] = ob->query_int();
@@ -835,6 +866,8 @@ mapping snapshot(object ob) {
     if (current["parameters"]["collection_group"] == "gumu-poison")
         foreach (key in ({ "character", "can_perform/wudu-shenzhang/shi", "special_skill/piyi" }))
             result["cultivation"][key] = ob->query(key);
+    if (current["parameters"]["collection_group"] == "s1-dusha-lifecycle")
+        result["cultivation"]["special_skill/piyi"] = ob->query("special_skill/piyi");
     if (member_array(current["parameters"]["collection_group"],
         ({
             "gumu-weapons",
@@ -1146,7 +1179,7 @@ void prepare_actor(int side, mapping config) {
             "gumu-quanzhen",
             "gumu-bout",
             "mingjiao-qishang",
-            "mingjiao-shenghuo"
+            "mingjiao-shenghuo", "s1-sanyin", "s1-mizong"
         })) != -1) {
         foreach (descriptor in current["parameters"]["capture_skill_loads"]) {
             key = descriptor["skill"];
@@ -1161,6 +1194,14 @@ void prepare_actor(int side, mapping config) {
                     objectp(find_object("/kungfu/skill/" + key)),
                     "original dynamic skill loaded"
                 );
+                if (current["parameters"]["collection_group"] == "s1-sanyin") {
+                    require(key == "sanyin-wugongzhao", "finite original Sanyin load");
+                    ob->map_skill("parry");
+                }
+                if (current["parameters"]["collection_group"] == "s1-mizong") {
+                    require(key == "huoyan-dao", "finite original Huoyan load");
+                    ob->map_skill("parry");
+                }
                 original_skill_loads[key] = load;
             } else
                 require(
@@ -1283,6 +1324,17 @@ void prepare_actor(int side, mapping config) {
         require(objectp(find_object("/kungfu/skill/shenghuo-ling")), "original holy skill loaded");
         ob->map_skill("sword");
     }
+    if (side == 1 && current["parameters"]["collection_group"] == "quanzhen-defense" &&
+        current["parameters"]["original_enable_context"]) {
+        require(current["parameters"]["skill"] == "kongming-quan" &&
+            current["parameters"]["target_state"] == "unconscious",
+            "explicit Kongming boundary first-load context");
+        current["skill_load_context"] = ([ "actor": file_name(ob),
+            "already_loaded": objectp(find_object("/kungfu/skill/kongming-quan")),
+            "skills": copy(ob->query_skills()), "command": "enable parry kongming-quan" ]);
+        require(ob->force_me("enable parry kongming-quan"), "original Kongming enable context");
+        require(objectp(find_object("/kungfu/skill/kongming-quan")), "original Kongming loaded");
+    }
     foreach (key, value in config["mappings"] || ([])) {
         ob->map_skill(key, value);
         if (member_array(current["parameters"]["collection_group"],
@@ -1302,6 +1354,12 @@ void prepare_actor(int side, mapping config) {
             !ob->query("can_learn/jiuyang-shengong/enable_weapon"))
             require(ob->query_skill_map()[key] == value && !ob->query_skill_mapped(key),
                 "original Jiuyang weapon permission remains ineffective");
+        else if (current["parameters"]["collection_group"] == "quanzhen-defense" &&
+            current["parameters"]["ability"] == "hit_ob" &&
+            config["skills"]["xiantian-gong"] == 179 && value == "xiantian-gong" &&
+            member_array(key, ({ "unarmed", "parry" })) != -1)
+            require(ob->query_skill_map()[key] == value && !ob->query_skill_mapped(key),
+                "original sub-180 Xiantian mapping remains ineffective");
         else require(ob->query_skill_mapped(key) == value, "effective skill mapping");
     }
     foreach (key, value in config["preparations"] || ([])) ob->prepare_skill(key, value);
@@ -1353,6 +1411,11 @@ void prepare_actor(int side, mapping config) {
                 "explicit xuanyuan arrow ammunition");
             weapon = new("/tests/xuanyuan_arrow_weapon");
             require(weapon->is_arrow(), "original arrow identity");
+        } else if (config["equipment"]["program"] == "/tests/poison_item") {
+            require(side == 0 && config["equipment"]["hold"] &&
+                config["equipment"]["hand_id"] == "poison",
+                "explicit poison item for hamagong/tan");
+            weapon = new("/tests/poison_item");
         } else if (current["parameters"]["collection_group"] == "mingjiao-ling-perform") {
             require((side == 0 || (side == 1 && current["parameters"]["ability"] == "xi")) &&
                 !config["equipment"]["hold"] && member_array(config["equipment"]["program"],
@@ -1459,7 +1522,13 @@ void prepare_actor(int side, mapping config) {
         require(weapon->move(ob), "equipment inventory");
         if (!undefinedp(config["equipment"]["slot"]))
             require(member_array(current["parameters"]["collection_group"],
-                ({ "gumu-unarmed-learning", "taohua-zhuan" })) != -1 &&
+                ({
+                    "gumu-unarmed-learning",
+                    "taohua-zhuan",
+                    "quanzhen-defense",
+                    "s1-duan-members",
+                    "s1-duan-perform", "s1-piaoxu", "s1-yunlong", "s1-panlong", "s1-panlong-tan", "s1-dusha", "s1-qianye", "s1-sanyin", "s1-mizong"
+                })) != -1 &&
                 side == 0 && config["equipment"]["type"] == "sword" && !config["equipment"]["hold"] &&
                 member_array(config["equipment"]["slot"], ({ "weapon", "secondary_weapon" })) != -1,
                 "explicit unarmed learning weapon slot");
@@ -1612,6 +1681,9 @@ void prepare_actor(int side, mapping config) {
                             ({ "apply/attack", "apply/dodge", "apply/parry", "apply/armor" })
                         ) != -1 &&
                         value > 0) ||
+                    (current["parameters"]["collection_group"] == "public-exert" && side == 0 &&
+                        member_array(key, ({ "hmg_dzjm", "apply/dodge", "apply/parry",
+                            "apply/armor", "apply/dispel_poison" })) != -1 && intp(value)) ||
                     (current["parameters"]["collection_group"] == "mingjiao-shenghuo" && side == 0 &&
                         member_array(
                             key,
@@ -1627,6 +1699,8 @@ void prepare_actor(int side, mapping config) {
                             ) != -1 && value > 0))) ||
                     (current["parameters"]["collection_group"] == "gumu-poison" &&
                         side == (current["method"] == "condition" ? 0 : 1) && key == "nopoison") ||
+                    (current["parameters"]["collection_group"] == "s1-dusha-lifecycle" &&
+                        side == 0 && key == "nopoison" && value == 1) ||
                     (current["parameters"]["collection_group"] == "gumu-unarmed-attack" &&
                         side == 1 && key == "nopoison" && value == 1) ||
                     (needle_collection() && !is_taohua_po() && side == 1 &&
@@ -1791,7 +1865,9 @@ void prepare_actor(int side, mapping config) {
                 current["parameters"]["variant"] == "already-active" &&
                 key == "lingbo" && value == 1) ||
             (current["parameters"]["collection_group"] == "public-music" &&
-                side > 0 && key == "love" && stringp(value)),
+                side > 0 && key == "love" && stringp(value)) ||
+            (current["parameters"]["collection_group"] == "public-exert" &&
+                side == 0 && key == "hmg_dzjm" && intp(value) && value > 0),
             "configured starting state");
         ob->set_temp(key, value);
     }
@@ -1919,6 +1995,11 @@ void observe_attack(object me, object target, int attack_type, int result, int d
                 "quanzhen-combination",
                 "huashan-combination",
                 "slice-combination",
+                "s1-duan-members",
+                "s1-duan-perform",
+                "s1-piaoxu",
+                "s1-yunlong",
+                "s1-panlong", "s1-dusha", "s1-qianye", "s1-sanyin", "s1-mizong",
                 "gumu-quanzhen",
                 "taohua-combination",
                 "mingjiao-combination",
@@ -1949,9 +2030,16 @@ void observe_attack(object me, object target, int attack_type, int result, int d
             value["attack_skill"] = me->query_skill_mapped(usage);
         }
         if (member_array(current["parameters"]["collection_group"],
-            ({ "gumu-zhi", "gumu-quanzhen", "taohua-combo" })) != -1)
+            ({
+                "gumu-zhi",
+                "gumu-quanzhen",
+                "taohua-combo",
+                "s1-duan-perform",
+                "s1-piaoxu"
+            })) != -1)
             value["apply_attack"] = me->query_temp("apply/attack") || 0;
-        if (current["parameters"]["collection_group"] == "taohua-combo") {
+        if (member_array(current["parameters"]["collection_group"],
+            ({ "taohua-combo", "s1-duan-perform", "s1-piaoxu" })) != -1) {
             value["apply_unarmed_damage"] = me->query_temp("apply/unarmed_damage");
             value["neili"] = me->query("neili");
         }
@@ -2091,7 +2179,7 @@ varargs void observe_direct(object me, object target, int type, int damage, int 
             "b22-perform",
             "b23-perform",
             "b24-perform",
-            "b26-perform"
+            "b26-perform", "s1-duan-perform", "s1-piaoxu", "s1-yunlong", "s1-panlong", "s1-panlong-tan"
         })) != -1) {
         weapon = me->query_temp("weapon");
         current["directs"] += ({ ([ "actor": member_array(me, players),
@@ -2227,6 +2315,7 @@ void observe_selected_action(object me, object target, string usage, mapping act
             "gumu-zhi",
             "gumu-quanzhen",
             "gumu-bout",
+            "s1-sanyin", "s1-mizong",
             "taohua-attack",
             "taohua-combo",
             "mingjiao-core",
@@ -2275,6 +2364,7 @@ void begin_passive(object me, object target, string route) {
     if (!active || member_array(current["parameters"]["collection_group"],
         ({
             "public-special",
+            "s1-mizong",
             "gumu-weapons",
             "gumu-unarmed-attack",
             "gumu-zhi",
@@ -2342,6 +2432,7 @@ void observe_passive(
     if (active && (is_mingjiao_force_remaining() || member_array(current["parameters"]["collection_group"],
         ({
             "public-special",
+            "s1-mizong",
             "gumu-weapons",
             "gumu-unarmed-attack",
             "gumu-zhi",
@@ -2391,6 +2482,19 @@ void observe_launch(object me, string skill, string argument) {
 void observe_refusal(object me, mixed reason) {
     if (active && stringp(reason) && reason != "")
         current["refusals"] += ({ ([ "actor": file_name(me), "reason": reason ]) });
+}
+
+void observe_tan_result(object me, object target, object item, string branch) {
+    if (!active || current["parameters"]["collection_group"] != "public-exert" ||
+        current["parameters"]["skill"] != "hamagong" ||
+        current["parameters"]["ability"] != "tan") return;
+    require(base_name(previous_object()) == "/kungfu/skill/hamagong/exert/tan" &&
+        me == players[0] && target == players[1] && objectp(item), "original tan branch owner");
+    require(!mapp(current["tan_result"]), "single original tan result");
+    current["tan_result"] = ([ "owner": base_name(previous_object()),
+        "actor": file_name(me), "target": file_name(target), "item": file_name(item),
+        "branch": branch, "poison_type": serializable(item->query("poison_type")),
+        "poison": serializable(item->query("poison")) ]);
 }
 
 // Only the original command's two calls are observed; setup and other groups are excluded.
@@ -3431,6 +3535,11 @@ int do_interface() {
     if (gumu_npc_pending) {
         gumu_npc_pending = 0;
         if (is_npc_bout()) {
+            if (current["parameters"]["collection_group"] == "emei-npc-bout") {
+                current["npc_observation"] = "/tests/npc_observer"->prepare_emei_bout(
+                    current["parameters"]["npc"], players[0]);
+                return 1;
+            }
             if (current["parameters"]["collection_group"] == "mingjiao-npc-bout") {
                 current["skill_load_contexts"] = ({});
                 foreach (load_skill in ({ "shenghuo-ling", "qishang-quan" })) {
@@ -3668,6 +3777,7 @@ int do_interface() {
             "query_effect_dodge",
             "query_dodge_msg",
             "query_action",
+            "query_skill_name",
             "query_parry_msg",
             "valid_enable",
             "type",
@@ -3684,6 +3794,10 @@ int do_interface() {
         })
     ) != -1,
         "configured observation interface");
+    if (spec["function"] == "query_skill_name")
+        require(member_array(current["parameters"]["collection_group"],
+            ({ "s1-yunlong", "s1-qianye", "s1-sanyin", "s1-mizong" })) != -1,
+            "finite member name query observation");
     if (spec["function"] == "valid_research") {
         require(member_array(current["parameters"]["collection_group"],
             ({ "gumu-cultivation", "gumu-movement", "mingjiao-shengong" })) != -1 &&
@@ -3726,6 +3840,108 @@ int do_interface() {
         require(current["parameters"]["collection_group"] == "gumu-hubo" &&
             spec["object"] == "/kungfu/skill/zuoyou-hubo", "configured original knowledge notification");
         result = call_other(spec["object"], "skill_improved", players[0]);
+    } else if (spec["function"] == "query_skill_name" &&
+        current["parameters"]["collection_group"] == "s1-mizong") {
+        require(member_array(current["parameters"]["skill"],
+            ({ "dashou-yin", "yujiamu-quan", "huoyan-dao" })) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] && intp(spec["argument"]) &&
+            member_array(
+                spec["argument"],
+                ({ 0, 25, 30, 50, 60, 80, 90, 100, 120, 140, 160, 180, 250, 800 })
+            ) != -1,
+            "finite original Mizong name query");
+        result = call_other(spec["object"], "query_skill_name", spec["argument"]);
+    } else if (spec["function"] == "query_skill_name" &&
+        current["parameters"]["collection_group"] == "s1-sanyin") {
+        require(current["parameters"]["skill"] == "sanyin-wugongzhao" &&
+            spec["object"] == "/kungfu/skill/sanyin-wugongzhao" && intp(spec["argument"]) &&
+            member_array(
+                spec["argument"],
+                ({ 0, 29, 30, 59, 60, 89, 90, 119, 120, 199, 200, 800 })
+            ) != -1,
+            "finite original Sanyin name query");
+        result = call_other(spec["object"], "query_skill_name", spec["argument"]);
+    } else if (spec["function"] == "query_skill_name" &&
+        current["parameters"]["collection_group"] == "s1-qianye") {
+        require(current["parameters"]["skill"] == "qianye-shou" &&
+            spec["object"] == "/kungfu/skill/qianye-shou" && intp(spec["argument"]) &&
+            member_array(
+                spec["argument"],
+                ({ 0, 29, 30, 60, 90, 110, 130, 140, 150, 160, 800 })
+            ) != -1,
+            "finite original Qianye name query");
+        result = call_other(spec["object"], "query_skill_name", spec["argument"]);
+    } else if (spec["function"] == "query_skill_name" &&
+        current["parameters"]["collection_group"] == "s1-yunlong") {
+        require(member_array(
+            current["parameters"]["skill"],
+            ({ "yunlong-shou", "yunlong-zhua" })
+        ) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            intp(spec["argument"]) && member_array(
+                spec["argument"],
+                ({ 0, 169, 170, 180, 800 })
+            ) != -1,
+            "finite original Yunlong name query");
+        result = call_other(spec["object"], "query_skill_name", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-mizong") {
+        require(member_array(current["parameters"]["skill"],
+            ({ "dashou-yin", "yujiamu-quan", "huoyan-dao" })) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            member_array(spec["argument"], ({ "hand", "cuff", "strike", "parry", "sword" })) != -1,
+            "finite original Mizong usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-sanyin") {
+        require(spec["object"] == "/kungfu/skill/sanyin-wugongzhao" &&
+            member_array(spec["argument"], ({ "claw", "parry", "sword" })) != -1,
+            "finite original Sanyin usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-qianye") {
+        require(spec["object"] == "/kungfu/skill/qianye-shou" &&
+            member_array(spec["argument"], ({ "hand", "parry", "sword" })) != -1,
+            "finite original Qianye usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-dusha") {
+        require(spec["object"] == "/kungfu/skill/dusha-zhang" &&
+            member_array(spec["argument"], ({ "strike", "parry", "sword" })) != -1,
+            "finite original Dusha usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-panlong") {
+        require(spec["object"] == "/kungfu/skill/panlong-zhao" &&
+            member_array(spec["argument"], ({ "claw", "parry", "sword" })) != -1,
+            "finite original Panlong usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-yunlong") {
+        require(member_array(
+            current["parameters"]["skill"],
+            ({ "yunlong-shou", "yunlong-zhua" })
+        ) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            member_array(spec["argument"], ({ "hand", "claw", "unarmed", "parry", "sword" })) != -1,
+            "finite original Yunlong usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-piaoxu") {
+        require(spec["object"] == "/kungfu/skill/piaoxu-zhang" &&
+            member_array(spec["argument"], ({ "strike", "parry", "sword" })) != -1,
+            "finite original Piaoxu usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
+    } else if (spec["function"] == "valid_enable" &&
+        current["parameters"]["collection_group"] == "s1-duan-members") {
+        require(member_array(
+            current["parameters"]["skill"],
+            ({ "jinyu-quan", "wuluo-zhang" })
+        ) != -1 &&
+            spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            member_array(spec["argument"], ({ "cuff", "strike", "parry", "sword" })) != -1,
+            "finite original Duan member usage query");
+        result = call_other(spec["object"], "valid_enable", spec["argument"]);
     } else if (spec["function"] == "valid_enable" &&
         current["parameters"]["collection_group"] == "mingjiao-shengong") {
         require(spec["object"] == "/kungfu/skill/shenghuo-shengong" &&
@@ -3800,6 +4016,9 @@ int do_interface() {
                 "quanzhen-combination",
                 "huashan-combination",
                 "slice-combination",
+                "s1-panlong", "s1-dusha", "s1-qianye", "s1-sanyin", "s1-mizong",
+                "s1-piaoxu",
+                "s1-yunlong",
                 "mingjiao-combination"
             })) != -1 &&
             spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
@@ -3877,6 +4096,8 @@ int do_interface() {
             spec["object"] == "/kungfu/skill/xiantian-gong" ||
             (current["parameters"]["collection_group"] == "public-special" &&
                 spec["object"] == "/kungfu/skill/qixian-wuxingjian") ||
+            (current["parameters"]["collection_group"] == "s1-mizong" &&
+                spec["object"] == "/kungfu/skill/huoyan-dao") ||
             (current["parameters"]["collection_group"] == "emei-jiuyin-passive" &&
                 member_array(spec["object"], ({ "/kungfu/skill/jiuyin-baiguzhao",
                     "/kungfu/skill/cuixin-zhang" })) != -1) ||
@@ -4018,6 +4239,14 @@ int do_interface() {
 void init() { add_action("do_interface", "test_interface"); }  // Point observations still have no autonomous heartbeat. Bouts use the original
 // USER heartbeat, including regeneration; only the chosen command is automated.
 int strategy(object ob, int side) {
+    if (active && current["parameters"]["collection_group"] == "quanzhen-practice" &&
+        current["parameters"]["target_busy_lifecycle"]) {
+        if (side != 1 || ob != players[1] || current["busy_terminal"] != "waiting") return 0;
+        current["busy_heartbeats"] += ({ ([ "side": side, "driver_heartbeat": 1,
+            "before": snapshot(ob), "elapsed_before": time_ns() / 1000000000.0 - started ]) });
+        ob->count_event("heartbeats");
+        return 1;
+    }
     if (active && current["parameters"]["collection_group"] == "composite-synthesis") {
         if (side || ob != players[0] || !current["yanlian_accepted"] ||
             current["outcome"] == "error") return 0;
@@ -4118,6 +4347,22 @@ int strategy(object ob, int side) {
 }
 
 void after_heartbeat(int side) {
+    mapping busy_step;
+    if (active && current["parameters"]["collection_group"] == "quanzhen-practice" &&
+        current["parameters"]["target_busy_lifecycle"]) {
+        require(
+            side == 1 && sizeof(current["busy_heartbeats"]),
+            "original gold lock target heartbeat"
+        );
+        busy_step = current["busy_heartbeats"][<1];
+        busy_step["after"] = snapshot(players[1]);
+        busy_step["elapsed"] = time_ns() / 1000000000.0 - started;
+        if (!players[1]->is_busy()) {
+            current["busy_terminal"] = "released";
+            call_out("finish_sample", 0);
+        }
+        return;
+    }
     if (active && current["parameters"]["collection_group"] == "composite-synthesis") {
         require(
             !side && sizeof(current["yanlian_steps"]),
@@ -4176,8 +4421,13 @@ void after_heartbeat(int side) {
         if (sizeof(current["condition_events"]) / 2 > sizeof(current["condition_heartbeats"])) {
             current["condition_heartbeats"] += ({ ([ "state": snapshot(players[0]),
                 "elapsed": time_ns() / 1000000000.0 - started ]) });
-            if (sizeof(current["condition_heartbeats"]) == current["parameters"]["ticks"])
+            if (sizeof(current["condition_heartbeats"]) == current["parameters"]["ticks"]) {
+                if (current["parameters"]["collection_group"] == "s1-dusha-lifecycle") {
+                    current["condition_lifecycle_complete"] = !mapp(players[0]->query_condition("sha_poison"));
+                    current["condition_terminal"] = current["condition_lifecycle_complete"] ? "removed" : "tick_limit";
+                }
                 finish_sample();
+            }
         }
         return;
     }
@@ -4331,6 +4581,17 @@ void poll_gumu_temporal() {
 void poll() {
     mapping state, step;
     mixed busy;
+    if (active && current["parameters"]["collection_group"] == "quanzhen-practice" &&
+        current["parameters"]["target_busy_lifecycle"]) {
+        if (current["busy_terminal"] != "waiting") return;
+        if (time_ns() / 1000000000.0 - started >= current["parameters"]["observe_seconds"]) {
+            current["outcome"] = "error";
+            current["reason"] = "Original gold lock target busy did not expire before watchdog.";
+            current["busy_terminal"] = "watchdog";
+            finish_sample();
+        } else call_out("poll", 1);
+        return;
+    }
     if (active && current["method"] == "yanlian" && current["yanlian_accepted"]) {
         // Poll observes only. The driver's USER heartbeat owns continue_action().
         busy = players[0]->query_busy();
@@ -4937,6 +5198,10 @@ void perform_sample() {
                 "shaolin-public-force",
                 "emei-shexing",
                 "gumu-defense",
+                "quanzhen-defense",
+                "s1-panlong-tan",
+                "s1-duan-perform",
+                "s1-piaoxu",
                 "mingjiao-movement",
                 "mingjiao-qkd",
                 "mingjiao-jiuyang",
@@ -4959,6 +5224,9 @@ void perform_sample() {
         ) != -1 &&
             (!parameters["fighting"] || member_array(parameters["collection_group"],
                 ({
+                    "s1-panlong-tan",
+                    "s1-duan-perform",
+                    "s1-piaoxu",
                     "gumu-zhi",
                     "gumu-quanzhen",
                     "taohua-ding",
@@ -4980,6 +5248,9 @@ void perform_sample() {
         require(!living(players[1]) && !players[1]->is_ghost(), "original unconscious target");
         if (member_array(parameters["collection_group"],
             ({
+                "s1-panlong-tan",
+                "s1-duan-perform",
+                "s1-piaoxu",
                 "gumu-exert",
                 "gumu-zhi",
                 "gumu-quanzhen",
@@ -5362,6 +5633,44 @@ void perform_sample() {
         return;
     }
     if (current["method"] == "scene") {
+        if (parameters["collection_group"] == "miao-study") {
+            require(parameters["room"] == "/d/zhongzhou/miaojia_shufang" &&
+                member_array(
+                    action,
+                    ({ "canwu shu", "canwu wall", "canwu tu", "think tu", "think shu" })
+                ) != -1,
+                "finite original Miao room command");
+            players[0]->enable_player();
+            step = ([
+                "room_before": base_name(environment(players[0])),
+                "before": snapshot(players[0])
+            ]);
+            step["move_result"] = players[0]->move("/d/zhongzhou/miaojia_shufang");
+            require(step["move_result"], "initial original Miao study position");
+            step["room_after"] = base_name(environment(players[0]));
+            step["after"] = snapshot(players[0]);
+            current["study_setup"] = step;
+            ob = environment(players[0]);
+            grant = parameters["ability"] == "canwu" ? "do_canwu" : "do_think";
+            step = ([ "command": action, "room": base_name(ob),
+                "function_owner": function_exists(grant, ob), "before": snapshot(players[0]) ]);
+            players[0]->begin_teaching_messages();
+            result = players[0]->force_me(action);
+            step["messages"] = players[0]->end_teaching_messages();
+            step["accepted"] = result;
+            step["after"] = snapshot(players[0]);
+            reason = players[0]->query_temp("notify_fail");
+            if (!result) require(
+                stringp(reason) && reason != "",
+                "actual original Miao study refusal"
+            );
+            step["reason"] = result ? "" : reason;
+            current["study_step"] = step;
+            current["command_accepted"] = result;
+            current["reason"] = step["reason"];
+            current["outcome"] = result ? "observed" : "refused";
+            return;
+        }
         if (parameters["collection_group"] == "mingjiao-route") {
             begin_mingjiao_route(parameters);
             return;
@@ -5685,8 +5994,33 @@ void perform_sample() {
             ({
                 "wudang-condition",
                 "emei-jiuyin-passive",
-                "gumu-poison"
+                "gumu-poison", "s1-dusha-lifecycle"
             })) != -1, "condition experiment");
+        if (parameters["collection_group"] == "s1-dusha-lifecycle") {
+            require(parameters["seed_mode"] == "original_hit_ob" &&
+                parameters["seed_side"] == 1 && parameters["condition_name"] == "sha_poison" &&
+                member_array(parameters["seed_incoming"], ({ 0, 100 })) != -1 &&
+                member_array(parameters["ticks"], ({ 0, 1, 2 })) != -1,
+                "finite original Dusha callback seed");
+            ob = load_object("/kungfu/skill/dusha-zhang");
+            step = ([ "object": "/kungfu/skill/dusha-zhang", "function": "hit_ob",
+                "function_owner": function_exists("hit_ob", ob), "actor": 1, "target": 0,
+                "incoming": parameters["seed_incoming"], "factor": 0,
+                "before": ({ snapshot(players[0]), snapshot(players[1]) }) ]);
+            result = ob->hit_ob(players[1], players[0], parameters["seed_incoming"], 0);
+            observe_passive(players[1], players[0], "dusha-zhang",
+                parameters["seed_incoming"], 0, result, "interface");
+            reason = players[0]->query_condition("sha_poison");
+            step += ([ "result": serializable(result), "state": serializable(reason),
+                "seeded": mapp(reason), "after": ({
+                    snapshot(players[0]),
+                    snapshot(players[1])
+                }) ]);
+            current["condition_seed"] = step;
+            current["condition_lifecycle_complete"] = 0;
+            current["condition_terminal"] = mapp(reason) ? "waiting" : "no_seed";
+            require((parameters["ticks"] > 0) == mapp(reason), "declared Dusha seed boundary");
+        }
         if (parameters["collection_group"] == "emei-jiuyin-passive" && parameters["seed_by_hit"]) {
             // This lifecycle reverses the roles: actor 0 receives the original palm passive.
             result = "/kungfu/skill/cuixin-zhang"->hit_ob(players[1], players[0], 100, 0);
@@ -5852,6 +6186,9 @@ void perform_sample() {
             current["practice_step"]["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
         }
         if ((is_taohua_ding() || is_taohua_zhuan() ||
+            current["parameters"]["collection_group"] == "s1-duan-perform" ||
+            current["parameters"]["collection_group"] == "s1-piaoxu" ||
+            current["parameters"]["collection_group"] == "s1-panlong-tan" ||
             current["parameters"]["collection_group"] == "mingjiao-shenghuo" ||
             current["parameters"]["collection_group"] == "mingjiao-ling-perform" ||
             current["parameters"]["collection_group"] == "mingjiao-jiuyang-direct" ||
@@ -6316,7 +6653,14 @@ void advance() {
     }
     if (member_array(
         current["parameters"]["collection_group"],
-        ({ "emei-npc", "gumu-npc", "gumu-npc-bout", "taohua-npc", "mingjiao-npc-bout" })
+        ({
+            "emei-npc",
+            "gumu-npc",
+            "gumu-npc-bout",
+            "taohua-npc",
+            "mingjiao-npc-bout",
+            "emei-npc-bout"
+        })
     ) != -1)
         current["npc_direct"] = ({});
     if (current["parameters"]["collection_group"] == "gumu-temporal") current["temporal_steps"] = ({});
@@ -6353,6 +6697,8 @@ void advance() {
             "gumu-quanzhen",
             "gumu-bout",
             "gumu-npc-bout",
+            "s1-sanyin", "s1-mizong",
+            "emei-npc-bout",
             "mingjiao-npc-bout",
             "taohua-attack",
             "taohua-combo",
@@ -6371,7 +6717,10 @@ void advance() {
             "gumu-temporal",
             "taohua-ding",
             "taohua-zhuan",
+            "miao-study", "s1-panlong-tan", "s1-panlong", "s1-yunlong", "s1-dusha", "s1-dusha-lifecycle", "s1-qianye", "s1-sanyin", "s1-mizong",
             "taohua-direct",
+            "s1-duan-perform",
+            "s1-piaoxu",
             "mingjiao-qishang"
         })
     ) != -1)
@@ -6450,7 +6799,7 @@ void advance() {
             "emei-bout-perform",
             "shaolin-bout-perform",
             "wudang-bout-perform",
-            "mingjiao-npc-bout"
+            "mingjiao-npc-bout", "emei-npc-bout"
         })) != -1)
         current["attack_rounds"] = ({});
     current["callbacks"] = ({});
@@ -6558,6 +6907,21 @@ void advance() {
     }
     observe_taohua_po_weapon("immediate");
     observe_ling_weapon("immediate");
+    if (current["parameters"]["collection_group"] == "quanzhen-practice" &&
+        current["parameters"]["target_busy_lifecycle"]) {
+        players[0]->observation_heartbeat(0);
+        players[1]->observation_heartbeat(0);
+        current["busy_heartbeats"] = ({});
+        if (current["outcome"] != "observed" || !players[1]->is_busy()) {
+            current["busy_terminal"] = "not_applied";
+            finish_sample();
+        } else {
+            current["busy_terminal"] = "waiting";
+            players[1]->observation_heartbeat(1);
+            call_out("poll", 1);
+        }
+        return;
+    }
     if (current["parameters"]["collection_group"] == "mingjiao-qkd" && current["outcome"] == "observed") {
         require(mapp(current["qkd_queue"]) && current["parameters"]["callback_if_queued"],
             "declared conditional original callback observation");
@@ -6608,11 +6972,13 @@ void advance() {
     }
     if (member_array(
         current["parameters"]["collection_group"],
-        ({ "gumu-fireice", "gumu-fireice-g6", "gumu-poison" })
+        ({ "gumu-fireice", "gumu-fireice-g6", "gumu-poison", "s1-dusha-lifecycle" })
     ) != -1)
         current["immediate_metrics"] = ({ players[0]->query_observation(),
             players[1]->query_observation() });
-    if (current["method"] == "condition" && current["parameters"]["collection_group"] == "gumu-poison" &&
+    if (current["method"] == "condition" && member_array(
+        current["parameters"]["collection_group"], ({ "gumu-poison", "s1-dusha-lifecycle" })
+    ) != -1 &&
         current["parameters"]["ticks"] == 0) {
         finish_sample();
         return;

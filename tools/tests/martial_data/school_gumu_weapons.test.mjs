@@ -236,7 +236,10 @@ test('未实现hit_ob的明确null不冒充缺测，也不要求驱动替换成�
 test('统一入口只追加剑鞭条件，旧12111条件完整指纹不变', () => {
     const all = schoolCombatConditions(catalog);
     assert.deepEqual(all.filter(c => c.id.startsWith('school-gumu-weapons-')), cases);
-    const old = all.slice(0, 12111);
+    // Keep the historical cohort before slicing; later Quanzhen/S1 windows are not old records.
+    const historical = all.filter(c => !c.parameters.collection_group?.startsWith('s1-')
+        && !c.id.startsWith('school-quanzhen-boundary-') && !c.parameters.target_busy_lifecycle);
+    const old = historical.slice(0, 12111);
     assert.equal(old.length, 12111); assert.equal(old.reduce((n,c)=>n+c.samples,0), 310762);
     assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'),
         '996ba9d106c496fee8632d9dfc00d2bbd2278c4de05f8fbb81fb39efa2042501');

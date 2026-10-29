@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { emeiNpcBoutConditions } from './school_emei_npc_bout_cases.mjs';
 import { execFileSync, spawn } from 'node:child_process';
 import { createConnection, createServer } from 'node:net';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, writeFileSync } from 'node:fs';
@@ -7,6 +8,7 @@ import { applyProbes } from '../../bench_weapon_balance.mjs';
 import { buildInventory, collectVersions, isInside, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
 import { coverage, coverageMarkdown, createSeries, digest, openSeries } from './ledger.mjs';
+import { observedEffectSources } from './observed_effect_sources.mjs';
 import { attemptImporter, jsonlTail, missingJobs, sampleImporter, seriesLock, verifyAttemptStopped, verifyResume } from './continuation.mjs';
 import { weaponConditions, profiles } from './weapon_cases.mjs';
 import { abilityConditions, validateAbilityRecord } from './ability_cases.mjs';
@@ -21,6 +23,7 @@ import { npcEntries } from './school_emei_npc_cases.mjs';
 import { taohuaNpcEntries } from './school_taohua_npc_cases.mjs';
 import { schoolTeamConditions, validateSchoolTeamRecord } from './school_team_cases.mjs';
 import { schoolSceneConditions, sceneEntries, validateSchoolSceneRecord } from './school_scene_cases.mjs';
+import { miaoStudyConditions, miaoStudySourcePaths } from './school_miao_study_cases.mjs';
 import { npcBoutHeartbeatProbes, npcBoutChatProbes, npcBoutTerminalProbes,
     npcBoutCorpseProbes } from './npc_bout_probes.mjs';
 import { taohuaDingTimerProbes } from './taohua_ding_probes.mjs';
@@ -394,7 +397,27 @@ export function combatActionProbes(source) {
     return { changed, sites };
 }
 
-export function createSandbox(root, output) {
+// Insert observations inside the three original branches, never redraw RNG or
+// replace affect_by's expression. Only the temporary copy receives these sites.
+export function tanResultProbes(source) {
+    assert.equal(sha256(source), observedEffectSources['exert:hamagong/tan'].sha256,
+        'tan source changed; review branch probes');
+    const sites = [
+        ['        target->query("neili")) {', 'blocked'],
+        ['        if (ap / 2 + random(ap) < target->query_skill("dodge") * 3 / 2) {', 'dodged'],
+        ['            target->affect_by(du->query("poison_type"), du->query("poison"));', 'hit'],
+    ].map(([anchor, branch]) => ({ anchor,
+        insert: `\n            "/tests/runner"->observe_tan_result(me, target, du, "${branch}");` }));
+    let changed = source;
+    for (const { anchor, insert } of sites) {
+        assert.equal(source.split(anchor).length, 2, 'tan branch anchor must be unique');
+        changed = changed.replace(anchor, anchor + insert);
+    }
+    assert.equal(sites.reduceRight((s, site) => s.replace(site.anchor + site.insert, site.anchor), changed), source);
+    return { changed, sites };
+}
+
+export function createSandbox(root, output, { observeTan = false } = {}) {
     const sandbox = output ? join(output, 'mudlib') : null, files = {}, probes = [];
     const putCopy = (path, content) => { if (sandbox) put(join(sandbox, path), content); };
     const excluded = /^(?:u|backup|bin|binaries|data|doc|docs|dump|fluffos|grant|help|log|ai|openspec|temp|version|www|tools)\//;
@@ -443,6 +466,7 @@ export function createSandbox(root, output) {
     // Special item fixtures for pending G3/5.3 entries
     copy('tools/tests/martial_data/jinshe_zhui_weapon.lpc', 'tests/jinshe_zhui_weapon.lpc');
     copy('tools/tests/martial_data/xuanyuan_arrow_weapon.lpc', 'tests/xuanyuan_arrow_weapon.lpc');
+    copy('tools/tests/martial_data/poison_item.lpc', 'tests/poison_item.lpc');
     const crafted = readFileSync(join(root, craftedPath), 'utf8');
     files[craftedPath] = sha256(crafted);
     for (const type of ['sword', 'hammer'])
@@ -696,6 +720,20 @@ export function createSandbox(root, output) {
         const path = 'tools/tests/martial_data/' + name;
         files[path] = sha256(readFileSync(join(root, path)));
     }
+    for (const name of ['school_panlong_member_cases.mjs', 'school_panlong_member.test.mjs',
+        'school_panlong_tan_cases.mjs', 'school_panlong_tan.test.mjs',
+        'school_miao_study_cases.mjs', 'school_miao_study.test.mjs',
+        'school_dusha_member_cases.mjs', 'school_dusha_member.test.mjs',
+        'school_dusha_lifecycle_cases.mjs', 'school_dusha_lifecycle.test.mjs',
+        'school_qianye_member_cases.mjs', 'school_qianye_member.test.mjs',
+        'school_sanyin_member_cases.mjs', 'school_sanyin_member.test.mjs',
+        'school_mizong_member_cases.mjs', 'school_mizong_member.test.mjs',
+        'school_emei_npc_bout_cases.mjs', 'school_emei_npc_bout.test.mjs', 'school_emei_npc_bout_report.mjs',
+        'school_huashan_duration.test.mjs', 'historical_school_conditions.mjs',
+        'historical_school_conditions.test.mjs']) {
+        const path = 'tools/tests/martial_data/' + name;
+        files[path] = sha256(readFileSync(join(root, path)));
+    }
     putCopy('adm/etc/wizlist', '# No wizard accounts in the isolated test.\n');
     for (const path of ['adm/daemons/combatd.c', 'cmds/skill/perform.c', 'cmds/skill/exert.c', 'kungfu/skill/dugu-jiujian/qi.c',
         'kungfu/skill/taiji-quan.c', 'feature/condition.c', 'kungfu/skill/fireice-strike/binghuo.c', 'feature/equip.c',
@@ -721,6 +759,14 @@ export function createSandbox(root, output) {
             : path.endsWith('taiji-quan.c') ? taijiPassiveProbes(original)
             : path.endsWith('dugu-jiujian/qi.c') ? duguTimerProbes(original)
                 : launchProbes(original, path.includes('perform') ? 'perform' : 'exert');
+        putCopy(path, probe.changed);
+        probes.push({ path, before: sha256(original), after: sha256(probe.changed), sites: probe.sites });
+    }
+    if (observeTan) {
+        const path = observedEffectSources['exert:hamagong/tan'].path;
+        const original = readFileSync(join(root, path), 'utf8');
+        assert.equal(sha256(original), files[path], 'tan source changed during snapshot');
+        const probe = tanResultProbes(original);
         putCopy(path, probe.changed);
         probes.push({ path, before: sha256(original), after: sha256(probe.changed), sites: probe.sites });
     }
@@ -756,7 +802,7 @@ export function validateRecord(raw, condition) {
     if (condition.method === 'interface') assert.ok(raw.interfaces.length > 0, '没有真实接口调用证据');
     const equipment = condition.parameters?.actor?.equipment;
     if (equipment) {
-        const secondary = ['gumu-unarmed-learning', 'taohua-zhuan'].includes(condition.parameters.collection_group)
+        const secondary = ['gumu-unarmed-learning', 'taohua-zhuan', 'quanzhen-defense', 's1-duan-members', 's1-duan-perform', 's1-piaoxu', 's1-yunlong', 's1-panlong', 's1-panlong-tan', 's1-dusha', 's1-qianye', 's1-sanyin', 's1-mizong'].includes(condition.parameters.collection_group)
             && equipment.slot === 'secondary_weapon';
         const details = raw.before[0][secondary ? 'secondary_weapon_details' : equipment.hold ? 'handing_details' : 'weapon_details'];
         const crafted = condition.parameters.collection_group === 'gumu-advanced' && equipment.item_make;
@@ -792,11 +838,12 @@ export function validateRecord(raw, condition) {
                 'PO演员原物品路径不在明确清单');
         }
         // Use explicit equipment.program when set (e.g. jinshe_zhui_weapon,
-        // xuanyuan_arrow_weapon); otherwise derive from type.
+        // xuanyuan_arrow_weapon, poison_item); otherwise derive from type.
         assert.equal(details.program,
             originalNeedle || originalPo || originalShenghuo || originalMingjiaoTeacher
             || originalDefenseSword || originalJiuyangDirect || originalRemainingFlower
-            || (condition.parameters.collection_group === 'b29-perform' && equipment.program)
+            || (['b29-perform', 'public-exert'].includes(condition.parameters.collection_group)
+                && equipment.program)
                 ? equipment.program
                 : '/tests/' + (crafted ? 'crafted_' : '') + equipment.type, '装备初始化类别不符');
         assert.ok(Number.isFinite(details.weight) && details.weight > 0, '缺少实际装备重量');
@@ -857,6 +904,12 @@ export function validateQualificationSources(conditions, files, sourceContext) {
             '明教互备／原NPC须独立选定 case-group，不能混入其他条件或裁剪原 manifest');
     const combinationPlans = new Map();
     for (const condition of conditions) {
+        if (condition.parameters.collection_group === 'emei-npc-bout') {
+            assert.ok(sourceContext?.catalog && typeof sourceContext.readSource === 'function');
+            const smoke = condition.parameters.observe_seconds === 3;
+            assert.deepEqual(condition, emeiNpcBoutConditions(sourceContext.catalog, sourceContext.readSource, { smoke })[0],
+                '周芷若原NPC条件不得改配装或任选闭包');
+        }
         if (['mingjiao-combination', 'mingjiao-npc-bout'].includes(condition.parameters.collection_group)) {
             assert.ok(sourceContext?.catalog && typeof sourceContext.readSource === 'function');
             const mode = condition.parameters.run_mode;
@@ -1521,6 +1574,15 @@ async function executeCollection(root, output, options, collection, existing) {
         'school-combat': schoolCombatConditions,
         'school-team': schoolTeamConditions,
         'school-scene': (catalog, settings) => {
+            if ((settings.case ?? settings.casePrefix ?? '').startsWith('school-scene-miao-study-')) {
+                const readSource = path => {
+                    assert.ok(miaoStudySourcePaths.includes(path), '未声明的苗家研习来源');
+                    const actual = realpathSync(join(root, path));
+                    assert.ok(isInside(root, actual), '苗家研习来源链接越界：' + path);
+                    return readFileSync(actual, 'utf8');
+                };
+                return miaoStudyConditions(catalog, readSource, settings);
+            }
             const routeScope = (settings.case ?? settings.casePrefix ?? '')
                 .startsWith('school-scene-mingjiao-route-');
             if (!routeScope) return schoolSceneConditions(catalog, settings);
@@ -1540,7 +1602,9 @@ async function executeCollection(root, output, options, collection, existing) {
     validateMingjiaoRouteSelection(conditions);
     validateExpectedOutcomes(conditions);
     // Hash without writing first. A refused resume never changes old snapshots.
-    const snapshot = createSandbox(root);
+    const snapshotOptions = { observeTan: conditions.some(c => c.parameters.collection_group === 'public-exert'
+        && c.parameters.skill === 'hamagong' && c.parameters.ability === 'tan') };
+    const snapshot = createSandbox(root, undefined, snapshotOptions);
     const sourceContext = { catalog, readSource: path => readFileSync(join(root, path), 'utf8') };
     validateQualificationSources(conditions, snapshot.files, sourceContext);
     for (const file of inventory.files) assert.equal(snapshot.files[file.path], file.sha256,
@@ -1585,7 +1649,7 @@ async function executeCollection(root, output, options, collection, existing) {
         save(join(run, 'request.json'), { fingerprint: manifest.fingerprint, created: new Date().toISOString(),
             jobs: jobs.map(job => ({ condition_id: job.condition_id, index: job.index })),
             interrupt_after: options.interruptAfter ?? null });
-        const current = createSandbox(root, run);
+        const current = createSandbox(root, run, snapshotOptions);
         assert.equal(digest(current.files), digest(snapshot.files), '启动前文件变化，必须新建系列');
         assert.equal(digest(current.probes), digest(snapshot.probes), '启动前探针变化');
         const before = importer.imported;

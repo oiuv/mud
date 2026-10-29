@@ -1,5 +1,17 @@
 // Explicit school combinations; acquisition/cultivation costs are not simulated.
 import assert from 'node:assert/strict';
+import { duanMemberConditions, validateDuanMemberRecord } from './school_duan_member_cases.mjs';
+import { duanPerformConditions, validateDuanPerformRecord } from './school_duan_perform_cases.mjs';
+import { piaoxuConditions, validatePiaoxuRecord } from './school_piaoxu_cases.mjs';
+import { yunlongMemberConditions, validateYunlongMemberRecord } from './school_yunlong_member_cases.mjs';
+import { panlongMemberConditions, validatePanlongMemberRecord } from './school_panlong_member_cases.mjs';
+import { panlongTanConditions, validatePanlongTanRecord } from './school_panlong_tan_cases.mjs';
+import { dushaMemberConditions, validateDushaMemberRecord } from './school_dusha_member_cases.mjs';
+import { dushaLifecycleConditions, validateDushaLifecycleRecord } from './school_dusha_lifecycle_cases.mjs';
+import { qianyeMemberConditions, validateQianyeMemberRecord } from './school_qianye_member_cases.mjs';
+import { sanyinMemberConditions, validateSanyinMemberRecord } from './school_sanyin_member_cases.mjs';
+import { mizongMemberConditions, validateMizongMemberRecord } from './school_mizong_member_cases.mjs';
+import { emeiNpcBoutConditions, validateEmeiNpcBoutRecord } from './school_emei_npc_bout_cases.mjs';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
@@ -270,6 +282,24 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
     // Separate IDs/conditions preserve the earlier immediate-only series verbatim.
     for (const ability of ['powerup', 'ziqi'])
         add(150, 'qizong', ability, { suffix: '-expiry', checks: 2, duration: true });
+    // Separate appended S6 series. Preserve all old IDs/conditions and their order.
+    // Smoke checks L200 once per original callback; formal retains all three levels.
+    const huashanDurations = [];
+    for (const level of smoke ? [200] : [200, 400, 800]) for (const ability of ['powerup', 'ziqi']) {
+        add(level, 'qizong', ability, { suffix: '-s6-expiry', checks: 2, duration: true });
+        const condition = result.pop();
+        condition.parameters.collection_group = 'huashan-duration';
+        condition.parameters.qualification_sources = [...new Set([...condition.parameters.qualification_sources,
+            'feature/action.c', 'mudcore/inherit/action.c', 'feature/skill.c', 'feature/equip.c',
+            'clone/user/user.c', 'inherit/char/char.c'])];
+        condition.parameters.qualification_note += ' S6独立自然到期：原200/400/800秒不缩时，每项正式2次；烟雾仅200级各1次。关闭自主心跳，不补资源、不重施、不手工解除；完整原回调前后及最终状态验证，不当战斗收益或重复叠加。';
+        huashanDurations.push(condition);
+    }
+    // New boundary/lifecycle windows must not shift the frozen historical prefixes.
+    const quanzhenDefense = quanzhenDefenseConditions(catalog, { smoke, samples });
+    const quanzhenPractice = quanzhenPracticeConditions(catalog, { smoke, samples });
+    const newQuanzhenDefense = c => c.id.startsWith('school-quanzhen-boundary-');
+    const newQuanzhenPractice = c => c.parameters.target_busy_lifecycle === true;
     return [...result, ...huashanAdditionalConditions(catalog, { smoke, samples }),
         ...huashanAdvancedConditions(catalog, { smoke, samples }),
         ...huashanLearningConditions(catalog, { smoke, samples }),
@@ -278,8 +308,8 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...quanzhenSwordConditions(catalog, { smoke, samples }),
         ...quanzhenBasicConditions(catalog, { smoke, samples }),
         ...quanzhenAdvancedConditions(catalog, { smoke, samples }),
-        ...quanzhenDefenseConditions(catalog, { smoke, samples }),
-        ...quanzhenPracticeConditions(catalog, { smoke, samples }),
+        ...quanzhenDefense.filter(c => !newQuanzhenDefense(c)),
+        ...quanzhenPractice.filter(c => !newQuanzhenPractice(c)),
         ...quanzhenCultivationConditions(catalog, { smoke, samples }),
         ...quanzhenAuxiliaryConditions(catalog, { smoke, samples }),
         ...quanzhenStudyConditions(catalog, { smoke, samples }),
@@ -452,10 +482,58 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         // 4.3: NPC grant perform entries (17 skills × 2 conditions)
         ...npcGrantPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         // 5.2: public exert abilities (powerup/shield/heal)
-        ...publicExertConditions(catalog, { smoke })];
+        ...publicExertConditions(catalog, { smoke }),
+        ...duanMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...duanPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...piaoxuConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...yunlongMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...panlongMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...panlongTanConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...dushaMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...dushaLifecycleConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...qianyeMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...sanyinMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...mizongMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
+        ...emeiNpcBoutConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
+        ...quanzhenDefense.filter(newQuanzhenDefense),
+        ...quanzhenPractice.filter(newQuanzhenPractice),
+        ...huashanDurations];
 }
 
 export function validateSchoolCombatRecord(raw, condition, sourceContext) {
+    if (condition.parameters.collection_group === 'huashan-duration') {
+        const p = condition.parameters;
+        assert.equal(p.school, 'huashan'); assert.equal(condition.method, 'exert');
+        assert.ok([200, 400, 800].includes(p.level)); assert.equal(p.actor.skills['zixia-shengong'], p.level);
+        assert.ok(['powerup', 'ziqi'].includes(p.ability)); assert.equal(p.action, 'exert ' + p.ability);
+        assert.equal(p.observation, 'timed_effect'); assert.equal(p.observe_seconds, p.level + 2);
+        assert.equal(p.actor.properties.neili, 6000); assert.equal(p.actor.equipment.type, 'sword');
+        assert.equal(p.expected, 'observed');
+    }
+    if (condition.parameters.collection_group === 'emei-npc-bout')
+        return validateEmeiNpcBoutRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-mizong')
+        return validateMizongMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-sanyin')
+        return validateSanyinMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-qianye')
+        return validateQianyeMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-dusha-lifecycle')
+        return validateDushaLifecycleRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-dusha')
+        return validateDushaMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-panlong-tan')
+        return validatePanlongTanRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-panlong')
+        return validatePanlongMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-yunlong')
+        return validateYunlongMemberRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-piaoxu')
+        return validatePiaoxuRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-duan-perform')
+        return validateDuanPerformRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-duan-members')
+        return validateDuanMemberRecord(raw, condition);
     if (['mingjiao-combination', 'mingjiao-npc-bout'].includes(condition.parameters.collection_group)) {
         assert.ok(sourceContext?.catalog && typeof sourceContext.readSource === 'function',
             '明教互备／原NPC须绑定实际catalog与源码读取');

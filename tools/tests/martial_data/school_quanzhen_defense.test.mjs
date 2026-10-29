@@ -1,3 +1,4 @@
+import { preOctober29Conditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -15,12 +16,14 @@ const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].
     cases = all.filter(c => c.parameters.collection_group === 'quanzhen-defense');
 const find = suffix => cases.find(c => c.id.endsWith(suffix));
 
-test('全真防御83条件5556样本，不改变此前525条件的定义与采样数', () => {
-    assert.equal(cases.length, 83); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5556);
-    const old = all.filter(c => !['quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+test('全真原83条件5556样本保留，另列5条件10条状态边界', () => {
+    const original = cases.filter(c => !c.id.startsWith('school-quanzhen-boundary-'));
+    assert.equal(original.length, 83); assert.equal(original.reduce((n, c) => n + c.samples, 0), 5556);
+    assert.equal(cases.length, 88); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 5566);
+    const old = preOctober29Conditions(all).filter(c => !['quanzhen-defense', 'quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 525); assert.equal(old.reduce((n, c) => n + c.samples, 0), 29960);
     assert.equal(cases.filter(c => c.samples === 100).length, 55);
-    assert.equal(new Set(cases.map(c => c.id)).size, 83);
+    assert.equal(new Set(cases.map(c => c.id)).size, 88);
     assert.ok(cases.every(c => c.parameters.expected === 'observed'));
     assert.ok(cases.every(c => catalog.skills.some(s => s.path === c.entry_id)));
 });
@@ -51,13 +54,23 @@ test('战斗七处观察可逆，两个hit_ob仍只调用原函数一次', () =>
 });
 
 function row(c) {
-    const before = [c.parameters.actor, c.parameters.target].map(config => ({
+    const before = [c.parameters.actor, c.parameters.target].map((config, side) => ({
         ...config.properties, skills: structuredClone(config.skills), mappings: structuredClone(config.mappings),
-        preparations: structuredClone(config.preparations ?? {}), living: 1, effective_con: 90,
+        preparations: structuredClone(config.preparations ?? {}),
+        living: side === 1 && c.parameters.target_state === 'unconscious' ? 0 : 1, ghost: 0, effective_con: 90,
         effective_skills: { force: config.skills.force / 2 + (config.skills[config.mappings.force] ?? 0) },
-        weapon: config.equipment?.type ?? 'none', busy: config.busy ?? 0, temp: { apply: {} },
+        weapon: config.equipment?.slot === 'secondary_weapon' ? 'none' : config.equipment?.type ?? 'none',
+        secondary_weapon: config.equipment?.slot === 'secondary_weapon' ? config.equipment.type : 'none',
+        secondary_weapon_details: config.equipment?.slot === 'secondary_weapon' ? { program: '/tests/sword' } : {},
+        mapped_unarmed: config.skills['xiantian-gong'] >= 180 ? config.mappings.unarmed : 0,
+        mapped_parry: config.skills['xiantian-gong'] >= 180 ? config.mappings.parry : 0,
+        busy: config.busy ?? 0, temp: { apply: {} },
     }));
     return { outcome: 'observed', before, immediate: structuredClone(before),
+        ...(c.parameters.target_state === 'unconscious' ? { preparation: { after: structuredClone(before[1]) } } : {}),
+        ...(c.parameters.original_enable_context ? { skill_load_context: { actor: before[1].object,
+            command: 'enable parry kongming-quan', already_loaded: 0,
+            skills: structuredClone(before[1].skills) } } : {}),
         interfaces: [], defenses: [], passives: [], attacks: [], launches: [], metrics: [{}, {}] };
 }
 
@@ -98,7 +111,8 @@ test('原公式确定性边界不伪造概率，接口化解和实际零伤害�
 test('先天接口严格大于后天根骨、内力门槛和原扣费，不把传入factor当倍率', () => {
     for (const c of cases.filter(c => c.parameters.ability === 'hit_ob')) {
         const r = row(c), p = c.parameters, a = r.before[0], input = p.interface.damage;
-        const trigger = Math.trunc(input / 6) > 90 && a.neili >= 300 && a.weapon === 'none'
+        const trigger = Math.trunc(input / 6) > 90 && a.skills['xiantian-gong'] >= 180
+            && a.neili >= 300 && a.weapon === 'none' && a.secondary_weapon === 'none'
             && a.preparations.unarmed === 'xiantian-gong' && a.mappings.force === 'xiantian-gong';
         const result = trigger ? '原附加描述' : 0;
         r.passives.push({ actor: 0, target: 1, skill: 'xiantian-gong', incoming: input,
@@ -109,6 +123,33 @@ test('先天接口严格大于后天根骨、内力门槛和原扣费，不把�
         validateSchoolCombatRecord(r, c);
         r.metrics[0].neili_cost++; assert.throws(() => validateSchoolCombatRecord(r, c));
     }
+});
+
+test('额外边界不伪造生效映射、副手或存活状态', () => {
+    const low = find('xiantian-gong-hit_ob-l400-raw179');
+    const high = find('xiantian-gong-hit_ob-l400-raw180');
+    const a = structuredClone(low.parameters.actor), b = structuredClone(high.parameters.actor);
+    a.skills['xiantian-gong'] = 180;
+    assert.deepEqual(a, b, 'only raw Xiantian level changes');
+    for (const c of cases.filter(c => c.parameters.target_state === 'unconscious')) {
+        const r = defenseRow(c, false);
+        validateSchoolCombatRecord(r, c);
+        const fake = structuredClone(r); fake.before[1].living = 1;
+        assert.throws(() => validateSchoolCombatRecord(fake, c));
+        if (c.parameters.original_enable_context) {
+            const absent = structuredClone(r); delete absent.skill_load_context;
+            assert.throws(() => validateSchoolCombatRecord(absent, c));
+        }
+        assert.throws(() => validateSchoolCombatRecord(defenseRow(c, true), c));
+    }
+    const secondary = find('xiantian-gong-hit_ob-l400-secondary-only');
+    const r = row(secondary);
+    r.passives = [{ actor: 0, target: 1, skill: 'xiantian-gong', incoming: 1000,
+        result: 0, route: 'interface', factor: 0 }];
+    r.interfaces = [{ result: 0 }];
+    validateSchoolCombatRecord(r, secondary);
+    r.before[0].secondary_weapon = 'none';
+    assert.throws(() => validateSchoolCombatRecord(r, secondary));
 });
 
 test('统计分别保留化解调用与样本，以及内功/拳脚触发路线', () => {

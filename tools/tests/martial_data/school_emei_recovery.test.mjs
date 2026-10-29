@@ -1,3 +1,4 @@
+import { preOctober29Conditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -21,7 +22,7 @@ test('峨嵋恢复153条件2070样本，不改变历史10329条件及参数', ()
     assert.equal(cases.filter(c => c.method === 'exercise').length, 63);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 45);
     assert.equal(emeiRecoveryConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 153);
-    const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
+    const historical = preOctober29Conditions(all).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
     const old = historical.filter(c => !['emei-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group)
         && !c.id.startsWith('school-emei-support-') && !['emei-jiuyin', 'emei-jiuyin-buff', 'emei-yijin', 'emei-shexing', 'emei-jiuyin-learning', 'emei-jiuyin-passive', 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 10329); assert.equal(old.reduce((n, c) => n + c.samples, 0), 261496);

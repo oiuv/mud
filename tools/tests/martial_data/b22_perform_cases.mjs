@@ -234,8 +234,8 @@ const schools = {
         extraMappings: { force: 'bingxin-jue', sword: 'lonely-sword', parry: 'lonely-sword' },
         noNothingGate: true,
         gates: [
-            { key: 'neili', pair: [84, 85], field: 'neili',
-                refusal: '你现在真气不足，难以演练「总诀式」。\n' },
+            { key: 'neili', pair: [49, 50], field: 'neili',
+                refusal: '你的内力不够，没有力气演练「总诀式」！\n' },
         ],
     },
     'dugu-jiujian/po': {

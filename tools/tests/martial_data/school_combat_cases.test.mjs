@@ -8,6 +8,7 @@ import { schoolCombatConditions, validateSchoolCombatRecord } from './school_com
 
 const catalog = collectCatalog(root, buildInventory(root));
 const cases = schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan'
+    && c.parameters.collection_group !== 'huashan-duration'
     && !['huashan-combination', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform'].includes(c.parameters.collection_group));
 const original = cases.filter(c => !c.parameters.skill);
 

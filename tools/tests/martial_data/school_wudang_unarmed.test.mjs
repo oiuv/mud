@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -9,7 +10,7 @@ import { schoolCombatConditions } from './school_combat_cases.mjs';
 import { validateWudangUnarmedRecord, wudangUnarmedMoves } from './school_wudang_unarmed_cases.mjs';
 import { wudangUnarmedEffects } from './school_combat_report.mjs';
 
-const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
+const catalog = collectCatalog(root, buildInventory(root)), all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
 const cases = all.filter(c => c.parameters.collection_group === 'wudang-unarmed');
 const by = (skill, ability, suffix = '') => cases.find(c => c.id === `school-wudang-unarmed-${skill}-${ability}-l200${suffix}`);
 
@@ -20,7 +21,7 @@ test('武当徒手暗器109条件4922样本，旧1947条件69572样本保持', (
     assert.equal(old.length, 1947); assert.equal(old.reduce((n, c) => n + c.samples, 0), 69572);
     assert.equal(new Set(all.map(c => c.id)).size, all.length);
     for (const c of cases) for (const path of c.parameters.qualification_sources) assert.ok(existsSync(join(root, path)), path);
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-unarmed')
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-unarmed')
         .reduce((n, c) => n + c.samples, 0), 218);
 });
 

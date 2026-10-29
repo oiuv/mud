@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
 import { sha256 } from './inventory.mjs';
 import { validateMingjiaoRouteRecord } from './school_mingjiao_route_cases.mjs';
+import { validateMiaoStudyRecord } from './school_miao_study_cases.mjs';
 
 export const fumoSources = ['d/shaolin/fumoquan.c', 'd/shaolin/qyping.c',
     'kungfu/class/shaolin/du-nan.c', 'kungfu/class/shaolin/du-e.c',
@@ -138,6 +139,8 @@ export function sceneEntries(conditions) {
 }
 
 export function validateSchoolSceneRecord(raw, condition) {
+    if (condition.parameters.collection_group === 'miao-study')
+        return validateMiaoStudyRecord(raw, condition);
     if (condition.parameters.collection_group === 'mingjiao-route')
         return validateMingjiaoRouteRecord(raw, condition);
     if (raw.outcome === 'error') return;

@@ -7,7 +7,7 @@ private mapping npc_bout_corpse_victims = ([]);
 
 int is_npc_bout_group() {
     return member_array(current["parameters"]["collection_group"],
-        ({ "gumu-npc-bout", "mingjiao-npc-bout" })) != -1;
+        ({ "gumu-npc-bout", "mingjiao-npc-bout", "emei-npc-bout" })) != -1;
 }
 
 int is_npc_bout() {
@@ -112,7 +112,10 @@ void observe_npc_choice(object ob, int index, function fun, string phase, mixed 
             "busy": serializable(ob->query_busy()), "fighting": ob->is_fighting(players[0]),
             "index": index, "owner": file_name(function_owner(fun)), "repr": sprintf("%O", fun),
             "return_observation": "pending", "terminal_event_index": -1 ]);
-        if (current["parameters"]["collection_group"] == "mingjiao-npc-bout")
+        if (member_array(
+            current["parameters"]["collection_group"],
+            ({ "mingjiao-npc-bout", "emei-npc-bout" })
+        ) != -1)
             event["before_state"] = npc_bout_state(ob);
         npc_bout_pending_choice = sizeof(bout["chat_choices"]);
         bout["chat_choices"] += ({ event });
@@ -130,7 +133,10 @@ void observe_npc_choice(object ob, int index, function fun, string phase, mixed 
         "same selected closure return"
     );
     event["result"] = serializable(result);
-    if (current["parameters"]["collection_group"] == "mingjiao-npc-bout")
+    if (member_array(
+        current["parameters"]["collection_group"],
+        ({ "mingjiao-npc-bout", "emei-npc-bout" })
+    ) != -1)
         event["after_state"] = npc_bout_state(ob);
     event["return_observation"] = "observed";
     event["terminal_event_index"] = -1;
@@ -251,7 +257,10 @@ void finish_npc_bout_observation() {
         event["return_observation"] = "not_observed";
         event["result"] = "not_observed";
         if (!undefinedp(event["before"])) event["after"] = "not_observed";
-        if (current["parameters"]["collection_group"] == "mingjiao-npc-bout" &&
+        if (member_array(
+            current["parameters"]["collection_group"],
+            ({ "mingjiao-npc-bout", "emei-npc-bout" })
+        ) != -1 &&
             !undefinedp(event["before_state"])) event["after_state"] = json_decode("null");
     }
     foreach (corpse in npc_bout_corpses) {

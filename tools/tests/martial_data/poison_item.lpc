@@ -1,0 +1,15 @@
+// Test fixture: poison item for hamagong/exert/tan (弹射毒药).
+// Only the isolated launcher loads this; no game source changes.
+inherit COMBINED_ITEM;
+
+void create() {
+    set_name("毒药", ({ "poison", "duyao", "du" }));
+    set("id", "poison");
+    set("unit", "包");
+    set("base_weight", 10);
+    // poison_type: condition name for affect_by(); poison.id: source string per poison.c:113
+    set("poison_type", "poison");
+    set("poison", ([ "id": "hamagong-tan", "level": 100, "duration": 10 ]));
+    set_amount(50);
+    setup();
+}

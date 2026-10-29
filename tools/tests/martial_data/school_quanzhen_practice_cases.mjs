@@ -49,21 +49,29 @@ export function quanzhenPracticeConditions(catalog, { smoke = false, samples = 1
         const repetitions = extra.times ?? 1;
         result.push({ id: `school-quanzhen-practice-${skill}-${ability}-l${level}${extra.suffix ?? ''}`,
             stage: 'school', entry_id: control ? source.entries.find(e => e.role === 'perform').id : source.path,
-            method: control ? 'perform' : 'practice', samples: smoke ? 2 : control ? extra.checks ?? samples : 2,
+            method: control ? 'perform' : 'practice',
+            samples: extra.naturalBusy ? (smoke ? 1 : 2) : smoke ? 2 : control ? extra.checks ?? samples : 2,
             parameters: { school: 'quanzhen', family: '全真教', collection_group: 'quanzhen-practice',
                 combination: control ? 'active-parry' : 'practice', skill, usage, ability, level,
-                actor, target: { skills: { parry: 600 }, mappings: {}, properties: {},
+                actor, target: { skills: { parry: extra.naturalBusy ? 0 : 600 }, mappings: {}, properties: {},
                     ...(extra.targetBusy ? { busy: 2 } : {}) },
                 action: control ? 'perform parry.suo' : `practice ${usage} ${repetitions}`,
-                observation: 'single_action_immediate', fighting: extra.fighting ?? control,
-                observe_seconds: 0, not_applicable: '', expected: extra.expected ?? 'observed',
+                observation: extra.naturalBusy ? 'timed_effect' : 'single_action_immediate',
+                fighting: extra.fighting ?? control,
+                observe_seconds: extra.naturalBusy ? Math.trunc(level / 16) * 3 + 15 : 0,
+                ...(extra.naturalBusy ? { target_busy_lifecycle: true } : {}),
+                not_applicable: '', expected: extra.expected ?? 'observed',
                 ...(!control ? { repetitions, completed: extra.completed ?? (extra.expected === 'refused' ? 0 : repetitions) } : {}),
                 qualification_sources: [...new Set([source.path, `kungfu/skill/${skill}.c`,
                     'cmds/skill/practice.c', 'cmds/skill/learn.c', 'cmds/skill/perform.c', 'feature/skill.c',
                     'kungfu/skill/force.c', 'kungfu/skill/xuanmen-neigong.c',
                     'kungfu/class/quanzhen/qiu.c', 'kungfu/class/quanzhen/yin.c',
-                    'kungfu/class/quanzhen/wang.c', 'kungfu/class/quanzhen/zhou.c'])],
-                qualification_note: '真实非巫师USER经原practice/perform；经验1亿、先天悟性根骨36、男性、正派性格，基本功高于特殊一级，辅助内功/道学等至少400为实验资格，不代表教师可教至此或同培养成本。不设武学修养、转世和房间练习加成；不强制随机或修正原扣费。记录原返回、实际进度与普通dbase/force，部分练成不等于完全拒绝。只观察即时忙乱值，不换算秒数。',
+                    'kungfu/class/quanzhen/wang.c', 'kungfu/class/quanzhen/zhou.c',
+                    ...(extra.naturalBusy ? ['feature/action.c', 'mudcore/inherit/action.c',
+                        'inherit/char/char.c', 'feature/condition.c'] : [])])],
+                qualification_note: '真实非巫师USER经原practice/perform；经验1亿、先天悟性根骨36、男性、正派性格，基本功高于特殊一级，辅助内功/道学等至少400为实验资格，不代表教师可教至此或同培养成本。不设武学修养、转世和房间练习加成；不强制随机或修正原扣费。记录原返回、实际进度与普通dbase/force，部分练成不等于完全拒绝。'
+                    + (extra.naturalBusy ? '金锁只施展一次，目标基本招架0但原随机仍可能落空；施展者心跳关闭，仅受控目标运行原USER心跳直到忙乱清零。逐跳记录真实计数和墙钟，不手动continue_action、不重施、不打断；这是独立控制解除窗口，不是完整战斗或施展者忙乱解除。落空记录not_applied，不冒充解除。'
+                        : '只观察即时忙乱值，不换算秒数。'),
             } });
     }
     for (const [skill, usage, qi, neili, qiCost] of quanzhenPracticeProfiles) {
@@ -96,6 +104,8 @@ export function quanzhenPracticeConditions(catalog, { smoke = false, samples = 1
         ['low-neili', { properties: { neili: 499 } }], ['target-busy', { targetBusy: true }],
         ['not-fighting', { fighting: false }], ['actor-busy', { busy: true }]])
         add('jinguan-yusuo', 'parry', 400, { control: true, suffix: '-' + suffix, checks: 2, expected: 'refused', ...extra });
+    for (const level of [200, 400, 800])
+        add('jinguan-yusuo', 'parry', level, { control: true, naturalBusy: true, suffix: '-natural-expiry' });
     return result;
 }
 
@@ -111,11 +121,12 @@ export function validateQuanzhenPracticeRecord(raw, condition) {
         }
         assert.equal(raw.launches.length, 1); assert.equal(raw.launches[0].skill, 'jinguan-yusuo');
         const controlled = raw.immediate[1].busy > 0;
-        if (p.level <= 301) assert.ok(!controlled);
+        if (Math.trunc(raw.before[1].skills.parry / 2) >= p.level - 1) assert.ok(!controlled);
         assert.equal(raw.immediate[1].busy || 0, controlled ? Math.trunc(p.level / 16) : 0);
         assert.equal(after.busy, controlled ? 1 : 2);
         assert.equal(before.neili - after.neili, controlled ? 100 : 50);
         assert.equal(before.qi, after.qi); assert.equal(raw.before[1].qi, raw.immediate[1].qi);
+        if (p.target_busy_lifecycle) validateGoldLockLifecycle(raw, condition, controlled);
         return;
     }
     const profile = quanzhenPracticeProfiles.find(([skill]) => skill === p.skill), completed = p.completed;
@@ -132,4 +143,38 @@ export function validateQuanzhenPracticeRecord(raw, condition) {
     assert.equal(after.learned_points, before.learned_points);
     assert.equal(raw.command_accepted, Number(completed === p.repetitions));
     if (!completed) assert.ok(raw.reason.length > 0);
+}
+
+export function validateGoldLockLifecycle(raw, condition, controlled) {
+    const p = condition.parameters, steps = raw.busy_heartbeats;
+    assert.ok(Array.isArray(steps));
+    assert.equal(p.observation, 'timed_effect');
+    assert.ok(raw.elapsed >= 0 && raw.elapsed < p.observe_seconds);
+    assert.equal(raw.metrics[0].heartbeats ?? 0, 0, 'caster heartbeat remains disabled');
+    assert.equal(raw.launches[0].argument, 'suo');
+    assert.deepEqual(raw.after[0], raw.immediate[0], 'no later caster action or heartbeat');
+    const initial = raw.immediate[1].busy || 0;
+    if (!controlled) {
+        assert.equal(raw.busy_terminal, 'not_applied');
+        assert.deepEqual(steps, []);
+        assert.equal(raw.metrics[1].heartbeats ?? 0, 0);
+        assert.deepEqual(raw.after, raw.immediate);
+        return;
+    }
+    assert.equal(raw.busy_terminal, 'released');
+    assert.equal(steps.length, initial, 'one original heartbeat per integer decrement');
+    assert.equal(raw.metrics[1].heartbeats, steps.length);
+    let previous = raw.immediate[1], elapsed = 0;
+    for (const step of steps) {
+        assert.equal(step.side, 1); assert.equal(step.driver_heartbeat, 1);
+        assert.deepEqual(step.before, previous, 'no busy/state rewrite between heartbeats');
+        assert.equal(step.after.busy, step.before.busy - 1);
+        assert.ok(step.elapsed_before >= elapsed && step.elapsed >= step.elapsed_before);
+        elapsed = step.elapsed; previous = step.after;
+    }
+    assert.deepEqual(raw.after[1], previous);
+    assert.equal(raw.after[1].busy, 0);
+    assert.equal(raw.metrics[1].qi_cost ?? 0, 0);
+    assert.equal(raw.metrics[1].eff_qi_cost ?? 0, 0);
+    assert.ok(raw.elapsed >= elapsed);
 }

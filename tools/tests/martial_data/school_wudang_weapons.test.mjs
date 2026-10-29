@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -8,7 +9,7 @@ import { collectCatalog } from './catalog.mjs';
 import { schoolCombatConditions } from './school_combat_cases.mjs';
 import { validateWudangWeaponRecord, wudangWeaponMoves } from './school_wudang_weapons_cases.mjs';
 
-const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
+const catalog = collectCatalog(root, buildInventory(root)), all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school));
 const cases = all.filter(c => c.parameters.collection_group === 'wudang-weapons');
 const by = (skill, ability, suffix = '') => cases.find(c => c.id === `school-wudang-weapons-${skill}-${ability}-l200${suffix}`);
 
@@ -23,7 +24,7 @@ test('武当其他兵器120条件4356样本；旧1794条件62700样本保持', (
         assert.ok(entries.has(c.entry_id), c.entry_id);
         for (const path of c.parameters.qualification_sources) assert.ok(existsSync(join(root, path)), path);
     }
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-weapons')
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-weapons')
         .reduce((n, c) => n + c.samples, 0), 240);
 });
 

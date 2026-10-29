@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
@@ -10,7 +11,7 @@ import { taijiParryCoefficient, wudangDefenses } from './school_wudang_defense_c
 import { schoolDefenseEffects } from './school_combat_report.mjs';
 
 const catalog = collectCatalog(root, buildInventory(root));
-const all = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), cases = all.filter(c => c.parameters.collection_group === 'wudang-defense');
+const all = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin'].includes(c.parameters.school)), cases = all.filter(c => c.parameters.collection_group === 'wudang-defense');
 const by = (skill, ability, level = 200, suffix = '-basic-force-count0') =>
     cases.find(c => c.id === `school-wudang-defense-${skill}-${ability}-l${level}${suffix}`);
 
@@ -21,7 +22,7 @@ test('太极防御112条件6888样本；旧1614条件53110样本不变且来源�
     assert.equal(old.length, 1614); assert.equal(old.reduce((s, c) => s + c.samples, 0), 53110);
     assert.equal(new Set(cases.map(c => c.id)).size, cases.length);
     for (const c of cases) for (const source of c.parameters.qualification_sources) assert.ok(existsSync(join(root, source)), source);
-    assert.equal(schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-defense')
+    assert.equal(preOctober29SchoolConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'wudang-defense')
         .reduce((s, c) => s + c.samples, 0), 224);
 });
 

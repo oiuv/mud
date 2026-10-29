@@ -19,7 +19,9 @@ const read = path => readFileSync(join(root, path), 'utf8');
 
 test('只尾追加5原NPC条件；旧15725和12024教学契约由原测试保留', () => {
     for (const smoke of [false, true]) {
-        const all = schoolCombatConditions(catalog, { smoke }).slice(0, 15730);
+        const all = schoolCombatConditions(catalog, { smoke }).filter(c =>
+            !c.parameters.collection_group?.startsWith('s1-') && c.parameters.collection_group !== 'emei-npc-bout'
+            && !c.id.startsWith('school-quanzhen-boundary-') && !c.parameters.target_busy_lifecycle).slice(0, 15730);
         assert.equal(all.length, 15730);
         const current = all.slice(15725);
         assert.deepEqual(current, gumuNpcBoutConditions(catalog, read, { smoke }));

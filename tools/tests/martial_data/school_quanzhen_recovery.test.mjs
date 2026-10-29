@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -18,9 +19,10 @@ test('153恢复条件2070样本，旧1278条件46068样本保留', () => {
     assert.equal(new Set(cases.map(c => c.id)).size, 153);
     assert.equal(quanzhenRecoveryConditions(catalog, { smoke: true }).reduce((n, c) => n + c.samples, 0), 153);
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').reduce((n, c) => n + c.samples, 0), 90);
-    const old = schoolCombatConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school)
+    const old = preOctober29SchoolConditions(catalog).filter(c => ['huashan', 'quanzhen'].includes(c.parameters.school)
         && !['quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
-    assert.equal(old.length, 1278); assert.equal(old.reduce((n, c) => n + c.samples, 0), 46068);
+    const legacy = old.filter(c => !c.parameters.target_busy_lifecycle && !c.id.startsWith('school-quanzhen-boundary-'));
+    assert.equal(legacy.length, 1278); assert.equal(legacy.reduce((n, c) => n + c.samples, 0), 46068);
     assert.ok(cases.filter(c => c.method === 'exercise').every(c => c.samples === 2));
 });
 

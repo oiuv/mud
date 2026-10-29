@@ -56,6 +56,9 @@ export const b29SourcePaths = [
     'kungfu/skill/six-finger/six.c',
     'kungfu/skill/six-finger/zong.c',
     'kungfu/skill/six-finger/zongheng.c',
+    'kungfu/skill/liumai-shenjian/qi.c',
+    'kungfu/skill/liumai-shenjian/six.c',
+    'kungfu/skill/liumai-shenjian/zong.c',
     'kungfu/skill/jinshe-jian/kun.c',
     'kungfu/skill/jinshe-jian/shi.c',
     'kungfu/skill/jinshe-jian/wan.c',
@@ -371,6 +374,7 @@ const schools = {
         ],
     },
     'six-finger/qi': {
+        sourceSkill: 'liumai-shenjian',
         skill: "six-finger",
         ability: "qi",
         abilityPath: "qi",
@@ -402,6 +406,7 @@ const schools = {
         ],
     },
     'six-finger/six': {
+        sourceSkill: 'liumai-shenjian',
         skill: "six-finger",
         ability: "six",
         abilityPath: "six",
@@ -433,6 +438,7 @@ const schools = {
         ],
     },
     'six-finger/zong': {
+        sourceSkill: 'liumai-shenjian',
         skill: "six-finger",
         ability: "zong",
         abilityPath: "zong",
@@ -1501,8 +1507,8 @@ const schools = {
         grant: null,
         forceSkill: "force",
         kind: "special",
-        feeHit: 300,
-        feeMiss: 100,
+        feeHit: 200,
+        feeMiss: 0,
         weapon: "throwing",
         prepared: "throwing",
         families: ["侠客盟"],
@@ -1706,9 +1712,10 @@ export function b29PerformConditions(catalog, readSource, { smoke = false, sampl
         if (b29Pending[key]) continue;
         const abilityKey = cfg.abilityPath ?? cfg.ability;
         const base = catalog.skills.find(s => s.id === cfg.skill);
-        const ability = catalog.skills.find(s => s.id === `${cfg.skill}/${abilityKey}`);
+        const sourceSkill = cfg.sourceSkill ?? cfg.skill;
+        const ability = catalog.skills.find(s => s.id === `${sourceSkill}/${abilityKey}`);
         assert.equal(base?.path, `kungfu/skill/${cfg.skill}.c`);
-        assert.equal(ability?.path, `kungfu/skill/${cfg.skill}/${abilityKey}.c`);
+        assert.equal(ability?.path, `kungfu/skill/${sourceSkill}/${abilityKey}.c`);
         assert.equal(base.sha256, source_evidence[base.path]);
         assert.equal(ability.sha256, source_evidence[ability.path]);
         const performEntry = ability.entries.find(e => e.role === 'perform')?.id;

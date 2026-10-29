@@ -1,3 +1,4 @@
+import { preOctober29Conditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { root } from '../../collect_martial_data.mjs';
@@ -17,8 +18,9 @@ test('内功修养146条件3526样本，原744条件36180样本不变', () => {
     assert.equal(cases.filter(c => c.parameters.expected === 'refused').length, 42);
     assert.equal(cases.filter(c => c.method === 'research').length, 60);
     assert.equal(new Set(cases.map(c => c.id)).size, 146);
-    const old = all.filter(c => !['quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
-    assert.equal(old.length, 744); assert.equal(old.reduce((n, c) => n + c.samples, 0), 36180);
+    const old = preOctober29Conditions(all).filter(c => !['quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+    const legacy = old.filter(c => !c.parameters.target_busy_lifecycle && !c.id.startsWith('school-quanzhen-boundary-'));
+    assert.equal(legacy.length, 744); assert.equal(legacy.reduce((n, c) => n + c.samples, 0), 36180);
     assert.ok(cases.every(c => catalog.skills.some(s => s.path === c.entry_id)));
 });
 

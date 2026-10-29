@@ -9,7 +9,7 @@ import { root, parseArgs } from '../../collect_martial_data.mjs';
 import { buildInventory, sha256 } from './inventory.mjs';
 import { collectCatalog } from './catalog.mjs';
 import { profiles, weaponConditions } from './weapon_cases.mjs';
-import { collectionInput, launchProbes, huboPerformProbes, huboBusyProbes, combatActionProbes, validateRecord,
+import { collectionInput, launchProbes, tanResultProbes, huboPerformProbes, huboBusyProbes, combatActionProbes, validateRecord,
     validateExpectedOutcomes, startInteractiveInput, classifyInteractiveClose, createSandbox } from './execution.mjs';
 import { missingJobs } from './continuation.mjs';
 import { abilityConditions, validateAbilityRecord } from './ability_cases.mjs';
@@ -31,7 +31,16 @@ test('隔离副本保留真实USER存盘所需公共公告并登记来源，不�
     }
     for (const name of ['observed_effects.mjs', 'observed_effect_sources.mjs',
         'observed_effects_test_fixture.mjs', 'school_npc_grant_cases.test.mjs',
-        'school_public_exert_cases.test.mjs']) {
+        'school_public_exert_cases.test.mjs', 'school_panlong_member_cases.mjs', 'school_panlong_member.test.mjs',
+        'school_panlong_tan_cases.mjs', 'school_panlong_tan.test.mjs',
+        'school_miao_study_cases.mjs', 'school_miao_study.test.mjs',
+        'school_dusha_member_cases.mjs', 'school_dusha_member.test.mjs',
+        'school_dusha_lifecycle_cases.mjs', 'school_dusha_lifecycle.test.mjs',
+        'school_qianye_member_cases.mjs', 'school_qianye_member.test.mjs',
+        'school_sanyin_member_cases.mjs', 'school_sanyin_member.test.mjs',
+        'school_mizong_member_cases.mjs', 'school_mizong_member.test.mjs',
+        'school_emei_npc_bout_cases.mjs', 'school_emei_npc_bout.test.mjs', 'school_emei_npc_bout_report.mjs',
+        'school_huashan_duration.test.mjs']) {
         const path = `tools/tests/martial_data/${name}`;
         assert.equal(snapshot.files[path], sha256(readFileSync(join(root, path))), path);
     }
@@ -438,6 +447,32 @@ test('发动/拒绝探针仅插入观察，去掉探针逐字还原当前游戏�
         assert.throws(() => launchProbes(source + source, kind), /不唯一/);
     }
     assert.throws(() => launchProbes('', 'other'), /未知/);
+});
+
+test('弹毒只在选中系列的临时副本记录三条原分支，逆还原不改变随机或施毒调用', () => {
+    const path = 'kungfu/skill/hamagong/exert/tan.c';
+    const source = readFileSync(join(root, path), 'utf8');
+    const { changed, sites } = tanResultProbes(source);
+    assert.equal(sites.length, 3);
+    for (const branch of ['blocked', 'dodged', 'hit'])
+        assert.equal(changed.split(`observe_tan_result(me, target, du, "${branch}")`).length, 2);
+    assert.equal(sites.reduceRight((s, site) => s.replace(site.anchor + site.insert, site.anchor), changed), source);
+    assert.equal(changed.split('random(').length, source.split('random(').length);
+    assert.equal(changed.split('target->affect_by(').length, 2);
+    assert.throws(() => tanResultProbes(source + source), /source changed/);
+    assert.throws(() => tanResultProbes(source.replace('random(ap)', 'random(ap + 1)')), /source changed/);
+    const ordinary = createSandbox(root);
+    assert.equal(ordinary.probes.some(p => p.path === path), false);
+    const selected = createSandbox(root, undefined, { observeTan: true });
+    assert.deepEqual(selected.files, ordinary.files);
+    assert.deepEqual(selected.probes.slice(0, -1), ordinary.probes);
+    assert.equal(selected.probes.at(-1).path, path);
+    assert.equal(selected.probes.at(-1).before, sha256(source));
+    assert.equal(selected.probes.at(-1).after, sha256(changed));
+    assert.equal(readFileSync(join(root, path), 'utf8'), source);
+    const runner = readFileSync(join(root, 'tools/tests/martial_data/runner.lpc'), 'utf8');
+    assert.match(runner, /void observe_tan_result\(object me, object target, object item, string branch\)/);
+    assert.match(runner, /current\["tan_result"\] =/);
 });
 
 test('互搏探针保持两处原施展、暂存恢复和忙乱表达式，拒绝不唯一锚点', () => {

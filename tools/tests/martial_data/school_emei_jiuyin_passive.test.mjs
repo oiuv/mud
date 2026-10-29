@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -15,11 +16,14 @@ const catalog = collectCatalog(root, buildInventory(root)), cases = emeiJiuyinPa
 const pick = suffix => { const c = cases.find(c => c.id.endsWith(suffix)); assert.ok(c, suffix); return c; };
 
 test('新附伤批不改变旧11499条件与286670样本计划', () => {
-    const all = schoolCombatConditions(catalog);
+    const all = preOctober29SchoolConditions(catalog);
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school));
     const old = historical.filter(c => ![jiuyinPassiveGroup, 'emei-npc', 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
-    assert.equal(old.length, 11499); assert.equal(old.reduce((n, c) => n + c.samples, 0), 286670);
-    assert.equal(createHash('sha256').update(JSON.stringify(old)).digest('hex'), '168f9744f0adecc3c9087818eebd60afc5b99f104b1eeb1822b6453d70c0d880');
+    // Later Quanzhen boundary/lifecycle additions have their own evidence; retain the old identity.
+    const historicalBaseline = old.filter(c => !c.id.startsWith('school-quanzhen-boundary-')
+        && !c.parameters.target_busy_lifecycle);
+    assert.equal(historicalBaseline.length, 11499); assert.equal(historicalBaseline.reduce((n, c) => n + c.samples, 0), 286670);
+    assert.equal(createHash('sha256').update(JSON.stringify(historicalBaseline)).digest('hex'), '168f9744f0adecc3c9087818eebd60afc5b99f104b1eeb1822b6453d70c0d880');
     assert.deepEqual(all.filter(c => c.parameters.collection_group === jiuyinPassiveGroup), cases);
     assert.equal(new Set(all.map(c => c.id)).size, all.length); validateSchoolCombatPlan(cases, catalog);
     for (const c of cases) for (const p of c.parameters.qualification_sources) assert.ok(existsSync(join(root, p)), p);

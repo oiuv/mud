@@ -1,3 +1,4 @@
+import { preOctober29Conditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { root } from '../../collect_martial_data.mjs';
@@ -12,15 +13,66 @@ const catalog = collectCatalog(root, buildInventory(root)), all = schoolCombatCo
 const cases = all.filter(c => c.parameters.collection_group === 'quanzhen-practice');
 const find = suffix => cases.find(c => c.id.endsWith(suffix));
 
-test('全真练习及金锁136条件664样本，保留旧608条件35516样本', () => {
-    assert.equal(cases.length, 136); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 664);
+test('全真原136条件664样本保留，新增三档金锁自然解除6条', () => {
+    const oldCases = cases.filter(c => !c.parameters.target_busy_lifecycle);
+    assert.equal(oldCases.length, 136); assert.equal(oldCases.reduce((n, c) => n + c.samples, 0), 664);
+    assert.equal(cases.length, 139); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 670);
     assert.equal(cases.filter(c => c.method === 'practice').length, 125);
-    const old = all.filter(c => !['quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
-    assert.equal(old.length, 608); assert.equal(old.reduce((n, c) => n + c.samples, 0), 35516);
-    assert.equal(new Set(cases.map(c => c.id)).size, 136);
+    const old = preOctober29Conditions(all).filter(c => !['quanzhen-practice', 'quanzhen-cultivation', 'quanzhen-auxiliary', 'quanzhen-study', 'quanzhen-recovery', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
+    const legacy = old.filter(c => !c.id.startsWith('school-quanzhen-boundary-'));
+    assert.equal(legacy.length, 608); assert.equal(legacy.reduce((n, c) => n + c.samples, 0), 35516);
+    assert.equal(new Set(cases.map(c => c.id)).size, 139);
     assert.equal(quanzhenPracticeProfiles.length, 15);
     assert.ok(cases.every(c => c.parameters.qualification_sources.every(path => catalog.skills.some(s => s.path === path)
-        || /^(cmds|feature|kungfu\/class)\//.test(path))));
+        || /^(cmds|feature|kungfu\/class|inherit\/char|mudcore\/inherit)\//.test(path))));
+});
+
+function lifecycleRow(c, success = true) {
+    const r = row(c), p = c.parameters;
+    r.elapsed = success ? Math.trunc(p.level / 16) * 2 : 0.01;
+    r.launches.push({ skill: 'jinguan-yusuo', argument: 'suo' });
+    r.immediate[0].busy = success ? 1 : 2;
+    r.immediate[0].neili -= success ? 100 : 50;
+    r.immediate[1].busy = success ? Math.trunc(p.level / 16) : 0;
+    r.busy_terminal = success ? 'released' : 'not_applied';
+    r.busy_heartbeats = [];
+    r.after = structuredClone(r.immediate);
+    for (let i = 0; i < r.immediate[1].busy; i++) {
+        const before = structuredClone(r.after[1]), after = structuredClone(before);
+        after.busy--;
+        r.busy_heartbeats.push({ side: 1, driver_heartbeat: 1, before, after,
+            elapsed_before: i * 2 + 1.9, elapsed: (i + 1) * 2 });
+        r.after[1] = after;
+    }
+    r.metrics[1].heartbeats = r.busy_heartbeats.length;
+    return r;
+}
+
+test('金锁自然解除只计真实逐跳链，落空不冒充解除', () => {
+    const lifecycle = cases.filter(c => c.parameters.target_busy_lifecycle);
+    assert.deepEqual(lifecycle.map(c => c.parameters.level), [200, 400, 800]);
+    for (const c of lifecycle) {
+        assert.equal(c.samples, 2); assert.equal(c.parameters.target.skills.parry, 0);
+        validateSchoolCombatRecord(lifecycleRow(c), c);
+        validateSchoolCombatRecord(lifecycleRow(c, false), c);
+    }
+    const c = lifecycle[0], valid = lifecycleRow(c);
+    for (const mutate of [
+        r => r.busy_heartbeats.pop(),
+        r => { r.busy_heartbeats[0].after.busy = 0; },
+        r => { r.busy_heartbeats[1].before.busy--; },
+        r => { r.busy_heartbeats[0].driver_heartbeat = 0; },
+        r => { r.metrics[0].heartbeats = 1; },
+        r => { r.launches[0].argument = 'other'; },
+        r => { r.busy_terminal = 'watchdog'; },
+        r => { r.after[0].neili++; },
+        r => { r.after[1].busy = 1; },
+    ]) {
+        const bad = structuredClone(valid); mutate(bad);
+        assert.throws(() => validateSchoolCombatRecord(bad, c));
+    }
+    const missed = lifecycleRow(c, false); missed.busy_terminal = 'released';
+    assert.throws(() => validateSchoolCombatRecord(missed, c));
 });
 
 test('三档进度及300/500断点按原整数算式，不解释为每秒养成速度', () => {

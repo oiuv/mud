@@ -16,6 +16,17 @@ const inventory = buildInventory(root), catalog = collectCatalog(root, inventory
 const cases = b29PerformConditions(catalog, read);
 const smoke = b29PerformConditions(catalog, read, { smoke: true });
 
+test('six-finger entries bind the actual liumai dispatcher destination, not same-name dead files', () => {
+    const redirected = cases.filter(c => c.parameters.skill === 'six-finger');
+    assert.equal(redirected.length, 9);
+    for (const c of redirected) {
+        const path = `kungfu/skill/liumai-shenjian/${c.parameters.ability}.c`;
+        assert.equal(c.parameters.ability_source.path, path);
+        assert.equal(c.parameters.ability_source.sha256, sha256(read(path)));
+        assert.ok(c.entry_id.startsWith(path + ':'));
+    }
+});
+
 function state(cfg, side) {
     const src = side ? cfg.target : cfg.actor;
     const temp = { apply: { armor: 1 } };

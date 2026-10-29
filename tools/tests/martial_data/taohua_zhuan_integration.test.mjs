@@ -1,3 +1,4 @@
+import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -25,7 +26,7 @@ const body = (source, name) => {
 
 test('旧15788完整条件与原顺序保持，仅尾追加原24条转乾坤', () => {
     for (const smoke of [false, true]) {
-        const all = schoolCombatConditions(catalog, { smoke })
+        const all = preOctober29SchoolConditions(catalog, { smoke })
             .filter(c => !c.parameters?.collection_group?.startsWith('slice1-') && !c.parameters?.collection_group?.startsWith('slice2-') && !c.parameters?.collection_group?.startsWith('slice3-') && !c.parameters?.collection_group?.startsWith('slice4-') && !c.parameters?.collection_group?.startsWith('slice5-') && !c.parameters?.collection_group?.startsWith('slice6-') && !c.parameters?.collection_group?.startsWith('slice7-') && !c.parameters?.collection_group?.startsWith('slice8-') && !c.parameters?.collection_group?.startsWith('b1-') && !c.parameters?.collection_group?.startsWith('b2-') && !c.parameters?.collection_group?.startsWith('b3-') && !c.parameters?.collection_group?.startsWith('b4-') && !c.parameters?.collection_group?.startsWith('b5-') && !c.parameters?.collection_group?.startsWith('b6-') && !c.parameters?.collection_group?.startsWith('b7-') && !c.parameters?.collection_group?.startsWith('b8-') && !c.parameters?.collection_group?.startsWith('b9-') && !c.parameters?.collection_group?.startsWith('b10-') && !c.parameters?.collection_group?.startsWith('b11-') && !c.parameters?.collection_group?.startsWith('b12-') && !c.parameters?.collection_group?.startsWith('b13-') && !c.parameters?.collection_group?.startsWith('b14-') && !c.parameters?.collection_group?.startsWith('b15-') && !c.parameters?.collection_group?.startsWith('b16-') && !c.parameters?.collection_group?.startsWith('b17-') && !c.parameters?.collection_group?.startsWith('b18-') && !c.parameters?.collection_group?.startsWith('b19-') && !c.parameters?.collection_group?.startsWith('b20-') && !c.parameters?.collection_group?.startsWith('b21-') && !c.parameters?.collection_group?.startsWith('b22-') && !c.parameters?.collection_group?.startsWith('b23-') && !c.parameters?.collection_group?.startsWith('b24-') && !c.parameters?.collection_group?.startsWith('b25-') && !c.parameters?.collection_group?.startsWith('b26-') && !c.parameters?.collection_group?.startsWith('b27-') && !c.parameters?.collection_group?.startsWith('b28-') && !c.parameters?.collection_group?.startsWith('b29-') && !['taohua-direct', 'taohua-control', 'taohua-attack', 'taohua-combo', 'taohua-bihai', 'taohua-passive', 'taohua-combination', 'taohua-force', 'taohua-music', 'taohua-npc', 'mingjiao-core', 'mingjiao-qishang', 'mingjiao-xinfa', 'mingjiao-movement', 'mingjiao-shengong', 'mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform', 'mingjiao-apprentice-learning', 'mingjiao-public-force', 'mingjiao-teachers', 'mingjiao-recruit', 'mingjiao-gift', 'mingjiao-book', 'mingjiao-qkd', 'mingjiao-jiuyang', 'mingjiao-jiuyang-learning', 'mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining', 'mingjiao-jiuyang-exert', 'mingjiao-jiuyang-capacity', 'mingjiao-jiuyang-research', 'mingjiao-jiuyang-fusion', 'mingjiao-remaining-perform', 'mingjiao-remaining-base', 'mingjiao-force-remaining', 'mingjiao-combination', 'mingjiao-npc-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
         assert.equal(all.length, 15812);
         assert.equal(new Set(all.map(c => c.id)).size, all.length);
@@ -103,9 +104,10 @@ test('真实原命令准备、direct双挂点与原昏迷三名单均接入', ()
     assert.match(runner, /original ZHUAN input resolves to exact USER/);
     assert.match(runner, /original ZHUAN enable context/);
     assert.match(runner, /result = taohua_zhuan_snapshot\(ob, result\)/);
-    assert.match(runner, /gumu-unarmed-learning", "taohua-zhuan"/);
+    assert.match(runner, /gumu-unarmed-learning",\s*"taohua-zhuan"/);
     assert.equal([...runner.matchAll(/"taohua-ding",\s*"taohua-xiao",\s*"taohua-po",\s*"taohua-zhuan"/g)].length, 3);
-    assert.equal([...runner.matchAll(/"gumu-quanzhen",\s*"gumu-temporal",\s*"taohua-ding",\s*"taohua-zhuan"/g)].length, 2);
+    assert.equal([...runner.matchAll(/"gumu-quanzhen",\s*"gumu-temporal",\s*"taohua-ding",\s*"taohua-zhuan",\s*"taohua-direct"/g)].length, 1);
+    assert.match(body(runner, 'advance'), /"gumu-quanzhen",\s*"gumu-temporal",\s*"taohua-ding",\s*"taohua-zhuan",\s*"miao-study",\s*"s1-panlong-tan",\s*"s1-panlong",\s*"s1-yunlong",\s*"s1-dusha",\s*"s1-dusha-lifecycle",\s*"s1-qianye",\s*"s1-sanyin",\s*"s1-mizong",\s*"taohua-direct"/);
     assert.equal(body(runner, 'is_mingjiao_remaining_perform').replace(/\s+/g, ' ').trim(),
         'private int is_mingjiao_remaining_perform() { return current["parameters"]["collection_group"] == "mingjiao-remaining-perform"; }',
         'project only the exact remaining-perform group');
@@ -117,7 +119,7 @@ test('真实原命令准备、direct双挂点与原昏迷三名单均接入', ()
     const perform = actual.replace(remainingGate,
         'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining"');
     const command = perform.indexOf('result = players[0]->force_me(action);');
-    const relativeGuard = perform.slice(command).search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
+    const relativeGuard = perform.slice(command).search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "s1-duan-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "s1-piaoxu"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "s1-panlong-tan"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
     const guard = relativeGuard < 0 ? -1 : command + relativeGuard;
     assert.ok(command >= 0 && guard > command, '只在原命令返回且没有已观测拒绝时补登记');
     const refusal = perform.slice(guard, perform.indexOf('if (current["method"] == "exercise")', guard));

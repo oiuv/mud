@@ -26,20 +26,21 @@ export function probability(successes, trials) {
     return { successes, trials, rate: p, low95: Math.max(0, center - radius), high95: Math.min(1, center + radius) };
 }
 
-export function summarizeSamples(manifest, records, { npcBoutReport } = {}) {
+export function summarizeSamples(manifest, records, { npcBoutReport, emeiNpcBoutReport } = {}) {
     const conditions = manifest.identity.conditions.map(condition => {
         const rows = records.filter(r => r.condition_id === condition.id);
         const observed = rows.filter(r => r.outcome === 'observed').map(r => r.raw);
         const first = rows.find(r => r.outcome === 'observed');
         const counts = Object.fromEntries(['observed', 'refused', 'error', 'not_applicable']
             .map(key => [key, rows.filter(r => r.outcome === key).length]));
-        if (condition.parameters.collection_group === 'gumu-npc-bout') {
-            assert.equal(typeof npcBoutReport, 'function', '原NPC交锋须使用具名专用报告入口');
+        if (['gumu-npc-bout', 'emei-npc-bout'].includes(condition.parameters.collection_group)) {
+            const reporter = condition.parameters.collection_group === 'emei-npc-bout' ? emeiNpcBoutReport : npcBoutReport;
+            assert.equal(typeof reporter, 'function', '原NPC交锋须使用具名专用报告入口');
             return { id: condition.id, entry_id: condition.entry_id, method: condition.method,
                 parameters: condition.parameters, planned: condition.samples, recorded: rows.length,
                 counts, missing: condition.samples - rows.length, normal_effect_denominator: observed.length,
                 elapsed: distribution(observed.map(row => row.elapsed)), sides: null, bouts: null,
-                npc_bout_effects: npcBoutReport(rows, condition),
+                npc_bout_effects: reporter(rows, condition),
                 evidence: rows.map(row => ({ id: row.condition_id + '.' + row.index, sha256: row.raw_sha256 })) };
         }
         // A present observer mapping uses sparse zero counters. A missing mapping
@@ -90,7 +91,7 @@ export function collectStatistics(directory, options = {}) {
     return summarizeSamples(manifest, readSamples(directory, manifest), options);
 }
 
-export function statisticsMarkdown(report, { npcBoutMarkdown } = {}) {
+export function statisticsMarkdown(report, { npcBoutMarkdown, emeiNpcBoutMarkdown } = {}) {
     const format = value => value === null ? '未知' : value.toFixed(2);
     const lines = ['# 武学条件统计', '', `系列：\`${report.fingerprint}\`。${report.smoke ? '仅烟雾验证，不作概率结论。' : '仅代表本系列条件。'}`,
         '', '数值为正常观察样本均值；完整分布、双方状态及原始证据编号见 statistics.json。', ''];
@@ -104,8 +105,9 @@ export function statisticsMarkdown(report, { npcBoutMarkdown } = {}) {
             + `${format(right.qi_cost.mean)} | ${format(right.eff_qi_cost.mean)} | ${format(left.neili_cost.mean)} | ${format(right.neili_cost.mean)} |`);
     }
     for (const c of report.conditions.filter(c => c.npc_bout_effects)) {
-        assert.equal(typeof npcBoutMarkdown, 'function', '原NPC交锋不能使用通用对方计损表');
-        lines.push('', npcBoutMarkdown(c.npc_bout_effects));
+        const render = c.parameters.collection_group === 'emei-npc-bout' ? emeiNpcBoutMarkdown : npcBoutMarkdown;
+        assert.equal(typeof render, 'function', '原NPC交锋不能使用通用对方计损表');
+        lines.push('', render(c.npc_bout_effects));
     }
     lines.push('', ...report.limitations.map(text => '- ' + text), '');
     return lines.join('\n');

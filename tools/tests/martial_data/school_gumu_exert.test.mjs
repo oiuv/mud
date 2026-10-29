@@ -298,9 +298,9 @@ test('共享接线观察真实判定与敌对，只放行本组既定初态和�
     assert.match(runner, /"shaolin-public-force", "gumu-exert" \}\)\) != -1 &&\s+current\["parameters"\]\["ability"\] == "roar" && side > 0 && key == "die_guard" && value == 100/);
     assert.ok(runner.includes('ob->apply_condition(key, serializable(value))'));
     assert.ok(/"wudang-special", "shaolin-public-force", "gumu-exert"[^}]*\}\)\s*\) != -1 && sizeof\(players\) == 3/.test(runner.replace(/\s+/g, ' ')), 'third USER remains restricted to configured groups');
-    assert.match(runner, /"gumu-defense",\s+"mingjiao-movement",\s+"mingjiao-qkd",\s+"mingjiao-jiuyang",\s+"gumu-exert"/);
+    assert.match(runner, /"gumu-defense",\s+"quanzhen-defense",\s+"s1-panlong-tan",\s+"s1-duan-perform",\s+"s1-piaoxu",\s+"mingjiao-movement",\s+"mingjiao-qkd",\s+"mingjiao-jiuyang",\s+"gumu-exert"/);
     assert.match(runner, /players\[1\]->unconcious\(\);\s+players\[1\]->stop_observation\(\);/);
-    assert.match(runner, /if \(member_array\(parameters\["collection_group"\],\s+\(\{\s*"gumu-exert",\s*"gumu-zhi",\s*"gumu-quanzhen"[^}]*\}\)\) != -1\) \{\s+current\["preparation"\]\["terminals"\] = copy\(current\["terminals"\]\);\s+current\["terminals"\] = \(\{\}\);/);
+    assert.match(runner, /if \(member_array\(\s*parameters\["collection_group"\],\s+\(\{\s*"s1-panlong-tan",\s*"s1-duan-perform",\s*"s1-piaoxu",\s*"gumu-exert",\s*"gumu-zhi",\s*"gumu-quanzhen"[^}]*\}\)\s*\) != -1\) \{\s+current\["preparation"\]\["terminals"\] = copy\(current\["terminals"\]\);\s+current\["terminals"\] = \(\{\}\);/);
     assert.match(runner, /collection_group"\] == "gumu-exert" \?\s+\(\{ "exert powerup" \}\)/);
     assert.ok(text('tools/tests/martial_data/execution.mjs').includes("'tools/tests/martial_data/school_gumu_exert_cases.mjs'"));
     assert.match(text('tools/tests/martial_data/school_combat_report.mjs'),

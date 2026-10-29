@@ -128,7 +128,7 @@ test('公共早拒绝只读取实际notify_fail，不造技能launch或替代原
     assert.equal(actual.split(remainingGate).length, 2, 'one exact remaining-perform refusal disjunct');
     const fn = actual.replace(remainingGate,
         'current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining"');
-    const start = fn.search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
+    const start = fn.search(/if \(\(is_taohua_ding\(\) \|\| is_taohua_zhuan\(\) \|\|\s+current\["parameters"\]\["collection_group"\] == "s1-duan-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "s1-piaoxu"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "s1-panlong-tan"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-shenghuo"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-ling-perform"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-direct"\s+\|\|\s+current\["parameters"\]\["collection_group"\] == "mingjiao-jiuyang-remaining"\) &&\s+!result && !sizeof\(current\["refusals"\]\)\)/);
     assert.ok(start >= 0);
     const gate = fn.slice(start).split('\n        }')[0];
     assert.match(gate, /players\[0\]->query_temp\("notify_fail"\)/);
