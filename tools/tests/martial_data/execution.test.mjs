@@ -221,7 +221,7 @@ test('条件组helper精确匹配且不改对象；原精确ID/前缀/无选择�
         assert.throws(() => selectConditions(conditions, options), /不能同用/);
     assert.deepEqual(conditions, before);
     const source = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
-    assert.ok(source.includes('const allConditions = existing?.identity.conditions ?? makeConditions(catalog, options);'));
+    assert.ok(source.includes('allConditions = existing?.identity.conditions ?? makeConditions(catalog, options);'));
     assert.ok(source.includes('const conditions = existing ? allConditions : selectConditions(allConditions, options);'));
     const emptyGuard = "assert.ok(conditions.length, '条件不存在：' + (options.case ?? options.casePrefix ?? options.caseGroup));";
     assert.equal(source.split(emptyGuard).length, 2);
@@ -397,7 +397,7 @@ test('正式条件保留样本量/成长参数和两档加力，烟雾拒绝不�
 
 test('辅助机制独立配置；真实回调等待不缩短，学习检查不冒充教师传授', () => {
     const cases = abilityConditions(catalog, { smoke: true })
-        .filter(c => !c.id.startsWith('learning-') && !c.id.startsWith('skill-music-') && !c.id.startsWith('skill-inherited-') && !c.id.startsWith('public-special-'));
+        .filter(c => !c.id.startsWith('learning-') && !c.id.startsWith('skill-music-') && !c.id.startsWith('skill-inherited-') && !c.id.startsWith('public-special-') && !c.id.startsWith('zuixian-bu-'));
     assert.equal(cases.length, 12);
     assert.equal(cases.reduce((n, c) => n + c.samples, 0), 24);
     for (const c of cases) assert.ok(catalog.skills.some(s => s.entries.some(e => e.id === c.entry_id)));

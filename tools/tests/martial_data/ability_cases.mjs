@@ -5,6 +5,8 @@ import { learningConditions, validateLearningRecord } from './learning_cases.mjs
 import { skillMusicLearnConditions, skillMusicConditions, validateSkillMusicRecord } from './skill_music_cases.mjs';
 import { skillInheritedConditions, validateSkillInheritedRecord } from './skill_inherited_cases.mjs';
 import { publicSpecialConditions, validatePublicSpecialRecord } from './public_special_cases.mjs';
+import { zuixianBuConditions, validateZuixianBuRecord } from './zuixian_bu_cases.mjs';
+import { validateProbeAbilityRecord } from './probe_observation.mjs';
 import { readFileSync, realpathSync } from 'node:fs';
 import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
@@ -77,7 +79,7 @@ export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}
         assert.ok(isInside(root, actual), '能力源码越出仓库');
         return readFileSync(actual);
     };
-    return [...result, ...learningConditions(catalog),
+    return [...result, ...learningConditions(catalog), ...zuixianBuConditions(catalog, readSource, { smoke }),
         ...skillMusicLearnConditions(catalog, readSource),
         ...skillMusicConditions(catalog, readSource, { smoke, samples }),
         ...skillInheritedConditions(catalog, readSource, { smoke }),
@@ -86,9 +88,11 @@ export function abilityConditions(catalog, { smoke = false, samples = 100 } = {}
 
 // Fixture acceptance, not a balance target. Values follow these explicit cases.
 export function validateAbilityRecord(raw, condition) {
+    if (raw.condition_id.startsWith('probe-')) return validateProbeAbilityRecord(raw, condition);
     if (raw.condition_id.startsWith('learning-')) return validateLearningRecord(raw, condition);
     if (raw.condition_id.startsWith('skill-music-')) return validateSkillMusicRecord(raw, condition);
     if (raw.condition_id.startsWith('skill-inherited-')) return validateSkillInheritedRecord(raw, condition);
+    if (raw.condition_id.startsWith('zuixian-bu-')) return validateZuixianBuRecord(raw, condition);
     if (raw.condition_id.startsWith('public-special-')) return validatePublicSpecialRecord(raw, condition);
     const actor = raw.immediate[0], target = raw.immediate[1], final = raw.after;
     switch (raw.condition_id) {

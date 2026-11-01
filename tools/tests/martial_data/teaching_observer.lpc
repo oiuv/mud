@@ -194,6 +194,11 @@ private varargs mapping teaching_state(object student, string *grants, string pr
     if (profile == "gumu-recruit")
         result += ([ "gender": student->query("gender"), "per": student->query("per"),
             "effective_str": student->query_str(), "effective_per": student->query_per() ]);
+    if (profile == "s1-learning")
+        result["s1_marks"] = ([
+            "has_asked": student->query_temp("has_asked/murongbo") || 0,
+            "daobaifeng": student->query_temp("can_learn/daobaifeng") || 0
+        ]);
     return result;
 }
 
@@ -490,6 +495,9 @@ varargs mapping observe_command(
     object book;
     object *tracked;
     string *tracked_names;
+    string command_skill;
+    string *command_words;
+    mixed no_teach_flag;
     int i;
     float started;
 
@@ -548,8 +556,18 @@ varargs mapping observe_command(
                 "gumu-item-acquisition",
                 "gumu-recruit"
             })
-        ) != -1)
+        ) != -1) {
         result["teacher_skills"] = copy(teacher->query_skills() || ([]));
+        if (strsrch(command, "learn ") == 0) {
+            // Raw no_teach declaration only; never evaluate the callback here.
+            command_skill = explode(command, " ")[<2];
+            no_teach_flag = teacher->query("no_teach/" + command_skill, 1);
+            result["teacher_no_teach"] = stringp(no_teach_flag) ? ([
+                "kind": "string",
+                "value": no_teach_flag
+            ]) : functionp(no_teach_flag) ? ([ "kind": "expression" ]) : ([ "kind": "none" ]);
+        }
+    }
     if (member_array(
         profile,
         ({
@@ -612,6 +630,14 @@ varargs mapping observe_command(
         result["teacher_pending_recruit_before"] = objectp(teacher) && objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
     started = time_ns() / 1000000000.0;
     result["command_accepted"] = student->force_me(command);
+    result["notify_fail"] = student->query_temp("notify_fail") || "";
+    // One-word follow-ups (kneel, quit, ...) carry no skill word to extract.
+    command_words = explode(command, " ");
+    result["skill_after_command"] = sizeof(command_words) > 1 ? student->query_skill(
+        command_words[<2],
+        1
+    ) : 0;
+    result["learn_messages"] = student->end_teaching_messages();
     result["elapsed"] = time_ns() / 1000000000.0 - started;
     result["messages"] = student->end_teaching_messages();
     result["message_scope"] = "receive_message_apply_input_not_full_transcript";

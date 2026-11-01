@@ -16,6 +16,8 @@ import { boutConditions, validateBoutRecord } from './bout_cases.mjs';
 import { weaponSpecialConditions, validateWeaponSpecialRecord } from './weapon_special_cases.mjs';
 import { schoolRelations } from './school_relations.mjs';
 import { teachingConditions, teachingEntries } from './teaching_cases.mjs';
+import { teachingProbeConditions } from './teaching_probe_cases.mjs';
+import { performProbeConditions } from './perform_probe_cases.mjs';
 import { validateTeachingRecord } from './teaching_observation.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 import { mingjiaoCombinationConditions, mingjiaoCombinationSourcePaths } from './school_mingjiao_combination_cases.mjs';
@@ -730,11 +732,24 @@ export function createSandbox(root, output, { observeTan = false } = {}) {
         'school_mizong_member_cases.mjs', 'school_mizong_member.test.mjs',
         'school_emei_npc_bout_cases.mjs', 'school_emei_npc_bout.test.mjs', 'school_emei_npc_bout_report.mjs',
         'school_huashan_duration.test.mjs', 'historical_school_conditions.mjs',
-        'historical_school_conditions.test.mjs']) {
+        'historical_school_conditions.test.mjs',
+        'school_huashan_school_defense_cases.mjs', 'school_huashan_school_defense.test.mjs']) {
         const path = 'tools/tests/martial_data/' + name;
         files[path] = sha256(readFileSync(join(root, path)));
     }
     putCopy('adm/etc/wizlist', '# No wizard accounts in the isolated test.\n');
+    for (const name of ['perform_probe_cases', 'teaching_probe_cases', 'probe_observation']) {
+        const path = 'tools/tests/martial_data/' + name + '.mjs';
+        files[path] = sha256(readFileSync(join(root, path)));
+    }
+    // S1 learning callback qualification sources
+    for (const s1Path of ['cmds/skill/learn.c', 'feature/apprentice.c', 'feature/skill.c',
+        'kungfu/class/honghua/zhao.c', 'kungfu/class/meizhuang/huang.c',
+        'kungfu/class/xiaoyao/suxingh.c', 'kungfu/class/xuanming/he.c',
+        'kungfu/class/xuanming/lu.c', 'kungfu/class/miao/miao.c',
+        'kungfu/class/murong/murongbo.c']) {
+        files[s1Path] = sha256(readFileSync(join(root, s1Path)));
+    }
     for (const path of ['adm/daemons/combatd.c', 'cmds/skill/perform.c', 'cmds/skill/exert.c', 'kungfu/skill/dugu-jiujian/qi.c',
         'kungfu/skill/taiji-quan.c', 'feature/condition.c', 'kungfu/skill/fireice-strike/binghuo.c', 'feature/equip.c',
         'kungfu/skill/bingpo-shenzhen/bing.c', 'feature/action.c', 'inherit/char/char.c',
@@ -810,6 +825,8 @@ export function validateRecord(raw, condition) {
         const originalPo = condition.parameters.collection_group === 'taohua-po';
         const originalShenghuo = ['mingjiao-shenghuo', 'mingjiao-ling-learning', 'mingjiao-ling-perform'].includes(condition.parameters.collection_group);
         const originalMingjiaoTeacher = condition.parameters.collection_group === 'mingjiao-teachers';
+        const originalS1Whip = condition.parameters.collection_group === 's1-learning'
+            && equipment.program === '/clone/weapon/changbian';
         const originalDefenseSword = ['mingjiao-qkd', 'mingjiao-jiuyang'].includes(condition.parameters.collection_group);
         const originalJiuyangDirect = ['mingjiao-jiuyang-direct', 'mingjiao-jiuyang-remaining'].includes(condition.parameters.collection_group);
         const originalRemainingFlower = condition.parameters.collection_group === 'mingjiao-remaining-perform'
@@ -832,6 +849,10 @@ export function validateRecord(raw, condition) {
             assert.ok(!equipment.hold);
             assert.ok(['/clone/weapon/gangjian', '/d/items/staff/muzhang'].includes(equipment.program));
         }
+        if (originalS1Whip) {
+            assert.equal(equipment.type, 'whip');
+            assert.ok(!equipment.hold, 'S1 学习长鞭须经原 wield 持握');
+        }
         if (originalPo) {
             assert.equal(equipment.hold, true, 'PO演员必须通过原hand持物');
             assert.ok(['/d/items/throwing/taohua_ban', '/tests/sword'].includes(equipment.program),
@@ -841,7 +862,7 @@ export function validateRecord(raw, condition) {
         // xuanyuan_arrow_weapon, poison_item); otherwise derive from type.
         assert.equal(details.program,
             originalNeedle || originalPo || originalShenghuo || originalMingjiaoTeacher
-            || originalDefenseSword || originalJiuyangDirect || originalRemainingFlower
+            || originalS1Whip || originalDefenseSword || originalJiuyangDirect || originalRemainingFlower
             || (['b29-perform', 'public-exert'].includes(condition.parameters.collection_group)
                 && equipment.program)
                 ? equipment.program
@@ -1521,14 +1542,19 @@ export function validateQualificationSources(conditions, files, sourceContext) {
 }
 
 async function runCollection(root, output, options, collection) {
-    root = realpathSync(root); output = realpathSync(output);
-    assert.ok(!isInside(root, output), '执行证据目录必须在仓库外');
-    const existing = collection ? null : openSeries(output);
-    collection ??= existing.identity.execution.collection;
-    assert.ok(['weapons', 'abilities', 'bouts', 'weapon-special', 'teaching', 'school-combat', 'school-team', 'school-scene'].includes(collection), '旧系列未记录采集入口，不原地迁移或续跑');
-    const release = seriesLock(output);
-    try { return await executeCollection(root, output, options, collection, existing); }
-    finally { release(); }
+    try {
+        root = realpathSync(root); output = realpathSync(output);
+        assert.ok(!isInside(root, output), '执行证据目录必须在仓库外');
+        const existing = collection ? null : openSeries(output);
+        collection ??= existing.identity.execution.collection;
+        assert.ok(['weapons', 'abilities', 'bouts', 'weapon-special', 'teaching', 'school-combat', 'school-team', 'school-scene'].includes(collection), '旧系列未记录采集入口，不原地迁移或续跑');
+        const release = seriesLock(output);
+        try { return await executeCollection(root, output, options, collection, existing); }
+        finally { release(); }
+    } catch (e) {
+        console.error('RUN_COLLECTION ERROR at:', e.stack?.split('\n').slice(0, 3).join(' | '));
+        throw e;
+    }
 }
 
 export function validateMingjiaoRouteSelection(conditions) {
@@ -1569,7 +1595,19 @@ async function executeCollection(root, output, options, collection, existing) {
     inventory.versions = collectVersions(root, options.driver, output);
     const catalog = collectCatalog(root, inventory);
     const relations = collection === 'teaching' ? schoolRelations(inventory, catalog) : null;
-    const makeConditions = { weapons: weaponConditions, abilities: abilityConditions, bouts: boutConditions,
+    const makeConditions = { weapons: weaponConditions,
+        abilities: (catalog, settings) => {
+            const base = abilityConditions(catalog, settings);
+            if (options.performProbeFile) {
+                const coverage = JSON.parse(readFileSync(options.performProbeFile, 'utf8'));
+                const probes = performProbeConditions(coverage, path => readFileSync(join(root, path), 'utf8'),
+                    { profiles: coverage.probe_profiles ?? {} }).map(c => ({ ...c,
+                    samples: options.smoke ? 1 : c.samples }));
+                return [...base, ...probes];
+            }
+            return base;
+        },
+        bouts: boutConditions,
         'weapon-special': weaponSpecialConditions,
         'school-combat': schoolCombatConditions,
         'school-team': schoolTeamConditions,
@@ -1594,13 +1632,38 @@ async function executeCollection(root, output, options, collection, existing) {
             };
             return mingjiaoRouteConditions(catalog, readSource, settings);
         },
-        teaching: () => teachingConditions(relations, catalog).map(c => ({ ...c,
-            samples: options.smoke ? 1 : c.samples })) }[collection];
-    const allConditions = existing?.identity.conditions ?? makeConditions(catalog, options);
+        teaching: () => {
+            const base = teachingConditions(relations, catalog).map(c => ({ ...c,
+                samples: options.smoke ? 1 : c.samples }));
+            if (options.teachingProbeFile) {
+                const plan = JSON.parse(readFileSync(options.teachingProbeFile, 'utf8'));
+                const crosswalkPath = options.teachingProbeCrosswalk;
+                const crosswalk = crosswalkPath ? JSON.parse(readFileSync(crosswalkPath, 'utf8')) : { items: [] };
+                const readSrc = path => readFileSync(join(root, path), 'utf8');
+                // Keep the reviewed plan's formal counts; smoke never rewrites its identity.
+                const probes = teachingProbeConditions(plan, crosswalk, readSrc,
+                    { learningSkills: plan.learning_skills ?? {} }).map(c => ({ ...c,
+                    samples: options.smoke ? 1 : c.samples }));
+                return [...base, ...probes];
+            }
+            return base;
+        } }[collection];
+    let allConditions;
+    try {
+        allConditions = existing?.identity.conditions ?? makeConditions(catalog, options);
+    } catch (e) {
+        console.error('MAKE_CONDITIONS ERROR:', e.stack?.split('\n')[1]?.trim());
+        throw e;
+    }
     const conditions = existing ? allConditions : selectConditions(allConditions, options);
     assert.ok(conditions.length, '条件不存在：' + (options.case ?? options.casePrefix ?? options.caseGroup));
-    validateMingjiaoRouteSelection(conditions);
-    validateExpectedOutcomes(conditions);
+    try {
+        validateMingjiaoRouteSelection(conditions);
+        validateExpectedOutcomes(conditions);
+    } catch (e) {
+        console.error('VALIDATION ERROR at line:', e.stack?.split('\n')[1]?.trim());
+        throw e;
+    }
     // Hash without writing first. A refused resume never changes old snapshots.
     const snapshotOptions = { observeTan: conditions.some(c => c.parameters.collection_group === 'public-exert'
         && c.parameters.skill === 'hamagong' && c.parameters.ability === 'tan') };
@@ -1770,7 +1833,9 @@ async function runAttempt(sandbox, options, jobs, fault, accept, execution) {
         const stopInput = () => { inputStopped = true; inputStops.forEach(stop => stop()); };
         const allowedSeconds = 120 + jobs.reduce((n, job) => n + 3
             + (job.parameters.collection_group === 'mingjiao-jiuyang-fusion'
-                ? execution.fusion_watchdog_seconds : job.parameters.observe_seconds), 0);
+                ? execution.fusion_watchdog_seconds : job.parameters.observe_seconds)
+            // The recast window runs a second original timer after the first expiry.
+            + (job.parameters.recast_after_expiry ? job.parameters.observe_seconds : 0), 0);
         const watchdog = setTimeout(() => { stopInput(); text += '\nDATA WATCHDOG'; child.kill(); }, allowedSeconds * 1000);
         const cancel = () => { stopInput(); interrupted = true; text += '\nDATA CANCELLED'; child.kill(); };
         process.once('SIGINT', cancel); process.once('SIGTERM', cancel);

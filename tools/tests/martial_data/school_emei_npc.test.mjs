@@ -20,6 +20,7 @@ test('原NPC批覆盖28配置与8原闭包，不改旧11544条件', () => {
     const historical = all.filter(c => ['huashan', 'quanzhen', 'wudang', 'shaolin', 'emei'].includes(c.parameters.school)
         && c.parameters.collection_group !== 'emei-npc-bout'
         && c.parameters.collection_group !== 'huashan-duration'
+        && c.parameters.collection_group !== 'huashan-school-defense'
         && !c.id.startsWith('school-quanzhen-boundary-') && !c.parameters.target_busy_lifecycle);
     const old = historical.filter(c => ![emeiNpcGroup, 'emei-bout', 'quanzhen-combination', 'huashan-combination', 'quanzhen-bout', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform', 'mingjiao-bout', 'taohua-bout', 'composite-synthesis', 'gumu-fireice-g6', 'b30-perform', 'public-exert'].includes(c.parameters.collection_group));
     assert.equal(old.length, 11544); assert.equal(old.reduce((n, c) => n + c.samples, 0), 289308);

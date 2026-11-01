@@ -12,6 +12,7 @@ import { qianyeMemberConditions, validateQianyeMemberRecord } from './school_qia
 import { sanyinMemberConditions, validateSanyinMemberRecord } from './school_sanyin_member_cases.mjs';
 import { mizongMemberConditions, validateMizongMemberRecord } from './school_mizong_member_cases.mjs';
 import { emeiNpcBoutConditions, validateEmeiNpcBoutRecord } from './school_emei_npc_bout_cases.mjs';
+import { huashanSchoolDefenseConditions, validateHuashanSchoolDefenseRecord } from './school_huashan_school_defense_cases.mjs';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { root } from '../../collect_martial_data.mjs';
@@ -179,6 +180,7 @@ import { boutPerformConditions, validateBoutPerformRecord } from './school_bout_
 import { compositeSynthesisConditions, validateCompositeSynthesisRecord } from './school_composite_synthesis_cases.mjs';
 import { npcGrantPerformConditions, validateNpcGrantPerformRecord } from './school_npc_grant_cases.mjs';
 import { publicExertConditions, validatePublicExertRecord } from './school_public_exert_cases.mjs';
+import { s1LearningConditions, validateS1LearningRecord } from './school_s1_learning_cases.mjs';
 import { mingjiaoCombinationConditions } from './school_mingjiao_combination_cases.mjs';
 import { createMingjiaoCombinationRecordValidator } from './school_mingjiao_combination_record.mjs';
 import { b1PerformConditions, validateB1Record } from './b1_perform_cases.mjs';
@@ -293,6 +295,33 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
             'feature/action.c', 'mudcore/inherit/action.c', 'feature/skill.c', 'feature/equip.c',
             'clone/user/user.c', 'inherit/char/char.c'])];
         condition.parameters.qualification_note += ' S6独立自然到期：原200/400/800秒不缩时，每项正式2次；烟雾仅200级各1次。关闭自主心跳，不补资源、不重施、不手工解除；完整原回调前后及最终状态验证，不当战斗收益或重复叠加。';
+        huashanDurations.push(condition);
+    }
+    // S6 stacking: apply powerup/ziqi twice to verify effect stacking behavior.
+    for (const level of smoke ? [200] : [200, 400, 800]) for (const ability of ['powerup', 'ziqi']) {
+        add(level, 'qizong', ability, { suffix: '-s6-stacking', checks: 2, duration: true });
+        const condition = result.pop();
+        condition.parameters.collection_group = 'huashan-duration';
+        condition.parameters.qualification_sources = [...new Set([...condition.parameters.qualification_sources,
+            'feature/action.c', 'mudcore/inherit/action.c', 'feature/skill.c', 'feature/equip.c',
+            'clone/user/user.c', 'inherit/char/char.c'])];
+        condition.parameters.qualification_note += ' S6叠加验证：同一能力连续施放2次，验证效果叠加或替换行为。原200/400/800秒不缩时，每项正式2次；烟雾仅200级各1次。关闭自主心跳，不补资源、不手工解除。';
+        huashanDurations.push(condition);
+    }
+    // S6 recast: while-active re-application hits the original active gate; after
+    // the natural expiry a second original cast starts a fresh full window.
+    // Distinct ID family keeps the window selectable without re-running old conditions.
+    for (const level of smoke ? [200] : [200, 400, 800]) for (const ability of ['powerup', 'ziqi']) {
+        add(level, 'qizong', ability, { suffix: '-s6-recast', checks: 2, duration: true });
+        const condition = result.pop();
+        condition.id = `school-huashan-recast-${ability}-l${level}`;
+        condition.parameters.collection_group = 'huashan-duration';
+        condition.parameters.recast_after_expiry = 1;
+        condition.parameters.fighting = false;
+        condition.parameters.qualification_sources = [...new Set([...condition.parameters.qualification_sources,
+            'feature/action.c', 'mudcore/inherit/action.c', 'feature/skill.c', 'feature/equip.c',
+            'clone/user/user.c', 'inherit/char/char.c', 'cmds/skill/exert.c'])];
+        condition.parameters.qualification_note += ' S6连续重施：活跃期重施走原活跃闸口拒绝，原回调到期后再次施放起新窗，双窗原200/400/800秒不缩时，每项正式2次；烟雾仅200级各1次。非交战（busy闸口先于活跃闸口会遮蔽原拒绝句），不补资源、不手工解除。';
         huashanDurations.push(condition);
     }
     // New boundary/lifecycle windows must not shift the frozen historical prefixes.
@@ -483,6 +512,8 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...npcGrantPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         // 5.2: public exert abilities (powerup/shield/heal)
         ...publicExertConditions(catalog, { smoke }),
+        // S1: ordinary learning callback (21 named conditions)
+        ...s1LearningConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...duanMemberConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...duanPerformConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...piaoxuConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
@@ -497,6 +528,9 @@ export function schoolCombatConditions(catalog, { smoke = false, samples = 100 }
         ...emeiNpcBoutConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke }),
         ...quanzhenDefense.filter(newQuanzhenDefense),
         ...quanzhenPractice.filter(newQuanzhenPractice),
+        // S6 school-level defense: original powerup prelude plus one regular
+        // attack round per attacker weapon class and level.
+        ...huashanSchoolDefenseConditions(catalog, path => readFileSync(join(root, path), 'utf8'), { smoke, samples }),
         ...huashanDurations];
 }
 
@@ -509,9 +543,15 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
         assert.equal(p.observation, 'timed_effect'); assert.equal(p.observe_seconds, p.level + 2);
         assert.equal(p.actor.properties.neili, 6000); assert.equal(p.actor.equipment.type, 'sword');
         assert.equal(p.expected, 'observed');
+        assert.equal(Boolean(p.recast_after_expiry), condition.id.startsWith('school-huashan-recast-'),
+            '连续重施只在具名条件启用');
+        if (p.recast_after_expiry) assert.equal(p.fighting, false,
+            '非交战避免原busy闸口遮蔽活跃期重施拒绝句');
     }
     if (condition.parameters.collection_group === 'emei-npc-bout')
         return validateEmeiNpcBoutRecord(raw, condition);
+    if (condition.parameters.collection_group === 's1-learning')
+        return validateS1LearningRecord(raw, condition);
     if (condition.parameters.collection_group === 's1-mizong')
         return validateMizongMemberRecord(raw, condition);
     if (condition.parameters.collection_group === 's1-sanyin')
@@ -760,6 +800,7 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'composite-synthesis') return validateCompositeSynthesisRecord(raw, condition);
     if (p.collection_group === 'huashan-learning') return validateHuashanLearningRecord(raw, condition);
     if (p.collection_group === 'huashan-defense') return validateHuashanDefenseRecord(raw, condition);
+    if (p.collection_group === 'huashan-school-defense') return validateHuashanSchoolDefenseRecord(raw, condition);
     if (p.collection_group === 'huashan-upgrade') return validateHuashanUpgradeRecord(raw, condition);
     const before = raw.before[0], actor = raw.immediate[0], target = raw.immediate[1];
     const cost = raw.metrics[0].neili_cost ?? 0;
@@ -774,8 +815,9 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.collection_group === 'huashan-advanced') return validateHuashanAdvancedRecord(raw, condition);
     if (p.skill) return validateHuashanAdditionalRecord(raw, condition);
     if (condition.method !== 'ordinary') {
-        assert.equal(raw.launches.length, 1);
+        assert.equal(raw.launches.length, p.recast_after_expiry ? 2 : 1);
         assert.equal(raw.launches[0].skill, condition.method === 'exert' ? 'zixia-shengong' : 'huashan-jian');
+        if (p.recast_after_expiry) assert.equal(raw.launches[1].skill, 'zixia-shengong');
     }
     switch (p.ability) {
         case 'ordinary':
@@ -799,18 +841,19 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
             assert.ok((raw.metrics[0].direct ?? 0) <= 3);
             break;
         case 'powerup':
-            assert.equal(cost, 100);
+            assert.equal(cost, p.recast_after_expiry ? 200 : 100);
             assert.equal(actor.temp.powerup, 1);
             assert.equal(applyDelta('attack'), Math.floor(p.actor.skills['zixia-shengong'] / 3));
             assert.equal(applyDelta('defense'), Math.floor(p.actor.skills['zixia-shengong'] / 3));
             break;
         case 'ziqi': {
             const enabled = p.effect_expected !== 'no_buff';
-            assert.equal(cost, enabled ? 200 : 0);
+            assert.equal(cost, p.recast_after_expiry ? (enabled ? 400 : 0) : (enabled ? 200 : 0));
             assert.equal(Boolean(actor.temp.ziqi), enabled);
             assert.equal(applyDelta('damage'), enabled ? Math.floor(p.actor.skills['zixia-shengong'] / 10) : 0);
             assert.equal(applyDelta('sword'), enabled ? Math.floor(p.actor.skills['zixia-shengong'] / 10) : 0);
-            assert.equal(actor.busy, 3);
+            assert.ok(p.recast_after_expiry ? !actor.busy : actor.busy === 3,
+                '连续重施窗口非交战不带原busy');
             break;
         }
         default: assert.fail('未知华山能力：' + p.ability);
@@ -818,22 +861,69 @@ export function validateSchoolCombatRecord(raw, condition, sourceContext) {
     if (p.observation === 'timed_effect') {
         const flag = p.ability;
         const fields = flag === 'powerup' ? ['attack', 'defense'] : ['damage', 'sword'];
+        const windowCost = flag === 'powerup' ? 100 : 200;
         assert.ok(['powerup', 'ziqi'].includes(flag));
         assert.equal(p.observe_seconds, p.actor.skills['zixia-shengong'] + 2);
-        assert.ok(raw.elapsed >= p.observe_seconds);
-        assert.deepEqual(raw.callbacks.map(c => [c.side, c.phase]), [[0, 'before'], [0, 'after']]);
-        const [enter, exit] = raw.callbacks;
-        assert.ok(enter.elapsed >= p.actor.skills['zixia-shengong']);
-        assert.ok(exit.elapsed >= enter.elapsed && exit.elapsed <= raw.elapsed);
-        assert.equal(enter.state.temp[flag], 1);
-        for (const state of [exit.state, raw.after[0]]) {
-            assert.ok(!state.temp[flag], '增益标记必须由原回调清除');
-            for (const field of fields) assert.equal(state.temp.apply?.[field] ?? 0,
-                before.temp.apply?.[field] ?? 0, '到期后须恢复原属性：' + field);
-            assert.equal(state.neili, actor.neili, '解除不额外扣费或退还内力');
+        if (!p.recast_after_expiry) {
+            assert.ok(raw.elapsed >= p.observe_seconds);
+            assert.deepEqual(raw.callbacks.map(c => [c.side, c.phase]), [[0, 'before'], [0, 'after']]);
+            const [enter, exit] = raw.callbacks;
+            assert.ok(enter.elapsed >= p.actor.skills['zixia-shengong']);
+            assert.ok(exit.elapsed >= enter.elapsed && exit.elapsed <= raw.elapsed);
+            assert.equal(enter.state.temp[flag], 1);
+            for (const state of [exit.state, raw.after[0]]) {
+                assert.ok(!state.temp[flag], '增益标记必须由原回调清除');
+                for (const field of fields) assert.equal(state.temp.apply?.[field] ?? 0,
+                    before.temp.apply?.[field] ?? 0, '到期后须恢复原属性：' + field);
+                assert.equal(state.neili, actor.neili, '解除不额外扣费或退还内力');
+            }
+            for (const field of fields) assert.equal(enter.state.temp.apply?.[field] ?? 0,
+                actor.temp.apply?.[field] ?? 0, '回调开始前仍保持增益：' + field);
+        } else {
+            // Two original windows with one while-active re-application between them.
+            const repeat = raw.active_repeat, relaunch = raw.recast;
+            assert.ok(repeat && relaunch, '连续重施记录完整');
+            assert.ok(raw.elapsed >= 2 * p.observe_seconds - 1, '双窗原计时不缩时');
+            assert.equal(repeat.accepted, 0, '活跃期重施按原活跃闸口拒绝');
+            assert.ok((repeat.notify_fail || '').includes(flag === 'powerup' ? '已经在运功中' : '已经在运起紫气东来'),
+                '活跃期重施为原拒绝句');
+            assert.equal(repeat.before[0].temp[flag], 1);
+            for (const field of fields) assert.equal(repeat.after[0].temp.apply?.[field] ?? 0,
+                repeat.before[0].temp.apply?.[field] ?? 0, '活跃期重施不改变原增量');
+            assert.equal(repeat.after[0].neili, repeat.before[0].neili, '活跃期重施不扣费');
+            assert.deepEqual(raw.callbacks.map(c => [c.side, c.phase]),
+                [[0, 'before'], [0, 'after'], [0, 'before'], [0, 'after']]);
+            const [enter, exit, reenter, reexit] = raw.callbacks;
+            assert.ok(enter.elapsed >= p.actor.skills['zixia-shengong']);
+            assert.ok(exit.elapsed >= enter.elapsed);
+            // The recast can only happen after the first expiry; the second window
+            // is a full original timer, never an immediate follow-up callback.
+            assert.ok(reenter.elapsed >= exit.elapsed + p.actor.skills['zixia-shengong'],
+                '第二窗须经原级数计时');
+            assert.ok(reexit.elapsed >= reenter.elapsed && reexit.elapsed <= raw.elapsed);
+            assert.equal(enter.state.temp[flag], 1);
+            assert.equal(reenter.state.temp[flag], 1);
+            for (const state of [exit.state, relaunch.before[0]]) {
+                assert.ok(!state.temp[flag], '第一窗增益标记必须由原回调清除');
+                for (const field of fields) assert.equal(state.temp.apply?.[field] ?? 0,
+                    before.temp.apply?.[field] ?? 0, '到期后须恢复原属性：' + field);
+                assert.equal(state.neili, actor.neili, '解除不额外扣费或退还内力');
+            }
+            const relaunched = relaunch.immediate[0];
+            assert.equal(relaunch.accepted, 1, '到期后再次施放被原闸口受理');
+            assert.equal(relaunched.temp[flag], 1);
+            for (const field of fields) assert.equal(relaunched.temp.apply?.[field] ?? 0,
+                actor.temp.apply?.[field] ?? 0, '重施按原增量重新生效');
+            assert.equal(relaunched.neili, actor.neili - windowCost, '重施再扣原费用');
+            for (const state of [reexit.state, raw.after[0]]) {
+                assert.ok(!state.temp[flag], '第二窗增益标记必须由原回调清除');
+                for (const field of fields) assert.equal(state.temp.apply?.[field] ?? 0,
+                    before.temp.apply?.[field] ?? 0, '第二窗到期后须恢复原属性：' + field);
+                assert.equal(state.neili, relaunched.neili, '第二窗解除不额外扣费或退还内力');
+            }
+            for (const field of fields) assert.equal(reenter.state.temp.apply?.[field] ?? 0,
+                relaunched.temp.apply?.[field] ?? 0, '第二窗回调开始前仍保持增益：' + field);
         }
-        for (const field of fields) assert.equal(enter.state.temp.apply?.[field] ?? 0,
-            actor.temp.apply?.[field] ?? 0, '回调开始前仍保持增益：' + field);
     }
 }
 

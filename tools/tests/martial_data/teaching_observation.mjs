@@ -471,6 +471,101 @@ function validateGumuTeacherPreparation(raw, condition) {
 
 // Complements the existing two-player/resource validator. Do not infer a grant
 // from command_accepted or from a message when joining it to the sample ledger.
+// Probe validation: record raw observations for targeted collection without
+// enforcing specific expected outcomes. Still enforces identity, command and
+// state correspondence so forged records cannot pass.
+function validateProbeRecord(raw, condition) {
+    const steps = raw.teaching;
+    assert.ok(Array.isArray(steps) && steps.length > 0, '探测记录缺少教学步骤');
+    const p = condition.parameters;
+    const expectedAction = p.action;
+    const expectedTeacher = p.teacher?.path;
+    assert.equal(steps.length, p.teaching_expectations.length, '探测步骤数量不完整');
+    if (p.probe_function === 'recognize_apprentice' || p.teaching_kind === 'learn_gate') {
+        assert.match(p.skill ?? '', /^[a-z][a-z0-9_-]*$/, '学习技能必须是标识而非次数');
+        assert.equal(expectedAction, 'learn ' + p.teacher.id + ' ' + p.skill + ' 1', '学习命令缺少真实技能');
+    }
+    let previous;
+    for (const [i, step] of steps.entries()) {
+        // Command must match the condition's action exactly
+        assert.equal(step.command, expectedAction, '探测命令与条件不一致：' + step.command + ' vs ' + expectedAction);
+        // Teacher must match
+        assert.equal(step.teacher_program, expectedTeacher, '探测教师与条件不一致');
+        assert.ok(new RegExp('^' + expectedTeacher.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '#\\d+$').test(step.teacher),
+            '探测教师对象不一致');
+        // Student must be consistent across steps
+        assert.ok(step.student, '探测步骤缺少学生');
+        if (previous) assert.equal(step.student, previous.student, '探测步骤间学生被替换');
+        // Command accepted state must be boolean/integer
+        assert.ok(step.command_accepted === 0 || step.command_accepted === 1,
+            '探测命令受理状态无效');
+        // State snapshots must exist and be objects
+        assert.ok(step.before && typeof step.before === 'object', '探测缺少初始状态');
+        assert.ok(step.after && typeof step.after === 'object', '探测缺少终止状态');
+        assert.ok(Number.isFinite(step.elapsed) && step.elapsed >= 0, '探测步骤耗时无效');
+        // Basic state presence
+        for (const key of ['jing', 'neili', 'skills']) {
+            assert.ok(step.before[key] !== undefined, '探测步骤缺少初始状态：' + key);
+            assert.ok(step.after[key] !== undefined, '探测步骤缺少终止状态：' + key);
+        }
+        for (const grant of p.monitored_grants ?? []) {
+            for (const state of [step.before, step.after]) {
+                assert.ok(state.grants && Object.hasOwn(state.grants, grant), '缺少实际授权观察：' + grant);
+                assert.ok(Number.isSafeInteger(state.grants[grant]) && state.grants[grant] >= 0, '授权值无效');
+            }
+        }
+        // Step-to-step state continuity: before must match previous after
+        if (previous) {
+            for (const key of ['jing', 'neili', 'skills', 'mappings', 'grants', 'learned',
+                'learned_points', 'family', 'master_id', 'master_name']) {
+                assert.deepEqual(step.before[key], previous.after[key],
+                    '探测步骤间状态被重置：' + key);
+            }
+        }
+        previous = step;
+    }
+    // Sample-level identity checks
+    assert.ok(raw.before?.[0] && raw.after?.[0], '探测样本缺少玩家状态');
+    assert.equal(raw.before[0].object, steps[0].student, '探测样本与教学步骤不是同一学生');
+    assert.equal(raw.after[0].object, steps[0].student, '探测样本终止状态不是同一学生');
+    // Sample state must match teaching step state for shared keys
+    for (const [stateName, stepState] of [['before', steps[0].before], ['after', steps.at(-1).after]]) {
+        const sampleState = raw[stateName]?.[0];
+        for (const key of ['jing', 'neili', 'skills', 'mappings']) {
+            if (stepState[key] === undefined && sampleState[key] === undefined) continue;
+            assert.deepEqual(sampleState[key], stepState[key],
+                '探测样本与教学状态不一致：' + stateName + '/' + key);
+        }
+    }
+    // Metrics must be present
+    assert.ok(raw.metrics?.[0] && typeof raw.metrics[0] === 'object'
+        && !Array.isArray(raw.metrics[0]), '探测公共资源观察缺失');
+    // Actual observations, never inferred from command acceptance or caller-supplied flags.
+    const grantChanged = steps.some(s => {
+        if (!p.monitored_grants?.length) return false;
+        return p.monitored_grants.some(g => {
+            const before = s.before.grants[g];
+            const after = s.after.grants[g];
+            return after > before;
+        });
+    });
+    const recruited = steps.some(s => Boolean(s.after.master_id && s.after.master_name)
+        && ['family', 'master_id', 'master_name'].some(k => s.before[k] !== s.after[k]));
+    const learned = p.teaching_kind === 'learn_gate' && steps.some(s => {
+        assert.ok(s.before.learned && s.after.learned, '学习熟练度观察缺失');
+        return (s.after.skills[p.skill] ?? 0) > (s.before.skills[p.skill] ?? 0)
+            || (s.after.learned[p.skill] ?? 0) > (s.before.learned[p.skill] ?? 0);
+    });
+    const advanced = grantChanged || recruited || learned;
+    // Validate outcome consistency: observed requires actual advancement
+    if (raw.outcome === 'observed') {
+        assert.ok(advanced, '探测结果标为 observed 但无实际授权/招收变化');
+    } else if (raw.outcome === 'refused') {
+        assert.ok(!advanced, '探测结果标为 refused 但有实际授权/招收变化');
+    }
+    return [{ advanced, probe: true }];
+}
+
 export function validateTeachingRecord(raw, condition) {
     assert.equal(raw.kind, 'sample');
     assert.equal(raw.condition_id, condition.id);
@@ -478,6 +573,7 @@ export function validateTeachingRecord(raw, condition) {
     if (raw.outcome === 'error') return;
     const steps = raw.teaching;
     const profile = condition.parameters.teaching_profile;
+    if (profile === 'probe') return validateProbeRecord(raw, condition);
     const summaries = profile === 'gumu-item-acquisition'
         ? validateGumuItemAcquisitionRecord(raw, condition).map(s => ({ ...s,
             command_kind: 'ask', advanced: s.result === 'granted', acquired: s.result === 'granted', contribution_spent: 0 }))

@@ -127,7 +127,7 @@
 - 72 控制/7 缴械配置扫描
 
 **残余**：
-- 19 项附加控制能力需关联实际效果证据。
+- ~~19 项附加控制能力需关联实际效果证据~~ → **2026-10-31 逐项关联完成**（`E/audit-s7-control-effect-link-20261031-v1`）：13 项发动证据已找到（`repair-b30-formal-20261029` 等 b30 系列真实发动原件，含命中/直伤/费用）；4 项（jiuyin-shengong shou/zhang/zhi/zhua）有教学矩阵传授记录但缺发动效果证据；2 项（duanjia-sword/jue、jiuyin-shengong/xin）无任何记录。
 - 6 项 pending_fixture 入口保持待采。
 
 **处置（2026-10-23 更新）**：

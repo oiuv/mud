@@ -223,7 +223,10 @@ test('强化前后只读字段及原自然解除时钟均保留，不直调效�
     assert.match(callbacks, /\["owner"\] = file_name\(owner\);\s*current\[key\]\[<1\]\["function"\] = frames\[1\]/);
     assert.match(read('tools/tests/martial_data/actor.lpc'), /observe_callback\(this_object\(\), "before"\);\s*::eval_function\(fun\);\s*"\/tests\/runner"->observe_callback\(this_object\(\), "after"\)/);
     assert.match(advance, /delay = current\["parameters"\]\["observe_seconds"\];/);
-    assert.match(advance, /if \(delay > 0 && current\["outcome"\] == "observed"\) call_out\("finish_sample", delay\)/);
+    // The natural delayed finish path is unchanged; the S6 recast branch reuses the
+    // same original timer for its second window instead of skipping the clock.
+    assert.match(advance, /\} else call_out\("finish_sample", delay\);\s*\} else finish_sample\(\);/);
+    assert.match(advance, /call_out\("huashan_recast_window", delay\)/);
     assert.match(read('feature/action.c'), /call_out\("eval_function", delay, bind\(fun, this_object\(\)\)\)/);
     assert.match(read('kungfu/skill/jiuyang-shengong/exert/powerup.c'), /"remove_effect", me, skill :\), skill \/ 2\)/);
     assert.match(read('kungfu/skill/jiuyang-shengong/exert/shield.c'), /"remove_effect", me, skill \/ 2 :\), skill\)/);

@@ -4,7 +4,7 @@ import { schoolCombatConditions } from './school_combat_cases.mjs';
 export function isOctober29Window(condition) {
     const p = condition.parameters;
     return p.collection_group?.startsWith('s1-')
-        || ['huashan-duration', 'emei-npc-bout'].includes(p.collection_group)
+        || ['huashan-duration', 'huashan-school-defense', 'emei-npc-bout'].includes(p.collection_group)
         || condition.id.startsWith('school-quanzhen-boundary-')
         || p.target_busy_lifecycle === true;
 }

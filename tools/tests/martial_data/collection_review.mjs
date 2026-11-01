@@ -49,6 +49,15 @@ export function summarizeReplay(conditions, rows, validate) {
 
 async function validatorFor(condition) {
     const group = condition.parameters.collection_group;
+    if (condition.parameters.variant === 'probe') {
+        const module = await import('./probe_observation.mjs');
+        return module.validateProbeAbilityRecord;
+    }
+    if (condition.method === 'teaching' && !group) {
+        // The teaching-mode matrix carries no collection_group.
+        const module = await import('./teaching_observation.mjs');
+        return module.validateTeachingRecord;
+    }
     const batch = /^b([1-9]|[12][0-9])-perform$/.exec(group);
     if (batch) {
         const module = await import(`./b${batch[1]}_perform_cases.mjs`);
@@ -71,6 +80,9 @@ async function validatorFor(condition) {
         'gumu-fireice-g6': ['school_gumu_fireice_cases.mjs', 'validateGumuFireiceG6Record'],
         'b30-perform': ['school_npc_grant_cases.mjs', 'validateNpcGrantPerformRecord'],
         'public-exert': ['school_public_exert_cases.mjs', 'validatePublicExertRecord'],
+        's1-learning': ['school_s1_learning_cases.mjs', 'validateS1LearningRecord'],
+        'huashan-school-defense': ['school_huashan_school_defense_cases.mjs', 'validateHuashanSchoolDefenseRecord'],
+        'public-local-interfaces': ['zuixian_bu_cases.mjs', 'validateZuixianBuRecord'],
     };
     if (combination[group]) {
         const module = await import('./' + combination[group][0]);
@@ -79,7 +91,7 @@ async function validatorFor(condition) {
     if (/^(quanzhen|huashan|mingjiao|taohua|wudang|shaolin|emei|gumu)-bout$/.test(group)
         || /^(wudang|shaolin|emei|gumu)-bout-perform$/.test(group)
         || /^(mingjiao|gumu|taohua|emei)(-npc-bout|-npc)$/.test(group)
-        || group === 'mingjiao-combination') {
+        || group === 'mingjiao-combination' || group === 'huashan-duration') {
         const module = await import('./school_combat_cases.mjs');
         return module.validateSchoolCombatRecord;
     }

@@ -10,8 +10,8 @@ const catalog = collectCatalog(root, buildInventory(root));
 
 test('历史视图仅排除本轮具名窗口，不修改旧条件或放宽旧快照hash', () => {
     for (const [smoke, added, samples, hash] of [
-        [false, 543, 396578, '923372129137cf270f21ab854b3b1d0a9d16dc77fa18881d6ff6dfe0913bec90'],
-        [true, 539, 25539, '33d125d253cacf0759843fa1a86e723e79125c707816acaca4196b635247c8a6'],
+        [false, 592, 396578, '923372129137cf270f21ab854b3b1d0a9d16dc77fa18881d6ff6dfe0913bec90'],
+        [true, 580, 25539, '33d125d253cacf0759843fa1a86e723e79125c707816acaca4196b635247c8a6'],
     ]) {
         const all = schoolCombatConditions(catalog, { smoke });
         const old = preOctober29SchoolConditions(catalog, { smoke });

@@ -9,13 +9,13 @@ import { collectCatalog } from './catalog.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
 const catalog = collectCatalog(root, buildInventory(root));
 const all = schoolCombatConditions(catalog), cases = all.filter(c => c.parameters.collection_group === 'huashan-duration');
-test('S6六条件12正式，原200/400/800秒；旧111/9336与完整指纹不变', () => {
+test('S6十八条件36正式（6到期+6叠加+6连续重施），原200/400/800秒；旧111/9336与完整指纹不变', () => {
     const old = all.filter(c => c.parameters.school === 'huashan' && !c.parameters.collection_group);
     assert.equal(old.length, 111); assert.equal(old.reduce((n, c) => n + c.samples, 0), 9336);
     assert.equal(sha256(JSON.stringify(old)), '28bda639d393b5dfce95f4c6f9f0d5067487ad079d50b2e2e32976a61b916eb9');
-    assert.equal(cases.length, 6); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 12);
-    assert.equal(cases.reduce((n, c) => n + c.parameters.level * c.samples, 0), 5600);
-    assert.deepEqual(all.slice(-6), cases);
+    assert.equal(cases.length, 18); assert.equal(cases.reduce((n, c) => n + c.samples, 0), 36);
+    assert.equal(cases.reduce((n, c) => n + c.parameters.level * c.samples, 0), 16800);
+    assert.deepEqual(all.slice(-18), cases);
     for (const c of cases) {
         assert.equal(c.parameters.observe_seconds, c.parameters.level + 2);
         assert.equal(c.parameters.actor.skills['zixia-shengong'], c.parameters.level);
@@ -24,26 +24,52 @@ test('S6六条件12正式，原200/400/800秒；旧111/9336与完整指纹不变
         assert.equal(c.parameters.actor.properties.neili, 6000); assert.equal(c.parameters.actor.equipment.type, 'sword');
         assert.ok(!c.parameters.strategy); assert.equal(c.parameters.expected, 'observed');
     }
+    const recast = cases.filter(c => c.parameters.recast_after_expiry);
+    assert.equal(recast.length, 6);
+    assert.ok(recast.every(c => c.id.startsWith('school-huashan-recast-') && c.parameters.fighting === false));
+    assert.equal(cases.filter(c => !c.parameters.recast_after_expiry).length, 12);
 });
-test('烟雾仅200级两个原回调各一次，不缩时，也不冒充高档正式', () => {
+test('烟雾仅200级六个原回调各一次（到期+叠加+重施），不缩时，也不冒充高档正式', () => {
     const smoke = schoolCombatConditions(catalog, { smoke: true }).filter(c => c.parameters.collection_group === 'huashan-duration');
-    assert.equal(smoke.length, 2); assert.equal(smoke.reduce((n, c) => n + c.samples, 0), 2);
+    assert.equal(smoke.length, 6); assert.equal(smoke.reduce((n, c) => n + c.samples, 0), 6);
     assert.ok(smoke.every(c => c.parameters.level === 200 && c.parameters.observe_seconds === 202 && c.samples === 1));
     for (const c of smoke) { const formal = cases.find(x => x.id === c.id); assert.deepEqual(c.parameters, formal.parameters); }
 });
 function trace(c) {
-    const p = c.parameters, cost = p.ability === 'powerup' ? 100 : 200;
+    const p = c.parameters, windowCost = p.ability === 'powerup' ? 100 : 200;
+    const cost = windowCost * (p.recast_after_expiry ? 2 : 1);
     const before = [p.actor, p.target].map(config => ({ ...config.properties,
         skills: structuredClone(config.skills), mappings: structuredClone(config.mappings), temp: { apply: { damage: 50 } } }));
     const immediate = structuredClone(before), fields = p.ability === 'powerup' ? ['attack', 'defense'] : ['damage', 'sword'];
-    immediate[0].busy = 3; immediate[0].neili -= cost; immediate[0].temp[p.ability] = 1;
+    if (!p.recast_after_expiry) immediate[0].busy = 3;
+    immediate[0].neili -= windowCost; immediate[0].temp[p.ability] = 1;
     for (const key of fields) immediate[0].temp.apply[key] = (before[0].temp.apply[key] ?? 0) + Math.floor(p.level / (p.ability === 'powerup' ? 3 : 10));
     const after = structuredClone(immediate); delete after[0].temp[p.ability];
     for (const key of fields) after[0].temp.apply[key] = before[0].temp.apply[key] ?? 0;
-    return { kind: 'sample', condition_id: c.id, index: 0, method: 'exert', outcome: 'observed', before, immediate, after,
-        launches: [{ skill: 'zixia-shengong' }], metrics: [{ neili_cost: cost }, {}], elapsed: p.level + 2.1,
+    const record = { kind: 'sample', condition_id: c.id, index: 0, method: 'exert', outcome: 'observed', before, immediate, after,
+        launches: [{ skill: 'zixia-shengong' }], metrics: [{ neili_cost: cost }, {}],
+        elapsed: p.observe_seconds * (p.recast_after_expiry ? 2 : 1) + 0.2,
         callbacks: [{ side: 0, phase: 'before', elapsed: p.level + 0.1, state: structuredClone(immediate[0]) },
             { side: 0, phase: 'after', elapsed: p.level + 0.11, state: structuredClone(after[0]) }] };
+    if (p.recast_after_expiry) {
+        record.active_repeat = { accepted: 0,
+            notify_fail: p.ability === 'powerup' ? '你已经在运功中了。' : '你已经在运起紫气东来了。',
+            before: [structuredClone(immediate[0]), structuredClone(immediate[1])],
+            after: [structuredClone(immediate[0]), structuredClone(immediate[1])] };
+        const relaunchImmediate = structuredClone(after);
+        relaunchImmediate[0].neili -= windowCost; relaunchImmediate[0].temp[p.ability] = 1;
+        for (const key of fields) relaunchImmediate[0].temp.apply[key] =
+            (before[0].temp.apply[key] ?? 0) + Math.floor(p.level / (p.ability === 'powerup' ? 3 : 10));
+        record.recast = { accepted: 1, before: structuredClone(after), immediate: relaunchImmediate };
+        const afterSecond = structuredClone(relaunchImmediate);
+        delete afterSecond[0].temp[p.ability];
+        for (const key of fields) afterSecond[0].temp.apply[key] = before[0].temp.apply[key] ?? 0;
+        record.after = afterSecond;
+        record.launches.push({ skill: 'zixia-shengong' });
+        record.callbacks.push({ side: 0, phase: 'before', elapsed: 2 * p.level + 1, state: structuredClone(relaunchImmediate[0]) },
+            { side: 0, phase: 'after', elapsed: 2 * p.level + 1.01, state: structuredClone(afterSecond[0]) });
+    }
+    return record;
 }
 test('三档均检查真实等待、原增量、原费用及完整前后撤回；不能仅返回成功', () => {
     for (const c of cases) {
@@ -58,6 +84,28 @@ test('三档均检查真实等待、原增量、原费用及完整前后撤回�
         }
     }
 });
+test('连续重施拒绝活跃叠加、到期重开新窗；缺步、假受理或残余均拒绝', () => {
+    for (const c of cases.filter(x => x.parameters.recast_after_expiry)) {
+        const r = trace(c);
+        validateSchoolCombatRecord(r, c);
+        for (const mutate of [r => { r.active_repeat.accepted = 1; },
+            r => { r.active_repeat.notify_fail = '其他消息'; },
+            r => { r.active_repeat.before[0].temp[c.parameters.ability] = 0; },
+            r => { r.active_repeat.after[0].neili--; },
+            r => { r.recast.accepted = 0; },
+            r => { r.recast.before[0].temp[c.parameters.ability] = 1; },
+            r => { r.recast.immediate[0].temp[c.parameters.ability] = 0; },
+            r => { r.callbacks[2].elapsed = r.callbacks[1].elapsed + 1; },
+            r => { r.recast.immediate[0].neili++; },
+            r => { r.launches.pop(); },
+            r => { r.callbacks.pop(); },
+            r => { delete r.recast; }]) {
+            const wrong = structuredClone(r); mutate(wrong);
+            assert.throws(() => validateSchoolCombatRecord(wrong, c));
+        }
+    }
+});
+
 test('原定时源未改；不得通过自定义时长、能力或等级绕过S6契约', () => {
     for (const [ability, hash] of [['powerup', '0dd7e762f7ac9fca0c6e3b00e117789b0dd2ce4ee0bba96fa5c9eac52701cf06'],
         ['ziqi', 'eb0208d34600b734620ca360a8826b3e6628f147a2a5df94a76eeba37abdeccb']])

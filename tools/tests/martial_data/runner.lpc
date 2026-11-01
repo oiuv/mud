@@ -338,7 +338,7 @@ int is_mingjiao_force_remaining() {
 mapping snapshot(object ob) {
     mapping result, effective;
     mixed learned;
-    string key;
+    string key, group;
     object weapon, handing, cloth, secondary, opponent;
     if (!objectp(ob)) return ([ "missing": 1 ]);
     result = ([]);
@@ -636,14 +636,16 @@ mapping snapshot(object ob) {
         result["secondary_weapon"] = secondary ? secondary->query("skill_type") : "none";
         result["secondary_weapon_details"] = equipment_snapshot(secondary);
     }
-    if (strsrch(current["parameters"]["collection_group"], "slice1-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice2-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice3-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice4-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice5-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice6-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice7-") == 0 ||
-        strsrch(current["parameters"]["collection_group"], "slice8-") == 0)
+    // Teaching-mode conditions carry no collection_group; never strsrch a missing key.
+    group = current["parameters"]["collection_group"] || "";
+    if (strsrch(group, "slice1-") == 0 ||
+        strsrch(group, "slice2-") == 0 ||
+        strsrch(group, "slice3-") == 0 ||
+        strsrch(group, "slice4-") == 0 ||
+        strsrch(group, "slice5-") == 0 ||
+        strsrch(group, "slice6-") == 0 ||
+        strsrch(group, "slice7-") == 0 ||
+        strsrch(group, "slice8-") == 0)
         result["cultivation"]["character"] = ob->query("character");
     if (current["parameters"]["collection_group"] == "b1-perform" ||
         current["parameters"]["collection_group"] == "b2-perform" ||
@@ -1337,6 +1339,7 @@ void prepare_actor(int side, mapping config) {
     }
     foreach (key, value in config["mappings"] || ([])) {
         ob->map_skill(key, value);
+        ob->command("enable " + key + " " + value);
         if (member_array(current["parameters"]["collection_group"],
             ({
                 "mingjiao-jiuyang",
@@ -1440,6 +1443,11 @@ void prepare_actor(int side, mapping config) {
                 member_array(config["equipment"]["program"],
                     ({ "/clone/weapon/gangjian", "/d/items/staff/muzhang" })) != -1,
                 "finite original Mingjiao teaching equipment");
+            weapon = new(config["equipment"]["program"]);
+        } else if (current["parameters"]["collection_group"] == "s1-learning") {
+            require(side == 0 && !config["equipment"]["hold"] &&
+                config["equipment"]["program"] == "/clone/weapon/changbian" &&
+                config["equipment"]["type"] == "whip", "explicit s1 learning original whip");
             weapon = new(config["equipment"]["program"]);
         } else if (member_array(current["parameters"]["collection_group"],
             ({ "mingjiao-shenghuo", "mingjiao-ling-learning" })) != -1) {
@@ -2799,7 +2807,7 @@ void observe_callback(object me, string phase) {
 }
 
 void observe_fireice_followup(object me, object target) {
-    if (!active || strsrch(current["parameters"]["collection_group"], "gumu-fireice") != 0 ||
+    if (!active || strsrch(current["parameters"]["collection_group"] || "", "gumu-fireice") != 0 ||
         me != players[0] || target != players[1] ||
         base_name(previous_object()) != "/kungfu/skill/fireice-strike/binghuo") return;
     current["fireice_followups"] += ({ ([ "phase": "entry", "function": "perform2",
@@ -3456,6 +3464,109 @@ void prepare_taohua_learning(mapping parameters) {
         "books": setup["books"]]): 0;
 }
 
+// S1 learning callback: create teacher NPCs and observe learn commands.
+// Teachers are cloned from original source; observe learn command results.
+void prepare_s1_learning(mapping parameters) {
+    string key, teacher_path;
+    object teacher;
+    mapping paths, families;
+
+    require(parameters["teaching_profile"] == "s1-learning", "scoped s1 learning preparation");
+    current["s1_learning_teachers"] = ([]);
+    paths = parameters["s1_teacher_paths"];
+    families = parameters["s1_teacher_families"];
+    if (!mapp(paths)) return;
+    foreach (key, teacher_path in paths) {
+        debug_message("S1PREP: creating " + key + " from " + teacher_path);
+        teacher = new(teacher_path);
+        debug_message("S1PREP: created " + (objectp(teacher) ? "ok" : "null"));
+        require(objectp(teacher) && clonep(teacher), "original s1 teacher cloned");
+        if (mapp(families) && stringp(families[key]))
+            teacher->set("family/family_name", families[key]);
+        // Ensure teacher id/name match condition parameters for is_apprentice_of
+        teacher->set("id", parameters["teacher"]["id"]);
+        teacher->set("name", parameters["teacher"]["name"]);
+        if (intp(parameters["teacher_level"]) && parameters["teacher_level"] > 0)
+            require(teacher->query_skill(parameters["skill"], 1) == parameters["teacher_level"],
+                "original s1 teacher skill level");
+        // Only the explicit pre-permission fixture may set the grant; the original
+        // no_teach declaration stays intact and is never evaluated during setup.
+        if (parameters["s1_pre_grant"] && stringp(parameters["permission_grant"]))
+            players[0]->set(parameters["permission_grant"], 1);
+        require(teacher->move(environment(players[0])), "s1 teacher placed in room");
+        current["s1_learning_teachers"][key] = teacher;
+    }
+}
+
+// S1 ordinary learning runs one original learn command per planned step and
+// waits between steps when the condition pins a minimum interval, so a
+// same-student repeat clears the original time/learn guard without mutating
+// any interstep state.
+void advance_s1_teaching() {
+    mapping parameters, expectation, step;
+    object teacher;
+    string action, skill;
+    int index, interval, resumed;
+
+    if (!active || current["parameters"]["teaching_profile"] != "s1-learning") return;
+    parameters = current["parameters"];
+    resumed = current["s1_resumed"];
+    current["s1_resumed"] = 0;
+    index = current["s1_step_index"];
+    while (index < sizeof(parameters["teaching_expectations"])) {
+        expectation = parameters["teaching_expectations"][index];
+        teacher = current["s1_learning_teachers"][expectation["teacher_key"]];
+        require(objectp(teacher), "prepared original s1 teacher");
+        action = expectation["action"];
+        debug_message("S1: calling observe_command for " + action);
+        step = "/tests/teaching_observer"->observe_command(players[0], teacher, action,
+            parameters["monitored_grants"], 0, 0, 0, 0, 0, "s1-learning", 0, 0);
+        debug_message("S1: observe_command returned " + (mapp(step) ? "mapping" : "non-mapping"));
+        current["teaching"] += ({ step });
+        skill = explode(action, " ")[<2];
+        if (step["after"]["skills"][skill] > step["before"]["skills"][skill] ||
+            step["after"]["learned"][skill] > step["before"]["learned"][skill])
+            current["outcome"] = "observed";
+        debug_message("S1: step processed, outcome=" + current["outcome"]);
+        index++;
+        current["s1_step_index"] = index;
+        interval = parameters["minimum_step_interval_seconds"];
+        if (index < sizeof(parameters["teaching_expectations"]) && interval > 0) {
+            current["s1_waiting"] = 1;
+            current["s1_resumed"] = 1;
+            call_out("advance_s1_teaching", interval);
+            return;
+        }
+    }
+    if (current["outcome"] == "refused")
+        current["reason"] = "原教学未增加领悟或学习进度，详见逐步状态及消息";
+    current["s1_waiting"] = 0;
+    if (resumed) finish_sample();
+}
+
+// S6 recast: re-application while the original window is still active must hit
+// the original active gate; observe without touching the buff or resources.
+void record_active_repeat() {
+    mapping step;
+
+    step = ([ "before": ({ snapshot(players[0]), snapshot(players[1]) }) ]);
+    step["accepted"] = players[0]->force_me(current["parameters"]["action"]);
+    step["notify_fail"] = players[0]->query_temp("notify_fail") || "";
+    step["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    current["active_repeat"] = step;
+}
+
+// Second original window after the natural expiry callback; no replenishment.
+void huashan_recast_window() {
+    mapping step;
+
+    step = ([ "before": ({ snapshot(players[0]), snapshot(players[1]) }) ]);
+    step["accepted"] = players[0]->force_me(current["parameters"]["action"]);
+    step["immediate"] = ({ snapshot(players[0]), snapshot(players[1]) });
+    current["recast"] = step;
+    call_out("finish_sample", current["parameters"]["observe_seconds"]);
+}
+
 void finish_gumu_item_preparation(mapping parameters) {
     mapping setup, prep;
     object item, weapon;
@@ -3981,11 +4092,12 @@ int do_interface() {
         result = call_other(spec["object"], spec["function"], spec["argument"]);
     } else if (member_array(spec["function"], ({ "valid_enable", "query_parry_msg" })) != -1) {
         require(member_array(current["parameters"]["collection_group"],
-            ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense" })) != -1 &&
+            ({ "shaolin-defense", "emei-defense", "emei-shexing", "gumu-defense",
+                "public-local-interfaces" })) != -1 &&
             spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"],
             "configured original defense query");
         if (spec["function"] == "valid_enable") {
-            require(member_array(spec["usage"], ({ "parry", "dodge", "move" })) != -1 ||
+            require(member_array(spec["usage"], ({ "parry", "dodge", "move", "sword" })) != -1 ||
                 (current["parameters"]["collection_group"] == "gumu-defense" &&
                     spec["object"] == "/kungfu/skill/tianluo-diwang" && spec["usage"] == "strike"),
                 "configured defense usage");
@@ -4225,6 +4337,14 @@ int do_interface() {
         require(spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
             member_array(spec["function"], ({ "valid_learn", "type", "valid_learn_level" })) != -1,
             "configured inherited default interface");
+        current["interfaces"][<1]["implemented_by"] = function_exists(spec["function"],
+            load_object(spec["object"]));
+    }
+    if (current["parameters"]["collection_group"] == "public-local-interfaces") {
+        require(spec["object"] == "/kungfu/skill/" + current["parameters"]["skill"] &&
+            member_array(spec["function"], ({ "valid_learn", "type", "valid_learn_level",
+                "valid_enable", "query_dodge_msg", "practice_skill" })) != -1,
+            "configured local interface");
         current["interfaces"][<1]["implemented_by"] = function_exists(spec["function"],
             load_object(spec["object"]));
     }
@@ -5178,7 +5298,8 @@ void perform_sample() {
             players[2]->start_observation(2);
         }
     }
-    if (parameters["fighting"] && !parameters["powerup_before_combat"] && !is_npc_bout()) {
+    if (parameters["fighting"] && !parameters["powerup_before_combat"] && !parameters["school_defense_prelude"]
+        && !is_npc_bout()) {
         if (parameters["collection_group"] == "taohua-combo" && parameters["nonlethal"]) {
             players[0]->fight_ob(players[1]);
             players[1]->fight_ob(players[0]);
@@ -5287,6 +5408,7 @@ void perform_sample() {
     }
     if (parameters["teaching_profile"] == "gumu-item-acquisition") finish_gumu_item_preparation(parameters);
     if (parameters["teaching_profile"] == "taohua-learning") prepare_taohua_learning(parameters);
+    if (parameters["teaching_profile"] == "s1-learning") prepare_s1_learning(parameters);
     if (parameters["teaching_profile"] == "mingjiao-apprentice-learning")
         prepare_mingjiao_apprentice_learning(parameters);
     if (parameters["teaching_profile"] == "mingjiao-teachers") prepare_mingjiao_teachers(parameters);
@@ -5460,6 +5582,30 @@ void perform_sample() {
             current["command_accepted"] = 0;
             current["outcome"] = "refused";
             current["reason"] = step["reason"];
+            return;
+        }
+        if (parameters["fighting"]) {
+            players[0]->kill_ob(players[1]);
+            players[1]->kill_ob(players[0]);
+            players[0]->observation_heartbeat(0);
+            players[1]->observation_heartbeat(0);
+        }
+    }
+    if (parameters["school_defense_prelude"]) {
+        // School-level defense window: the original defender powerup runs first,
+        // outside combat so the original busy branch cannot mask the round.
+        require(parameters["collection_group"] == "huashan-school-defense" && action == "ordinary",
+            "reviewed school defense powerup prelude");
+        step = ([ "action": "exert powerup", "actor_side": 1,
+            "before": ({ snapshot(players[0]), snapshot(players[1]) }) ]);
+        step["accepted"] = players[1]->force_me("exert powerup");
+        step["after"] = ({ snapshot(players[0]), snapshot(players[1]) });
+        current["powerup"] = step;
+        if (!step["accepted"]) {
+            current["outcome"] = "refused";
+            current["command_accepted"] = 0;
+            reason = players[1]->query_temp("notify_fail");
+            current["reason"] = stringp(reason) && reason != "" ? reason : "原增益前置未受理";
             return;
         }
         if (parameters["fighting"]) {
@@ -5748,15 +5894,25 @@ void perform_sample() {
         return;
     }
     if (current["method"] == "teaching") {
+        debug_message("S1: entering teaching method, profile=" + parameters["teaching_profile"]);
         if (member_array(parameters["teaching_profile"],
             ({
                 "taohua-learning",
                 "mingjiao-apprentice-learning",
                 "mingjiao-teachers",
-                "mingjiao-recruit", "mingjiao-gift", "mingjiao-book"
+                "mingjiao-recruit", "mingjiao-gift", "mingjiao-book",
+                "s1-learning"
             })) != -1) {
             current["teaching"] = ({});
             current["outcome"] = "refused";
+            if (parameters["teaching_profile"] == "s1-learning") {
+                // S1 ordinary learning owns its step loop for minimum step intervals.
+                current["s1_step_index"] = 0;
+                current["s1_resumed"] = 0;
+                current["s1_waiting"] = 0;
+                advance_s1_teaching();
+                return;
+            }
             foreach (expectation in parameters["teaching_expectations"]) {
                 key = expectation["teacher_key"];
                 if (key == "assigned") {
@@ -5773,6 +5929,7 @@ void perform_sample() {
                         "assigned step builds the original apprentice command");
                     action = "apprentice " + teacher->query("id");
                 } else action = expectation["action"];
+                debug_message("S1: calling observe_command for " + action);
                 step = "/tests/teaching_observer"->observe_command(players[0], teacher, action,
                     parameters["monitored_grants"], 0, 0, 0, 0, 0,
                     parameters["teaching_profile"], parameters["teaching_profile"] == "mingjiao-gift" ? mingjiao_gift_context : 0,
@@ -5781,6 +5938,7 @@ void perform_sample() {
                         expectation["command_kind"] == "study" ?
                         (parameters["teaching_profile"] == "mingjiao-book" ? "/clone/book/qiankun_book" :
                             "/clone/lonely/book/" + expectation["book"]) : 0 ]));
+                debug_message("S1: observe_command returned " + (mapp(step) ? "mapping" : "non-mapping"));
                 current["teaching"] += ({ step });
                 if (parameters["teaching_profile"] == "mingjiao-apprentice-learning") {
                     // Successful prerequisite recruitment is not a successful tested learn.
@@ -5899,6 +6057,7 @@ void perform_sample() {
                 step["item_after"]["holder"] == file_name(players[0]))
                 current["outcome"] = "observed";
             foreach (grant in parameters["monitored_grants"]) {
+                if (!mapp(step["after"]["grants"]) || !mapp(step["before"]["grants"])) continue;
                 if (arrayp(step["after"]["grants"][grant])) {
                     if (sizeof(step["after"]["grants"][grant] -
                         (step["before"]["grants"][grant] || ({}))))
@@ -6846,6 +7005,7 @@ void advance() {
     if (failure) {
         current["outcome"] = "error";
         current["reason"] = sprintf("%O", failure);
+        debug_message("SAMPLE FAILURE: " + current["reason"]);
         finish_sample();
         return;
     }
@@ -6853,6 +7013,10 @@ void advance() {
     observe_taohua_po_weapon("immediate");
     if (current["method"] == "yanlian" && current["yanlian_accepted"]) {
         // Busy loop poll already scheduled in perform_sample
+        return;
+    }
+    if (current["s1_waiting"]) {
+        // Remaining S1 learning steps are already scheduled with their interval.
         return;
     }
     if (is_mingjiao_force_remaining()) {
@@ -7016,8 +7180,12 @@ void advance() {
         call_out("poll", 1);
         return;
     }
-    if (delay > 0 && current["outcome"] == "observed") call_out("finish_sample", delay);
-    else finish_sample();
+    if (delay > 0 && current["outcome"] == "observed") {
+        if (current["parameters"]["recast_after_expiry"]) {
+            record_active_repeat();
+            call_out("huashan_recast_window", delay);
+        } else call_out("finish_sample", delay);
+    } else finish_sample();
 }
 
 void start() {

@@ -9,6 +9,7 @@ import { schoolCombatConditions, validateSchoolCombatRecord } from './school_com
 const catalog = collectCatalog(root, buildInventory(root));
 const cases = schoolCombatConditions(catalog).filter(c => c.parameters.school === 'huashan'
     && c.parameters.collection_group !== 'huashan-duration'
+    && c.parameters.collection_group !== 'huashan-school-defense'
     && !['huashan-combination', 'huashan-bout', 'slice-combination', 'gumu-bout-perform', 'emei-bout-perform', 'shaolin-bout-perform', 'wudang-bout-perform'].includes(c.parameters.collection_group));
 const original = cases.filter(c => !c.parameters.skill);
 
@@ -27,7 +28,8 @@ test('门派采集独立入口和明确覆盖范围，不改变旧兵器/教学�
     assert.ok(cases.every(c => c.stage === 'school' && c.parameters.school === 'huashan'));
     assert.ok(schoolCombatConditions(catalog, { smoke: true })
         .filter(c => c.parameters.school === 'huashan')
-        .every(c => c.samples === (c.id.endsWith('-expiry') ? 1 : 2)));
+        .every(c => c.samples === ((c.id.endsWith('-expiry') || c.id.endsWith('-s6-stacking')
+            || c.id.startsWith('school-huashan-recast-')) ? 1 : 2)));
     const entryIds = new Set(catalog.skills.flatMap(s => [s.path, ...s.entries.map(e => e.id)]));
     assert.ok(cases.every(c => entryIds.has(c.entry_id)));
 });
