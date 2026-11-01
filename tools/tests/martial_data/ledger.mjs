@@ -154,11 +154,12 @@ export function openSeries(directory, expectedIdentity) {
     return manifest;
 }
 
-function validateSample(manifest, sample) {
+function validateSample(manifest, sample, selectedCondition, selectedHash) {
     assert.equal(sample.fingerprint, manifest.fingerprint, '样本来自不同系列');
-    const condition = manifest.identity.conditions.find(c => c.id === sample.condition_id);
+    const condition = selectedCondition ?? manifest.identity.conditions.find(c => c.id === sample.condition_id);
     assert.ok(condition, '未知条件');
-    assert.equal(sample.condition_sha256, digest(condition), '样本参数不同');
+    assert.equal(sample.condition_id, condition.id, '样本条件身份不同');
+    assert.equal(sample.condition_sha256, selectedHash ?? digest(condition), '样本参数不同');
     assert.ok(Number.isSafeInteger(sample.index) && sample.index >= 0 && sample.index < condition.samples, '样本编号越界');
     assert.ok(outcomes.has(sample.outcome), '样本状态无效');
     assert.ok(object(sample.raw) && Object.keys(sample.raw).length > 0, '不能缺少原始观察证据');
@@ -179,11 +180,24 @@ export function recordSample(directory, manifest, { condition_id, index, outcome
     return record;
 }
 
-export function readSamples(directory, manifest) {
+export function readSamples(directory, manifest, { conditionIds } = {}) {
     const rows = [], seen = new Set();
+    const conditions = new Map(manifest.identity.conditions.map(c => [c.id, c]));
+    const hashes = new Map();
+    const selected = conditionIds === undefined ? null : new Set(conditionIds);
+    if (selected) {
+        assert.ok(Array.isArray(conditionIds) && selected.size > 0, '样本选择必须是非空条件 ID 数组');
+        for (const id of selected) assert.ok(conditions.has(id), '选择了未知条件：' + id);
+    }
     for (const name of readdirSync(join(directory, 'samples')).filter(name => name.endsWith('.json')).sort()) {
+        if (selected && !selected.has(name.slice(0, name.lastIndexOf('.'))
+            .replace(/\.\d+$/, ''))) continue;
         const row = json(join(directory, 'samples', name));
-        validateSample(manifest, row);
+        const condition = conditions.get(row.condition_id);
+        assert.ok(condition, '未知条件');
+        if (!hashes.has(condition.id)) hashes.set(condition.id, digest(condition));
+        validateSample(manifest, row, condition, hashes.get(condition.id));
+        if (selected) assert.ok(selected.has(row.condition_id), '选择范围与样本身份不同');
         const key = `${row.condition_id}.${row.index}`;
         assert.ok(!seen.has(key), '存在重复样本'); seen.add(key);
         assert.equal(name, key + '.json', '样本文件身份不匹配');

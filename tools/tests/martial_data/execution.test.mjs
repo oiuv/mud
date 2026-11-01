@@ -19,6 +19,18 @@ import { mingjiaoRemainingPerformConditions } from './school_mingjiao_remaining_
 
 const catalog = collectCatalog(root, buildInventory(root));
 
+test('教学故障复现只允许显式选入，不混入普通全量采集', () => {
+    const normal = { id: 'lesson', parameters: { collection_group: 'ordinary' } };
+    const diagnostic = { id: 'teaching-43-diagnostic-li-original',
+        parameters: { collection_group: 'teaching-43-diagnostics' } };
+    const cases = [normal, diagnostic];
+    assert.deepEqual(selectConditions(cases, {}), [normal]);
+    assert.deepEqual(selectConditions(cases, { case: diagnostic.id }), [diagnostic]);
+    assert.deepEqual(selectConditions(cases, { casePrefix: 'teaching-43-diagnostic-' }), [diagnostic]);
+    assert.deepEqual(selectConditions(cases, { caseGroup: 'teaching-43-diagnostics' }), [diagnostic]);
+    assert.deepEqual(cases, [normal, diagnostic]);
+});
+
 test('隔离副本保留真实USER存盘所需公共公告并登记来源，不开放整个help或私密数据', () => {
     const output = mkdtempSync(join(tmpdir(), 'mud-martial-public-notice-'));
     const snapshot = createSandbox(root, output);

@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { crosswalkItems, linkTeaching, linkEffect, finalizeItems, crosswalkSummary, crosswalkMarkdown, legacyPendingSkills } from './teaching_crosswalk.mjs';
+import { crosswalkItems, linkTeaching, linkEffect, finalizeItems, crosswalkSummary, crosswalkMarkdown, legacyPendingSkills, teachingProcessComplete, teachingReuseSelection, verifyTeachingFlowGate } from './teaching_crosswalk.mjs';
+import { sha256 } from './inventory.mjs';
+import { digest } from './ledger.mjs';
 
 const evidence = { path:'kungfu/class/a/t.c', sha256:'a'.repeat(64), start:10,end:20,line:2 };
 function setup() {
@@ -10,7 +12,7 @@ function setup() {
             authorization_reads:[{path:'kungfu/skill/test/hit.c',sha256:'b'.repeat(64)}],resolution:'authorization_read'}]}] });
     const c={parameters:{teacher:{path:'/kungfu/class/a/t'},teaching_entry:{...evidence,function:'ask_skill1'},
         teaching_evidence:evidence,monitored_grants:['can_perform/test/hit']}};
-    const ref={smoke:false,complete:true,passed:2}; return {items,c,ref};
+    const ref={smoke:false,complete:true,process_complete:true,passed:2}; return {items,c,ref};
 }
 test('exact teacher/function/version/statement joins all declarations without skill-name shortcuts',()=>{
     const {items,c,ref}=setup();linkTeaching(items,c,ref);
@@ -19,10 +21,73 @@ test('exact teacher/function/version/statement joins all declarations without sk
     assert.equal(new Set(items.map(i=>i.id)).size,2);
 });
 test('smoke, missing mode, incomplete or failed observation cannot close teaching',()=>{
-    for(const patch of [{smoke:true},{smoke:null},{complete:false},{passed:0}]){
+    for(const patch of [{smoke:true},{smoke:null},{complete:false},{passed:0},
+        {process_complete:false},{process_complete:undefined}]){
         const {items,c,ref}=setup();linkTeaching(items,c,{...ref,...patch});
         assert.equal(crosswalkSummary(finalizeItems(items)).teaching_linked,0);
     }
+});
+
+test('formal teaching requires an actual successful process with no partial output or validator errors',()=>{
+    const run={process:{code:0,signal:null},validation_errors:[],incomplete_bytes:0};
+    assert.equal(teachingProcessComplete([run]),true);
+    assert.equal(teachingProcessComplete([{...run,validation_errors:0}]),true);
+    for(const patch of [{process:{code:1,signal:null}},{process:{code:0,signal:'SIGTERM'}},
+        {validation_errors:['failure']},{incomplete_bytes:1},{validation_errors:undefined}])
+        assert.equal(teachingProcessComplete([{...run,...patch}]),false);
+});
+
+test('reuse chooses existing complete formal conditions, not new sampling or smoke/failed candidates',()=>{
+    const reference={smoke:false,complete:true,passed:2,planned:2,observed:2};
+    const selection=teachingReuseSelection({items:[{teaching:[
+        {...reference,directory:'failed',condition:'earlier'},
+        {...reference,directory:'valid',condition:'smoke',smoke:true},
+        {...reference,directory:'valid',condition:'long',planned:100},
+        {...reference,directory:'valid',condition:'short'},
+    ]},{teaching:[]}]},directory=>directory==='valid');
+    assert.deepEqual(selection,{valid:['short']});
+});
+
+test('flow re-anchor requires verified complete records, exact actors and a unique gate source message', () => {
+    const literal = '尚未达到本门收徒要求';
+    const source = `void attempt_apprentice() { command("say ${literal}"); }`;
+    const item = { kind: 'gate', teacher: 'kungfu/class/a/t.c', function: 'attempt_apprentice',
+        source: { path: 'kungfu/class/a/t.c', sha256: sha256(source), start: 0, end: source.length } };
+    const c = { id: 'flow', samples: 2, parameters: { teacher: { path: '/kungfu/class/a/t' },
+        teaching_entry: { path: item.source.path, sha256: item.source.sha256 },
+        teaching_profile: 'recruit', action: 'apprentice teacher' } };
+    const ref = { condition: c.id, condition_sha256: digest(c),
+        smoke: false, process_complete: true, complete: true, passed: 2 };
+    const rows = [0,1].map(index => ({ condition_id: c.id, index, raw_sha256: String(index), raw: {
+        before: [{ object: '/tests/actor#2' }], after: [{ object: '/tests/actor#2' }],
+        teaching: [{ teacher_program: c.parameters.teacher.path, teacher: c.parameters.teacher.path + '#3',
+            student: '/tests/actor#2', command: c.parameters.action, messages: [{ text: literal }] }] } }));
+    const link = verifyTeachingFlowGate(item, c, ref, rows, source, literal);
+    assert.equal(link.matching_records.length, 2);
+    assert.equal(link.link_type, 'unique_gate_message_in_verified_flow');
+    for (const patch of [{ smoke: true }, { process_complete: false }, { complete: false }, { passed: 0 },
+        { condition: 'foreign' }, { condition_sha256: 'bad' }])
+        assert.throws(() => verifyTeachingFlowGate(item, c, { ...ref, ...patch }, rows, source, literal));
+    assert.throws(() => verifyTeachingFlowGate({ ...item, kind: 'grant' }, c, ref, rows, source, literal));
+    assert.throws(() => verifyTeachingFlowGate(item, c, ref, rows.slice(1), source, literal));
+    for (const mutate of [
+        r => { r[0].raw.teaching[0].teacher_program = '/other'; },
+        r => { r[0].raw.teaching[0].teacher = c.parameters.teacher.path + '#invented'; },
+        r => { r[0].raw.teaching[0].student = '/other#1'; },
+        r => { r[0].raw.teaching[0].command = 'ask teacher about all'; },
+        r => { for (const row of r) row.raw.teaching[0].messages = []; },
+    ]) {
+        const bad = structuredClone(rows); mutate(bad);
+        assert.throws(() => verifyTeachingFlowGate(item, c, ref, bad, source, literal));
+    }
+    const duplicate = source + `\nstring other() { return "${literal}"; }`;
+    const changed = { ...item, source: { ...item.source, sha256: sha256(duplicate) } };
+    const changedCondition = structuredClone(c);
+    changedCondition.parameters.teaching_entry.sha256 = changed.source.sha256;
+    assert.throws(() => verifyTeachingFlowGate(changed, changedCondition,
+        { ...ref, condition_sha256: digest(changedCondition) }, rows, duplicate, literal), /ambiguous/);
+    assert.throws(() => verifyTeachingFlowGate(item, c, ref, rows, source + ' ', literal), /source changed/);
+    assert.throws(() => verifyTeachingFlowGate(item, c, ref, rows, source, '别处教师说过的一句话'));
 });
 
 test('generic probe never acquires a formal teaching link even when every slot says passed',()=>{

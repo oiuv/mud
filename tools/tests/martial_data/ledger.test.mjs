@@ -106,6 +106,26 @@ test('全样本正常观察才标为 sampled，依然不声称全库完成', () 
     assert.equal(report.entries.filter(e => e.status === 'not_configured').length, 2);
 });
 
+test('explicit condition selection checks chosen raw hashes without claiming unrelated conditions', () => {
+    const f = fixture(); record(f, 0);
+    const rows = readSamples(f.directory, f.manifest, { conditionIds: ['case-a'] });
+    assert.equal(rows.length, 1);
+    assert.throws(() => readSamples(f.directory, f.manifest, { conditionIds: ['missing'] }), /未知条件/);
+    assert.throws(() => readSamples(f.directory, f.manifest, { conditionIds: [] }), /非空/);
+    const target = join(f.directory, 'samples', 'case-a.0.json');
+    const sample = JSON.parse(readFileSync(target)); sample.raw.qi_delta = 999;
+    writeFileSync(target, JSON.stringify(sample));
+    assert.throws(() => readSamples(f.directory, f.manifest, { conditionIds: ['case-a'] }), /证据不一致/);
+});
+
+test('selected filename cannot conceal a different condition identity', () => {
+    const f = fixture(); record(f, 0);
+    const target = join(f.directory, 'samples', 'case-a.0.json');
+    const sample = JSON.parse(readFileSync(target)); sample.condition_id = 'missing';
+    writeFileSync(target, JSON.stringify(sample));
+    assert.throws(() => readSamples(f.directory, f.manifest, { conditionIds: ['case-a'] }), /未知条件/);
+});
+
 test('确认错误要有出处和复现样本；只登记待处理、不修改游戏', () => {
     const f = fixture(); record(f, 0, 'error');
     const finding = { id: 'bug-a', certainty: 'confirmed', title: 'fixture only',

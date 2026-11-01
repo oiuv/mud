@@ -513,7 +513,8 @@ varargs mapping observe_command(
             error("Teaching observation requires a real student.\n");
     } else if (!objectp(student) || !objectp(teacher) ||
         !userp(student) || !interactive(student) || !playerp(student) || wizardp(student) ||
-        playerp(teacher) || !living(teacher) || !clonep(teacher) ||
+        playerp(teacher) || !living(teacher) ||
+        (!clonep(teacher) && !(profile == "teaching-43-diagnostics" && teacher->is_no_clone())) ||
         environment(student) != environment(teacher))
         error("Teaching observation requires a real player and original NPC in one room.\n");
 

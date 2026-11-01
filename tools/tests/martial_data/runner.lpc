@@ -2687,7 +2687,8 @@ void observe_lookup_message(object me, string type, string text) {
 void observe_caught_error(mapping details) {
     mapping frame;
     mixed *trace;
-    if (!active || current["parameters"]["collection_group"] != "wudang-lookup") return;
+    if (!active || (current["parameters"]["collection_group"] != "wudang-lookup" &&
+        current["parameters"]["collection_group"] != "teaching-43-diagnostics")) return;
     trace = ({});
     foreach (frame in details["trace"] || ({}))
         trace += ({ ([
@@ -6010,8 +6011,42 @@ void perform_sample() {
                 teacher->query("id") == parameters["teacher"]["id"] &&
                 environment(teacher) == this_object(), "reuse exact original prepared teacher");
         } else {
-            teacher = new(parameters["teacher"]["path"]);
+            if (parameters["teaching_profile"] == "teaching-43-diagnostics" &&
+                parameters["diagnostic_mode"] == "prepared" &&
+                parameters["diagnostic_setup"] == "singleton") {
+                require(member_array(parameters["teacher"]["path"], ({
+                    "/kungfu/class/ultra/dugu", "/kungfu/class/ultra/huang",
+                    "/kungfu/class/ultra/huoshan", "/kungfu/class/ultra/kuihua"
+                })) != -1, "reviewed no-clone diagnostic NPC");
+                teacher = load_object(parameters["teacher"]["path"]);
+                require(objectp(teacher) && teacher->is_no_clone() && !clonep(teacher),
+                    "original no-clone NPC singleton");
+            } else teacher = new(parameters["teacher"]["path"]);
             require(teacher->move(this_object()), "teacher in observation room");
+        }
+        if (parameters["teaching_profile"] == "teaching-43-diagnostics") {
+            if (parameters["diagnostic_mode"] == "prepared") {
+                if (parameters["diagnostic_setup"] == "startroom") {
+                    require(
+                        base_name(teacher) == "/kungfu/class/emei/li",
+                        "reviewed startroom NPC"
+                    );
+                    teacher->set("startroom", file_name(this_object()));
+                } else if (parameters["diagnostic_setup"] == "owner") {
+                    require(
+                        base_name(teacher) == "/kungfu/class/generate/girl",
+                        "reviewed owner NPC"
+                    );
+                    teacher->set_owner(players[0]);
+                }
+            }
+            current["teaching_context"] = ([
+                "mode": parameters["diagnostic_mode"], "setup": parameters["diagnostic_setup"],
+                "teacher": file_name(teacher), "singleton": !clonep(teacher),
+                "startroom": teacher->query("startroom") || "",
+                "owner": objectp(teacher->query_temp("owner")) ?
+                file_name(teacher->query_temp("owner")) : ""
+            ]);
         }
         current["teaching"] = ({});
         current["outcome"] = "refused";

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, realpathSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { newOutput } from '../../collect_martial_data.mjs';
+import { newOutput, root } from '../../collect_martial_data.mjs';
 import { openSeries, readSamples, digest } from './ledger.mjs';
 import { sha256 } from './inventory.mjs';
 import { teachingConditions } from './teaching_cases.mjs';
@@ -14,6 +14,7 @@ import { gumuAcquisitionLearningEffects } from './gumu_acquisition_learning_case
 import { gumuItemAcquisitionEffects } from './gumu_item_acquisition_cases.mjs';
 import { gumuRecruitEffects } from './gumu_recruit_cases.mjs';
 import { distribution } from './statistics.mjs';
+import { teaching43LearningConditions } from './teaching_43_learning_cases.mjs';
 
 const json = path => JSON.parse(readFileSync(path, 'utf8'));
 const key = row => row.condition_id + '.' + row.index;
@@ -116,7 +117,7 @@ export function summarizeTeachingRows(manifest, rows) {
                 jing_cost_per_sample: distribution(selected.map(r => r.raw.metrics[0].jing_cost ?? 0)),
                 jing_recovery_per_sample: distribution(selected.map(r => r.raw.metrics[0].jing_recovery ?? 0)),
             } : { jing_spent_per_step: distribution(steps.map(s => s.jing_spent)) }),
-            ...(['quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'emei-teachers', 'gumu-teachers'].includes(p.teaching_profile) ? {
+            ...(['quanzhen', 'wudang', 'shaolin-luohan', 'shaolin-teachers', 'emei-teachers', 'gumu-teachers', 'teaching-43-learning'].includes(p.teaching_profile) ? {
                 skill: p.skill, level: p.level, teacher_level: p.teacher_level, variant: p.variant,
                 learning_progress_per_step: distribution(selected.flatMap(r => r.raw.teaching.filter(s => s.command.startsWith('learn ')).map(s =>
                     (s.after.learned[p.skill] ?? 0) - (s.before.learned[p.skill] ?? 0)))),
@@ -178,7 +179,11 @@ export function readTeaching(directory) {
     const catalog = json(join(directory, 'catalog.json'));
     const relations = json(join(directory, 'school-relations.json'));
     assert.equal(catalog.source_fingerprint, manifest.identity.source_fingerprint);
-    validateTeachingPlan(manifest.identity.conditions, teachingConditions(relations, catalog));
+    const currentPlan = teachingConditions(relations, catalog);
+    if (manifest.identity.conditions.some(c => c.parameters.teaching_profile === 'teaching-43-learning'))
+        currentPlan.push(...teaching43LearningConditions(relations, catalog,
+            path => readFileSync(join(root, path), 'utf8')));
+    validateTeachingPlan(manifest.identity.conditions, currentPlan);
     const rows = readSamples(directory, manifest), evidence = new Map();
     const attempts = readdirSync(join(directory, 'runs'));
     assert.ok(attempts.length, '缺少驱动运行证据');

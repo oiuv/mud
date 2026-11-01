@@ -47,7 +47,7 @@ export function summarizeReplay(conditions, rows, validate) {
     return result;
 }
 
-async function validatorFor(condition) {
+export async function validatorFor(condition) {
     const group = condition.parameters.collection_group;
     if (condition.parameters.variant === 'probe') {
         const module = await import('./probe_observation.mjs');
@@ -81,6 +81,10 @@ async function validatorFor(condition) {
         'b30-perform': ['school_npc_grant_cases.mjs', 'validateNpcGrantPerformRecord'],
         'public-exert': ['school_public_exert_cases.mjs', 'validatePublicExertRecord'],
         's1-learning': ['school_s1_learning_cases.mjs', 'validateS1LearningRecord'],
+        'teaching-43-learning': ['teaching_43_learning_cases.mjs', 'validateTeaching43LearningRecord'],
+        'teaching-43-diagnostics': ['teaching_43_diagnostics.mjs', 'validateTeaching43DiagnosticRecord'],
+        'mingjiao-recruit': ['school_mingjiao_recruit_cases.mjs', 'validateMingjiaoRecruitRecord'],
+        'mingjiao-apprentice-learning': ['school_mingjiao_apprentice_learning_cases.mjs', 'validateMingjiaoApprenticeLearningRecord'],
         'huashan-school-defense': ['school_huashan_school_defense_cases.mjs', 'validateHuashanSchoolDefenseRecord'],
         'public-local-interfaces': ['zuixian_bu_cases.mjs', 'validateZuixianBuRecord'],
     };

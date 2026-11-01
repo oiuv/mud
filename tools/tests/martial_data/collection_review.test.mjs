@@ -1,7 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { summarizeReplay, reviewDefinitions, summarizeSeriesCoverage, summarizeEntryCoverage,
-    resolveEntryReference } from './collection_review.mjs';
+    resolveEntryReference, validatorFor } from './collection_review.mjs';
+
+test('明教拜师与拜师后学习复用原专用消费者，不误走普通询问解析器', async () => {
+    for (const [group, file, name] of [
+        ['mingjiao-recruit', 'school_mingjiao_recruit_cases.mjs', 'validateMingjiaoRecruitRecord'],
+        ['mingjiao-apprentice-learning', 'school_mingjiao_apprentice_learning_cases.mjs', 'validateMingjiaoApprenticeLearningRecord'],
+    ]) {
+        const module = await import('./' + file);
+        const validate = await validatorFor({ method: 'teaching', parameters: { collection_group: group } });
+        assert.strictEqual(validate, module[name]);
+        assert.throws(() => validate({}, { parameters: { collection_group: group } }));
+    }
+    await assert.rejects(validatorFor({ method: 'teaching', parameters: { collection_group: 'unknown-teacher' } }),
+        /Unsupported replay group/);
+});
 
 test('review separates missing, error, N/A and failed validation from success', () => {
     const conditions = [{ id: 'c', samples: 5 }];

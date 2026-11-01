@@ -17,6 +17,8 @@ import { weaponSpecialConditions, validateWeaponSpecialRecord } from './weapon_s
 import { schoolRelations } from './school_relations.mjs';
 import { teachingConditions, teachingEntries } from './teaching_cases.mjs';
 import { teachingProbeConditions } from './teaching_probe_cases.mjs';
+import { teaching43LearningConditions } from './teaching_43_learning_cases.mjs';
+import { teaching43DiagnosticConditions } from './teaching_43_diagnostics.mjs';
 import { performProbeConditions } from './perform_probe_cases.mjs';
 import { validateTeachingRecord } from './teaching_observation.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
@@ -738,7 +740,9 @@ export function createSandbox(root, output, { observeTan = false } = {}) {
         files[path] = sha256(readFileSync(join(root, path)));
     }
     putCopy('adm/etc/wizlist', '# No wizard accounts in the isolated test.\n');
-    for (const name of ['perform_probe_cases', 'teaching_probe_cases', 'probe_observation']) {
+    for (const name of ['perform_probe_cases', 'teaching_probe_cases', 'probe_observation',
+        'teaching_43_learning_cases', 'teaching_43_learning_cases.test',
+        'teaching_43_diagnostics', 'teaching_43_diagnostics.test']) {
         const path = 'tools/tests/martial_data/' + name + '.mjs';
         files[path] = sha256(readFileSync(join(root, path)));
     }
@@ -906,7 +910,10 @@ export function selectConditions(conditions, options) {
     assert.ok(!(options.caseGroup && (options.case || options.casePrefix)), '条件组与精确条件、前缀不能同用');
     return options.case ? conditions.filter(c => c.id === options.case)
         : options.casePrefix ? conditions.filter(c => c.id.startsWith(options.casePrefix))
-        : options.caseGroup ? conditions.filter(c => c.parameters?.collection_group === options.caseGroup) : conditions;
+        : options.caseGroup ? conditions.filter(c => c.parameters?.collection_group === options.caseGroup)
+        // Deliberate error reproductions require explicit selection, never the normal full run.
+        : conditions.some(c => c.parameters?.collection_group === 'teaching-43-diagnostics')
+            ? conditions.filter(c => c.parameters?.collection_group !== 'teaching-43-diagnostics') : conditions;
 }
 
 export function validateExpectedOutcomes(conditions) {
@@ -1633,7 +1640,10 @@ async function executeCollection(root, output, options, collection, existing) {
             return mingjiaoRouteConditions(catalog, readSource, settings);
         },
         teaching: () => {
-            const base = teachingConditions(relations, catalog).map(c => ({ ...c,
+            const readSrc = path => readFileSync(join(root, path), 'utf8');
+            const base = [...teachingConditions(relations, catalog),
+                ...teaching43LearningConditions(relations, catalog, readSrc),
+                ...teaching43DiagnosticConditions(readSrc)].map(c => ({ ...c,
                 samples: options.smoke ? 1 : c.samples }));
             if (options.teachingProbeFile) {
                 const plan = JSON.parse(readFileSync(options.teachingProbeFile, 'utf8'));

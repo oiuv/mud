@@ -13,6 +13,8 @@ import { validateGumuAcquisitionLearningRecord } from './gumu_acquisition_learni
 import { validateGumuItemAcquisitionRecord } from './gumu_item_acquisition_cases.mjs';
 import { validateGumuRecruitRecord } from './gumu_recruit_cases.mjs';
 import { validateTaohuaLearningRecord } from './school_taohua_learning_cases.mjs';
+import { validateTeaching43LearningRecord } from './teaching_43_learning_cases.mjs';
+import { validateTeaching43DiagnosticRecord } from './teaching_43_diagnostics.mjs';
 
 function state(value, grants) {
     assert.ok(value && typeof value === 'object', '教学状态缺失');
@@ -570,6 +572,10 @@ export function validateTeachingRecord(raw, condition) {
     assert.equal(raw.kind, 'sample');
     assert.equal(raw.condition_id, condition.id);
     assert.equal(raw.method, 'teaching');
+    if (condition.parameters.teaching_profile === 'teaching-43-diagnostics')
+        return validateTeaching43DiagnosticRecord(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-learning')
+        return validateTeaching43LearningRecord(raw, condition);
     if (raw.outcome === 'error') return;
     const steps = raw.teaching;
     const profile = condition.parameters.teaching_profile;
