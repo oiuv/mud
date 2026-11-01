@@ -1,3 +1,4 @@
+import { historicalSnapshotFiles } from "./teaching_43_snapshot_test_helper.mjs";
 import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 // Offline wiring/contract checks. Synthetic fixtures are not native collection evidence.
 import assert from 'node:assert/strict';
@@ -117,7 +118,8 @@ test('原81源码与入口严格绑定；漂移、缺源、缩样本及换mode�
 });
 
 test('七文件声明与原16/65探针原样；没有新角色或改写jobs/原时钟参数', () => {
-    const { files, probes } = snapshot();
+    const { files: currentFiles, probes } = snapshot();
+    const files = historicalSnapshotFiles(currentFiles);
     // The frozen legacy declaration count excludes only the twelve newly registered files.
     const appended = ['force_remaining', 'combination'].flatMap(group =>
         ['cases.mjs', 'cases.test.mjs', 'record.mjs', 'record.test.mjs', 'report.mjs', 'report.test.mjs']

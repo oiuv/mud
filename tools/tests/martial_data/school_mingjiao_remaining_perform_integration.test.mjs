@@ -1,3 +1,4 @@
+import { historicalSnapshotFiles } from "./teaching_43_snapshot_test_helper.mjs";
 import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 // Offline wiring checks only: no driver, live service, or native evidence is created.
 import assert from 'node:assert/strict';
@@ -106,7 +107,8 @@ test('原105来源/65缺席与17入口逐一绑定；缺源、漂移、缩样本
 });
 
 test('七个工具完整声明；原15/48与唯一yanlian17探针保持原字节可逆', () => {
-    const { files, probes } = snapshot();
+    const { files: currentFiles, probes } = snapshot();
+    const files = historicalSnapshotFiles(currentFiles);
     // The frozen legacy declaration count excludes only the twelve newly registered files.
     const appended = ['force_remaining', 'combination'].flatMap(group =>
         ['cases.mjs', 'cases.test.mjs', 'record.mjs', 'record.test.mjs', 'report.mjs', 'report.test.mjs']

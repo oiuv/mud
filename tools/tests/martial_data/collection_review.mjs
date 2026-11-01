@@ -53,7 +53,8 @@ export async function validatorFor(condition) {
         const module = await import('./probe_observation.mjs');
         return module.validateProbeAbilityRecord;
     }
-    if (condition.method === 'teaching' && !group) {
+    if (condition.method === 'teaching' && (!group
+        || ['teaching-43-wudang-grants', 'teaching-43-huashan-grants', 'teaching-43-jueqing-grants', 'teaching-43-special-grants', 'teaching-43-recruit', 'teaching-43-permissions', 'teaching-43-recruit-async','teaching-43-books','teaching-43-ordination','teaching-43-book-gifts','teaching-43-duplicate-case','teaching-43-hong-food','teaching-43-ouyang-gift','teaching-43-access','teaching-43-kuihua','teaching-43-zhou'].includes(group))) {
         // The teaching-mode matrix carries no collection_group.
         const module = await import('./teaching_observation.mjs');
         return module.validateTeachingRecord;

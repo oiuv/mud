@@ -1,10 +1,26 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { crosswalkItems, linkTeaching, linkEffect, finalizeItems, crosswalkSummary, crosswalkMarkdown, legacyPendingSkills, teachingProcessComplete, teachingReuseSelection, verifyTeachingFlowGate } from './teaching_crosswalk.mjs';
+import { crosswalkItems, linkTeaching, linkEffect, finalizeItems, crosswalkSummary, crosswalkMarkdown, legacyPendingSkills, teachingProcessComplete, teachingReuseSelection, verifyTeachingFlowGate, teachingIncludeChain, linkObservedRecruitGates } from './teaching_crosswalk.mjs';
 import { sha256 } from './inventory.mjs';
 import { digest } from './ledger.mjs';
 
 const evidence = { path:'kungfu/class/a/t.c', sha256:'a'.repeat(64), start:10,end:20,line:2 };
+test('actual original recruit gate observations require exact teacher, source, probe and full formal records',()=>{
+    const gate={path:evidence.path,sha256:evidence.sha256,function:'permit_recruit'};
+    const make=()=>({items:[{kind:'gate',teacher:evidence.path,source:evidence,function:'permit_recruit',teaching:[]}],
+        c:{id:'c',samples:2,parameters:{teaching_profile:'teaching-43-recruit',teacher:{path:'/kungfu/class/a/t'},recruit_gate_sources:[gate]}},
+        ref:{smoke:false,process_complete:true,complete:true,passed:2,directory:'dir'},
+        rows:[0,1].map(i=>({raw:{before:[{object:'/student'}],teaching:[{teacher:'/kungfu/class/a/t#1',teacher_program:'/kungfu/class/a/t'}],
+            teaching_gate_entries:[{...gate,teacher:'/kungfu/class/a/t#1',student:'/student'}]}})),
+        manifest:{identity:{execution:{source_files:{[gate.path]:gate.sha256},probes:[{path:gate.path,before:gate.sha256,after:'different',sites:[{function:gate.function,position:'offset',
+            insert:`"/tests/runner"->observe_teacher_gate(this_object(), ob, ${JSON.stringify(gate.path)}, ${JSON.stringify(gate.sha256)}, ${JSON.stringify(gate.function)})`}] }]}}}});
+    const a=make();linkObservedRecruitGates(a.items,a.c,a.ref,a.rows,a.manifest);assert.equal(a.items[0].teaching.length,1);
+    for(const change of [a=>{a.ref.smoke=true;},a=>{a.rows.pop();},a=>{a.rows[0].raw.teaching_gate_entries[0].student='/other';},
+        a=>{a.manifest.identity.execution.probes=[];},a=>{a.manifest.identity.execution.source_files[gate.path]='wrong';},
+        a=>{a.items[0].teacher='kungfu/class/other/t.c';}]){
+        const bad=make();change(bad);assert.throws(()=>linkObservedRecruitGates(bad.items,bad.c,bad.ref,bad.rows,bad.manifest));
+    }
+});
 function setup() {
     const items=crosswalkItems({ objects:[{path:evidence.path,group:'a',
         gates:[{function:'ask_skill1',evidence}], grants:[{function:'ask_skill1',evidence,
@@ -95,6 +111,62 @@ test('generic probe never acquires a formal teaching link even when every slot s
     c.parameters.teaching_profile='probe';
     linkTeaching(items,c,{...ref,observed:2});
     assert.equal(crosswalkSummary(finalizeItems(items)).teaching_linked,0);
+});
+
+test('included gate binds the exact teacher through a frozen recursive include chain, never header-name sharing', () => {
+    const literal = '本门不收欺师灭祖之徒';
+    const source = `int permit_recruit(object ob) { command("say ${literal}"); return 0; }`;
+    const teacherSource = '#include "stage.h"\nvoid create() {}\n';
+    const teacher = 'kungfu/class/a/t.c', stage = 'kungfu/class/a/stage.h', header = 'kungfu/class/a/gate.h';
+    const inventory = { files: [
+        { path: teacher, sha256: sha256(teacherSource), directives: [{ kind: 'include', resolved: stage }] },
+        { path: stage, sha256: sha256('stage'), directives: [{ kind: 'include', resolved: header },
+            { kind: 'include', resolved: teacher }] },
+        { path: header, sha256: sha256(source), directives: [] },
+    ] };
+    const includeChain = teachingIncludeChain(inventory, teacher, header);
+    assert.deepEqual(includeChain.map(e => e.path), [teacher, stage, header]);
+    assert.equal(teachingIncludeChain(inventory, teacher, 'missing.h'), null);
+    assert.equal(teachingIncludeChain(inventory, 'other.c', header), null);
+    const item = { kind: 'gate', teacher, function: 'permit_recruit',
+        source: { path: header, sha256: sha256(source), start: 0, end: source.length } };
+    const c = { id: 'header-flow', samples: 1, parameters: { teaching_profile: 'recruit',
+        teacher: { path: '/' + teacher.slice(0,-2), sha256: sha256(teacherSource) },
+        teaching_entry: { path: teacher, sha256: sha256(teacherSource) },
+        action: 'apprentice teacher', qualification_evidence: includeChain } };
+    const ref = { condition: c.id, condition_sha256: digest(c),
+        smoke: false, process_complete: true, complete: true, passed: 1 };
+    const rows = [{ condition_id: c.id, index: 0, raw_sha256: 'raw', raw: {
+        before: [{ object: '/tests/actor#2' }], after: [{ object: '/tests/actor#2' }],
+        teaching: [{ teacher_program: c.parameters.teacher.path, teacher: c.parameters.teacher.path + '#3',
+            student: '/tests/actor#2', command: c.parameters.action, messages: [{ text: literal }] }] } }];
+    const verify = (condition = c, context = { teacherSource, includeChain }) => verifyTeachingFlowGate(item,
+        condition, { ...ref, condition_sha256: digest(condition) }, rows, source, literal, context);
+    assert.deepEqual(verify().source_include_chain, includeChain);
+    for (const context of [{}, { teacherSource, includeChain: includeChain.slice(1) },
+        { teacherSource: teacherSource + ' ', includeChain }]) assert.throws(() => verify(c, context));
+    for (const mutate of [
+        p => { p.qualification_evidence = p.qualification_evidence.slice(0,1); },
+        p => { p.teacher.path = '/kungfu/class/a/other'; },
+        p => { p.teacher.sha256 = 'wrong'; },
+        p => { p.teaching_entry.path = 'kungfu/class/a/other.c'; },
+    ]) {
+        const bad = structuredClone(c); mutate(bad.parameters); assert.throws(() => verify(bad));
+    }
+    const repeated = teacherSource + '// ' + literal;
+    const changed = structuredClone(c);
+    changed.parameters.teacher.sha256 = sha256(repeated);
+    changed.parameters.teaching_entry.sha256 = sha256(repeated);
+    const changedChain = structuredClone(includeChain); changedChain[0].sha256 = sha256(repeated);
+    changed.parameters.qualification_evidence = changedChain;
+    assert.throws(() => verify(changed, { teacherSource: repeated, includeChain: changedChain }), /ambiguous/);
+    const localOverride = teacherSource + '\nint permit_recruit(object ob) { return 1; }\n';
+    const overridden = structuredClone(c), overriddenChain = structuredClone(includeChain);
+    overriddenChain[0].sha256 = sha256(localOverride);
+    overridden.parameters.teacher.sha256 = sha256(localOverride);
+    overridden.parameters.teaching_entry.sha256 = sha256(localOverride);
+    overridden.parameters.qualification_evidence = overriddenChain;
+    assert.throws(() => verify(overridden, { teacherSource: localOverride, includeChain: overriddenChain }), /shadowed/);
 });
 test('source drift, different teacher/function and unobserved grant statement stay open',()=>{
     for(const mutate of [c=>c.parameters.teacher.path='/kungfu/class/b/t',

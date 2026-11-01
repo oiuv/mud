@@ -487,6 +487,31 @@ test('弹毒只在选中系列的临时副本记录三条原分支，逆还原�
     assert.match(runner, /current\["tan_result"\] =/);
 });
 
+test('教学43探针仅显式教学副本启用，不污染旧公共观察点且逐教师原文可逆', () => {
+    const ordinary = createSandbox(root);
+    assert.equal(ordinary.probes.some(p => p.path.startsWith('kungfu/class/')), false);
+    const teaching = createSandbox(root, undefined, { observeTeaching43: true });
+    assert.deepEqual(teaching.files, ordinary.files);
+    assert.deepEqual(teaching.probes.filter(p => !p.path.startsWith('kungfu/class/')), ordinary.probes);
+    const extra = teaching.probes.filter(p => p.path.startsWith('kungfu/class/'));
+    assert.ok(extra.length > 0);
+    for (const probe of extra) {
+        const original = readFileSync(join(root, probe.path), 'utf8');
+        assert.equal(probe.before, sha256(original));
+        let changed = original;
+        for (const site of probe.sites) changed = changed.slice(0, site.offset) + site.insert + changed.slice(site.offset);
+        assert.equal(sha256(changed), probe.after);
+        for (const site of [...probe.sites].reverse()) {
+            assert.equal(changed.slice(site.offset, site.offset + site.insert.length), site.insert);
+            changed = changed.slice(0, site.offset) + changed.slice(site.offset + site.insert.length);
+        }
+        assert.equal(changed, original);
+    }
+    const execution = readFileSync(join(root, 'tools/tests/martial_data/execution.mjs'), 'utf8');
+    assert.match(execution, /observeTeaching43: conditions\.some\(c => c\.method === 'teaching'/);
+    assert.match(execution, /c\.parameters\.collection_group\?\.startsWith\('teaching-43-'\)/);
+});
+
 test('互搏探针保持两处原施展、暂存恢复和忙乱表达式，拒绝不唯一锚点', () => {
     for (const [path, probe] of [['cmds/skill/perform.c', huboPerformProbes], ['feature/action.c', huboBusyProbes]]) {
         const source = readFileSync(join(root, path), 'utf8'), { changed, sites } = probe(source);

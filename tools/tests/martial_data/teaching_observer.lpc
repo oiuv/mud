@@ -188,6 +188,27 @@ private varargs mapping teaching_state(object student, string *grants, string pr
         ]),
         "str": student->query("str")
     ]);
+    if (member_array(profile, ({ "teaching-43-recruit", "teaching-43-recruit-async" })) != -1) {
+        result["recruit_qualification"] = ([]);
+        foreach (key in ({
+            "gender",
+            "age",
+            "class",
+            "born",
+            "born_family",
+            "shen",
+            "str",
+            "con",
+            "dex",
+            "int",
+            "per",
+            "combat_exp",
+            "gongxian",
+            "weiwang",
+            "max_neili"
+        }))
+            result["recruit_qualification"][key] = student->query(key);
+    }
     if (profile == "gumu-acquisition-learning")
         result += ([ "gender": student->query("gender"),
             "sadly": student->query("static/sadly"), "effective_str": student->query_str() ]);
@@ -199,12 +220,21 @@ private varargs mapping teaching_state(object student, string *grants, string pr
             "has_asked": student->query_temp("has_asked/murongbo") || 0,
             "daobaifeng": student->query_temp("can_learn/daobaifeng") || 0
         ]);
+    if (profile == "teaching-43-ordination")
+        result["ordination"] = ([ "id": student->query("id"), "name": student->query("name"),
+            "surname": student->query("surname"), "purename": student->query("purename"),
+            "title": student->query("title"), "class": student->query("class"),
+            "pending": student->query_temp("pending/join_bonze") || 0,
+            "family": copy(student->query("family") || ([])),
+            "pending_apprentice": objectp(student->query_temp("pending/apprentice")) ?
+            file_name(student->query_temp("pending/apprentice")) : "" ]);
     return result;
 }
 
 private varargs mapping recruitment_state(object student, string profile) {
     object pending, betrayer;
-    mapping result;
+    mapping result, persistent, temporary;
+    string key;
 
     pending = student->query_temp("pending/apprentice");
     betrayer = student->query_temp("pending/betrayer");
@@ -216,6 +246,17 @@ private varargs mapping recruitment_state(object student, string profile) {
         "flags": ([ "have_letter": student->query_temp("have_letter") || 0,
             "apprentice_ok": student->query_temp("apprentice_ok") || 0,
             "valid_in_fumoquan": student->query_temp("valid_in_fumoquan") || 0 ]) ]);
+    if (profile == "teaching-43-recruit-async") result["pending_flatter"] = student->query_temp("pending/flatter") || 0;
+    if (profile == "teaching-43-recruit") {
+        persistent = ([]);
+        temporary = ([]);
+        foreach (key in ({ "surname", "purename", "quest", "special/shenshe", "betrayer",
+            "detach", "reborn", "startroom", "move_party", "betryer/times" }))
+            persistent[key] = copy(student->query(key) || 0);
+        foreach (key in ({ "quest", "pending/join_bonze", "pass_zhenlong" }))
+            temporary[key] = copy(student->query_temp(key) || 0);
+        result["effects"] = ([ "version": 2, "persistent": persistent, "temporary": temporary ]);
+    }
     if (profile == "gumu-recruit")
         result += ([ "family_present": mapp(student->query("family")),
             "history": ([ "detach/古墓派": student->query("detach/古墓派"),
@@ -477,6 +518,30 @@ mapping finish_challenge_wait(object student) {
     return teaching_state(student, ({}));
 }
 
+mapping recruit43_snapshot(object student) {
+    mapping result;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated recruitment observer only.\n");
+    result = teaching_state(student, ({}), "teaching-43-recruit-async");
+    result["recruitment"] = recruitment_state(student, "teaching-43-recruit-async");
+    return result;
+}
+
+mapping recruit43_teacher_snapshot(object teacher) {
+    mixed row;
+    mixed *callbacks;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated recruitment observer only.\n");
+    callbacks = ({});
+    foreach (row in call_out_info())
+        if (arrayp(row) && sizeof(row) == 3 && row[0] == teacher && row[1] == "do_recruit")
+            callbacks += ({ ([
+                "owner": file_name(teacher),
+                "function": row[1],
+                "remaining": row[2]
+            ]) });
+    return ([ "teacher": file_name(teacher), "available": teacher->query("apprentice_available") || 0,
+        "availavble": teacher->query("apprentice_availavble") || 0, "callbacks": callbacks ]);
+}
+
 varargs mapping observe_command(
     object student,
     object teacher,
@@ -505,7 +570,13 @@ varargs mapping observe_command(
         error("Teaching observation requires the isolated runner.\n");
     if (member_array(
         profile,
-        ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-book" })
+        ({
+            "taohua-learning",
+            "mingjiao-apprentice-learning",
+            "mingjiao-recruit",
+            "mingjiao-book",
+            "teaching-43-books"
+        })
     ) != -1 && !objectp(teacher)) {
         // The finite study/cancel route has no teacher NPC; never manufacture one.
         if (!objectp(student) || !userp(student) || !interactive(student) || !playerp(student) ||
@@ -514,7 +585,11 @@ varargs mapping observe_command(
     } else if (!objectp(student) || !objectp(teacher) ||
         !userp(student) || !interactive(student) || !playerp(student) || wizardp(student) ||
         playerp(teacher) || !living(teacher) ||
-        (!clonep(teacher) && !(profile == "teaching-43-diagnostics" && teacher->is_no_clone())) ||
+        (!clonep(teacher) && !((profile == "teaching-43-diagnostics" ||
+            (profile == "teaching-43-book-gifts" && member_array(base_name(teacher),
+                ({ "/kungfu/class/ultra/dugu", "/kungfu/class/ultra/huang" })) != -1) ||
+            (profile == "teaching-43-special-grants" &&
+                base_name(teacher) == "/kungfu/class/ultra/huang")) && teacher->is_no_clone())) ||
         environment(student) != environment(teacher))
         error("Teaching observation requires a real player and original NPC in one room.\n");
 
@@ -528,7 +603,7 @@ varargs mapping observe_command(
                 "/clone/lonely/book/zhenjing2",
                 "/d/items/book/lengjia_jing"
             })
-        ) == -1)
+        ) == -1 && !(profile == "teaching-43-book-gifts" && offer["path"] == "/clone/lonely/book/dugubook"))
             error("Unreviewed teaching book.\n");
         book = load_object(offer["path"]);
         if (!objectp(book) || clonep(book) || environment(book) || !book->id(offer["id"]) || !book->move(student))
@@ -599,7 +674,10 @@ varargs mapping observe_command(
     if (member_array(profile, ({ "mingjiao-recruit", "mingjiao-gift" })) != -1 && objectp(teacher))
         result["teacher_before"] = "/tests/runner"->mingjiao_teacher_state(teacher);
     if (profile == "mingjiao-gift") result["item_before"] = mingjiao_gift_point(item_context);
-    if (!promotion && strsrch(command, "apprentice ") == 0) {
+    if (!promotion && (strsrch(
+        command,
+        "apprentice "
+    ) == 0 || profile == "teaching-43-recruit-async")) {
         if (member_array(
             profile,
             ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit" })
@@ -609,6 +687,12 @@ varargs mapping observe_command(
             "generation": teacher->query("family/generation") ]): ([]);
         result["wall_time"] = time();
     }
+    if (member_array(profile, ({ "teaching-43-recruit", "teaching-43-recruit-async" })) != -1)
+        result["teacher_identity"] = ([ "id": teacher->query("id"), "name": teacher->query("name"),
+            "class": teacher->query("class") || "", "attempt_source": function_exists(
+                "attempt_apprentice",
+                teacher
+            ) ]);
     if (objectp(book))
         result["offered_item"] = ([ "object": file_name(book), "program": base_name(book),
             "holder_before": file_name(environment(book)), "clone": clonep(book) ]);
@@ -626,7 +710,12 @@ varargs mapping observe_command(
     student->begin_teaching_messages();
     if (member_array(
         profile,
-        ({ "mingjiao-apprentice-learning", "mingjiao-recruit", "mingjiao-gift" })
+        ({
+            "mingjiao-apprentice-learning",
+            "mingjiao-recruit",
+            "mingjiao-gift",
+            "teaching-43-recruit", "teaching-43-ordination"
+        })
     ) != -1)
         result["teacher_pending_recruit_before"] = objectp(teacher) && objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
     started = time_ns() / 1000000000.0;
@@ -660,7 +749,10 @@ varargs mapping observe_command(
         teacher,
         formation
     );
-    if (!promotion && strsrch(command, "apprentice ") == 0) {
+    if (!promotion && (strsrch(
+        command,
+        "apprentice "
+    ) == 0 || profile == "teaching-43-recruit-async")) {
         if (member_array(
             profile,
             ({ "taohua-learning", "mingjiao-apprentice-learning", "mingjiao-recruit" })
@@ -685,5 +777,241 @@ varargs mapping observe_command(
         result["offered_item"]["exists_after"] = objectp(book);
         result["offered_item"]["holder_after"] = objectp(book) && environment(book) ? file_name(environment(book)) : "";
     }
+    if (profile == "teaching-43-ordination")
+        result["teacher_pending_recruit"] = objectp(teacher->query_temp("pending/recruit")) ? file_name(teacher->query_temp("pending/recruit")) : "";
+    return result;
+}
+
+// Observe supplied originals without loading or moving any book. Both singleton
+// and ordinary cloned textbooks are resolved from their actual carrier chains.
+mapping book43_point(object student, object teacher, mapping *definitions) {
+    mapping result;
+    object holder, item, owner;
+    object *items;
+    string *paths, *chain;
+    string path;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated book observer only.\n");
+    paths = map(definitions, (: $1["path"] :));
+    items = ({});
+    foreach (holder in ({ student, teacher, environment(student) }))
+        foreach (item in all_inventory(holder))
+            if (member_array(base_name(item), paths) != -1 && member_array(item, items) == -1)
+                items += ({ item });
+    foreach (path in paths) {
+        item = find_object(path);
+        if (objectp(item) && member_array(item, items) == -1) items += ({ item });
+    }
+    result = ([ "items": ({}), "stock": ([ "book_count": teacher->query("book_count") || 0,
+        "music_book": teacher->query("music_book") || 0 ]) ]);
+    foreach (item in items) {
+        chain = ({});
+        owner = environment(item);
+        while (objectp(owner)) {
+            if (member_array(file_name(owner), chain) != -1) error("Cyclic book ownership.\n");
+            chain += ({ file_name(owner) });
+            owner = environment(owner);
+        }
+        result["items"] += ({ ([ "object": file_name(item), "program": base_name(item),
+            "clonep": clonep(item), "id": item->query("id"), "skill": copy(item->query("skill")),
+            "weight": item->query_weight(), "environment": objectp(environment(item)) ? file_name(environment(item)) : 0,
+            "owner_chain": chain ]) });
+    }
+    return result;
+}
+
+mapping observe_book43(
+    object student,
+    object teacher,
+    string action,
+    mapping *definitions,
+    int study
+) {
+    mapping before, result;
+    object book, item;
+    string resolved;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated book observer only.\n");
+    before = book43_point(student, teacher, definitions);
+    resolved = "";
+    if (study) {
+        foreach (item in all_inventory(student))
+            if (member_array(base_name(item), map(definitions, (: $1["path"] :))) != -1) {
+                if (objectp(book)) error("Ambiguous acquired textbook.\n");
+                book = item;
+            }
+        if (!objectp(book)) error("Original teacher did not supply the textbook.\n");
+        action = "study " + book->query("id") + " 1";
+        resolved = file_name(book);
+    }
+    result = observe_command(student, study ? 0 : teacher, action, ({}), 0, 0, 0, 0, 0,
+        "teaching-43-books", 0, ([]));
+    result["resolved_book"] = resolved;
+    result["book_before"] = before;
+    result["book_after"] = book43_point(student, teacher, definitions);
+    return result;
+}
+
+mapping zhou43_point(object student, object teacher) {
+    object sc, tc;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated competition observer only.\n");
+    sc = student->query_competitor();
+    tc = teacher->query_competitor();
+    return ([ "student": file_name(student), "teacher": file_name(teacher), "student_location": file_name(environment(student)), "teacher_location": file_name(environment(teacher)),
+        "student_competitor": objectp(sc) ? file_name(sc) : "", "teacher_competitor": objectp(tc) ? file_name(tc) : "",
+        "student_living": living(student), "teacher_living": living(teacher), "student_fighting": student->is_fighting(), "teacher_fighting": teacher->is_fighting(),
+        "student_killing": student->is_killing(), "teacher_killing": teacher->is_killing(),
+        "teacher_qi": teacher->query("qi"), "teacher_eff_qi": teacher->query("eff_qi"), "teacher_max_qi": teacher->query("max_qi"), "teacher_neili": teacher->query("neili"),
+        "student_effective_str": student->query_str(), "potential_limit": student->query_potential_limit(), "state": teaching_state(
+            student,
+            ({ "can_learn/zuoyou-hubo/zhou" })
+        ) ]);
+}
+
+mapping kuihua43_point(object student, object teacher) {
+    mapping result;
+    mixed row;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated natural conversion observer only.\n");
+    result = ([ "teacher": file_name(teacher), "student": file_name(student),
+        "teacher_location": file_name(environment(teacher)), "student_location": file_name(environment(student)), "living": living(student),
+        "state": teaching_state(student, ({})), "teach_kh": student->query_temp("teach_kh") || 0,
+        "qi": student->query("qi"), "eff_qi": student->query("eff_qi"), "food": student->query("food"), "water": student->query("water"), "pending": ({}) ]);
+    foreach (row in call_out_info()) if (arrayp(row) && sizeof(row) == 3 && row[0] == teacher && row[1] == "teach_kuihua")
+        result["pending"] += ({ ([
+            "owner": file_name(teacher),
+            "function": row[1],
+            "remaining": row[2]
+        ]) });
+    return result;
+}
+
+mapping access43_point(object student, object teacher) {
+    mapping result;
+    object item, guard;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated access observer only.\n");
+    if (base_name(teacher) == "/kungfu/class/shaolin/qing-le") guard = present(
+        "daoyi chanshi",
+        load_object("/d/shaolin/cjlou")
+    );
+    result = ([ "student_location": file_name(environment(student)), "teacher_location": file_name(environment(teacher)),
+        "teacher_startroom": teacher->query("startroom") || 0, "guard": objectp(guard) ? file_name(guard) : "", "guard_living": objectp(guard) ? living(guard) : 0, "letters": ({}) ]);
+    foreach (item in all_inventory(student)) if (base_name(item) == "/d/shaolin/obj/allow-letter") result["letters"] += ({ ([
+        "object": file_name(item), "program": base_name(item), "holder": file_name(environment(item)), "id": item->query("id"), "weight": item->query_weight() ]) });
+    return result;
+}
+
+mapping observe_access43(object student, object teacher, string action) {
+    mapping before, result;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated access observer only.\n");
+    before = access43_point(student, teacher);
+    result = observe_command(
+        student,
+        teacher,
+        action,
+        ({ "can_learn/huang/count" }),
+        0,
+        0,
+        0,
+        0,
+        0,
+        "teaching-43-access",
+        0,
+        0
+    );
+    result["access_before"] = before;
+    result["access_after"] = access43_point(student, teacher);
+    return result;
+}
+
+mapping ouyang43_point(object student, object teacher, object npc) {
+    mapping result;
+    object item;
+    mixed row;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated gift observer only.\n");
+    result = ([ "teacher_location": file_name(environment(teacher)), "student_location": file_name(environment(student)),
+        "npc": ([ "object": file_name(npc), "program": base_name(npc), "id": npc->query("id"), "gender": npc->query("gender"),
+            "age": npc->query("age"), "userp": userp(npc), "living": living(npc), "holder": file_name(environment(npc)),
+            "sex_times": npc->query("sex/times") || 0, "sex_ouyang": npc->query("sex/欧阳克") || 0, "sex_first": npc->query("sex/first") || 0 ]),
+        "silver_total": 0, "return_callbacks": ({}) ]);
+    foreach (item in all_inventory(student)) if (base_name(item) == "/clone/money/silver") result["silver_total"] += item->query_amount();
+    foreach (row in call_out_info()) if (arrayp(row) && sizeof(row) == 3 && row[0] == teacher && row[1] == "do_back")
+        result["return_callbacks"] += ({ ([
+            "owner": file_name(teacher),
+            "function": row[1],
+            "remaining": row[2]
+        ]) });
+    return result;
+}
+
+mapping observe_ouyang43(object student, object teacher, object npc, string action) {
+    mapping before, result;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated gift observer only.\n");
+    before = ouyang43_point(student, teacher, npc);
+    result = observe_command(student, teacher, action, ({
+        "can_learn/lingshe-quan/count",
+        "can_learn/lingshe-quan/ke"
+    }),
+        0, 0, 0, 0, 0, "teaching-43-ouyang-gift", 0, 0);
+    result["gift_before"] = before;
+    result["gift_after"] = ouyang43_point(student, teacher, npc);
+    return result;
+}
+
+mapping hong43_point(object student, object partner, object teacher, object material) {
+    mapping result, identities;
+    string role;
+    object person, holder, dish, online;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated cooking observer only.\n");
+    if (!objectp(material)) error("Original cooking material disappeared.\n");
+    identities = ([]);
+    foreach (role, person in ([ "actor": student, "target": partner ]))
+        identities[role] = ([ "object": file_name(person), "id": person->query("id"),
+            "name": person->query("name"), "gender": person->query("gender"), "class": person->query("class"),
+            "family": person->query("family/family_name") || 0, "couple": person->query("couple/id") || 0,
+            "by_alias_matches": person->id(person->query("id")), "userp": userp(person), "playerp": playerp(person),
+            "interactive": interactive(person), "living": living(person), "wizardp": wizardp(person) ]);
+    online = find_player(partner->query("id"));
+    result = ([ "teacher": file_name(teacher), "identities": identities,
+        "online_target": objectp(online) ? file_name(online) : "",
+        "actor": teaching_state(
+            student,
+            ({ "can_learn/hong/xiaoyaoyou", "can_learn/hong/xianglong-zhang" })
+        ),
+        "target": teaching_state(
+            partner,
+            ({ "can_learn/hong/xiaoyaoyou", "can_learn/hong/xianglong-zhang" })
+        ),
+        "material": ([ "object": file_name(material), "program": base_name(material),
+            "amount": material->query_amount(), "weight": material->query_weight(), "holder": file_name(environment(material)) ]),
+        "dishes": ({}) ]);
+    foreach (holder in ({
+        student,
+        partner,
+        teacher,
+        environment(student)
+    })) foreach (dish in all_inventory(holder))
+        if (base_name(dish) == "/clone/food/dish") result["dishes"] += ({ ([
+            "object": file_name(dish), "program": base_name(dish), "id": dish->query("id"),
+            "level": dish->query("level"), "skill": dish->query("skill"), "by": dish->query("by"),
+            "by_alias_matches": student->id(dish->query("by")), "food_supply": dish->query("food_supply"),
+            "weight": dish->query_weight(), "holder": file_name(environment(dish)) ]) });
+    return result;
+}
+
+mapping observe_hong43(
+    object student,
+    object partner,
+    object teacher,
+    object material,
+    string action
+) {
+    mapping before, result;
+    if (base_name(previous_object()) != "/tests/runner") error("Isolated cooking observer only.\n");
+    before = hong43_point(student, partner, teacher, material);
+    result = observe_command(student, teacher, action, ({
+        "can_learn/hong/xiaoyaoyou",
+        "can_learn/hong/xianglong-zhang"
+    }),
+        0, 0, 0, 0, 0, "teaching-43-hong-food", 0, 0);
+    result["hong_before"] = before;
+    result["hong_after"] = hong43_point(student, partner, teacher, material);
     return result;
 }

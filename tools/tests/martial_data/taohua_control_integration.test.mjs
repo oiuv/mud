@@ -1,3 +1,4 @@
+import { historicalSnapshotFiles } from "./teaching_43_snapshot_test_helper.mjs";
 import { preOctober29SchoolConditions } from './historical_school_conditions.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -108,7 +109,8 @@ test('旧15853完整有序条件不变，仅尾追加纯控制27条件1034/54计
 });
 
 test('实际冻结新增四文件及既有依赖，15文件48位点探针保持不变', () => {
-    const state = snapshot();
+    const currentSnapshot = snapshot();
+    const state = { ...currentSnapshot, files: historicalSnapshotFiles(currentSnapshot.files) };
     const remainingMingjiaoFiles = [
         'school_mingjiao_remaining_base_cases.mjs',
         'school_mingjiao_remaining_base_cases.test.mjs',

@@ -16,6 +16,11 @@ private int *busy_state;
 private object lookup_subject;
 private object *test_clothes = ({ 0, 0 });
 private object promotion_teacher;
+private object recruit43_teacher;
+private object gift43_teacher, gift43_npc;
+private object access43_teacher;
+private object kuihua43_teacher;
+private object zhou43_teacher;
 private int promotion_index, promotion_waiting;
 private float promotion_started;
 private object formation_teacher;
@@ -333,6 +338,71 @@ private void observe_ling_weapon(string phase) {
 
 int is_mingjiao_force_remaining() {
     return mapp(current) && mapp(current["parameters"]) && current["parameters"]["collection_group"] == "mingjiao-force-remaining";
+}
+
+int observe_zhou43(object teacher, object student, string phase) {
+    if (!active || current["parameters"]["teaching_profile"] != "teaching-43-zhou") return 0;
+    require(previous_object() == teacher && teacher == zhou43_teacher && student == players[0] &&
+        base_name(previous_object(1)) == "/adm/daemons/combatd", "original combat-dispatched teacher lost callback only");
+    current["zhou_lost"] += ({ ([ "phase": phase, "path": "kungfu/class/quanzhen/zhou.c", "sha256": current["parameters"]["teacher"]["sha256"],
+        "caller": base_name(previous_object(1)), "elapsed": time_ns() / 1000000000.0 - started,
+        "point": "/tests/teaching_observer"->zhou43_point(student, teacher) ]) });
+    return 0;
+}
+
+int observe_kuihua43(object teacher, object student, int j, int level) {
+    if (!active || current["parameters"]["teaching_profile"] != "teaching-43-kuihua") return 0;
+    require(previous_object() == teacher && teacher == kuihua43_teacher && student == players[0] &&
+        base_name(teacher) == current["parameters"]["teacher"]["path"], "original natural teacher callback entry");
+    current["kuihua_entries"] += ({ ([ "path": "kungfu/class/riyue/dongfang/dongfang.c", "sha256": current["parameters"]["teacher"]["sha256"],
+        "j": j, "level": level, "elapsed": time_ns() / 1000000000.0 - started,
+        "point": "/tests/teaching_observer"->kuihua43_point(student, teacher) ]) });
+    return 0;
+}
+
+void poll_kuihua43() {
+    mapping point;
+    if (!active || current["parameters"]["teaching_profile"] != "teaching-43-kuihua") return;
+    point = "/tests/teaching_observer"->kuihua43_point(players[0], kuihua43_teacher);
+    if (sizeof(current["kuihua_entries"]) >= 6 && !sizeof(point["pending"])) {
+        current["kuihua_final"] = point;
+        if (point["state"]["skills"]["kuihua-mogong"] == 250) {
+            current["kuihua_terminal"] = "converted";
+            current["outcome"] = "observed";
+        } else {
+            current["kuihua_terminal"] = "random_non_acquisition";
+            current["outcome"] = "refused";
+            current["reason"] = "原葵花传功终态随机未领悟，不重试或覆盖";
+        }
+        finish_sample();
+        return;
+    }
+    require(
+        time_ns() / 1000000000.0 - started < 30,
+        "natural Kuihua callbacks did not finish before watchdog"
+    );
+    call_out("poll_kuihua43", 1);
+}
+
+int observe_duplicate43(
+    object teacher,
+    object student,
+    string path,
+    string hash,
+    int original_call
+) {
+    if (!active || !mapp(current) || !mapp(current["parameters"]) ||
+        current["parameters"]["teaching_profile"] != "teaching-43-duplicate-case") return 0;
+    require(previous_object() == teacher && student == players[0] &&
+        base_name(teacher) == current["parameters"]["teacher"]["path"] &&
+        path == "kungfu/class/tiezhang/fen.c" && hash == current["parameters"]["teacher"]["sha256"] &&
+        member_array(original_call, current["parameters"]["duplicate_calls"]) != -1,
+        "original duplicate-case observation only");
+    if (!arrayp(current["duplicate_grant_entries"])) current["duplicate_grant_entries"] = ({});
+    current["duplicate_grant_entries"] += ({ ([ "teacher": file_name(teacher), "student": file_name(student),
+        "path": path, "sha256": hash, "original_call": original_call,
+        "elapsed": time_ns() / 1000000000.0 - started ]) });
+    return 0;
 }
 
 mapping snapshot(object ob) {
@@ -1620,9 +1690,12 @@ void prepare_actor(int side, mapping config) {
         else ob->start_busy(config["busy"]);
     }
     foreach (key, value in config["temp"] || ([])) {
-        require((is_mingjiao_force_remaining() && !side && current["parameters"]["panel"] == "expiry" &&
-            ((key == "apply/attack" && value == 7) || (key == "apply/dodge" && value == 11) ||
-                (key == "apply/parry" && value == 13) || (key == "apply/armor" && value == 107))) ||
+        require((!side && current["parameters"]["teaching_profile"] == "teaching-43-zhou" && key == "apply/unarmed_damage" && value == 5000) ||
+            (!side && current["parameters"]["teaching_profile"] == "teaching-43-recruit" &&
+                key == "quest" && mapp(value) && sizeof(value) == 2 && value["name"] == "实验临时任务" && value["count"] == 3) ||
+            (is_mingjiao_force_remaining() && !side && current["parameters"]["panel"] == "expiry" &&
+                ((key == "apply/attack" && value == 7) || (key == "apply/dodge" && value == 11) ||
+                    (key == "apply/parry" && value == 13) || (key == "apply/armor" && value == 107))) ||
             (is_mingjiao_remaining_base() && side == 1 && key == "nopoison" && value == 1) ||
             (is_mingjiao_remaining_perform() && !side &&
                 current["parameters"]["variant"] == "no-perform" && key == "no_perform" && value == 1) ||
@@ -1960,6 +2033,14 @@ void observe_attack(object me, object target, int attack_type, int result, int d
         value = ([ "actor": member_array(me, players),
             "target": member_array(target, players), "type": attack_type,
             "result": result, "damage": damage ]);
+        if (current["parameters"]["teaching_profile"] == "teaching-43-zhou") {
+            require(
+                (me == players[0] && target == zhou43_teacher) || (target == players[0] && me == zhou43_teacher),
+                "exact original Zhou competition pair"
+            );
+            value["actor_object"] = file_name(me);
+            value["target_object"] = file_name(target);
+        }
         if (is_mingjiao_remaining_perform() || is_mingjiao_remaining_base()) {
             value["apply_attack"] = me->query_temp("apply/attack");
             value["neili"] = me->query("neili");
@@ -2476,6 +2557,24 @@ void observe_dodge(object me, object target, int attack_type, int ap, int dp, st
     }
     if (active && current["parameters"]["collection_group"] == "mingjiao-jiuyang-remaining")
         current["dodge_checks"][<1]["attack_id"] = sizeof(current["actions"]);
+}
+
+int observe_teacher_gate(
+    object teacher,
+    object student,
+    string path,
+    string source_hash,
+    string function_name
+) {
+    if (!active || member_array(current["parameters"]["teaching_profile"],
+        ({ "teaching-43-recruit", "teaching-43-recruit-async" })) == -1) return 0;
+    require(previous_object() == teacher && student == players[0] &&
+        base_name(teacher) == current["parameters"]["teacher"]["path"], "original teacher gate caller");
+    if (!arrayp(current["teaching_gate_entries"])) current["teaching_gate_entries"] = ({});
+    current["teaching_gate_entries"] += ({ ([ "teacher": file_name(teacher), "student": file_name(student),
+        "path": path, "sha256": source_hash, "function": function_name,
+        "elapsed": time_ns() / 1000000000.0 - started ]) });
+    return 0;
 }
 
 void observe_launch(object me, string skill, string argument) {
@@ -6011,9 +6110,17 @@ void perform_sample() {
                 teacher->query("id") == parameters["teacher"]["id"] &&
                 environment(teacher) == this_object(), "reuse exact original prepared teacher");
         } else {
-            if (parameters["teaching_profile"] == "teaching-43-diagnostics" &&
-                parameters["diagnostic_mode"] == "prepared" &&
-                parameters["diagnostic_setup"] == "singleton") {
+            if ((parameters["teaching_profile"] == "teaching-43-book-gifts" &&
+                member_array(
+                    parameters["teacher"]["path"],
+                    ({ "/kungfu/class/ultra/dugu", "/kungfu/class/ultra/huang" })
+                ) != -1) ||
+                (parameters["teaching_profile"] == "teaching-43-special-grants" &&
+                    parameters["lesson"] == "huang-xin" &&
+                    parameters["teacher"]["path"] == "/kungfu/class/ultra/huang") ||
+                (parameters["teaching_profile"] == "teaching-43-diagnostics" &&
+                    parameters["diagnostic_mode"] == "prepared" &&
+                    parameters["diagnostic_setup"] == "singleton")) {
                 require(member_array(parameters["teacher"]["path"], ({
                     "/kungfu/class/ultra/dugu", "/kungfu/class/ultra/huang",
                     "/kungfu/class/ultra/huoshan", "/kungfu/class/ultra/kuihua"
@@ -6021,6 +6128,10 @@ void perform_sample() {
                 teacher = load_object(parameters["teacher"]["path"]);
                 require(objectp(teacher) && teacher->is_no_clone() && !clonep(teacher),
                     "original no-clone NPC singleton");
+                if (parameters["teaching_profile"] == "teaching-43-book-gifts")
+                    current["book_gift_teacher_preparation"] = ([ "teacher": file_name(teacher),
+                        "program": base_name(teacher), "clonep": clonep(teacher), "no_clone": teacher->is_no_clone(),
+                        "startroom": teacher->query("startroom"), "environment": file_name(environment(teacher)) ]);
             } else teacher = new(parameters["teacher"]["path"]);
             require(teacher->move(this_object()), "teacher in observation room");
         }
@@ -6050,6 +6161,177 @@ void perform_sample() {
         }
         current["teaching"] = ({});
         current["outcome"] = "refused";
+        if (parameters["teaching_profile"] == "teaching-43-zhou") {
+            require(
+                parameters["teacher"]["path"] == "/kungfu/class/quanzhen/zhou" && parameters["attack_limit"] == 500,
+                "finite original competition fixture"
+            );
+            zhou43_teacher = teacher;
+            current["zhou_lost"] = ({});
+            current["zhou_attacks"] = ({});
+            current["zhou_initial"] = "/tests/teaching_observer"->zhou43_point(players[0], teacher);
+            step = "/tests/teaching_observer"->observe_command(
+                players[0],
+                teacher,
+                action,
+                ({ "can_learn/zuoyou-hubo/zhou" }),
+                0,
+                0,
+                0,
+                0,
+                0,
+                "teaching-43-zhou",
+                0,
+                0
+            );
+            current["teaching"] = ({ step });
+            current["zhou_competition"] = "/tests/teaching_observer"->zhou43_point(
+                players[0],
+                teacher
+            );
+            for (cycle = 0; cycle < parameters["attack_limit"] && !players[0]->query("can_learn/zuoyou-hubo/zhou"); cycle++) {
+                require(players[0]->query_competitor() == teacher && teacher->query_competitor() == players[0] &&
+                    living(players[0]) && living(teacher) && time_ns() / 1000000000.0 - started < 120, "original competition still active before bounded attack");
+                step = ([
+                    "index": cycle,
+                    "before": "/tests/teaching_observer"->zhou43_point(players[0], teacher)
+                ]);
+                COMBAT_D->do_attack(players[0], teacher, 0, TYPE_REGULAR);
+                step["after"] = "/tests/teaching_observer"->zhou43_point(players[0], teacher);
+                current["zhou_attacks"] += ({ step });
+            }
+            require(
+                players[0]->query("can_learn/zuoyou-hubo/zhou") == 1,
+                "bounded original competition must reach natural lost"
+            );
+            current["zhou_final"] = "/tests/teaching_observer"->zhou43_point(players[0], teacher);
+            current["outcome"] = "observed";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-kuihua") {
+            require(
+                parameters["teacher"]["path"] == "/kungfu/class/riyue/dongfang/dongfang",
+                "finite natural conversion teacher"
+            );
+            kuihua43_teacher = teacher;
+            current["kuihua_entries"] = ({});
+            current["kuihua_initial"] = "/tests/teaching_observer"->kuihua43_point(
+                players[0],
+                teacher
+            );
+            step = "/tests/teaching_observer"->observe_command(
+                players[0],
+                teacher,
+                action,
+                ({}),
+                0,
+                0,
+                0,
+                0,
+                0,
+                "teaching-43-kuihua",
+                0,
+                0
+            );
+            current["teaching"] = ({ step });
+            current["kuihua_immediate"] = "/tests/teaching_observer"->kuihua43_point(
+                players[0],
+                teacher
+            );
+            current["outcome"] = "observed";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-access") {
+            if (parameters["lesson"][0..3] == "feng") {
+                destruct(teacher);
+                ob = load_object("/d/taohua/tao_in");
+                ob->reset();
+                teacher = present("feng mofeng", ob);
+            } else {
+                ob = load_object("/d/shaolin/cjlou");
+                ob->reset();
+                require(teacher->move(ob), "original hand-letter teacher in guarded room");
+            }
+            require(
+                objectp(teacher) && base_name(teacher) == parameters["teacher"]["path"],
+                "exact original access teacher"
+            );
+            access43_teacher = teacher;
+            require(players[0]->move(ob), "declared original room position");
+            current["access_preparation"] = "/tests/teaching_observer"->access43_point(
+                players[0],
+                teacher
+            );
+            foreach (expectation in parameters["teaching_expectations"]) {
+                current["access_active_command"] = expectation["action"];
+                step = "/tests/teaching_observer"->observe_access43(
+                    players[0],
+                    teacher,
+                    expectation["action"]
+                );
+                current["teaching"] += ({ step });
+            }
+            current["outcome"] = parameters["expected"];
+            if (current["outcome"] == "refused") current["reason"] = "原学艺询问未获黄药师许可，保留原拒绝与位置";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-ouyang-gift") {
+            require(
+                parameters["teacher"]["path"] == "/kungfu/class/ouyang/ouyangke",
+                "finite original gift teacher"
+            );
+            gift43_teacher = teacher;
+            gift43_npc = new("/d/city/npc/mudren-mm");
+            require(gift43_npc->move(this_object()), "original adult NPC preparation");
+            gift43_npc->unconcious();
+            foreach (expectation in parameters["teaching_expectations"]) {
+                step = "/tests/teaching_observer"->observe_ouyang43(
+                    players[0],
+                    teacher,
+                    gift43_npc,
+                    expectation["action"]
+                );
+                current["teaching"] += ({ step });
+            }
+            if (step["after"]["grants"]["can_learn/lingshe-quan/ke"] == 1) current["outcome"] = "observed";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-hong-food") {
+            require(parameters["teacher"]["path"] == "/kungfu/class/gaibang/hong" &&
+                parameters["material_amount"] == 2 && players[0]->query("id") == "left" && players[1]->query("id") == "right",
+                "finite original cooking fixture");
+            foreach (t in players) t->enable_player();
+            require(find_player("right") == players[1], "original online partner lookup");
+            ob = new("/clone/misc/cailiao");
+            ob->set_amount(parameters["material_amount"]);
+            require(
+                ob->move(players[0]) && environment(ob) == players[0],
+                "prepared original cooking material"
+            );
+            foreach (expectation in parameters["teaching_expectations"]) {
+                step = "/tests/teaching_observer"->observe_hong43(
+                    players[0],
+                    players[1],
+                    teacher,
+                    ob,
+                    expectation["action"]
+                );
+                current["teaching"] += ({ step });
+            }
+            if (step["after"]["grants"]["can_learn/hong/xiaoyaoyou"] == 1) current["outcome"] = "observed";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-books") {
+            foreach (expectation in parameters["teaching_expectations"]) {
+                step = "/tests/teaching_observer"->observe_book43(players[0], teacher, action,
+                    parameters["books"], expectation["command_kind"] == "study");
+                current["teaching"] += ({ step });
+            }
+            current["outcome"] = "observed";
+            return;
+        }
+        if (parameters["teaching_profile"] == "teaching-43-recruit-async")
+            current["recruit_teacher_initial"] = "/tests/teaching_observer"->recruit43_teacher_snapshot(teacher);
         foreach (expectation in parameters["teaching_expectations"]) {
             // Only an explicitly source-pinned follow-up may change teacher.
             // Keep the same connected student and all original state.
@@ -6109,6 +6391,18 @@ void perform_sample() {
                     if (step["after"]["learned"][grant] > step["before"]["learned"][grant])
                         current["outcome"] = "observed";
             }
+        }
+        if (parameters["teaching_profile"] == "teaching-43-ordination" &&
+            current["teaching"][0]["before"]["ordination"]["class"] != "bonze" &&
+            step["after"]["ordination"]["class"] == "bonze") current["outcome"] = "observed";
+        if (parameters["teaching_profile"] == "teaching-43-recruit-async" && parameters["recruit_mode"] == "delayed") {
+            recruit43_teacher = teacher;
+            current["recruit_wait"] = ([ "before": "/tests/teaching_observer"->recruit43_snapshot(players[0]),
+                "teacher_before": "/tests/teaching_observer"->recruit43_teacher_snapshot(teacher),
+                "started": time_ns() / 1000000000.0, "waiting": 1 ]);
+            players[0]->begin_teaching_messages();
+            call_out("finish_recruit43_wait", 4);
+            return;
         }
         if (current["outcome"] == "refused") current["reason"] = parameters["teaching_kind"] == "apprenticeship" ? "原命令未建立新师承，详见逐步状态及消息" : "原教学未增加领悟或学习进度，详见逐步状态及消息";
         return;
@@ -6537,10 +6831,30 @@ void poll_yanlian_synthesis() {
     finish_sample();
 }
 
+void finish_recruit43_wait() {
+    mapping state, step;
+    if (!active || current["parameters"]["teaching_profile"] != "teaching-43-recruit-async" ||
+        !mapp(current["recruit_wait"]) || !current["recruit_wait"]["waiting"]) return;
+    require(objectp(recruit43_teacher) && environment(recruit43_teacher) == this_object(),
+        "same original deferred teacher retained");
+    state = "/tests/teaching_observer"->recruit43_snapshot(players[0]);
+    current["recruit_wait"] += ([ "after": state,
+        "teacher_after": "/tests/teaching_observer"->recruit43_teacher_snapshot(recruit43_teacher),
+        "messages": players[0]->end_teaching_messages(),
+        "elapsed": time_ns() / 1000000000.0 - current["recruit_wait"]["started"], "waiting": 0 ]);
+    step = "/tests/teaching_observer"->observe_command(players[0], recruit43_teacher,
+        current["parameters"]["action"], ({}), 0, 0, 0, 0, 0, "teaching-43-recruit-async", 0);
+    current["teaching"] += ({ step });
+    current["outcome"] = state["master_id"] == current["parameters"]["teacher"]["id"] ? "observed" : "refused";
+    if (current["outcome"] == "refused") current["reason"] = "原延时收徒已返回但未建立师承，详见资格与过程记录";
+    recruit43_teacher = 0;
+    finish_sample();
+}
+
 void finish_sample() {
     object ob, previous_teacher, item;
     object *acquisition_owned;
-    mapping step, cleanup_singletons;
+    mapping step, cleanup_singletons, expectation;
     string cleanup_name, cleanup_path;
     if (!active) return;
     if (is_jiuyang_fusion()) clear_jiuyang_fusion_observation();
@@ -6626,6 +6940,17 @@ void finish_sample() {
         mingjiao_route_cursor = 0;
     }
     if (current["parameters"]["teaching_profile"] == "mingjiao-book") clear_mingjiao_book();
+    if (current["parameters"]["teaching_profile"] == "teaching-43-books") {
+        current["book_cleanup"] = ([]);
+        foreach (expectation in current["parameters"]["books"]) {
+            cleanup_path = expectation["path"];
+            foreach (ob in players) foreach (item in all_inventory(ob))
+                if (base_name(item) == cleanup_path) destruct(item);
+            ob = find_object(cleanup_path);
+            if (objectp(ob)) destruct(ob);
+            current["book_cleanup"][cleanup_path] = objectp(find_object(cleanup_path));
+        }
+    }
     if (current["parameters"]["teaching_profile"] == "mingjiao-gift") clear_mingjiao_gift();
     if (member_array(current["parameters"]["teaching_profile"],
         ({
@@ -6689,6 +7014,41 @@ void finish_sample() {
             current["item_cleanup"] = ([ "previous_teacher_exists": objectp(previous_teacher),
                 "owned_remaining": sizeof(filter(acquisition_owned, (: objectp :))),
                 "singleton_exists": objectp(find_object("/clone/lonely/yinsuo")) ]);
+    }
+    if (current["parameters"]["teaching_profile"] == "teaching-43-ouyang-gift") {
+        if (objectp(gift43_npc)) {
+            foreach (item in deep_inventory(gift43_npc)) destruct(item);
+            destruct(gift43_npc);
+        }
+        if (objectp(gift43_teacher)) {
+            foreach (item in deep_inventory(gift43_teacher)) destruct(item);
+            destruct(gift43_teacher);
+        }
+        current["gift_cleanup"] = ([
+            "teacher_exists": objectp(gift43_teacher),
+            "npc_exists": objectp(gift43_npc)
+        ]);
+    }
+    if (current["parameters"]["teaching_profile"] == "teaching-43-access") {
+        if (objectp(access43_teacher)) {
+            foreach (item in deep_inventory(access43_teacher)) destruct(item);
+            destruct(access43_teacher);
+        }
+        current["access_cleanup"] = ([ "teacher_exists": objectp(access43_teacher) ]);
+    }
+    if (current["parameters"]["teaching_profile"] == "teaching-43-kuihua") {
+        if (objectp(kuihua43_teacher)) {
+            foreach (item in deep_inventory(kuihua43_teacher)) destruct(item);
+            destruct(kuihua43_teacher);
+        }
+        current["kuihua_cleanup"] = ([ "teacher_exists": objectp(kuihua43_teacher) ]);
+    }
+    if (current["parameters"]["teaching_profile"] == "teaching-43-zhou") {
+        if (objectp(zhou43_teacher)) {
+            foreach (item in deep_inventory(zhou43_teacher)) destruct(item);
+            destruct(zhou43_teacher);
+        }
+        current["zhou_cleanup"] = ([ "teacher_exists": objectp(zhou43_teacher) ]);
     }
     map_delete(current, "parameters");
     emit(current);
@@ -7054,6 +7414,7 @@ void advance() {
         // Remaining S1 learning steps are already scheduled with their interval.
         return;
     }
+    if (mapp(current["recruit_wait"]) && current["recruit_wait"]["waiting"]) return;
     if (is_mingjiao_force_remaining()) {
         current["immediate_metrics"] = ({
             players[0]->query_observation(),
@@ -7202,6 +7563,10 @@ void advance() {
         ({ "bout", "exercise", "healing", "condition" })
     ) != -1 && current["outcome"] == "observed") {
         call_out("poll", 1);
+        return;
+    }
+    if (current["parameters"]["teaching_profile"] == "teaching-43-kuihua") {
+        call_out("poll_kuihua43", 1);
         return;
     }
     delay = current["parameters"]["observe_seconds"];

@@ -19,6 +19,22 @@ import { teachingConditions, teachingEntries } from './teaching_cases.mjs';
 import { teachingProbeConditions } from './teaching_probe_cases.mjs';
 import { teaching43LearningConditions } from './teaching_43_learning_cases.mjs';
 import { teaching43DiagnosticConditions } from './teaching_43_diagnostics.mjs';
+import { wudangGrantConditions } from './teaching_43_wudang_grants.mjs';
+import { huashanGrantConditions } from './teaching_43_huashan_grants.mjs';
+import { jueqingGrantConditions } from './teaching_43_jueqing_grants.mjs';
+import { specialGrantConditions } from './teaching_43_special_grants.mjs';
+import { recruit43Conditions, recruitGateProbes } from './teaching_43_recruit_cases.mjs';
+import { permission43Conditions } from './teaching_43_permissions.mjs';
+import { asyncRecruit43Conditions } from './teaching_43_async_recruit.mjs';
+import { book43Conditions } from './teaching_43_books.mjs';
+import { ordination43Conditions } from './teaching_43_ordination.mjs';
+import { bookGift43Conditions } from './teaching_43_book_gifts.mjs';
+import { duplicate43Conditions,duplicate43Probe } from './teaching_43_duplicate_case.mjs';
+import { hongFood43Conditions } from './teaching_43_hong_food.mjs';
+import { ouyangGift43Conditions } from './teaching_43_ouyang_gift.mjs';
+import { access43Conditions } from './teaching_43_access.mjs';
+import { kuihua43Conditions,kuihua43Probe } from './teaching_43_kuihua.mjs';
+import { zhou43Conditions,zhou43Probe } from './teaching_43_zhou.mjs';
 import { performProbeConditions } from './perform_probe_cases.mjs';
 import { validateTeachingRecord } from './teaching_observation.mjs';
 import { schoolCombatConditions, validateSchoolCombatRecord } from './school_combat_cases.mjs';
@@ -421,7 +437,7 @@ export function tanResultProbes(source) {
     return { changed, sites };
 }
 
-export function createSandbox(root, output, { observeTan = false } = {}) {
+export function createSandbox(root, output, { observeTan = false, observeTeaching43 = false } = {}) {
     const sandbox = output ? join(output, 'mudlib') : null, files = {}, probes = [];
     const putCopy = (path, content) => { if (sandbox) put(join(sandbox, path), content); };
     const excluded = /^(?:u|backup|bin|binaries|data|doc|docs|dump|fluffos|grant|help|log|ai|openspec|temp|version|www|tools)\//;
@@ -742,10 +758,24 @@ export function createSandbox(root, output, { observeTan = false } = {}) {
     putCopy('adm/etc/wizlist', '# No wizard accounts in the isolated test.\n');
     for (const name of ['perform_probe_cases', 'teaching_probe_cases', 'probe_observation',
         'teaching_43_learning_cases', 'teaching_43_learning_cases.test',
-        'teaching_43_diagnostics', 'teaching_43_diagnostics.test']) {
+        'teaching_43_diagnostics', 'teaching_43_diagnostics.test',
+        'teaching_43_wudang_grants', 'teaching_43_wudang_grants.test',
+        'teaching_43_huashan_grants', 'teaching_43_huashan_grants.test',
+        'teaching_43_jueqing_grants', 'teaching_43_jueqing_grants.test',
+        'teaching_43_special_grants', 'teaching_43_special_grants.test',
+        'teaching_43_recruit_cases', 'teaching_43_recruit_cases.test', 'teaching_43_recruit_data',
+        'teaching_43_permissions', 'teaching_43_permissions.test',
+        'teaching_43_async_recruit', 'teaching_43_async_recruit.test', 'teaching_43_books', 'teaching_43_books_data', 'teaching_43_books.test', 'teaching_43_ordination', 'teaching_43_ordination.test', 'teaching_43_book_gifts', 'teaching_43_book_gifts.test', 'teaching_43_duplicate_case', 'teaching_43_duplicate_case.test', 'teaching_43_hong_food', 'teaching_43_hong_food.test', 'teaching_43_ouyang_gift', 'teaching_43_ouyang_gift.test', 'teaching_43_access', 'teaching_43_access.test','teaching_43_kuihua','teaching_43_kuihua.test','teaching_43_zhou','teaching_43_zhou.test']) {
         const path = 'tools/tests/martial_data/' + name + '.mjs';
         files[path] = sha256(readFileSync(join(root, path)));
     }
+    files['tools/tests/martial_data/teaching_43_contract.mjs'] = sha256(readFileSync(join(root,'tools/tests/martial_data/teaching_43_contract.mjs')));
+    for(const path of ['tools/tests/martial_data/teaching_43_goldens.test.mjs','tools/tests/martial_data/fixtures/teaching43_goldens.json','tools/tests/martial_data/fixtures/teaching43_books_goldens.json'])
+        files[path]=sha256(readFileSync(join(root,path)));
+    for(const path of ['tools/tests/martial_data/teaching_43_special_goldens.test.mjs',...Array.from({length:10},(_,i)=>'tools/tests/martial_data/fixtures/teaching43_special_'+i+'.json')])
+        files[path]=sha256(readFileSync(join(root,path)));
+    for(const path of ['tools/tests/martial_data/teaching_43_temporal_goldens.test.mjs','tools/tests/martial_data/fixtures/teaching43_zhou_golden.json','tools/tests/martial_data/fixtures/teaching43_kuihua_golden.json'])
+        files[path]=sha256(readFileSync(join(root,path)));
     // S1 learning callback qualification sources
     for (const s1Path of ['cmds/skill/learn.c', 'feature/apprentice.c', 'feature/skill.c',
         'kungfu/class/honghua/zhao.c', 'kungfu/class/meizhuang/huang.c',
@@ -788,6 +818,18 @@ export function createSandbox(root, output, { observeTan = false } = {}) {
         const probe = tanResultProbes(original);
         putCopy(path, probe.changed);
         probes.push({ path, before: sha256(original), after: sha256(probe.changed), sites: probe.sites });
+    }
+    for (const path of observeTeaching43 ? Object.keys(files).filter(p => p.startsWith('kungfu/class/') && /\.(c|h)$/.test(p)) : []) {
+        const original = readFileSync(join(root,path),'utf8');
+        if (!/\b(?:attempt_apprentice|permit_recruit)\s*\(/.test(original) && path !== 'kungfu/class/riyue/dongfang/dongfang.c') continue;
+        assert.equal(sha256(original),files[path],'teacher changed during copy: '+path);
+        const recruit=recruitGateProbes(original,path),extra=duplicate43Probe(original,path);
+        const sites=[...recruit.sites,...extra.sites,...kuihua43Probe(original,path).sites,...zhou43Probe(original,path).sites].sort((a,b)=>b.offset-a.offset);
+        let changed=original;for(const site of sites)changed=changed.slice(0,site.offset)+site.insert+changed.slice(site.offset);
+        const probe={sites,changed};
+        if (!probe.sites.length) continue;
+        putCopy(path,probe.changed);
+        probes.push({path,before:sha256(original),after:sha256(probe.changed),sites:probe.sites});
     }
     if (sandbox) mkdirSync(join(sandbox, 'log'), { recursive: true });
     return { sandbox, files, probes };
@@ -1643,6 +1685,22 @@ async function executeCollection(root, output, options, collection, existing) {
             const readSrc = path => readFileSync(join(root, path), 'utf8');
             const base = [...teachingConditions(relations, catalog),
                 ...teaching43LearningConditions(relations, catalog, readSrc),
+                ...wudangGrantConditions(relations, readSrc),
+                ...huashanGrantConditions(relations, readSrc),
+                ...jueqingGrantConditions(relations, readSrc),
+                ...specialGrantConditions(relations, readSrc),
+                ...recruit43Conditions(relations, readSrc),
+                ...permission43Conditions(relations, readSrc),
+                ...asyncRecruit43Conditions(relations, readSrc),
+                ...book43Conditions(relations, readSrc),
+                ...ordination43Conditions(relations, readSrc),
+                ...bookGift43Conditions(relations, readSrc),
+                ...duplicate43Conditions(relations, readSrc),
+                ...hongFood43Conditions(relations, readSrc),
+                ...ouyangGift43Conditions(relations, readSrc),
+                ...access43Conditions(relations, readSrc),
+                ...kuihua43Conditions(relations, readSrc),
+                ...zhou43Conditions(relations, readSrc),
                 ...teaching43DiagnosticConditions(readSrc)].map(c => ({ ...c,
                 samples: options.smoke ? 1 : c.samples }));
             if (options.teachingProbeFile) {
@@ -1676,7 +1734,9 @@ async function executeCollection(root, output, options, collection, existing) {
     }
     // Hash without writing first. A refused resume never changes old snapshots.
     const snapshotOptions = { observeTan: conditions.some(c => c.parameters.collection_group === 'public-exert'
-        && c.parameters.skill === 'hamagong' && c.parameters.ability === 'tan') };
+        && c.parameters.skill === 'hamagong' && c.parameters.ability === 'tan'),
+        observeTeaching43: conditions.some(c => c.method === 'teaching'
+            && c.parameters.collection_group?.startsWith('teaching-43-')) };
     const snapshot = createSandbox(root, undefined, snapshotOptions);
     const sourceContext = { catalog, readSource: path => readFileSync(join(root, path), 'utf8') };
     validateQualificationSources(conditions, snapshot.files, sourceContext);

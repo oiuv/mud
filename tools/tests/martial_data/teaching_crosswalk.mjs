@@ -4,11 +4,12 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, realpathSync, writeFi
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { root, newOutput } from '../../collect_martial_data.mjs';
-import { sha256 } from './inventory.mjs';
+import { sha256, scanSource } from './inventory.mjs';
 import { digest, openSeries, readSamples } from './ledger.mjs';
 import { schoolRelations } from './school_relations.mjs';
 import { validateRecord } from './execution.mjs';
 import { reviewSeries, reviewToolHashes, validatorFor } from './collection_review.mjs';
+import { fengTopics } from './feng_teaching_cases.mjs';
 
 const json = path => JSON.parse(readFileSync(path, 'utf8'));
 const objectPath = path => typeof path === 'string' ? path.replace(/^\//, '').replace(/\.(c|lpc)$/, '') : null;
@@ -58,6 +59,36 @@ export function linkTeaching(items, condition, reference) {
     }
 }
 
+// New recruitment records carry observations at the original gate entries in
+// the frozen isolated copy. This is not inference from teacher/function names.
+export function linkObservedRecruitGates(items, condition, reference, rows, manifest) {
+    const p=condition.parameters;
+    if(p.teaching_profile!=='teaching-43-recruit')return;
+    assert.ok(reference.smoke===false&&reference.process_complete===true&&reference.complete&&reference.passed===condition.samples);
+    assert.equal(rows.length,condition.samples);
+    for(const gate of p.recruit_gate_sources){
+        const probe=manifest.identity.execution.probes.find(s=>s.path===gate.path&&s.before===gate.sha256);
+        assert.ok(probe&&probe.after!==probe.before,'missing frozen original gate observation');
+        assert.equal(manifest.identity.execution.source_files[gate.path],gate.sha256);
+        assert.ok(probe.sites.some(s=>s.function===gate.function&&s.position==='offset'
+            &&s.insert.includes('"/tests/runner"->observe_teacher_gate(this_object(), ')
+            &&s.insert.includes(JSON.stringify(gate.path))&&s.insert.includes(JSON.stringify(gate.sha256))
+            &&s.insert.includes(JSON.stringify(gate.function))),'observation is not at the claimed original function');
+        const item=items.find(i=>i.kind==='gate'&&objectPath(i.teacher)===objectPath(p.teacher.path)
+            &&i.source.path===gate.path&&i.source.sha256===gate.sha256&&i.function===gate.function);
+        assert.ok(item,'observed gate missing from current relation inventory');
+        for(const row of rows){
+            const matches=row.raw.teaching_gate_entries.filter(g=>g.path===gate.path&&g.sha256===gate.sha256&&g.function===gate.function);
+            assert.equal(matches.length,1);assert.equal(matches[0].student,row.raw.before[0].object);
+            assert.equal(matches[0].teacher,row.raw.teaching[0].teacher);
+            assert.equal(row.raw.teaching[0].teacher_program,p.teacher.path);
+        }
+        if(!item.teaching.some(r=>r.directory===reference.directory&&r.condition===condition.id))item.teaching.push({...reference,
+            link_type:'observed_original_gate_entry_in_frozen_copy',observed_gate:gate,
+            limitation:'Exact original entry reached for this teacher and condition; does not prove all branches or natural progression.'});
+    }
+}
+
 export function linkEffect(items, condition, reference, catalog) {
     if (reference.smoke !== false || !reference.complete || !reference.passed_observed) return;
     const p = condition.parameters, ability = p.ability_source;
@@ -72,7 +103,25 @@ export function linkEffect(items, condition, reference, catalog) {
 
 // A historical message match is only a candidate. Re-anchor a gate after the
 // complete original condition passes, using a message unique within that NPC.
-export function verifyTeachingFlowGate(item, condition, reference, rows, source, literal) {
+export function teachingIncludeChain(inventory, teacher, target) {
+    const files = new Map(inventory.files.map(f => [f.path, f]));
+    const visit = (path, seen) => {
+        const file = files.get(path);
+        if (!file || seen.has(path)) return null;
+        const node = { path, sha256: file.sha256 };
+        if (path === target) return [node];
+        for (const edge of file.directives ?? []) {
+            if (edge.kind !== 'include' || !edge.resolved) continue;
+            const rest = visit(edge.resolved, new Set([...seen, path]));
+            if (rest) return [node, ...rest];
+        }
+        return null;
+    };
+    return visit(teacher, new Set());
+}
+
+export function verifyTeachingFlowGate(item, condition, reference, rows, source, literal,
+    { teacherSource, includeChain } = {}) {
     assert.equal(item.kind, 'gate', 'flow messages cannot prove a grant statement');
     assert.ok(reference.smoke === false && reference.process_complete === true
         && reference.complete === true && reference.passed > 0, 'flow condition is not verified formal teaching');
@@ -81,8 +130,25 @@ export function verifyTeachingFlowGate(item, condition, reference, rows, source,
     const p = condition.parameters;
     assert.notEqual(p.teaching_profile, 'probe', 'generic discovery is not teaching acceptance');
     assert.equal(objectPath(p.teacher.path), objectPath(item.teacher));
-    assert.equal(p.teaching_entry.path, item.source.path);
-    assert.equal(p.teaching_entry.sha256, item.source.sha256);
+    if (p.teaching_entry.path === item.source.path) {
+        assert.equal(p.teaching_entry.sha256, item.source.sha256);
+    } else {
+        assert.ok(item.source.path.endsWith('.h'), 'alternate gate origin is not an included header');
+        assert.ok(Array.isArray(includeChain) && includeChain.length >= 2, 'missing frozen include chain');
+        assert.equal(includeChain[0].path, item.teacher);
+        assert.equal(includeChain.at(-1).path, item.source.path);
+        assert.equal(includeChain.at(-1).sha256, item.source.sha256);
+        assert.equal(p.teaching_entry.path, item.teacher);
+        assert.equal(p.teaching_entry.sha256, includeChain[0].sha256);
+        assert.equal(p.teacher.sha256, includeChain[0].sha256);
+        assert.equal(sha256(teacherSource), p.teacher.sha256, 'teacher source changed');
+        assert.ok(!scanSource(teacherSource).functions.some(f => f.name === item.function),
+            'header gate is shadowed by a teacher-local definition');
+        for (const entry of includeChain)
+            assert.ok(p.qualification_evidence?.some(e => e.path === entry.path && e.sha256 === entry.sha256),
+                'include chain is absent from frozen qualification evidence');
+        assert.ok(!teacherSource.includes(literal), 'header message is ambiguous in teacher source');
+    }
     assert.equal(sha256(source), item.source.sha256, 'flow source changed');
     assert.ok(typeof literal === 'string' && literal.length >= 6 && /[一-鿿]/.test(literal),
         'missing distinctive source message');
@@ -106,13 +172,88 @@ export function verifyTeachingFlowGate(item, condition, reference, rows, source,
             assert.ok(commands.has(step.command), 'message from an undeclared command');
             if (item.function === 'recognize_apprentice') assert.ok(step.command.startsWith('learn '));
             if (item.function === 'attempt_apprentice') assert.ok(step.command.startsWith('apprentice '));
+            if (item.function === 'permit_recruit') assert.ok(step.command.startsWith('apprentice '));
             matches.push({ index: row.index, raw_sha256: row.raw_sha256, command: step.command });
         }
     }
     assert.ok(matches.length, 'no original step contains the gate message');
     return { ...reference, link_type: 'unique_gate_message_in_verified_flow',
         matched_string: literal, matching_records: matches,
+        ...(includeChain ? { source_include_chain: includeChain } : {}),
         limitation: 'Observed gate route only; not every branch and not teacher grant acquisition.' };
+}
+
+// Explicit re-use of actual acquisition, not a relaxed statement-span match.
+// The whole condition has already passed its original teaching consumer.
+export function verifyTeachingGrantFlow(item, condition, reference, rows, source, frozenEntries) {
+    assert.equal(item.kind, 'grant');
+    assert.equal(item.role, 'player_grant_candidate', 'NPC initialization is not player acquisition');
+    assert.equal(item.source.path, item.teacher, 'header grant reuse requires a separate reviewed contract');
+    assert.equal(sha256(source), item.source.sha256, 'grant source changed');
+    assert.ok(reference.smoke === false && reference.process_complete === true && reference.complete === true,
+        'grant flow is not a complete verified formal condition');
+    assert.equal(reference.condition, condition.id);
+    assert.equal(reference.condition_sha256, digest(condition));
+    assert.equal(reference.passed, condition.samples);
+    assert.equal(rows.length, condition.samples);
+    assert.equal(new Set(rows.map(r => r.index)).size, condition.samples, 'duplicate grant raw slot');
+    const p = condition.parameters;
+    assert.equal(condition.method, 'teaching');
+    assert.notEqual(p.teaching_profile, 'probe');
+    assert.ok(p.monitored_grants?.includes(item.grant), 'target grant was not observed');
+    assert.ok(p.qualification_evidence?.some(e => e.path === item.source.path && e.sha256 === item.source.sha256),
+        'grant teacher is missing from frozen qualification sources');
+    const setters = scanSource(source).calls.filter(c => c.function === item.function && c.name === 'set'
+        && c.args[0]?.value === item.grant);
+    assert.equal(setters.length, 1, 'grant write is not unique in the target function');
+    const setter = setters[0];
+    assert.equal(setter.start, item.source.start);
+    assert.equal(setter.end, item.source.end);
+    const entries = new Set(frozenEntries.map(sourceKey)), matches = [];
+    for (const row of rows) {
+        assert.equal(row.condition_id, condition.id);
+        assert.ok(Number.isSafeInteger(row.index) && row.index >= 0 && row.index < condition.samples);
+        assert.equal(row.raw.teaching.length, p.teaching_expectations.length);
+        for (const [index, step] of row.raw.teaching.entries()) {
+            const expected = p.teaching_expectations[index];
+            const entry = expected.teaching_entry ?? p.teaching_entry;
+            if (sourceKey(entry) !== sourceKey({ ...item.source, function: item.function })) continue;
+            assert.ok(entries.has(sourceKey(entry)), 'step entry is not in the frozen manifest');
+            const teacher = expected.teacher ?? p.teacher;
+            assert.equal(objectPath(teacher.path), objectPath(item.teacher));
+            assert.equal(teacher.sha256, item.source.sha256);
+            assert.equal(step.teacher_program, teacher.path);
+            assert.ok(step.teacher?.startsWith(teacher.path) && /^#\d+$/.test(step.teacher.slice(teacher.path.length)));
+            assert.equal(step.student, row.raw.before[0].object);
+            assert.equal(step.student, row.raw.after[0].object);
+            assert.equal(step.command, expected.action ?? p.action);
+            assert.ok(Object.hasOwn(step.before.grants, item.grant) && Object.hasOwn(step.after.grants, item.grant),
+                'grant before/after observation missing');
+            const before = step.before.grants[item.grant], after = step.after.grants[item.grant];
+            if (digest(before) === digest(after)) continue;
+            if (Array.isArray(after)) {
+                assert.equal(p.teaching_profile, 'feng');
+                assert.equal(p.teaching_kind, 'weapon_knowledge');
+                assert.equal(item.grant, 'can_perform/dugu-jiujian');
+                const topic = Object.values(fengTopics).find(([name]) => name === p.topic);
+                assert.ok(topic, 'unreviewed Dugu knowledge topic');
+                assert.deepEqual(p.knowledge_types, topic[1]);
+                assert.ok(before === 0 || Array.isArray(before));
+                assert.deepEqual(after, [...(before || []).filter(v => !topic[1].includes(v)), ...topic[1]]);
+            } else {
+                assert.equal(setter.args[1]?.value, 1, 'source does not grant the observed value');
+                assert.equal(before, 0, 'preconfigured permission is not acquisition');
+                assert.equal(after, 1);
+            }
+            assert.equal(step.command_accepted, 1);
+            assert.equal(row.raw.outcome, 'observed');
+            matches.push({ index: row.index, step: index, raw_sha256: row.raw_sha256,
+                teacher: step.teacher, command: step.command, before, after });
+        }
+    }
+    assert.ok(matches.length, 'no actual acquisition of this declaration');
+    return { ...reference, link_type: 'unique_grant_write_in_verified_flow', matching_records: matches,
+        limitation: 'This exact teacher/function/write was observed; no other route or ability execution is inferred.' };
 }
 
 export function finalizeItems(items) {
@@ -212,7 +353,9 @@ async function inspectTeaching(directory, manifest, items, conditionIds) {
         const ref = { directory, fingerprint: manifest.fingerprint, condition: c.id, condition_sha256: digest(c),
             smoke: manifest.identity.execution.smoke ?? null, process_complete, complete, ...r,
             ...(c.parameters.teaching_profile === 's1-learning' ? { contract: 's1_strict_consumer' } : {}) };
-        linkTeaching(items, c, ref); summaries.push(ref);
+        linkTeaching(items, c, ref);
+        if(complete)linkObservedRecruitGates(items,c,ref,rows.filter(row=>row.condition_id===c.id),manifest);
+        summaries.push(ref);
     }
     return { directory, fingerprint: manifest.fingerprint, process_complete, conditions: summaries };
 }
@@ -224,7 +367,7 @@ export async function reconcileTeaching(evidenceRoot, baseline,
     const relations = schoolRelations(inventory, catalog);
     const items = crosswalkItems(relations), inputs = [], inspected = [], rejected = [], flowReviews = [];
     // Validate every indexed source version before claiming a current-source crosswalk.
-    for (const path of new Set(items.map(i => i.source.path))) {
+    for (const path of new Set(items.flatMap(i => [i.source.path, i.teacher]))) {
         const file = inventory.files.find(f => f.path === path);
         assert.equal(sha256(readFileSync(join(root,path))), file.sha256, `current source changed: ${path}`);
     }
@@ -258,8 +401,17 @@ export async function reconcileTeaching(evidenceRoot, baseline,
                         const ref = result.conditions.find(c => c.condition === id);
                         assert.ok(condition && ref, 'flow condition not selected for complete replay');
                         const rows = readSamples(directory, manifest, { conditionIds: [id] });
-                        const link = verifyTeachingFlowGate(item, condition, ref, rows,
-                            readFileSync(join(root, item.source.path), 'utf8'), proposal.observation_match.matched_string);
+                        const includeChain = item.source.path !== item.teacher
+                            ? teachingIncludeChain(inventory, item.teacher, item.source.path) : undefined;
+                        for (const entry of includeChain ?? [])
+                            assert.equal(sha256(readFileSync(join(root, entry.path))), entry.sha256,
+                                'include source changed: ' + entry.path);
+                        const source = readFileSync(join(root, item.source.path), 'utf8');
+                        const link = proposal.observation_check === 'grant_transition_candidate'
+                            ? verifyTeachingGrantFlow(item, condition, ref, rows, source, manifest.entries)
+                            : verifyTeachingFlowGate(item, condition, ref, rows, source,
+                                proposal.observation_match.matched_string,
+                                { includeChain, teacherSource: readFileSync(join(root, item.teacher), 'utf8') });
                         item.teaching.push(link);
                         flowReviews.push({ id: item.id, verified: true, reference: link });
                     } catch (e) {
@@ -327,7 +479,8 @@ if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.me
                     && new Set(ids).size === ids.length, 'selection requires nonempty unique condition IDs');
             if (args.length === 4) {
                 assert.equal(args[2], '--flow-candidates');
-                flowCandidates = json(resolve(args[3])).items.filter(i => i.observation_check === 'verified_by_flow_records');
+                flowCandidates = json(resolve(args[3])).items.filter(i =>
+                    ['verified_by_flow_records', 'grant_transition_candidate'].includes(i.observation_check));
             }
         }
         const directories = conditionSelections ? Object.keys(conditionSelections) : args.map(p => resolve(p));

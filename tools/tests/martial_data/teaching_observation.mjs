@@ -15,6 +15,22 @@ import { validateGumuRecruitRecord } from './gumu_recruit_cases.mjs';
 import { validateTaohuaLearningRecord } from './school_taohua_learning_cases.mjs';
 import { validateTeaching43LearningRecord } from './teaching_43_learning_cases.mjs';
 import { validateTeaching43DiagnosticRecord } from './teaching_43_diagnostics.mjs';
+import { validateWudangGrantRecord } from './teaching_43_wudang_grants.mjs';
+import { validateHuashanGrantRecord } from './teaching_43_huashan_grants.mjs';
+import { validateJueqingGrantRecord } from './teaching_43_jueqing_grants.mjs';
+import { validateSpecialGrantRecord } from './teaching_43_special_grants.mjs';
+import { validateRecruit43Record } from './teaching_43_recruit_cases.mjs';
+import { validatePermission43Record } from './teaching_43_permissions.mjs';
+import { validateAsyncRecruit43Record } from './teaching_43_async_recruit.mjs';
+import { validateBook43Record } from './teaching_43_books.mjs';
+import { validateOrdination43Record } from './teaching_43_ordination.mjs';
+import { validateBookGift43Record } from './teaching_43_book_gifts.mjs';
+import { validateDuplicate43Record } from './teaching_43_duplicate_case.mjs';
+import { validateHongFood43Record } from './teaching_43_hong_food.mjs';
+import { validateOuyangGift43Record } from './teaching_43_ouyang_gift.mjs';
+import { validateAccess43Record } from './teaching_43_access.mjs';
+import { validateKuihua43Record } from './teaching_43_kuihua.mjs';
+import { validateZhou43Record } from './teaching_43_zhou.mjs';
 
 function state(value, grants) {
     assert.ok(value && typeof value === 'object', '教学状态缺失');
@@ -66,7 +82,9 @@ export function validateTeachingObservation(steps, condition) {
         assert.ok(['ask', 'give', 'learn'].includes(commandKind), '未支持的教学命令');
         if (commandKind === 'learn') assert.equal(p.teaching_kind, 'ordinary_learning');
         assert.equal(step.teacher_program, teacher.path, '教师来源不符');
-        assert.match(step.teacher, new RegExp('^' + teacher.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '#\\d+$'));
+        if (p.teaching_profile === 'teaching-43-special-grants' && p.lesson === 'huang-xin')
+            assert.equal(step.teacher, '/kungfu/class/ultra/huang', 'original no-clone teacher singleton');
+        else assert.match(step.teacher, new RegExp('^' + teacher.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '#\\d+$'));
         assert.equal(step.command, expected.action ?? p.action, '未使用原教学交互命令');
         assert.ok(step.command.startsWith(commandKind + ' '), '教学交互类型不符');
         assert.equal(step.command_accepted, expected.command_accepted ?? 1, '教学命令受理状态不符');
@@ -109,7 +127,8 @@ export function validateTeachingObservation(steps, condition) {
         } else {
             assert.equal(step.before.contribution, p.actor.properties.gongxian, '初始贡献与条件不同');
             for (const key of p.monitored_grants) {
-                const initial = acquisition && key === 'can_learn/yunv-xinjing/wall'
+                const initial = (acquisition && key === 'can_learn/yunv-xinjing/wall'
+                    || p.teaching_profile === 'teaching-43-special-grants')
                     ? p.actor.properties[key] ?? 0 : 0;
                 assert.ok(initial === 0 || initial === 1, '初始口诀许可必须属于冻结条件');
                 assert.equal(step.before.grants[key], initial, '不允许预写未声明领悟');
@@ -576,6 +595,30 @@ export function validateTeachingRecord(raw, condition) {
         return validateTeaching43DiagnosticRecord(raw, condition);
     if (condition.parameters.teaching_profile === 'teaching-43-learning')
         return validateTeaching43LearningRecord(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-recruit')
+        return validateRecruit43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-permissions')
+        return validatePermission43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-recruit-async')
+        return validateAsyncRecruit43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-books')
+        return validateBook43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-ordination')
+        return validateOrdination43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-book-gifts')
+        return validateBookGift43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-duplicate-case')
+        return validateDuplicate43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-hong-food')
+        return validateHongFood43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-ouyang-gift')
+        return validateOuyangGift43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-access')
+        return validateAccess43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-kuihua')
+        return validateKuihua43Record(raw, condition);
+    if (condition.parameters.teaching_profile === 'teaching-43-zhou')
+        return validateZhou43Record(raw, condition);
     if (raw.outcome === 'error') return;
     const steps = raw.teaching;
     const profile = condition.parameters.teaching_profile;
@@ -622,5 +665,9 @@ export function validateTeachingRecord(raw, condition) {
         validateGumuSpecialTeachingRecord(raw, condition);
     if (condition.parameters.teaching_profile === 'gumu-acquisition-learning')
         validateGumuAcquisitionLearningRecord(raw, condition);
+    if (profile === 'teaching-43-wudang-grants') validateWudangGrantRecord(raw, condition);
+    if (profile === 'teaching-43-huashan-grants') validateHuashanGrantRecord(raw, condition);
+    if (profile === 'teaching-43-jueqing-grants') validateJueqingGrantRecord(raw, condition);
+    if (profile === 'teaching-43-special-grants') validateSpecialGrantRecord(raw, condition);
     return summaries;
 }
