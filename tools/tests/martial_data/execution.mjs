@@ -487,6 +487,13 @@ export function createSandbox(root, output, { observeTan = false, observeTeachin
     copy('tools/tests/martial_data/jinshe_zhui_weapon.lpc', 'tests/jinshe_zhui_weapon.lpc');
     copy('tools/tests/martial_data/xuanyuan_arrow_weapon.lpc', 'tests/xuanyuan_arrow_weapon.lpc');
     copy('tools/tests/martial_data/poison_item.lpc', 'tests/poison_item.lpc');
+    // rouyun-steps/zong randomly moves to /u/mudren/workroom. The real personal files
+    // are never read; per maintainer decision (2026-11-15) SYNTHETIC stubs are staged
+    // in the isolated copy only, so the move branches are testable. d/city/kedian
+    // additionally calls /u/mudren/npc/butong->come_here() on entry (kedian.c:40),
+    // answered by a second no-op stub.
+    copy('tools/tests/martial_data/workroom_stub.lpc', 'u/mudren/workroom.c');
+    copy('tools/tests/martial_data/npc_butong_stub.lpc', 'u/mudren/npc/butong.c');
     const crafted = readFileSync(join(root, craftedPath), 'utf8');
     files[craftedPath] = sha256(crafted);
     for (const type of ['sword', 'hammer'])
@@ -1649,8 +1656,11 @@ async function executeCollection(root, output, options, collection, existing) {
             const base = abilityConditions(catalog, settings);
             if (options.performProbeFile) {
                 const coverage = JSON.parse(readFileSync(options.performProbeFile, 'utf8'));
+                const profiles = options.performProbeProfiles
+                    ? JSON.parse(readFileSync(options.performProbeProfiles, 'utf8'))
+                    : (coverage.probe_profiles ?? {});
                 const probes = performProbeConditions(coverage, path => readFileSync(join(root, path), 'utf8'),
-                    { profiles: coverage.probe_profiles ?? {} }).map(c => ({ ...c,
+                    { profiles }).map(c => ({ ...c,
                     samples: options.smoke ? 1 : c.samples }));
                 return [...base, ...probes];
             }

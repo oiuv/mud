@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { existsSync, mkdtempSync, readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { EventEmitter, once } from 'node:events';
@@ -57,9 +57,25 @@ test('隔离副本保留真实USER存盘所需公共公告并登记来源，不�
         assert.equal(snapshot.files[path], sha256(readFileSync(join(root, path))), path);
     }
     assert.ok(original.toString('utf8').split(/\r?\n/).some(line => line.trim().length > 0));
-    for (const path of ['help/changelog', 'data/.env', 'data/player', 'u']) {
+    for (const path of ['help/changelog', 'data/.env', 'data/player']) {
         assert.equal(existsSync(join(snapshot.sandbox, path)), false, path);
         assert.equal(snapshot.files[path], undefined, path);
+    }
+    // u/ boundary (maintainer decision 2026-11-15): the real personal tree is never
+    // read or copied. The ONLY permitted u/ content is SYNTHETIC stubs staged for
+    // rouyun-steps/zong move observation — each must equal its authored stub bytes,
+    // not real /u/ content, with no other u/ files present.
+    const uRoot = join(snapshot.sandbox, 'u');
+    if (existsSync(uRoot)) {
+        const stubs = { 'mudren/workroom.c': 'workroom_stub.lpc', 'mudren/npc/butong.c': 'npc_butong_stub.lpc' };
+        for (const [rel, fixture] of Object.entries(stubs))
+            assert.deepEqual(readFileSync(join(uRoot, rel)),
+                readFileSync(join(root, 'tools/tests/martial_data', fixture)),
+                `u/${rel} 必须是合成桩而非真实内容`);
+        const walk = dir => readdirSync(dir, { withFileTypes: true }).flatMap(e =>
+            e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]);
+        assert.deepEqual(walk(uRoot).map(p => p.slice(uRoot.length + 1).replaceAll('\\', '/')).sort(),
+            Object.keys(stubs).sort(), 'u/ 仅允许合成桩文件');
     }
 });
 

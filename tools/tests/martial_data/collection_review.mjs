@@ -1,11 +1,16 @@
 // Read-only consumer replay. Never calls a driver or rewrites collection evidence.
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { digest, openSeries, readSamples } from './ledger.mjs';
 import { sha256 } from './inventory.mjs';
 import { validateRecord } from './execution.mjs';
 import { observedEffectSources } from './observed_effect_sources.mjs';
+
+// Repo root, derived from this module's location (tools/tests/martial_data -> repo root).
+// Used to read frozen source for validators that bind source hashes during re-review.
+const reviewRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 
 export function summarizeReplay(conditions, rows, validate) {
     const result = { planned: conditions.reduce((n, c) => n + c.samples, 0), recorded: rows.length,
@@ -47,11 +52,36 @@ export function summarizeReplay(conditions, rows, validate) {
     return result;
 }
 
-export async function validatorFor(condition) {
+export async function validatorFor(condition, collection) {
     const group = condition.parameters.collection_group;
     if (condition.parameters.variant === 'probe') {
         const module = await import('./probe_observation.mjs');
         return module.validateProbeAbilityRecord;
+    }
+    // Collection-type routing mirrors execution.mjs collection-time validation
+    // (executeCollection dispatches by `collection`, not by group name). School-combat
+    // sub-groups (gumu-*, emei-*, taohua-*, mingjiao-*, s1-*, quanzhen-*, ...) each have a
+    // dedicated rigorous validator inside validateSchoolCombatRecord; routing by collection
+    // reuses those existing mechanism-level consumers instead of leaving them unverified.
+    if (collection === 'school-combat') {
+        const module = await import('./school_combat_cases.mjs');
+        return module.validateSchoolCombatRecord;
+    }
+    if (collection === 'school-team') {
+        const module = await import('./school_team_cases.mjs');
+        return module.validateSchoolTeamRecord;
+    }
+    if (collection === 'school-scene') {
+        const module = await import('./school_scene_cases.mjs');
+        return module.validateSchoolSceneRecord;
+    }
+    if (collection === 'bouts') {
+        const module = await import('./bout_cases.mjs');
+        return module.validateBoutRecord;
+    }
+    if (collection === 'weapon-special') {
+        const module = await import('./weapon_special_cases.mjs');
+        return module.validateWeaponSpecialRecord;
     }
     if (condition.method === 'teaching' && (!group
         || ['teaching-43-wudang-grants', 'teaching-43-huashan-grants', 'teaching-43-jueqing-grants', 'teaching-43-special-grants', 'teaching-43-recruit', 'teaching-43-permissions', 'teaching-43-recruit-async','teaching-43-books','teaching-43-ordination','teaching-43-book-gifts','teaching-43-duplicate-case','teaching-43-hong-food','teaching-43-ouyang-gift','teaching-43-access','teaching-43-kuihua','teaching-43-zhou'].includes(group))) {
@@ -108,10 +138,14 @@ export async function reviewSeries(directory, sourceContext = null) {
     // readSamples checks frozen condition hashes, raw hashes and slot identities.
     const rows = readSamples(directory, manifest);
     if (!sourceContext)
-        sourceContext = { catalog: JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8')) };
+        sourceContext = { catalog: JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8')),
+            // Some school-combat validators (mingjiao combination / npc-bout) bind source
+            // hashes; provide a reader rooted at the repo so re-review matches collection time.
+            readSource: p => readFileSync(join(reviewRoot, p), 'utf8') };
+    const collection = manifest.identity.execution.collection;
     const validators = new Map();
     for (const c of manifest.identity.conditions)
-        validators.set(c.id, await validatorFor(c));
+        validators.set(c.id, await validatorFor(c, collection));
     const replay = summarizeReplay(manifest.identity.conditions, rows,
         (raw, c) => { validateRecord(raw, c); validators.get(c.id)(raw, c, sourceContext); });
     const frozenCatalog = sourceContext?.catalog ?? JSON.parse(readFileSync(join(directory, 'catalog.json'), 'utf8'));

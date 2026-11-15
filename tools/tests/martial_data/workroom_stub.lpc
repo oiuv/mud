@@ -1,0 +1,11 @@
+// Synthetic fixture staged into the isolated copy at u/mudren/workroom: the game's
+// rouyun-steps/zong randomly moves the performer to /u/mudren/workroom, whose real
+// file is excluded from the isolated copy (personal directory policy). This stub is
+// synthesized fixture content — it never reads or reproduces the real /u/ tree.
+inherit ROOM;
+
+void create() {
+    set("short", "静室");
+    set("long", "一间陈设简单的静室。\n");
+    set("no_clean_up", 1);
+}

@@ -419,6 +419,9 @@ mapping snapshot(object ob) {
     weapon = ob->query_temp("weapon");
     handing = ob->query_temp("handing");
     result["object"] = file_name(ob);
+    // Travel-style effects (x->move(room)) change the environment, not the object
+    // identity; capture it so move effects are observable.
+    result["environment"] = environment(ob) ? file_name(environment(ob)) : "";
     result["userp"] = userp(ob);
     result["interactive"] = interactive(ob);
     result["playerp"] = playerp(ob);
@@ -1178,6 +1181,11 @@ void prepare_actor(int side, mapping config) {
         current["parameters"]["collection_group"] == "gumu-temporal")
         ob->set_name(side == 2 ? "旁试弟子" : side ? "右试弟子" : "左试弟子",
             ({ side == 2 ? "third" : side ? "right" : "left" }));
+    // Register in the living-name hash so find_living()/find_player() reach the
+    // test actors exactly like game livings (fluffos find_living matches
+    // living_name; set_living_name is an efun on current_object, hence the
+    // actor-side register method).
+    ob->register_living_name();
     ob->move(this_object());
     if (config["flee_room"]) ob->set_flee_room(config["flee_room"]);
     if (is_taohua_ding()) require(present(side ? "right" : "left", this_object()) == ob,
@@ -1409,7 +1417,7 @@ void prepare_actor(int side, mapping config) {
     }
     foreach (key, value in config["mappings"] || ([])) {
         ob->map_skill(key, value);
-        ob->command("enable " + key + " " + value);
+        ob->force_me("enable " + key + " " + value);
         if (member_array(current["parameters"]["collection_group"],
             ({
                 "mingjiao-jiuyang",
@@ -1458,13 +1466,29 @@ void prepare_actor(int side, mapping config) {
         test_clothes[side] = item;
     }
     if (mapp(config["handing_equipment"])) {
-        require(current["parameters"]["collection_group"] == "taohua-bihai" && side == 0 &&
-            member_array(config["handing_equipment"]["type"], ({ "xsword", "sword" })) != -1,
-            "explicit BIHAI held instrument");
-        held = new("/tests/" + config["handing_equipment"]["type"]);
-        require(held->move(ob) && ob->force_me("hand practice weapon") &&
-            ob->query_temp("handing") == held && !ob->query_temp("weapon") &&
-            environment(held) == ob, "original BIHAI hand before primary weapon");
+        if (current["parameters"]["variant"] == "probe") {
+            // Probe conditions: allow poison_item for performs requiring held poison
+            // (e.g., chousui-zhang/dan). Use the ORIGINAL hand command so the game's
+            // own weight/equip/inventory checks apply (A3: no bypassing original branch).
+            require(member_array(
+                config["handing_equipment"]["type"],
+                ({ "poison_item", "xsword", "sword" })
+            ) != -1,
+                "probe handing equipment type");
+            held = new("/tests/" + config["handing_equipment"]["type"]);
+            require(held->move(ob) &&
+                ob->force_me("hand " + (config["handing_equipment"]["hand_id"] || held->query("id"))) &&
+                ob->query_temp("handing") == held && !ob->query_temp("weapon") &&
+                environment(held) == ob, "probe hand equipment via original hand command");
+        } else {
+            require(current["parameters"]["collection_group"] == "taohua-bihai" && side == 0 &&
+                member_array(config["handing_equipment"]["type"], ({ "xsword", "sword" })) != -1,
+                "explicit BIHAI held instrument");
+            held = new("/tests/" + config["handing_equipment"]["type"]);
+            require(held->move(ob) && ob->force_me("hand practice weapon") &&
+                ob->query_temp("handing") == held && !ob->query_temp("weapon") &&
+                environment(held) == ob, "original BIHAI hand before primary weapon");
+        }
     }
     if (mapp(config["equipment"])) {
         if (config["equipment"]["item_make"]) {
@@ -1570,7 +1594,8 @@ void prepare_actor(int side, mapping config) {
             current["parameters"]["collection_group"] == "b20-perform" ||
             current["parameters"]["collection_group"] == "b21-perform" ||
             current["parameters"]["collection_group"] == "b25-perform" ||
-            current["parameters"]["collection_group"] == "b30-perform") &&
+            current["parameters"]["collection_group"] == "b30-perform" ||
+            current["parameters"]["variant"] == "probe") &&
             config["equipment"]["type"] == "throwing") {
             require(side == 0 && config["equipment"]["hold"] &&
                 !undefinedp(config["equipment"]["amount"]) &&
@@ -1690,7 +1715,10 @@ void prepare_actor(int side, mapping config) {
         else ob->start_busy(config["busy"]);
     }
     foreach (key, value in config["temp"] || ([])) {
-        require((!side && current["parameters"]["teaching_profile"] == "teaching-43-zhou" && key == "apply/unarmed_damage" && value == 5000) ||
+        require((current["parameters"]["variant"] == "probe" && !side &&
+            ((key == "powerup" && value == 1) || (key == "shield" && value == 1))) ||
+            (current["parameters"]["variant"] == "probe" && side == 1 && key == "owner_id" && stringp(value)) ||
+            (!side && current["parameters"]["teaching_profile"] == "teaching-43-zhou" && key == "apply/unarmed_damage" && value == 5000) ||
             (!side && current["parameters"]["teaching_profile"] == "teaching-43-recruit" &&
                 key == "quest" && mapp(value) && sizeof(value) == 2 && value["name"] == "实验临时任务" && value["count"] == 3) ||
             (is_mingjiao_force_remaining() && !side && current["parameters"]["panel"] == "expiry" &&
@@ -1997,7 +2025,16 @@ void prepare_actor(int side, mapping config) {
             (current["parameters"]["collection_group"] == "mingjiao-teachers" &&
                 side == 0 && key == "qiankun-except" && value == 10) ||
             (current["parameters"]["collection_group"] == "public-music" &&
-                side > 0 && key == "love" && stringp(value)),
+                side > 0 && key == "love" && stringp(value)) ||
+            // Probe conditions: dispel-type exerts (e.g., sanku-shengong/dispel) require
+            // the TARGET to carry a pre-existing abnormal condition; otherwise the source
+            // branch only costs neili and clears nothing. Allow the same whitelisted
+            // condition keys the dispel groups already use, on the target side only.
+            (current["parameters"]["variant"] == "probe" && side == 1 &&
+                member_array(
+                    key,
+                    ({ "drunk", "ill_kesou", "freezing", "damo_luanqi", "bandaged" })
+                ) != -1),
             "explicit initial condition");
         // Original dispel/update may mutate the mapping, never the saved input.
         ob->apply_condition(key, serializable(value));
@@ -5411,7 +5448,7 @@ void perform_sample() {
     players[0]->observation_heartbeat(0);
     players[1]->observation_heartbeat(0);
     if (parameters["target_state"] == "unconscious") {
-        require(member_array(
+        require(parameters["variant"] == "probe" || member_array(
             parameters["collection_group"],
             ({
                 "wudang-special",

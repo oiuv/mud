@@ -3,11 +3,23 @@
 import assert from 'node:assert/strict';
 import { scanSource, sha256 } from './inventory.mjs';
 import { categoryCandidates } from './catalog.mjs';
+import { extractEffectFields } from './perform_effect_consumer.mjs';
 
 const unarmed = new Set(['unarmed', 'finger', 'hand', 'claw', 'cuff', 'strike', 'leg']);
 const weapons = new Set(['axe', 'blade', 'club', 'dagger', 'hammer', 'spear', 'staff', 'sword', 'whip', 'throwing']);
 const identifier = /^[a-z][a-z0-9_-]*$/;
 const object = v => v && typeof v === 'object' && !Array.isArray(v);
+
+// Extract can_perform grants required by valid_enable from the parent skill source.
+// These are permissions the game grants via set("can_perform/<skill>/<ability>", 1);
+// without them, valid_enable may restrict which usages the skill can map to.
+function extractCanPerformGrants(parentSource) {
+    const grants = {};
+    const pattern = /query\s*\(\s*"(can_perform\/[^"]+)"\s*\)/g;
+    let match;
+    while ((match = pattern.exec(parentSource)) !== null) grants[match[1]] = 1;
+    return grants;
+}
 
 export function buildPerformProbePlan(coverage, readSource, { profiles = {} } = {}) {
     assert.equal(typeof readSource, 'function', '源码读取器必需；不能猜测用法');
@@ -30,23 +42,38 @@ export function buildPerformProbePlan(coverage, readSource, { profiles = {} } = 
             }
             assert.ok(parentPath && parentSource, '主技能缺失，不能伪造替代技能');
             const usage = profile.usage;
-            assert.ok(isExert ? usage === 'force' : unarmed.has(usage) || weapons.has(usage),
+            assert.ok(isExert ? usage === 'force' : unarmed.has(usage) || weapons.has(usage) || usage === 'force'
+                || usage === 'dodge' || usage === 'move',
                 '必须明确指定攻击用法；招架不是绝招用法');
             const candidates = categoryCandidates({ path: parentPath, sha256: sha256(parentSource),
                 ...scanSource(parentSource) }).flatMap(d => d.candidates.map(c => c.value));
             // Static candidates are a sanity check, not a proof of dynamic eligibility.
-            assert.ok(candidates.includes(usage), '指定用法不在主技能声明中，须单独核实动态/继承来源');
+            // A profile may override with usage_review citing the real dispatch evidence
+            // (e.g. base-force fallback dispatch in cmds/skill/exert.c, or an entry whose
+            // own source references a usage the parent cannot enable — defect repro).
+            if (!candidates.includes(usage)) {
+                assert.ok(typeof profile.usage_review === 'string' && profile.usage_review.length > 20,
+                    '指定用法不在主技能声明中，须单独核实动态/继承来源（usage_review 引证派发依据）');
+            }
             const actor = structuredClone(profile.actor ?? {});
             actor.skills = { force: 200, dodge: 200, parry: 200, [usage]: 200, [skill]: 200,
                 ...actor.skills };
-            actor.mappings = { ...actor.mappings, [usage]: skill };
+            // Profile-specified mappings win: base-force exerts dispatch through a REAL
+            // mapped force skill (never force->force self-map), and some performs require
+            // a specific mapped skill identity (e.g. force/shot checks the mapped force).
+            actor.mappings = { [usage]: skill, ...actor.mappings };
             if (unarmed.has(usage)) actor.preparations = { ...actor.preparations, [usage]: skill };
             if (weapons.has(usage)) {
                 assert.equal(actor.equipment?.type, usage, '持器用法必须配置对应兵器');
                 assert.equal(Boolean(actor.equipment.hold), usage === 'throwing', '暗器手持与普通持器不同');
             } else assert.ok(!actor.equipment, '徒手/运功不能偷偷配剑');
             actor.properties = { name: '数据采集', gender: '男性', str: 30, con: 30, dex: 30, int: 30,
-                combat_exp: 1000000, max_neili: 5000, neili: 5000, ...actor.properties };
+                combat_exp: 1000000, max_neili: 5000, neili: 5000,
+                ...extractCanPerformGrants(parentSource), ...actor.properties };
+            if (profile.actor?.temp) actor.temp = { ...profile.actor.temp };
+            // handing_equipment must live INSIDE actor: prepare_actor receives
+            // parameters["actor"] as its config, so a parameters-level key is never seen.
+            if (profile.handing_equipment) actor.handing_equipment = structuredClone(profile.handing_equipment);
             // Grants, family, special prerequisites and targets must come from the reviewed setup.
             assert.ok(['observed', 'refused', 'error'].includes(profile.expected), '必须声明预期结果');
             const samples = profile.samples ?? (profile.deterministic === true ? 2 : 100);
@@ -62,15 +89,19 @@ export function buildPerformProbePlan(coverage, readSource, { profiles = {} } = 
                 '目标参数必须是明确字符串');
             const suffix = profile.target_argument ? ' ' + profile.target_argument : '';
             assert.ok(!/[\r\n]/.test(suffix));
+            const uniqueSuffix = entry.source?.line ? `-${entry.source.line}` : `-${conditions.length}`;
             conditions.push({
-                id: `probe-${entry.kind}-${skill}-${ability}`, stage: 'school', method: entry.kind,
+                id: `probe-${entry.kind}-${skill}-${ability}${uniqueSuffix}`, stage: 'school', method: entry.kind,
                 entry_id: entry.id, samples, status: 'configured_not_executed',
                 parameters: { skill, ability, kind: entry.kind, usage, variant: 'probe',
                     probe_contract: 2, qualification_note: profile.qualification_note,
                     actor, target: structuredClone(profile.target ?? {}),
                     named_participants: true, fighting: Boolean(profile.fighting),
+                    ...(profile.target_state ? { target_state: profile.target_state } : {}),
                     action: (isExert ? `exert ${ability}` : `perform ${usage}.${ability}`) + suffix,
                     observe_seconds: observe, expected: profile.expected, not_applicable: '',
+                    ...(profile.refusal_side_effects ? { refusal_side_effects: profile.refusal_side_effects } : {}),
+                    effect_contract: extractEffectFields(readSource(entry.path)),
                     qualification_sources: paths, qualification_evidence: evidence,
                     source_evidence: { path: entry.path, sha256: entry.sha256, line: entry.line },
                     note: '来源已绑定的调查条件；须通过专用效果消费者才可计正常效果覆盖。' },

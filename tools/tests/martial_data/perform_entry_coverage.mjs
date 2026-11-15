@@ -62,7 +62,10 @@ export async function buildPerformEntryCoverage(evidenceRoot, catalogPath, optio
         }
         scanned++;
         const matched = manifest.identity.conditions.flatMap(c => {
-            if (!['perform', 'exert'].includes(c.method)) return [];
+            // team-method conditions exercise a perform entry through the original
+            // team/form/perform command chain (validated by validateSchoolTeamRecord);
+            // they are entry evidence and must not be silently skipped.
+            if (!['perform', 'exert', 'team'].includes(c.method)) return [];
             const entry = resolveEntryReference(c, frozenCatalog);
             const target = entry?.binding_valid !== false && entry && bySource.get(key(entry));
             if (!target) return [];

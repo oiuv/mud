@@ -6,6 +6,19 @@ void receive_message(string type, string text) {
     ::receive_message(type, text);
 }
 
+// Species flags for poison-craft targets (shedu-qiqiao/xiuluo-yinshagong): the
+// performs gate on target->is_snake()/is_worm() exactly like the game's snake/worm
+// inherits; the fixture reports the configured property so those original gates run.
+int is_snake() { return query("is_snake") ? 1 : 0; }
+int is_worm() { return query("is_worm") ? 1 : 0; }
+
+// Register this actor in the living-name hash under its current id. set_living_name
+// is an efun acting on current_object, so the runner must enter through this method.
+int register_living_name() {
+    set_living_name(query("id"));
+    return 1;
+}
+
 // Efun-only persistence in a fresh test object; never call live account save/restore.
 int observation_save_state() { return save_object("/data/buff_snapshot"); }
 int observation_restore_state() { return restore_object("/data/buff_snapshot"); }

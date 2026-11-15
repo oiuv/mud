@@ -1,0 +1,5 @@
+// Synthetic fixture staged at u/mudren/npc/butong: d/city/kedian.c:40 calls
+// "/u/mudren/npc/butong"->come_here() when entered; the real personal NPC is never
+// read. This stub only answers that call so the room stays enterable in the
+// isolated copy (rouyun-steps/zong move observation).
+int come_here() { return 1; }

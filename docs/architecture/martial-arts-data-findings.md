@@ -208,6 +208,7 @@
 - 隔离证据：`C:\Users\oiuv\AppData\Local\Temp\mud-martial-data-lOLua3/samples/school-wudang-core-dian-l200.0.json`，及400／800级对应条件。存活受伤USER从忙乱空值到空值，施术者到10；200级消耗800内力、100气血、50精神，受疗者有效气血+1000、有效精神+400，当前气血／精神不变。恢复成功与忙乱失效分别记录，详情见[太极拳与神功报告](../reviews/2026-10-09-school-wudang-core-results.md)。这不代替一阳指、昏迷唤醒或忙乱持续时间的实测。
 
 - 后续[特殊状态报告](../reviews/2026-10-09-school-wudang-special-results.md)另补18条成功疗伤：6条原昏迷后唤醒、12条清醒零／负当前值恢复，受疗者均未获得忙乱，施术者均为10。系列 `mud-martial-data-Fougbn` 的 `school-wudang-special-dian-l200-unconscious.0.json` 及三档对应记录保留准备／施展前后状态；一阳指和原忙乱持续时间仍未因此完成验证。
+- 2026-11-15 收尾轮补：第三处同类位置 [`yiyang-zhi/heal.c:90`](../../kungfu/skill/yiyang-zhi/heal.c#L90) 同调 `target->stary_busy(2)`；`E/perform-probe-formal-20261115-gapfill5` 的 `probe-exert-taiji-shengong-dian-17` 100/100 再证太极神功主疗伤生效（eff_qi_recovery=1450 吻合源码公式）而目标忙乱不变。覆盖账按主效果核验并注明该副作用缺陷；不修复。
 
 ## MA-008：NPC 武学映射指向不存在的技能
 
@@ -1634,3 +1635,15 @@ kungfu/skill/xuanyuan-arrow/baibu.c 的绝招门槛文案写「至少要有一�
 - 实际：贡献扣 200，许可从 0 变 1；倚天屠龙掌仍 120、震山掌从未学变为 1，基本掌法与武学修养各升一级。第二次询问不再奖励或扣贡献，但原 `ask` 精神消耗仍有。
 - 实证：`E/formal-43-wudang-grants-20261101-v1` 的 `teaching-43-wudang-shan-zheng-grant`、`teaching-43-wudang-shan-zheng-repeat` 各两条，四次首次传授全部复现；正式全系列 112/112 及只读重验通过，表示按原行为记录而非该奖励正确。样本 hash 和逐步状态索引见[本批结果](../reviews/2026-11-01-wudang-grant-results.md)。`E` 为 `C:/tools/msys64/home/oiuv/mud-evidence/martial-data`。
 - 影响：本批不能将这些记录解读为倚天屠龙掌获得了等级／熟练度奖励；许可取得及其他门槛数据仍可独立使用。不修改源码、玩家修为或旧样本，后续独立处理。
+
+## MA-144：三口神功碧云神吼调用未定义的 die_protect，对玩家目标永不生效
+
+- 状态：**源码确认并隔离复现，未修复**；本轮仅登记，不作为正常效果通过，不修改游戏。
+- 位置：[`roar.c:34`](../../kungfu/skill/sanku-shengong/roar.c#L34) 的范围循环中 `if (userp(ob[i]) && !ob[i]->die_protect(me)) continue;`。`die_protect` 在整库（mudcore/feature/inherit/std/adm/clone）无任何定义，仅此处被调用。对 userp 目标，call_other 到未定义函数返回 0，`!0` 为真，循环恒 `continue` 跳过该目标。
+- 原文件 SHA256：`251a6e6aae53febc2e1915cd752f08ad1bfe57a4418966b8c5c187f4d921aa8f`。
+- 对比：同结构的 [`surge-force/roar.c:36`](../../kungfu/skill/surge-force/roar.c#L36) 用 `query_condition("die_guard")` 判定，对无 die_guard 的正常目标可造成伤害；三口神功误用了不存在的 `die_protect`。
+- 最小复现：隔离普通玩家（userp）施放者，force 有效 600、sanku-shengong 300、neili 5000；目标为另一 userp，max_neili 1000、con 30、无 die_guard。执行 `exert roar`。施放者侧 `add("neili",-150)`、`receive_damage("qi",10)`、`start_busy(1)` 均发生（绝招确已运行），但目标 `receive_damage("jing", damage*2)` 永不执行。
+- 实证：`E/perform-probe-formal-20261114-gapfill4` 的 `probe-exert-sanku-shengong-roar-2`，100/100 observed，施放者 neili-150/qi-10/busy1 全部出现，目标 jing 伤害 0/100；契约重放按"无正常效果"正确拒绝。`E/perform-probe-formal-20261103-v4` 的 `probe-exert-sanku-shengong-roar-377` 同样 100/100 无目标伤害。`E` 为 `C:/tools/msys64/home/oiuv/mud-evidence/martial-data`。
+- 影响：碧云神吼对玩家目标永远无法造成伤害（仅对非 userp 的 NPC 可能生效，因 `userp(ob[i])` 为假时跳过该 continue）。覆盖账中该入口记为"游戏缺陷已复现"，不计正常效果通过；不据此调整数值或修复源码。
+
+（2026-11-15 收尾轮补录：shenzhaojing wu/ying 的正式复现原件归属 [MA-136](#ma-136shenzhaojing-valid_enable-与-perform-前置条件错配致两式死代码)，`E/perform-probe-formal-20261115-gapfill5` 的 `probe-perform-shenzhaojing-wu-36`/`-ying-37` 各 100/100 恒拒绝，wu.c/ying.c SHA256 `2fc3b94b585da1b2392d0e714853e528b534270ae0bcb4724c1cf0abee518d68`/`fbd5bdadb2f5a202a7286eca6c2395e3d39266eff7ea9e09ff3187cb74c6229f`。曾误立重复编号，已撤销并统一引 MA-136。）
