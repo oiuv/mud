@@ -1,0 +1,30 @@
+{
+ "byFp": {
+  "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce": {
+   "series": 884,
+   "conditions": 100393,
+   "planned": 693372,
+   "recorded": 551898,
+   "sample_files": 561920
+  },
+  "f569f029527848d650a8cb55ad5f0a7b513764952f6f05bc80902c0aed2c17c7": {
+   "series": 72,
+   "conditions": 11881,
+   "planned": 119725,
+   "recorded": 117343,
+   "sample_files": 117343
+  }
+ },
+ "cross": {
+  "major": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce",
+  "minor": "f569f029527848d650a8cb55ad5f0a7b513764952f6f05bc80902c0aed2c17c7",
+  "compared": 1451,
+  "same": 1448,
+  "diff": [
+   "canhe-zhi",
+   "shenghuo-ling/can",
+   "tanzhi-shentong"
+  ],
+  "onlyMinor": 0
+ }
+}

@@ -1,0 +1,6034 @@
+{
+ "corpora": {
+  "school-combat": {
+   "series": 801,
+   "conditions": 44646,
+   "planned": 452150,
+   "recorded": 413048,
+   "observed": 393239,
+   "refused": 19692,
+   "error": 117,
+   "not_applicable": 0,
+   "missing": 39102,
+   "sample_files": 413117
+  },
+  "teaching": {
+   "series": 92,
+   "conditions": 60624,
+   "planned": 123274,
+   "recorded": 107269,
+   "observed": 73279,
+   "refused": 33930,
+   "error": 60,
+   "not_applicable": 0,
+   "missing": 16005,
+   "sample_files": 115550
+  },
+  "abilities": {
+   "series": 10,
+   "conditions": 421,
+   "planned": 4514,
+   "recorded": 4367,
+   "observed": 4264,
+   "refused": 100,
+   "error": 3,
+   "not_applicable": 0,
+   "missing": 147,
+   "sample_files": 4367
+  },
+  "probe-perform-exert": {
+   "series": 41,
+   "conditions": 6459,
+   "planned": 231280,
+   "recorded": 142678,
+   "observed": 24421,
+   "refused": 117747,
+   "error": 510,
+   "not_applicable": 0,
+   "missing": 88602,
+   "sample_files": 144350
+  },
+  "school-scene": {
+   "series": 10,
+   "conditions": 82,
+   "planned": 1816,
+   "recorded": 1816,
+   "observed": 1764,
+   "refused": 52,
+   "error": 0,
+   "not_applicable": 0,
+   "missing": 0,
+   "sample_files": 1816
+  },
+  "school-team": {
+   "series": 2,
+   "conditions": 42,
+   "planned": 63,
+   "recorded": 63,
+   "observed": 42,
+   "refused": 21,
+   "error": 0,
+   "not_applicable": 0,
+   "missing": 0,
+   "sample_files": 63
+  }
+ },
+ "schools": {
+  "other": {
+   "series": 355,
+   "conditions": 14437,
+   "planned": 96558,
+   "recorded": 74582,
+   "observed": 69921,
+   "refused": 4584,
+   "error": 77
+  },
+  "public": {
+   "series": 44,
+   "conditions": 265,
+   "planned": 1314,
+   "recorded": 1190,
+   "observed": 1190,
+   "refused": 0,
+   "error": 0
+  },
+  "slice": {
+   "series": 6,
+   "conditions": 886,
+   "planned": 2752,
+   "recorded": 2619,
+   "observed": 2619,
+   "refused": 0,
+   "error": 0
+  },
+  "huashan": {
+   "series": 15,
+   "conditions": 678,
+   "planned": 7812,
+   "recorded": 7785,
+   "observed": 7581,
+   "refused": 180,
+   "error": 24
+  },
+  "composite": {
+   "series": 10,
+   "conditions": 37,
+   "planned": 466,
+   "recorded": 442,
+   "observed": 67,
+   "refused": 375,
+   "error": 0
+  },
+  "gumu": {
+   "series": 75,
+   "conditions": 9385,
+   "planned": 123903,
+   "recorded": 117761,
+   "observed": 113038,
+   "refused": 4723,
+   "error": 0
+  },
+  "emei": {
+   "series": 46,
+   "conditions": 6014,
+   "planned": 65659,
+   "recorded": 63419,
+   "observed": 61235,
+   "refused": 2184,
+   "error": 0
+  },
+  "npc": {
+   "series": 7,
+   "conditions": 252,
+   "planned": 3248,
+   "recorded": 3146,
+   "observed": 2978,
+   "refused": 168,
+   "error": 0
+  },
+  "wudang": {
+   "series": 4,
+   "conditions": 441,
+   "planned": 918,
+   "recorded": 918,
+   "observed": 618,
+   "refused": 300,
+   "error": 0
+  },
+  "mingjiao": {
+   "series": 128,
+   "conditions": 7646,
+   "planned": 99148,
+   "recorded": 92755,
+   "observed": 87409,
+   "refused": 5336,
+   "error": 10
+  },
+  "quanzhen": {
+   "series": 13,
+   "conditions": 1174,
+   "planned": 12439,
+   "recorded": 11917,
+   "observed": 11540,
+   "refused": 372,
+   "error": 5
+  },
+  "s1": {
+   "series": 32,
+   "conditions": 1372,
+   "planned": 15982,
+   "recorded": 15615,
+   "observed": 14991,
+   "refused": 624,
+   "error": 0
+  },
+  "slice1": {
+   "series": 15,
+   "conditions": 690,
+   "planned": 2785,
+   "recorded": 1832,
+   "observed": 1714,
+   "refused": 117,
+   "error": 1
+  },
+  "slice2": {
+   "series": 3,
+   "conditions": 153,
+   "planned": 1074,
+   "recorded": 1057,
+   "observed": 992,
+   "refused": 65,
+   "error": 0
+  },
+  "slice3": {
+   "series": 4,
+   "conditions": 196,
+   "planned": 1142,
+   "recorded": 1091,
+   "observed": 1019,
+   "refused": 72,
+   "error": 0
+  },
+  "slice4": {
+   "series": 2,
+   "conditions": 92,
+   "planned": 969,
+   "recorded": 969,
+   "observed": 924,
+   "refused": 45,
+   "error": 0
+  },
+  "slice5": {
+   "series": 2,
+   "conditions": 96,
+   "planned": 976,
+   "recorded": 976,
+   "observed": 928,
+   "refused": 48,
+   "error": 0
+  },
+  "slice6": {
+   "series": 2,
+   "conditions": 104,
+   "planned": 995,
+   "recorded": 995,
+   "observed": 944,
+   "refused": 51,
+   "error": 0
+  },
+  "slice7": {
+   "series": 2,
+   "conditions": 84,
+   "planned": 955,
+   "recorded": 955,
+   "observed": 916,
+   "refused": 39,
+   "error": 0
+  },
+  "slice8": {
+   "series": 2,
+   "conditions": 76,
+   "planned": 739,
+   "recorded": 739,
+   "observed": 700,
+   "refused": 39,
+   "error": 0
+  },
+  "taohua": {
+   "series": 26,
+   "conditions": 568,
+   "planned": 12316,
+   "recorded": 12285,
+   "observed": 11915,
+   "refused": 370,
+   "error": 0
+  }
+ },
+ "catalog": {
+  "skills": 1451,
+  "roles": {
+   "query_or_gate": 2138,
+   "other_function": 1662,
+   "combat_interface": 525,
+   "perform": 608,
+   "exert": 122
+  },
+  "source_fingerprint": "8ae4d9c9eb8ac77c0fd3dc7a08010d230e522a96a5bdf0bbb90e8db0ebe6bdce"
+ },
+ "weaponSkills": {
+  "other-usage": 777,
+  "no-valid_enable": 82,
+  "blade": 93,
+  "throwing": 59,
+  "staff": 54,
+  "sword": 234,
+  "club": 16,
+  "dagger": 16,
+  "whip": 52,
+  "hammer": 14,
+  "blade+sword": 24,
+  "staff+sword": 16,
+  "axe": 8,
+  "spear": 5
+ },
+ "scanned": 1450,
+ "unreadable": 1,
+ "seriesRows": [
+  {
+   "dir": "b17-debug1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "b17-debug2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "b17-debug3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "b17-debug4",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "b17-debug5",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "b17-fixprobe-shedu-da-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "b17-fixprobe-shedu-liandu-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "b17-fixprobe-xing-busy-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-43-access-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "formal-43-access-qingle-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-43-async-recruit-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 16
+  },
+  {
+   "dir": "formal-43-book-gifts-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "formal-43-books-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 21
+  },
+  {
+   "dir": "formal-43-duplicate-case-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-43-hong-food-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 2
+  },
+  {
+   "dir": "formal-43-huashan-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 82
+  },
+  {
+   "dir": "formal-43-jueqing-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 127
+  },
+  {
+   "dir": "formal-43-kuihua-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-43-ordination-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 10
+  },
+  {
+   "dir": "formal-43-ordination-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 10
+  },
+  {
+   "dir": "formal-43-ouyang-gift-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-43-permissions-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 14
+  },
+  {
+   "dir": "formal-43-public-exert-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "formal-43-recognize-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 22
+  },
+  {
+   "dir": "formal-43-recruit-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 139
+  },
+  {
+   "dir": "formal-43-recruit-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 139
+  },
+  {
+   "dir": "formal-43-special-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 34
+  },
+  {
+   "dir": "formal-43-teaching-matrix-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 12211
+  },
+  {
+   "dir": "formal-43-teaching-matrix-v2-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 12211
+  },
+  {
+   "dir": "formal-43-wudang-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 56
+  },
+  {
+   "dir": "formal-43-zhou-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "formal-s1-learning-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "formal-s1-learning-v2-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "formal-s1-learning-v3-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "formal-s1-learning-v4-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "formal-s1-relation-honghua-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 8
+  },
+  {
+   "dir": "formal-s1-relation-meizhuang-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 8
+  },
+  {
+   "dir": "formal-s1-relation-murong-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "formal-s6-recast-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "formal-s6-school-defense-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "formal-s6-stacking-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "formal-zuixian-bu-interfaces-20261031",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 7
+  },
+  {
+   "dir": "g3-formal-small-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "gal-f1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 25
+  },
+  {
+   "dir": "gal-s1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 25
+  },
+  {
+   "dir": "gbout-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "gbout-f2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "gbout-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "gfi-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "gfi-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "gitem-f1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 27
+  },
+  {
+   "dir": "gitem-s1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 27
+  },
+  {
+   "dir": "gitem-s2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 27
+  },
+  {
+   "dir": "gnbout-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "gnbout-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "gnbout-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "gnpc-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnpc-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnpc-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnpc-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnpc-s4",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnphase-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnphase-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnphase-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnphase-s4",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnt-toolsource-v1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnt-toolsource-v2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnt-toolsource-v3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnt-toolsource-v4",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gnt-toolsource-v5",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "gnt-toolsource-v6",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 27
+  },
+  {
+   "dir": "gnt-toolsource-v7",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 27
+  },
+  {
+   "dir": "gp-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "gp-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "gp-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "gqz-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 120
+  },
+  {
+   "dir": "gqz-f2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 120
+  },
+  {
+   "dir": "gqz-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 120
+  },
+  {
+   "dir": "gqz-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 120
+  },
+  {
+   "dir": "gqz-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 120
+  },
+  {
+   "dir": "gr-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 138
+  },
+  {
+   "dir": "gr-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 138
+  },
+  {
+   "dir": "grecruit-f1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 57
+  },
+  {
+   "dir": "grecruit-s1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 57
+  },
+  {
+   "dir": "gs-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 477
+  },
+  {
+   "dir": "gs-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 477
+  },
+  {
+   "dir": "gsp-f1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 106
+  },
+  {
+   "dir": "gsp-s1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 106
+  },
+  {
+   "dir": "gt-f1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 328
+  },
+  {
+   "dir": "gt-s1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 328
+  },
+  {
+   "dir": "gt-s2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 328
+  },
+  {
+   "dir": "gt-s3",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 328
+  },
+  {
+   "dir": "gtime-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "gtime-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "gtime-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "gu-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 349
+  },
+  {
+   "dir": "gu-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 349
+  },
+  {
+   "dir": "gumu-public-force-smoke-20261011",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "gw-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 474
+  },
+  {
+   "dir": "gw-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 474
+  },
+  {
+   "dir": "gw-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 474
+  },
+  {
+   "dir": "gz-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "gz-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "mud-martial-data-0dr80P",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 183
+  },
+  {
+   "dir": "mud-martial-data-0u3AHU",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-1PPp3g",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 36
+  },
+  {
+   "dir": "mud-martial-data-379cLh",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 178
+  },
+  {
+   "dir": "mud-martial-data-4F9cQd",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "mud-martial-data-507EpM",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 174
+  },
+  {
+   "dir": "mud-martial-data-5j7Jh6",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 36
+  },
+  {
+   "dir": "mud-martial-data-5ywpVp",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 101
+  },
+  {
+   "dir": "mud-martial-data-7fG7UO",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-7qqezJ",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 38
+  },
+  {
+   "dir": "mud-martial-data-8mCjPr",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-9Vx3OA",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 341
+  },
+  {
+   "dir": "mud-martial-data-a24tEc",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 153
+  },
+  {
+   "dir": "mud-martial-data-amZEId",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 167
+  },
+  {
+   "dir": "mud-martial-data-Aqdtst",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 263
+  },
+  {
+   "dir": "mud-martial-data-bepfmb",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-bQerCM",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 362
+  },
+  {
+   "dir": "mud-martial-data-cQVgIq",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "mud-martial-data-cUCFk6",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "mud-martial-data-eHuynQ",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 165
+  },
+  {
+   "dir": "mud-martial-data-eXWHrF",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 93
+  },
+  {
+   "dir": "mud-martial-data-fKX2Q0",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 71
+  },
+  {
+   "dir": "mud-martial-data-fuu69I",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "mud-martial-data-FvcS9B",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "mud-martial-data-GGEYCu",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 153
+  },
+  {
+   "dir": "mud-martial-data-gGytYF",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 153
+  },
+  {
+   "dir": "mud-martial-data-GsmdV6",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-gUDvTe",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 70
+  },
+  {
+   "dir": "mud-martial-data-gw8Xuv",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 71
+  },
+  {
+   "dir": "mud-martial-data-h2NQll",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 477
+  },
+  {
+   "dir": "mud-martial-data-h9ciU3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 71
+  },
+  {
+   "dir": "mud-martial-data-HcUKDo",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 101
+  },
+  {
+   "dir": "mud-martial-data-hDsq0N",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "mud-martial-data-HLopRA",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 66
+  },
+  {
+   "dir": "mud-martial-data-HQNAj1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 82
+  },
+  {
+   "dir": "mud-martial-data-IblnYt",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1497
+  },
+  {
+   "dir": "mud-martial-data-iCMhz6",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 114
+  },
+  {
+   "dir": "mud-martial-data-ihMEQH",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 38
+  },
+  {
+   "dir": "mud-martial-data-J57009",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 153
+  },
+  {
+   "dir": "mud-martial-data-jaoixr",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 82
+  },
+  {
+   "dir": "mud-martial-data-JTMeNn",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 182
+  },
+  {
+   "dir": "mud-martial-data-Jud1Na",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-K2xwAi",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 123
+  },
+  {
+   "dir": "mud-martial-data-KAYNPe",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 98
+  },
+  {
+   "dir": "mud-martial-data-KdltF6",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1497
+  },
+  {
+   "dir": "mud-martial-data-khYQFz",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 174
+  },
+  {
+   "dir": "mud-martial-data-KP0Bwi",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 81
+  },
+  {
+   "dir": "mud-martial-data-L33fNH",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "mud-martial-data-lAZ6iG",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 263
+  },
+  {
+   "dir": "mud-martial-data-mhSA2d",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "mud-martial-data-Miy70o",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 75
+  },
+  {
+   "dir": "mud-martial-data-mP2Nbk",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 183
+  },
+  {
+   "dir": "mud-martial-data-Mq0WTp",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 198
+  },
+  {
+   "dir": "mud-martial-data-mXXBmU",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 77
+  },
+  {
+   "dir": "mud-martial-data-OiU7rf",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 89
+  },
+  {
+   "dir": "mud-martial-data-pE4zlF",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 477
+  },
+  {
+   "dir": "mud-martial-data-Q08h6m",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 167
+  },
+  {
+   "dir": "mud-martial-data-qD6Dsm",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 153
+  },
+  {
+   "dir": "mud-martial-data-QN8jVr",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 263
+  },
+  {
+   "dir": "mud-martial-data-QR7TjV",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 362
+  },
+  {
+   "dir": "mud-martial-data-qx1FE8",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 89
+  },
+  {
+   "dir": "mud-martial-data-RBCn5P",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 75
+  },
+  {
+   "dir": "mud-martial-data-rc84qW",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 318
+  },
+  {
+   "dir": "mud-martial-data-rD2L3B",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 28
+  },
+  {
+   "dir": "mud-martial-data-RQ9yqn",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 70
+  },
+  {
+   "dir": "mud-martial-data-rWjZj9",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 105
+  },
+  {
+   "dir": "mud-martial-data-T7N081",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "mud-martial-data-TN2PnH",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 93
+  },
+  {
+   "dir": "mud-martial-data-TNvIhK",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 66
+  },
+  {
+   "dir": "mud-martial-data-uQJybD",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 341
+  },
+  {
+   "dir": "mud-martial-data-uSSPgM",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 82
+  },
+  {
+   "dir": "mud-martial-data-UZtfte",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "mud-martial-data-VC9qtL",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 82
+  },
+  {
+   "dir": "mud-martial-data-VEpVw9",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 399
+  },
+  {
+   "dir": "mud-martial-data-vjQg1s",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 399
+  },
+  {
+   "dir": "mud-martial-data-VnoJlE",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 318
+  },
+  {
+   "dir": "mud-martial-data-VT5Azf",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 105
+  },
+  {
+   "dir": "mud-martial-data-WedvdV",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 165
+  },
+  {
+   "dir": "mud-martial-data-wlgmIq",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 123
+  },
+  {
+   "dir": "mud-martial-data-x3Zs30",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 166
+  },
+  {
+   "dir": "mud-martial-data-y5hdXa",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "mud-martial-data-y8YyBt",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 166
+  },
+  {
+   "dir": "mud-martial-data-Z4b3P4",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 178
+  },
+  {
+   "dir": "mud-martial-data-zkQ8E5",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "perform-probe-formal-20261101-v12",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-formal-20261101-v13",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-formal-20261101-v4",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-formal-20261101-v9",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-formal-20261102-v1",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261102-v2",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261103-v1",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261103-v2",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261103-v3",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261103-v4",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-formal-20261103-v5",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-formal-20261104-v6",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-formal-20261109-gapfill",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 8
+  },
+  {
+   "dir": "perform-probe-formal-20261109-gapfill2",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 2
+  },
+  {
+   "dir": "perform-probe-formal-20261109-gapfill3",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-formal-20261114-chousui",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-formal-20261114-dispel",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-formal-20261114-gapfill4",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 5
+  },
+  {
+   "dir": "perform-probe-formal-20261115-gapfill5",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 38
+  },
+  {
+   "dir": "perform-probe-formal-20261115-gapfill6",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 2
+  },
+  {
+   "dir": "perform-probe-formal-20261115-gapfill7",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v1",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v10",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v11",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v12",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v13",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v14",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v15",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v2",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v3",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v4",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v5",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v6",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v7",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v8",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261101-v9",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 101
+  },
+  {
+   "dir": "perform-probe-smoke-20261102-v1",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-smoke-20261102-v2",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 634
+  },
+  {
+   "dir": "perform-probe-smoke-20261115-gapfill5",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 38
+  },
+  {
+   "dir": "perform-probe-smoke-20261115-gapfill6",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 2
+  },
+  {
+   "dir": "perform-probe-smoke-20261115-gapfill7",
+   "fam": "probe-perform-exert",
+   "coll": "abilities",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-bahuang-gong-powerup-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-bahuang-gong-shield-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-bluesea-force-powerup-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-hamagong-hui-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-hamagong-reserve-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-hamagong-tan-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-hamagong-tui-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-huagong-dafa-hua-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-huntian-baojian-sword-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-jiuyang-shengong-powerup-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-jiuyang-shengong-roar-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-jiuyin-shengong-roar-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-kuihua-mogong-powerup-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-kuihua-mogong-roar-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-kuihua-mogong-shield-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-lingyuan-xinfa-break-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-43-public-exert-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "repair-43-xixing-dafa-suck-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-b22-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "repair-51-b22-v2-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "repair-51-b29-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 146
+  },
+  {
+   "dir": "repair-51-b29-xuanyuan-arrow-baibu-gate-level-100-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-b29-xuanyuan-arrow-baibu-gate-level-99-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-baibu-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-tuwu-gate100-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-tuwu-gate100-v2-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-51-tuwu-gate100-v3-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-hui-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-hui-v2-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-hui-v3-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-hui-v4-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-hui-v5-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v2-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v3-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v4-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v5-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v6-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v7-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-hamagong-tan-v8-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-jiuyang-shield-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-longxiang-gong-powerup-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-52-longxiang-gong-shield-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-b22-jue-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "repair-b22-jue-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "repair-b29-baibu-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "repair-b29-baibu-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "repair-b29-tuwu-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "repair-b29-tuwu-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "repair-b30-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "repair-b30-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "repair-g3-baihua-formal-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "repair-g3-baihua-native-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-g3-native-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "repair-g3-native-v2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "repair-g5-taiji-jian-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "repair-g5-taiji-jian-smoke-20261028",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "repair-g7-fanyao-prepare-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 28
+  },
+  {
+   "dir": "repair-npc-canhe-native-v2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-npc-canhe-native-v3-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-public-bahuang-native-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "repair-quanzhen-boundary-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "repair-quanzhen-boundary-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "repair-quanzhen-boundary-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "repair-quanzhen-boundary-smoke-v3-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "repair-quanzhen-defense-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 83
+  },
+  {
+   "dir": "repair-quanzhen-defense-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 83
+  },
+  {
+   "dir": "repair-quanzhen-practice-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 139
+  },
+  {
+   "dir": "repair-quanzhen-practice-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 139
+  },
+  {
+   "dir": "repair-s1-duan-force-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "repair-s1-duan-force-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "repair-s1-duan-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "repair-s1-duan-member-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "repair-s1-duan-member-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "repair-s1-duan-perform-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-duan-perform-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-duan-perform-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-duan-perform-smoke-v3-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-dusha-life-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "repair-s1-dusha-life-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "repair-s1-dusha-life-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "repair-s1-dusha-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "repair-s1-dusha-member-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "repair-s1-he-test-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-he-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-he-v3-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-he-v4-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-he-v5-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-miao-study-formal-20261029",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 30
+  },
+  {
+   "dir": "repair-s1-miao-study-smoke-v1-20261029",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 30
+  },
+  {
+   "dir": "repair-s1-miao-v4-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-mizong-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 141
+  },
+  {
+   "dir": "repair-s1-mizong-member-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 141
+  },
+  {
+   "dir": "repair-s1-murong-test-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-murong-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-murong-v3-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-murong-v4-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-panlong-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "repair-s1-panlong-member-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "repair-s1-panlong-member-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 29
+  },
+  {
+   "dir": "repair-s1-panlong-tan-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "repair-s1-panlong-tan-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "repair-s1-piaoxu-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "repair-s1-piaoxu-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "repair-s1-piaoxu-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "repair-s1-qianye-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-qianye-member-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "repair-s1-sanyin-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "repair-s1-sanyin-member-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "repair-s1-single-v14-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s1-yunlong-member-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 73
+  },
+  {
+   "dir": "repair-s1-yunlong-member-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 73
+  },
+  {
+   "dir": "repair-s1-yunlong-member-smoke-v2-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 73
+  },
+  {
+   "dir": "repair-s4-zhou-npc-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s4-zhou-npc-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "repair-s6-huashan-duration-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "repair-s6-huashan-duration-smoke-v1-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "repair-wudang-learning-formal-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 409
+  },
+  {
+   "dir": "repair-wudang-learning-smoke-20261029",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 28
+  },
+  {
+   "dir": "review-b1-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke2-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke3-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke4-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke5-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke6-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b1-smoke7-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 100
+  },
+  {
+   "dir": "review-b10-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 72
+  },
+  {
+   "dir": "review-b10-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 72
+  },
+  {
+   "dir": "review-b11-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 68
+  },
+  {
+   "dir": "review-b11-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 68
+  },
+  {
+   "dir": "review-b12-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 66
+  },
+  {
+   "dir": "review-b12-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 66
+  },
+  {
+   "dir": "review-b13-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b13-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b13-smoke2-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b13-smoke3-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b14-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke2-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke3-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke4-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke5-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke6-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke7-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke8-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b14-smoke9-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 115
+  },
+  {
+   "dir": "review-b15-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b15-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b16-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 88
+  },
+  {
+   "dir": "review-b16-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 88
+  },
+  {
+   "dir": "review-b17-batch-1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-10-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "review-b17-batch-11-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-12-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-13-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-14-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-15-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 8
+  },
+  {
+   "dir": "review-b17-batch-16-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-17-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 8
+  },
+  {
+   "dir": "review-b17-batch-18-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-b17-batch-2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-b17-batch-3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b17-batch-4-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b17-batch-5-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 11
+  },
+  {
+   "dir": "review-b17-batch-6-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-7-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-batch-8-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 13
+  },
+  {
+   "dir": "review-b17-batch-9-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b17-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 109
+  },
+  {
+   "dir": "review-b17-f2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b17-f3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b17-f4-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b17-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 109
+  },
+  {
+   "dir": "review-b17-smoke2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b18-c1-b18-shedao-qigong-chang1-already-active-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-c1-b18-shedao-qigong-chang1-baseline-l300-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-c1-b18-shedao-qigong-chang1-gate-level-59-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-c1-b18-shedao-qigong-chang1-gate-level-60-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-dbg-chang2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-dbg-chang3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke10-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke11-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke12-feng-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b18-smoke13-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke14-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke15-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke15b-b18-huagu-mianzhang-hua-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b18-smoke15b-b18-shedao-qigong-chang1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b18-smoke15b-b18-shedao-qigong-chang2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-smoke15b-b18-shedao-qigong-chang3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-smoke15b-b18-shenlong-bashi-xian-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b18-smoke2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke4-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke5-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke6-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke7-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke8-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-smoke9-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 128
+  },
+  {
+   "dir": "review-b18-tail-b18-huagu-mianzhang-hua-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b18-tail-b18-shedao-qigong-chang1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b18-tail-b18-shedao-qigong-chang2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-tail-b18-shedao-qigong-chang3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-tail2-b18-shedao-qigong-chang2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-tail2-b18-shedao-qigong-chang3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b18-tail3-chang2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b19-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b19-f2-jinwu-chi-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-jinwu-chi2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-nd-lei-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-nd-lei2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-nd-po-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b19-f2-nd-tianhua-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-b19-f2-nd-tianhua2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-b19-f2-nd-wanli-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-nd-wanli2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-nd-yuce-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-taixuan-jing-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-taixuan-po-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b19-f2-taixuan-xuan-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b19-f2-taixuan-xuan2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-b19-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 107
+  },
+  {
+   "dir": "review-b19-smoke2-jing-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b2-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-b2-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-b2-smoke2-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-b2-smoke3-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-b20-debug1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b20-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 90
+  },
+  {
+   "dir": "review-b20-f2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 90
+  },
+  {
+   "dir": "review-b20-f3-lingbo-fix1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b20-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 90
+  },
+  {
+   "dir": "review-b21-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1b-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1c-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1d-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1e-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b21-smoke1f-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 92
+  },
+  {
+   "dir": "review-b22-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke4-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke5-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke6-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b22-smoke7-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b23-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 105
+  },
+  {
+   "dir": "review-b23-f2-sanfen-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b23-f2-yinsuo-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b23-f2-yujian-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b23-f2-zhougong-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 5
+  },
+  {
+   "dir": "review-b23-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 105
+  },
+  {
+   "dir": "review-b24-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-f2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke10-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke11-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke2-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke3-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke4-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke5-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke6-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke7-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke8-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b24-smoke9-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "review-b25-f1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke-heal-test",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b25-smoke-lei-test",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b25-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke1-20261019b",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke1-20261019c",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke1-20261019d",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke1-20261019e",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b25-smoke1-20261019f",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "review-b26-batch2-pangen-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b26-batch2-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b26-batch2-smoke2-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 27
+  },
+  {
+   "dir": "review-b26-batch2-tianluo-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-b26-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-b26-smoke1-20261019",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-b27-debug-sougu",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-debug-str",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b27-smoke-debug",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-smoke-debug2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-smoke-debug3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-smoke-debug4",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b27-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b27-smoke10-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b27-smoke11-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b27-smoke12-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b27-smoke2-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke3-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke4-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke5-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke6-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke7-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke8-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 59
+  },
+  {
+   "dir": "review-b27-smoke9-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "review-b28-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 55
+  },
+  {
+   "dir": "review-b28-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 55
+  },
+  {
+   "dir": "review-b28-test1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test2-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test3-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test4-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test5-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test6-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b28-test7-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-b29-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 144
+  },
+  {
+   "dir": "review-b29-f2-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 140
+  },
+  {
+   "dir": "review-b29-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 144
+  },
+  {
+   "dir": "review-b3-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 55
+  },
+  {
+   "dir": "review-b3-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 55
+  },
+  {
+   "dir": "review-b4-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1b-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1c-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1d-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1e-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1f-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1g-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1h-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1i-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1j-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1k-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b4-smoke1m-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-b5-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 76
+  },
+  {
+   "dir": "review-b5-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 76
+  },
+  {
+   "dir": "review-b6-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 91
+  },
+  {
+   "dir": "review-b6-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 91
+  },
+  {
+   "dir": "review-b7-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 106
+  },
+  {
+   "dir": "review-b7-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 106
+  },
+  {
+   "dir": "review-b8-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 61
+  },
+  {
+   "dir": "review-b8-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 61
+  },
+  {
+   "dir": "review-b9-f1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 73
+  },
+  {
+   "dir": "review-b9-smoke1-20261018",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 73
+  },
+  {
+   "dir": "review-huashan-combination-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 198
+  },
+  {
+   "dir": "review-huashan-combination-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 198
+  },
+  {
+   "dir": "review-inherited-f1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 60
+  },
+  {
+   "dir": "review-inherited-s1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 60
+  },
+  {
+   "dir": "review-mingjiao-apprentice-learning-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-mingjiao-apprentice-learning-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-mingjiao-apprentice-learning-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-mingjiao-apprentice-learning-s4-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "review-mingjiao-book-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-book-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-book-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-book-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-book-s4-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-combination-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 28
+  },
+  {
+   "dir": "review-mingjiao-combination-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 28
+  },
+  {
+   "dir": "review-mingjiao-core-f1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 15
+  },
+  {
+   "dir": "review-mingjiao-core-s1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 15
+  },
+  {
+   "dir": "review-mingjiao-core-s2-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 15
+  },
+  {
+   "dir": "review-mingjiao-force-capacity-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 7
+  },
+  {
+   "dir": "review-mingjiao-force-capacity-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 7
+  },
+  {
+   "dir": "review-mingjiao-force-dispel-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "review-mingjiao-force-dispel-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "review-mingjiao-force-exercise-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-force-exercise-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 26
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-powerup-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-powerup-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-powerup-s2-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-shield-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-shield-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa-s2-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa200-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa200-s3-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa400-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa400-s3-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa800-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-expiry-xinfa800-s3-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-force-healing-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-mingjiao-force-healing-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-mingjiao-force-inherited-hit-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-mingjiao-force-inherited-hit-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 6
+  },
+  {
+   "dir": "review-mingjiao-force-recovery-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-force-recovery-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-force-repeat-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-mingjiao-force-repeat-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "review-mingjiao-force-research-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 11
+  },
+  {
+   "dir": "review-mingjiao-force-research-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 11
+  },
+  {
+   "dir": "review-mingjiao-force-research-s2-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 11
+  },
+  {
+   "dir": "review-mingjiao-gift-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "review-mingjiao-gift-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "review-mingjiao-gift-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-capacity-f1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 23
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-capacity-s1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 23
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-direct-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-direct-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-direct-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-direct-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 54
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-exert-high-lifecycle-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-exert-high-lifecycle-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-exert-immediate-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 52
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-exert-immediate-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 52
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 67
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-fusion-f1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 22
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-fusion-s1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 22
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-fusion-s2-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 22
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-learning-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 37
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-learning-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 37
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-learning-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 37
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-learning-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 37
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-learning-s4-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 37
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-remaining-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-remaining-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 53
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-research-f1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-research-s1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 67
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 67
+  },
+  {
+   "dir": "review-mingjiao-jiuyang-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 67
+  },
+  {
+   "dir": "review-mingjiao-ling-learning-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-ling-learning-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-ling-perform-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-ling-perform-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-movement-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 86
+  },
+  {
+   "dir": "review-mingjiao-movement-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 86
+  },
+  {
+   "dir": "review-mingjiao-movement-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 86
+  },
+  {
+   "dir": "review-mingjiao-movement-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 86
+  },
+  {
+   "dir": "review-mingjiao-npc-bout-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-npc-bout-s1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "review-mingjiao-public-force-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 122
+  },
+  {
+   "dir": "review-mingjiao-public-force-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 122
+  },
+  {
+   "dir": "review-mingjiao-qishang-cold400-f1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-qishang-cold400-s1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-qishang-cold800-f1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-qishang-cold800-s1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-qishang-main-f1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "review-mingjiao-qishang-main-s1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 35
+  },
+  {
+   "dir": "review-mingjiao-qkd-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "review-mingjiao-qkd-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "review-mingjiao-qkd-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 39
+  },
+  {
+   "dir": "review-mingjiao-recruit-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 85
+  },
+  {
+   "dir": "review-mingjiao-recruit-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 85
+  },
+  {
+   "dir": "review-mingjiao-remaining-base-f1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 338
+  },
+  {
+   "dir": "review-mingjiao-remaining-base-f2-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 338
+  },
+  {
+   "dir": "review-mingjiao-remaining-base-s1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 338
+  },
+  {
+   "dir": "review-mingjiao-remaining-base-s2-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 338
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-f1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-f2-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-s1-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-s2-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-s3-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-s4-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-remaining-perform-s5-20261015",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 328
+  },
+  {
+   "dir": "review-mingjiao-route-cold-0-mishi-9-f1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-cold-0-mishi-9-s1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-cold-9-mishi-0-f1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-cold-9-mishi-0-s1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-cold-mishi-9-0-f1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-cold-mishi-9-0-s1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-route-main-f1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 8
+  },
+  {
+   "dir": "review-mingjiao-route-main-s1-20261014",
+   "fam": "school-scene",
+   "coll": "school-scene",
+   "conditions": 8
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-cold400-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-cold400-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-cold800-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-cold800-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-s4-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shenghuo-main-s5-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 40
+  },
+  {
+   "dir": "review-mingjiao-shengong-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 51
+  },
+  {
+   "dir": "review-mingjiao-shengong-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 51
+  },
+  {
+   "dir": "review-mingjiao-special-f1-20261014",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 179
+  },
+  {
+   "dir": "review-mingjiao-special-s1-20261014",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 179
+  },
+  {
+   "dir": "review-mingjiao-teachers-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 363
+  },
+  {
+   "dir": "review-mingjiao-teachers-s1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 363
+  },
+  {
+   "dir": "review-mingjiao-teachers-s2-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 363
+  },
+  {
+   "dir": "review-mingjiao-xinfa-f1-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-mingjiao-xinfa-s1-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-mingjiao-xinfa-s2-20261013",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-mingjiao-xinfa-s3-20261014",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "review-public-music-f1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 92
+  },
+  {
+   "dir": "review-public-music-s1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 92
+  },
+  {
+   "dir": "review-public-music-s2-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 92
+  },
+  {
+   "dir": "review-quanzhen-combination-f1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 142
+  },
+  {
+   "dir": "review-quanzhen-combination-smoke1-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 142
+  },
+  {
+   "dir": "review-quanzhen-combination-smoke2-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 142
+  },
+  {
+   "dir": "review-quanzhen-combination-smoke3-20261020",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 142
+  },
+  {
+   "dir": "review-school-slice1-f1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-f2-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke10-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke11-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke12-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke13-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke2-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke3-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke4-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke5-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke6-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke7-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke8-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice1-smoke9-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice2-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 51
+  },
+  {
+   "dir": "review-school-slice2-smoke1-20261016",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 51
+  },
+  {
+   "dir": "review-school-slice2-smoke2-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 51
+  },
+  {
+   "dir": "review-school-slice3-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "review-school-slice3-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "review-school-slice3-smoke2-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "review-school-slice3-smoke3-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "review-school-slice4-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice4-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 46
+  },
+  {
+   "dir": "review-school-slice5-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "review-school-slice5-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 48
+  },
+  {
+   "dir": "review-school-slice6-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 52
+  },
+  {
+   "dir": "review-school-slice6-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 52
+  },
+  {
+   "dir": "review-school-slice7-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 42
+  },
+  {
+   "dir": "review-school-slice7-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 42
+  },
+  {
+   "dir": "review-school-slice8-f1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "review-school-slice8-smoke1-20261017",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "review-slice-combination-repair-smoke-20261021",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 282
+  },
+  {
+   "dir": "review-slice-combination-repair-smoke2-20261021",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 282
+  },
+  {
+   "dir": "review-wushe-edge-f1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 2
+  },
+  {
+   "dir": "review-wushe-edge-s1-20261013",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 2
+  },
+  {
+   "dir": "school-team-formal-20261115-fanliangyi",
+   "fam": "school-team",
+   "coll": "school-team",
+   "conditions": 21
+  },
+  {
+   "dir": "school-team-smoke-20261115-fanliangyi",
+   "fam": "school-team",
+   "coll": "school-team",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-43-access-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-43-access-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-43-access-feng-source-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-access-qingle-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-async-recruit-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 16
+  },
+  {
+   "dir": "smoke-43-b29-full-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 146
+  },
+  {
+   "dir": "smoke-43-book-gifts-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-43-book-gifts-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-43-books-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-43-books-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-43-context-diagnostics-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 14
+  },
+  {
+   "dir": "smoke-43-context-huoshan-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-context-kuihua-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 2
+  },
+  {
+   "dir": "smoke-43-duplicate-case-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-hong-food-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 2
+  },
+  {
+   "dir": "smoke-43-huashan-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 82
+  },
+  {
+   "dir": "smoke-43-jueqing-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 127
+  },
+  {
+   "dir": "smoke-43-kuihua-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-kuihua-scoped-final-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-legacy-final-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-ordination-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 10
+  },
+  {
+   "dir": "smoke-43-ordination-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 10
+  },
+  {
+   "dir": "smoke-43-ouyang-gift-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-ouyang-gift-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-permissions-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 14
+  },
+  {
+   "dir": "smoke-43-public-exert-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "smoke-43-recognize-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 22
+  },
+  {
+   "dir": "smoke-43-recognize-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 22
+  },
+  {
+   "dir": "smoke-43-recruit-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 139
+  },
+  {
+   "dir": "smoke-43-recruit-20261101-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 139
+  },
+  {
+   "dir": "smoke-43-recruit-20261101-v3",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 139
+  },
+  {
+   "dir": "smoke-43-recruit-henshan-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 5
+  },
+  {
+   "dir": "smoke-43-special-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 34
+  },
+  {
+   "dir": "smoke-43-teaching-20261026",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 12211
+  },
+  {
+   "dir": "smoke-43-teaching-microcheck-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-teaching-microcheck2-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-43-teaching-v2-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 12211
+  },
+  {
+   "dir": "smoke-43-teaching-v3-20261031",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 12211
+  },
+  {
+   "dir": "smoke-43-wudang-grants-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 56
+  },
+  {
+   "dir": "smoke-43-zhou-20261101-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-b22-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "smoke-b23-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 105
+  },
+  {
+   "dir": "smoke-b24-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "smoke-b28-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 55
+  },
+  {
+   "dir": "smoke-b29-test-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 146
+  },
+  {
+   "dir": "smoke-b29-verify-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 146
+  },
+  {
+   "dir": "smoke-b29-verify2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 146
+  },
+  {
+   "dir": "smoke-b30-series-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "smoke-b30-verify-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "smoke-b30-verify2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 50
+  },
+  {
+   "dir": "smoke-baibu-debug-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-baibu-handfix-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-baibu-retry-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-break-debug-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-break-investigate-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-break-retry-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-break-targetfix-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-break-targetfix2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-emei-s4-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 36
+  },
+  {
+   "dir": "smoke-g3-heartbeat-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-g3-heartbeat2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-g3-verify-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-g3-verify2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-g3-verify3-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-g6-final-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-g6-series-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-g6-verify-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 3
+  },
+  {
+   "dir": "smoke-g7-fanyao-compare-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "smoke-g7-mingjiao-npc-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 9
+  },
+  {
+   "dir": "smoke-gumu-combination-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 198
+  },
+  {
+   "dir": "smoke-huashan-s6-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 198
+  },
+  {
+   "dir": "smoke-mingjiao-jiali210-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 18
+  },
+  {
+   "dir": "smoke-public-exert-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "smoke-public-exert2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 45
+  },
+  {
+   "dir": "smoke-quanzhen-s5-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 142
+  },
+  {
+   "dir": "smoke-s1-duan-test-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 38
+  },
+  {
+   "dir": "smoke-s1-learning-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v10-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v11-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v12-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v13-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v14-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v16-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v17-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v18-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v19-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v2-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v20-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v21-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v22-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v23-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v24-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v25-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v26-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v27-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v28-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v29-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v3-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v30-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v31-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v32-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v33-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v34-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v35-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v36-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v37-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v38-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v39-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v4-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v40-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v41-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v42-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v43-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v44-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v45-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v46-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v47-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v48-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v49-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v5-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v50-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v51-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v52-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v53-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v54-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v55-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v56-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v57-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v58-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v59-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v6-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v60-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v61-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v62-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v63-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v64-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v65-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v66-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v67-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v68-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v69-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v7-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v70-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v71-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v72-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v73-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v74-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v75-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v76-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v77-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "smoke-s1-learning-v8-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-learning-v9-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 21
+  },
+  {
+   "dir": "smoke-s1-single-20261030",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-s1-slice-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 282
+  },
+  {
+   "dir": "smoke-s6-recast-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "smoke-s6-recast-v2-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "smoke-s6-recast-v3-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 2
+  },
+  {
+   "dir": "smoke-s6-school-defense-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "smoke-s6-school-defense-v2-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "smoke-s6-school-defense-v3-20261031",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "smoke-s6-stacking-20261027",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 4
+  },
+  {
+   "dir": "smoke-s7-b25-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 32
+  },
+  {
+   "dir": "smoke-s7-b26-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 27
+  },
+  {
+   "dir": "smoke-s7-b27-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 58
+  },
+  {
+   "dir": "smoke-tuwu-debug-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-tuwu-debug2-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-tuwu-debug3-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-tuwu-debug4-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-tuwu-debug5-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-tuwu-debug6-20261026",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "smoke-zuixian-bu-interfaces-20261031",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 7
+  },
+  {
+   "dir": "smoke-zuixian-bu-interfaces-v2-20261031",
+   "fam": "abilities",
+   "coll": "abilities",
+   "conditions": 7
+  },
+  {
+   "dir": "tatk-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "tatk-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 25
+  },
+  {
+   "dir": "tbihai-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 23
+  },
+  {
+   "dir": "tbihai-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 23
+  },
+  {
+   "dir": "tcomb-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "tcomb-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 12
+  },
+  {
+   "dir": "tcombo-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "tcombo-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "tctl-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 27
+  },
+  {
+   "dir": "tctl-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 27
+  },
+  {
+   "dir": "tdd-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 41
+  },
+  {
+   "dir": "tdd-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 41
+  },
+  {
+   "dir": "tding-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 22
+  },
+  {
+   "dir": "tding-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 1
+  },
+  {
+   "dir": "tding-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 22
+  },
+  {
+   "dir": "teaching-probe-formal-20261031-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 743
+  },
+  {
+   "dir": "teaching-probe-formal-20261101-v3",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 743
+  },
+  {
+   "dir": "teaching-probe-smoke-20261031-v1",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 743
+  },
+  {
+   "dir": "teaching-probe-smoke-20261031-v2",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 743
+  },
+  {
+   "dir": "teaching-probe-smoke-20261101-v3",
+   "fam": "teaching",
+   "coll": "teaching",
+   "conditions": 743
+  },
+  {
+   "dir": "tpassive-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "tpassive-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 16
+  },
+  {
+   "dir": "tpo-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "tpo-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "tpo-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 19
+  },
+  {
+   "dir": "txiao-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 17
+  },
+  {
+   "dir": "txiao-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 17
+  },
+  {
+   "dir": "tzh-f1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "tzh-s1",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "tzh-s2",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  },
+  {
+   "dir": "tzh-s3",
+   "fam": "school-combat",
+   "coll": "school-combat",
+   "conditions": 24
+  }
+ ]
+}
