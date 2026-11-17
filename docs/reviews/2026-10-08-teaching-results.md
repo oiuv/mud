@@ -48,4 +48,3 @@
 - MA-020：秦伟邦贡献 79 时拒绝，80／99／100 时授予并分别余下 -20／-1／0；再问不继续扣除。负数保留，不由测试工具修正。
 
 位置、hash、最小触发条件和样本编号见[问题台账](../architecture/martial-arts-data-findings.md)；复跑与证据约定见[采集方法](../architecture/martial-arts-dataset.md)。本轮没有修改任何游戏实现。
-

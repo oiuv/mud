@@ -25,6 +25,8 @@
 
 ## 数据语义口径（a61_costs.mjs）
 
+最终链接检查：`node tools/martial_summary/a62_links_check.mjs`。迁移目标须实际存在，历史工作资料与路径格式说明单列；未知引用或空匹配通配符返回非零。回归命令：`node --test tools/martial_summary/evidence_reference.test.mjs tools/martial_summary/cost_outcome.test.mjs`。
+
 - **normal_effect 正常施放**：5.3 已验证的 observed，包含目标恢复、伤害、控制及自体增益等。目标恢复的指标包括 eff_qi_recovery 等，施放者正常气血费用不把成功治疗变成反噬。结果分类在 `cost_outcome.mjs`；这是已验证样本的汇总分类，不替代 5.3 的效果正确性校验。
 - **miss_backlash 合法落空/保护无效与反噬**：已验证的攻击无目标受效或 surge-force/roar 的合法无效分支归 miss；tao 反噬须同时有源码分支依据、昏迷和气血归零。自身掉血不单独作为反噬依据；治疗目标的恢复事件属于正常受效，施放者的正常自损费用仍保留。
 - **refused 资格拒绝**：refused 且拒绝语义验证通过；通道记录的是拒绝副作用，不是施放成本。

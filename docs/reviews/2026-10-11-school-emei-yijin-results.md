@@ -82,6 +82,6 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-yiji
 node --test tools/tests/martial_data/school_emei_yijin.test.mjs
 ```
 
-[新增条件与校验器](../../tools/tests/martial_data/school_emei_yijin_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_yijin.test.mjs)复用原执行器与报告器，仅增加两项同组属性观察。初次单元测试的复合容量手算期望15572有误，按原分步取整改为15571后通过；不改游戏或原始样本。完整回归及文件核验见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+[新增条件与校验器](../../tools/tests/martial_data/school_emei_yijin_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_yijin.test.mjs)复用原执行器与报告器，仅增加两项同组属性观察。初次单元测试的复合容量手算期望15572有误，按原分步取整改为15571后通过；不改游戏或原始样本。完整回归及文件核验见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 
 本批不验证蛇行防御／练习、白骨爪材料／高等级扣费、催心毒伤完整生命周期、原周芷若自动战斗或完整交锋。峨嵋十七批累计4483条件57966正式记录、5790独立烟雾，仍不代表全派／全库完成。MA-079补实证不新增问题编号；111组全部未修，整体仍10/17。

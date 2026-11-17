@@ -90,4 +90,4 @@
 
 少林九阳源码SHA-256为`89ee6806862626b0dabf85f1072046e69f8a85f59739ed4b262127ae0abff2c3`，其余源码和工具hash均保存在系列清单。mudcore为`67e0bace`，驱动`20260929-5270e7d6-328aaf10`，哈希`56c5f02398ecc35ee15f3b6b5f897471c1fdb35288d8b04b6681cb437581f135`。没有连接正式服、读玩家资料或调用模型。
 
-本批不覆盖内功exert、公共走火检查、禅宗实际教师学习、普通师承、少林防御／互备和完整交锋。累计门派条件计划为6355条件146904样本，不是全库执行量；OpenSpec仍10/17，4.2／5.2保留未完成。工具与收尾核验见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+本批不覆盖内功exert、公共走火检查、禅宗实际教师学习、普通师承、少林防御／互备和完整交锋。累计门派条件计划为6355条件146904样本，不是全库执行量；OpenSpec仍10/17，4.2／5.2保留未完成。工具与收尾核验见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。

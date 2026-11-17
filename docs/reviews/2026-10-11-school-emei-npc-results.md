@@ -85,7 +85,7 @@ HEAD `61d92f7c39449289f912c957d9d971daeccd775b`；mudcore `67e0bace181ec162e17b0
 
 ## 复跑与覆盖
 
-运行 `node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-npc- --smoke` 验证小样本，去掉 `--smoke` 采正式；自检为 `node --test tools/tests/martial_data/school_emei_npc.test.mjs`。参见[条件及校验](../../tools/tests/martial_data/school_emei_npc_cases.mjs)、[原对象观察器](../../tools/tests/martial_data/npc_observer.lpc)和[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+运行 `node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-npc- --smoke` 验证小样本，去掉 `--smoke` 采正式；自检为 `node --test tools/tests/martial_data/school_emei_npc.test.mjs`。参见[条件及校验](../../tools/tests/martial_data/school_emei_npc_cases.mjs)、[原对象观察器](../../tools/tests/martial_data/npc_observer.lpc)和[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 
 全套工具838/838通过（433.629秒，0失败／取消／跳过）；随后补加力三分支测试，最终聚焦7/7通过。两份测试LPC格式化及check通过；八份文档1409链接、645源码行号、48标题锚点与112连续缺陷编号核对通过，OpenSpec strict与`git diff --check`通过。工作区398项变更均在tools／docs／openspec，游戏运行期LPC无差异，mudcore干净。旧11544条件289308计划记录指纹不变；当前11580条件289524计划记录不等于全部实测。
 

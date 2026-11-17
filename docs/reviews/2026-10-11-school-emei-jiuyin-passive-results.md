@@ -101,6 +101,6 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-jiuy
 node --test tools/tests/martial_data/school_emei_jiuyin_passive.test.mjs
 ```
 
-[条件与校验](../../tools/tests/martial_data/school_emei_jiuyin_passive_cases.mjs)、[八项自检](../../tools/tests/martial_data/school_emei_jiuyin_passive.test.mjs)及[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。最终完整工具回归832/832通过，0失败／取消／跳过，370.194秒；LPC夹具格式化及check通过，源码／文档链接与OpenSpec strict通过。旧11499条件286670计划记录指纹不变；当前11544条件289308计划记录不等于全部已经实测。
+[条件与校验](../../tools/tests/martial_data/school_emei_jiuyin_passive_cases.mjs)、[八项自检](../../tools/tests/martial_data/school_emei_jiuyin_passive.test.mjs)及[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。最终完整工具回归832/832通过，0失败／取消／跳过，370.194秒；LPC夹具格式化及check通过，源码／文档链接与OpenSpec strict通过。旧11499条件286670计划记录指纹不变；当前11544条件289308计划记录不等于全部已经实测。
 
 峨嵋二十批累计4782条件69050正式（65628观察／3422无进展），6196独立烟雾。原NPC配装、完整交锋及全库覆盖仍待采，OpenSpec保持10/17。没有新增确认缺陷编号，既有111组均未修；未提交或部署。

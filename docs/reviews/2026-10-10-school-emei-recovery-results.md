@@ -66,7 +66,7 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-reco
 - 成功冒烟：`mud-martial-data-a24tEc/runs/attempt-z3gIlL`，153条（108观察／45拒绝），PID36828退出0；驱动49.623秒、含准备107.26秒。指纹 `abd4fec405a61f5ccee5cfac9994f528f960b2e4bdf3201143ae78b0f018a0dc`，证据摘要 `4b1d450bf1717cf4b5ac5767d0ac98baf082c1b537b0b975809bf998627d0d45`，输出hash `3ac0a45b2b38c10e88eabc7abde81496236deabaed7627af784a02d6233679e2`。
 - 首轮失败冒烟 `mud-martial-data-J57009/runs/attempt-hZTSkq` 原样保留：新校验误要求未设置的 `sex` 必须是数字0，而驱动序列化为null；两条原命令已正常执行，0条导入，PID13696被采集器SIGTERM终止。仅修校验并增加null／缺字段区分自检，不列游戏错误，也不混入成功分母。
 
-22:12:05 +08:00核验10268项冻结输入、10155份公开副本、六份旧探针、驱动及两份词法器hash一致。驱动仍为 `20260929-5270e7d6-328aaf10`、mudcore为 `67e0bace`；游戏源码无差异。153条件摘要 `8b0d542c2e05a5ada5152695f7b7e91fbfd39c6d16b7fbe16ea478b490473a9b`；此前10329条件完整JSON指纹 `29be61c68fc9ccbbf36a93e703596598953386557c2d2184513936a0a987a465` 不变。新增9项最终聚焦自检通过；全套最终复核见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。Runner格式化／check通过；新报告器重核旧少林2760条，证据摘要仍为 `0b210126e9e00090599d0a459e52fabcc6ded820922307cbf0a60f1c97cee618`。
+22:12:05 +08:00核验10268项冻结输入、10155份公开副本、六份旧探针、驱动及两份词法器hash一致。驱动仍为 `20260929-5270e7d6-328aaf10`、mudcore为 `67e0bace`；游戏源码无差异。153条件摘要 `8b0d542c2e05a5ada5152695f7b7e91fbfd39c6d16b7fbe16ea478b490473a9b`；此前10329条件完整JSON指纹 `29be61c68fc9ccbbf36a93e703596598953386557c2d2184513936a0a987a465` 不变。新增9项最终聚焦自检通过；全套最终复核见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。Runner格式化／check通过；新报告器重核旧少林2760条，证据摘要仍为 `0b210126e9e00090599d0a459e52fabcc6ded820922307cbf0a60f1c97cee618`。
 
 最终全套工具回归763/763通过，0失败／取消／跳过（381.917秒）；7份文档1253条本地链接、612处源码行号、42处标题锚点，以及109组连续问题编号均核对有效。报告中的三档恢复、内力上限和收功示例逐条对照正式数据，3695项数值核验通过。OpenSpec strict及`git diff --check`通过，所有本批隔离驱动均已退出。
 

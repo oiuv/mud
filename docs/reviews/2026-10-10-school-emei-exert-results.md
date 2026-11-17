@@ -78,4 +78,4 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-zhao
 
 原32／35条件指纹分别保持`9d72f5db10f78c5416f65bee7c647deb689bcbb9f7dc27489a35de1fc4ce0295`／`d4f5d6978f344f1da96208eabc5caae4e96cc1effe3fca07e34f0f8546e1dfc5`；旧8928门派条件完整JSON指纹未变。当前注册9472条件241848计划记录不等于全库已采完。
 
-峨嵋累计532条件13510条正式记录，13150观察／360预期拒绝；828条成功烟雾独立。剩余857准备条件19648计划记录仍待接入，教学和周芷若额外组合等也未完成。本批未新增确定游戏缺陷，既有109组均未修，不作平衡调整；OpenSpec保持10/17，格式、自检及最终复核见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+峨嵋累计532条件13510条正式记录，13150观察／360预期拒绝；828条成功烟雾独立。剩余857准备条件19648计划记录仍待接入，教学和周芷若额外组合等也未完成。本批未新增确定游戏缺陷，既有109组均未修，不作平衡调整；OpenSpec保持10/17，格式、自检及最终复核见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。

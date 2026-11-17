@@ -79,4 +79,4 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-lear
 node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-learning-
 ```
 
-离线校验接受驱动原本以null编码的未设属性，但不接受缺字段或未知字符串，不把null改成实际赋值。游戏LPC与原Runner均未修改；局部26/26及全套750/750工具自检通过，0失败／取消／跳过，完整检查见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。峨嵋累计850条件14146条，13604观察／542拒绝、0错误／残缺；1146条成功烟雾独立。防御、互备、公共内功等剩余539准备条件19012计划记录及教师教学仍待推进，整体10/17，109组问题未修。
+离线校验接受驱动原本以null编码的未设属性，但不接受缺字段或未知字符串，不把null改成实际赋值。游戏LPC与原Runner均未修改；局部26/26及全套750/750工具自检通过，0失败／取消／跳过，完整检查见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。峨嵋累计850条件14146条，13604观察／542拒绝、0错误／残缺；1146条成功烟雾独立。防御、互备、公共内功等剩余539准备条件19012计划记录及教师教学仍待推进，整体10/17，109组问题未修。

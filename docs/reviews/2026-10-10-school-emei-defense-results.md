@@ -90,4 +90,4 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-defe
 node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-defense-
 ```
 
-夹具只扩大防御查询、文本观察和实现来源记录的组别范围，不改攻击流程或原探针；格式化及`--check`通过。局部21/21、全套751/751工具自检通过（234.480秒，0失败／取消／跳过），详见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。峨嵋累计1032条件22644条，22102观察／542拒绝、0错误／残缺，1510条成功烟雾独立。互备与公共内功剩余357准备条件10514计划记录、教师教学及完整组合交锋仍待推进，整体10/17，不以本批数据代替全部峨嵋或全武学覆盖。
+夹具只扩大防御查询、文本观察和实现来源记录的组别范围，不改攻击流程或原探针；格式化及`--check`通过。局部21/21、全套751/751工具自检通过（234.480秒，0失败／取消／跳过），详见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。峨嵋累计1032条件22644条，22102观察／542拒绝、0错误／残缺，1510条成功烟雾独立。互备与公共内功剩余357准备条件10514计划记录、教师教学及完整组合交锋仍待推进，整体10/17，不以本批数据代替全部峨嵋或全武学覆盖。

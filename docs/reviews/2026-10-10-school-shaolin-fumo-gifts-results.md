@@ -59,4 +59,4 @@ node tools/tests/martial_data/school_scene_report.mjs C:/Temp/fumo-gifts C:/Temp
 node --test tools/tests/martial_data/school_scene*.test.mjs
 ```
 
-最终工具回归、格式和链接核验见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。归属在第三人／容器中的分支、许可0／2时的奖励拒绝、三渡缺席、大宗师入口、断线、完整返阳及全门派／全武学尚未全部采集；整体10/17，不据本批勾选全量任务，不提交或部署。
+最终工具回归、格式和链接核验见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。归属在第三人／容器中的分支、许可0／2时的奖励拒绝、三渡缺席、大宗师入口、断线、完整返阳及全门派／全武学尚未全部采集；整体10/17，不据本批勾选全量任务，不提交或部署。

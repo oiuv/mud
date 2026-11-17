@@ -54,4 +54,4 @@
 
 正式日志仅有一次实际平台eval限制警告，输出／debug副本及外层CLI转录是同一告警，不按文件数重复计数。本批未匹配连接重置、姓名缓存保存或运行／编译异常；不据此宣称实服持久化或所有玩法无错误。
 
-更多校准记录见[修炼准备与版本记录](2026-10-14-school-mingjiao-jiuyang-cultivation-prep.md)和[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。明教剩余17绝招、13项普通／被动及组合／原NPC交锋仍待完成。
+更多校准记录见[修炼准备与版本记录](2026-10-14-school-mingjiao-jiuyang-cultivation-prep.md)和[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。明教剩余17绝招、13项普通／被动及组合／原NPC交锋仍待完成。

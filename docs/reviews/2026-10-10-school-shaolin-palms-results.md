@@ -116,7 +116,7 @@
 基线主库`61d92f7c39449289f912c957d9d971daeccd775b`，mudcore `67e0bace181ec162e17b0f422813af2862a133ea`；驱动`20260929-5270e7d6-328aaf10`，SHA-256 `56c5f02398ecc35ee15f3b6b5f897471c1fdb35288d8b04b6681cb437581f135`。下列目录均位于 `C:/Users/oiuv/AppData/Local/Temp/`，不提交原始日志或角色临时数据。
 
 - 正式系列：`mud-martial-data-tqbHDy/runs/attempt-ZT5Be3`，PID48336退出0，驱动184.094秒／含准备206.43秒。4850/4850条完整记录，指纹`f5f56320bc19127ec527806822c62e116c7c0ddf2f922054a36f0e58b8d50888`，证据摘要`382321a795e96da2e6f1188a2c2cbbc58be6753897bb88defc5c23362af2025c`，驱动输出hash `3e9ac61d5b739266c36ad23723f3eef499b33b89a983fa0c045d911ea72655e0`。
-- 最终烟雾：`mud-martial-data-Au78Ad/runs/attempt-Tnn0nw`，243/243条，157观察、86拒绝、0错误；PID69076退出0，驱动73.798秒。此前三次失败烟雾为观察器的null忙乱、即时负气血及过早结束死亡观察三种错误预期；另有2条死亡聚焦烟雾。旧记录保留，修正的只有采集工具，详见[核验记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+- 最终烟雾：`mud-martial-data-Au78Ad/runs/attempt-Tnn0nw`，243/243条，157观察、86拒绝、0错误；PID69076退出0，驱动73.798秒。此前三次失败烟雾为观察器的null忙乱、即时负气血及过早结束死亡观察三种错误预期；另有2条死亡聚焦烟雾。旧记录保留，修正的只有采集工具，详见[核验记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 - 完整统计：`mud-shaolin-palms-final-20261010/school-combat.json`及同名Markdown；保留各条件样本数、均值／中位数／分位数／范围及拒绝分母。报告器SHA-256 `3ea8e12dbf2feafdcf91f1cd36ac75421b93feeb4bc8a48610e0dac5dd573799`。
 - 采集输入10216项逐项核对冻结hash，其中10143份公开游戏／框架／字典／天气文件、73项工具输入；临时副本保留6份既有可逆观察探针，无新增游戏公式改动。原拳脚3054条只读重验，证据摘要未变。
 - 工具回归 **514/514通过**，0失败／跳过；测试Runner格式化及`--check`通过。工具通过不代表上述游戏缺陷修复，也不代表已测试全部少林武学。

@@ -90,6 +90,6 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-jiuy
 node --test tools/tests/martial_data/school_emei_jiuyin_learning.test.mjs
 ```
 
-[条件和校验](../../tools/tests/martial_data/school_emei_jiuyin_learning_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_jiuyin_learning.test.mjs)及[核验记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。新增与相邻自检12/12、完整工具回归824/824通过，0失败／取消／跳过，331.648秒；LPC夹具已格式化并check。两轮各10278项冻结原输入、10155份公开源码副本、六份观察探针、驱动及两份词法器hash均一致。工具自检不计入真实采样。
+[条件和校验](../../tools/tests/martial_data/school_emei_jiuyin_learning_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_jiuyin_learning.test.mjs)及[核验记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。新增与相邻自检12/12、完整工具回归824/824通过，0失败／取消／跳过，331.648秒；LPC夹具已格式化并check。两轮各10278项冻结原输入、10155份公开源码副本、六份观察探针、驱动及两份词法器hash均一致。工具自检不计入真实采样。
 
 峨嵋十九批累计4737条件66412正式（62990观察／3422无进展）、6125独立烟雾。白骨爪命中附伤、催心毒伤生命周期、原NPC组合、完整交锋及全库覆盖仍待采，OpenSpec保持10/17。未修改游戏、提交或部署。

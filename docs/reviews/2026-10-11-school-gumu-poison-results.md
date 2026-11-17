@@ -59,6 +59,6 @@
 - 证据摘要：`5076ece9fb1006e32dba05a0dee047c1f338315226d958e8b9b62ae04756cad4`。
 - 输出SHA-256：`387884a024c61ed08f2e4c00e2900c3f68d733d63e4d3282c5162fcde7559af1`。
 - 收尾逐项核验10290冻结输入、10155公开副本、7项可逆探针、驱动及2852条原日志／台账一致。驱动版本与hash同[冰火进度记录](2026-10-11-school-gumu-fireice-progress.md)。
-- 独立烟雾`mud-martial-data-hDsq0N/runs/attempt-jkiRDq`为108条、92观察／16拒绝、38原更新，PID19472退出0、驱动340.493秒；完整指纹及1069项工具回归见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+- 独立烟雾`mud-martial-data-hDsq0N/runs/attempt-jkiRDq`为108条、92观察／16拒绝、38原更新，PID19472退出0、驱动340.493秒；完整指纹及1069项工具回归见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 
 古墓七批累计499条件20598正式、998成功烟雾；原23准备组余16组3595条件90392计划待接入和实测。118组游戏问题仍全部未修，整体10/17；不将本批完成等同全门派或全武学完成。

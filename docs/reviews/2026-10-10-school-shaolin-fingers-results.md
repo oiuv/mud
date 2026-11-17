@@ -139,7 +139,7 @@
 - 独立烟雾：`mud-martial-data-bpebAc/runs/attempt-WRmPTX`，348/348，PID45084退出0，驱动4.440秒。指纹 `67de6b41cac81bdea350b5325b21f07526afb4b2709baf008a78d21005ebd7f1`；输出hash `5988b117cd01e4aa0d984d7df28e15672a0033eb3433fba6705b6eba26d9adfd`。
 - 完整统计：`mud-shaolin-fingers-final-20261010/school-combat.json`及同名Markdown；各条件保留均值、中位数、分位数、范围和独立拒绝分母。报告器hash `1499a8f497f4ab3437b2ef1cf104c8a405288047763d5b7c656bd9f635e90da2`。
 - 冻结输入10217项：10143份公开游戏／框架／字典／天气文件、74项工具；沿用6份可逆观察探针。测试Runner只扩展本组状态观察，不改公式、随机或原门槛。
-- 上一批掌法4850条经当前只读统计入口复核，原证据摘要 `382321a795e96da2e6f1188a2c2cbbc58be6753897bb88defc5c23362af2025c` 未变。工具回归与最终校验见[核验记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+- 上一批掌法4850条经当前只读统计入口复核，原证据摘要 `382321a795e96da2e6f1188a2c2cbbc58be6753897bb88defc5c23362af2025c` 未变。工具回归与最终校验见[核验记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 - 工具回归523/523通过，0失败／跳过；首次全套回归发现旧武当计数测试漏排除新指法组，仅补测试筛选后重新通过，未改历史预期数、采集输入或原始结果。Runner格式检查及OpenSpec严格校验通过。
 
 累计门派计划4884条件131414样本，指条件定义量，不是同一版本全量重跑完成量。整体任务仍10/17；4.2及全武学任务保持未完成，旧证据与随机结果不覆盖、不混算。

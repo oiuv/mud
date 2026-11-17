@@ -94,6 +94,6 @@ node tools/collect_martial_data.mjs school-combat --case-prefix school-emei-shex
 node --test tools/tests/martial_data/school_emei_shexing.test.mjs
 ```
 
-[条件与严格校验](../../tools/tests/martial_data/school_emei_shexing_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_shexing.test.mjs)和[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)可供复查。完整工具回归818/818通过，LPC夹具格式化及check通过；工具自检不计入真实采样。
+[条件与严格校验](../../tools/tests/martial_data/school_emei_shexing_cases.mjs)、[六项自检](../../tools/tests/martial_data/school_emei_shexing.test.mjs)和[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)可供复查。完整工具回归818/818通过，LPC夹具格式化及check通过；工具自检不计入真实采样。
 
 本批不覆盖白骨爪材料／高等级练习扣费、催心毒伤完整生命周期、原周芷若自动战斗或完整交锋。峨嵋十八批累计4572条件62554正式（59276观察／3278无进展）、5924独立烟雾；全库仍未完成，OpenSpec保持10/17。本轮未修复游戏缺陷，未提交或部署。

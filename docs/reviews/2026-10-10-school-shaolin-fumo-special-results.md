@@ -51,7 +51,7 @@
 - 烟雾 `mud-martial-data-FL19tB/runs/attempt-8tHwr7`：10条、99步，PID56172退出0，驱动1.973秒／含准备22.65秒；摘要 `ec3cca6f09ed9a2f45dc0e3d0130c8d94efaebb76f65166fbcfd6393448d1252`，输出hash `0f711666fc57ea34d8e08a1b11feadf757397b7426c0ba10252566b487c7d25f`。
 - 报告分别为 `mud-fumo-special-final-20261010/scene.{json,md}`、`mud-fumo-special-smoke-20261010/scene.{json,md}`；读取器hash `de960faa402f6bf549bb204854f776ed14956fb670d44751e1ffeff84ed6c762`。
 - 主库 `61d92f7c39449289f912c957d9d971daeccd775b`、mudcore `67e0bace181ec162e17b0f422813af2862a133ea`；驱动 `20260929-5270e7d6-328aaf10`，SHA-256 `56c5f02398ecc35ee15f3b6b5f897471c1fdb35288d8b04b6681cb437581f135`。
-- 全套工具673/673通过（218.818秒），无失败／取消／跳过；10155份公开副本、103个工具输入与6处可还原探针核对通过。旧入口204条、生命周期204条、宝物104条经当前读取器重验，条件和证据摘要不变。最终格式、局部回归与文档检查见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。
+- 全套工具673/673通过（218.818秒），无失败／取消／跳过；10155份公开副本、103个工具输入与6处可还原探针核对通过。旧入口204条、生命周期204条、宝物104条经当前读取器重验，条件和证据摘要不变。最终格式、局部回归与文档检查见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。
 
 ```powershell
 node tools/collect_martial_data.mjs school-scene --smoke --case-prefix school-scene-fumo-special-

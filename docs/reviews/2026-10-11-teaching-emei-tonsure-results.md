@@ -91,4 +91,4 @@ node tools/collect_martial_data.mjs teaching --case-prefix teaching-emei-tonsure
 node tools/tests/martial_data/teaching_report.mjs <正式系列目录> <新的临时报告目录>
 ```
 
-前两条创建临时MUDLIB并运行真实驱动，第三条只读原始证据、输出新报告。最终工具与范围复核见[验证记录](../../openspec/changes/collect-martial-arts-dataset/verification.md)。峨嵋累计十四批4197条件52494条正式记录（49426观察／3068无进展），5395条成功烟雾独立；周芷若额外配置、完整交锋、完整生命周期及其余门派／全武学仍待采，整体保持10/17。
+前两条创建临时MUDLIB并运行真实驱动，第三条只读原始证据、输出新报告。最终工具与范围复核见[验证记录](../../openspec/changes/archive/2026-11-18-collect-martial-arts-dataset/verification.md)。峨嵋累计十四批4197条件52494条正式记录（49426观察／3068无进展），5395条成功烟雾独立；周芷若额外配置、完整交锋、完整生命周期及其余门派／全武学仍待采，整体保持10/17。
