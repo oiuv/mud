@@ -11,7 +11,7 @@ mapping *action = ({
         "parry": 15,
         "damage": 10,
         "lvl": 0,
-        "skills_name": "鹰飞式",
+        "skill_name": "鹰飞式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N单腿直立，双臂平伸，一式「雄鹰式」，双爪一前一后拢向$n的$l",
@@ -21,7 +21,7 @@ mapping *action = ({
         "parry": 22,
         "damage": 15,
         "lvl": 30,
-        "skills_name": "雄鹰式",
+        "skill_name": "雄鹰式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N一式「锁骨爪」，全身向斜里平飞，右腿一绷，双爪搭向$n的肩头",
@@ -31,7 +31,7 @@ mapping *action = ({
         "parry": 28,
         "damage": 20,
         "lvl": 60,
-        "skills_name": "锁骨爪",
+        "skill_name": "锁骨爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N双爪交错上举，使一式「夺魂勾」，一拔身，分别袭向$n左右腋空门",
@@ -41,7 +41,7 @@ mapping *action = ({
         "parry": 35,
         "damage": 35,
         "lvl": 80,
-        "skills_name": "夺魂勾",
+        "skill_name": "夺魂勾",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N全身滚动上前，一式「神鹰式」，右爪突出，鬼魅般抓向$n的胸口",
@@ -51,7 +51,7 @@ mapping *action = ({
         "parry": 38,
         "damage": 45,
         "lvl": 100,
-        "skills_name": "神鹰式",
+        "skill_name": "神鹰式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N伏地滑行，一式「血鹰爪」，上手袭向膻中大穴，下手反抓$n的裆部",
@@ -61,7 +61,7 @@ mapping *action = ({
         "parry": 45,
         "damage": 60,
         "lvl": 120,
-        "skills_name": "血鹰爪",
+        "skill_name": "血鹰爪",
         "damage_type": "内伤"
     ]),
 });

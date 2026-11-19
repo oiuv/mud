@@ -46,7 +46,7 @@ int perform(object me) {
     msg = HIG "$N" HIG "手中的" + weapon->name() + HIG "倏的刺出，卷起一阵"
         "阵气旋，不住的往里收缩。\n" NOR;
 
-    ap = me->query_skill("sword") + me->query_skill("force") + me->query_skill("chuixiao-jiafa", 1);
+    ap = me->query_skill("sword") + me->query_skill("force") + me->query_skill("chuixiao-jifa", 1);
     dp = target->query_skill("force") * 2;
     if (ap > dp && ap / 2 + random(ap) > dp) {
         me->add("neili", -500);

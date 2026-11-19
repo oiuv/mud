@@ -98,7 +98,7 @@ void do_effect(object me) {
                 return;
             }
 
-            snake->add("snake_poison/level" + random(lvl / 5));
+            snake->add("snake_poison/level", random(lvl / 5));
             snake->move(env);
             write(HIR "你弹了一曲，只听一阵嗤嗤做响，一条" +
                 snake->name() + HIR "从草丛中窜了出来。\n" NOR);

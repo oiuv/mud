@@ -343,12 +343,22 @@ void timed_middle() {
         "two tao users independently receive their delayed recoil");
 }
 
+void after_state_expiry() {
+    "/tests/npc_fixes"->run_timed(
+        this_object(),
+        (: call_other, "/tests/recruitment", "run", this_object() :)
+    );
+}
+
 void timed_finish() {
     check(
         !timed_a->query_temp("eff/jiuyin-shengong/xin"),
         "refreshed xin finally expires at its own deadline"
     );
-    master()->finish();
+    if (read_file("/tests/group.txt") == "")
+        "/tests/state_cost_fixes"->run_timed(this_object(), (: after_state_expiry :));
+    else
+        master()->finish();
 }
 
 void check_timing() {
@@ -406,6 +416,38 @@ int run_checks() {
             case "cang":
             case "luoyan": "/tests/state"->run(before, this_object()); break;
             case "shenghuo": "/tests/shenghuo"->run(this_object()); break;
+            case "room_home": "/tests/npc_fixes"->run_home(this_object()); break;
+            case "design_values": "/tests/design_fixes"->check_values(this_object()); break;
+            case "design_fixes": "/tests/design_fixes"->run(this_object()); break;
+            case "closeout":
+                "/tests/field_fixes"->run_closeout(this_object());
+                "/tests/npc_fixes"->run_closeout(this_object());
+                "/tests/state_cost_fixes"->run_closeout(this_object());
+                break;
+            case "array_remove":
+            case "array_remove_order": "/tests/state_cost_fixes"->run_destroy(this_object()); break;
+            case "array_form": "/tests/state_cost_fixes"->run_form(this_object()); break;
+            case "array_exit": "/tests/state_cost_fixes"->run_exit(this_object()); break;
+            case "last_ammo": "/tests/state_cost_fixes"->check_last_ammo(this_object()); break;
+            case "teaching":
+                "/tests/teaching"->run(this_object());
+                "/tests/teaching_perform"->run(this_object());
+                break;
+            case "recruitment": "/tests/recruitment"->run(this_object()); return 1;
+            case "state_cost":
+                "/tests/state_cost_fixes"->run(this_object());
+                "/tests/state_cost_fixes"->run_extra(this_object());
+                "/tests/state_cost_fixes"->run_timed(
+                    this_object(),
+                    (: call_other, master(), "finish" :)
+                );
+                return 1;
+            case "fields": "/tests/field_fixes"->run(this_object()); break;
+            case "npc_fixes":
+                "/tests/npc_fixes"->run(this_object());
+                "/tests/npc_fixes"->run_timed(this_object(), (: call_other, master(), "finish" :));
+                return 1;
+            case "combat_cost": "/tests/combat_cost_fixes"->run(this_object()); break;
         }
         master()->finish();
         return 1;
@@ -417,21 +459,35 @@ int run_checks() {
     "/tests/state"->run("cang", this_object());
     "/tests/state"->run("luoyan", this_object());
     "/tests/shenghuo"->run(this_object());
+    "/tests/teaching"->run(this_object());
+    "/tests/teaching_perform"->run(this_object());
+    "/tests/state_cost_fixes"->run(this_object());
+    "/tests/state_cost_fixes"->run_extra(this_object());
+    "/tests/field_fixes"->run(this_object());
+    "/tests/npc_fixes"->run(this_object());
+    "/tests/combat_cost_fixes"->run(this_object());
+    "/tests/design_fixes"->run(this_object());
     check_energy(); check_recovery(); check_timing();
     return 1;
 }
 
-void run() {
-    object controller;
+void cold_load_checks() {
     string group;
 
     group = read_file("/tests/group.txt");
+    if (!group || group == "" || group == "fields")
+        "/tests/field_fixes"->cold_load();
     if (!group || group == "" || group == "tanzhi_action")
         "/tests/tanzhi_action"->cold_load();
     if (!group || group == "" || group == "canhe_action")
         "/tests/canhe_action"->cold_load();
     if (!group || group == "" || group == "yuxiao")
         "/tests/state"->cold_yuxiao();
+}
+
+void run() {
+    object controller;
+
     controller = actor();
     check(controller->invoke((: run_checks :)), "regression runs in a real command context");
 }

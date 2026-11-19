@@ -1,0 +1,38 @@
+#include <ansi.h>
+#include <combat.h>
+
+inherit F_SSERVER;
+
+int perform(object me, object target) {
+    int level;
+    string msg;
+
+    if (userp(me) && !me->query("can_perform/tie-zhang/ying"))
+        return notify_fail("你尚未领悟无影掌。\n");
+    if (!target)
+        target = offensive_target(me);
+    if (!objectp(target) || !me->is_fighting(target) || !living(target))
+        return notify_fail("无影掌只能对仍能交手的对手施展。\n");
+    if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
+        return notify_fail("无影掌只能空手施展。\n");
+    if (me->query_skill_mapped("strike") != "tie-zhang" ||
+        me->query_skill_prepared("strike") != "tie-zhang")
+        return notify_fail("你须先激发并准备铁掌掌法。\n");
+    level = me->query_skill("tie-zhang", 1);
+    if (level < 100 || me->query_skill("force") < 160)
+        return notify_fail("你的铁掌或内功火候不足，无法施展无影掌。\n");
+    if (me->query("neili") < 120)
+        return notify_fail("你现在的真气不足，难以施展无影掌。\n");
+
+    me->add("neili", -120);
+    me->start_busy(2);
+    msg = HIY "$N双掌虚晃，使出「无影掌」，掌影未散，右掌已悄然印向$n。\n" NOR;
+    if (level / 2 + random(me->query_skill("strike")) > target->query_skill("dodge")) {
+        msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, level / 2, 30,
+            HIR "$n见掌影难辨，避让不及，已被掌劲震得一晃。\n" NOR);
+    } else {
+        msg += CYN "$n看破虚实，侧身避开了这一掌。\n" NOR;
+    }
+    message_combatd(msg, me, target);
+    return 1;
+}

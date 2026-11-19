@@ -1,0 +1,851 @@
+// Original skills and conditions with explicit synthetic inputs, no saved players.
+#include <combat.h>
+
+private object arena;
+
+void check(int ok, string label) { master()->check(ok, "fields " + label); }
+void rolls(int high) { "/tests/control"->reset(high, ({})); }
+
+void cold_load() {
+    object skill;
+    string name;
+    mixed err;
+
+    check(!this_player(), "MA-135 cold load has no command player");
+    foreach (name in ({ "dagou-bang", "qiankun-jian", "yiyang-zhi", "chousui-zhang" })) {
+        err = catch(skill = load_object("/kungfu/skill/" + name));
+        check(!err && objectp(skill), "MA-135 cold load " + name);
+        if (!objectp(skill)) skill = find_object("/kungfu/skill/" + name);
+        if (objectp(skill)) destruct(skill);
+    }
+}
+
+object weapon(object who, string type) {
+    object ob;
+
+    ob = new("/tests/sword");
+    ob->set("skill_type", type);
+    ob->set_weight(25000);
+    ob->move(who);
+    who->set_temp("weapon", ob);
+    return ob;
+}
+
+void check_growth_and_learning() {
+    object who, skill;
+    string name, basic;
+    mixed *row;
+    int level;
+
+    who = arena->actor();
+    foreach (name in ({ "fushang-neigong", "xiyang-neigong" })) {
+        skill = load_object("/kungfu/skill/" + name);
+        foreach (level in ({ 0, 100, 200 })) {
+            who->set_skill(name, level);
+            check(skill->query_neili_improve(who) == level * level * 15 * 4 / 100 / 200,
+                "MA-005 raw inner energy growth " + name);
+        }
+    }
+    who->set_skill("poison", 50);
+    foreach (row in ({ ({ "chousui-zhang", "strike", 80 }),
+        ({ "xuanyuan-arrow", "throwing", 20 }), ({ "yaowang-miaoshu", "medical", 100 }) })) {
+        name = row[0]; basic = row[1]; level = row[2];
+        skill = load_object("/kungfu/skill/" + name);
+        who->set_skill(basic, level);
+        who->set_skill(name, level + 1);
+        check(!skill->valid_learn(who), "MA-005 real relative skill gate refuses " + name);
+        who->set_skill(name, level);
+        check(skill->valid_learn(who), "MA-005 equal basic skill permits " + name);
+    }
+    who->set("gender", "无性");
+    who->set("con", 34);
+    foreach (row in ({ ({ "lengyue-shengong", 49 }), ({ "wudang-jiuyang", 9 }) })) {
+        name = row[0]; level = row[1]; skill = load_object("/kungfu/skill/" + name);
+        who->set_skill(name, level);
+        check(skill->valid_learn(who), "MA-005/079 permits original gender boundary " + name);
+        who->set_skill(name, level + 1);
+        check(
+            !skill->valid_learn(who),
+            "MA-005/079 rejects above original gender boundary " + name
+        );
+    }
+    who->set_skill("tanqin-jifa", 50);
+    who->set_skill("qingxin-pushan", 100);
+    who->set_skill("chuixiao-jifa", 100);
+    check("/kungfu/skill/xiaoao-jianghu"->valid_learn(who),
+        "MA-005 sufficient real flute skill satisfies existing alternative");
+    who->set_skill("chuixiao-jifa", 99);
+    check(!"/kungfu/skill/xiaoao-jianghu"->valid_learn(who),
+        "MA-005 insufficient both instruments still refuses");
+}
+
+void check_jianjia_learning() {
+    object who;
+
+    who = arena->actor();
+    who->set_skill("tanqin-jifa", 29);
+    check(
+        !"/kungfu/skill/jian-jia"->valid_learn(who),
+        "MA-121 original absolute qin minimum is kept"
+    );
+    who->set_skill("tanqin-jifa", 30);
+    check(
+        "/kungfu/skill/jian-jia"->valid_learn(who),
+        "MA-121 exactly at the qin minimum can begin"
+    );
+    who->set_skill("tanqin-jifa", 100);
+    who->set_skill("jian-jia", 101);
+    who->set_skill("qiuyue-lai", 0);
+    check(!"/kungfu/skill/jian-jia"->valid_learn(who), "MA-121 compares own song level");
+    who->set_skill("jian-jia", 100);
+    who->set_skill("qiuyue-lai", 800);
+    check(
+        "/kungfu/skill/jian-jia"->valid_learn(who),
+        "MA-121 unrelated autumn song cannot block learning"
+    );
+    destruct(who);
+}
+
+void check_qing() {
+    object who, target, skill;
+    int level, energy, target_energy;
+
+    foreach (level in ({ 0, 400 })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill("sword", 200);
+        who->set_skill("yuxiao-jian", 200);
+        who->map_skill("sword", "yuxiao-jian");
+        who->set_skill("force", 600);
+        who->set_skill("chuixiao-jifa", level);
+        target->set_skill("force", 600);
+        weapon(who, "sword");
+        energy = who->query("neili"); target_energy = target->query("neili");
+        rolls(1); skill = load_object("/kungfu/skill/yuxiao-jian/qing");
+        check(skill->perform(who), "MA-001 original performance launches");
+        check(who->query("neili") == energy - (level ? 500 : 120),
+            "MA-001 flute contribution controls original success cost");
+        check(target->query("neili") == target_energy - (level ? 1100 : 0),
+            "MA-001 flute contribution enters original enemy energy formula");
+    }
+}
+
+void check_combine() {
+    object who;
+    string name;
+    int reversed;
+
+    foreach (name in ({ "tianluo-diwang", "fireice-strike" })) {
+        foreach (reversed in ({ 0, 1 })) {
+            who = arena->actor();
+            who->set_skill("meinv-quan", 100); who->set_skill(name, 100);
+            who->map_skill("unarmed", "meinv-quan"); who->map_skill("strike", name);
+            check(who->invoke((: call_other, "/cmds/skill/prepare", "main", who,
+                reversed ? name + " meinv-quan" : "meinv-quan " + name :)) &&
+                who->query_skill_prepared("unarmed") == "meinv-quan" &&
+                who->query_skill_prepared("strike") == name,
+                "MA-011 original two-skill prepare order " + reversed + " works " + name);
+            who->prepare_skill("unarmed", 0); who->prepare_skill("strike", 0);
+            check(who->invoke((: call_other, "/cmds/skill/prepare", "main", who, name :)) &&
+                who->invoke((: call_other, "/cmds/skill/prepare", "main", who, "meinv-quan" :)) &&
+                who->query_skill_prepared("unarmed") == "meinv-quan" &&
+                who->query_skill_prepared("strike") == name,
+                "MA-011 adding meinv after palm works " + name);
+        }
+    }
+}
+
+void check_character() {
+    object who, target;
+    string character;
+    int expected, energy;
+
+    foreach (character in ({ "狡黠多变", "光明磊落", "国士无双" })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill("xuantie-jian", 200); who->set_skill("sword", 400);
+        who->map_skill("sword", "xuantie-jian"); who->set("character", character);
+        target->set_skill("force", 0); target->set_skill("unarmed", 0); target->set("str", 1);
+        weapon(who, "sword");
+        expected = who->query_skill("sword") + who->query_str() * 5;
+        if (character != "狡黠多变") expected += expected / 5;
+        energy = who->query("neili"); rolls(1);
+        check("/kungfu/skill/xuantie-jian/dong"->perform(who, target) &&
+            target->query_temp("test/damage") == expected * 2 - 1 &&
+            who->query("neili") == energy - 400,
+            "MA-114 legitimate personality receives original enhancement " + character);
+    }
+}
+
+void check_guards_and_attacks() {
+    object who, target, skill;
+    int expected, energy, level, before;
+
+    who = arena->actor();
+    who->set_skill("force", 600);
+    who->set_skill("jingang-buhuaiti", 200);
+    who->set_temp("apply/armor", 17);
+    who->set_temp("apply/force", 19);
+    skill = load_object("/kungfu/skill/jingang-buhuaiti/jingang");
+    energy = who->query("neili"); expected = 700;
+    check(skill->perform(who, 0) && who->query_temp("apply/armor") == 17 + expected / 2 &&
+        who->query_temp("apply/force") == 19 + expected / 3,
+        "MA-005 guard includes half of actual protection skill");
+    check(!skill->perform(who, 0) && who->query("neili") == energy - 200,
+        "MA-005 guard repeat refuses without double cost");
+    skill->remove_effect(who, expected);
+    check(who->query_temp("apply/armor") == 17 && who->query_temp("apply/force") == 19 &&
+        !who->query_temp("jingangbuhuai"), "MA-005 guard cleanup preserves independent bonuses");
+
+    foreach (level in ({ 200, 400 })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill("finger", 400);
+        who->set_skill("jingang-zhi", 200);
+        who->map_skill("finger", "jingang-zhi");
+        who->prepare_skill("finger", "jingang-zhi");
+        who->set_skill("hunyuan-yiqi", 300);
+        who->map_skill("force", "hunyuan-yiqi");
+        who->set_skill("jingluo-xue", level);
+        expected = who->query_skill("finger") + who->query_skill("force") + level;
+        rolls(0);
+        check("/kungfu/skill/jingang-zhi/san"->perform(who, target) &&
+            target->query_temp("test/damage") == expected,
+            "MA-005/092 actual meridian study contributes to exact damage input");
+    }
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("force", 600);
+    who->set_skill("blade", 400);
+    who->set_skill("jingzhong-bafa", 200);
+    who->map_skill("blade", "jingzhong-bafa");
+    who->set_temp("apply/attack", 17);
+    weapon(who, "blade"); rolls(1);
+    check("/kungfu/skill/jingzhong-bafa/bafa"->perform(who, target) &&
+        who->query_temp("test/in_effect")[2] == 17 + 200 / 3 &&
+        who->query_temp("apply/attack") == 17 && who->query_temp("test/attacks") == 8,
+        "MA-005 eight blade attacks include real bonus and restore it");
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("jiuyin-shengong", 300);
+    who->prepare_skill("unarmed", "jiuyin-shengong");
+    who->set_temp("apply/attack", 17); rolls(1);
+    check("/kungfu/skill/jiuyin-shengong/perform/zhang"->perform(who, target) &&
+        who->query_temp("test/in_effect")[2] == 77 && who->query_temp("apply/attack") == 17 &&
+        who->query_temp("test/attacks") == 9,
+        "MA-005 nine yin attacks use actual skill and restore independent bonus");
+
+    foreach (level in ({ 0, 400 })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill("force", 600);
+        who->set_skill("qiankun-danuoyi", 300);
+        target->set_skill("force", 0); target->set_skill("dodge", 0);
+        target->set_skill("martial-cognize", level);
+        target->set("opinion/ultra", 1);
+        before = target->query("qi"); rolls(0);
+        check("/kungfu/skill/qiankun-danuoyi/nuoyi"->perform(who, target) &&
+            target->query("qi") == (level ? before : before / 2),
+            "MA-005 ultra target real martial knowledge contributes to defense");
+    }
+}
+
+void check_heal() {
+    object who, target;
+    int level, force;
+
+    foreach (level in ({ 0, 200 })) {
+        who = arena->actor(); target = arena->actor();
+        who->set_skill("hunyuan-yiqi", 200);
+        who->map_skill("force", "hunyuan-yiqi");
+        who->set_skill("sun-finger", level);
+        target->set("eff_qi", 5000); target->set("eff_jing", 5000);
+        target->set("qi", 4000); target->set("jing", 4000);
+        force = who->query_skill("force");
+        check("/kungfu/skill/sun-finger/heal"->perform(who, target) &&
+            target->query("eff_qi") == 5000 + 100 + force + level * 3 &&
+            target->query("eff_jing") == 5000 + 100 + force / 3 + level,
+            "MA-005 healing includes actual sun-finger in both recovery formulas");
+    }
+}
+
+void check_resource_fields() {
+    object who, skill;
+    int amount, energy;
+
+    who = arena->actor(); skill = load_object("/kungfu/skill/chongyang-shenzhang");
+    who->set("force", 17); energy = who->query("neili");
+    check(skill->practice_skill(who) && who->query("neili") == energy - 55 && who->query("force") == 17,
+        "MA-068 practice spends inner energy, not an unrelated saved property");
+    who->set("neili", 64); amount = who->query("qi");
+    check(!skill->practice_skill(who) && who->query("neili") == 64 && who->query("qi") == amount,
+        "MA-068 low inner energy rejects without either resource changing");
+    who = arena->actor(); weapon(who, "staff");
+    skill = load_object("/kungfu/skill/weituo-chu");
+    who->set_skill("weituo-chu", 200);
+    who->set("jingli", 10000); who->set("jing", 59);
+    check(!skill->practice_skill(who) && who->query("jing") == 59,
+        "MA-095 abundant jingli cannot bypass low actual spirit");
+    who->set("jingli", 0); who->set("jing", 70); energy = who->query("neili");
+    check(skill->practice_skill(who) && who->query("jing") == 10 && who->query("neili") == energy &&
+        who->query("jingli") == 0, "MA-095 spirit gate matches actual cost, preserves level200 energy rule");
+    who->set_skill("weituo-chu", 201); who->set("jing", 70);
+    check(skill->practice_skill(who) && who->query("neili") == energy - 20,
+        "MA-095 level201 keeps original additional inner energy cost");
+    who = arena->actor(); skill = load_object("/kungfu/skill/fuhu-quan");
+    who->set("jingli", 10000); who->set("qi", 24);
+    check(!skill->practice_skill(who) && who->query("qi") == 24,
+        "MA-097 abundant jingli cannot bypass low qi");
+    who->set("jingli", 0); who->set("qi", 30); energy = who->query("neili");
+    check(skill->practice_skill(who) && who->query("qi") == 5 && who->query("neili") == energy - 5,
+        "MA-097 actual qi gate preserves original 25 qi and 5 energy costs");
+}
+
+void check_conditions() {
+    object who, skill;
+    mapping cnd;
+    string name, bad_field;
+    mixed err;
+    int qi, eff, damage, result;
+
+    foreach (name in ({ "freezing", "damo_luanqi" })) {
+        skill = load_object("/kungfu/condition/" + name);
+        foreach (cnd in ({ ([ "level": 200, "remain": 400, "id": 0, "name": "演武状态" ]),
+            ([ "level": 200, "remain": "invalid", "id": "source", "name": "演武状态" ]) })) {
+            who = arena->actor();
+            qi = who->query("qi"); eff = who->query("eff_qi");
+            bad_field = intp(cnd["remain"]) ? "id" : "remain";
+            rolls(0);
+            err = catch(result = skill->update_condition(who, cnd));
+            check(!err && !result && who->query("qi") == qi && who->query("eff_qi") == eff,
+                "MA-082 rejects malformed condition before damage " + name + " " + bad_field);
+            destruct(who);
+        }
+        who = arena->actor();
+        qi = who->query("qi"); eff = who->query("eff_qi");
+        cnd = ([ "level": 200, "remain": 400, "id": "source", "name": "演武状态" ]);
+        rolls(0);
+        damage = name == "freezing" ? 200 / 6 : (60 + (200 - 60) / 6) / 2;
+        skill->update_condition(who, cnd);
+        check(who->query("qi") == qi - damage, "MA-082 valid condition still damages qi " + name);
+        check(who->query("eff_qi") == eff - damage / 2,
+            "MA-083 condition applies half qi injury symmetrically " + name);
+        destruct(who);
+    }
+}
+
+void check_rulai() {
+    object who, target;
+    int energy, before;
+    mixed result;
+
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("rulai-zhang", 200); who->set_skill("buddhism", 300);
+    target->set_skill("force", 0);
+    who->set_temp("action_flag", 1);
+    energy = who->query("neili"); before = target->query("eff_qi");
+    rolls(1);
+    result = "/kungfu/skill/rulai-zhang"->hit_ob(who, target, 600);
+    debug_message(sprintf("FIELDS MA089 result=%O attacks=%O neili=%O before=%O eff=%O old_eff=%O con=%O\n",
+        result, who->query_temp("test/attacks"), who->query("neili"), energy,
+        target->query("eff_qi"), before, target->query_con()));
+    check(result &&
+        who->query_temp("test/attacks") == 4 && who->query("neili") == energy - 280 &&
+        target->query("eff_qi") == before - 240,
+        "MA-089 real three-argument hit hook triggers four palms, wound and original costs");
+    check(who->query_temp("test/first_neili") == energy - 200,
+        "MA-089 original two-hundred fixed cost paid before first public attack");
+    who->restore_busy(({ 0, 0 })); target->restore_busy(({ 0, 0 }));
+    check(
+        !who->is_busy() && !target->is_busy(),
+        "MA-089 low-damage rejection is not masked by busy"
+    );
+    energy = who->query("neili"); before = who->query_temp("test/attacks");
+    rolls(1);
+    check(!"/kungfu/skill/rulai-zhang"->hit_ob(who, target, 149) && who->query("neili") == energy &&
+        who->query_temp("test/attacks") == before, "MA-089 hit damage below150 still rejects");
+    target->set("con", 1000);
+    energy = who->query("neili"); before = who->query_temp("test/attacks");
+    rolls(1);
+    check("/kungfu/skill/rulai-zhang"->hit_ob(who, target, 600) &&
+        who->query_temp("test/attacks") == before + 4 && who->query("neili") == energy - 200,
+        "MA-089 non-wound branch only pays original two-hundred fixed cost");
+}
+
+void check_guiyuan() {
+    object who, skill;
+    int dex, str, defense, factor;
+
+    who = arena->actor(); skill = load_object("/kungfu/skill/shexing-lifan/guiyuan");
+    who->set_skill("shexing-lifan", 200); who->set_skill("dodge", 150);
+    who->set_temp("apply/dex", 5); who->set_temp("dex", 11); who->set_temp("str", 7);
+    dex = who->query_dex(); str = who->query_str();
+    defense = "/tests/actual_combat"->skill_power(who, "dodge", SKILL_USAGE_DEFENSE, 0);
+    factor = defense / (who->query("dex") + 11);
+    check(skill->perform(who, 0) && who->query_dex() == dex + 4 &&
+        who->query_temp("dex") == 15 && who->query_temp("str") == 11 && who->query_str() == str,
+        "MA-111 real dex increases while legacy str damage contribution is preserved");
+    check(factor > 0 && defense == factor * (who->query("dex") + 11) &&
+        "/tests/actual_combat"->skill_power(who, "dodge", SKILL_USAGE_DEFENSE, 0) ==
+        factor * (who->query("dex") + 15),
+        "MA-111 full original combat retains the root-dex defense contribution without double counting apply-dex");
+    check(!skill->perform(who, 0) && who->query_temp("dex") == 15 &&
+        who->query_temp("apply/dex") == 9, "MA-111 active boost cannot be applied twice");
+    who->add_temp("dex", 3); who->add_temp("apply/dex", 2);
+    skill->remove_effect(who, 4, 0);
+    check(who->query_dex() == dex + 2 && who->query_temp("dex") == 14 && who->query_temp("str") == 7 &&
+        who->query_temp("apply/dex") == 7, "MA-111 cleanup preserves prior and later independent increments");
+    check("/tests/actual_combat"->skill_power(who, "dodge", SKILL_USAGE_DEFENSE, 0) ==
+        factor * (who->query("dex") + 14), "MA-111 full original combat cleanup removes only its own four dex");
+    skill->remove_effect(who, 4, 0);
+    check(who->query_temp("dex") == 14 && who->query_temp("apply/dex") == 7 &&
+        who->query_temp("str") == 7, "MA-111 repeated cleanup cannot subtract either dex contribution twice");
+}
+
+void check_break() {
+    object who, target, own, enemy;
+    int mode;
+
+    foreach (mode in ({ 0, 1, 2 })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill("lingyuan-xinfa", 200);
+        who->set("combat_exp", 10000000); target->set("combat_exp", 1);
+        own = weapon(who, "sword"); enemy = weapon(target, "sword");
+        if (mode == 2) {
+            target->delete_temp("weapon"); target->set_temp("secondary_weapon", enemy);
+        }
+        rolls(1);
+        check(who->invoke((: call_other, "/kungfu/skill/lingyuan-xinfa", "exert_function", who,
+            mode == 1 ? "break " + target->query("id") : "break" :)) &&
+            environment(enemy) == arena && environment(own) == who,
+            "MA-138 default/explicit/secondary route disarms only the actual opponent");
+    }
+}
+
+void check_snake() {
+    object who, snake;
+    object *before, *after;
+
+    who = arena->actor();
+    who->set_skill("guzheng-jifa", 200); who->set_skill("wushe-qu", 200);
+    arena->set("quarrys", ([ "fushe": 1 ]));
+    before = all_inventory(arena); rolls(1);
+    "/kungfu/skill/wushe-qu"->do_effect(who);
+    after = all_inventory(arena) - before;
+    check(
+        sizeof(after) == 1 && after[0]->is_snake(),
+        "MA-124 original song creates an actual snake"
+    );
+    if (sizeof(after) != 1) return;
+    snake = after[0];
+    check(snake->query("snake_poison/level") == 120 + 59 &&
+        !snake->query("snake_poison/level59"), "MA-124 random increment changes real poison level, not field name");
+    destruct(snake); arena->delete("quarrys");
+}
+
+void check_dynamic_actions() {
+    object who, other, skill, swap;
+    mapping result, prior;
+    string name, basic;
+    string snapshot;
+    int raw, force, main, dodge, parry, round, high;
+
+    foreach (name in ({ "dagou-bang", "qiankun-jian", "yiyang-zhi", "chousui-zhang" })) {
+        who = arena->actor(); other = arena->actor(); skill = load_object("/kungfu/skill/" + name);
+        basic = name == "dagou-bang" ? "staff" : name == "qiankun-jian" ? "sword" : name == "yiyang-zhi" ? "finger" : "strike";
+        raw = name != "dagou-bang";
+        who->set_skill(name, 400); other->set_skill(name, 400);
+        who->set_skill("force", 600); other->set_skill("force", 1000);
+        who->set_skill(basic, 400); other->set_skill(basic, 800);
+        who->set_skill("dodge", 300); other->set_skill("dodge", 500);
+        who->set_skill("parry", 400); other->set_skill("parry", 800);
+        prior = 0;
+        for (round = 0; round < 4; round++) {
+            if (round % 2) { swap = who; who = other; other = swap; }
+            high = round % 2;
+            force = who->query_skill("force", raw); main = who->query_skill(basic, raw);
+            dodge = who->query_skill("dodge", raw); parry = who->query_skill("parry", raw);
+            rolls(high);
+            if (name == "dagou-bang") "/tests/control"->reset(high, ({ 4 }));
+            "/tests/control"->select_action(-1);
+            result = skill->query_action(who, 0);
+            check(result["skill_name"] == "极意" &&
+                result["force"] == force / 2 + (high ? force - 1 : 0) &&
+                result["attack"] == main / 4 + (high ? main / 2 - 1 : 0) &&
+                result["dodge"] == dodge / (raw ? 6 : 4) + (high ? force / 3 - 1 : 0) &&
+                result["parry"] == parry / (raw ? 6 : 4) + (high ? parry / 3 - 1 : 0) &&
+                result["damage"] == force / (raw ? 4 : 3) + (high ? main / (raw ? 2 : 3) - 1 : 0),
+                "MA-135 all five values use current actor and exact original random bounds " + name);
+            if (mapp(prior)) check(
+                save_variable(prior) == snapshot,
+                "MA-135 later action leaves prior result intact " + name
+            );
+            prior = result; snapshot = save_variable(prior);
+        }
+    }
+}
+
+void check_action_fields() {
+    object who, skill;
+    mapping result;
+    int i, level;
+    string name;
+    int *values;
+
+    who = arena->actor();
+    foreach (name in ({ "bingcan-duzhang", "chousui-zhang" })) {
+        skill = load_object("/kungfu/skill/" + name);
+        who->set_skill(name, 200);
+        values = name == "bingcan-duzhang" ? ({ 52, 67, 82, 95, 105 }) : ({ 32, 47, 60, 65, 75 });
+        for (i = 0; i < sizeof(values); i++) {
+            "/tests/control"->select_action(i); rolls(0);
+            result = skill->query_action(who, 0);
+            check(result["damage"] == values[i] && undefinedp(result["dmage"]),
+                "MA-010 original damage value uses actual combat field " + name);
+        }
+    }
+    skill = load_object("/kungfu/skill/jiuyang-shengong");
+    rolls(1); result = skill->query_action(who, 0);
+    check(strsrch(result["action"], "十指") >= 0, "MA-132 unarmed sixth action is reachable");
+    rolls(1); result = skill->query_action(who, this_object());
+    check(
+        result["damage_type"] == "刺伤",
+        "MA-132 weapon selection still uses its own original array"
+    );
+    foreach (name in ({ "suxin-jian", "sad-strike" })) {
+        skill = load_object("/kungfu/skill/" + name);
+        foreach (level in ({ 70, 71, 99, 100, 101, 160, 161 })) {
+            who->set_skill(name, level);
+            for (i = 0; i < 20; i++) {
+                rolls(0); "/tests/control"->select_action(i);
+                result = skill->query_action(who, 0);
+                check(mapp(result) && result["lvl"] < level,
+                    "MA-118 every candidate satisfies original strict level condition " + name);
+            }
+        }
+    }
+}
+
+void check_skill_names() {
+    mixed *row;
+    object skill;
+
+    foreach (row in ({
+        ({ "sougu-yingzhua", 0, "鹰飞式" }),
+        ({ "sougu-yingzhua", 30, "雄鹰式" }),
+        ({ "sougu-yingzhua", 60, "锁骨爪" }),
+        ({ "sougu-yingzhua", 80, "夺魂勾" }),
+        ({ "sougu-yingzhua", 100, "神鹰式" }),
+        ({ "sougu-yingzhua", 120, "血鹰爪" }),
+        ({ "huashan-jian", 0, "有凤来仪" }),
+        ({ "huashan-jian", 20, "无边落木" }),
+        ({ "huashan-jian", 40, "鸿飞冥冥" }),
+        ({ "huashan-jian", 60, "平沙落雁" }),
+        ({ "huashan-jian", 80, "金玉满堂" }),
+        ({ "huashan-jian", 100, "白虹贯日" }),
+        ({ "yunlong-shou", 170, "我心依旧" }),
+        ({ "jimie-zhua", 0, "众生无我" }),
+        ({ "jimie-zhua", 10, "苦乐随缘" }),
+        ({ "jimie-zhua", 20, "烈火腾云" }),
+        ({ "jimie-zhua", 30, "普度众生" }),
+        ({ "jimie-zhua", 40, "七星聚会" }),
+        ({ "jimie-zhua", 50, "以逸待劳" }),
+        ({ "jimie-zhua", 55, "天衣无缝" }),
+        ({ "jimie-zhua", 60, "佛门善地" }),
+        ({ "yingzhua-gong", 0, "苍鹰袭兔" }),
+        ({ "yingzhua-gong", 30, "雄鹰展翅" }),
+        ({ "yingzhua-gong", 60, "拔翅横飞" }),
+        ({ "yingzhua-gong", 80, "迎风振翼" }),
+        ({ "yingzhua-gong", 100, "飞龙献爪" }),
+        ({ "yingzhua-gong", 120, "拨云瞻日" }),
+        ({ "yingzhua-gong", 140, "凶鹰袭兔" }),
+        ({ "yingzhua-gong", 160, "凶鹰袭兔" }),
+        ({ "dulong-shenzhua", 0, "天邪爪" }),
+        ({ "dulong-shenzhua", 30, "蛟龙爪" }),
+        ({ "dulong-shenzhua", 60, "毒龙爪" }),
+        ({ "dulong-shenzhua", 80, "双龙戏" }),
+        ({ "dulong-shenzhua", 100, "飞龙爪" }),
+        ({ "dulong-shenzhua", 120, "地蛇爪" }),
+        ({ "dulong-shenzhua", 140, "划长空" }),
+        ({ "dulong-shenzhua", 160, "万里神爪" }),
+        ({ "yintuoluo-zhua", 0, "鹰飞式" }),
+        ({ "yintuoluo-zhua", 100, "雄鹰式" }),
+        ({ "yintuoluo-zhua", 120, "锁骨爪" }),
+        ({ "yintuoluo-zhua", 140, "夺魂勾" }),
+        ({ "yintuoluo-zhua", 150, "神鹰式" }),
+        ({ "yintuoluo-zhua", 180, "血鹰爪" }),
+        ({ "chongling-jian", 0, "青梅如豆" }),
+        ({ "chongling-jian", 20, "雾中初见" }),
+        ({ "chongling-jian", 40, "雨后乍逢" }),
+        ({ "chongling-jian", 60, "同生共死" }),
+        ({ "yunlong-zhua", 0, "凶鹰袭兔" }),
+        ({ "yunlong-zhua", 30, "雄鹰展翅" }),
+        ({ "yunlong-zhua", 40, "拔翅鹰飞" }),
+        ({ "yunlong-zhua", 60, "迎风振翼" }),
+        ({ "yunlong-zhua", 80, "飞龙献爪" }),
+        ({ "yunlong-zhua", 100, "顶天立地" }),
+        ({ "yunlong-zhua", 120, "搏击长空" }),
+        ({ "yunlong-zhua", 140, "鹰扬万里" }),
+        ({ "yunlong-zhua", 160, "苍龙出水" }),
+        ({ "yunlong-zhua", 180, "万佛朝宗" }),
+        ({ "kongming-quan", 0, "空屋住人" }),
+        ({ "kongming-quan", 30, "空碗盛饭" }),
+        ({ "kongming-quan", 60, "空钵装水" }),
+        ({ "kongming-quan", 90, "虚怀若谷" }),
+        ({ "kongming-quan", 120, "空山鸟语" }),
+        ({ "kongming-quan", 150, "我心空明" }),
+        ({ "raozhi-roujian", 0, "天外流星" }),
+        ({ "raozhi-roujian", 10, "落花满天" }),
+        ({ "raozhi-roujian", 20, "窗含柔月" }),
+        ({ "raozhi-roujian", 30, "乘风归去" }),
+        ({ "raozhi-roujian", 40, "白云千载" }),
+        ({ "raozhi-roujian", 50, "星河影动" }),
+        ({ "raozhi-roujian", 60, "柳暗花明" }),
+        ({ "raozhi-roujian", 70, "一点灵犀" }),
+        ({ "yinlong-bian", 0, "神蛟初现" }),
+        ({ "yinlong-bian", 80, "神蛟再现" }),
+        ({ "yinlong-bian", 100, "神蛟又现" }),
+        ({ "yinlong-bian", 120, "吞天裂地势" }),
+        ({ "yinlong-bian", 140, "真天罗势" }),
+        ({ "yinlong-bian", 160, "六道轮回势" }),
+        ({ "yinlong-bian", 180, "大吉祥势" }),
+        ({ "yinlong-bian", 200, "龙飞十二重天势" }),
+        ({ "xuanxu-dao", 0, "黄云万里动风色，白波九道流雪山" }),
+        ({ "xuanxu-dao", 20, "银河倒挂三石梁，香炉瀑布遥相望" }),
+        ({ "xuanxu-dao", 40, "登高壮观天地间，大江茫茫去不黄" }),
+        ({ "xuanxu-dao", 60, "山川萧条极边土，胡骑凭陵杂风雨" }),
+        ({ "xuanxu-dao", 80, "轮台九月风夜吼，一川碎石大如斗" }),
+        ({ "xuanxu-dao", 100, "杀气三时作阵云，寒声一夜传刁斗" })
+    })) {
+        skill = load_object("/kungfu/skill/" + row[0]);
+        check(skill->query_skill_name(row[1]) == row[2],
+            "MA-013/072/078 name follows original named action " + row[0] + " " + row[1]);
+    }
+    skill = load_object("/kungfu/skill/kongming-quan");
+    check(skill->query_skill_name(199) == "我心空明", "MA-072 last normal named action");
+    check(skill->query_skill_name(200) == "极意", "MA-072 highest named action");
+    skill = load_object("/kungfu/skill/shaolin-tantui");
+    check(strsrch(skill->query_dodge_msg("左腿") || "", "弹腿") >= 0,
+        "MA-102 mapped dodge has martial dodge message");
+}
+
+void check_qinna_message() {
+    object who, target, observer;
+    mapping action;
+    string output;
+
+    who = arena->actor(); target = arena->actor(); observer = arena->actor();
+    who->set_skill("qinna-shibada", 31);
+    target->set_name("验招对手", ({ "qinna-target" }));
+    "/tests/control"->select_action(2);
+    action = "/kungfu/skill/qinna-shibada"->query_action(who, 0);
+    "/tests/control"->select_action(-1);
+    check(mapp(action) && action["skill_name"] == "长虹经天" && action["force"] == 230,
+        "MA-088 original action and force are unchanged");
+    if (mapp(action))
+        message_vision(replace_string(action["action"], "$l", "左腿"), who, target);
+    output = remove_ansi(observer->query_temp("test/messages") || "");
+    check(strsrch(output, "绊向验招对手的左腿") >= 0 && strsrch(output, "绊向的左腿") < 0,
+        "MA-088 projected move names the intended target and limb");
+    destruct(who); destruct(target); destruct(observer);
+}
+
+void check_learning_text() {
+    object who;
+    object skill;
+    string msg;
+
+    who = arena->actor();
+    skill = load_object("/kungfu/skill/wuluo-zhang");
+    who->set_skill("force", 0);
+    check(!skill->valid_learn(who), "MA-139 force refusal remains");
+    msg = query_fail_msg();
+    check(stringp(msg) && strsrch(msg, "五罗轻烟掌") >= 0,
+        "MA-139 force refusal names correct martial art");
+    who->set_skill("force", 100);
+    who->set("max_neili", 99);
+    check(!skill->valid_learn(who), "MA-139 maximum neili refusal remains");
+    msg = query_fail_msg();
+    check(stringp(msg) && strsrch(msg, "五罗轻烟掌") >= 0,
+        "MA-139 maximum neili refusal names correct martial art");
+}
+
+void check_perform_text() {
+    object who, target, skill, arrows, observer;
+    string name, text;
+    int qty;
+
+    observer = master()->query_connected_target();
+    check(objectp(observer) && interactive(observer), "MA-140/141 real connected message observer");
+    observer->move(arena);
+    foreach (name in ({ "wuluo-zhang", "piaoxu-zhang" })) {
+        who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+        who->set_skill(name, 200); who->map_skill("strike", name);
+        who->prepare_skill("strike", name);
+        who->set("neili", 1000);
+        rolls(0);
+        skill = load_object("/kungfu/skill/" + name + (name == "wuluo-zhang" ? "/bian" : "/piao"));
+        observer->delete_temp("test/messages");
+        check(skill->perform(who, target), "MA-140 original perform remains usable " + name);
+        text = remove_ansi(observer->query_temp("test/messages") || "");
+        debug_message(sprintf("FIELDS MA140 %s text=%O\n", name, text));
+        check(strsrch(text, "凝神运气") >= 0 && strsrch(text, "干扰，。") < 0,
+            "MA-140 failed feint has corrected martial wording " + name);
+        check(who->query("neili") == 950, "MA-140 cost unchanged " + name);
+    }
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("panlong-zhao", 200); who->map_skill("claw", "panlong-zhao");
+    who->prepare_skill("claw", "panlong-zhao"); who->set("neili", 1000);
+    target->set_skill("parry", 100000);
+    rolls(0); skill = load_object("/kungfu/skill/panlong-zhao/tan");
+    observer->delete_temp("test/messages");
+    check(skill->perform(who), "MA-141 parried branch remains usable");
+    text = remove_ansi(observer->query_temp("test/messages") || "");
+    debug_message(sprintf("FIELDS MA141 parried text=%O\n", text));
+    check(strsrch(text, "看破了") >= 0 && strsrch(text, "的看破") < 0,
+        "MA-141 parried branch grammar");
+    check(who->query("neili") == 950 && who->query_busy() == 3,
+        "MA-141 parried branch original cost and busy");
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("panlong-zhao", 200); who->map_skill("claw", "panlong-zhao");
+    who->prepare_skill("claw", "panlong-zhao"); who->set("neili", 1000);
+    target->set_skill("parry", 0); target->map_skill("parry", 0);
+    rolls(0);
+    observer->delete_temp("test/messages");
+    check(skill->perform(who), "MA-141 landed branch remains usable");
+    text = remove_ansi(observer->query_temp("test/messages") || "");
+    debug_message(sprintf("FIELDS MA141 landed text=%O\n", text));
+    check(strsrch(text, "双爪") >= 0 && strsrch(text, "根本") >= 0 &&
+        strsrch(text, "更本") < 0, "MA-141 landed branch corrected spelling");
+    check(who->query("neili") == 850 && who->query_busy() == 1,
+        "MA-141 landed branch original cost and busy");
+    who = arena->actor(); target = arena->actor(); arena->fight(who, target);
+    who->set_skill("xuanyuan-arrow", 200);
+    arrows = new("/clone/weapon/arrow"); arrows->move(who);
+    who->set_temp("handing", arrows);
+    skill = load_object("/kungfu/skill/xuanyuan-arrow/baibu");
+    foreach (qty in ({ 1, 2 })) {
+        arrows->set_amount(qty); who->set("neili", 1000);
+        check(!skill->perform(who, target), "MA-137 actual minimum rejects " + qty);
+        text = query_fail_msg();
+        check(stringp(text) && strsrch(text, "三支箭") >= 0,
+            "MA-137 rejection states actual three-arrow minimum");
+        check(arrows->query_amount() == qty && who->query("neili") == 1000,
+            "MA-137 rejected attempt has no cost");
+    }
+    arrows->set_amount(3); rolls(0);
+    check(skill->perform(who, target), "MA-137 actual minimum three accepted");
+    check(arrows->query_amount() == 2 && who->query("neili") == 920,
+        "MA-137 original one-arrow and eighty-neili cost retained");
+}
+
+void check_qingfu_text() {
+    object who, target, skill;
+    string text;
+
+    who = arena->actor(); target = arena->actor();
+    target->set_skill("qingfu-shenfa", 100);
+    target->set_skill("dodge", 0);
+    who->set_skill("count", 100);
+    who->set_skill("dodge", 1000);
+    skill = load_object("/kungfu/skill/qingfu-shenfa");
+    "/tests/control"->reset(0, ({ 1, 99999, 0 }));
+    check(!skill->valid_damage(who, target, 100, 0), "MA-126 first failed dodge remains damaging");
+    text = remove_ansi("/adm/daemons/combatd"->query_bhinfo() || "");
+    debug_message(sprintf("FIELDS MA126 branch0 text=%O limits=%O\n", text,
+        "/tests/control"->query_limits()));
+    check(strsrch(text, "精通易理") >= 0 && strsrch(text, "巧妙无方") < 0,
+        "MA-126 first failed dodge description not overwritten by fallthrough");
+    "/tests/control"->reset(0, ({ 1, 99999, 1 }));
+    check(!skill->valid_damage(who, target, 100, 0), "MA-126 second failed dodge remains damaging");
+    text = remove_ansi("/adm/daemons/combatd"->query_bhinfo() || "");
+    debug_message(sprintf("FIELDS MA126 branch1 text=%O limits=%O\n", text,
+        "/tests/control"->query_limits()));
+    check(strsrch(text, "巧妙无方") >= 0 && strsrch(text, "精通易理") < 0,
+        "MA-126 second failed dodge description retained");
+}
+
+void check_qingfu_dodge_entries() {
+    object skill;
+    string *names;
+    string text;
+    int i, j;
+
+    skill = load_object("/kungfu/skill/qingfu-shenfa");
+    names = ({ "福满乾坤", "五蝠献寿", "洞天福地", "云龙百蝠" });
+    for (i = 0; i < sizeof(names); i++) {
+        "/tests/control"->reset(0, ({ i }));
+        text = skill->query_dodge_msg("左腿");
+        check(strsrch(text, names[i]) >= 0 && strsrch(text, "。。") < 0,
+            "MA-127 corrected independent dodge entry " + i);
+        for (j = 0; j < sizeof(names); j++)
+            if (j != i)
+                check(strsrch(text, names[j]) < 0,
+                    "MA-127 distinct dodge entries never concatenate " + i + "/" + j);
+        check("/tests/control"->query_limits()[0] == 4,
+            "MA-127 random selection covers four independent entries");
+    }
+}
+
+void check_jiuyin_learning_message() {
+    object who, skill;
+    string *names, *labels;
+    string text;
+    int i, j;
+
+    names = ({ "unarmed", "dodge", "force" });
+    labels = ({ "基本拳脚", "基本轻功", "基本内功" });
+    who = arena->actor();
+    who->set("character", "光明磊落"); who->set("gender", "男性");
+    who->set("str", 38); who->set("con", 34);
+    who->set_skill("jiuyin-shengong", 200);
+    who->set_skill("martial-cognize", 260);
+    skill = load_object("/kungfu/skill/jiuyin-shengong");
+    foreach (text in names) who->set_skill(text, 200);
+    check(skill->valid_learn(who), "MA-002 all three actual basic prerequisites exactly met");
+    for (i = 0; i < sizeof(names); i++) {
+        who->set_skill(names[i], 199);
+        check(!skill->valid_learn(who), "MA-002 actual deficient skill rejected " + names[i]);
+        text = query_fail_msg();
+        check(text == "你对" + labels[i] + "的理解还不够，无法继续领会更高深的九阴神功。\n",
+            "MA-002 exact refusal names actual deficient prerequisite " + names[i]);
+        for (j = 0; j < sizeof(labels); j++)
+            if (j != i)
+                check(strsrch(text, labels[j]) < 0,
+                    "MA-002 refusal does not name other prerequisite " + names[i] + "/" + names[j]);
+        check(strsrch(text, "基本掌法") < 0 && strsrch(text, "基本爪法") < 0,
+            "MA-002 no stale strike or claw name from wrong array");
+        who->set_skill(names[i], 200);
+        check(skill->valid_learn(who), "MA-002 restore actual skill boundary passes " + names[i]);
+    }
+}
+
+void run(object room) {
+    arena = room;
+    check_jiuyin_learning_message();
+    check_skill_names();
+    check_qinna_message();
+    check_learning_text();
+    check_perform_text();
+    check_qingfu_text();
+    check_qingfu_dodge_entries();
+    check_growth_and_learning();
+    check_jianjia_learning();
+    check_qing();
+    check_combine();
+    check_character();
+    check_guards_and_attacks();
+    check_heal();
+    check_resource_fields();
+    check_conditions();
+    check_rulai();
+    check_guiyuan();
+    check_break();
+    check_snake();
+    check_dynamic_actions();
+    check_action_fields();
+}
+
+void run_closeout(object room) {
+    arena = room;
+    check_combine();
+    check_skill_names();
+    check_qinna_message();
+    check_character();
+    check_jianjia_learning();
+    check_qingfu_text();
+}

@@ -102,7 +102,7 @@ int practice_skill(object me) {
         return notify_fail("你先找把刀再说吧！\n");
 
     if ((int)me->query("qi") < 70 || (int)me->query("neili") < 50)
-        return notify_fail("你的体力不够，练不了戒尘刀。\n");
+        return notify_fail("你的体力或内力不够，练不了戒尘刀。\n");
     me->add("qi", -60);
     me->add("neili", -35);
     return 1;

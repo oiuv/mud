@@ -8,7 +8,7 @@ void create() {
     set("nickname", "星宿派八师兄");
     set("long",
         "他就是丁春秋的八弟子出尘子。\n"
-        "他身才矮胖，可手中握的钢杖又长又重。\n");
+        "他身材矮胖，可手中握的钢杖又长又重。\n");
     set("gender", "男性");
     set("age", 25);
     set("attitude", "peaceful");
@@ -39,7 +39,7 @@ void create() {
     set_skill("tianshan-zhang", 120);
 
     map_skill("force", "huagong-dafa");
-    map_skill("dodge", "zhaixinggong");
+    map_skill("dodge", "zhaixing-gong");
     map_skill("strike", "chousui-zhang");
     map_skill("claw", "sanyin-wugongzhao");
     map_skill("parry", "tianshan-zhang");

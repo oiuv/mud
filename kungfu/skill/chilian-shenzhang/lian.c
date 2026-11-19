@@ -7,10 +7,10 @@ inherit F_SSERVER;
 
 int perform(object me, object target) {
     string msg;
-    int ap, dp;
+    int ap, dp, attack_bonus;
     int attack_time, i;
 
-    if (!me->query("can_perform/chiilian-shenzhang/lian"))
+    if (!me->query("can_perform/chilian-shenzhang/lian"))
         return notify_fail("你所使用的外功中没有这种功能。\n");
 
     if (!target) target = offensive_target(me);
@@ -48,7 +48,8 @@ int perform(object me, object target) {
     if (random(ap) > dp / 2) {
         msg = HIR "$n" HIR "心中一惊，却被$N" HIR "掌"
             "风所困，顿时阵脚大乱。\n" NOR;
-        me->add_temp("apply/attack", 70);
+        attack_bonus = 70;
+        me->add_temp("apply/attack", attack_bonus);
     } else {
         msg = HIY "$n" HIY "看清$N" HIY "这几招的来路，但"
             "内劲所至，掌风犀利，也只得小心抵挡。\n" NOR;
@@ -67,7 +68,8 @@ int perform(object me, object target) {
             break;
         COMBAT_D->do_attack(me, target, 0, 0);
     }
-    me->add_temp("apply/attack", -70);
+    if (attack_bonus)
+        me->add_temp("apply/attack", -attack_bonus);
     me->start_busy(1 + random(attack_time));
 
     return 1;

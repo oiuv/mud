@@ -7,7 +7,7 @@ void create() {
     set("short", "石室");
     set("long", @LONG
 这是一条小小的甬道，周围都是石壁，极为坚硬，看来不是什么
-武功能打破的。石室里伸手不见无指，顺着石壁你摸索着好象周围有
+武功能打破的。石室里伸手不见五指，顺着石壁你摸索着好象周围有
 石门。
 LONG);
     set("exits", ([
@@ -20,8 +20,26 @@ LONG);
     set("no_drop", 1);
     setup();
     create_door("south", "石门", "north", DOOR_CLOSED);
-    create_door("north", "石门", "south", DOOR_CLOSED);
+    create_door("north", "石门", "", DOOR_CLOSED);
     create_door("east", "石门", "west", DOOR_CLOSED);
     create_door("west", "石门", "east", DOOR_CLOSED);
-    replace_program(ROOM);
+}
+
+// The chamber's south passage leads to another corridor, not back to this door.
+varargs int open_door(string dir, int from_other_side) {
+    if (dir != "north")
+        return ::open_door(dir, from_other_side);
+    if (!(doors[dir]["status"] & DOOR_CLOSED))
+        return notify_fail("石门已经是开着的了。\n");
+    doors[dir]["status"] &= ~DOOR_CLOSED;
+    return 1;
+}
+
+varargs int close_door(string dir, int from_other_side) {
+    if (dir != "north")
+        return ::close_door(dir, from_other_side);
+    if (doors[dir]["status"] & DOOR_CLOSED)
+        return notify_fail("石门已经是关着的了。\n");
+    doors[dir]["status"] |= DOOR_CLOSED;
+    return 1;
 }

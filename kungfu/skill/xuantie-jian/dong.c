@@ -64,7 +64,7 @@ int perform(object me, object target) {
         weapon_t->set("value", 0);
     }
 
-    if (me->query("character") == "光明磊落" || me->query("character") == "国土无双")
+    if (me->query("character") == "光明磊落" || me->query("character") == "国士无双")
         ap += ap / 5;
     if (ap / 2 + random(ap) > dp) {
         target->start_busy(1);

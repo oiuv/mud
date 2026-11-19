@@ -201,7 +201,7 @@ int valid_force(string force) { return 1; }
 int double_attack() { return 1; }
 
 mapping query_action(object me, object weapon) {
-    return weapon ? actionw[random(sizeof(actionw))] : actionf[random(sizeof(actionw))];
+    return weapon ? actionw[random(sizeof(actionw))] : actionf[random(sizeof(actionf))];
 }
 
 int valid_learn(object me) {

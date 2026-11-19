@@ -8,7 +8,7 @@ int valid_enable(string usage) { return usage == "force"; }
 int query_neili_improve(object me) {
     int lvl;
 
-    lvl = (int)me->query_skill("fushang-shengong", 1);
+    lvl = (int)me->query_skill("fushang-neigong", 1);
     return lvl * lvl * 15 * 4 / 100 / 200;
 }
 

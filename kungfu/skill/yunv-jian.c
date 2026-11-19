@@ -29,7 +29,7 @@ mapping *action = ({
         "lvl": 30,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w颤动，如鲜花招展来回挥削，只幌得$n眼花撩乱，浑不知从何攻来",
+    ([ "action": "$N手中$w颤动，如鲜花招展来回挥削，只晃得$n眼花缭乱，浑不知从何攻来",
         "force": 130,
         "dodge": 25,
         "damage": 32,
@@ -43,7 +43,7 @@ mapping *action = ({
         "lvl": 60,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w由内自外一刺，左手如斟茶壶，使出「抚琴按萧」来",
+    ([ "action": "$N手中$w由内自外一刺，左手如斟茶壶，使出「抚琴按箫」来",
         "force": 170,
         "dodge": 42,
         "damage": 48,

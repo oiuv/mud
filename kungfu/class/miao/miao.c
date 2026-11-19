@@ -40,7 +40,7 @@ void create() {
 他就是号称打遍天下无敌手的「金面佛」苗人
 凤。只见他脸色透黄，似乎蒙上了一层淡淡的
 金纸。他身材高大魁梧，四肢修长，却是全然
-不修篇幅，令人称奇。
+不修边幅，令人称奇。
 LONG);
     set("attitude", "friendly");
     set("shen_type", 1);
@@ -184,7 +184,7 @@ void attempt_apprentice(object ob) {
 
     command("sigh");
     command("recruit " + ob->query("id"));
-    command("say 我本已打算不收徒弟，让我田家与胡、苗、范三家的纷争得以平息。");
+    command("say 我本已打算不收徒弟，让我苗家与胡、田、范三家的纷争得以平息。");
     command("say 可是这祖传三十七势苗家剑就在我处失传，未免太过不孝。");
     return;
 }
@@ -312,7 +312,7 @@ mixed ask_skill2() {
 
     message_vision(HIY "$n" HIY "哼了一声，沉声道：“五岳为开倒也"
         "不见得，只是\n祖辈们过于抬高它的威力罢了。”随"
-        "即起身而立，左腿连\n变数中方位，“砰”的一声陡"
+        "即起身而立，左腿连\n变数种方位，“砰”的一声陡"
         "然踢出，顿时将$N" HIY "面前的那\n张木几踢得粉"
         "碎。\n" NOR, me, this_object());
 
@@ -874,7 +874,7 @@ mixed ask_jianpu2() {
             return "我们苗家的家传剑谱现在落在了" + owner->query("name") + "手中，你去把它夺回来吧！";
     }
     ob->move(this_object());
-    message_vision(CYN "$N" CYN "凝视了$N" CYN "良久，沉声道：今日我将这剑谱交给你，可别"
+    message_vision(CYN "$N" CYN "凝视了$n" CYN "良久，沉声道：今日我将这剑谱交给你，可别"
         "落入奸人之手。\n" NOR, this_object(), me);
     command("give miaojia jianpu to " + me->query("id"));
     return 1;

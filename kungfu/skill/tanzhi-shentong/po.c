@@ -23,6 +23,9 @@ int perform(object me, object target) {
         || (string)weapon->query("skill_type") != "throwing")
         return notify_fail("你手中没有拿着暗器，难以施展" PO "。\n");
 
+    if (weapon->query_amount() < 1)
+        return notify_fail("你手中的暗器已经用完，难以施展" PO "。\n");
+
     if ((int)me->query_skill("tanzhi-shentong", 1) < 180)
         return notify_fail("你弹指神通修为不够，难以施展" PO "。\n");
 

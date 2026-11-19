@@ -9,7 +9,7 @@ mapping *action = ({
         "parry": 10,
         "damage": 10,
         "lvl": 0,
-        "skills_name": "凶鹰袭兔",
+        "skill_name": "凶鹰袭兔",
         "damage_type": "抓伤"
     ]),
     ([ "action": "$N单腿直立，双臂平伸，一式「雄鹰展翅」，双爪一前一后拢向$n的$l",
@@ -18,7 +18,7 @@ mapping *action = ({
         "parry": 15,
         "damage": 15,
         "lvl": 30,
-        "skills_name": "雄鹰展翅",
+        "skill_name": "雄鹰展翅",
         "damage_type": "抓伤"
     ]),
     ([ "action": "$N一式「拔翅鹰飞」，全身向斜里平飞，右腿一绷，双爪搭向$n的肩头",
@@ -27,7 +27,7 @@ mapping *action = ({
         "parry": 20,
         "damage": 20,
         "lvl": 40,
-        "skills_name": "拔翅鹰飞",
+        "skill_name": "拔翅鹰飞",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N双爪交错上举，使一式「迎风振翼」，一拔身，分别袭向$n左右腋空门",
@@ -36,7 +36,7 @@ mapping *action = ({
         "parry": 20,
         "damage": 30,
         "lvl": 60,
-        "skills_name": "迎风振翼",
+        "skill_name": "迎风振翼",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N全身滚动上前，一式「飞龙献爪」，右爪突出，鬼魅般抓向$n的胸口",
@@ -45,7 +45,7 @@ mapping *action = ({
         "parry": 25,
         "damage": 40,
         "lvl": 80,
-        "skills_name": "飞龙献爪",
+        "skill_name": "飞龙献爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N伏地滑行，一式「顶天立地」，上手袭向膻中大穴，下手反抓$n的裆部",
@@ -54,7 +54,7 @@ mapping *action = ({
         "parry": 25,
         "damage": 50,
         "lvl": 100,
-        "skills_name": "顶天立地",
+        "skill_name": "顶天立地",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N左右手掌爪互逆，一式「搏击长空」，无数道劲气破空而出，迅疾无比地击向$n",
@@ -63,7 +63,7 @@ mapping *action = ({
         "parry": 55,
         "damage": 65,
         "lvl": 120,
-        "skills_name": "搏击长空",
+        "skill_name": "搏击长空",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N腾空高飞三丈，一式「鹰扬万里」，天空中顿时显出一个巨灵爪影，缓缓罩向$n",
@@ -72,7 +72,7 @@ mapping *action = ({
         "parry": 40,
         "damage": 60,
         "lvl": 140,
-        "skills_name": "鹰扬万里",
+        "skill_name": "鹰扬万里",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N忽的拨地而起，使一式「苍龙出水」，身形化作一道闪电射向$n",
@@ -81,7 +81,7 @@ mapping *action = ({
         "parry": 50,
         "damage": 80,
         "lvl": 160,
-        "skills_name": "苍龙出水",
+        "skill_name": "苍龙出水",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N微微一笑，使一式「万佛朝宗」，双手幻出万道金光,直射向$n的$l",
@@ -90,7 +90,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 100,
         "lvl": 180,
-        "skills_name": "万佛朝宗",
+        "skill_name": "万佛朝宗",
         "damage_type": "内伤"
     ])
 });

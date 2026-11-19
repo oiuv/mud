@@ -143,7 +143,7 @@ mixed hit_ob(object me, object victim, int damage_bonus) {
     if (damage_bonus / 6 > victim->query_con()) {
         victim->receive_wound("qi", (damage_bonus - 140) / 3, me);
         return HIR "只听$n" HIR "前胸“喀嚓”一声闷响，竟"
-            "似折断了一跟肋骨。\n" NOR;
+            "似折断了一根肋骨。\n" NOR;
     }
 }
 

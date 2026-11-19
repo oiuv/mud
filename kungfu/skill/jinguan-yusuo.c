@@ -2,7 +2,7 @@
 inherit SKILL;
 
 string *parry_msg = ({
-    "却见$n双手轮转，护住周身，顿时将$N的招数全全封锁。\n",
+    "却见$n双手轮转，护住周身，顿时将$N的招数完全封锁。\n",
     "但是$n身形急变，内劲迸发，将$N的攻势阻隔开来。\n",
     "但是$n身子微侧，双手同时一拨，已将$N的招数卸于无形。\n",
 });
@@ -56,7 +56,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon) {
         switch (random(3)) {
             case 0:
                 result += ([ "msg": YEL "$n" YEL "面含微笑，双手回"
-                    "圈，顿时将$N" YEL "的招数全全"
+                    "圈，顿时将$N" YEL "的招数完全"
                     "锁死。\n" NOR ]);
                 break;
             case 1:

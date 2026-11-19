@@ -35,7 +35,7 @@ int perform(object me, object target) {
         return notify_fail("你千手如来掌火候不够，难以施展" ZONG "。\n");
 
     if (me->query_skill_mapped("force") != "hunyuan-yiqi")
-        return notify_fail("你现在没有激发心意气内功为内功，难以施展" ZONG "。\n");
+        return notify_fail("你现在没有激发混元一气功为内功，难以施展" ZONG "。\n");
     if (me->query_skill_prepared("strike") != "rulai-zhang")
         return notify_fail("你没有准备千手如来掌，难以施展" ZONG "。\n");
 

@@ -1,0 +1,170 @@
+// Original teaching -> command parser -> original skill dispatch. No permission grants in fixtures.
+private object arena;
+
+void check(int ok, string label) { master()->check(ok, "teaching_perform " + label); }
+
+object student(string teacher_path) {
+    object who, teacher, item;
+
+    who = master()->query_connected_target();
+    check(
+        objectp(who) && interactive(who) && userp(who),
+        "real driver-created user exercises permission gates"
+    );
+    who->move(arena);
+    who->remove_all_enemy();
+    who->suspend_busy();
+    foreach (item in all_inventory(who)) destruct(item);
+    who->delete("can_perform");
+    who->delete("can_learn");
+    who->delete_temp("no_perform");
+    who->delete_temp("test/real_combat");
+    teacher = new(teacher_path);
+    teacher->move(arena);
+    who->set("family", ([ "family_name": teacher->query("family/family_name"),
+        "master_name": teacher->query("name"), "master_id": teacher->query("id") ]));
+    who->set("shen", 120000);
+    who->set("max_neili", 10000); who->set("neili", 10000);
+    who->set("potential", 10000000); who->set("learned_points", 0);
+    who->set_skill("force", 1000);
+    return teacher;
+}
+
+void ask(object who, object teacher, string topic) {
+    check(who->invoke((: call_other, "/cmds/std/ask", "main", who,
+        teacher->query("id") + " about " + topic :)) == 1, "original ask command completes");
+}
+
+int launch(object who, string action) {
+    who->suspend_busy();
+    return who->invoke((: call_other, "/cmds/skill/perform", "main", who, action :));
+}
+
+object target(object who) {
+    object enemy;
+
+    enemy = arena->actor();
+    enemy->set_name("试招弟子", ({ "practice-target" }));
+    enemy->set_skill("force", 1);
+    enemy->set_skill("parry", 1);
+    arena->fight(who, enemy);
+    return enemy;
+}
+
+void check_damo() {
+    object who, teacher, enemy, sword;
+    string action, topic;
+
+    foreach (action in ({ "qingxin", "luan" })) {
+        teacher = student("/kungfu/class/shaolin/da-mo");
+        who = master()->query_connected_target();
+        who->set_skill("damo-jian", 200); who->set_skill("sword", 200);
+        who->map_skill("sword", "damo-jian");
+        sword = new("/tests/sword"); sword->move(who); sword->wield();
+        enemy = target(who);
+        enemy->set_temp("powerup", 1);
+        enemy->set_temp("apply/attack", 31); enemy->set_temp("apply/defense", 17);
+        check(!launch(who, "sword." + action) && !enemy->query_temp("damo_qingxin") &&
+            !enemy->query_temp("test/damages"), "MA-017 untaught move is rejected for a real user");
+        topic = action == "qingxin" ? "清心剑" : "乱气剑";
+        ask(who, teacher, topic);
+        check(who->query("can_perform/damo-jian/" + action) == 1,
+            "MA-017 original teacher supplies the requested permission");
+        "/tests/control"->reset(1, ({}));
+        check(launch(who, "sword." + action) == 1,
+            "MA-017 taught move passes original perform command and skill dispatch");
+        check(action == "qingxin" ? enemy->query_temp("damo_qingxin") == 1 &&
+            enemy->query_temp("apply/attack") == 0 && enemy->query_temp("apply/defense") == 0 :
+            enemy->query_temp("test/damages") == 1,
+            "MA-017 requested move reaches its own actual suppression or damage effect");
+        who->remove_all_enemy(); destruct(enemy); destruct(sword); destruct(teacher);
+    }
+}
+
+void check_wanshi() {
+    object who, teacher, enemy, staff;
+    int neili;
+
+    teacher = student("/kungfu/class/ouyang/ouyangfeng");
+    who = master()->query_connected_target();
+    who->set("shen", -120000); who->set("gongxian", 1000);
+    who->set_skill("lingshe-zhangfa", 180); who->set_skill("staff", 300);
+    who->map_skill("staff", "lingshe-zhangfa");
+    staff = new("/clone/weapon/gangzhang"); staff->move(who); staff->wield();
+    enemy = target(who);
+    check(!launch(who, "staff.wanshi") && !enemy->query_temp("test/damages"),
+        "MA-055 untaught user cannot launch wanshi");
+    ask(who, teacher, "千蛇万噬");
+    check(who->query("can_perform/lingshe-zhangfa/wanshi") == 1 && who->query("gongxian") == 0,
+        "MA-055 real teaching supplies permission and charges its original contribution");
+    neili = who->query("neili");
+    "/tests/control"->reset(1, ({}));
+    check(launch(who, "staff.wanshi") == 1 && enemy->query_temp("test/damages") == 1 &&
+        who->query("neili") == neili - 350,
+        "MA-055 learned wanshi launches original damage and hit-branch resource cost");
+    who->remove_all_enemy(); destruct(enemy); destruct(staff); destruct(teacher);
+}
+
+void check_zheng() {
+    object who, teacher, enemy;
+    int neili, attacks;
+
+    teacher = student("/kungfu/class/wudang/shan");
+    who = master()->query_connected_target();
+    who->set_skill("yitian-zhang", 120); who->set_skill("strike", 300);
+    who->map_skill("strike", "yitian-zhang"); who->prepare_skill("strike", "yitian-zhang");
+    who->set("gongxian", 200);
+    enemy = target(who);
+    check(!launch(who, "strike.zheng"), "MA-142 untaught user cannot launch zheng");
+    ask(who, teacher, "谁与争锋");
+    check(who->query("can_perform/yitian-zhang/zheng") == 1 && who->query("gongxian") == 0,
+        "MA-142 real teaching supplies canonical permission");
+    neili = who->query("neili"); attacks = who->query_temp("test/attacks");
+    "/tests/control"->reset(1, ({}));
+    check(launch(who, "strike.zheng") == 1 && who->query_temp("test/attacks") == attacks + 4 &&
+        who->query("neili") == neili - 150,
+        "MA-142 taught move launches all four original attacks with fixed cost");
+    who->remove_all_enemy(); destruct(enemy); destruct(teacher);
+}
+
+void check_spear() {
+    object who, teacher, enemy, sword, spear, skill;
+    int i, attacks;
+
+    teacher = student("/kungfu/class/huashan/feng");
+    who = master()->query_connected_target();
+    who->set("int", 90);
+    who->set_skill("dugu-jiujian", 151); who->set_skill("sword", 150);
+    who->map_skill("sword", "dugu-jiujian");
+    skill = load_object("/kungfu/skill/dugu-jiujian");
+    "/tests/control"->reset(1, ({}));
+    for (i = 0; i < 10 && who->query("can_perform/dugu/po") < 100; i++)
+        skill->skill_improved(who);
+    check(who->query("can_perform/dugu/po") >= 100,
+        "MA-067 general po permission is acquired via original skill progression, not injected");
+    sword = new("/tests/sword"); sword->move(who); sword->wield();
+    enemy = target(who);
+    enemy->set_skill("spear", 300);
+    spear = new("/d/items/spear/bintie_qiang"); spear->move(enemy); spear->wield();
+    check(spear->query("skill_type") == "spear", "MA-067 opposing original weapon is a real spear");
+    attacks = who->query_temp("test/attacks");
+    "/tests/control"->reset(0, ({ 0, 0, 599 }));
+    check(launch(who, "sword.po") == 1 && who->query_temp("test/attacks") == attacks,
+        "MA-067 without spear knowledge original po cannot overcome this fixed spear defense");
+    who->suspend_busy(); enemy->suspend_busy();
+    "/tests/control"->reset(0, ({}));
+    ask(who, teacher, "破枪式");
+    check(member_array("spear", who->query("can_perform/dugu-jiujian") || ({})) >= 0,
+        "MA-067 original teaching grants actual spear knowledge");
+    "/tests/control"->reset(0, ({ 0, 0, 599 }));
+    check(launch(who, "sword.po") == 1 && who->query_temp("test/attacks") == attacks + 7,
+        "MA-067 learned spear knowledge doubles original po power and unlocks the seven-attack branch");
+    who->remove_all_enemy();
+    // Removing a character recursively removes its carried original spear.
+    destruct(spear); destruct(enemy); destruct(sword); destruct(teacher);
+}
+
+void run(object room) {
+    arena = room;
+    check_damo(); check_wanshi(); check_zheng(); check_spear();
+}

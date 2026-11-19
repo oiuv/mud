@@ -11,7 +11,7 @@ void create() {
     set_name("达尔巴", ({ "da erba", "da", "erba" }));
     set("long", @LONG
 他是金轮法王座下的大弟子。深得法王的真传。
-身穿一件黄色袈裟，头带僧帽。
+身穿一件黄色袈裟，头戴僧帽。
 LONG);
     set("nickname", HIY "金刚佛" NOR);
     set("gender", "男性");

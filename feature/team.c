@@ -1,6 +1,25 @@
 // team.c
 inherit CORE_TEAM;
 
+void dismiss_martial_array() {
+    if (this_object()->query_temp("array/name") == "fanliangyi-dao")
+        "/kungfu/skill/fanliangyi-dao"->dismiss_array(this_object());
+}
+
+int set_team(object *members) {
+    if (arrayp(team) && (!arrayp(members) || sizeof(team) != sizeof(members) ||
+        sizeof(team - members) || sizeof(members - team) ||
+        (sizeof(team) && team[0] != members[0])))
+        dismiss_martial_array();
+    return ::set_team(members);
+}
+
+varargs int dismiss_team(object member) {
+    if (arrayp(team) && (!member || member_array(member, team) != -1))
+        dismiss_martial_array();
+    return ::dismiss_team(member);
+}
+
 int follow_me(object ob, string dir) {
     object me;
 

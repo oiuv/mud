@@ -56,7 +56,7 @@ void create() {
     set_skill("buddhism", 340);
     set_skill("literate", 340);
 
-    map_skill("force", "shenhuo-shengong");
+    map_skill("force", "shenghuo-shengong");
     map_skill("dodge", "lingxu-bu");
     map_skill("finger", "nianhua-zhi");
     map_skill("strike", "sanhua-zhang");

@@ -40,7 +40,7 @@ int perform(object me, object target) {
     }
 
     if (ultrap(target))
-        dp += target->query_skill("matrial-cognize", 1);
+        dp += target->query_skill("martial-cognize", 1);
 
     der = 0;
     me->start_busy(2);

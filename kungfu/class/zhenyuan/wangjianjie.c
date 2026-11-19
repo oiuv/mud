@@ -62,10 +62,9 @@ LONG);
     ]));
 
     map_skill("blade", "bagua-dao");
-    map_skill("unarmed", "bazhen-zhang");
     map_skill("dodge", "bagua-bu");
     map_skill("force", "nei-bagua");
-    map_skill("strike", "bagua-zhang");
+    map_skill("strike", "bazhen-zhang");
     map_skill("cuff", "bagua-quan");
     map_skill("parry", "wai-bagua");
     map_skill("throwing", "bagua-biao");
@@ -194,7 +193,7 @@ mixed ask_skill2() {
     if (me->query_skill("bagua-zhang", 1) < 80)
         return "你的八卦掌法还练得不到家，自己下去练练再来吧！";
 
-    message_vision(HIY "$n" HIY "眉头微微一皱，上下打量了$N" HIY "一翻，这才伸"
+    message_vision(HIY "$n" HIY "眉头微微一皱，上下打量了$N" HIY "一番，这才伸"
         "手将$N" HIY "招\n至身旁，在耳边轻声讲解了半天，时不时还探出"
         "右手比划几\n下招式，$N" HIY "听后冷笑一声，似乎有所领悟。\n"
         NOR, me, this_object());

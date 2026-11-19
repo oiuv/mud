@@ -42,7 +42,7 @@ int perform(object me) {
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
     msg = HIW "$N" HIW "一声清啸，双掌纷飞贯出，掌影重重叠叠，虚实难"
-        "辨，全全笼罩$n" HIW "全身。\n" NOR;
+        "辨，完全笼罩$n" HIW "全身。\n" NOR;
 
     ap = me->query_skill("strike");
     dp = target->query_skill("parry");
@@ -57,7 +57,7 @@ int perform(object me) {
         if (ap / 2 + random(ap) > dp && !target->is_busy())
             target->start_busy(ap / 60 + 1);
     } else {
-        msg += CYN "可是$p" CYN "的看破了$P" CYN
+        msg += CYN "可是$p" CYN "看破了$P" CYN
             "的掌法，巧妙的拆招，没露半点破绽"
             "。\n" NOR;
         me->add("neili", -50);

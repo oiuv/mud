@@ -103,7 +103,7 @@ int valid_learn(object me) {
         return notify_fail("你的内功火候不够。\n");
 
     if ((int)me->query_skill("blade", 1) < 20)
-        return notify_fail("你的基本刀法火候不够，无法学习胡家刀法。\n");
+        return notify_fail("你的基本刀法火候不够，无法学习雁行刀法。\n");
 
     if ((int)me->query_skill("blade", 1) < (int)me->query_skill("yanxing-dao", 1))
         return notify_fail("你的基本刀法水平有限，无法领会更高深的雁行刀。\n");

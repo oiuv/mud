@@ -218,7 +218,7 @@ int try_learn_chz() {
 
     if (me->query("shen") > 0) {
         command("heng");
-        command("我最讨厌你们这些所谓正派人士，你还是请回吧！");
+        command("say 我最讨厌你们这些所谓正派人士，你还是请回吧！");
         return -1;
     }
     if (me->query("born_family") != "慕容世家") {

@@ -9,6 +9,7 @@ mapping *action = ({
         "parry": 14,
         "damage": 25,
         "lvl": 0,
+        "skill_name": "天外流星",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N一式「落花满天」，手中$w化做满天剑影直刺向$n的$l",
@@ -17,6 +18,7 @@ mapping *action = ({
         "parry": 15,
         "damage": 20,
         "lvl": 10,
+        "skill_name": "落花满天",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N使出一招「窗含柔月」，手中$w挥舞，舞出数个剑花圈向$n的$l",
@@ -25,6 +27,7 @@ mapping *action = ({
         "parry": 16,
         "damage": 25,
         "lvl": 20,
+        "skill_name": "窗含柔月",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N轻轻一跃，一招「乘风归去」，却在转身之际对准$n$l斜斜挥出一剑",
@@ -33,6 +36,7 @@ mapping *action = ({
         "parry": 18,
         "damage": 35,
         "lvl": 30,
+        "skill_name": "乘风归去",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N神态悠闲，手中$w凭空一指，一招「白云千载」轻妙地划向$n的$l",
@@ -41,6 +45,7 @@ mapping *action = ({
         "parry": 21,
         "damage": 25,
         "lvl": 40,
+        "skill_name": "白云千载",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N使出一招「星河影动」，剑光闪烁不定，若有若无地刺向$n$l",
@@ -49,6 +54,7 @@ mapping *action = ({
         "parry": 22,
         "damage": 25,
         "lvl": 50,
+        "skill_name": "星河影动",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N手中$w向外一分，一招「柳暗花明」反手对准$n$l一剑刺去",
@@ -57,6 +63,7 @@ mapping *action = ({
         "parry": 35,
         "damage": 38,
         "lvl": 60,
+        "skill_name": "柳暗花明",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N身形转个不停，突然一招「一点灵犀」使出，手中$w划出一道银弧，径刺$n$l",
@@ -65,6 +72,7 @@ mapping *action = ({
         "parry": 45,
         "damage": 43,
         "lvl": 70,
+        "skill_name": "一点灵犀",
         "damage_type": "刺伤"
     ]),
 });

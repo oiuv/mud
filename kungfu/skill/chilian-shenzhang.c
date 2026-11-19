@@ -20,7 +20,7 @@ mapping *action = ({
         "skill_name": "七彩流金",
         "damage_type": "内伤"
     ]),
-    ([ "action": "$N一招「赤蝶迎晚霞」，忽然袖中双掌咋现，分别从"
+    ([ "action": "$N一招「赤蝶迎晚霞」，忽然袖中双掌乍现，分别从"
         "左右两边齐齐攻向$n",
         "force": 100,
         "attack": 12,

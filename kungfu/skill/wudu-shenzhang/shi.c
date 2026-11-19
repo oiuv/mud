@@ -56,12 +56,13 @@ int perform(object me, object target) {
 
         damage = ap + random(ap);
         damage += damage * count / 100;
+        // Keep the move's own cost apart from the combat daemon's optional jiali cost.
+        me->add("neili", -count);
         msg += COMBAT_D->do_damage(me, target, REMOTE_ATTACK, damage, 70 + count,
             (: final, me, target, damage :));
-        me->add("neili", -count);
         me->start_busy(1 + random(3));
     } else {
-        msg += CYN "可是$p" CYN "眼明手快，侧身一跳$P"
+        msg += CYN "可是$p" CYN "眼明手快，侧身一跳，"
             CYN "已躲过$N这招。\n" NOR;
         me->start_busy(2);
         target->start_busy(1);

@@ -26,7 +26,7 @@ int do_kneel() {
     if (!me->query_temp("pending/join_bonze"))
         return notify_fail("你在地上跪了一会儿，没人理你。\n");
 
-    message_vision(HIC "\n$N" HIC "你双手合十，恭恭敬敬地跪了下来。\n\n"
+    message_vision(HIC "\n$N" HIC "双手合十，恭恭敬敬地跪了下来。\n\n"
         NOR + CYN "$n" CYN "看着$N" CYN "说道：好吧，以后你就"
         "在本庵修行吧。\n\n" HIY "$n" HIY "伸出手掌，在$N" HIY
         "头顶轻轻地摩挲了几下，随即便将$N" HIY "的头发尽数剃"

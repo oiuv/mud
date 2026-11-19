@@ -56,7 +56,7 @@ LONG);
     set_skill("yufeng-zhen", 320);
 
     map_skill("force", "yunv-xinjing");
-    map_skill("sword", "yunv-jian");
+    map_skill("sword", "suxin-jian");
     map_skill("dodge", "yunv-shenfa");
     map_skill("parry", "meinv-quan");
     map_skill("unarmed", "meinv-quan");
@@ -80,11 +80,9 @@ LONG);
         set_temp("apply/damage", 100);
         set_temp("apply/unarmed_damage", 100);
         set_temp("apply/armor", 200);
-        set("chat_chance_combat", 120);
+        set("chat_chance_combat", 71);
         set("chat_msg_combat", ({
             (: perform_action, "sword.lian" :),
-            (: perform_action, "sword.feng" :),
-            (: perform_action, "sword.kai" :),
             (: perform_action, "unarmed.you" :),
             (: perform_action, "strike.wang" :),
             (: exert_function, "recover" :),

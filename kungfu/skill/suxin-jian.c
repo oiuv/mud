@@ -36,7 +36,7 @@ mapping *action = ({
         "lvl": 14,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w颤动，如鲜花招展来回挥削，只幌得$n眼花撩乱，浑不知从何攻来",
+    ([ "action": "$N手中$w颤动，如鲜花招展来回挥削，只晃得$n眼花缭乱，浑不知从何攻来",
         "force": 8,
         "attack": 4,
         "dodge": 15,
@@ -63,7 +63,7 @@ mapping *action = ({
         "lvl": 29,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N左掌横摆胸前，右手中$w轻轻挥拂，却是一招「抚琴按萧」",
+    ([ "action": "$N左掌横摆胸前，右手中$w轻轻挥拂，却是一招「抚琴按箫」",
         "force": 30,
         "attack": 10,
         "dodge": 15,
@@ -153,7 +153,7 @@ mapping *action = ({
         "lvl": 82,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w合身疾刺，一招「孤云出釉」，直指$n的$l",
+    ([ "action": "$N手中$w合身疾刺，一招「孤云出岫」，直指$n的$l",
         "force": 130,
         "attack": 36,
         "dodge": 30,
@@ -308,11 +308,15 @@ int valid_learn(object me) {
 
 mapping query_action(object me, object weapon) {
     int i, level;
-    level = (int)me->query_skill("suxin-jian", 1);
-    for (i = sizeof(action); i > 0; i--)
-        if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 20, level / 5)];
+    mapping *eligible;
 
+    level = (int)me->query_skill("suxin-jian", 1);
+    eligible = ({});
+    for (i = 0; i < sizeof(action); i++)
+        if (level > action[i]["lvl"])
+            eligible += ({ action[i] });
+    if (!sizeof(eligible)) return 0;
+    return eligible[NewRandom(sizeof(eligible), 20, level / 5)];
 }
 
 int practice_skill(object me) {

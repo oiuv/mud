@@ -182,8 +182,8 @@ mixed ask_me() {
     tell_object(me, HIC "你学会了「谁与争锋」。\n" NOR);
     if (me->can_improve_skill("strike"))
         me->improve_skill("strike", 1500000);
-    if (me->can_improve_skill("zhenshan-zhang"))
-        me->improve_skill("zhenshan-zhang", 1500000);
+    if (me->can_improve_skill("yitian-zhang"))
+        me->improve_skill("yitian-zhang", 1500000);
     me->improve_skill("martial-cognize", 1500000);
     me->set("can_perform/yitian-zhang/zheng", 1);
     me->add("gongxian", -200);

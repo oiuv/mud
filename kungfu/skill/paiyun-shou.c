@@ -11,7 +11,7 @@ mapping *action = ({
         "lvl": 0,
         "damage_type": "抓伤"
     ]),
-    ([ "action": "$N退后一步，双掌一起排出，如钩如戢，插向$n的$l",
+    ([ "action": "$N退后一步，双掌一起排出，如钩如戟，插向$n的$l",
         "force": 40,
         "dodge": 15,
         "parry": 5,
@@ -108,7 +108,7 @@ string query_skill_name(int level) {
     int i;
     for (i = sizeof(action); i > 0; i--)
         if (level >= action[i - 1]["lvl"])
-            return action[i - 1]["skill_name"];
+            return action[i - 1]["skill_name"] || "排云手";
 }
 
 mapping query_action(object me, object weapon) {

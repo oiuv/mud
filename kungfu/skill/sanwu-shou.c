@@ -47,7 +47,7 @@ mapping *action = ({
         "skill_name": "风起云涌",
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N运气于腕，一招「风卷残云」，手中$w向一根铜棍般直击向$n",
+    ([ "action": "$N运气于腕，一招「风卷残云」，手中$w像一根铜棍般直击向$n",
         "force": 220,
         "attack": 50,
         "dodge": 66,
@@ -128,7 +128,7 @@ int valid_learn(object me) {
         return notify_fail("你的基本鞭法火候太浅，没有办法练三无三不手。\n");
 
     if ((int)me->query_skill("whip", 1) < (int)me->query_skill("sanwu-shou", 1))
-        return notify_fail("你的基本鞭法水平有限，无法领会更高深的没有办法练三无三不手。\n");
+        return notify_fail("你的基本鞭法水平有限，无法领会更高深的三无三不手。\n");
 
     return 1;
 }

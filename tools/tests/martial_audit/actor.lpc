@@ -5,6 +5,13 @@ inherit NPC;
 void heart_beat() {}
 void unconcious() { add_temp("test/unconscious", 1); }
 void die() { add_temp("test/deaths", 1); }
+void receive_message(string type, string text) { add_temp("test/messages", text); }
+
+varargs void remove(string euid) {
+    if (query_temp("test/refuse_remove"))
+        throw("fixture refused removal");
+    ::remove(euid);
+}
 
 int invoke(function callback) {
     set_temp("test/callback", callback);

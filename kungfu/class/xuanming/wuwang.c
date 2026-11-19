@@ -43,10 +43,10 @@ LONG);
     set_skill("martial-cognize", 20);
 
     map_skill("force", "minggu-xinfa");
-    map_skill("dodge", "lingying-bu");
+    map_skill("dodge", "liuying-bu");
     map_skill("parry", "feihua-zhang");
     map_skill("cuff", "piaofeng-quan");
-    map_skill("strike", "feihua-diwang");
+    map_skill("strike", "feihua-zhang");
 
     prepare_skill("strike", "feihua-zhang");
     prepare_skill("cuff", "piaofeng-quan");
@@ -54,7 +54,7 @@ LONG);
     create_family("玄冥谷", 3, "弟子");
 
     set("coagents", ({
-        ([ "startroom": "xxxxxxxxxxxxxxxxxxxxxxxx",
+        ([ "startroom": "/d/xuanminggu/xuanmingfeng",
             "id": "baisun daoren" ]),
     }));
 

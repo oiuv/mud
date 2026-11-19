@@ -15,7 +15,7 @@ void create() {
 此人正是和乔峰齐名的慕容家高手。他容貌俊雅，风度过人，
 的确非寻常人可比。
 LONG);
-    set("titile", "姑苏慕容");
+    set("title", "姑苏慕容");
     set("gender", "男性");
     set("age", 25);
     set("shen_type", -1);

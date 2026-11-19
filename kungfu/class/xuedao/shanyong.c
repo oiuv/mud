@@ -108,6 +108,9 @@ string ask_for_join() {
 
     me = this_player();
 
+    if (!permit_recruit(me))
+        return "本门规矩不可违，你还是另寻明师吧。\n";
+
     if ((string)me->query("class") == "bonze")
         return "阿弥陀佛！你我同是出家人，何故跟贫僧开这等玩笑？\n";
 
@@ -126,6 +129,12 @@ int do_kneel() {
 
     if (!me->query_temp("pending/join_bonze"))
         return notify_fail("你跪了半点，结果没人理你。\n");
+
+    if (!permit_recruit(me)) {
+        me->delete_temp("pending/join_bonze");
+        return 0;
+    }
+    me->delete_temp("pending/join_bonze");
 
     message_vision(HIY "$N" HIY "双手合十，恭恭敬敬地跪了下来。\n\n"
         "$n" HIY "伸出手掌，在$N" HIY "头顶轻轻地摩挲了几"

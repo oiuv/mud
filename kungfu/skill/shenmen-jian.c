@@ -24,7 +24,7 @@ mapping *action = ({
         "damage": 17,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w颤动来回挥削，只幌得$n眼花撩乱，浑不知从何攻来",
+    ([ "action": "$N手中$w颤动来回挥削，只晃得$n眼花缭乱，浑不知从何攻来",
         "force": 89,
         "attack": 31,
         "dodge": 25,

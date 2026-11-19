@@ -61,7 +61,7 @@ LONG);
     map_skill("cuff", "tiexian-quan");
     map_skill("parry", "tie-zhang");
     map_skill("dodge", "dengping-dushui");
-    map_skill("staff", "feilong-zhangfa");
+    map_skill("staff", "feilong-zhang");
 
     prepare_skill("strike", "tie-zhang");
 
@@ -148,7 +148,7 @@ int accept_ask(object me, string topic) {
 
         case "破甲推山":
             return MASTER_D->teach_pfm(me, this_object(),
-                ([ "perform": "can_perform/tiexian-quan/jia",
+                ([ "perform": "can_perform/tiexian-quan/tui",
                     "name": "破甲推山",
                     "sk1": "tiexian-quan",
                     "lv1": 60,

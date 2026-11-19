@@ -8,7 +8,7 @@ inherit F_GUARDER;
 void create() {
     set_name("司徒焚", ({ "situ fen", "situ", "fen" }));
     set("long", "一个四十来岁的中年男子，他便是铁掌帮二代人物\n"
-        "中的佼佼者，为人很是精明，深得帮助的喜爱。\n");
+        "中的佼佼者，为人很是精明，深得帮主的喜爱。\n");
     set("gender", "男性");
     set("age", 40);
     set("attitude", "friendly");
@@ -157,8 +157,6 @@ int hiting_ob(object ob) {
     me = this_object();
     ob->kill_ob(me);
     me->fight_ob(ob);
-    remove_call_out("moving_ob");
-    call_out("moving_ob", 1, ob);
 }
 
 int accept_ask(object me, string topic) {
@@ -169,7 +167,7 @@ int accept_ask(object me, string topic) {
                     "name": "血浪滔天",
                     "msg1": HIY "$N" HIY "微微一笑，在你"
                     "耳边轻声嘀咕了几句，然后顺"
-                    "手拔出腰间的刚刀凌空劈斩了"
+                    "手拔出腰间的钢刀凌空劈斩了"
                     "几下，招式很是惊奇。你若有"
                     "所悟的点了点头。",
                     "sk1": "tiexue-dao",

@@ -42,7 +42,7 @@ int perform(object me, object target) {
     if (!living(target))
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-    msg = HIY "\n$N" HIY "深吸一口起，将真气运于双拳之上，施出绝招「" HIR "魂魄飞扬" HIY
+    msg = HIY "\n$N" HIY "深吸一口气，将真气运于双拳之上，施出绝招「" HIR "魂魄飞扬" HIY
         "」，右拳平平一拳直出，但见普通一拳之中蕴涵了无穷的力量，拳未到风先至，猛然"
         "间袭向$n" HIY "。\n" NOR;
 

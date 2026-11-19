@@ -14,7 +14,7 @@ void create() {
     set("title", "川西碧磷洞洞主");
     set("age", 58);
     set("long", @LONG
-这便是川西碧磷洞洞主端桑土公，只见他身材
+这便是川西碧磷洞洞主桑土公，只见他身材
 矮小，须发皆白。手持一个大铜鼎，鼎足上铸
 着一个“桑”字，乃是几条小蛇、蜈蚣之形盘
 成，铜绿斑斓，宛是一件古物。
@@ -56,7 +56,7 @@ LONG);
     map_skill("strike", "dusha-zhang");
     map_skill("hand", "lansha-shou");
     map_skill("throwing", "pidi-shenzhen");
-    map_skill("parry", "jiuqu-zhegufa");
+    map_skill("parry", "shennong-zhang");
     map_skill("staff", "shennong-zhang");
 
     prepare_skill("hand", "lansha-shou");

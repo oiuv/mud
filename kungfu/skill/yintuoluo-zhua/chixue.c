@@ -46,7 +46,7 @@ int perform(object me, object target) {
     ap = me->query_skill("claw") + me->query_skill("force") + me->query_str() + me->query_dex();
     dp = target->query_skill("parry") + target->query_skill("force") + target->query_str() + target->query_dex();
     lvl = (int)me->query_skill("yintuoluo-zhua", 1);
-    msg = HIW "\n$N" HIW "运转少林真气，双手忽成爪行，施出绝招「" HIR "赤"
+    msg = HIW "\n$N" HIW "运转少林真气，双手忽成爪形，施出绝招「" HIR "赤"
         "血连环爪" HIW "」，迅猛无比地抓向$n" HIW "。\n" NOR;
 
     if (ap * 3 / 4 + random(ap) > dp) {

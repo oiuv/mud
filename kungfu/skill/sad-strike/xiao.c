@@ -52,6 +52,9 @@ int perform(object me, object target) {
     if (lvl > 600)
         n += (int)(lvl - 400) / 200;
 
+    if (me->query("neili") < 70 * n)
+        return notify_fail("你的真气不足以施展完整的" XIAO "。\n");
+
     if (ap / 2 + random(ap) > dp) {
         count = ap / 10;
         msg += HIY "$n" HIY "见$P" HIY "这一招变化莫测，奇幻无"

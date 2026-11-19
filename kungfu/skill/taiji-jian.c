@@ -301,7 +301,7 @@ int valid_learn(object me) {
         return notify_fail("你的基本剑法水平有限，无法修炼太极剑法。\n");
 
     if ((int)me->query_skill("sword", 1) < (int)me->query_skill("taiji-jian", 1))
-        return notify_fail("你的基本剑法水平有限，无法领会更高深的太级剑法。\n");
+        return notify_fail("你的基本剑法水平有限，无法领会更高深的太极剑法。\n");
 
     return 1;
 }

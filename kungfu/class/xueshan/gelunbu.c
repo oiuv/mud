@@ -10,7 +10,7 @@ void create() {
     set_name("葛伦布", ({ "ge lunbu", "ge", "lunbu" }));
     set("long", @LONG
 葛伦布是大轮寺护寺僧兵的头领。同时向本寺
-第子传授武功。身穿一件黑色袈裟，头带僧帽。
+弟子传授武功。身穿一件黑色袈裟，头戴僧帽。
 LONG);
     set("title", "大轮寺僧兵头领");
     set("gender", "男性");

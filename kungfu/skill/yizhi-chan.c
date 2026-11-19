@@ -78,7 +78,7 @@ int practice_skill(object me) {
         return notify_fail("你必须空手练习！\n");
 
     if ((int)me->query("qi") < 70)
-        return notify_fail("你的内力太低了。\n");
+        return notify_fail("你的体力太低了。\n");
 
     if ((int)me->query("neili") < 70)
         return notify_fail("你的内力不够练一指禅。\n");

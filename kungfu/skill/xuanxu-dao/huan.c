@@ -38,7 +38,7 @@ int perform(object me, object target) {
     if (!living(target))
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-    msg = HIW "$N" HIW "使出玄虚刀法中的绝技乱环决，刀出成环，环环相连，只"
+    msg = HIW "$N" HIW "使出玄虚刀法中的绝技乱环诀，刀出成环，环环相连，只"
         "绞的$n" HIW "眼前一片影环。\n" NOR;
 
     ap = me->query_skill("blade");

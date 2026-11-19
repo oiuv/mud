@@ -59,7 +59,7 @@ mapping *action = ({
         "damage_type": "内伤"
     ]),
     ([
-        "action": "$N俯身前探，右手食指连点数下，已将参和指发挥至极致",
+        "action": "$N俯身前探，右手食指连点数下，已将去烦恼指发挥至极致",
         "force": 550,
         "dodge": 55,
         "parry": 50,

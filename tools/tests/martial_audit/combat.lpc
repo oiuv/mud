@@ -1,14 +1,28 @@
 // Observes the combat boundary; all effect calculations remain production code.
+private string bhinfo;
+
+void set_bhinfo(string text) { bhinfo = text; }
+string query_bhinfo() { return bhinfo; }
+
 varargs string do_damage(object me, object target, int type, int amount, int percent, mixed text) {
     target->add_temp("test/damages", 1);
     target->set_temp("test/damage", amount);
+    if (me->query_temp("test/real_combat"))
+        return "/tests/actual_combat"->do_damage(me, target, type, amount, percent, text);
     return stringp(text) ? text : "";
 }
 
 varargs void do_attack(object me, object target, object weapon, int flags, string text) {
+    if (!me->query_temp("test/attacks"))
+        me->set_temp("test/first_neili", me->query("neili"));
     me->add_temp("test/attacks", 1);
+    me->set_temp("test/weapon_argument", weapon);
     me->set_temp("test/in_effect", ({ me->query_str(), me->query_dex(),
         me->query_temp("apply/attack"), me->query_temp("apply/damage") }));
+    if (me->query_temp("test/real_combat")) {
+        "/tests/actual_combat"->do_attack(me, target, weapon, flags);
+        return;
+    }
     // Deterministic hit boundary for the Shenghuo regression only. Both hooks
     // remain original skill code; this is not a full combat probability test.
     if (me->query_temp("test/shenghuo")) {

@@ -89,7 +89,7 @@ int valid_learn(object me) {
         return notify_fail("你的基本掌法水平太低，无法研习天罗地网掌。\n");
 
     if ((int)me->query_skill("strike", 1) < me->query_skill("tianluo-diwang", 1))
-        return notify_fail("你的基本掌法水平水平有限，无法研习更高深的天罗地网掌。\n");
+        return notify_fail("你的基本掌法水平有限，无法研习更高深的天罗地网掌。\n");
 
     return 1;
 }

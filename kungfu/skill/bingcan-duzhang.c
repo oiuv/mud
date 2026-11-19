@@ -9,7 +9,7 @@ mapping *action = ({
         "dodge": -30,
         "attack": 79,
         "parry": -37,
-        "dmage": 52,
+        "damage": 52,
         "force": 430,
         "damage_type": "瘀伤"
     ]),
@@ -17,7 +17,7 @@ mapping *action = ({
         "dodge": -22,
         "attack": 96,
         "parry": -34,
-        "dmage": 67,
+        "damage": 67,
         "force": 490,
         "damage_type": "瘀伤"
     ]),
@@ -25,7 +25,7 @@ mapping *action = ({
         "dodge": -20,
         "attack": 113,
         "parry": 10,
-        "dmage": 82,
+        "damage": 82,
         "force": 530,
         "damage_type": "瘀伤"
     ]),
@@ -33,7 +33,7 @@ mapping *action = ({
         "dodge": 28,
         "attack": 139,
         "parry": 36,
-        "dmage": 95,
+        "damage": 95,
         "force": 580,
         "damage_type": "瘀伤"
     ]),
@@ -41,7 +41,7 @@ mapping *action = ({
         "dodge": 27,
         "attack": 161,
         "parry": 21,
-        "dmage": 105,
+        "damage": 105,
         "force": 640,
         "damage_type": "瘀伤"
     ]),

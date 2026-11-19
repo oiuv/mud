@@ -2,7 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-void remove_effect(object me, int amount);
+void remove_effect(object me, int amount, int layer);
 
 int exert(object me, object target) {
     int skill, lvl, layer;
@@ -36,21 +36,19 @@ int exert(object me, object target) {
     me->add("neili", -100);
 
     me->start_call_out((: call_other, __FILE__, "remove_effect",
-        me, skill / 3 :), skill);
+        me, skill / 3, layer :), skill);
 
     if (me->is_fighting()) me->start_busy(3);
 
     return 1;
 }
-/*
-void remove_effect(object me, int amount)
-{
-        if ((int)me->query_temp("powerup"))
-        {
-                me->add_temp("apply/attack", -(amount - (layer * 15)));
-                me->add_temp("apply/parry", -amount);
-                me->add_temp("apply/dodge", -amount);
-                me->delete_temp("powerup");
-                tell_object(me, "你的龙象般若功运行完毕，将内力收回丹田。\n");
-        }
-}*/
+
+void remove_effect(object me, int amount, int layer) {
+    if (objectp(me) && (int)me->query_temp("powerup")) {
+        me->add_temp("apply/attack", -amount - layer * 15);
+        me->add_temp("apply/parry", -amount);
+        me->add_temp("apply/dodge", -amount);
+        me->delete_temp("powerup");
+        tell_object(me, "你的龙象般若功运行完毕，将内力收回丹田。\n");
+    }
+}

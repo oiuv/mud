@@ -1,8 +1,6 @@
 // Room: /d/mingjiao/mishi.c
 // Date: Java 97/04/9
 
-#include <room.h>
-
 #define MIJI            "/clone/book/qiankun_book"
 
 inherit ROOM;
@@ -11,9 +9,9 @@ void create() {
     set("short", "石室");
     set("long", @LONG
 这间石室极大，顶上垂下钟乳，显是天然的石洞。走了几步，突
-见地下倒着两具骷髅。骷髅身上衣服尚未烂尽，着得出是一男一女。
+见地下倒着两具骷髅。骷髅身上衣服尚未烂尽，看得出是一男一女。
 走近两具骷髅，只见那女子右手抓着一柄晶光闪亮的匕首，插在她自
-己胸口。
+己胸口。南侧另有一条低矮的甬道，可循它折回入口附近。
 LONG);
     set("exits", ([
         "south": __DIR__ "midao0",
@@ -25,7 +23,6 @@ LONG);
     ]));
     set("xin_count", 1);
     setup();
-    create_door("south", "石门", "north", !DOOR_CLOSED);
 }
 
 void init() {

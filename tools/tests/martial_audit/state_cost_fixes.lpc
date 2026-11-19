@@ -1,0 +1,606 @@
+// Real skill bodies; deterministic RNG and combat boundary observations only.
+private object suite;
+private object *expiry_actors = ({});
+private function expiry_done;
+private object *nuoyi_defenders = ({});
+private object *nuoyi_attackers = ({});
+private string *nuoyi_ids = ({});
+
+void check(int ok, string label) { master()->check(ok, "state_cost " + label); }
+void rolls(int high) { "/tests/control"->reset(high, ({})); }
+
+object weapon_for(object who, string type) {
+    object weapon;
+
+    weapon = new("/tests/sword");
+    weapon->set("skill_type", type);
+    weapon->move(who);
+    check(weapon->wield(), "fixture weapon is actually wielded");
+    return weapon;
+}
+
+void check_healing() {
+    object a, b, skill;
+    int qi, jing, neili, cost;
+    string path;
+
+    foreach (path in ({ "/kungfu/skill/sun-finger/heal", "/kungfu/skill/yiyang-zhi/heal",
+        "/kungfu/skill/taiji-shengong/dian" })) {
+        a = suite->actor(); b = suite->actor();
+        a->set_skill("taiji-shengong", 200);
+        a->set_skill("sun-finger", 200);
+        a->set_skill("yiyang-zhi", 200);
+        a->set_skill("jingluo-xue", 200);
+        a->map_skill("force", "taiji-shengong");
+        a->map_skill("finger", "yiyang-zhi");
+        a->prepare_skill("finger", "yiyang-zhi");
+        b->set("eff_qi", 50000); b->set("eff_jing", 50000);
+        skill = load_object(path);
+        qi = b->query("eff_qi"); jing = b->query("eff_jing"); neili = a->query("neili");
+        cost = path == "/kungfu/skill/sun-finger/heal" ? 1000 : 800;
+        check(path == "/kungfu/skill/taiji-shengong/dian" ? skill->exert(
+            a,
+            b
+        ) : skill->perform(a, b),
+            "MA-007 original healing body succeeds");
+        check(b->query("eff_qi") > qi && b->query("eff_jing") > jing &&
+            a->query("neili") == neili - cost, "MA-007 healing and original energy costs remain");
+        check(b->query_busy() == 2 && a->query_busy() == 10,
+            "MA-007 healed target receives the intended busy period");
+        a->restore_busy(({ 0, 0 })); b->restore_busy(({ 0, 0 }));
+        b->set("eff_qi", b->query("max_qi")); b->set("eff_jing", b->query("max_jing"));
+        neili = a->query("neili");
+        check(!(path == "/kungfu/skill/taiji-shengong/dian" ? skill->exert(
+            a,
+            b
+        ) : skill->perform(a, b)) &&
+            !b->is_busy() && a->query("neili") == neili,
+            "MA-007 uninjured target remains rejected without costs or busy");
+    }
+}
+
+void check_longxiang() {
+    object a, skill;
+    int lvl, attack, parry, dodge, strength, amount, layer;
+    string path;
+
+    foreach (path in ({
+        "/kungfu/skill/longxiang-gong/exert/powerup",
+        "/kungfu/skill/longxiang/powerup"
+    })) {
+        foreach (lvl in ({ 119, 120, 390, 420 })) {
+            a = suite->actor();
+            a->set_skill("longxiang-gong", lvl);
+            a->set_temp("apply/attack", 11); a->set_temp("apply/parry", 13);
+            a->set_temp("apply/dodge", 17); a->set_temp("str", 19);
+            attack = 11; parry = 13; dodge = 17; strength = 19;
+            layer = lvl / 30; if (layer > 13) layer = 13;
+            amount = path == "/kungfu/skill/longxiang/powerup" ? a->query_skill("force") / 3 : lvl / 3;
+            skill = load_object(path);
+            check(skill->exert(
+                a,
+                a
+            ) && a->query_temp("apply/attack") == attack + amount + layer * 15 &&
+                a->query_temp("apply/parry") == parry + amount && a->query_temp("apply/dodge") == dodge + amount,
+                "MA-014/015 original boost formula is retained");
+            check(!skill->exert(a, a), "MA-014/015 cannot stack an active boost");
+            a->add_temp("apply/attack", 7); a->add_temp("str", 5);
+            a->set_skill("longxiang-gong", lvl + 30);
+            check(function_exists("remove_effect", skill) != 0,
+                "MA-014/015 scheduled removal callback exists");
+            skill->remove_effect(a, amount, layer);
+            check(a->query_temp("apply/attack") == attack + 7 && a->query_temp("apply/parry") == parry &&
+                a->query_temp("apply/dodge") == dodge && a->query_temp("str") == strength + 5 &&
+                !a->query_temp("powerup"), "MA-014/015 callback removes only the original level's boost");
+            skill->remove_effect(a, amount, layer);
+            check(a->query_temp("apply/attack") == attack + 7,
+                "MA-014/015 repeated callback cannot remove unrelated bonuses");
+            destruct(a);
+        }
+    }
+}
+
+void check_inspire() {
+    object a, skill;
+    int mode;
+
+    skill = load_object("/kungfu/skill/force/inspire");
+    foreach (mode in ({ 0, 1, 2, 3 })) {
+        a = suite->actor();
+        a->set_skill("taiji-shengong", 200);
+        a->map_skill("force", "taiji-shengong");
+        a->set("eff_jing", 50000);
+        check(
+            skill->exert(a, a) && a->query_temp("pending/inspiring"),
+            "MA-080 original inspire starts"
+        );
+        a->set_temp("pending/healing", 7); a->set_temp("pending/exercise", 9);
+        if (mode == 0) a->set("neili", 99);
+        if (mode == 1) a->set("eff_jing", a->query("max_jing"));
+        if (mode == 2) a->map_skill("force", 0);
+        if (mode == 3) skill->halt_inspiring(a);
+        else check(!skill->inspiring(a), "MA-080 terminal inspiring callback returns zero");
+        check(!a->query_temp("pending/inspiring") && a->query_temp("pending/healing") == 7 &&
+            a->query_temp("pending/exercise") == 9, "MA-080 every exit clears only its own pending state");
+        a->restore_busy(({ 0, 0 }));
+    }
+}
+
+void check_weapons_and_whip_cost() {
+    object a, b, weapon, skill;
+    string path;
+    int n, energy, high;
+
+    foreach (path in ({ "/kungfu/skill/yecha-gun/hongxia", "/kungfu/skill/qingyun-bian/duan" })) {
+        a = suite->actor(); b = suite->actor(); suite->fight(a, b);
+        a->set_skill("club", 800); a->set_skill("whip", 800);
+        a->set_skill(
+            "force",
+            800
+        ); a->set_skill("yecha-gun", 800); a->set_skill("qingyun-bian", 800);
+        a->map_skill("club", "yecha-gun"); a->map_skill("whip", "qingyun-bian");
+        skill = load_object(path);
+        energy = a->query("neili"); rolls(0);
+        check(!skill->perform(a, b) && a->query("neili") == energy,
+            "MA-084/086 no actual weapon refuses without costs");
+        weapon = weapon_for(a, "sword"); rolls(0);
+        check(!skill->perform(a, b) && a->query("neili") == energy,
+            "MA-084/086 wrong actual weapon refuses without costs");
+        weapon->unequip(); destruct(weapon);
+        weapon = weapon_for(a, path == "/kungfu/skill/yecha-gun/hongxia" ? "club" : "whip");
+        if (path == "/kungfu/skill/qingyun-bian/duan") {
+            foreach (high in ({ 0, 1 })) {
+                foreach (n in ({ 201, 399, 400, 479, 480 })) {
+                    a->set("neili", n); rolls(high);
+                    energy = high ? 480 : 400;
+                    if (n < energy) {
+                        check(!skill->perform(a, b) && a->query("neili") == n,
+                            "MA-085 duan refuses below this invocation's full original cost");
+                    } else {
+                        check(skill->perform(a, b) && a->query("neili") == n - energy,
+                            "MA-085 duan exact cost is paid without underflow");
+                        check(a->query_temp("apply/attack") == 0 && b->query_temp("apply/armor") == 0 &&
+                            b->query_temp("apply/dodge") == 0, "MA-085 duan restores its temporary bonuses");
+                    }
+                }
+            }
+        } else {
+            a->set("neili", 200); rolls(1);
+            check(skill->perform(a, b) && a->query("neili") == 0,
+                "MA-084 legal club retains the original success cost");
+        }
+    }
+}
+
+void check_simple_costs() {
+    object a, b, skill, weapon, head;
+    int n, energy, qi;
+
+    skill = load_object("/kungfu/skill/dugu-jiujian/jue");
+    foreach (n in ({ 0, 40, 41 })) {
+        a = suite->actor(); a->set("int", 39);
+        a->set_skill("dugu-jiujian", 60); a->set_skill("sword", 60);
+        weapon = weapon_for(a, "sword"); a->set("jing", n); energy = a->query("neili"); rolls(0);
+        if (n < 41) check(!skill->perform(a) && a->query("jing") == n && a->query("neili") == energy,
+            "MA-064 insufficient positive mental cost refuses without spending");
+        else check(skill->perform(a) && a->query("jing") == 0 && a->query("neili") == energy - 50,
+            "MA-064 exact mental cost succeeds with original costs");
+    }
+    skill = load_object("/kungfu/skill/sad-strike/xiao");
+    foreach (n in ({ 499, 500, 559, 560 })) {
+        a = suite->actor(); b = suite->actor(); suite->fight(a, b);
+        a->set_skill("sad-strike", 800); a->prepare_skill("unarmed", "sad-strike");
+        a->set("neili", n); rolls(0);
+        if (n < 560) check(!skill->perform(a, b) && a->query("neili") == n &&
+            !a->query_temp("test/attacks"), "MA-085 sad-strike refuses the full eight-attack cost minus one");
+        else check(skill->perform(
+            a,
+            b
+        ) && a->query("neili") == 0 && a->query_temp("test/attacks") == 8,
+            "MA-085 sad-strike exact eight-attack cost retains all eight attacks");
+    }
+    a = suite->actor(); a->set_skill("huoyan-dao", 200);
+    skill = load_object("/kungfu/skill/huoyan-dao");
+    foreach (n in ({ 69, 70, 99, 100 })) {
+        a->set("neili", n); qi = a->query("qi");
+        if (n < 100) check(!skill->practice_skill(a) && a->query("neili") == n && a->query("qi") == qi,
+            "MA-085 huoyan practice rejects below its actual formula cost");
+        else check(skill->practice_skill(a) && !a->query("neili") && a->query("qi") == qi - 55,
+            "MA-085 huoyan practice exact formula cost succeeds");
+    }
+    a = suite->actor(); a->set_skill("jiuyin-baiguzhao", 800);
+    head = new("/clone/misc/head"); head->move(suite);
+    skill = load_object("/kungfu/skill/jiuyin-baiguzhao");
+    foreach (n in ({ 500, 799, 800 })) {
+        a->set("neili", n); qi = a->query("qi"); rolls(0);
+        if (n < 800) check(!skill->practice_skill(a) && a->query("neili") == n && a->query("qi") == qi &&
+            !head->query_temp("clawed_by_jiuyin"), "MA-085 claw practice rejects before spending resources or material");
+        else check(skill->practice_skill(a) && !a->query("neili") && a->query("qi") == qi - 80 &&
+            head->query_temp("clawed_by_jiuyin"), "MA-085 claw practice exact cost consumes original material once");
+    }
+    destruct(head);
+}
+
+void check_nuoyi() {
+    object a, b, skill;
+    string attacker_id;
+
+    skill = load_object("/kungfu/skill/qiankun-danuoyi");
+    a = suite->actor(); b = suite->actor();
+    a->set_temp("nuoyi/" + b->query("id"), 1);
+    skill->nuoyi(b, a);
+    check(!a->query_temp("nuoyi") && !b->query_temp("test/damages"),
+        "MA-131 canceled fight clears the queued marker without attacking");
+    a->set_temp("nuoyi/" + b->query("id"), 1);
+    attacker_id = b->query("id");
+    destruct(b);
+    skill->nuoyi(b, a, attacker_id);
+    check(!a->query_temp("nuoyi"), "MA-131 destroyed target clears the queued marker");
+    b = suite->actor(); suite->fight(a, b);
+    a->set_temp("nuoyi/" + b->query("id"), 1); rolls(0);
+    skill->nuoyi(b, a);
+    check(!a->query_temp("nuoyi"), "MA-131 normal callback also clears its own marker");
+    a->remove_all_enemy(1);
+    a->set_temp("nuoyi/" + b->query("id"), 1);
+    a->set_temp("nuoyi/independent", 7);
+    skill->nuoyi(b, a, b->query("id"));
+    check(!a->query_temp("nuoyi/" + b->query("id")) && a->query_temp("nuoyi/independent") == 7,
+        "MA-131 canceled callback preserves another marker");
+    skill->nuoyi(b, a, b->query("id"));
+    check(a->query_temp("nuoyi/independent") == 7,
+        "MA-131 repeated old callback cannot clear an independent marker");
+}
+
+int team_command(object who, string command) {
+    return who->invoke((: call_other, "/cmds/std/team", "main", who, command :));
+}
+
+object *form_pair() {
+    object a, b, who;
+
+    a = suite->actor(); b = suite->actor();
+    foreach (who in ({ a, b })) {
+        who->set_skill("blade", 200);
+        who->set_skill("fanliangyi-dao", 200);
+        who->map_skill("blade", "fanliangyi-dao");
+        weapon_for(who, "blade");
+        who->set_temp("apply/attack", 11); who->set_temp("apply/defense", 13);
+        who->set_temp("apply/damage", 17); who->set_temp("apply/armor", 19);
+    }
+    a->set_temp("no_quit", 7);
+    check(team_command(a, "with " + b->query("id")) && team_command(b, "with " + a->query("id")),
+        "MA-062 original team with invitation and acceptance succeed");
+    check(team_command(
+        a,
+        "form fanliangyi-dao"
+    ) && a->query_temp("array/name") == "fanliangyi-dao" &&
+        b->query_temp("array/name") == "fanliangyi-dao", "MA-062 original team form reaches existing blade formation");
+    check(a->query_temp("array/level") == 1200 && a->query_temp("apply/attack") == 1211 &&
+        b->query_temp("apply/armor") == 1219, "MA-062 original formation strength and four bonuses remain");
+    return ({ a, b });
+}
+
+void check_formation() {
+    object *pair, *other;
+    object room, a, b;
+    int mode;
+
+    foreach (mode in ({ 0, 1, 2, 3 })) {
+        pair = form_pair(); other = form_pair();
+        a = pair[0]; b = pair[1];
+        check(!a->move(0) && a->query_temp("array/level") == 1200 && b->query_temp("array/level") == 1200,
+            "MA-063 failed movement preserves the active formation");
+        check(!team_command(
+            b,
+            "with " + other[0]->query("id")
+        ) && a->query_temp("array/level") == 1200,
+            "MA-063 refused team invitation preserves formation bonuses");
+        if (mode < 2) {
+            room = new(base_name(suite));
+            check(pair[mode]->move(room), "MA-063 original member or leader movement succeeds");
+        } else check(
+            team_command(pair[mode - 2], "dismiss"),
+            "MA-063 original leader dismiss or member leave succeeds"
+        );
+        check(!a->query_temp("array") && !b->query_temp("array") && a->query_temp("no_quit") == 7 &&
+            !b->query_temp("no_quit"), "MA-063 both original members leave the formation and prior no_quit is restored");
+        check(a->query_temp("apply/attack") == 11 && a->query_temp("apply/defense") == 13 &&
+            a->query_temp("apply/damage") == 17 && a->query_temp("apply/armor") == 19 &&
+            b->query_temp("apply/attack") == 11 && b->query_temp("apply/armor") == 19,
+            "MA-063 dissolution removes only this formation's original bonuses");
+        check(other[0]->query_temp("array/level") == 1200 && other[1]->query_temp("apply/attack") == 1211,
+            "MA-063 independent pair remains formed");
+        "/kungfu/skill/fanliangyi-dao"->dismiss_array(a);
+        check(
+            a->query_temp("apply/attack") == 11,
+            "MA-063 repeated dissolution cannot subtract twice"
+        );
+        team_command(other[0], "dismiss");
+        foreach (a in pair + other) destruct(a);
+        if (objectp(room)) destruct(room);
+    }
+}
+
+void run_form(object arena) {
+    object *pair;
+
+    suite = arena;
+    pair = form_pair();
+    destruct(pair[0]); destruct(pair[1]);
+}
+
+void run_exit(object arena) {
+    suite = arena;
+    check_formation();
+}
+
+void run_destroy(object arena) {
+    object *pair, *other;
+    object survivor, removed;
+    mixed refused;
+    int index;
+
+    suite = arena;
+    foreach (index in ({ 0, 1 })) {
+        pair = form_pair();
+        other = form_pair();
+        removed = pair[index];
+        survivor = pair[1 - index];
+        survivor->add_temp("apply/attack", 23);
+        removed->set_temp("test/refuse_remove", 1);
+        refused = catch(destruct(removed));
+        check(refused == "fixture refused removal" && objectp(removed),
+            "MA-063-REMOVE rejected removal leaves its original object alive");
+        check(removed->query_temp("array/level") == 1200 && survivor->query_temp("array/level") == 1200 &&
+            removed->query_temp("no_quit") == 1 && survivor->query_temp("no_quit") == 1 &&
+            survivor->query_temp("apply/attack") == 1234,
+            "MA-063-REMOVE rejection does not dismiss the active formation");
+        removed->delete_temp("test/refuse_remove");
+        destruct(removed);
+        check(!objectp(removed) && !survivor->query_temp("array") &&
+            survivor->query_temp("apply/attack") == 34 &&
+            survivor->query_temp("apply/defense") == 13 &&
+            survivor->query_temp("apply/damage") == 17 &&
+            survivor->query_temp("apply/armor") == 19,
+            "MA-063-REMOVE destroying either original member removes formation but preserves independent bonuses");
+        check(survivor->query_temp("no_quit") == (index == 1 ? 7 : 0),
+            "MA-063-REMOVE surviving member restores its prior quit restriction");
+        check(other[0]->query_temp("array/level") == 1200 &&
+            other[1]->query_temp("apply/attack") == 1211,
+            "MA-063-REMOVE destruction cannot dissolve an independent formation");
+        "/kungfu/skill/fanliangyi-dao"->dismiss_array(survivor);
+        check(survivor->query_temp("apply/attack") == 34,
+            "MA-063-REMOVE later dismissal does not remove the formation twice");
+        destruct(survivor);
+        foreach (survivor in other) destruct(survivor);
+    }
+}
+
+void check_music() {
+    object room, a, b, listener, instrument, melody;
+    int order;
+    string first, second;
+
+    melody = load_object("/kungfu/skill/xiaoao-jianghu");
+    foreach (order in ({ 0, 1, 2 })) {
+        room = new(base_name(suite));
+        a = suite->actor(); b = suite->actor(); listener = suite->actor();
+        foreach (instrument in ({ a, b, listener })) instrument->move(room);
+        a->set_skill("xiaoao-jianghu", 100); b->set_skill("xiaoao-jianghu", 100);
+        listener->set_temp("apply/attack", 5); listener->set_temp("apply/dodge", 7);
+        first = order == 1 ? "xiao" : "qin";
+        second = order == 0 ? "xiao" : "qin";
+        instrument = load_object(first == "qin" ? "/clone/lonely/tieqin" : "/clone/lonely/dongxiao");
+        instrument->move(a);
+        check(a->invoke((: call_other, instrument, "play_" + first, "xiaoao-jianghu" :)),
+            "MA-009 first original instrument and technique play successfully");
+        instrument = load_object(second == "qin" ? "/clone/lonely/tieqin" : "/clone/lonely/dongxiao");
+        instrument->move(b);
+        check(b->invoke((: call_other, instrument, "play_" + second, "xiaoao-jianghu" :)),
+            "MA-009 second original instrument and technique play successfully");
+        if (order == 2) check(!listener->query_temp("xajh/powerup") && listener->query_temp("apply/attack") == 5 &&
+            listener->query_temp("apply/dodge") == 7,
+            "MA-009 two qin players cannot create a qin-xiao ensemble");
+        else {
+            check(listener->query_temp("xajh/powerup") && listener->query_temp("apply/attack") == 21 &&
+                listener->query_temp("apply/dodge") == 23,
+                "MA-009 mixed instrument order creates the original bonus " + first + "+" + second);
+            melody->remove_effect(listener, 16);
+            check(!listener->query_temp("xajh/powerup") && listener->query_temp("apply/attack") == 5 &&
+                listener->query_temp("apply/dodge") == 7, "MA-009 original callback restores pre-existing listener bonuses");
+        }
+        foreach (instrument in ({ a, b, listener })) destruct(instrument);
+        destruct(room);
+    }
+}
+
+void check_roar(object connected) {
+    object a, b, room, skill;
+    int before;
+
+    check(
+        objectp(connected) && userp(connected),
+        "MA-144 target is a real once-interactive synthetic player"
+    );
+    if (!objectp(connected) || !userp(connected)) return;
+    room = new(base_name(suite));
+    a = suite->actor(); b = suite->actor();
+    check(objectp(room) && a->move(room) && b->move(room) && connected->move(room),
+        "MA-144 three participants enter a separate real room");
+    a->set_skill("force", 1200); a->set_skill("sanku-shengong", 300);
+    connected->set("max_neili", 1000); connected->set("neili", 1000);
+    connected->set(
+        "max_jing",
+        100000
+    ); connected->set("eff_jing", 100000); connected->set("jing", 100000);
+    connected->clear_condition("die_guard");
+    b->set("max_neili", 1000); b->set("neili", 1000);
+    skill = load_object("/kungfu/skill/sanku-shengong/roar");
+    before = connected->query("jing"); rolls(1);
+    check(skill->exert(a, a) && connected->query("jing") == before - 1000,
+        "MA-144 unprotected player receives original mental damage");
+    check(b->query("jing") == 99000, "MA-144 NPC branch retains the original mental damage");
+    connected->apply_condition("die_guard", 10); before = connected->query("jing"); rolls(1);
+    check(skill->exert(a, a) && connected->query("jing") == before,
+        "MA-144 protected player is still exempt");
+    connected->clear_condition("die_guard"); connected->move(suite);
+    destruct(a); destruct(b); destruct(room);
+}
+
+void run(object arena) {
+    suite = arena;
+    check_healing();
+    check_longxiang();
+    check_inspire();
+    check_weapons_and_whip_cost();
+    check_simple_costs();
+    check_nuoyi();
+    check_formation();
+    run_destroy(arena);
+    check_music();
+    check_roar(master()->query_connected_target());
+}
+
+// Separate entry: the runner supplies a synthetic room at this canonical path.
+// This tests the original search body, not the original Foshan room or its NPCs.
+void check_search() {
+    object a, b, destination;
+    string output;
+
+    a = suite->actor(); b = suite->actor();
+    destination = load_object("/d/foshan/street3");
+    destination->set("short", "寻人验场");
+    a->set("can_perform/wiz_test", 1);
+    a->set("quest/id", file_name(b)); b->set("place", "西域");
+    a->delete_temp("test/messages");
+    check(a->invoke((: call_other, "/kungfu/skill/force/xun", "exert", a, a :)),
+        "MA-081 original search body succeeds");
+    check(environment(b) == destination, "MA-081 search really moves its target");
+    output = a->query_temp("test/messages") || "";
+    check(strsrch(output, "寻人验场") >= 0 && strsrch(output, file_name(destination)) >= 0,
+        "MA-081 output describes the new destination, not the old room");
+    destruct(a); destruct(b);
+}
+
+void run_closeout(object arena) {
+    suite = arena;
+    check_music();
+    check_search();
+}
+
+void check_last_ammo(object arena) {
+    object a, b, stone;
+    int energy, wound, dispatched;
+    mixed err;
+
+    suite = arena;
+    a = suite->actor(); b = suite->actor(); suite->fight(a, b);
+    a->set_skill("tanzhi-shentong", 300); a->set_skill("throwing", 300);
+    a->set_skill("zuoyou-hubo", 360);
+    a->map_skill("finger", "tanzhi-shentong");
+    a->prepare_skill("finger", "tanzhi-shentong");
+    stone = new("/clone/weapon/feihuangshi"); stone->set_amount(1); stone->move(a);
+    check(a->invoke((: call_other, "/cmds/std/hand", "main", a, "feihuangshi" :)) &&
+        a->query_temp("handing") == stone, "MA-120 original hand command holds the real last stone");
+    energy = a->query("neili"); wound = b->query("eff_qi"); rolls(1);
+    err = catch(dispatched = a->invoke((: call_other, "/cmds/skill/perform", "main", a, "finger.po twice" :)));
+    check(!err && dispatched,
+        "MA-120 original twice command completes without negative amount error");
+    check(stone->query_amount() == 0 && a->query("neili") == energy - 300,
+        "MA-120 one remaining stone pays for exactly one launch");
+    check(b->query("eff_qi") < wound, "MA-120 first launch still wounds its target");
+    check(strsrch(a->query_temp("notify_fail") || "", "用完") >= 0,
+        "MA-120 second launch is refused specifically because ammunition is exhausted");
+    destruct(a); destruct(b);
+}
+
+void run_extra(object arena) {
+    object *pair;
+
+    suite = arena;
+    pair = form_pair();
+    pair[1]->set_temp("no_quit", 9);
+    check(team_command(pair[0], "dismiss") && pair[1]->query_temp("no_quit") == 9,
+        "MA-063 dissolution preserves a later unrelated non-1 no_quit value");
+    destruct(pair[0]); destruct(pair[1]);
+    check_search();
+    check_last_ammo(arena);
+}
+
+void finish_timed() {
+    object a;
+    int i;
+
+    foreach (a in expiry_actors) {
+        check(objectp(a) && !a->query_temp("powerup") &&
+            a->query_temp("apply/attack") == 18 && a->query_temp("apply/parry") == 13 &&
+            a->query_temp("apply/dodge") == 17 && a->query_temp("str") == 24,
+            "MA-014/015 actual scheduled callback removes captured boost and preserves other effects");
+        if (objectp(a)) destruct(a);
+    }
+    expiry_actors = ({});
+    for (i = 0; i < sizeof(nuoyi_defenders); i++) {
+        a = nuoyi_defenders[i];
+        check(!a->query_temp("nuoyi/" + nuoyi_ids[i]) &&
+            a->query_temp("nuoyi/independent") == 7,
+            "MA-131 original scheduled callback clears only its own pending marker");
+        if (objectp(nuoyi_attackers[i])) {
+            check(nuoyi_attackers[i]->query_temp("test/damages") == (i == 0 ? 1 : 0),
+                "MA-131 scheduled counterattack occurs only while the original fight remains active");
+            destruct(nuoyi_attackers[i]);
+        }
+        destruct(a);
+    }
+    nuoyi_defenders = ({}); nuoyi_attackers = ({}); nuoyi_ids = ({});
+    evaluate(expiry_done);
+}
+
+// Runner shortens only the two original start_call_out delay arguments to zero.
+// The actor's original start_call_out/eval_function and skill callback remain intact.
+void run_timed(object arena, function done) {
+    object a, b, skill;
+    string path;
+    mapping result;
+    int i;
+
+    suite = arena; expiry_done = done;
+    foreach (path in ({
+        "/kungfu/skill/longxiang-gong/exert/powerup",
+        "/kungfu/skill/longxiang/powerup"
+    })) {
+        a = suite->actor(); a->set_skill("longxiang-gong", 120);
+        a->set_temp("apply/attack", 11); a->set_temp("apply/parry", 13);
+        a->set_temp("apply/dodge", 17); a->set_temp("str", 19);
+        check(call_other(path, "exert", a, a) && a->query_temp("powerup"),
+            "MA-014/015 real scheduled boost starts before expiry");
+        a->set_skill("longxiang-gong", 420); a->set_skill("force", 1500);
+        a->add_temp("apply/attack", 7); a->add_temp("str", 5);
+        expiry_actors += ({ a });
+    }
+    skill = load_object("/kungfu/skill/qiankun-danuoyi");
+    for (i = 0; i < 3; i++) {
+        a = suite->actor(); b = suite->actor(); suite->fight(a, b);
+        a->set_skill("qiankun-danuoyi", 400); a->set_skill("parry", 1000);
+        a->map_skill("parry", "qiankun-danuoyi");
+        b->set_skill("force", 100); b->set("max_neili", 1000);
+        b->set_skill("chousui-zhang", 100);
+        b->map_skill("strike", "chousui-zhang"); b->prepare_skill("strike", "chousui-zhang");
+        "/tests/control"->reset(0, ({ 0, 1 }));
+        result = skill->valid_damage(b, a, 100, 0);
+        if (!mapp(result) || result["damage"] != -100 || !a->query_temp("nuoyi"))
+            debug_message(sprintf("NUOYI_QUEUE mode=%d living=%d busy=%d pending=%O sk=%d map=%O ap=%d dp=%d lvl=%d energy=%d/%d rng=%O result=%O\n",
+                i, living(a), a->is_busy(), a->query_temp("nuoyi"), sizeof(b->query_skills()),
+                b->query_skill_map(), b->query_skill("force", 1), a->query_skill("parry", 1),
+                a->query_skill("qiankun-danuoyi", 1), a->query("max_neili"), b->query("max_neili"),
+                "/tests/control"->query_limits(), result));
+        check(mapp(result) && result["damage"] == -100 &&
+            a->query_temp("nuoyi/" + b->query("id")) == 1,
+            "MA-131 original valid_damage actually queues the one-second production callback");
+        nuoyi_defenders += ({ a }); nuoyi_attackers += ({ b });
+        nuoyi_ids += ({ b->query("id") });
+        a->set_temp("nuoyi/independent", 7);
+        if (i == 1) a->remove_all_enemy(1);
+        if (i == 2) destruct(b);
+    }
+    call_out("finish_timed", 1.3);
+}

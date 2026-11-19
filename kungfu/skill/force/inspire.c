@@ -57,7 +57,7 @@ int inspiring(object me) {
         // 需要继续疗伤
         if (me->query("neili") < 100) {
             tell_object(me, "你觉得真气不济，难以在经脉中继续运转振奋。\n");
-            me->set_temp("pending/healing", 0);
+            me->set_temp("pending/inspiring", 0);
             me->set_short_desc(0);
             message_vision("$N叹了口气，摇摇晃晃的站了起来。\n", me);
             return 0;
@@ -85,7 +85,7 @@ int inspiring(object me) {
     }
 
     // 恢复完毕
-    me->set_temp("pending/exercise", 0);
+    me->set_temp("pending/inspiring", 0);
     me->set_short_desc(0);
     message_vision(HIY "$N" HIY "缓缓睁开双目，精光四射，神清意爽。\n" NOR,
         me);

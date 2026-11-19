@@ -1,0 +1,4 @@
+// Observe only the broadcast boundary; player_win remains the original implementation.
+inherit "/adm/npc/referee";
+
+void shout_message(string text) { set_temp("test/broadcast", text); }

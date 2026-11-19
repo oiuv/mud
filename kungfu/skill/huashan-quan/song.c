@@ -31,7 +31,7 @@ int perform(object me, object target) {
         return notify_fail("你现在真气不够，无法施展" SONG "。\n");
 
     if (me->query_skill_prepared("cuff") != "huashan-quan")
-        return notify_fail("你没有准备使用劈石破玉拳，无法施展" SONG "。\n");
+        return notify_fail("你没有准备使用华山拳法，无法施展" SONG "。\n");
 
     if (!living(target))
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");

@@ -89,7 +89,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 70,
         "lvl": 170,
-        "skills_name": "我心依旧",
+        "skill_name": "我心依旧",
         "damage_type": "内伤"
     ]),
 });

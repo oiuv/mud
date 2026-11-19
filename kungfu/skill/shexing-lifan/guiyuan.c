@@ -46,6 +46,7 @@ int perform(object me, object target) {
 
     me->add_temp("str", count);
     me->add_temp("dex", count);
+    me->add_temp("apply/dex", count);
     me->set_temp("gui_yuan", 1);
     me->start_call_out((: call_other, __FILE__, "remove_effect", me, count :), skill / 2);
 
@@ -57,6 +58,7 @@ void remove_effect(object me, int amount, int amount1) {
     if ((int)me->query_temp("gui_yuan")) {
         me->add_temp("str", -amount);
         me->add_temp("dex", -amount);
+        me->add_temp("apply/dex", -amount);
         me->delete_temp("gui_yuan");
         tell_object(me, "你的「九阴归元」运功完毕，将内力收回丹田。\n");
     }

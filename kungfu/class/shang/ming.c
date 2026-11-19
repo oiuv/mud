@@ -269,7 +269,7 @@ mixed ask_skill2() {
 
     command("sneer");
     command("say 马老儿能够创出这招，也算得上个人物。");
-    command("say 这招并不复杂，稍加练习变成。");
+    command("say 这招并不复杂，稍加练习便成。");
     tell_object(me, HIC "你学会了「混沌初开」。\n" NOR);
 
     if (me->can_improve_skill("cuff"))
@@ -642,7 +642,8 @@ mixed give_letter() {
     command("haha");
     command("say 现在我就修书一封，你送到镇远镖局总镖头王维扬处，他自会传你绝技！");
 
-    "/clone/special/sjmletter"->move(me);
+    if (!"/clone/special/sjmletter"->move(me))
+        return "你的行囊放不下书信，先整理妥当再来找我。";
     write(HIC "你得到一封书信！\n" NOR);
     me->add("gongxian", -2200);
     return "快去镇远镖局找我师傅吧！";

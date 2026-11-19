@@ -128,7 +128,7 @@ string ask_me() {
     add("dan_count", -1);
     ob = new("/d/items/throwing/lianxin_dan");
     ob->move(this_player());
-    return "这些练心弹够你用的了吧。\n";
+    return "这些炼心弹够你用的了吧。\n";
 }
 
 string ask_book() {

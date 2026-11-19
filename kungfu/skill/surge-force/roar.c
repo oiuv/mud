@@ -24,7 +24,7 @@ int exert(object me, object target) {
 
     me->start_busy(5);
     message_combatd(HIR "$N" HIR "仰天长啸，声浪一波一波的荡开"
-        "去，令人发耳欲聩，意乱情迷！\n" NOR, me);
+        "去，令人震耳欲聋，意乱情迷！\n" NOR, me);
 
     ob = all_inventory(environment(me));
     for (i = 0; i < sizeof(ob); i++) {

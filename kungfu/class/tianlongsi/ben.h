@@ -6,7 +6,7 @@ int accept_hit(object ob) {
     if (is_killing(ob->query("id")))
         return 1;
 
-    if (!objectp(kr = present("ku rong")))
+    if (!objectp(kr = present("kurong")))
         return 1;
 
     command("say 枯荣大师！这" + RANK_D->query_rude(ob) +
@@ -21,7 +21,7 @@ int accept_kill(object ob) {
     if (is_killing(ob->query("id")))
         return 1;
 
-    if (!objectp(kr = present("ku rong")))
+    if (!objectp(kr = present("kurong")))
         return 1;
 
     command("say 枯荣大师！这" + RANK_D->query_rude(ob) +

@@ -131,7 +131,7 @@ mixed ask_skill1() {
         return "你连红莲刀法都没学，还罗嗦什么？";
 
     if (me->query("gongxian") < 80)
-        return "老祖说了，咋们的绝技不传无功之人。";
+        return "老祖说了，咱们的绝技不传无功之人。";
 
     if (me->query("shen") > -8000)
         return "你这样心慈手软，就算学会这招又有什么用？";

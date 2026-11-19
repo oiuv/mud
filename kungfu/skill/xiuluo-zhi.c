@@ -24,7 +24,7 @@ mapping *action = ({
         "damage_type": "点穴"
     ]),
     ([
-        "action": "$N面露凶光，一式「斫头谢天」,手指直击向$n的百汇大穴",
+        "action": "$N面露凶光，一式「斫头谢天」,手指直击向$n的百会大穴",
         "force": 150,
         "attack": 50,
         "parry": 5,
@@ -57,7 +57,7 @@ mapping *action = ({
         "damage_type": "刺伤"
     ]),
     ([
-        "action": "$N提起身形，一招「挖眼布施」,居高临下，以讯雷不及掩耳的速度功向$n",
+        "action": "$N提起身形，一招「挖眼布施」,居高临下，以迅雷不及掩耳的速度攻向$n",
         "force": 180,
         "attack": 35,
         "parry": 0,

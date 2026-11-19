@@ -120,7 +120,7 @@ int practice_skill(object me) {
         return notify_fail("你的体力太低了，无法练七星分天手。\n");
 
     if ((int)me->query("neili") < 60)
-        return notify_fail("你的体力太低了，无法练七星分天手。\n");
+        return notify_fail("你的内力太低了，无法练七星分天手。\n");
 
     me->receive_damage("qi", 80);
     me->add("neili", -53);

@@ -53,7 +53,7 @@ int perform(object me, object target) {
         me->add("neili", -30);
         damage = ap / 8 + random(ap / 8);
         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 0,
-            HIR "$n" HIR "微微一楞，登时被这力道带"
+            HIR "$n" HIR "微微一愣，登时被这力道带"
             "得在原地急转七八下，如转陀螺，如旋纺"
             "锤。\n" NOR);
         me->start_busy(1);

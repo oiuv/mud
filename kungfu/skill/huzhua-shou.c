@@ -2,7 +2,7 @@
 inherit SKILL;
 
 mapping *action = ({
-    ([ "action": "在呼呼风声中，$N使一招「虎口夺食」，双手如钩如戢，插向$n的$l",
+    ([ "action": "在呼呼风声中，$N使一招「虎口夺食」，双手如钩如戟，插向$n的$l",
         "force": 100,
         "attack": 28,
         "dodge": 17,
@@ -12,7 +12,7 @@ mapping *action = ({
         "skill_name": "虎口夺食",
         "damage_type": "抓伤"
     ]),
-    ([ "action": "$N身形一跃，费神扑上，使出一招「饿虎扑食」，右手直直抓向$n的$l",
+    ([ "action": "$N身形一跃，飞身扑上，使出一招「饿虎扑食」，右手直直抓向$n的$l",
         "force": 130,
         "attack": 35,
         "dodge": 20,
@@ -88,19 +88,19 @@ int valid_enable(string usage) { return usage == "claw" || usage == "parry"; }
 
 int valid_learn(object me) {
     if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
-        return notify_fail("练虎抓绝户手必须空手。\n");
+        return notify_fail("练虎爪绝户手必须空手。\n");
 
     if ((int)me->query_skill("force") < 50)
-        return notify_fail("你的内功火候不够，无法学虎抓绝户手。\n");
+        return notify_fail("你的内功火候不够，无法学虎爪绝户手。\n");
 
     if ((int)me->query("max_neili") < 250)
-        return notify_fail("你的内力太弱，无法练虎抓绝户手。\n");
+        return notify_fail("你的内力太弱，无法练虎爪绝户手。\n");
 
     if ((int)me->query_skill("claw") < 30)
-        return notify_fail("你的基本爪法等级太低，无法学虎抓绝户手。\n");
+        return notify_fail("你的基本爪法等级太低，无法学虎爪绝户手。\n");
 
     if ((int)me->query_skill("claw", 1) < (int)me->query_skill("huzhua-shou", 1))
-        return notify_fail("你的基本爪法火候水平有限，无法领会更高深的虎抓绝户手。\n");
+        return notify_fail("你的基本爪法火候水平有限，无法领会更高深的虎爪绝户手。\n");
 
     return 1;
 }
@@ -130,7 +130,7 @@ int practice_skill(object me) {
         return notify_fail("你的体力太低了。\n");
 
     if ((int)me->query("neili") < 80)
-        return notify_fail("你的内力不够练虎抓绝户手。\n");
+        return notify_fail("你的内力不够练虎爪绝户手。\n");
 
     me->receive_damage("qi", 60);
     me->add("neili", -69);

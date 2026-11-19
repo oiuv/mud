@@ -36,7 +36,7 @@ int exert(object me, object target) {
     message_combatd(HIM "$N" HIM "默念易筋经的口诀: "
         "元气,气存于内,放于外。"
         "易筋,孕怀于息,舒于支....\n"
-        HIW "一股详和的白色罡气自头顶迅速"
+        HIW "一股祥和的白色罡气自头顶迅速"
         HIW "游遍" HIW "$N" HIW "的奇经八脉！\n"
         HIC "$N" HIC "的内伤刹那间大为好转！！\n" NOR, me);
 

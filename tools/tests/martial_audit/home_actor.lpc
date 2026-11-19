@@ -1,0 +1,18 @@
+// Constructor inputs only; the production room factory decides default ownership.
+inherit "/tests/actor";
+
+private int mode;
+
+void select_mode(int value) { mode = value; }
+int query_mode() { return mode; }
+
+void create() {
+    int selected;
+
+    ::create();
+    if (!clonep()) return;
+    selected = load_object(__FILE__)->query_mode();
+    if (selected == 1) set("startroom", "/d/city/kedian");
+    else if (selected == 2) set("startroom", "");
+    else if (selected == 3) set("startroom", 17);
+}

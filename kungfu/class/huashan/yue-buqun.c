@@ -191,8 +191,10 @@ void do_recruit(object ob) {
 }
 
 int recruit_apprentice(object ob) {
-    if (::recruit_apprentice(ob))
-        add("apprentice_availavble", -1);
+    if (!::recruit_apprentice(ob))
+        return 0;
+    add("apprentice_available", -1);
+    return 1;
 }
 
 void reset() {

@@ -1,0 +1,77 @@
+// Original apprentice/recruit commands; no real player accounts or saved identities.
+private object arena, yue, current;
+private int round;
+
+void check(int ok, string label) { master()->check(ok, "recruitment " + label); }
+
+void request(object who, object ob) {
+    check(who->invoke((: call_other, "/cmds/skill/apprentice", "main", who, ob->query("id") :)) == 1,
+        "original apprentice command completes");
+}
+
+void check_damo() {
+    object ob, who;
+    int intelligence;
+
+    ob = new("/kungfu/class/shaolin/da-mo");
+    ob->move(arena);
+    foreach (intelligence in ({ 34, 35 })) {
+        who = arena->actor();
+        who->set_name("清试", ({ sprintf("recruit%d", intelligence) }));
+        who->set("family", ([ "family_name": "少林派", "generation": 36,
+            "master_id": "xuan bei", "master_name": "玄悲大师" ]));
+        who->set("class", "bonze");
+        who->set("int", intelligence);
+        who->set_skill("buddhism", 180);
+        who->set_skill("dodge", 180);
+        who->set_skill("force", 180);
+        who->set_skill("parry", 180);
+        check(
+            who->query_int() == intelligence,
+            "MA-018 effective intelligence matches boundary input"
+        );
+        request(who, ob);
+        check(intelligence < 35 ? !who->is_apprentice_of(ob) && who->query("name") == "清试" :
+            who->is_apprentice_of(ob) && who->query("family/generation") == 2,
+            "MA-018 intelligence 34 refuses without rename, 35 recruits normally");
+    }
+}
+
+void next_request();
+
+void finish_request() {
+    if (round <= 3) {
+        check(current->is_apprentice_of(yue), "MA-016 qualified student becomes apprentice");
+        check(yue->query("apprentice_available") == 3 - round &&
+            !yue->query("apprentice_availavble"), "MA-016 successful recruit decrements the real quota");
+    } else {
+        check(!current->is_apprentice_of(yue) && yue->query("apprentice_available") == 0,
+            "MA-016 fourth student is refused after quota is exhausted");
+        yue->reset();
+        check(yue->query("apprentice_available") == 3, "MA-016 original reset restores quota");
+        master()->finish();
+        return;
+    }
+    next_request();
+}
+
+void next_request() {
+    round++;
+    current = arena->actor();
+    current->set("family", ([ "family_name": "华山派", "generation": 14,
+        "master_id": "gao genming", "master_name": "高根明" ]));
+    current->set("shen", 20000);
+    current->set_skill("huashan-xinfa", 140);
+    current->set_skill("huashan-jian", 140);
+    request(current, yue);
+    call_out("finish_request", 2.2);
+}
+
+void run(object room) {
+    arena = room;
+    check_damo();
+    yue = new("/kungfu/class/huashan/yue-buqun");
+    yue->move(arena);
+    check(yue->query("apprentice_available") == 3, "MA-016 original quota starts at three");
+    next_request();
+}

@@ -32,6 +32,7 @@ void create() {
     set_skill("force", 200);
     set_skill("parry", 200);
     set_skill("dodge", 200);
+    set_skill("lingxu-bu", 140);
     set_skill("songshan-jian", 220);
     set_skill("lingyun-jian", 220);
     set_skill("chuanyue-jian", 220);

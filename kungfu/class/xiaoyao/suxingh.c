@@ -236,7 +236,7 @@ mixed ask_skill2() {
 
     message_vision(HIY "$n" HIY "略微点了点头，说道：“我给你演示"
         "一遍，可瞧仔细了！”随即\n一声清啸，双掌纷飞贯"
-        "出，掌影重重叠叠虚实难辨，全全笼罩$N" HIY "全身"
+        "出，掌影重重叠叠虚实难辨，团团笼罩$N" HIY "全身"
         "。\n" NOR, me, this_object());
 
     command("nod");

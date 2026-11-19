@@ -63,10 +63,10 @@ int valid_learn(object me) {
         return notify_fail("练五罗轻烟掌必须空手。\n");
 
     if ((int)me->query_skill("force") < 20)
-        return notify_fail("你的内功火候不够，无法学越爪功。\n");
+        return notify_fail("你的内功火候不够，无法学五罗轻烟掌。\n");
 
     if ((int)me->query("max_neili") < 100)
-        return notify_fail("你的内力修为太弱，无法练越爪功。\n");
+        return notify_fail("你的内力修为太弱，无法练五罗轻烟掌。\n");
 
     if ((int)me->query_skill("strike", 1) < (int)me->query_skill("wuluo-zhang", 1))
         return notify_fail("你的基本掌法火候有限，无法领会更高深的五罗轻烟掌。\n");

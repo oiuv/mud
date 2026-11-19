@@ -168,7 +168,7 @@ int practice_skill(object me) {
     if ((int)me->query("qi") < 70)
         return notify_fail("你的体力不够，练不了火焰刀。\n");
 
-    if ((int)me->query("neili") < 70)
+    if ((int)me->query("neili") < 70 || me->query("neili") < cost)
         return notify_fail("你的内力不够，练不了火焰刀。\n");
 
     me->receive_damage("qi", 55);

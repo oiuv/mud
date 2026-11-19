@@ -39,7 +39,7 @@ int perform(object me, object target) {
 
     wn = weapon->name();
 
-    message_sort(HIM "\n只见$N" HIM "暮地里一声清啸，剑法忽变，那"
+    message_sort(HIM "\n只见$N" HIM "蓦地里一声清啸，剑法忽变，那"
         "柄" + wn + HIM "竟似成了一条软带，轻柔曲折，飘忽"
         "不定，疾刺$n" HIM "胸膛，剑到中途，剑尖微颤，竟"
         "然弯了过去斜刺$n" HIM "右肩，招式精奇之极。\n" NOR,

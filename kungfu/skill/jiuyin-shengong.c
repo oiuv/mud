@@ -254,7 +254,7 @@ int valid_learn(object me) {
 
     for (i = 0; i < sizeof(usage_skills2); i++)
         if (me->query_skill(usage_skills2[i], 1) < level)
-            return notify_fail("你对" + to_chinese(usage_skills[i]) +
+            return notify_fail("你对" + to_chinese(usage_skills2[i]) +
                 "的理解还不够，无法继续领会更高深的九阴神功。\n");
 
     return 1;

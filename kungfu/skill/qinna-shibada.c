@@ -19,7 +19,7 @@ mapping *action = ({
         "skill_name": "跨日向天",
         "damage_type": "瘀伤"
     ]),
-    ([ "action": "$N对$n一声大喝，使一招「长虹经天」，左拳击出，右脚同时绊向的$l",
+    ([ "action": "$N对$n一声大喝，使一招「长虹经天」，左拳击出，右脚同时绊向$n的$l",
         "force": 230,
         "dodge": 0,
         "parry": 10,

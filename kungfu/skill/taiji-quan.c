@@ -338,7 +338,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon) {
                 break;
 
             case 1:
-                result += ([ "msg": HIC "$n" HIC "左右格档，使出四两拨千斤的手法，"
+                result += ([ "msg": HIC "$n" HIC "左右格挡，使出四两拨千斤的手法，"
                     "化解$N" HIC "的攻势于无形。\n" NOR ]);
                 break;
 
@@ -359,7 +359,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon) {
                 break;
 
             case 1:
-                result = HIY "$n" HIY "左右格档，使出四两拨千斤的手法，"
+                result = HIY "$n" HIY "左右格挡，使出四两拨千斤的手法，"
                     "可是$N" HIY "攻势却是变化无方，不遵循常理。\n" NOR;
                 break;
 

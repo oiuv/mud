@@ -13,6 +13,7 @@ mapping *action = ({
         "parry": 15,
         "damage": 32,
         "lvl": 0,
+        "skill_name": "神蛟初现",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N一式「神蛟再现」，$w抖得笔直，“呲呲”破空声中向$n疾刺而去",
@@ -22,6 +23,7 @@ mapping *action = ({
         "parry": 36,
         "damage": 47,
         "lvl": 80,
+        "skill_name": "神蛟再现",
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N内劲到处，将$w抖动转成两个圆圈，一式「神蛟又现」，从半空中往$n缠下",
@@ -31,6 +33,7 @@ mapping *action = ({
         "parry": 55,
         "damage": 93,
         "lvl": 100,
+        "skill_name": "神蛟又现",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N劲走螺旋，一式「吞天裂地势」，$w在$n眼前连变数种招式，忽然从$l处倒卷上来",
@@ -40,6 +43,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 102,
         "lvl": 120,
+        "skill_name": "吞天裂地势",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N一声高喝，使出「真天罗势」，$w急速转动，鞭影纵横，似真似幻，绞向$n",
@@ -49,6 +53,7 @@ mapping *action = ({
         "parry": 65,
         "damage": 121,
         "lvl": 140,
+        "skill_name": "真天罗势",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N含胸拔背，一式「六道轮回势」，力道灵动威猛，劲力从四面八方向$n挤压出去",
@@ -58,6 +63,7 @@ mapping *action = ({
         "parry": 70,
         "damage": 142,
         "lvl": 160,
+        "skill_name": "六道轮回势",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N力贯鞭梢，一招「大吉祥势」，手中$w舞出满天鞭影，排山倒海般扫向$n",
@@ -67,6 +73,7 @@ mapping *action = ({
         "parry": 75,
         "damage": 163,
         "lvl": 180,
+        "skill_name": "大吉祥势",
         "damage_type": "抽伤"
     ]),
     ([ "action": "$N力贯鞭梢，一招「龙飞十二重天势」，手中$w舞出满天鞭影，排山倒海般扫向$n",
@@ -76,6 +83,7 @@ mapping *action = ({
         "parry": 85,
         "damage": 189,
         "lvl": 200,
+        "skill_name": "龙飞十二重天势",
         "damage_type": "抽伤"
     ]),
 });

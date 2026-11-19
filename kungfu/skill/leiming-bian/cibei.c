@@ -80,7 +80,7 @@ int perform(object me, object target) {
         me->add("neili", -300);
         me->start_busy(random(2) + 2);
     } else {
-        msg = HIG "\n$n左躲右闪，强$N的攻击完全化于无形！\n" NOR;
+        msg = HIG "\n$n左躲右闪，将$N的攻击完全化于无形！\n" NOR;
         message_vision(msg, me, target);
         me->add("neili", -200);
         me->start_busy(random(2));

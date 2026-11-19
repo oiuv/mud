@@ -62,7 +62,7 @@ int perform(object me, object target) {
         if (target->query_skill("parry") < me->query_skill("throwing")) {
 
             msg += HIR "只听$n" HIR "惨叫一声，" + weapon->name() + HIR
-                "已经射中要害，只感伤口处透处阵阵寒意，顿觉全身软"
+                "已经射中要害，只感伤口处透出阵阵寒意，顿觉全身软"
                 "弱无力。\n" NOR;
 
             target->receive_damage("qi", skill + random(skill), me);

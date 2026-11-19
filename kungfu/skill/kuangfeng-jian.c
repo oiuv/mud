@@ -15,7 +15,7 @@ mapping *action = ({
         "skill_name": "风平浪静",
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N手中$w连话三个弧形，向$n的右臂齐肩斩落",
+    ([ "action": "$N手中$w连划三个弧形，向$n的右臂齐肩斩落",
         "force": 180,
         "attack": 55,
         "parry": 52,

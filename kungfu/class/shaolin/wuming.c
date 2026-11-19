@@ -102,9 +102,8 @@ void create() {
 
     create_family("少林派", 0, "打杂僧人");
 
-    set("chat_chance_combat", 120);
+    set("chat_chance_combat", 75);
     set("chat_msg_combat", ({
-        (: perform_action, "strike.zong" :),
         (: perform_action, "finger.fuxue" :),
         (: exert_function, "recover" :),
         (: exert_function, "powerup" :),

@@ -77,7 +77,7 @@ int perform(object me, object target) {
         me->add("neili", -150);
         me->start_busy(3);
         msg += HIC "$p" HIC "暗叫不好，急忙闪头，可是$N"
-            HIC "手臂咔咔作响，忽然暴长，迅论无比的抓向$p。\n" NOR;
+            HIC "手臂咔咔作响，忽然暴长，迅疾无比的抓向$p。\n" NOR;
         dp = target->query_skill("dodge") + target->query_dex() * 5;
 
         if (ap * 11 / 20 + random(ap) > dp) {

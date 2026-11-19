@@ -103,26 +103,11 @@ mapping *action = ({
         "damage_type": "刺伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 乾坤神剑之极意 " NOR "",
-        "force": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 2 + random((int)this_player()->query_skill("force", 1)),
-        "attack": (int)this_player()->query_skill(
-            "sword",
-            1
-        ) / 4 + random((int)this_player()->query_skill("sword", 1) / 2),
-        "dodge": (int)this_player()->query_skill(
-            "dodge",
-            1
-        ) / 6 + random((int)this_player()->query_skill("force", 1) / 3),
-        "parry": (int)this_player()->query_skill(
-            "parry",
-            1
-        ) / 6 + random((int)this_player()->query_skill("parry", 1) / 3),
-        "damage": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 4 + random((int)this_player()->query_skill("sword", 1) / 2),
+        "force": 0,
+        "attack": 0,
+        "dodge": 0,
+        "parry": 0,
+        "damage": 0,
         "lvl": 300,
         "skill_name": "极意",
         "damage_type": "刺伤"
@@ -156,10 +141,35 @@ string query_skill_name(int level) {
 
 mapping query_action(object me, object weapon) {
     int i, level;
+    mapping selected;
+
     level = (int)me->query_skill("qiankun-jian", 1);
     for (i = sizeof(action); i > 0; i--)
         if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 20, level / 5)];
+            break;
+    if (!i) return 0;
+    selected = action[NewRandom(i, 20, level / 5)];
+    if (selected["skill_name"] == "极意") {
+        selected = copy(selected);
+        selected["force"] = me->query_skill("force", 1) / 2 + random(me->query_skill("force", 1));
+        selected["attack"] = me->query_skill(
+            "sword",
+            1
+        ) / 4 + random(me->query_skill("sword", 1) / 2);
+        selected["dodge"] = me->query_skill(
+            "dodge",
+            1
+        ) / 6 + random(me->query_skill("force", 1) / 3);
+        selected["parry"] = me->query_skill(
+            "parry",
+            1
+        ) / 6 + random(me->query_skill("parry", 1) / 3);
+        selected["damage"] = me->query_skill(
+            "force",
+            1
+        ) / 4 + random(me->query_skill("sword", 1) / 2);
+    }
+    return selected;
 }
 
 int practice_skill(object me) {

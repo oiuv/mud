@@ -261,9 +261,9 @@ int get_finish(object me) {
         return 0;
     }
 
-    tell_object(me, HIY "你一气呵成，将十八掌从头到尾演练了一变，心中"
+    tell_object(me, HIY "你一气呵成，将十八掌从头到尾演练了一遍，心中"
         "顿悟，通\n晓了降龙十八掌的奥妙精髓，融会贯通了掌"
-        "法的精微之处，\n再也非拆开使用那么那么简单。\n" NOR);
+        "法的精微之处，\n再也非拆开使用那么简单。\n" NOR);
     return 1;
 }
 

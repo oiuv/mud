@@ -118,13 +118,13 @@ void greeting(object ob) {
     if (!ob || environment(ob) != environment()) return;
 
     if ((int)ob->query("shen") < -50000)
-        command("say 这位施主眼中戾气深重，劝施主好自为知。");
+        command("say 这位施主眼中戾气深重，劝施主好自为之。");
 
     else if ((int)ob->query("shen") < -5000)
         command("say 这位施主，切记魔从心起，其道必诛。");
 
     else if ((int)ob->query("shen") < 0)
-        command("say 这位施主，人行江湖，言行当正，切务走进邪魔歪道。");
+        command("say 这位施主，人行江湖，言行当正，切勿走进邪魔歪道。");
 
     else if ((int)ob->query("shen") > 50000)
         command("say 施主行事光明磊落，日后必为武林翘楚。");

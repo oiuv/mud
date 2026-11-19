@@ -24,7 +24,7 @@ int permit_recruit(object ob) {
 
     if (ob->query("family/family_name") &&
         ob->query("family/family_name") != "峨嵋派") {
-        command("say 你已有名师指点，为何又来峨嵋派？莫非你要判师不成？");
+        command("say 你已有名师指点，为何又来峨嵋派？莫非你要叛师不成？");
         return 0;
     }
 

@@ -43,7 +43,7 @@ int perform(object me) {
             "喀的一声，$p身上多了一条伤痕。\n" NOR);
         me->start_busy(2);
     } else {
-        msg += CYN "可是$p" CYN "$P见来势凶猛" CYN
+        msg += CYN "可是$p" CYN "见来势凶猛" CYN
             "连忙招架，顺势跃开，没有被$P"
             CYN "得手。\n" NOR;
         me->add("neili", -20);

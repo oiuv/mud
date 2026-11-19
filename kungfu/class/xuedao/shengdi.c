@@ -129,7 +129,7 @@ mixed ask_skill1() {
         return "你连雪山刀法都没学，还罗嗦什么？";
 
     if (me->query("gongxian") < 50)
-        return "老祖说了，咋们的绝技不传无功之人。";
+        return "老祖说了，咱们的绝技不传无功之人。";
 
     if (me->query("shen") > -3000)
         return "你这样心慈手软，就算学会这招又有什么用？";
@@ -144,7 +144,7 @@ mixed ask_skill1() {
         return "等你把雪山刀法练熟了再来找我吧。";
 
     message_vision(HIY "$n" HIY "微微一笑，在$N" HIY "耳边轻声嘀咕了几句，然后"
-        "顺手拔出腰\n间的刚刀凌空劈斩了几下，霎时只见刀光一展而过，"
+        "顺手拔出腰\n间的钢刀凌空劈斩了几下，霎时只见刀光一展而过，"
         "招式煞\n是惊奇。$N" HIY "看后若有所悟的点了点头。\n" NOR, me,
         this_object());
 

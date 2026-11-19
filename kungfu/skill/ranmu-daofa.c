@@ -100,7 +100,7 @@ int valid_learn(object me) {
         return notify_fail("你的基本刀法水平还不够，无法领会更高深的燃木刀法。\n");
 
     if ((int)me->query("int") < 32 || (int)me->query("con") < 30)
-        return notify_fail("你先天太差，难以领会燃木刀法的要诣。\n");
+        return notify_fail("你先天太差，难以领会燃木刀法的要旨。\n");
     return 1;
 }
 

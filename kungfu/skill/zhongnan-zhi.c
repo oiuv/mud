@@ -9,7 +9,7 @@ mapping *action = ({
         "lvl": 0,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N使一招「天荒地老」，左手轻轻一挥，右手刺向$n的檀中大穴",
+    ([ "action": "$N使一招「天荒地老」，左手轻轻一挥，右手刺向$n的膻中大穴",
         "force": 60,
         "dodge": 18,
         "damage": 10,

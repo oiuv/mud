@@ -33,7 +33,7 @@ int perform(object me, object target) {
         return notify_fail("你的武器不对，无法使用" FENG "。\n");
 
     if (me->query_skill_mapped("whip") != "yinsuo-jinling")
-        return notify_fail("你没有激发回银索金铃，不能使用" FENG "。\n");
+        return notify_fail("你没有激发银索金铃，不能使用" FENG "。\n");
 
     if ((int)me->query_skill("yinsuo-jinling", 1) < 140)
         return notify_fail("你的银索金铃不够娴熟，还使不出" FENG "。\n");
@@ -74,7 +74,7 @@ int perform(object me, object target) {
 
     ap += to_int(ap * improve);
 
-    msg = "\n" HIW "只见$N" HIW "手中" + w1 + HIW "暮地一抖，幻出无数鞭影，霎"
+    msg = "\n" HIW "只见$N" HIW "手中" + w1 + HIW "蓦地一抖，幻出无数鞭影，霎"
         "时破风声骤起，" + w1 + HIW "携着"
         "风雷之势扫向$n" HIW "！\n" NOR;
     if (ap / 2 + random(ap) > dp) {

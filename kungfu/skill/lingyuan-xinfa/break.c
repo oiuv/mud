@@ -9,8 +9,6 @@ int exert(object me, object target) {
     string msg;
     object target_w;
 
-    target_w = target->query_temp("weapon");
-
     if (!target || target == me) {
         me->clean_up_enemy();
         target = me->select_opponent();
@@ -32,7 +30,10 @@ int exert(object me, object target) {
         "激射而出，喷向$n" HIC "手中的兵刃！\n" NOR;
     me->start_busy(2);
 
-    if (target->query_temp("weapon") || target->query_temp("secondary_weapon")) {
+    target_w = target->query_temp("weapon");
+    if (!objectp(target_w))
+        target_w = target->query_temp("secondary_weapon");
+    if (objectp(target_w)) {
         if (random(me->query("combat_exp")) >
             (int)target->query("combat_exp") / 3) {
             msg += HIW "结果$p" HIW "手中的" + target_w->query("name") + "与这股阴柔之气一碰竟被震落在地上！\n" NOR;

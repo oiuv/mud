@@ -11,8 +11,8 @@ mixed ask_skill2();
 void create() {
     set_name("白自在", ({ "bai zizai", "bai", "zizai" }));
     set("nickname", HIY "威德先生" NOR);
-    set("long", "他就是凌宵城城主，雪山剑派的掌门人，江湖人称威\n"
-        "德先生的百自在。相传他年轻时巧逢灵药，因而功力\n"
+    set("long", "他就是凌霄城城主，雪山剑派的掌门人，江湖人称威\n"
+        "德先生的白自在。相传他年轻时巧逢灵药，因而功力\n"
         "大增。后来习武成性，自认为天下武功第一。\n");
     set("gender", "男性");
     set("age", 65);

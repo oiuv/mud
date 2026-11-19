@@ -1,0 +1,386 @@
+[
+  {
+    "id": "025",
+    "file": "kungfu/class/taohua/feng.c",
+    "before": "全全笼罩",
+    "after": "团团笼罩",
+    "mixed": true
+  },
+  {
+    "id": "030",
+    "file": "kungfu/class/mingjiao/daijisi.c",
+    "before": "\"name\": \"绝杀\"",
+    "after": "\"name\": \"天外飞花\"",
+    "mixed": true
+  },
+  {
+    "id": "107",
+    "file": "d/shaolin/fumoquan.c",
+    "before": "镇定不若",
+    "after": "镇定自若",
+    "mixed": true
+  },
+  {
+    "id": "107",
+    "file": "d/shaolin/fumoquan.c",
+    "before": "笔自的兵刃",
+    "after": "笔直的兵刃",
+    "mixed": true
+  },
+  {
+    "id": "073",
+    "file": "kungfu/skill/tianshan-feidu.c",
+    "before": "身行",
+    "after": "身形"
+  },
+  {
+    "id": "073",
+    "file": "kungfu/skill/tianshan-feidu.c",
+    "before": "功势",
+    "after": "攻势"
+  },
+  {
+    "id": "076",
+    "file": "kungfu/skill/taiji-quan.c",
+    "before": "左右格档",
+    "after": "左右格挡"
+  },
+  {
+    "id": "076",
+    "file": "kungfu/skill/taiji-quan/yin.c",
+    "before": "微微一楞",
+    "after": "微微一愣"
+  },
+  {
+    "id": "076",
+    "file": "kungfu/skill/taiji-quan/zhan.c",
+    "before": "的看破了",
+    "after": "看破了"
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/shenmen-jian.c",
+    "before": "只幌得",
+    "after": "只晃得"
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/shenmen-jian.c",
+    "before": "眼花撩乱",
+    "after": "眼花缭乱"
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/huzhua-shou.c",
+    "before": "如钩如戢",
+    "after": "如钩如戟"
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/paiyun-shou.c",
+    "before": "如钩如戢",
+    "after": "如钩如戟",
+    "mixed": true
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/huzhua-shou.c",
+    "before": "费神扑上",
+    "after": "飞身扑上"
+  },
+  {
+    "id": "077",
+    "file": "kungfu/skill/huzhua-shou.c",
+    "before": "虎抓绝户手",
+    "after": "虎爪绝户手"
+  },
+  {
+    "id": "087",
+    "file": "kungfu/skill/leiming-bian/cibei.c",
+    "before": "强$N的攻击",
+    "after": "将$N的攻击"
+  },
+  {
+    "id": "087",
+    "file": "kungfu/skill/qingyun-bian/duan.c",
+    "mixed": true,
+    "before": "扑天盖地",
+    "after": "铺天盖地"
+  },
+  {
+    "id": "087",
+    "file": "kungfu/skill/jiechen-dao/xiuluo.c",
+    "mixed": true,
+    "before": "攻势大胜",
+    "after": "攻势大盛"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/xiuluo-zhi.c",
+    "before": "百汇大穴",
+    "after": "百会大穴"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/xiuluo-zhi.c",
+    "before": "讯雷",
+    "after": "迅雷"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/xiuluo-zhi.c",
+    "before": "速度功向",
+    "after": "速度攻向"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/duoluoye-zhi.c",
+    "before": "一屡",
+    "after": "一缕"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/duoluoye-zhi.c",
+    "before": "三屡",
+    "after": "三缕"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/wuxiang-zhi.c",
+    "before": "一屡劲风",
+    "after": "一缕劲风"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/tianzhu-fuzhi.c",
+    "before": "拂向向",
+    "after": "拂向"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/qufannao-zhi.c",
+    "before": "参和指",
+    "after": "去烦恼指"
+  },
+  {
+    "id": "093",
+    "file": "kungfu/skill/yizhi-chan.c",
+    "before": "你的内力太低了。",
+    "after": "你的体力太低了。"
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/longzhua-gong.c",
+    "before": "如钩如戢",
+    "after": "如钩如戟"
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/jimie-zhua.c",
+    "before": "身行",
+    "after": "身形",
+    "mixed": true
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/yintuoluo-zhua/chixue.c",
+    "before": "爪行",
+    "after": "爪形"
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/pona-gong.c",
+    "before": "身行急闪直$n身前",
+    "after": "身形急闪至$n身前"
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/pona-gong.c",
+    "before": "暴豆",
+    "after": "爆豆"
+  },
+  {
+    "id": "094",
+    "file": "kungfu/skill/jimie-zhua/wuwo.c",
+    "before": "CYN \"$P见来势凶猛\"",
+    "after": "CYN \"见来势凶猛\""
+  },
+  {
+    "id": "096",
+    "file": "kungfu/skill/weituo-gun.c",
+    "before": "if ((int)me->query(\"neili\") < 70)\n        return notify_fail(\"你的体力不够练韦陀棍。",
+    "after": "if ((int)me->query(\"neili\") < 70)\n        return notify_fail(\"你的内力不够练韦陀棍。"
+  },
+  {
+    "id": "096",
+    "file": "kungfu/skill/jiechen-dao.c",
+    "before": "你的体力不够，练不了戒尘刀。",
+    "after": "你的体力或内力不够，练不了戒尘刀。"
+  },
+  {
+    "id": "098",
+    "file": "kungfu/skill/yintuoluo-zhua.c",
+    "before": "内力不够因陀罗爪",
+    "after": "内力不够练因陀罗爪",
+    "mixed": true
+  },
+  {
+    "id": "098",
+    "file": "kungfu/skill/dacidabei-shou.c",
+    "before": "禅宗心法知识的知识",
+    "after": "禅宗心法知识"
+  },
+  {
+    "id": "098",
+    "file": "kungfu/skill/shaolin-shenfa.c",
+    "before": "手无足措",
+    "after": "手足无措"
+  },
+  {
+    "id": "109",
+    "file": "kungfu/skill/jiuyin-baiguzhao/duo.c",
+    "before": "迅论无比",
+    "after": "迅疾无比"
+  },
+  {
+    "id": "109",
+    "file": "kungfu/skill/jiuyin-baiguzhao.c",
+    "before": "九阴白骨抓",
+    "after": "九阴白骨爪",
+    "mixed": true
+  },
+  {
+    "id": "109",
+    "file": "kungfu/skill/shexing-lifan.c",
+    "before": "身行",
+    "after": "身形"
+  },
+  {
+    "id": "109",
+    "file": "kungfu/skill/huifeng-jian/jue.c",
+    "before": "这一招堪勘不能奏效",
+    "after": "这一招未能奏效"
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/tianluo-diwang.c",
+    "before": "水平水平",
+    "after": "水平"
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/sad-strike.c",
+    "before": "黯然消魂掌",
+    "after": "黯然销魂掌",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/sad-strike.c",
+    "before": "脚步朗舱",
+    "after": "脚步踉跄",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/suxin-jian.c",
+    "before": "只幌得",
+    "after": "只晃得",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/suxin-jian.c",
+    "before": "眼花撩乱",
+    "after": "眼花缭乱",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/suxin-jian.c",
+    "before": "抚琴按萧",
+    "after": "抚琴按箫",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/suxin-jian.c",
+    "before": "孤云出釉",
+    "after": "孤云出岫",
+    "mixed": true
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/surge-force/roar.c",
+    "before": "令人发耳欲聩",
+    "after": "令人震耳欲聋"
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/meinv-quan/you.c",
+    "before": "正迟疑间， $N",
+    "after": "正迟疑间，$n"
+  },
+  {
+    "id": "115",
+    "file": "kungfu/skill/wudu-shenzhang/shi.c",
+    "mixed": true,
+    "before": "侧身一跳$P",
+    "after": "侧身一跳，"
+  },
+  {
+    "id": "122",
+    "file": "kungfu/skill/guangling-san.c",
+    "before": "所有有限",
+    "after": "水平有限"
+  },
+  {
+    "id": "122",
+    "file": "kungfu/skill/qingxin-pushan.c",
+    "before": "所有有限",
+    "after": "水平有限"
+  },
+  {
+    "id": "122",
+    "file": "kungfu/skill/qiuyue-lai.c",
+    "before": "所有有限",
+    "after": "水平有限"
+  },
+  {
+    "id": "125",
+    "file": "kungfu/skill/qishang-quan/shang.c",
+    "before": "\"飞了出去，重重的摔在地上",
+    "after": "\"打飞了出去，重重的摔在地上"
+  },
+  {
+    "id": "127",
+    "file": "kungfu/skill/qingfu-shenfa.c",
+    "before": "这一招。。\\n\"\n",
+    "after": "这一招。\\n\",\n",
+    "mixed": true
+  },
+  {
+    "id": "070",
+    "file": "kungfu/skill/qixing-shou.c",
+    "before": "if ((int)me->query(\"neili\") < 60)\n        return notify_fail(\"你的体力太低了，无法练七星分天手。",
+    "after": "if ((int)me->query(\"neili\") < 60)\n        return notify_fail(\"你的内力太低了，无法练七星分天手。"
+  },
+  {
+    "id": "074",
+    "file": "cmds/skill/learn.c",
+    "before": "此外学习也需要消耗一些精力，而消耗的精力跟你自己、与你学习对象的悟性有关。",
+    "after": "此外学习也需要消耗精神，每次消耗与你自身的先天悟性和当前技能等级有关，初学时消耗加倍。"
+  },
+  {
+    "id": "075",
+    "file": "cmds/skill/exercise.c",
+    "before": "指令格式 : exercise|dazuo [<耗费「气」的量> 必须多于 10]",
+    "after": "指令格式 : exercise|dazuo <耗费「气」的量，至少 10>"
+  },
+  {
+    "id": "075",
+    "file": "cmds/skill/exercise.c",
+    "before": "力、爆发力，并且用内力的形式将能量储备下来。注意：你不能在不能\n战斗的地方打坐。",
+    "after": "力、爆发力，并且用内力的形式将能量储备下来。通常不能在禁战场所\n打坐，但准许打坐的场所及执行修炼计划时不受此限制。"
+  }
+]

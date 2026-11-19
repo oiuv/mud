@@ -5,7 +5,7 @@
 inherit SHAOLIN_SKILL;
 
 mapping *action = ({
-    ([ "action": "在呼呼风声中，$N使一招「捕风式」，双手如钩如戢，插向$n的$l",
+    ([ "action": "在呼呼风声中，$N使一招「捕风式」，双手如钩如戟，插向$n的$l",
         "force": 100,
         "attack": 30,
         "dodge": 25,

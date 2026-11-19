@@ -5,7 +5,7 @@ int welcome(object ob) {
     }
 
     if (ob->query("betrayer/times")) {
-        command("say 没关系，你虽然判过几次师，不过最后终于弃暗投明，可喜可贺！");
+        command("say 没关系，你虽然叛过几次师，不过最后终于弃暗投明，可喜可贺！");
         return 0;
     }
 

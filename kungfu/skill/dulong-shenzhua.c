@@ -12,7 +12,7 @@ mapping *action = ({
         "parry": 15,
         "damage": 10,
         "lvl": 0,
-        "skills_name": "天邪爪",
+        "skill_name": "天邪爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N单腿直立，双臂平伸，一式「蛟龙爪」，双爪一前一后拢向$n的$l",
@@ -22,7 +22,7 @@ mapping *action = ({
         "parry": 22,
         "damage": 15,
         "lvl": 30,
-        "skills_name": "蛟龙爪",
+        "skill_name": "蛟龙爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N一式「毒龙爪」，全身向斜里平飞，右腿一绷，双爪搭向$n的肩头",
@@ -32,7 +32,7 @@ mapping *action = ({
         "parry": 28,
         "damage": 20,
         "lvl": 60,
-        "skills_name": "毒龙爪",
+        "skill_name": "毒龙爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N双爪翻腾而出，使一式「双龙戏」，分别袭向$n左右腋空门",
@@ -42,7 +42,7 @@ mapping *action = ({
         "parry": 35,
         "damage": 35,
         "lvl": 80,
-        "skills_name": "双龙戏",
+        "skill_name": "双龙戏",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N飞身而起，一式「飞龙爪」，自天而下，抓向$n的胸口",
@@ -52,7 +52,7 @@ mapping *action = ({
         "parry": 38,
         "damage": 45,
         "lvl": 100,
-        "skills_name": "飞龙爪",
+        "skill_name": "飞龙爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N一式「地蛇爪」，上手袭向膻中大穴，下手反抓$n的裆部",
@@ -62,7 +62,7 @@ mapping *action = ({
         "parry": 45,
         "damage": 60,
         "lvl": 120,
-        "skills_name": "地蛇爪",
+        "skill_name": "地蛇爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N左右手掌爪齐出，一式「划长空」，双爪划空而过，抓向$n",
@@ -72,7 +72,7 @@ mapping *action = ({
         "parry": 52,
         "damage": 85,
         "lvl": 140,
-        "skills_name": "划长空",
+        "skill_name": "划长空",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N腾空而起，一式「万里神爪」，天空中顿时显出一个巨灵爪影，罩向$n",
@@ -82,7 +82,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 80,
         "lvl": 160,
-        "skills_name": "万里神爪",
+        "skill_name": "万里神爪",
         "damage_type": "内伤"
     ])
 });

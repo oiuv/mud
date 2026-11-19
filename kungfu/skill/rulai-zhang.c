@@ -129,7 +129,9 @@ int valid_learn(object me) {
     return 1;
 }
 
-mixed hit_ob(object me, object victim, int i, int damage_bonus) {
+mixed hit_ob(object me, object victim, int damage_bonus) {
+    int i;
+
     if (me->is_busy()
         || random(2) == 0
         || !living(victim)
@@ -158,7 +160,7 @@ mixed hit_ob(object me, object victim, int i, int damage_bonus) {
         COMBAT_D->do_attack(me, victim, 0, 20);
     }
 
-    if (damage_bonus / 6 > victim->query_con()) {
+    if (damage_bonus / 6 > victim->query_con() && me->query("neili") >= 80) {
         me->add("neili", -80);
         victim->receive_wound("qi", (damage_bonus - 120) / 2, me);
         return random(2) ? HIR "$n" HIR "被$N" HIR "凌厉的掌风划中气门，只"

@@ -35,7 +35,7 @@ int perform(object me, object target) {
 
     msg = HIM "\n猛然间$N" HIM "双掌不断拍向$n" HIM "出，风声呼呼，攻到途中忽又左"
         "手虚出右手作势欲发，虚虚实实，飘渺不定，正是华山绝招「" HIG "飞絮飘渺" HIM
-        "」。 顷刻剑$n" HIM "已被$N" HIM "掌风笼罩。\n" NOR;
+        "」。 顷刻间$n" HIM "已被$N" HIM "掌风笼罩。\n" NOR;
 
     me->add("neili", -30);
     if (random(me->query_skill("cuff")) > (int)target->query_skill("force") / 2) {

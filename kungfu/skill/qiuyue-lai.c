@@ -13,7 +13,7 @@ int valid_learn(object me) {
         return notify_fail("你的弹琴技法水平太差，还是先练好再说吧！\n");
 
     if (me->query_skill("tanqin-jifa", 1) < me->query_skill("qiuyue-lai", 1))
-        return notify_fail("你的弹琴技法所有有限，无法领会更精妙的秋月籁。\n");
+        return notify_fail("你的弹琴技法水平有限，无法领会更精妙的秋月籁。\n");
 
     return 1;
 }

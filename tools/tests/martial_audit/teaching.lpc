@@ -1,0 +1,297 @@
+// Original NPCs, ask command and skill dispatch; synthetic characters only.
+private object arena;
+
+void check(int ok, string label) { master()->check(ok, "teaching " + label); }
+void rolls(int high) { "/tests/control"->reset(high, ({})); }
+
+object student(object teacher) {
+    object who;
+
+    who = arena->actor();
+    who->set("family", ([ "family_name": teacher->query("family/family_name"),
+        "master_id": teacher->query("id"), "master_name": teacher->query("name") ]));
+    who->set_skill("force", 100);
+    who->set("shen", 120000);
+    who->set("potential", 1000);
+    return who;
+}
+
+object teacher(string path) {
+    object ob;
+
+    ob = new(path);
+    ob->move(arena);
+    return ob;
+}
+
+void ask(object who, object ob, string topic) {
+    check(who->invoke((: call_other, "/cmds/std/ask", "main", who,
+        ob->query("id") + " about " + topic :)) == 1, "original ask command completes");
+}
+
+string progress(object who) {
+    return save_variable(({ who->query_skills(), who->query_learned() }));
+}
+
+void check_tui() {
+    object ob, who, target;
+    string prior;
+
+    ob = teacher("/kungfu/class/jueqing/chi");
+    check(
+        ob->query_skill_mapped("staff") == "feilong-zhang",
+        "MA-008.03 staff maps to the actual learned skill"
+    );
+    who = student(ob);
+    who->set_skill("tiexian-quan", 60);
+    who->set_skill("force", 160);
+    who->set("shen", -60000);
+    who->set("gongxian", 99);
+    ask(who, ob, "破甲推山");
+    check(!who->query("can_perform/tiexian-quan/tui") && who->query("gongxian") == 99,
+        "MA-003 contribution boundary refuses without grant or cost");
+    who->set("gongxian", 100);
+    ask(who, ob, "破甲推山");
+    check(who->query("can_perform/tiexian-quan/tui") == 1 &&
+        !who->query("can_perform/tiexian-quan/jia") && who->query("gongxian") == 0,
+        "MA-003 grants the real tui key and exact contribution cost");
+    prior = progress(who);
+    ask(who, ob, "破甲推山");
+    check(progress(who) == prior && who->query("gongxian") == 0 &&
+        who->query("can_perform/tiexian-quan/tui") == 1, "MA-003 repeated ask does not reward again");
+    who->map_skill("cuff", "tiexian-quan");
+    who->prepare_skill("cuff", "tiexian-quan");
+    target = arena->actor();
+    arena->fight(who, target);
+    rolls(1);
+    check(who->invoke((: call_other, "/kungfu/skill/tiexian-quan", "perform_action", who,
+        "tui " + target->query("id") :)) == 1 && target->query_temp("test/damages") == 1,
+        "MA-003 taught move reaches actual skill effect");
+}
+
+void check_damo() {
+    object ob, who;
+    string first, second, prior;
+
+    ob = teacher("/kungfu/class/shaolin/da-mo");
+    foreach (first in ({ "清心剑", "乱气剑" })) {
+        who = student(ob);
+        who->set_skill("damo-jian", 200);
+        who->set_skill("sword", 100);
+        who->set("shen", 119999);
+        ask(who, ob, first);
+        check(!who->query("can_perform/damo-jian"), "MA-017 low righteousness grants neither move");
+        who->set("shen", 120000);
+        ask(who, ob, first);
+        check(who->query("can_perform/damo-jian/" + (first == "清心剑" ? "qingxin" : "luan")) == 1 &&
+            !who->query("can_perform/damo-jian/" + (first == "清心剑" ? "luan" : "qingxin")),
+            "MA-017 each topic grants only its own move");
+        prior = progress(who);
+        ask(who, ob, first);
+        check(progress(who) == prior, "MA-017 repeated first topic has no additional reward");
+        second = first == "清心剑" ? "乱气剑" : "清心剑";
+        ask(who, ob, second);
+        check(who->query("can_perform/damo-jian/qingxin") == 1 &&
+            who->query("can_perform/damo-jian/luan") == 1,
+            "MA-017 both teaching orders grant both moves");
+        prior = progress(who);
+        ask(who, ob, second);
+        check(progress(who) == prior, "MA-017 repeated second topic has no additional reward");
+    }
+}
+
+void check_needle() {
+    object ob, who;
+    int stock, count;
+
+    ob = teacher("/kungfu/class/gumu/li");
+    who = student(ob);
+    stock = ob->query("bingpo-zhen");
+    who->set_skill("bingpo-shenzhen", 99);
+    ask(who, ob, "冰魄银针");
+    check(!present("bingpo zhen", who) && ob->query("bingpo-zhen") == stock,
+        "MA-023 skill 99 refuses without consuming stock");
+    who->set_skill("bingpo-shenzhen", 100);
+    count = sizeof(all_inventory(who));
+    ask(who, ob, "冰魄银针");
+    check(sizeof(all_inventory(who)) == count + 1 && ob->query("bingpo-zhen") == stock - 1 &&
+        !who->query_skill(
+            "bingpo-zhen",
+            1
+        ), "MA-023 real skill 100 delivers one needle and consumes one stock");
+    who->set("family/master_name", "他人");
+    count = sizeof(all_inventory(who)); stock = ob->query("bingpo-zhen");
+    ask(who, ob, "冰魄银针");
+    check(sizeof(all_inventory(who)) == count && ob->query("bingpo-zhen") == stock,
+        "MA-023 unrelated student still cannot claim needles");
+}
+
+void check_wanshi() {
+    object ob, who;
+    string prior;
+
+    ob = teacher("/kungfu/class/ouyang/ouyangfeng");
+    who = student(ob);
+    who->set("shen", -120000);
+    who->set_skill("lingshe-zhangfa", 180);
+    who->set("gongxian", 999);
+    ask(who, ob, "千蛇万噬");
+    check(!who->query("can_perform/lingshe-zhangfa/wanshi") && who->query("gongxian") == 999,
+        "MA-055 insufficient contribution refuses without reward");
+    who->set("gongxian", 1000);
+    ask(who, ob, "千蛇万噬");
+    check(who->query("can_perform/lingshe-zhangfa/wanshi") == 1 && who->query("gongxian") == 0,
+        "MA-055 first teaching subtracts 1000 contribution");
+    prior = progress(who);
+    ask(who, ob, "千蛇万噬");
+    check(progress(who) == prior && who->query("gongxian") == 0,
+        "MA-055 repeat does not charge or reward again");
+}
+
+void check_spear() {
+    object ob, who;
+    string prior;
+    int points;
+
+    ob = teacher("/kungfu/class/huashan/feng");
+    who = student(ob);
+    who->set_skill("dugu-jiujian", 150);
+    rolls(0);
+    ask(who, ob, "破枪式");
+    check(member_array("spear", who->query("can_perform/dugu-jiujian") || ({})) != -1 &&
+        member_array("staff", who->query("can_perform/dugu-jiujian") || ({})) == -1,
+        "MA-067 teaching grants spear knowledge, not staff");
+    check(member_array("spear", ob->query("can_perform/dugu-jiujian")) != -1,
+        "MA-067 teacher can counter real spear weapons");
+    prior = progress(who); points = who->query("learned_points");
+    ask(who, ob, "破枪式");
+    check(progress(who) == prior && who->query("learned_points") == points,
+        "MA-067 repeated spear teaching costs no potential");
+}
+
+void check_lian() {
+    object ob, who, target, skill;
+    int high, attacks, energy;
+
+    ob = teacher("/kungfu/class/gumu/li");
+    foreach (high in ({ 0, 1 })) {
+        who = student(ob);
+        who->set_skill("chilian-shenzhang", 200);
+        who->set_skill("force", 400);
+        who->set("gongxian", 10000);
+        who->set("shen", -1000000);
+        ask(who, ob, "赤心连环决");
+        check(who->query("can_perform/chilian-shenzhang/lian") == 1 &&
+            !who->query("can_perform/chiilian-shenzhang/lian"), "MA-116 teacher writes canonical permission");
+        who->map_skill("strike", "chilian-shenzhang");
+        who->prepare_skill("strike", "chilian-shenzhang");
+        who->set_temp("apply/attack", 17);
+        target = arena->actor();
+        target->set_skill("parry", high ? 0 : 10000);
+        arena->fight(who, target);
+        rolls(high);
+        attacks = who->query_temp("test/attacks"); energy = who->query("neili");
+        skill = load_object("/kungfu/skill/chilian-shenzhang/lian");
+        check(who->invoke((: call_other, "/kungfu/skill/chilian-shenzhang", "perform_action", who,
+            "lian " + target->query("id") :)) == 1 && who->query_temp("test/attacks") > attacks,
+            "MA-116 canonical taught permission reaches actual multiattack");
+        // Old-key diagnostic is only for the pre-fix negative control of MA-117.
+        if (who->query_temp("test/attacks") == attacks) {
+            who->set("can_perform/chiilian-shenzhang/lian", 1);
+            rolls(high);
+            skill->perform(who, target);
+        }
+        check(who->query_temp("apply/attack") == 17,
+            "MA-117 both hit branches preserve the pre-existing attack bonus");
+        check(who->query_temp("test/in_effect")[2] == (high ? 87 : 17),
+            "MA-117 only successful enhancement adds 70 during attacks");
+        attacks = who->query_temp("test/attacks") - attacks;
+        check(attacks >= 4 && attacks <= 8 && who->query("neili") == energy - attacks * 20,
+            "MA-117 original multiattack count and direct cost remain");
+        who->delete("can_perform/chilian-shenzhang/lian");
+        who->delete("can_perform/chiilian-shenzhang/lian");
+        energy = who->query("neili"); attacks = who->query_temp("test/attacks");
+        check(!skill->perform(who, target) && who->query("neili") == energy &&
+            who->query_temp("test/attacks") == attacks, "MA-116 no permission still rejects without effects");
+    }
+}
+
+void check_zheng() {
+    object ob, who;
+    string prior;
+
+    ob = teacher("/kungfu/class/wudang/shan");
+    who = student(ob);
+    who->set_skill("yitian-zhang", 120);
+    who->set("gongxian", 199);
+    ask(who, ob, "谁与争锋");
+    check(!who->query("can_perform/yitian-zhang/zheng") && who->query("gongxian") == 199,
+        "MA-142 contribution boundary refuses");
+    who->set("gongxian", 200);
+    ask(who, ob, "谁与争锋");
+    check(who->query("can_perform/yitian-zhang/zheng") == 1 && who->query("gongxian") == 0 &&
+        who->query_skill("yitian-zhang", 1) > 120 && !who->query_skill("zhenshan-zhang", 1),
+        "MA-142 rewards the taught yitian skill, never zhenshan");
+    prior = progress(who);
+    ask(who, ob, "谁与争锋");
+    check(progress(who) == prior && who->query("gongxian") == 0,
+        "MA-142 repeat preserves progress and contribution");
+}
+
+void check_qin() {
+    object ob, who;
+    string prior;
+    int contribution;
+
+    ob = teacher("/kungfu/class/riyue/qin");
+    foreach (contribution in ({ 79, 80, 99, 100 })) {
+        who = student(ob);
+        who->set("shen", -8000);
+        who->set_skill("force", 200);
+        who->set_skill("danding-dao", 80);
+        who->set("gongxian", contribution);
+        ask(who, ob, "环环相扣");
+        check(contribution < 100 ?
+            !who->query("can_perform/danding-dao/kou") && who->query("gongxian") == contribution :
+            who->query("can_perform/danding-dao/kou") == 1 && who->query("gongxian") == 0,
+            "MA-020 checks the full unchanged 100 contribution cost");
+        prior = progress(who);
+        ask(who, ob, "环环相扣");
+        check(progress(who) == prior && who->query("gongxian") == (contribution < 100 ? contribution : 0),
+            "MA-020 repeated accepted or refused inquiry has no extra reward or cost");
+    }
+}
+
+void check_directory() {
+    object ob, who;
+
+    ob = teacher("/kungfu/class/shaolin/xuan-ci");
+    who = student(ob);
+    who->set("family/family_name", "武当派");
+    ask(who, ob, "pfm");
+    check(strsrch(who->query_temp("test/messages") || "", "又不是我们少林寺的人") >= 0,
+        "MA-019 directory checks the questioner, not the teacher");
+    who->delete("family");
+    who->delete_temp("test/messages");
+    ask(who, ob, "绝招");
+    check(strsrch(who->query_temp("test/messages") || "", "又不是我们少林寺的人") >= 0,
+        "MA-019 unaffiliated questioner is also refused");
+    who->set("family/family_name", "少林派");
+    who->delete_temp("test/messages");
+    ask(who, ob, "绝招");
+    check(strsrch(who->query_temp("test/messages") || "", "一指点三脉") >= 0,
+        "MA-019 qualified questioner still receives the existing directory");
+}
+
+void run(object room) {
+    arena = room;
+    check_tui();
+    check_damo();
+    check_needle();
+    check_wanshi();
+    check_spear();
+    check_lian();
+    check_zheng();
+    check_qin();
+    check_directory();
+}

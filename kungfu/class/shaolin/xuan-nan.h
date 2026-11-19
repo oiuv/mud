@@ -4,12 +4,12 @@
 #include "xuan.h"
 
 string *names = ({
-    "chengxin luohan",
+    "chengxin1 luohan",
     "chengyi luohan",
     "chengsi luohan",
     "chengshi luohan",
     "chengzhi luohan",
-    "chengxin luohan",
+    "chengxin2 luohan",
     "chengling luohan",
     "chengyu luohan",
     "chengshang luohan",
@@ -106,24 +106,24 @@ string ask_me() {
     return "好！大家都出来了。\n";
 }
 
-int waiting(object me) {
+varargs int waiting(object me, int wait_time) {
     object fighter;
-    int wait_time;
 
-    if (wait_time == 300) {
+    if (wait_time >= 300) {
         say("玄难说道：看来他不会来了，我们回去罢！\n\n");
         call_out("do_back", 0, me);
+        return 1;
     }
 
     if (!objectp(fighter = present(me->query("assigned_fighter"), environment(me)))) {
         wait_time++;
-        call_out("waiting", 1, me);
+        call_out("waiting", 1, me, wait_time);
     } else if (!present("xuanku dashi", environment(me)) || !fighter->query_temp("xuanku-asked")) {
         if (random(10) == 0)
             say("\n玄难说道：" + RANK_D->query_respect(fighter) + "去请了玄苦大师没有？ 照理他现在该到了罢？\n");
 
         wait_time++;
-        call_out("waiting", 1, me);
+        call_out("waiting", 1, me, wait_time);
     } else call_out("preparing", 0, me, fighter);
 
     return 1;

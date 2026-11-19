@@ -183,7 +183,7 @@ mixed teach_sad() {
     }
 
     if (ob->query_skill("martial-cognize", 1) < 200) {
-        command("say 你武学修养不足，无法领悟炼黯然销魂掌。");
+        command("say 你武学修养不足，无法领悟黯然销魂掌。");
 
         return 1;
     }

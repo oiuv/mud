@@ -84,6 +84,10 @@ int valid_enable(string usage) {
     return usage == "unarmed" || usage == "parry" || usage == "dodge";
 }
 
+string query_dodge_msg(string limb) {
+    return "只见$n脚步一错，借弹腿之势侧身让开，避过了$N的攻势。\n";
+}
+
 
 int valid_learn(object me) {
     if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))

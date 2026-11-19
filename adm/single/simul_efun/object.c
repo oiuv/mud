@@ -98,5 +98,9 @@ void destruct(object ob) {
             ob->remove(0);
     }
 
+    // A refused removal must not change an active formation.
+    if (ob && ob->is_character())
+        ob->dismiss_martial_array();
+
     efun::destruct(ob);
 }

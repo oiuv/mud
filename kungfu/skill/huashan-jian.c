@@ -5,7 +5,7 @@
 inherit SKILL;
 
 mapping *action = ({
-    ([ "name": "有凤来仪",
+    ([ "skill_name": "有凤来仪",
         "action": "$N使一招「有凤来仪」，手中$w剑光暴长，向$n的$l刺去",
         "force": 70,
         "attack": 10,
@@ -15,7 +15,7 @@ mapping *action = ({
         "lvl": 0,
         "damage_type": "刺伤"
     ]),
-    ([ "name": "无边落木",
+    ([ "skill_name": "无边落木",
         "action": "$N剑随身转，一招「无边落木」罩向$n的$l",
         "force": 120,
         "attack": 20,
@@ -25,7 +25,7 @@ mapping *action = ({
         "lvl": 20,
         "damage_type": "刺伤"
     ]),
-    ([ "name": "鸿飞冥冥",
+    ([ "skill_name": "鸿飞冥冥",
         "action": "$N舞动$w，一招「鸿飞冥冥」挟著无数剑光刺向$n的$l",
         "force": 160,
         "attack": 25,
@@ -35,7 +35,7 @@ mapping *action = ({
         "lvl": 40,
         "damage_type": "刺伤"
     ]),
-    ([ "name": "平沙落雁",
+    ([ "skill_name": "平沙落雁",
         "action": "$N手中$w龙吟一声，祭出「平沙落雁」往$n的$l刺出数剑",
         "force": 190,
         "attack": 30,
@@ -45,7 +45,7 @@ mapping *action = ({
         "lvl": 60,
         "damage_type": "刺伤"
     ]),
-    ([ "name": "金玉满堂",
+    ([ "skill_name": "金玉满堂",
         "action": "$N手中$w剑光暴长，一招「金玉满堂」往$n$l刺去",
         "force": 220,
         "attack": 40,
@@ -55,7 +55,7 @@ mapping *action = ({
         "lvl": 80,
         "damage_type": "刺伤"
     ]),
-    ([ "name": "白虹贯日",
+    ([ "skill_name": "白虹贯日",
         "action": "$N手中$w化成一道光弧，直指$n$l，一招「白虹贯日」发出虎哮龙吟刺去",
         "force": 260,
         "attack": 50,

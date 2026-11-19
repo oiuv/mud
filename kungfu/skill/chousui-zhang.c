@@ -7,7 +7,7 @@ mapping *action = ({
         "attack": 49,
         "dodge": -30,
         "parry": -37,
-        "dmage": 32,
+        "damage": 32,
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N突然身形旋转起来扑向$n，双掌飞舞着拍向$n的$l",
@@ -15,7 +15,7 @@ mapping *action = ({
         "attack": 56,
         "dodge": -22,
         "parry": -34,
-        "dmage": 47,
+        "damage": 47,
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N将毒质运至右手，一招「腐尸毒」阴毒无比地抓向$n的$l",
@@ -23,7 +23,7 @@ mapping *action = ({
         "attack": 61,
         "dodge": -20,
         "parry": 10,
-        "dmage": 60,
+        "damage": 60,
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N一声怪叫，双掌挟着一股腥臭之气拍向$n的$l",
@@ -31,7 +31,7 @@ mapping *action = ({
         "attack": 79,
         "dodge": 17,
         "parry": 36,
-        "dmage": 65,
+        "damage": 65,
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N咬破舌尖，口中喷血，聚集全身的力量击向$n",
@@ -39,30 +39,15 @@ mapping *action = ({
         "attack": 81,
         "dodge": 27,
         "parry": 21,
-        "dmage": 75,
+        "damage": 75,
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 抽髓掌之极意 " NOR "",
-        "force": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 2 + random((int)this_player()->query_skill("force", 1)),
-        "attack": (int)this_player()->query_skill(
-            "strike",
-            1
-        ) / 4 + random((int)this_player()->query_skill("strike", 1) / 2),
-        "dodge": (int)this_player()->query_skill(
-            "dodge",
-            1
-        ) / 6 + random((int)this_player()->query_skill("force", 1) / 3),
-        "parry": (int)this_player()->query_skill(
-            "parry",
-            1
-        ) / 6 + random((int)this_player()->query_skill("parry", 1) / 3),
-        "damage": (int)this_player()->query_skill(
-            "force",
-            1
-        ) / 4 + random((int)this_player()->query_skill("strike", 1) / 2),
+        "force": 0,
+        "attack": 0,
+        "dodge": 0,
+        "parry": 0,
+        "damage": 0,
         "lvl": 200,
         "skill_name": "极意",
         "damage_type": "瘀伤"
@@ -90,7 +75,7 @@ int valid_learn(object me) {
     if ((int)me->query("max_neili") < 1000)
         return notify_fail("你的内力修为太弱，无法练抽髓掌。\n");
 
-    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("choushui-zhang", 1))
+    if ((int)me->query_skill("strike", 1) < (int)me->query_skill("chousui-zhang", 1))
         return notify_fail("你的基本掌法水平有限，无法领会更高深的抽髓掌法。\n");
 
     return 1;
@@ -105,10 +90,35 @@ string query_skill_name(int level) {
 
 mapping query_action(object me, object weapon) {
     int i, level;
+    mapping selected;
+
     level = (int)me->query_skill("chousui-zhang", 1);
     for (i = sizeof(action); i > 0; i--)
         if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 20, level / 5)];
+            break;
+    if (!i) return 0;
+    selected = action[NewRandom(i, 20, level / 5)];
+    if (selected["skill_name"] == "极意") {
+        selected = copy(selected);
+        selected["force"] = me->query_skill("force", 1) / 2 + random(me->query_skill("force", 1));
+        selected["attack"] = me->query_skill(
+            "strike",
+            1
+        ) / 4 + random(me->query_skill("strike", 1) / 2);
+        selected["dodge"] = me->query_skill(
+            "dodge",
+            1
+        ) / 6 + random(me->query_skill("force", 1) / 3);
+        selected["parry"] = me->query_skill(
+            "parry",
+            1
+        ) / 6 + random(me->query_skill("parry", 1) / 3);
+        selected["damage"] = me->query_skill(
+            "force",
+            1
+        ) / 4 + random(me->query_skill("strike", 1) / 2);
+    }
+    return selected;
 }
 
 int practice_skill(object me) {

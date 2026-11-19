@@ -72,7 +72,7 @@ int valid_learn(object me) {
         return notify_fail("你的先天膂力孱弱，无法学习玄铁剑法。\n");
 
     if (me->query("character") == "心狠手辣")
-        return notify_fail("你一心想杀尽敌人，没能理解玄铁剑法的的真正含义。\n");
+        return notify_fail("你一心想杀尽敌人，没能理解玄铁剑法的真正含义。\n");
 
     if (me->query("character") == "阴险奸诈")
         return notify_fail("你一心想怎么学好剑法去害人，结果没能理解玄铁剑法。\n");

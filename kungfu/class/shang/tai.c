@@ -225,7 +225,7 @@ mixed ask_skill2() {
     if (me->query_skill("bagua-zhang", 1) < 80)
         return "你的八卦掌法还练得不到家，自己下去练练再来吧！";
 
-    message_vision(HIY "$n" HIY "眉头微微一皱，上下打量了$N" HIY "一翻，这才伸"
+    message_vision(HIY "$n" HIY "眉头微微一皱，上下打量了$N" HIY "一番，这才伸"
         "手将$N" HIY "招\n至身旁，在耳边轻声讲解了半天，时不时还探出"
         "右手比划几\n下招式，$N" HIY "听后冷笑一声，似乎有所领悟。\n"
         NOR, me, this_object());
@@ -272,7 +272,7 @@ mixed ask_skill3() {
 
     message_vision(HIY "$n" HIY "哼了一声，沉声道：“潭腿本身威力并不强，但却被"
         "\n喻为武林四大家之一，倒也有它的独到之处。”说完便随即\n起身"
-        "而立，左腿连变数中方位，“砰”的一声陡然踢出，顿\n时将$N" HIY
+        "而立，左腿连变数种方位，“砰”的一声陡然踢出，顿\n时将$N" HIY
         "面前的那张木几踢得粉碎。\n" NOR, me, this_object());
 
     command("say 明白了么？");
@@ -317,7 +317,7 @@ mixed ask_skill4() {
 
     message_vision(HIY "$n" HIY "冷笑一声，也不答话，当即从$N" HIY "手中接过长"
         "剑，慢慢\n的演示剑招，$N" HIY "见招式轻盈灵动，变幻无方，甚"
-        "为奇异。实\n乃前所谓闻，顿时大有所悟。\n" NOR, me,
+        "为奇异。实\n乃前所未闻，顿时大有所悟。\n" NOR, me,
         this_object());
 
     command("say 这招乃是以奇制胜，我演示的你可都记清了？");

@@ -2,12 +2,12 @@
 
 int permit_recruit(object ob) {
     if (ob->query("detach/血刀门") || ob->query("betrayer/血刀门")) {
-        command("say 你离开了血刀门们，就别回来！");
+        command("say 你离开了血刀门，就别回来！");
         return 0;
     }
 
     if (ob->query("betrayer/times")) {
-        command("say 判师之徒，哼！哼！我把你千刀万剐！");
+        command("say 叛师之徒，哼！哼！我把你千刀万剐！");
         return 0;
     }
 

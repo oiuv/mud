@@ -45,7 +45,7 @@ int valid_learn(object me) {
         return notify_fail("你已将三种九阳神功全部融汇贯通，不必再分开"
             "学习了。\n");
 
-    if (me->query("gender") == "无性" && (int)me->query("wudang-jiuyang", 1) > 9)
+    if (me->query("gender") == "无性" && (int)me->query_skill("wudang-jiuyang", 1) > 9)
         return notify_fail("你无根无性，阴阳不调，难以领会高深的武当九"
             "阳神功。\n");
 

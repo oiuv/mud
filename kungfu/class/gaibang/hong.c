@@ -955,7 +955,7 @@ int accept_object(object who, object ob) {
 
     if (who->query("can_learn/hong/xiaoyaoyou") >= 1) {
         command("pat " + who->query("id"));
-        command("say 又给老叫花解搀来了？多谢，多谢。");
+        command("say 又给老叫花解馋来了？多谢，多谢。");
         return 1;
     }
     command("stuff");

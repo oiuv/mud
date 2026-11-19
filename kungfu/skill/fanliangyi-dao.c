@@ -62,6 +62,14 @@ int valid_enable(string usage) {
     return usage == "blade" || usage == "parry" || usage == "array";
 }
 
+int form_array(object leader) {
+    return "/kungfu/skill/fanliangyi-dao/makearray"->perform(leader, 0);
+}
+
+int dismiss_array(object person) {
+    return "/kungfu/skill/fanliangyi-dao/makearray"->dismiss_array(person);
+}
+
 /*
 int form_array(object leader)
 //int perform(object leader, object target)

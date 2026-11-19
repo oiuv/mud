@@ -19,7 +19,7 @@ void create() {
         "剃度": "找我剃度？不对吧。",
         "出家": "要出家找我的师姐们去。",
         "还俗": "无聊。还俗也找我！",
-        "张无忌": "这个狠心短命的家伙，我再也不要见她！",
+        "张无忌": "这个狠心短命的家伙，我再也不要见他！",
         "赵敏": "不要问这个贱婢子！",
         "倚天剑": "倚天不出，谁与争锋？唉！",
         "屠龙刀": "你想武林称雄？别做梦了。",
@@ -96,16 +96,13 @@ void create() {
         "yinlong-bian": "我只会剑法和刀法，鞭法师父从来没教过我。",
     ]));
 
-    set("chat_chance_combat", 120);
+    set("chat_chance_combat", 62);
     set("chat_msg_combat", ({
         (: perform_action, "claw.duo" :),       // 夺命连环
-        (: perform_action, "claw.jie" :),       // 九阴刹神抓
-        (: perform_action, "strike.cuixin" :),  // 催心破元诀
-        (: perform_action, "whip.jiao" :),      // 天诛龙蛟诀
+        (: perform_action, "strike.cui" :),     // 催心掌
         (: perform_action, "dodge.guiyuan" :),  // 九阴归元劲
         (: exert_function, "recover" :),
         (: exert_function, "powerup" :),
-        (: exert_function, "shield" :),
     }));
 
     setup();

@@ -73,11 +73,11 @@ int perform(object me, object target) {
 
     msg += HIW "\n$N" HIW "飞身跃起，手中" + weapon->name() + HIW "自天而下，劈向$n" HIW "。\n" NOR;
     if (ap / 2 + random(ap) < dp)
-        msg += CYN "$n" CYN "一快打快，向后飞身一跳，竟躲过这招。\n" NOR;
+        msg += CYN "$n" CYN "以快打快，向后飞身一跳，竟躲过这招。\n" NOR;
     else {
         damage = ap + random(ap / 2);
         msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 70,
-            HIR "$n" HIR "正犹豫剑，刀光划过，鲜血已染满刀身。！\n" NOR);
+            HIR "$n" HIR "正犹豫间，刀光划过，鲜血已染满刀身。！\n" NOR);
     }
 
     me->start_busy(3);

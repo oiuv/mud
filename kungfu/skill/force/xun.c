@@ -30,6 +30,9 @@ int exert(object me, object target) {
             || target->query("place") == "很远的地方"))
         target->move("/d/foshan/street3");
 
+    if (!objectp(target) || !objectp(where = environment(target)))
+        return notify_fail("没有找到这个人物现在的所在。\n");
+
     write(sprintf("%s(%s)现在在%s(%s).\n",
         (string)target->name(1),
         (string)target->query("id"),

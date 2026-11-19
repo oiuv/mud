@@ -1,0 +1,944 @@
+// Original NPC initializers and inquiry handlers; no accounts or saved characters.
+private object arena;
+private object *timeout_hosts = ({});
+private function timeout_done;
+private object timeout_holding;
+private object *formation_monks = ({}), *formation_hosts = ({});
+private object *formation_homes = ({});
+private int *formation_counts = ({});
+
+void start_formation_round();
+
+void check(int ok, string label) { master()->check(ok, "npc_fixes " + label); }
+
+object npc(string path) {
+    object ob;
+
+    ob = new(path);
+    ob->move(arena);
+    return ob;
+}
+
+void ask(object who, object ob, string topic) {
+    if (environment(who) == arena)
+        check(who->invoke((: call_other, "/cmds/std/ask", "main", who,
+            ob->query("id") + " about " + topic :)) == 1, "original ask completes");
+    else
+        check(who->force_me("ask " + ob->query("id") + " about " + topic) > 0,
+            "original ask outside the test arena completes through command dispatch");
+}
+
+void check_mappings() {
+    mixed *rows;
+    mixed row;
+    object ob;
+    string *skill_ids;
+
+    rows = ({
+        ({ "MA-008.02", "/kungfu/class/huashan/cong-buqi", "force", "huashan-xinfa" }),
+        ({ "MA-008.04", "/kungfu/class/mingjiao/fanyao", "force", "shenghuo-shengong" }),
+        ({ "MA-008.05", "/kungfu/class/misc/laodao", "finger", "zhongnan-zhi" }),
+        ({ "MA-008.06", "/kungfu/class/wudu/panxiuda", "sword", "jinwu-goufa" }),
+        ({ "MA-008.07", "/kungfu/class/xiaoyao/wuyazi", "parry", "zhemei-shou" }),
+        ({ "MA-008.08", "/kungfu/class/xuanming/wuwang", "dodge", "liuying-bu" }),
+        ({ "MA-008.09", "/kungfu/class/xuanming/wuwang", "strike", "feihua-zhang" }),
+        ({ "MA-038.01", "/kungfu/class/xingxiu/azi", "dodge", "zhaixing-gong" }),
+        ({ "MA-038.02", "/kungfu/class/xingxiu/chuchen", "dodge", "zhaixing-gong" }),
+        ({ "MA-038.03", "/kungfu/class/xingxiu/dizi", "dodge", "zhaixing-gong" }),
+        ({ "MA-038.04", "/kungfu/class/xingxiu/shihou", "dodge", "zhaixing-gong" }),
+        ({ "MA-038.05", "/kungfu/class/xingxiu/tianlang", "dodge", "zhaixing-gong" }),
+        ({ "MA-044.01", "/kungfu/class/henshan/mi", "parry", "henshan-jian" }),
+    });
+    foreach (row in rows) {
+        ob = npc(row[1]);
+        check(
+            ob->query_skill_mapped(row[2]) == row[3],
+            row[0] + " original NPC has a valid learned mapping"
+        );
+        check(ob->query_skill(row[2]) == ob->query_skill(row[2], 1) / 2 +
+            ob->query_skill(row[3], 1) + ob->query_temp("apply/" + row[2]),
+            row[0] + " effective skill includes the original special skill");
+        destruct(ob);
+    }
+    load_object("/kungfu/class/generate/chinese");
+    "/tests/control"->reset(0, ({ 2 }));
+    ob = npc("/kungfu/class/generate/chinese");
+    skill_ids = keys(ob->query_skills());
+    check(member_array("huashan-jian", skill_ids) >= 0 &&
+        ob->query_skill_mapped("parry") == "huashan-jian",
+        "MA-008.01 controlled original Huashan generator branch maps learned sword parry");
+    destruct(ob);
+    ob = npc("/kungfu/class/songshan/di");
+    check(ob->query_skill_prepared("strike") == "songshan-zhang" &&
+        ob->query_skill_prepared("cuff") == "songshan-quan",
+        "MA-042 original NPC prepares palm and fist under their real usages");
+    destruct(ob);
+}
+
+void check_intro() {
+    mixed *rows;
+    mixed row;
+    object ob, who;
+    int level;
+    string prior;
+
+    rows = ({
+        ({ "/kungfu/class/meizhuang/danqing", "pomopima-jian" }),
+        ({ "/kungfu/class/meizhuang/tubi", "shigu-bifa" }),
+        ({ "/kungfu/class/meizhuang/heibai", "fenglei-panfa" }),
+        ({ "/kungfu/class/meizhuang/huang", "qixian-wuxingjian" }),
+    });
+    foreach (row in rows) {
+        ob = npc(row[0]);
+        foreach (level in ({ 0, 9, 10, 20 })) {
+            who = arena->actor();
+            who->set("family/family_name", "日月神教");
+            if (level) who->set_skill(row[1], level);
+            ask(who, ob, "日月神教");
+            check(who->query_skill(row[1], 1) == (level < 10 ? 10 : level) &&
+                who->query("can_learn/meizhuang") == 1,
+                "MA-047 " + row[1] + " introduction never lowers existing skill");
+            prior = save_variable(({ who->query_skills(), who->query_learned() }));
+            ask(who, ob, "日月神教");
+            check(prior == save_variable(({ who->query_skills(), who->query_learned() })) &&
+                !who->query("gongxian") && !who->query("balance"),
+                "MA-047 repeated introduction preserves skills and original free boundary");
+            destruct(who);
+        }
+        who = arena->actor();
+        who->set("family/family_name", "武当派");
+        ask(who, ob, "日月神教");
+        check(!who->query_skill(row[1], 1) && !who->query("can_learn/meizhuang"),
+            "MA-047 unrelated faction remains refused");
+        destruct(who);
+        destruct(ob);
+    }
+}
+
+void check_snakes() {
+    object ob, who;
+    int i;
+
+    ob = npc("/kungfu/class/ouyang/ouyangke");
+    for (i = 0; i < 5; i++) {
+        who = arena->actor();
+        who->set("family/family_name", "欧阳世家");
+        ask(who, ob, "引路神蛇");
+        check(objectp(present("shen she", who)) && ob->query_temp("shenshe_count") == 4 - i,
+            "MA-056 original inquiry consumes temporary snake inventory");
+        destruct(who);
+    }
+    who = arena->actor();
+    who->set("family/family_name", "欧阳世家");
+    ask(who, ob, "引路神蛇");
+    check(!sizeof(all_inventory(who)), "MA-056 empty inventory refuses delivery");
+    ob->reset();
+    check(
+        ob->query_temp("shenshe_count") == 5,
+        "MA-056 reset replenishes the inventory actually read"
+    );
+    ask(who, ob, "引路神蛇");
+    check(objectp(present("shen she", who)) && ob->query_temp("shenshe_count") == 4,
+        "MA-056 original delivery works again after reset");
+    destruct(who);
+    destruct(ob);
+}
+
+void check_titles_and_refusal() {
+    object ob, who;
+    int result, jing, potential, points;
+    string prior;
+
+    ob = npc("/kungfu/class/murong/murongfu");
+    check(ob->query("title") == "姑苏慕容" && !ob->query("titile"),
+        "MA-052 intended title is stored in the displayed field");
+    destruct(ob);
+    ob = npc("/kungfu/class/murong/murongbo");
+    who = arena->actor();
+    who->set("shen", 1);
+    result = who->invoke((: call_other, ob, "try_learn_chz" :));
+    check(result == -1 && strsrch(who->query_temp("test/messages") || "", "我最讨厌你们这些所谓正派人士") >= 0,
+        "MA-053 original refusal callback actually speaks its reason");
+    who->set("family", ([ "family_name": ob->query("family/family_name"),
+        "master_name": ob->query("name"), "master_id": ob->query("id"),
+        "generation": ob->query("family/generation") + 1 ]));
+    who->set("born_family", "慕容世家");
+    who->set_skill("canhe-zhi", 150);
+    who->set("potential", 1000);
+    who->set("learned_points", 0);
+    who->delete_temp("test/messages");
+    jing = who->query("jing"); potential = who->query("potential"); points = who->query("learned_points");
+    prior = save_variable(({ who->query_skills(), who->query_learned() }));
+    result = who->invoke((: call_other, "/cmds/skill/learn", "main", who, "murong bo canhe-zhi 1" :));
+    check(result == 1 && strsrch(who->query_temp("test/messages") || "", "我最讨厌你们这些所谓正派人士") >= 0 &&
+        who->query("jing") == jing && who->query("potential") == potential && who->query("learned_points") == points &&
+        save_variable(({ who->query_skills(), who->query_learned() })) == prior,
+        "MA-053 original learn command routes the actual refusal without study cost or progress");
+    destruct(who);
+    destruct(ob);
+}
+
+void check_recruitment_guards() {
+    object ob, who;
+    string prior;
+
+    ob = npc("/kungfu/class/xuedao/shanyong");
+    who = arena->actor();
+    who->set("betrayer/times", 1);
+    ask(who, ob, "出家");
+    check(!who->query_temp("pending/join_bonze") && !ob->query_temp("pending/recruit"),
+        "MA-035 rejected betrayer cannot obtain a tonsure recruitment invitation");
+    who->delete("betrayer");
+    check(who->invoke((: call_other, "/cmds/skill/apprentice", "main", who, "shan yong" :)) == 1 &&
+        who->query_temp("pending/join_bonze") == 1,
+        "MA-035 eligible original apprentice path offers tonsure");
+    who->set("betrayer/times", 1);
+    who->invoke((: call_other, who, "force_me", "kneel" :));
+    check(!who->query_temp("pending/join_bonze") && who->query("class") != "bonze" &&
+        !who->query("family/master_id"), "MA-035 kneeling rechecks eligibility before class or family changes");
+    destruct(who);
+    destruct(ob);
+
+    ob = npc("/kungfu/class/xuedao/shanyong");
+    who = arena->actor();
+    who->set("family/family_name", "血刀门");
+    check(who->invoke((: call_other, "/cmds/skill/apprentice", "main", who, "shan yong" :)) == 1 &&
+        who->query_temp("pending/join_bonze") == 1,
+        "MA-035 qualified same-school original apprentice obtains the real tonsure invitation");
+    check(who->invoke((: call_other, who, "force_me", "kneel" :)) == 1 &&
+        who->query("class") == "bonze" && who->is_apprentice_of(ob) &&
+        !who->query_temp("pending/join_bonze"),
+        "MA-035 original kneel and recruit complete qualified tonsure and apprenticeship");
+    prior = save_variable(({ who->query("family"), who->query("class"), who->query("betrayer") }));
+    who->invoke((: call_other, who, "force_me", "kneel" :));
+    check(prior == save_variable(({
+        who->query("family"),
+        who->query("class"),
+        who->query("betrayer")
+    })) &&
+        !who->query_temp("pending/join_bonze"),
+        "MA-035 repeated kneel cannot recruit again or recreate the consumed invitation");
+    destruct(who);
+    destruct(ob);
+
+    ob = npc("/kungfu/class/xiaoyao/wuyazi");
+    who = arena->actor();
+    who->set("family", ([ "family_name": "少林派", "master_name": "玄苦大师",
+        "master_id": "xuanku dashi", "generation": 36 ]));
+    // Supplied quest prerequisite only; the two original apprentice commands and recruit are unchanged.
+    who->set_temp("pass_zhenlong", 1);
+    who->invoke((: call_other, "/cmds/skill/apprentice", "main", who, "wuya zi" :));
+    who->invoke((: call_other, "/cmds/skill/apprentice", "main", who, "wuya zi" :));
+    check(who->query("family/master_id") == "wuya zi" && who->query("betrayer/times") == 0 &&
+        who->query("betrayer/少林派") == 1 && !who->query("betryer"),
+        "MA-050 original confirmed recruitment restores only the intended aggregate betrayer counter");
+    destruct(who);
+    destruct(ob);
+}
+
+void check_delivery() {
+    object ob, who, letter;
+
+    ob = npc("/kungfu/class/shang/ming");
+    who = arena->actor();
+    who->set("family/family_name", ob->query("family/family_name"));
+    who->set_skill("bagua-dao", 200);
+    who->set_skill("wai-bagua", 200);
+    who->set_skill("nei-bagua", 200);
+    who->set("gongxian", 2200);
+    who->set_max_encumbrance(0);
+    ask(who, ob, "天刀八势");
+    check(!present("sjm letter", who) && who->query("gongxian") == 2200 &&
+        strsrch(who->query_temp("test/messages") || "", "你得到一封书信") == -1,
+        "MA-059 failed delivery preserves contribution");
+    // Restore the entry budget so the original success branch is tested independently.
+    who->set("gongxian", 2200);
+    who->set_max_encumbrance(1000000);
+    ask(who, ob, "天刀八势");
+    letter = present("sjm letter", who);
+    check(objectp(letter) && who->query("gongxian") == 0,
+        "MA-059 successful delivery charges exactly 2200 contribution");
+    ask(who, ob, "天刀八势");
+    check(objectp(letter) && environment(letter) == who && who->query("gongxian") == 0,
+        "MA-059 repeated inquiry cannot charge without another delivery");
+    if (objectp(letter)) destruct(letter);
+    destruct(who);
+    destruct(ob);
+}
+
+void check_equipment() {
+    object ob, who;
+    int before;
+
+    who = arena->actor();
+    ob = new("/clone/cloth/qingyi");
+    check(
+        ob->query("consistence") == 100,
+        "MA-119 original cloth is initialized with full durability"
+    );
+    before = who->query_temp("apply/armor");
+    ob->move(who);
+    check(ob->wear() == 1 && who->query_temp("armor/cloth") == ob &&
+        who->query_temp("apply/armor") == before + 1,
+        "MA-119 original wear now applies its original armor property");
+    ob->unequip();
+    check(
+        who->query_temp("apply/armor") == before,
+        "MA-119 removing cloth restores original armor"
+    );
+    destruct(ob);
+    destruct(who);
+    foreach (who in ({ npc("/kungfu/class/gumu/lin"), npc("/kungfu/class/gumu/yang") })) {
+        ob = who->query_temp("armor/cloth");
+        check(objectp(ob) && base_name(ob) == "/clone/cloth/qingyi" &&
+            ob->query("equipped") == "worn" && ob->query("consistence") == 100,
+            "MA-119 original Gumu NPC initializer wears initialized qingyi");
+        destruct(who);
+    }
+}
+
+void check_support() {
+    object room, master_npc, monk, attacker, helper, guard, participant;
+    string event, monk_id;
+
+    attacker = arena->actor();
+    room = load_object("/d/tianlongsi/munitang");
+    master_npc = present("kurong", room);
+    monk = present("ben yin", room);
+    check(
+        objectp(master_npc) && objectp(monk),
+        "MA-032 original hall contains its original defenders"
+    );
+    if (objectp(master_npc) && objectp(monk)) {
+        attacker->move(room);
+        foreach (monk_id in ({ "ben yin", "ben can", "ben guan", "ben xiang" })) {
+            monk = present(monk_id, room);
+            check(objectp(monk), "MA-032 original hall creates defender " + monk_id);
+            if (!objectp(monk)) continue;
+            foreach (event in ({ "accept_hit", "accept_kill" })) {
+                check(!monk->is_killing(attacker->query("id")) &&
+                    !master_npc->is_killing(attacker->query("id")),
+                    "MA-032 " + monk_id + " " + event + " starts without prior synthetic killer state");
+                "/tests/control"->reset(0, ({}));
+                call_other(monk, event, attacker);
+                check(master_npc->is_killing(attacker->query("id")),
+                    "MA-032 " + monk_id + " " + event + " original defender callback finds kurong and requests real support");
+                foreach (participant in all_inventory(room)) {
+                    if (!participant->is_character()) continue;
+                    participant->remove_killer(attacker);
+                    participant->remove_all_enemy(1);
+                }
+            }
+        }
+        room = load_object("/d/meizhuang/houting");
+        helper = present("heibai zi", room);
+        room = load_object("/d/meizhuang/keting");
+        guard = present("ding jian", room);
+        check(
+            objectp(helper) && objectp(guard),
+            "MA-046 original rooms contain Ding Jian and Heibai Zi"
+        );
+        if (objectp(helper) && objectp(guard)) {
+            attacker->move(room);
+            guard->kill_enemy(attacker);
+            check(environment(helper) == room && helper->is_helping() &&
+                helper->is_killing(attacker->query("id")),
+                "MA-046 original guard help callback resolves the corrected helper ID");
+            helper->remove_all_enemy();
+            helper->finish_help();
+            attacker->remove_all_enemy();
+        }
+    }
+    destruct(attacker);
+}
+
+void check_all_monks() {
+    string *ids;
+    string prefix, host_id;
+    object *monks, *homes;
+    object host, room, monk;
+    int i, round;
+
+    foreach (prefix in ({ "luohan", "banruo" })) {
+        ids = prefix == "luohan" ? ({ "chengguan", "chengzhi", "chengming", "chengjing",
+            "chengjian", "chengxing", "chengji", "chengmie", "chenghe" }) : ({ "chengxin1", "chengyi", "chengsi", "chengshi", "chengzhi", "chengxin2",
+            "chengling", "chengyu", "chengshang" });
+        host_id = prefix == "luohan" ? "xuan-ku" : "xuan-nan";
+        host = npc("/kungfu/class/shaolin/" + host_id);
+        monks = ({}); homes = ({});
+        for (i = 0; i < sizeof(ids); i++) {
+            room = load_object("/d/shaolin/" + prefix + (i + 1));
+            monk = present(ids[i] + " luohan", room);
+            check(
+                objectp(monk),
+                "MA-104 both original nine-monk groups have distinct lookup identities"
+            );
+            monks += ({ monk }); homes += ({ room });
+        }
+        for (round = 0; round < 2; round++) {
+            for (i = 0; i < sizeof(monks); i++)
+                if (objectp(monks[i])) monks[i]->move("/d/shaolin/" +
+                    (prefix == "luohan" ? "wuchang2" : "wuchang1"));
+            host->do_back(host);
+            for (i = 0; i < sizeof(monks); i++)
+                check(objectp(monks[i]) && environment(monks[i]) == homes[i],
+                    "MA-104 real return callback restores all eighteen original monks on repeated rounds");
+        }
+        destruct(host);
+    }
+}
+
+void check_kurong_rumor() {
+    object listener, killer, victim, book;
+    string messages;
+
+    listener = master()->query_connected_target();
+    check(
+        objectp(listener) && interactive(listener),
+        "MA-033 original rumor has a real connected listener"
+    );
+    if (!objectp(listener)) return;
+    listener->set("channels", ({ "rumor" }));
+    listener->delete_temp("test/messages");
+    killer = arena->actor();
+    killer->set_name("演武验名客", ({ "rumor-killer" }));
+    victim = npc("/kungfu/class/tianlongsi/kurong");
+    victim->move("/d/tianlongsi/munitang");
+    book = load_object("/clone/lonely/book/liumai-shenjian");
+    check(!environment(book), "MA-033 original unique manual is initially unclaimed");
+    "/tests/control"->reset(0, ({ 1 }));
+    victim->die(killer);
+    messages = listener->query_temp("test/messages") || "";
+    check(strsrch(messages, "演武验名客闯入天龙寺") >= 0 &&
+        strsrch(messages, "夺走六脉神剑谱") >= 0,
+        "MA-033 original death and channel pipeline name the actual killer in the manual rumor");
+    if (objectp(victim)) destruct(victim);
+    destruct(killer);
+}
+
+void check_guard_destinations() {
+    mixed row;
+    object helper_room, guard_room, helper, guard, attacker;
+
+    attacker = arena->actor();
+    foreach (row in ({
+        ({
+            "MA-037.01",
+            "/d/xuanminggu/zulin2",
+            "hebi weng",
+            "/d/xuanminggu/xuanmingfeng",
+            "baisun daoren"
+        }),
+        ({
+            "MA-037.02",
+            "/d/xuanminggu/zulin1",
+            "wuwang apu",
+            "/d/xuanminggu/xuanmingfeng",
+            "baisun daoren"
+        }),
+        ({ "MA-043", "/d/songshan/dadian", "di xiu", "/d/songshan/fengchantai", "zuo lengchan" })
+    })) {
+        helper_room = load_object(row[3]);
+        guard_room = load_object(row[1]);
+        helper = present(row[4], helper_room);
+        guard = present(row[2], guard_room);
+        check(
+            objectp(helper) && objectp(guard),
+            row[0] + " original room initializers supply the named guard and helper"
+        );
+        if (!objectp(helper) || !objectp(guard)) continue;
+        attacker->move(guard_room);
+        guard->kill_enemy(attacker);
+        check(environment(helper) == guard_room && helper->is_helping() &&
+            helper->is_killing(attacker->query("id")),
+            row[0] + " original guard callback loads its configured helper room and receives real aid");
+        helper->remove_all_enemy();
+        guard->remove_all_enemy();
+        attacker->remove_all_enemy();
+        helper->finish_help();
+        check(environment(helper) == helper_room && !helper->is_helping(),
+            row[0] + " original helper returns to its original home after aid");
+        helper->remove_killer(attacker);
+        check(!helper->is_killing(attacker->query("id")),
+            row[0] + " prior synthetic combat is cleared before the away-from-post case");
+        guard->move(arena);
+        attacker->move(arena);
+        guard->kill_enemy(attacker);
+        check(environment(helper) == helper_room && !helper->is_helping() &&
+            !helper->is_killing(attacker->query("id")),
+            row[0] + " guard away from its original post cannot call home support");
+        guard->move(guard_room);
+    }
+    destruct(attacker);
+}
+
+void run_home(object room) {
+    object factory, ob, item;
+    int mode;
+
+    arena = room;
+    factory = load_object("/tests/home_actor");
+    for (mode = 0; mode < 4; mode++) {
+        factory->select_mode(mode);
+        ob = arena->make_inventory("/tests/home_actor");
+        check(objectp(ob) && environment(ob) == arena &&
+            ob->query("home") == base_name(arena),
+            "ROOM-HOME host room factory preserves original home and movement for all constructor inputs");
+        if (objectp(ob)) {
+            check(ob->query("startroom") == (mode == 1 ? "/d/city/kedian" : base_name(arena)),
+                "ROOM-HOME host room defaults missing empty invalid character post and preserves explicit custom post");
+            destruct(ob);
+        }
+    }
+    factory->select_mode(0);
+    item = arena->make_inventory("/clone/misc/cloth");
+    check(objectp(item) && !item->is_character() && environment(item) == arena &&
+        item->query("home") == base_name(arena) && !item->query("startroom"),
+        "ROOM-HOME host room preserves ordinary item home without adding character-only post");
+    if (objectp(item)) destruct(item);
+}
+
+void finish_timed() {
+    object host, listener;
+
+    foreach (host in timeout_hosts) {
+        check(objectp(host) && !host->query("assigned_fighter") &&
+            base_name(environment(host)) == (base_name(host) == "/kungfu/class/shaolin/xuan-ku" ?
+                "/d/shaolin/luohan5" : "/d/shaolin/banruo5"),
+            "MA-103 original waiting increments 299 to 300 then scheduled return clears assignment");
+        if (objectp(host)) destruct(host);
+    }
+    timeout_hosts = ({});
+    listener = master()->query_connected_target();
+    if (objectp(listener) && environment(listener) == timeout_holding)
+        listener->move(arena);
+    if (objectp(timeout_holding)) destruct(timeout_holding);
+    start_formation_round();
+}
+
+void finish_formation_round() {
+    object fighter, monk, host;
+    int i;
+
+    fighter = master()->query_connected_target();
+    for (i = 0; i < sizeof(formation_monks); i++) {
+        monk = formation_monks[i];
+        check(objectp(monk) && monk->query_temp("test/attacks") == formation_counts[i] + 1,
+            "MA-104 original formation scheduling gives each of eighteen distinct monks exactly one attack " +
+            (objectp(monk) ? base_name(monk) : "missing"));
+    }
+    check(objectp(fighter) && fighter->query_temp("beat_count") == 18,
+        "MA-104 original two-host sequence records precisely eighteen original monk attacks");
+    if (objectp(fighter)) fighter->delete_temp("fighting");
+    foreach (host in formation_hosts) {
+        if (!objectp(host)) continue;
+        host->do_back(host);
+        destruct(host);
+    }
+    for (i = 0; i < sizeof(formation_monks); i++)
+        check(objectp(formation_monks[i]) && environment(formation_monks[i]) == formation_homes[i],
+            "MA-104 original return restores each actual attacker to its own captured home");
+    if (objectp(fighter)) {
+        fighter->delete_temp("beat_count");
+        fighter->move(arena);
+    }
+    formation_monks = ({}); formation_hosts = ({}); formation_homes = ({}); formation_counts = ({});
+    evaluate(timeout_done);
+}
+
+// Fixture arranges original participants only. Attacks are generated exclusively
+// by original host fighting/count scheduling and original monk init callbacks.
+void start_formation_round() {
+    object fighter, room, monk, host, central;
+    string prefix, host_id;
+    string *ids;
+    int i;
+
+    fighter = master()->query_connected_target();
+    check(objectp(fighter) && interactive(fighter) && find_player(fighter->query("id")) == fighter,
+        "MA-104 real connected challenger is discoverable by the original find_player guard");
+    if (!objectp(fighter) || find_player(fighter->query("id")) != fighter) {
+        evaluate(timeout_done);
+        return;
+    }
+    fighter->delete_temp("fighting");
+    fighter->delete_temp("beat_count");
+    central = load_object("/d/shaolin/wuchang");
+    foreach (prefix in ({ "luohan", "banruo" })) {
+        ids = prefix == "luohan" ? ({ "chengguan", "chengzhi", "chengming", "chengjing",
+            "chengjian", "chengxing", "chengji", "chengmie", "chenghe" }) : ({ "chengxin1", "chengyi", "chengsi", "chengshi", "chengzhi", "chengxin2",
+            "chengling", "chengyu", "chengshang" });
+        for (i = 0; i < sizeof(ids); i++) {
+            room = load_object("/d/shaolin/" + prefix + (i + 1));
+            monk = present(ids[i] + " luohan", room);
+            check(
+                objectp(monk),
+                "MA-104 original home supplies combat participant " + prefix + ids[i]
+            );
+            if (!objectp(monk)) continue;
+            check(member_array(monk, formation_monks) == -1,
+                "MA-104 each expected original room supplies a distinct combat participant");
+            formation_monks += ({ monk });
+            formation_homes += ({ room });
+            formation_counts += ({ monk->query_temp("test/attacks") });
+            monk->move("/d/shaolin/" + (prefix == "luohan" ? "wuchang2" : "wuchang1"));
+        }
+        host_id = prefix == "luohan" ? "xuan-ku" : "xuan-nan";
+        host = npc("/kungfu/class/shaolin/" + host_id);
+        host->set("assigned_fighter", fighter->query("id"));
+        host->move(central);
+        formation_hosts += ({ host });
+    }
+    check(sizeof(formation_monks) == 18 && sizeof(formation_monks - ({ 0 })) == 18,
+        "MA-104 combat roster contains all eighteen actual room-created monk objects");
+    fighter->move(central);
+    fighter->set_temp("fighting", 1);
+    foreach (host in formation_hosts)
+        host->fighting(host, fighter, 0);
+    // Count zero is immediate; the nine original two-second transitions finish
+    // at about 18 seconds. Inspect at 20, before their five-second recruit
+    // callbacks can run at 23, then return participants through original do_back.
+    call_out("finish_formation_round", 20);
+}
+
+// Only the runner shortens the original waiting reschedule delay; the increment,
+// timeout predicate, callback target, arguments and do_back body remain original.
+void run_timed(object room, function done) {
+    object host, listener;
+    string path;
+
+    arena = room; timeout_done = done;
+    timeout_holding = new(base_name(arena));
+    check(objectp(timeout_holding), "MA-103 isolated waiting room uses the existing arena program");
+    if (!objectp(timeout_holding)) {
+        evaluate(timeout_done);
+        return;
+    }
+    timeout_holding->set("short", "静室");
+    listener = master()->query_connected_target();
+    if (objectp(listener))
+        check(listener->move(timeout_holding) == 1 && environment(listener) == timeout_holding,
+            "MA-103 connected listener moves into the empty existing-room fixture");
+    foreach (path in ({ "/kungfu/class/shaolin/xuan-ku", "/kungfu/class/shaolin/xuan-nan" })) {
+        host = npc(path);
+        host->set("assigned_fighter", "absent-synthetic-challenger");
+        timeout_hosts += ({ host });
+        host->waiting(host, 299);
+    }
+    call_out("finish_timed", 0.5);
+}
+
+void check_longnv() {
+    object ob, target;
+    function *callbacks;
+    int before;
+
+    ob = npc("/kungfu/class/gumu/longnv");
+    target = arena->actor();
+    arena->fight(ob, target);
+    before = target->query_temp("test/damages");
+    callbacks = ob->query("chat_msg_combat");
+    "/tests/control"->reset(1, ({}));
+    evaluate(callbacks[3]);
+    check(target->query_temp("test/damages") == before + 4,
+        "MA-113 original Longnv automatic twice callback launches both real feng effects");
+    destruct(target);
+    destruct(ob);
+}
+
+void check_zhou_cui() {
+    object who, enemy;
+    function *callbacks;
+    int neili;
+
+    who = npc("/kungfu/class/emei/zhou");
+    enemy = arena->actor();
+    enemy->set_skill("force", 1);
+    enemy->set_skill("parry", 1);
+    check(who->query_skill_mapped("strike") == "cuixin-zhang" &&
+        who->query_skill("cuixin-zhang", 1) == 260 &&
+        who->query_skill("force") >= 120 && !who->query_temp("weapon"),
+        "MA-108 palm callback uses Zhou's original learned skills, mapping and empty hands");
+    arena->fight(who, enemy);
+    callbacks = who->query("chat_msg_combat");
+    neili = who->query("neili");
+    check(evaluate(callbacks[1]) == 1 && enemy->query_temp("test/damages") == 1 &&
+        who->query("neili") == neili - 260 && mapp(enemy->query_condition("cuixin_zhang")),
+        "MA-108 original Zhou palm closure reaches actual cui damage, condition and fixed cost");
+    who->remove_all_enemy();
+    destruct(enemy);
+    destruct(who);
+}
+
+void check_feng_route() {
+    object origin, ob, who;
+    string topic;
+
+    origin = load_object("/d/taohua/tao_in");
+    ob = present("feng mofeng", origin);
+    check(
+        objectp(ob) && ob->query("home") == base_name(origin) &&
+        ob->query("startroom") == base_name(origin),
+        "MA-143 original room factory supplies the teacher's actual home and default post"
+    );
+    if (!objectp(ob)) return;
+    who = arena->actor();
+    who->move(origin);
+    who->set("can_learn/huang/count", 1);
+    ask(who, ob, "学艺");
+    check(base_name(environment(who)) == "/d/taohua/damen" && environment(ob) == origin,
+        "MA-143 original guided route returns the teacher to its actual origin");
+    destruct(who);
+
+    foreach (topic in ({ "学艺", "拜师" })) {
+        who = arena->actor();
+        who->set("can_learn/huang/count", 1);
+        ob->move(arena);
+        ask(who, ob, topic);
+        check(base_name(environment(who)) == "/d/taohua/damen" &&
+            ob->query("startroom") == base_name(origin) && environment(ob) == arena,
+            "MA-143 teacher returns to invocation room instead of saved home " + topic);
+        ob->move(origin);
+        destruct(who);
+    }
+}
+
+void check_dugu() {
+    object who, skill;
+    string kind;
+    int level;
+    string prior;
+
+    skill = load_object("/kungfu/skill/dugu-jiujian");
+    who = arena->actor();
+    check(who->invoke((: call_other, skill, "difficult_level" :)) == 600,
+        "MA-065 ordinary researcher retains original difficulty");
+    who->set("can_learn/dugu-jiujian/nothing", 1);
+    check(who->invoke((: call_other, skill, "difficult_level" :)) == 1000,
+        "MA-065 researcher permission selects its intended difficulty");
+    who->delete("can_learn/dugu-jiujian/nothing");
+    who->set_skill("dugu-jiujian", 200);
+    who->set("int", 300);
+    foreach (kind in ({ "qi", "po" })) {
+        foreach (level in ({ 100, 101 })) {
+            who->set("can_perform/dugu/qi", 101);
+            who->set("can_perform/dugu/po", 101);
+            who->set("can_perform/dugu/" + kind, level);
+            prior = save_variable(({ who->query_skills(), who->query_learned() }));
+            "/tests/control"->reset(1, ({}));
+            skill->skill_improved(who);
+            check(who->query("can_perform/dugu/" + kind) == level &&
+                prior == save_variable(({ who->query_skills(), who->query_learned() })),
+                "MA-066 completed " + kind + " at " + level + " never awards completion twice");
+        }
+    }
+    destruct(who);
+}
+
+void check_dugu_first_reward() {
+    object who, skill;
+    string kind, other, prior;
+    int completed;
+
+    skill = load_object("/kungfu/skill/dugu-jiujian");
+    foreach (kind in ({ "qi", "po" })) {
+        who = arena->actor();
+        who->set_skill("dugu-jiujian", 200);
+        who->set("int", 6);
+        other = kind == "qi" ? "po" : "qi";
+        who->set("can_perform/dugu/" + other, 101);
+        who->set("can_perform/dugu/" + kind, 99);
+        check(!who->query_skill("martial-cognize", 1),
+            "MA-066 " + kind + " begins with no prior synthetic completion reward");
+        // i=int/3=2, so original random(2)=1 crosses exactly 99 -> 100.
+        "/tests/control"->reset(0, ({ 1 }));
+        skill->skill_improved(who);
+        check(who->query("can_perform/dugu/" + kind) == 100 &&
+            who->query_skill("martial-cognize", 1) == 3,
+            "MA-066 " + kind + " first completion earns exactly the three original progression calls");
+        // Original improve_skill advances one level per large grant and resets
+        // learned points; this checks actual progression, not an injected reward.
+        foreach (completed in ({ 100, 101 })) {
+            who->set("can_perform/dugu/" + kind, completed);
+            prior = save_variable(({ who->query_skills(), who->query_learned() }));
+            "/tests/control"->reset(1, ({}));
+            skill->skill_improved(who);
+            check(who->query("can_perform/dugu/" + kind) == completed &&
+                save_variable(({ who->query_skills(), who->query_learned() })) == prior,
+                "MA-066 " + kind + " at " + completed + " never repeats its first reward");
+        }
+        destruct(who);
+    }
+}
+
+void check_referee() {
+    object judge, winner, loser;
+    int age;
+    string message;
+
+    judge = new("/tests/referee_probe");
+    judge->move(arena);
+    winner = arena->actor();
+    loser = arena->actor();
+    winner->competition_with(loser);
+    loser->set("age", 40);
+    foreach (age in ({ 20, 40, 60 })) {
+        winner->set("age", age);
+        judge->player_win(arena, winner);
+        message = judge->query_temp("test/broadcast");
+        check(strsrch(message, age < 40 ? "长江后浪推前浪" : age > 40 ? "老的辣" : "恭喜恭喜") >= 0,
+            "MA-021 original winner callback selects age-appropriate praise " + age);
+    }
+    destruct(winner);
+    destruct(loser);
+    destruct(judge);
+}
+
+void check_formation() {
+    object first_room, sixth_room, first, sixth, host, waiting_room;
+    object me;
+    mixed entry;
+    int back, pending, round;
+
+    first_room = load_object("/d/shaolin/banruo1");
+    sixth_room = load_object("/d/shaolin/banruo6");
+    first = present("chengxin1 luohan", first_room);
+    sixth = present("chengxin2 luohan", sixth_room);
+    check(objectp(first) && objectp(sixth) && first != sixth &&
+        base_name(first) == "/kungfu/class/shaolin/cheng-xin" &&
+        base_name(sixth) == "/kungfu/class/shaolin/cheng-xin2",
+        "MA-104 original rooms expose distinct formation lookup identities without changing old aliases");
+    host = npc("/kungfu/class/shaolin/xuan-nan");
+    waiting_room = load_object("/d/shaolin/wuchang1");
+    if (objectp(first) && objectp(sixth)) {
+        for (round = 0; round < 2; round++) {
+            first->move(waiting_room);
+            sixth->move(waiting_room);
+            host->do_back(host);
+            check(environment(first) == first_room && environment(sixth) == sixth_room,
+                "MA-104 original callback restores both monks to their own original rooms on repeated rounds");
+        }
+    }
+    destruct(host);
+    foreach (me in ({
+        npc("/kungfu/class/shaolin/xuan-ku"),
+        npc("/kungfu/class/shaolin/xuan-nan")
+    })) {
+        me->set("assigned_fighter", "absent-synthetic-challenger");
+        me->waiting(me, 300);
+        back = 0; pending = 0;
+        foreach (entry in call_out_info()) {
+            if (entry[0] != me) continue;
+            if (entry[1] == "do_back") back++;
+            if (entry[1] == "waiting") pending++;
+        }
+        check(back == 1 && pending == 0,
+            "MA-103 timeout boundary schedules return once and stops scheduling waiting");
+        destruct(me);
+    }
+}
+
+void check_fumo() {
+    object who, room, monk;
+    object *monks;
+    int *before;
+    int i;
+
+    who = master()->query_connected_target();
+    check(
+        objectp(who) && interactive(who),
+        "MA-105 real isolated connection is available for original room init"
+    );
+    if (!objectp(who)) return;
+    room = load_object("/d/shaolin/fumoquan");
+    monks = ({ present("du nan", room), present("du e", room), present("du jie", room) });
+    before = ({});
+    foreach (monk in monks) {
+        check(objectp(monk), "MA-106 original room has its original monk");
+        if (!objectp(monk)) return;
+        before += ({ monk->query_temp("test/attacks") });
+    }
+    who->set("family", ([ "family_name": "少林派", "generation": 37 ]));
+    who->set("combat_exp", 99999);
+    who->delete_temp("valid_in_fumoquan");
+    who->move(room);
+    check(base_name(environment(who)) == "/d/shaolin/qyping" &&
+        !who->query_temp("valid_in_fumoquan"), "MA-105 expelled junior receives no admission flag");
+    for (i = 0; i < sizeof(monks); i++)
+        check(monks[i]->query_temp("test/attacks") == before[i],
+            "MA-105 rejected entry does not continue the nine-attack trial");
+    who->set("combat_exp", 100000);
+    who->move(room);
+    check(environment(who) == room && who->query_temp("valid_in_fumoquan") == 1,
+        "MA-105 exactly qualified junior still completes the original trial");
+    for (i = 0; i < sizeof(monks); i++) {
+        monk = monks[i];
+        check(monk->query_temp("test/attacks") == before[i] + 3 &&
+            objectp(monk->query_temp("weapon")) &&
+            monk->query_temp("test/weapon_argument") == monk->query_temp("weapon"),
+            "MA-106 each original monk supplies its own wielded weapon to all trial attacks");
+    }
+    room->valid_leave(who, "out");
+    who->move(arena);
+}
+
+void check_ownership() {
+    object who, pet, combat;
+
+    who = master()->query_connected_target();
+    check(
+        objectp(who) && userp(who),
+        "MA-022 original player-side guard has a driver-created user"
+    );
+    if (!objectp(who)) return;
+    combat = load_object("/tests/actual_combat");
+    pet = arena->actor();
+    who->set_temp("owner", pet);
+    combat->auto_fight(pet, who, "aggressive");
+    check(
+        !pet->query_temp("looking_for_trouble"),
+        "MA-022 reverse object ownership prevents automatic aggression"
+    );
+    who->delete_temp("owner");
+    pet->set_temp("owner", who);
+    combat->auto_fight(pet, who, "aggressive");
+    check(!pet->query_temp("looking_for_trouble"), "MA-022 forward ownership protection remains");
+    pet->delete_temp("owner");
+    combat->auto_fight(pet, who, "aggressive");
+    check(pet->query_temp("looking_for_trouble") == 1,
+        "MA-022 unrelated pair still reaches original automatic fight scheduling");
+    destruct(pet);
+}
+
+void run(object room) {
+    arena = room;
+    check_mappings();
+    check_intro();
+    check_snakes();
+    check_titles_and_refusal();
+    check_recruitment_guards();
+    check_delivery();
+    check_equipment();
+    check_longnv();
+    check_zhou_cui();
+    check_feng_route();
+    check_dugu();
+    check_dugu_first_reward();
+    check_referee();
+    check_formation();
+    check_all_monks();
+    check_support();
+    check_kurong_rumor();
+    check_guard_destinations();
+    run_home(room);
+    check_fumo();
+    check_ownership();
+}
+
+void run_closeout(object room) {
+    arena = room;
+    check_titles_and_refusal();
+    check_referee();
+    check_dugu();
+    check_dugu_first_reward();
+}

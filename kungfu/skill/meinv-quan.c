@@ -111,7 +111,7 @@ int valid_enable(string usage) {
     return usage == "unarmed" || usage == "parry";
 }
 
-int vliad_combine(string combo) {
+int valid_combine(string combo) {
     return combo == "tianluo-diwang" || combo == "fireice-strike";
 }
 

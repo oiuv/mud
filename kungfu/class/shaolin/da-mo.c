@@ -191,6 +191,7 @@ void attempt_apprentice(object ob) {
     if ((int)ob->query_int() < 35) {
         command("say " + RANK_D->query_respect(ob) + "悟性仍有不足，"
             "需要进一步锻炼才能领悟更高深的佛法。");
+        return;
     }
 
     if ((int)ob->query("WPK") > 3) {
@@ -266,10 +267,10 @@ mixed ask_qingxin() {
         HIY "耳边轻声说了些什么。\n" NOR,
         me, this_object());
     command("say 记住，除非降妖除魔万不得已，勿要轻易使用。");
-    tell_object(me, HIG "你学会了达魔乱气剑。\n" NOR);
+    tell_object(me, HIG "你学会了达摩清心剑。\n" NOR);
     if (me->can_improve_skill("force"))
         me->improve_skill("force", 160000);
-    me->set("can_perform/damo-jian/luan", 1);
+    me->set("can_perform/damo-jian/qingxin", 1);
     return 1;
 }
 
@@ -277,7 +278,7 @@ mixed ask_luan() {
     object me;
 
     me = this_player();
-    if (me->query("can_perform/damo-jian/qingxin"))
+    if (me->query("can_perform/damo-jian/luan"))
         return "自己好好多练习吧，牢记慈悲为怀，勿得乱用！";
 
     if (me->query("family/family_name") != query("family/family_name"))
@@ -297,10 +298,10 @@ mixed ask_luan() {
         HIY "耳边轻声说了些什么。\n" NOR,
         me, this_object());
     command("say 记住，除非降妖除魔万不得已，勿要轻易使用。");
-    tell_object(me, HIG "你学会了达魔清心剑。\n" NOR);
+    tell_object(me, HIG "你学会了达摩乱气剑。\n" NOR);
     if (me->can_improve_skill("sword"))
         me->improve_skill("sword", 160000);
-    me->set("can_perform/damo-jian/qingxin", 1);
+    me->set("can_perform/damo-jian/luan", 1);
     return 1;
 }
 

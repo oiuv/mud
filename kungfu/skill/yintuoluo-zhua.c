@@ -8,7 +8,7 @@ mapping *action = ({
         "parry": 30,
         "damage": 100,
         "lvl": 0,
-        "skills_name": "鹰飞式",
+        "skill_name": "鹰飞式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N单腿直立，双臂平伸，一式「雄鹰式」，双爪一前一后拢向$n的$l",
@@ -18,7 +18,7 @@ mapping *action = ({
         "parry": 50,
         "damage": 110,
         "lvl": 100,
-        "skills_name": "雄鹰式",
+        "skill_name": "雄鹰式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N一式「锁骨爪」，全身向斜里平飞，右腿一绷，双爪搭向$n的肩头",
@@ -28,7 +28,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 180,
         "lvl": 120,
-        "skills_name": "锁骨爪",
+        "skill_name": "锁骨爪",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N双爪交错上举，使一式「夺魂勾」，一拔身，分别袭向$n左右腋空门",
@@ -38,7 +38,7 @@ mapping *action = ({
         "parry": 35,
         "damage": 240,
         "lvl": 140,
-        "skills_name": "夺魂勾",
+        "skill_name": "夺魂勾",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N全身滚动上前，一式「神鹰式」，右爪突出，鬼魅般抓向$n的胸口",
@@ -48,7 +48,7 @@ mapping *action = ({
         "parry": 80,
         "damage": 260,
         "lvl": 150,
-        "skills_name": "神鹰式",
+        "skill_name": "神鹰式",
         "damage_type": "内伤"
     ]),
     ([ "action": "$N伏地滑行，一式「血鹰爪」，上手袭向膻中大穴，下手反抓$n的裆部",
@@ -58,7 +58,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 260,
         "lvl": 180,
-        "skills_name": "血鹰爪",
+        "skill_name": "血鹰爪",
         "damage_type": "内伤"
     ]),
 });
@@ -113,7 +113,7 @@ int practice_skill(object me) {
         return notify_fail("你的体力太低了。\n");
 
     if ((int)me->query("neili") < 70)
-        return notify_fail("你的内力不够因陀罗爪。\n");
+        return notify_fail("你的内力不够练因陀罗爪。\n");
 
     me->receive_damage("qi", 60);
     me->add("neili", -60);

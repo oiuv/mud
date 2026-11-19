@@ -88,8 +88,8 @@ int valid_learn(object me) {
     if ((int)me->query("max_neili") < 5000)
         return notify_fail("你的内力修为太差，无法学习" HIB "靛沧海" NOR "心法。\n");
 
-    if ((int)me->query_skill("xuan-huntun", 1) - 10 < (int)me->query_skill("dian-canghai", 1))
-        return notify_fail("你必须先提高你的" WHT "玄馄饨" NOR "心法。\n");
+    if ((int)me->query_skill("force", 1) - 10 < (int)me->query_skill("dian-canghai", 1))
+        return notify_fail("修习靛沧海，基本内功须至少比这门心法高十级。\n");
 
     return 1;
 }

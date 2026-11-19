@@ -51,11 +51,11 @@ int perform(object me) {
         damage = 60 + ap / 3 + random(ap / 3);
         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 45,
             HIR "$p" HIR "面对$P" HIR "这电光火石般"
-            "的双抓，更本无从招架，登时被抓得血肉飞"
+            "的双爪，根本无从招架，登时被抓得血肉飞"
             "溅！\n" NOR);
         me->start_busy(1);
     } else {
-        msg += CYN "可是$p" CYN "的看破了$P" CYN
+        msg += CYN "可是$p" CYN "看破了$P" CYN
             "的招式，巧妙的招架开来，没露半点破绽！\n" NOR;
         me->add("neili", -50);
         me->start_busy(3);

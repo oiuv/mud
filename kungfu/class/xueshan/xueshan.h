@@ -7,13 +7,13 @@ int permit_recruit(object ob) {
     }
 
     if (ob->query("betrayer/times")) {
-        command("say 我们大轮寺最恨判师之徒，你还不快滚？");
+        command("say 我们大轮寺最恨叛师之徒，你还不快滚？");
         return 0;
     }
 
     if (ob->query("family/family_name") &&
         ob->query("family/family_name") != "大轮寺") {
-        command("say 你有师傅指点，当循序渐进，怎可贸然判师？");
+        command("say 你有师傅指点，当循序渐进，怎可贸然叛师？");
         return 0;
     }
 

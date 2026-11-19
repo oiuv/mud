@@ -48,14 +48,14 @@ int perform(object me, object target) {
     me->receive_damage("jing", 80);
 
     target->receive_curing("qi", 100 + (int)me->query_skill("force") +
-        (int)me->query_skill("sun_finger", 1) * 3);
+        (int)me->query_skill("sun-finger", 1) * 3);
 
     if (target->query("qi") <= 0) target->set("qi", 1);
     target->receive_curing("jing", 100 + (int)me->query_skill("force") / 3 +
-        (int)me->query_skill("sun_finger", 1));
+        (int)me->query_skill("sun-finger", 1));
 
     if (target->query("jing") <= 0) target->set("jing", 1);
-    target->stary_busy(2);
+    target->start_busy(2);
 
     message_vision("\n$N闭目冥坐，开始运功调息。\n", me);
     me->start_busy(10);

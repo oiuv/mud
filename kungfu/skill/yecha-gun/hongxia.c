@@ -8,6 +8,7 @@ inherit F_SSERVER;
 int perform(object me, object target) {
     int skill, ap, dp, damage;
     string msg;
+    object weapon;
 
     //if (userp(me) && ! me->query("can_perform/yecha-gun/hongxia")) 
     //        return notify_fail("你所使用的外功中没有这种功能。\n"); 
@@ -30,6 +31,9 @@ int perform(object me, object target) {
 
     if (me->query_skill_mapped("club") != "yecha-gun")
         return notify_fail("你没有激发夜叉棍法，难以施展" HONG "。\n");
+
+    if (!objectp(weapon = me->query_temp("weapon")) || weapon->query("skill_type") != "club")
+        return notify_fail("你手中没有持棍，难以施展" HONG "。\n");
 
     if (target->is_busy())
         return notify_fail(target->name() + "目前正自顾不暇，放胆攻击吧。\n");

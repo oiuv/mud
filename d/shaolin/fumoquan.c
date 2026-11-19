@@ -50,7 +50,7 @@ void init() {
     }
 
     if (ultrap(me)) {
-        message_sort(WHT "\n但见三位老僧纹丝不动，镇定不若，恍"
+        message_sort(WHT "\n但见三位老僧纹丝不动，镇定自若，恍"
             "若不知道$N的到来。\n\n" NOR, me);
         CHANNEL_D->do_channel(this_object(), "rumor", "大宗师" +
             me->name(1) + "进入金刚伏魔圈。");
@@ -59,7 +59,7 @@ void init() {
     }
 
     message_sort(HIR "\n突然间劲气纵横，三根黑索如三条黑蟒般就地滚"
-        "来，瞬间近身，化成一条笔自的兵刃，如长矛，如杆棒"
+        "来，瞬间近身，化成一条笔直的兵刃，如长矛，如杆棒"
         "，如利剑，分别向$N的头，胸，腹三处要害疾刺而至。"
         "$N一瞥间，看到三个老僧分居三个树洞之中，正全力持"
         "鞭向$N攻来！$N已陷身于少林寺之蕴含无上降魔大法的"
@@ -71,28 +71,29 @@ void init() {
         message_vision(HIR "\n突然$N" HIR "被一道排山倒海般的劲"
             "气击中，顿时飞了出去。\n\n" NOR, me);
         me->move("/d/shaolin/qyping");
+        return;
     }
 
     message_vision(WHT "\n忽然间「飕」的一声，一股罡风从$N"
         WHT "左首处悄然涌至。\n" NOR, me);
 
-    COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob1, me, query_temp("weapon"));
+    COMBAT_D->do_attack(ob1, me, ob1->query_temp("weapon"));
+    COMBAT_D->do_attack(ob1, me, ob1->query_temp("weapon"));
+    COMBAT_D->do_attack(ob1, me, ob1->query_temp("weapon"));
 
     message_vision(WHT "\n紧跟着破空声大起，又是一股罡风从$N"
         WHT "的右首处袭来。\n" NOR, me);
 
-    COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob2, me, query_temp("weapon"));
+    COMBAT_D->do_attack(ob2, me, ob2->query_temp("weapon"));
+    COMBAT_D->do_attack(ob2, me, ob2->query_temp("weapon"));
+    COMBAT_D->do_attack(ob2, me, ob2->query_temp("weapon"));
 
     message_vision(WHT "\n最后只听一声「" HIW "我佛慈悲" NOR +
         WHT "」。数股罡风已笼罩$N" WHT "周身！\n" NOR, me);
 
-    COMBAT_D->do_attack(ob3, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob3, me, query_temp("weapon"));
-    COMBAT_D->do_attack(ob3, me, query_temp("weapon"));
+    COMBAT_D->do_attack(ob3, me, ob3->query_temp("weapon"));
+    COMBAT_D->do_attack(ob3, me, ob3->query_temp("weapon"));
+    COMBAT_D->do_attack(ob3, me, ob3->query_temp("weapon"));
 
     if (me->query("qi") < 0) {
 

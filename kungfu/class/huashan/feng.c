@@ -5,7 +5,7 @@ inherit F_MASTER;
 
 mapping po_type = ([ "破剑式": ({ "sword" }),
     "破刀式": ({ "blade" }),
-    "破枪式": ({ "staff" }),
+    "破枪式": ({ "spear" }),
     "破鞭式": ({ "hammer", "club", "dagger" }),
     "破索式": ({ "whip" }),
     "破掌式": ({ "unarmed", "finger", "claw",
@@ -76,7 +76,7 @@ LONG);
         (: exert_function, "powerup" :),
     }));
 
-    set("can_perform/dugu-jiujian", ({ "sword", "blade", "staff",
+    set("can_perform/dugu-jiujian", ({ "sword", "blade", "staff", "spear",
         "hammer", "club", "dagger",
         "whip", "unarmed", "finger",
         "claw", "strike", "hand",

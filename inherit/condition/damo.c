@@ -107,7 +107,7 @@ int dispel(object me, object ob, mapping cnd) {
                 "化解" + pos + "，然而似乎没有半点效果。"
                 "\n" NOR);
             tell_object(ob, MAG + me->name() + "将内力缓缓的输"
-                "入你的体力，你觉得一阵恶心，几欲呕吐。"
+                "入你的体内，你觉得一阵恶心，几欲呕吐。"
                 "\n" NOR);
             me->start_busy(1);
             ob->start_busy(1);
@@ -198,7 +198,7 @@ int update_condition(object me, mapping cnd) {
 
     if (!cnd) return 0;
 
-    if (!intp(cnd["level"]) || !intp(cnd["remain"] || !stringp(cnd["id"])))
+    if (!intp(cnd["level"]) || !intp(cnd["remain"]) || !stringp(cnd["id"]))
         return 0;
 
     jd = this_object()->jing_damage(me, cnd);
@@ -226,6 +226,7 @@ int update_condition(object me, mapping cnd) {
     if (qd) {
         // receive damage of qi
         me->receive_damage("qi", qd);
+        qw = qd / 2;
         if (qw > me->query("eff_qi")) {
             qw = me->query("eff_qi");
             if (qw < 0) qw = 0;

@@ -178,14 +178,14 @@ mixed ask_skill2() {
     if (me->query_skill("lingxiao-quan", 1) < 60)
         return "亏你凌霄拳法练成这样，也好意思来找我。";
 
-    message_vision(HIY "$n" HIY "打量了$N" HIY "一翻，然后微微一"
+    message_vision(HIY "$n" HIY "打量了$N" HIY "一番，然后微微一"
         "笑，示以赞许。又将$N" HIY "\n招至跟前，轻声在"
         "$N" HIY "耳畔细说良久，时不时还伸手比出几\n式"
         "拳法中的精妙之处，$N" HIY "一边听一边点头。\n"
         NOR, me, this_object());
     command("nod");
     command("say 这招并不难，只需切记‘御力而发’四字即可。");
-    tell_object(me, HIC "你学会了「凌宵总诀」。\n" NOR);
+    tell_object(me, HIC "你学会了「凌霄总诀」。\n" NOR);
 
     if (me->can_improve_skill("cuff"))
         me->improve_skill("cuff", 1500000);
@@ -221,7 +221,7 @@ mixed ask_skill3() {
 
     message_vision(HIY "$n" HIY "略微点了点头，说道：“我给你演示"
         "一遍，可得瞧\n仔细了！”随即一声清啸，双掌纷飞"
-        "贯出，掌影重重叠叠\n虚实难辨，全全笼罩$N" HIY
+        "贯出，掌影重重叠叠\n虚实难辨，团团笼罩$N" HIY
         "全身。\n" NOR, me, this_object());
     command("nod");
     command("say 刚才我所演示的全是这招的精华，你下去照着练就行了。");

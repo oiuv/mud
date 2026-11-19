@@ -45,7 +45,6 @@ mapping *action = ({
         "dodge": 10,
         "parry": 52,
         "damage": 50,
-        "lvl": 30,
         "lvl": 140,
         "damage_type": "瘀伤",
         "skill_name": "风卷残云"

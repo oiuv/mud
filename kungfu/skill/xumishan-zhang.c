@@ -12,7 +12,7 @@ mapping *action = ({
         "damage_type": "瘀伤",
         "skill_name": "五丁开山"
     ]),
-    ([ "action": "$N左掌划一半圆，一式「壁立千刃」，右掌斜穿而出，疾拍$n的胸前大穴",
+    ([ "action": "$N左掌划一半圆，一式「壁立千仞」，右掌斜穿而出，疾拍$n的胸前大穴",
         "force": 180,
         "attack": 20,
         "dodge": 5,
@@ -20,7 +20,7 @@ mapping *action = ({
         "damage": 10,
         "lvl": 30,
         "damage_type": "瘀伤",
-        "skill_name": "壁立千刃"
+        "skill_name": "壁立千仞"
     ]),
     ([ "action": "$N使一式「云断秦岭」，右掌上引，左掌由后而上一个甩劈，斩向$n的$l",
         "force": 200,
@@ -42,7 +42,7 @@ mapping *action = ({
         "damage_type": "瘀伤",
         "skill_name": "日坠苍山"
     ]),
-    ([ "action": "$N使一式「山高云淡」，身行一纵，双掌一前一后，猛地击向$n的头顶百汇大穴",
+    ([ "action": "$N使一式「山高云淡」，身形一纵，双掌一前一后，猛地击向$n的头顶百会大穴",
         "force": 250,
         "attack": 50,
         "dodge": 20,

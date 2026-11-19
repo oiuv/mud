@@ -190,6 +190,8 @@ varargs int move(mixed dest, int raw) {
     // 可能在移动进目标环境后被destruct，所以需要判断me
     if (!me)
         return -1;
+    if (is_char && env != environment(me))
+        me->dismiss_martial_array();
     if (env && objectp(environment(me)) && env->query("illusion_world") &&
         env->query("illusion_instance") != environment(me)->query("illusion_instance"))
         "/adm/daemons/illusion_world_d"->release_instance(env->query("illusion_instance"), me);

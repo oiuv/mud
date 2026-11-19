@@ -1,7 +1,7 @@
 inherit SKILL;
 
 mapping *action = ({
-    ([ "action": "$N使一式「星辰满天」，手中$w由左至右横扫向向$n的$l",
+    ([ "action": "$N使一式「星辰满天」，手中$w由左至右横扫向$n的$l",
         "force": 70,
         "attack": 10,
         "dodge": 10,

@@ -208,7 +208,7 @@ private void from_huashan() {
     set_skill("literate", 1);
     set_skill("martial-cognize", 1);
 
-    map_skill("parry", "huaxian-sword");
+    map_skill("parry", "huashan-jian");
     map_skill("force", "zixia-shengong");
     map_skill("dodge", "feiyan-huixiang");
     map_skill("sword", "huashan-jian");

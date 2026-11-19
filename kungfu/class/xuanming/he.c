@@ -84,7 +84,7 @@ void create() {
     set_temp("apply/armor", 80);
 
     set("coagents", ({
-        ([ "startroom": "xxxxxxxxxxxx",
+        ([ "startroom": "/d/xuanminggu/xuanmingfeng",
             "id": "baisun daoren" ]),
     }));
 

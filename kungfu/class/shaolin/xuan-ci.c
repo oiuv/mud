@@ -116,15 +116,14 @@ void create() {
 
 string ask_me() {
     mapping my_fam;
-    object fighter, me;
+    object fighter;
     //string *sname;
     //int i,j;
 
     fighter = this_player();
-    me = this_object();
-    my_fam = me->query("family");
+    my_fam = fighter->query("family");
 
-    if (my_fam && my_fam["family_name"] != "少林派")
+    if (!my_fam || my_fam["family_name"] != "少林派")
         return RANK_D->query_respect(fighter) + "又不是我们少林寺的人，打听少林绝技做什么？";
     return "你可以找我学习下列绝技: 一指点三脉,金刚伏魔诀,赤血连环爪。\n";
 

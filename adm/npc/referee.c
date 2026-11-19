@@ -151,9 +151,9 @@ void player_win(object env, object me) {
         shout_message(name() + "笑道：" + ob->name(1) +
             "比武时临阵脱逃，" + me->name(1) + "不战而胜。");
     } else if (me->query("age") > ob->query("age")) {
-        shout_message(name() + "点头道：姜果然还是是老的辣，今日" +
+        shout_message(name() + "点头道：姜果然还是老的辣，今日" +
             me->name(1) + "比武战胜" + ob->name(1) + "！");
-    } else if (me->query("age") > ob->query("age")) {
+    } else if (me->query("age") < ob->query("age")) {
         shout_message(name() + "赞道：今日" + me->name(1) + "比武战胜" +
             ob->name(1) + "，真可谓是长江后浪推前浪！");
     } else {

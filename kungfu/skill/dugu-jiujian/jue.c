@@ -37,7 +37,7 @@ int perform(object me) {
     if (me->query("neili") < 85)
         return notify_fail("你现在真气不足，难以演练" JUE "。\n");
 
-    if (me->query("jing") < -jing_cost)
+    if (me->query("jing") < jing_cost)
         return notify_fail("你现在精神不佳，难以演练" JUE "。\n");
 
     if (!me->can_improve_skill("dugu-jiujian"))

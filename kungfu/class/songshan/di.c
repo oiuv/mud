@@ -47,7 +47,7 @@ void create() {
     map_skill("dodge", "lingxu-bu");
 
     prepare_skill("strike", "songshan-zhang");
-    prepare_skill("strike", "songshan-quan");
+    prepare_skill("cuff", "songshan-quan");
 
     create_family("嵩山派", 14, "弟子");
 
@@ -60,7 +60,7 @@ void create() {
     }));
 
     set("coagents", ({
-        ([ "startroom": "/d/songshan/xxxxxxxx",
+        ([ "startroom": "/d/songshan/fengchantai",
             "id": "zuo lengchan" ]),
     }));
 

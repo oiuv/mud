@@ -101,7 +101,7 @@ mapping query_action(object me, object weapon) {
 int practice_skill(object me) {
     if (me->query_temp("weapon") || me->query_temp("secondary_weapon"))
         return notify_fail("练罗汉伏虎拳必须空手。\n");
-    if ((int)me->query("jingli") < 30)
+    if ((int)me->query("qi") < 30)
         return notify_fail("你的体力太低了。\n");
     if ((int)me->query("neili") < 20)
         return notify_fail("你的内力不够练罗汉伏虎拳。\n");

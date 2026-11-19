@@ -55,7 +55,7 @@ int perform(object me, object target) {
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
     damage = (int)me->query_skill("finger") + (int)me->query_skill("force") + (int)me->query_skill(
-        "jinluo-xue",
+        "jingluo-xue",
         1
     );
     damage += random(damage);

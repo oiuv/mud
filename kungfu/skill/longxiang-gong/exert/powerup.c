@@ -2,7 +2,7 @@
 
 inherit F_CLEAN_UP;
 
-void remove_effect(object me, int amount);
+void remove_effect(object me, int amount, int layer);
 
 int exert(object me, object target) {
     int skill, layer;
@@ -35,22 +35,15 @@ int exert(object me, object target) {
     me->add("neili", -100);
 
     me->start_call_out((: call_other, __FILE__, "remove_effect",
-        me, skill / 3 :), skill);
+        me, skill / 3, layer :), skill);
 
     if (me->is_fighting()) me->start_busy(1 + random(3));
 
     return 1;
 }
 
-void remove_effect(object me, int amount) {
-    int /*skill,*/ lvl, layer;
-
-    lvl = me->query_skill("longxiang-gong", 1);
-    layer = lvl / 30;
-
-    if (layer > 13) layer = 13;
-
-    if ((int)me->query_temp("powerup")) {
+void remove_effect(object me, int amount, int layer) {
+    if (objectp(me) && (int)me->query_temp("powerup")) {
         me->add_temp("apply/attack", -amount - (layer * 15));
         me->add_temp("apply/parry", -amount);
         me->add_temp("apply/dodge", -amount);

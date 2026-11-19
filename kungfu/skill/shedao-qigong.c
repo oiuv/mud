@@ -31,7 +31,6 @@ mapping *action = ({
         "damage": 50,
         "force": 230,
         "dodge": 45,
-        "lvl": 40,
         "lvl": 100,
         "damage_type": "刺伤",
         "skill_name": "飞燕回翔"

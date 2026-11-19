@@ -136,7 +136,7 @@ int practice_skill(object me) {
         return notify_fail("你的内力不够了，休息一下再练吧。\n");
 
     me->receive_damage("qi", 60);
-    me->add("force", -55);
+    me->add("neili", -55);
     return 1;
 }
 

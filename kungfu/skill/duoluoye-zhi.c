@@ -3,7 +3,7 @@
 inherit SHAOLIN_SKILL;
 
 mapping *action = ({
-    ([ "action": "$N身形前倾，右指弹出一屡劲风，飘渺无形的击向$n的$l",
+    ([ "action": "$N身形前倾，右指弹出一缕劲风，飘渺无形的击向$n的$l",
         "force": 180,
         "attack": 80,
         "parry": 30,
@@ -48,7 +48,7 @@ mapping *action = ({
         "lvl": 160,
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N跨步上前，突然连环三指击出，一气呵成，射出三屡指风击向$n",
+    ([ "action": "$N跨步上前，突然连环三指击出，一气呵成，射出三缕指风击向$n",
         "force": 260,
         "attack": 150,
         "parry": 50,

@@ -148,7 +148,7 @@ void attempt_apprentice(object me) {
 
     if (me->query("move_party/日月神教--梅庄")) {
         me->delete("move_party/日月神教--梅庄", 1);
-        command("say 现在你成为我梅庄中人，望你专心练武，别再去过问教中事物。");
+        command("say 现在你成为我梅庄中人，望你专心练武，别再去过问教中事务。");
     }
 }
 
@@ -262,7 +262,7 @@ mixed ask_skill3() {
 
     message_vision(HIW "$n" HIW "点了点头，默运玄天无极功，伸出右手"
         "食指，插入桌上的花瓶\n中。片刻间花瓶水面便浮起一"
-        "丝丝白气，过不多时，瓶口上起了一层\n白箱，跟着水"
+        "丝丝白气，过不多时，瓶口上起了一层\n白霜，跟着水"
         "面结成一片片薄冰，冰越结越厚，只一盏茶时分，整个"
         "\n花瓶内的清水都化成了寒冰。\n" NOR, me,
         this_object());
@@ -301,7 +301,7 @@ mixed ask_qipan() {
         return "你还是下去将你的风雷盘法练练再来吧。";
 
     if (me->query_skill("chess", 1) < 100)
-        return "你连奕棋都不会，用我这宝贝干嘛？";
+        return "你连弈棋都不会，用我这宝贝干嘛？";
 
     if (present("xuantie qipan", me))
         return "现在玄铁棋盘不就在你身上吗，怎么老是跟我纠缠不休？";
@@ -338,7 +338,8 @@ mixed ask_riyue() {
 
     command("say 恩，那好吧，我就教你风雷盘法。");
 
-    me->set_skill("fenglei-panfa", 10);
+    if (me->query_skill("fenglei-panfa", 1) < 10)
+        me->set_skill("fenglei-panfa", 10);
     me->set("can_learn/meizhuang", 1);
 
     if (me->query("gongxian") > 10000 &&

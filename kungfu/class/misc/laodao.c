@@ -47,7 +47,7 @@ void create() {
     map_skill("sword", "quanzhen-jian");
     map_skill("dodge", "jinyan-gong");
     map_skill("parry", "quanzhen-jian");
-    map_skill("finger", "zhoangnan-zhi");
+    map_skill("finger", "zhongnan-zhi");
     map_skill("strike", "haotian-zhang");
 
     prepare_skill("finger", "sun-finger");

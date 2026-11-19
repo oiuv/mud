@@ -1,0 +1,316 @@
+#include <room.h>
+
+void check(int ok, string label) {
+    master()->check(ok, "design_fixes " + label);
+}
+
+void check_values(object room) {
+    object who;
+    mapping blade, spear, palm;
+
+    who = room->actor();
+    who->set_skill("hongye-daofa", 121);
+    who->set_skill("shedao-qigong", 101);
+    "/tests/control"->select_action(6);
+    blade = "/kungfu/skill/hongye-daofa"->query_action(who, 0);
+    "/tests/control"->select_action(3);
+    spear = "/kungfu/skill/shedao-qigong"->query_action(who, 0);
+    "/tests/control"->reset(0, ({ 4 }));
+    palm = "/kungfu/skill/shenlong-bashi"->query_action(who, 0);
+    "/tests/control"->select_action(-1);
+    check(blade["skill_name"] == "日月交辉" && spear["skill_name"] == "飞燕回翔" &&
+        palm["skill_name"] == "风卷残云", "MA-012 actual three action mappings are selected");
+    debug_message(sprintf(
+        "MA-012 EFFECTIVE %d/%d/%d\n",
+        blade["damage"],
+        spear["lvl"],
+        palm["lvl"]
+    ));
+    check(blade["damage"] == 130 && spear["lvl"] == 100 && palm["lvl"] == 140,
+        "MA-012 duplicate cleanup preserves original effective fields");
+    destruct(who);
+}
+
+int launch(object who, string action) {
+    who->suspend_busy();
+    return who->invoke((: call_other, "/cmds/skill/perform", "main", who, action :));
+}
+
+void ask_ying(object who, object teacher) {
+    who->invoke((: call_other, "/cmds/std/ask", "main", who,
+        teacher->query("id") + " about 无影掌" :));
+}
+
+void check_ying(object room) {
+    object who, teacher, target;
+
+    who = master()->query_connected_target();
+    who->move(room);
+    who->remove_all_enemy();
+    who->delete("can_perform/tie-zhang/ying");
+    who->delete_temp("no_perform");
+    who->delete_temp("test/real_combat");
+    teacher = new("/kungfu/class/jueqing/chi");
+    teacher->move(room);
+    who->set("family", ([ "family_name": teacher->query("family/family_name"),
+        "master_id": teacher->query("id"), "master_name": teacher->query("name") ]));
+    who->set("shen", -85000);
+    who->set("gongxian", 399);
+    who->set_skill("tie-zhang", 100);
+    who->set_skill("strike", 100);
+    who->set_skill("force", 320);
+    who->map_skill("force", 0);
+    who->map_skill("strike", "tie-zhang");
+    who->prepare_skill("strike", "tie-zhang");
+    target = room->actor();
+    target->set_skill("dodge", 1);
+    room->fight(who, target);
+    who->set("neili", 120);
+    check(interactive(who) && !launch(who, "strike.ying") && who->query("neili") == 120,
+        "MA-004 untaught player cannot cast or spend energy");
+    ask_ying(who, teacher);
+    check(!who->query("can_perform/tie-zhang/ying") && who->query("gongxian") == 399,
+        "MA-004 existing teacher rejects below contribution threshold");
+    who->set("gongxian", 400);
+    ask_ying(who, teacher);
+    check(who->query("can_perform/tie-zhang/ying") && who->query("gongxian") == 0,
+        "MA-004 original teacher grants move at original price");
+    who->set("gongxian", 400);
+    ask_ying(who, teacher);
+    check(who->query("gongxian") == 400, "MA-004 repeated inquiry does not charge again");
+    who->set_skill("force", 318);
+    check(!launch(who, "strike.ying") && who->query("neili") == 120,
+        "MA-004 effective force below threshold is refused without charging");
+    who->set_skill("force", 320);
+    who->prepare_skill("strike", 0);
+    check(!launch(who, "strike.ying") && who->query("neili") == 120,
+        "MA-004 mapped but unprepared skill is refused without charging");
+    who->prepare_skill("strike", "tie-zhang");
+    who->set("neili", 119);
+    check(!launch(who, "strike.ying") && who->query("neili") == 119,
+        "MA-004 refuses below exact energy threshold without charging");
+    who->set("neili", 120);
+    "/tests/control"->reset(0, ({}));
+    who->set_temp("test/real_combat", 1);
+    check(launch(who, "strike.ying") == 1 && who->query("neili") == 0 && who->is_busy() &&
+        target->query_temp("test/damages") == 1 && target->query_temp("test/damage") == 50 &&
+        target->query("qi") < 100000 && target->query("eff_qi") < 100000 &&
+        target->query_last_damage_from() == who && !target->is_busy(),
+        "MA-004 hit costs 120 and deals one real sourced damage and wound without target busy");
+    who->delete_temp("test/real_combat");
+    target->set_skill("dodge", 2000);
+    who->set("neili", 120);
+    "/tests/control"->reset(1, ({}));
+    check(launch(who, "strike.ying") == 1 && who->query("neili") == 0 && who->is_busy() &&
+        target->query_temp("test/damages") == 1 && !target->is_busy(),
+        "MA-004 high dodge counters the move without refund or hidden target effect");
+    who->remove_all_enemy();
+    who->suspend_busy();
+    destruct(target);
+    destruct(teacher);
+}
+
+void check_skills(object room) {
+    object who, skill;
+
+    who = room->actor();
+    skill = load_object("/kungfu/skill/dian-canghai");
+    who->set("con", 35);
+    who->set("max_neili", 5000);
+    who->set_skill("unarmed", 200);
+    who->set_skill("force", 200);
+    check(
+        skill->valid_learn(who),
+        "MA-006 can begin with actual basic force, without phantom skill"
+    );
+    who->set_skill("dian-canghai", 190);
+    check(skill->valid_learn(who), "MA-006 exact ten-level margin qualifies");
+    who->set_skill("dian-canghai", 191);
+    check(!skill->valid_learn(who), "MA-006 nine-level margin blocks learning");
+    who->set_skill("force", 201);
+    check(skill->valid_learn(who), "MA-006 improving basic force restores eligibility");
+    who->set_skill("huntian-baojian", 1);
+    check(!skill->valid_learn(who), "MA-006 consolidated skill still excludes the separate branch");
+    check("/kungfu/skill/paiyun-shou"->query_skill_name(1) == "排云手" &&
+        "/kungfu/skill/paiyun-shou"->query_skill_name(300) == "排云手",
+        "MA-078 unnamed moves show skill name at both ends");
+    check(!lpc_file("/kungfu/skill/shenzhaojing/perform/wu") &&
+        !lpc_file("/kungfu/skill/shenzhaojing/perform/ying") &&
+        !"/kungfu/skill/shenzhaojing"->perform_action_file("wu"),
+        "MA-136 dead unarmed dispatch and files are absent");
+    skill = load_object("/kungfu/skill/shenzhaojing");
+    check(skill->valid_enable("force") && !skill->valid_enable("unarmed") &&
+        lpc_file(skill->exert_function_file("powerup")) && lpc_file(skill->exert_function_file("shield")),
+        "MA-136 original force classification and both exerts remain available");
+    destruct(who);
+}
+
+void check_npcs(object room) {
+    mixed row;
+    object who, target, weapon;
+    function *callbacks;
+    int neili, attacks;
+
+    foreach (row in ({
+        ({ "MA-031", "/kungfu/class/mingjiao/daijisi", "parry", "yinhu-zhang" }),
+        ({ "MA-049", "/kungfu/class/lingjiu/sang", "parry", "shennong-zhang" }),
+        ({ "MA-044", "/kungfu/class/songshan/fei", "dodge", "lingxu-bu" }),
+    })) {
+        who = new(row[1]);
+        check(who->query_skill_mapped(row[2]) == row[3] && who->query_skill(row[3], 1) > 0 &&
+            who->query_skill(row[2]) == who->query_skill(row[2], 1) / 2 +
+            who->query_skill(row[3], 1) + who->query_temp("apply/" + row[2]),
+            row[0] + " actual effective skill uses trained mapping");
+        if (row[2] == "dodge")
+            check(who->query_skill("lingxu-bu", 1) == 140 && who->query_skill("dodge", 1) == 200,
+                "MA-044 peer value restores special dodge without raising basic dodge");
+        else
+            check(who->query_temp("weapon")->query("skill_type") == "staff",
+                row[0] + " character still wields original staff class");
+        destruct(who);
+    }
+    who = new("/kungfu/class/zhenyuan/wangjianjie");
+    who->move(room);
+    target = room->actor();
+    target->set_skill("parry", 1);
+    room->fight(who, target);
+    callbacks = who->query("chat_msg_combat");
+    neili = who->query("neili");
+    "/tests/control"->reset(1, ({}));
+    check(who->query_skill_mapped("strike") == "bazhen-zhang" &&
+        who->query_skill_prepared("strike") == "bazhen-zhang" && !who->query_skill_mapped("unarmed"),
+        "MA-057 prepared and enabled strike align without fake unarmed mapping");
+    check(evaluate(callbacks[1]) == 1 && target->query_temp("test/damages") == 1 &&
+        who->query("neili") == neili - 250, "MA-057 actual NPC callback lands its native move");
+    destruct(target); destruct(who);
+    who = new("/kungfu/class/gumu/lin");
+    who->move(room);
+    target = room->actor();
+    target->set_skill("dodge", 1);
+    room->fight(who, target);
+    callbacks = who->query("chat_msg_combat");
+    weapon = who->query_temp("weapon");
+    neili = who->query("neili");
+    "/tests/control"->reset(1, ({}));
+    evaluate(callbacks[0]);
+    attacks = who->query_temp("test/attacks");
+    check(who->query_skill_mapped("sword") == "suxin-jian" && objectp(weapon) &&
+        weapon == who->query_temp("weapon") && weapon->query("skill_type") == "sword" &&
+        attacks >= 4 && attacks <= 8 && who->query("neili") == neili - 20 * attacks,
+        "MA-113 Lin uses original sword and native bounded sword combo/cost");
+    check(sizeof(callbacks) == 5 && who->query("chat_chance_combat") == 71,
+        "MA-113 retains prior per-slot probability within rounding");
+    destruct(target); destruct(who);
+    who = new("/kungfu/class/emei/zhou");
+    check(sizeof(who->query("chat_msg_combat")) == 5 && who->query("chat_chance_combat") == 62 &&
+        who->query_skill_mapped("claw") == "jiuyin-baiguzhao",
+        "MA-108/112 Zhou retains trained claw and bounded five-slot set");
+    destruct(who);
+    who = new("/kungfu/class/shaolin/wuming");
+    check(sizeof(who->query("chat_msg_combat")) == 3 && who->query("chat_chance_combat") == 75 &&
+        who->query_skill_mapped("force") == "yijinjing" && who->query_skill("rulai-zhang", 1) > 0,
+        "MA-091 no invalid auto-cast and no loss of known palm or force technique");
+    destruct(who);
+}
+
+void check_guard_and_music(object room) {
+    object who, target, guarded, arena;
+    mixed entry;
+    int pending;
+
+    who = new("/kungfu/class/tiezhang/fen");
+    who->move(room);
+    target = master()->query_connected_target();
+    target->move(room);
+    target->set_temp("warned", 3);
+    target->set_temp("stay", 3);
+    target->invoke((: call_other, who, "init" :));
+    foreach (entry in call_out_info()) {
+        if (entry[0] != who) continue;
+        if (entry[1] == "hiting_ob") pending |= 1;
+        if (entry[1] == "moving_ob") pending |= 2;
+    }
+    check(pending == 1, "MA-040 original trespass warning still schedules attack");
+    who->hiting_ob(target);
+    foreach (entry in call_out_info()) {
+        if (entry[0] == who && entry[1] == "moving_ob") pending |= 2;
+    }
+    check(who->is_fighting(target) && pending == 1,
+        "MA-040 original guard starts combat without a missing follow-up callback");
+    target->remove_all_enemy();
+    target->delete_temp("warned");
+    target->delete_temp("stay");
+    destruct(who);
+
+    arena = new(base_name(room));
+    who = arena->actor();
+    target = arena->actor();
+    guarded = arena->actor();
+    who->set_skill("guzheng-jifa", 200);
+    who->set_skill("xiyu-tiezheng", 200);
+    target->set_skill("force", 1);
+    guarded->set_skill("force", 1);
+    target->set("max_neili", 5000);
+    guarded->set("max_neili", 5000);
+    guarded->apply_condition("die_guard", 5);
+    "/tests/control"->reset(0, ({}));
+    "/kungfu/skill/xiyu-tiezheng"->do_effect(who);
+    check(guarded->query("jing") == 100000 && guarded->query("eff_jing") == 100000 &&
+        !who->is_fighting(guarded) && !guarded->is_fighting(who),
+        "MA-123 protection prevents music harm and hostility");
+    check(target->query("jing") == 99500 && target->query("eff_jing") == 99834 &&
+        who->is_fighting(target) && target->is_fighting(who),
+        "MA-123 unprotected target keeps original damage, wounds and combat");
+    destruct(target); destruct(guarded); destruct(who); destruct(arena);
+}
+
+void check_route(object room, object who, int reverse) {
+    object entrance, chamber, shortcut;
+    int initial;
+
+    if (reverse) {
+        chamber = load_object("/d/mingjiao/mishi");
+        shortcut = load_object("/d/mingjiao/midao0");
+        entrance = load_object("/d/mingjiao/midao9");
+    } else {
+        entrance = load_object("/d/mingjiao/midao9");
+        shortcut = load_object("/d/mingjiao/midao0");
+        chamber = load_object("/d/mingjiao/mishi");
+    }
+    initial = shortcut->query_door("north", "status");
+    who->move(entrance);
+    "/cmds/std/go"->main(who, "north");
+    check(environment(who) == entrance, "MA-129 closed stone door blocks passage");
+    if (environment(who) != entrance) who->move(entrance);
+    check("/cmds/std/open"->main(who, "north") &&
+        !(entrance->query_door("north", "status") & DOOR_CLOSED),
+        "MA-129 north door opens through real player command");
+    check("/cmds/std/close"->main(who, "north") &&
+        entrance->query_door("north", "status") & DOOR_CLOSED,
+        "MA-129 north door can be closed again");
+    "/cmds/std/open"->main(who, "north");
+    "/cmds/std/go"->main(who, "north");
+    check(environment(who) == chamber, "MA-129 open door leads into original chamber");
+    if (environment(who) != chamber) who->move(chamber);
+    "/cmds/std/go"->main(who, "south");
+    check(environment(who) == shortcut && shortcut->query_door("north", "status") == initial &&
+        !chamber->query_door(
+            "south",
+            "name"
+        ), "MA-129 return path and unrelated north door retain state");
+    who->move(room);
+    destruct(entrance); destruct(chamber); destruct(shortcut);
+}
+
+void run(object room) {
+    object who;
+
+    check_values(room);
+    check_ying(room);
+    check_skills(room);
+    check_npcs(room);
+    check_guard_and_music(room);
+    who = master()->query_connected_target();
+    who->invoke((: check_route, room, who, 0 :));
+    who->invoke((: check_route, room, who, 1 :));
+}

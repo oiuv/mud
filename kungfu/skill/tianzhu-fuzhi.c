@@ -3,7 +3,7 @@
 inherit SHAOLIN_SKILL;
 
 mapping *action = ({
-    ([ "action": "$N侧身抬臂，右指划了个半圈，轻轻拂向向$n$l，不着力道",
+    ([ "action": "$N侧身抬臂，右指划了个半圈，轻轻拂向$n$l，不着力道",
         "force": 100,
         "attack": 10,
         "parry": 15,

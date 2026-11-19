@@ -193,7 +193,7 @@ int accept_object(object me, object ob) {
 
     command("heihei");
     command("say 好吧，既然这样，我就传你绝招，你可以随时来问我！");
-    tell_object(me, HIG "梅超风决定传你「九阴神抓」！\n" NOR);
+    tell_object(me, HIG "梅超风决定传你「九阴神爪」！\n" NOR);
     destruct(ob);
     me->set("can_learn/jiuyin-shengong/zhua", 1);
 

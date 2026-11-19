@@ -71,8 +71,8 @@ LONG);
 
     set("no_teach", ([
         "shaolin-xinfa": "…这…这东西我都没学好。",
-        "xiaowuxiang": "唉……这是师尊注如我体内的，教我怎么教给你？",
-        "beiming-shengong": "唉……这是师尊注如我体内的，教我怎么教给你？",
+        "xiaowuxiang": "唉……这是师尊注入我体内的，教我怎么教给你？",
+        "beiming-shengong": "唉……这是师尊注入我体内的，教我怎么教给你？",
         "shaolin-shenfa": "…这个…嗯…我还是教你本门的轻功好了。",
     ]));
 
@@ -226,7 +226,7 @@ mixed ask_skill2() {
 
     message_vision(HIY "$n" HIY "笑了笑，当即从$N" HIY "手中接过"
         "长剑，慢慢的演示剑招，$N" HIY "见招\n式优美华"
-        "丽，轻盈灵动，实乃前所谓闻，顿时大有所悟。\n"
+        "丽，轻盈灵动，实乃前所未闻，顿时大有所悟。\n"
         NOR, me, this_object());
 
     command("nod");
@@ -496,7 +496,7 @@ mixed ask_skill8() {
 
     command("buddhi");
     command("say 这招乃是我从石壁上习得，想必是童姥生前所创。");
-    command("say ……唉…这招的威力太过强盛，切末胡乱使用。");
+    command("say ……唉…这招的威力太过强盛，切莫胡乱使用。");
     tell_object(me, HIC "你学会了「破神诀」。\n" NOR);
 
     if (me->can_improve_skill("strike"))

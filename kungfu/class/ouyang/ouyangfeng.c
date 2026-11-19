@@ -175,7 +175,7 @@ mixed ask_skill1() {
         return ("你的杖法还不到家，学不了「横行无忌」！\n");
 
     command("say 好吧，你看好了。");
-    tell_object(me, HIR "欧阳峰将「横行无忌」演练了一遍，你心里默默暗记，心中惊叹不已。\n" NOR);
+    tell_object(me, HIR "欧阳锋将「横行无忌」演练了一遍，你心里默默暗记，心中惊叹不已。\n" NOR);
     if (me->can_improve_skill("staff"))
         me->improve_skill("staff", 1500000);
     if (me->can_improve_skill("staff"))
@@ -209,7 +209,7 @@ mixed ask_skill2() {
     if (me->query_skill("lingshe-zhangfa", 1) < 120)
         return "你先好好把灵蛇杖法练好了再说！";
 
-    message_vision(HIY "$n" HIY "喝道：看仔细了！说把荡"
+    message_vision(HIY "$n" HIY "喝道：看仔细了！说罢荡"
         "臂横扫，伸伸缩缩，当真是变幻无穷！把$N"
         HIY "的眼睛都看直了。\n" NOR,
         me, this_object());
@@ -249,7 +249,7 @@ mixed ask_skill3() {
     if (me->query_skill("lingshe-zhangfa", 1) < 180)
         return "你的灵蛇杖法还不到家，要多练练！";
 
-    message_vision(HIY "$n" HIY "微微颔首，随手拣起一根木条点向$N"
+    message_vision(HIY "$n" HIY "微微颔首，随手拣起一根木条点向$N。"
         HIY "$N" HIY "见来招缓慢，只是随手向上一格。\n"
         "忽然$p" HIY "杖势一变，木条从意想不到的角度拐"
         "来，$P" HIY "大吃一惊，慌乱不迭。\n" NOR,
@@ -267,7 +267,7 @@ mixed ask_skill3() {
         me->improve_skill("lingshe-zhangfa", 1500000);
     me->improve_skill("martial-cognize", 1500000);
     me->set("can_perform/lingshe-zhangfa/wanshi", 1);
-    me->add("gongxian", 1000);
+    me->add("gongxian", -1000);
     return 1;
 }
 

@@ -222,7 +222,6 @@ void start_fight(object me) {
 
 void die(object killer) {
     object ob;
-    object kob;
 
     ob = find_object(MIJI);
     if (!objectp(ob))
@@ -233,7 +232,7 @@ void die(object killer) {
     if (!environment(ob) && random(15) == 1) {
         ob->move(this_object(), 1);
         CHANNEL_D->do_channel(this_object(), "rumor", "听说" +
-            (objectp(kob) ? kob->name(1) : "某人") +
+            (objectp(killer) ? killer->name(1) : "某人") +
             "闯入天龙寺，力战众僧，夺走六脉神剑谱。");
     } else
         command("chat 天哪！想不到我枯荣饱遭凌辱，天龙威名尽丧我手！");

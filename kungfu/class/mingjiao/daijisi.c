@@ -52,7 +52,7 @@ void create() {
 
     map_skill("force", "shenghuo-xinfa");
     map_skill("dodge", "shenghuo-bu");
-    map_skill("parry", "yinfeng-dao");
+    map_skill("parry", "yinhu-zhang");
     map_skill("throwing", "duoming-jinhua");
     map_skill("cuff", "pili-quan");
     map_skill("staff", "yinhu-zhang");
@@ -132,7 +132,7 @@ int accept_ask(object me, string topic) {
         case "天外飞花":
             return MASTER_D->teach_pfm(me, this_object(),
                 ([ "perform": "can_perform/duoming-jinhua/hua",
-                    "name": "绝杀",
+                    "name": "天外飞花",
                     "sk1": "duoming-jinhua",
                     "lv1": 120,
                     "force": 200,

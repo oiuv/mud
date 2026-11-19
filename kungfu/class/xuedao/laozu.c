@@ -564,12 +564,12 @@ mixed ask_skill8() {
 
     message_vision(HIY "$n" HIY "看了看$N" HIY "，狞笑一声，点了点头。便伸手将"
         "$N" HIY "招到身\n前，低声在$N" HIY "耳旁嘀咕了半天。$N" HIY
-        "听后脸色大变，似乎听到了\n什么劾人听闻的事情，待$n" HIY "继"
+        "听后脸色大变，似乎听到了\n什么骇人听闻的事情，待$n" HIY "继"
         "续讲解了一阵，$N" HIY "的表情\n才慢慢松弛了下来，随即会心地"
         "一笑，看来有所领悟。\n" NOR, me, this_object());
 
     command("grin");
-    command("say 这招的要领就是义无返顾，拼死一攻，记住了吗？");
+    command("say 这招的要领就是义无反顾，拼死一攻，记住了吗？");
     tell_object(me, HIC "你学会了「祭血神刀」。\n" NOR);
 
     if (me->can_improve_skill("force"))

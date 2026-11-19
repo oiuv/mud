@@ -37,7 +37,7 @@ int perform(object me, object target) {
     if (random(me->query_skill("blade")) > target->query_skill("parry") / 3) {
         msg += HIR "$n" HIR "见来招实在是变幻莫测，不由得心"
             "生惧意，招式登时出了破绽！\n" NOR;
-        count = me->query_skill("jingzhong-bafa)", 1) / 3;
+        count = me->query_skill("jingzhong-bafa", 1) / 3;
     } else {
         msg += HIC "$n" HIC "心底微微一惊，打起精神小心接招。\n" NOR;
         count = 0;

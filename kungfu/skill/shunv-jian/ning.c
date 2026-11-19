@@ -52,7 +52,7 @@ int perform(object me, object target) {
         me->add("neili", -220);
         me->start_busy(1 + random(3));
         msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 65,
-            HIR "$n" HIR "开料不及，正欲躲闪，却已经中剑。\n" NOR);
+            HIR "$n" HIR "始料不及，正欲躲闪，却已经中剑。\n" NOR);
     } else {
         me->add("neili", -120);
         me->start_busy(2);

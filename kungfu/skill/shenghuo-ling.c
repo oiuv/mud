@@ -171,7 +171,7 @@ mixed hit_ob(object me, object victim, int damage_bonus) {
     if (me->query_temp("shenghuo-ling/max_hit")) {
         victim->receive_wound("qi", damage_bonus);
     }
-    return HIR "只听“噗嗤”一声，一股鲜血至$n" HIR "胸前射出！\n" NOR;
+    return HIR "只听“噗嗤”一声，一股鲜血自$n" HIR "胸前射出！\n" NOR;
 }
 
 string perform_action_file(string action) {

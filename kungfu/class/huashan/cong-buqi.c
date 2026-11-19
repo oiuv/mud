@@ -45,7 +45,7 @@ void create() {
 
     map_skill("sword", "huashan-jian");
     map_skill("parry", "huashan-jian");
-    map_skill("force", "huashan-neigong");
+    map_skill("force", "huashan-xinfa");
     map_skill("unarmed", "huashan-quanfa");
     map_skill("dodge", "huashan-shenfa");
 

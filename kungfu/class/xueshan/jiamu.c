@@ -9,7 +9,7 @@ void create() {
     set_name("嘉木活佛", ({ "jiamu huofo", "huofo", "jiamu" }));
     set("long", @LONG
 嘉木活佛是大轮寺有道的高僧，对佛法有精深
-的研究。他身穿一件黄色袈裟，头带僧帽。目
+的研究。他身穿一件黄色袈裟，头戴僧帽。目
 光如电，似乎身怀绝技。
 LONG);
     set("title", "大轮寺活佛");

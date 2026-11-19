@@ -28,7 +28,7 @@ int perform(object me) {
         return notify_fail("你的太极剑法不够娴熟，难以施展" SUI "。\n");
 
     if (me->query_skill_mapped("sword") != "taiji-jian")
-        return notify_fail("你没有激发太极剑法，，难以施展" SUI "。\n");
+        return notify_fail("你没有激发太极剑法，难以施展" SUI "。\n");
 
     if ((int)me->query("neili") < 300)
         return notify_fail("你现在的真气不足，难以施展" SUI "。\n");

@@ -46,7 +46,7 @@ int perform(object me, object target) {
     if (!living(target))
         return notify_fail("对方都已经这样了，用不着这么费力吧？\n");
 
-    msg = HIR "$N" HIR "大喝一声，顿时一股浩荡无比的真气至体内迸发，双掌"
+    msg = HIR "$N" HIR "大喝一声，顿时一股浩荡无比的真气自体内迸发，双掌"
         "猛然翻滚，朝$n" HIR "闪电般拍去。\n" NOR;
 
     ap = me->query_skill("unarmed") + me->query("con") * 20;

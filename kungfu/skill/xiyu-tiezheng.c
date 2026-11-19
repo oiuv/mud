@@ -57,6 +57,9 @@ void do_effect(object me) {
         if (!obs[i]->is_character() || obs[i] == me || !living(obs[i]))
             continue;
 
+        if (obs[i]->query_condition("die_guard"))
+            continue;
+
         if (me->query_skill("xiyu-tiezheng") * 2 / 3 <
             obs[i]->query_skill("xiyu-tiezheng"))
             continue;

@@ -87,7 +87,7 @@ mapping *action = ({
         "damage_type": "内伤"
     ]),
     ([ "action": "$N一招「" BLU "废寝忘食" NOR "」脚下虚浮，有如几天不吃不睡后"
-        "的脚步朗舱的袭到$n的身旁，左掌和右拳攻\n"
+        "的脚步踉跄的袭到$n的身旁，左掌和右拳攻\n"
         "向$n的$l",
         "force": 460,
         "attack": 100,
@@ -242,10 +242,15 @@ int valid_learn(object me) {
 
 mapping query_action(object me, object weapon) {
     int i, level;
+    mapping *eligible;
+
     level = (int)me->query_skill("sad-strike", 1);
-    for (i = sizeof(action); i > 0; i--)
-        if (level > action[i - 1]["lvl"])
-            return action[NewRandom(i, 50, level)];
+    eligible = ({});
+    for (i = 0; i < sizeof(action); i++)
+        if (level > action[i]["lvl"])
+            eligible += ({ action[i] });
+    if (!sizeof(eligible)) return 0;
+    return eligible[NewRandom(sizeof(eligible), 50, level)];
 }
 
 int practice_skill(object me) {
@@ -253,7 +258,7 @@ int practice_skill(object me) {
         return notify_fail("你的体力太低了。\n");
 
     if ((int)me->query("neili") < 160)
-        return notify_fail("你的内力不够练黯然消魂掌。\n");
+        return notify_fail("你的内力不够练黯然销魂掌。\n");
 
     me->receive_damage("qi", 150);
     me->add("neili", -155);

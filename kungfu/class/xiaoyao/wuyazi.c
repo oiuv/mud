@@ -82,7 +82,7 @@ LONG);
     map_skill("hand", "zhemei-shou");
     map_skill("strike", "liuyang-zhang");
     map_skill("throwing", "liuyang-zhang");
-    map_skill("parry", "zhemei-jian");
+    map_skill("parry", "zhemei-shou");
     map_skill("sword", "liuyue-jian");
     map_skill("blade", "ruyi-dao");
     map_skill("medical", "xiaoyao-qixue");
@@ -153,7 +153,7 @@ void attempt_apprentice(object ob) {
             "徒！");
         btimes = ob->query("betrayer/times");
         command("recruit " + ob->query("id"));
-        ob->set("betryer/times", btimes);
+        ob->set("betrayer/times", btimes);
 
         if (ob->query("max_neili") < 500) {
             command("say 不过你内力太差…嗯…也好，待我传功于你！");
@@ -183,7 +183,7 @@ void attempt_apprentice(object ob) {
     }
 
     if ((int)ob->query_skill("force", 1) < 130) {
-        command("say 我逍遥派的的武功基础就是内功，你先把内功基础打好。");
+        command("say 我逍遥派的武功基础就是内功，你先把内功基础打好。");
         return;
     }
 
@@ -275,7 +275,7 @@ mixed ask_skill2() {
 
     message_vision(HIY "$n" HIY "笑了笑，当即从$N" HIY "手中接过"
         "长剑，慢慢的演示剑招，$N" HIY "见招\n式优美华"
-        "丽，轻盈灵动，实乃前所谓闻，顿时大有所悟。\n"
+        "丽，轻盈灵动，实乃前所未闻，顿时大有所悟。\n"
         NOR, me, this_object());
 
     command("say 这招的关键在于灵动二字，你下去练吧。");
@@ -319,7 +319,7 @@ mixed ask_skill3() {
         "，看好了！”说完只见$n" HIY "提起真气，依"
         "照先天伏羲六十\n四卦将凌波微步由头到尾迅"
         "速无比的走了一次。但见$n" HIY "意态飘\n逸"
-        "，影子乱飞，真个将逍遥二字发挥得淋漓尽至"
+        "，影子乱飞，真个将逍遥二字发挥得淋漓尽致"
         "。\n" NOR, me, this_object());
 
     command("haha");

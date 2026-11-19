@@ -5,7 +5,7 @@ int permit_recruit(object ob) {
     }
 
     if (ob->query("betrayer/times")) {
-        command("say 我们丐帮行事堂堂正正，绝不接纳判师之徒。");
+        command("say 我们丐帮行事堂堂正正，绝不接纳叛师之徒。");
         return 0;
     }
 

@@ -52,7 +52,7 @@ int main(object me, string arg) {
         if (mapp(ob->query("family")) &&
             (string)me->query("family/family_name") !=
             (string)ob->query("family/family_name")) {
-            message_vision(HIR "$n" HIR "决定判师投入$N" HIR
+            message_vision(HIR "$n" HIR "决定叛师投入$N" HIR
                 "门下。\n" NOR +
                 HIC "$n" HIC "跪"
                 "了下来向$N" HIC "恭恭敬敬地磕了四"

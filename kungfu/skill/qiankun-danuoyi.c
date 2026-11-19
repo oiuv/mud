@@ -139,7 +139,7 @@ mixed valid_damage(object ob, object me, int damage, object weapon) {
             "移第七层心法，企图挪移$N" HIM "的攻势。\n\n" NOR;
 
         me->start_call_out((: call_other, __FILE__, "nuoyi",
-            ob, me :), 1);
+            ob, me, ob->query("id") :), 1);
         me->set_temp("nuoyi/" + ob->query("id"), 1);
         me->start_busy(2);
 
@@ -228,13 +228,22 @@ void skill_improved(object me) {
         (int)me->query_condition("qiankun-except"));
 }
 
-void nuoyi(object ob, object me) {
+void nuoyi(object ob, object me, string attacker_id) {
     string msg;
     int ap, dp, damage;
+    mapping pending;
 
-    if (!ob
-        || !me->is_fighting(ob)
-        || !me->query_temp("nuoyi/" + ob->query("id")))
+    if (!objectp(me))
+        return;
+    if (!stringp(attacker_id) && objectp(ob))
+        attacker_id = ob->query("id");
+    if (!stringp(attacker_id) || !me->query_temp("nuoyi/" + attacker_id))
+        return;
+    me->delete_temp("nuoyi/" + attacker_id);
+    pending = me->query_temp("nuoyi");
+    if (mapp(pending) && !sizeof(pending))
+        me->delete_temp("nuoyi");
+    if (!objectp(ob) || !me->is_fighting(ob))
         return;
 
     msg = HIM "\n$N" HIM "乾坤大挪移第七层心法施展出来，顿将先前所积蓄"
@@ -257,7 +266,6 @@ void nuoyi(object ob, object me) {
         msg += HIC "$n" HIC "眼见$P来势汹涌，不敢"
             "大意，施出浑身解数化解开来。\n" NOR;
     }
-    me->delete_temp("nuoyi");
     message_sort(msg, me, ob);
 }
 

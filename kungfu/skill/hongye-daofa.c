@@ -68,7 +68,6 @@ mapping *action = ({
         "attack": 70,
         "dodge": 20,
         "parry": 60,
-        "damage": 160,
         "damage": 130,
         "lvl": 120,
         "skill_name": "日月交辉",

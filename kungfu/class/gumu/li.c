@@ -257,7 +257,7 @@ string ask_zhen() {
         return RANK_D->query_respect(me) + "与我毫无瓜葛，何以问"
             "起我的暗器？\n";
 
-    if (me->query_skill("bingpo-zhen", 1) < 100)
+    if (me->query_skill("bingpo-shenzhen", 1) < 100)
         return RANK_D->query_respect(me) + "的冰魄神针手法火候还不到家"
             "，拿了冰魄银针也没有什么用。\n";
 

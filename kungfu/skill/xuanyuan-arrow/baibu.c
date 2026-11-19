@@ -22,7 +22,7 @@ int perform(object me, object target) {
         return notify_fail("你现在手中并没有拿着箭，怎么施展百步穿杨？\n");
 
     if (weapon->query_amount() < 3)
-        return notify_fail("至少要有一支箭你才能施展百步穿杨。\n");
+        return notify_fail("至少要有三支箭你才能施展百步穿杨。\n");
 
     if ((skill = me->query_skill("xuanyuan-arrow", 1)) < 100)
         return notify_fail("你的轩辕箭法不够娴熟，不会使用百步穿杨。\n");

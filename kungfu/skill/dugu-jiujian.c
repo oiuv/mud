@@ -575,7 +575,7 @@ void skill_improved(object me) {
     lvl = me->query_skill("dugu-jiujian", 1);
 
     if (lvl > 120
-        && me->query("can_perform/dugu/qi") <= 100
+        && me->query("can_perform/dugu/qi") < 100
         && !me->query("can_learn/dugu-jiujian/nothing")) {
         if (me->add("can_perform/dugu/qi", random(i)) < 100) {
             tell_object(me, HIC "你对独孤九剑「" HIW "破气式"
@@ -590,7 +590,7 @@ void skill_improved(object me) {
     }
 
     if (lvl > 150
-        && me->query("can_perform/dugu/po") <= 100
+        && me->query("can_perform/dugu/po") < 100
         && !me->query("can_learn/dugu-jiujian/nothing")) {
         if (me->add("can_perform/dugu/po", random(i)) < 100) {
             tell_object(me, HIC "你对独孤九剑「" HIR "总破式"
@@ -608,9 +608,9 @@ void skill_improved(object me) {
 }
 
 int difficult_level() {
-    object me = this_object();
+    object me = this_player();
 
-    if (me->query("can_learn/dugu-jiujian/nothing"))
+    if (objectp(me) && me->query("can_learn/dugu-jiujian/nothing"))
         //return 1200;
         return 1000;
     //else   return 800;

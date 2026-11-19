@@ -334,5 +334,5 @@ int recognize_apprentice(object me, string skill) {
 }
 
 void reset() {
-    set("shenshe_count", 5);
+    set_temp("shenshe_count", 5);
 }

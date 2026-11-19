@@ -35,11 +35,11 @@ mapping *action = ({
         "damage_type": "挫伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 打狗棒法之极意 " NOR "",
-        "force": (int)this_player()->query_skill("force") / 2 + random((int)this_player()->query_skill("force")),
-        "attack": (int)this_player()->query_skill("staff") / 4 + random((int)this_player()->query_skill("staff") / 2),
-        "dodge": (int)this_player()->query_skill("dodge") / 4 + random((int)this_player()->query_skill("force") / 3),
-        "parry": (int)this_player()->query_skill("parry") / 4 + random((int)this_player()->query_skill("parry") / 3),
-        "damage": (int)this_player()->query_skill("force") / 3 + random((int)this_player()->query_skill("staff") / 3),
+        "force": 0,
+        "attack": 0,
+        "dodge": 0,
+        "parry": 0,
+        "damage": 0,
         "lvl": 200,
         "skill_name": "极意",
         "damage_type": "挫伤"
@@ -67,7 +67,18 @@ int valid_learn(object me) {
 }
 
 mapping query_action(object me, object weapon) {
-    return action[random(sizeof(action))];
+    mapping selected;
+
+    selected = action[random(sizeof(action))];
+    if (selected["skill_name"] == "极意") {
+        selected = copy(selected);
+        selected["force"] = me->query_skill("force") / 2 + random(me->query_skill("force"));
+        selected["attack"] = me->query_skill("staff") / 4 + random(me->query_skill("staff") / 2);
+        selected["dodge"] = me->query_skill("dodge") / 4 + random(me->query_skill("force") / 3);
+        selected["parry"] = me->query_skill("parry") / 4 + random(me->query_skill("parry") / 3);
+        selected["damage"] = me->query_skill("force") / 3 + random(me->query_skill("staff") / 3);
+    }
+    return selected;
 }
 
 mixed valid_damage(object ob, object me, int damage, object weapon) {

@@ -8,6 +8,7 @@ inherit F_MASTER;
 void create() {
     set_name("澄心", ({
         "chengxin luohan",
+        "chengxin1 luohan",
         "chengxin",
         "fuhu",
         "luohan",

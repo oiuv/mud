@@ -110,7 +110,7 @@ mixed ask_skill1() {
     if (me->query_skill("danding-dao", 1) < 1)
         return "你连丹碇刀法都没学，还谈什么绝招可言？";
 
-    if (me->query("gongxian") < 80)
+    if (me->query("gongxian") < 100)
         return "你在教内甚无作为，这招我暂时还不能传你。";
 
     if (me->query("shen") > -8000)

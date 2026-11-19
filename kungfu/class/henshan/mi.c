@@ -41,7 +41,7 @@ void create() {
     map_skill("force", "henshan-xinfa");
     map_skill("dodge", "henshan-shenfa");
     map_skill("sword", "henshan-jian");
-    map_skill("parry", "hengshan-jian");
+    map_skill("parry", "henshan-jian");
     map_skill("cuff", "henshan-quan");
     map_skill("strike", "biluo-zhang");
 

@@ -23,6 +23,19 @@ int query_max_encumbrance() {
     return 100000000000;
 }
 
+object make_inventory(string file) {
+    object ob;
+    mixed startroom;
+
+    ob = ::make_inventory(file);
+    if (objectp(ob) && ob->is_character()) {
+        startroom = ob->query("startroom");
+        if (!stringp(startroom) || startroom == "")
+            ob->set("startroom", base_name(this_object()));
+    }
+    return ob;
+}
+
 void reset() {
     mapping ob_list, ob;
     string *list;

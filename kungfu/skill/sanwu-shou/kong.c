@@ -24,7 +24,7 @@ int perform(object me, object target) {
         return notify_fail("你所使用的武器不对，难以施展" KONG "。\n");
 
     if ((int)me->query_skill("sanwu-shou", 1) < 140)
-        return notify_fail("你三无三不手够娴熟，难以施展" KONG "。\n");
+        return notify_fail("你三无三不手不够娴熟，难以施展" KONG "。\n");
 
     if (me->query_skill_mapped("whip") != "sanwu-shou")
         return notify_fail("你没有激发三无三不手，难以施展" KONG "。\n");

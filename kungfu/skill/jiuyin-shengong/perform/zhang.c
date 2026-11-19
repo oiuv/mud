@@ -38,7 +38,7 @@ int perform(object me, object target) {
     msg = HIY "$N" HIY "双掌一错，幻化出无数掌影，层层叠荡向$n" HIY "逼去！\n" NOR;
     message_combatd(msg, me, target);  //修正pfm描述信息显示时间错误 by MK
 
-    ap = me->query_skill("jiujin-shengong", 1);
+    ap = me->query_skill("jiuyin-shengong", 1);
     dp = target->query_skill("parry", 1);
 
     if (ap / 2 + random(ap) > dp)

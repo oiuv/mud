@@ -1,0 +1,9 @@
+// Driver-created synthetic connection only: no login, authentication or restore_object.
+inherit "/tests/actor";
+
+int logon() {
+    // Supply the normal login destination omitted by this save-free synthetic login.
+    set("startroom", "/tests/regression");
+    master()->register_connected_target(this_object());
+    return 1;
+}

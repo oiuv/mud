@@ -204,7 +204,7 @@ mixed ask_skill2() {
         "”听得话音\n刚落，顿时从$n" HIY "袖底窜出一道金光，直奔$N"
         HIY "而去，$N" HIY "见\n状立即飞身躲避，可刹那间只见$n" HIY
         "身形一晃，一双手掌\n已搭在$N" HIY "胸前。$N" HIY "顿时呆立"
-        "当场，半响都说不出话来。\n" NOR, me, this_object());
+        "当场，半晌都说不出话来。\n" NOR, me, this_object());
 
     command("haha");
     command("say 这招教给你了，但切记我们身在天子脚下，千万别去招惹官府。");

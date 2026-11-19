@@ -51,7 +51,7 @@ void create() {
 
     set("coagents", ({
         ([ "startroom": "/d/meizhuang/houting",
-            "id": "hei baizi" ]),
+            "id": "heibai zi" ]),
     }));
 
     set("guarder", ([

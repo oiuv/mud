@@ -22,7 +22,7 @@ int perform(object me, object target) {
         return notify_fail("你必须空手才能施展" YOU "。\n");
 
     if ((int)me->query_skill("meinv-quan", 1) < 80)
-        return notify_fail("你的美女拳法别不够，不会使用" YOU "。\n");
+        return notify_fail("你的美女拳法级别不够，不会使用" YOU "。\n");
 
     if ((int)me->query_skill("force") < 120)
         return notify_fail("你的内功还未娴熟，不能使用" YOU "。\n");
@@ -54,7 +54,7 @@ int perform(object me, object target) {
         msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 45,
             HIR "但见$N" HIR "双拳袭来，柔中带刚，迅"
             "猛无比，其间仿佛蕴藏着无穷的威力，$n" HIR
-            "正迟疑间， $N" HIR "却已中拳，闷哼一声，倒"
+            "正迟疑间，$n" HIR "却已中拳，闷哼一声，倒"
             "退几步，一口鲜血喷出。\n" NOR);
     } else {
         me->start_busy(3);

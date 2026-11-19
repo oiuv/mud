@@ -24,7 +24,7 @@ int perform(object me, object target) {
         return notify_fail("你所使用的武器不对，难以施展" KAI "。\n");
 
     if ((int)me->query_skill("yinsuo-jinling", 1) < 140)
-        return notify_fail("你银索金铃够娴熟，难以施展" KAI "。\n");
+        return notify_fail("你银索金铃不够娴熟，难以施展" KAI "。\n");
 
     if (me->query_skill_mapped("whip") != "yinsuo-jinling")
         return notify_fail("你没有激发银索金铃，难以施展" KAI "。\n");
@@ -41,7 +41,7 @@ int perform(object me, object target) {
     ap = me->query_skill("whip");
     dp = target->query_skill("parry");
 
-    msg = HIW "\n$N" HIW "长啸一声，疼空而起，施出绝招「" HIY "开天辟地" HIW
+    msg = HIW "\n$N" HIW "长啸一声，腾空而起，施出绝招「" HIY "开天辟地" HIW
         "」，手中" + weapon->name() + HIW "犹如长龙般龙吟不定，临空而下，罩"
         "向$n。" NOR;
 

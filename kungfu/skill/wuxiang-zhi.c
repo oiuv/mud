@@ -13,7 +13,7 @@ mapping *action = ({
         "skill_name": "无声无息",
         "damage_type": "刺伤"
     ]),
-    ([ "action": "$N一招「无欲无望」，轻唱一声佛号，左右看似随意一弹，一屡劲风已射向$n",
+    ([ "action": "$N一招「无欲无望」，轻唱一声佛号，左右看似随意一弹，一缕劲风已射向$n",
         "force": 90,
         "attack": 30,
         "parry": 5,

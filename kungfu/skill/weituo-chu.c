@@ -111,8 +111,8 @@ int practice_skill(object me) {
     if (!objectp(weapon = me->query_temp("weapon"))
         || (string)weapon->query("skill_type") != "staff")
         return notify_fail("你使用的武器不对。\n");
-    if ((int)me->query("jingli") < 70)
-        return notify_fail("你的体力不够练韦陀杵。\n");
+    if ((int)me->query("jing") < 70)
+        return notify_fail("你的精神不够练韦陀杵。\n");
     if ((int)me->query("neili") < 70)
         return notify_fail("你的内力不够练韦陀杵。\n");
     me->receive_damage("jing", 60);

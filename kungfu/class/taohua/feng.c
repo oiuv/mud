@@ -142,7 +142,7 @@ mixed ask_skill1() {
 
     message_sort(HIY "\n$n" HIY "点了点头，道：“既然家师吩咐过，今日我就"
         "传你这招，可要看好了。”说完只见$n" HIY "陡然伸出一指，"
-        "纷翻不定，顿听指气嗤然作响，全全笼罩$N" HIY "四周。\n\n"
+        "纷翻不定，顿听指气嗤然作响，团团笼罩$N" HIY "四周。\n\n"
         NOR, me, this_object());
 
     command("nod");
@@ -160,7 +160,7 @@ mixed ask_skill1() {
 }
 
 mixed ask_learn() {
-    object me;
+    object me, origin;
     me = this_player();
 
     if (!me->query("can_learn/huang/count")) {
@@ -168,6 +168,7 @@ mixed ask_learn() {
         return 1;
     }
 
+    origin = environment();
     command("say 好吧，我带你过桃花阵，你自己去找岛主吧。");
     message_vision(HIW "\n$N" HIW "大步的向南走去，$n" HIW "紧随其后。\n\n" NOR,
         this_object(), me);
@@ -175,7 +176,7 @@ mixed ask_learn() {
     me->move("/d/taohua/damen");
     command("say 好了，我带你到大门，你进去就可以见到家师。");
     message_vision("$N头也不回的往北面离去。\n", this_object());
-    this_object()->move(query("startroom"));
+    this_object()->move(origin);
     message_vision("$N急匆匆的走了过来。\n", this_object());
     return 1;
 }
@@ -189,7 +190,7 @@ mixed ask_provoke() {
 }
 
 mixed ask_me() {
-    object me;
+    object me, origin;
     me = this_player();
 
     if (me->query("family/family_name")) {
@@ -213,6 +214,7 @@ mixed ask_me() {
         command("say 你这判师之人，家师是绝对不会收你为徒的！");
         return 1;
     }
+    origin = environment();
     command("say 好吧，我带你过桃花阵，你自己去找黄岛主吧。");
     message_vision(HIW "\n$N" HIW "大步的向南走去，$n" HIW "紧随其后。\n\n" NOR,
         this_object(), me);
@@ -220,7 +222,7 @@ mixed ask_me() {
     me->move("/d/taohua/damen");
     command("say 好了，我带你到大门，你进去就可以见到家师。");
     message_vision("$N头也不回的往北面离去。\n", this_object());
-    this_object()->move(query("startroom"));
+    this_object()->move(origin);
     message_vision("$N急匆匆的走了过来。\n", this_object());
     return 1;
 }

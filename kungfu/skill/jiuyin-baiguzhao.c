@@ -114,7 +114,7 @@ int practice_skill(object me) {
     if ((int)me->query("qi") < 100)
         return notify_fail("你的体力太低了。\n");
 
-    if ((int)me->query("neili") < 500)
+    if ((int)me->query("neili") < 500 || me->query("neili") < skill)
         return notify_fail("你的内力不够练九阴白骨爪。\n");
 
     if (environment(me)->query("no_fight"))
@@ -131,7 +131,7 @@ int practice_skill(object me) {
             base_name($1) == "/clone/misc/head") &&
         !$1->query_temp("clawed_by_jiuyin") :));
     if (sizeof(obs) < 1)
-        return notify_fail("练九阴白骨抓需有尸体或是完好的头盖骨。\n");
+        return notify_fail("练九阴白骨爪需有尸体或是完好的头盖骨。\n");
 
     //me->add("neili", -250);
     //}

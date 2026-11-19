@@ -48,8 +48,8 @@ int perform(object me, object target) {
         count = lvl / 5;
         me->add_temp("apply/attack", count);
     } else {
-        msg += HIC "可是$n" HIC "凝神顿气，奋力抵挡，丝"
-            "毫不受掌影的干扰，。\n" NOR;
+        msg += HIC "可是$n" HIC "凝神运气，奋力抵挡，丝"
+            "毫不受掌影的干扰。\n" NOR;
         count = 0;
     }
     message_combatd(msg, me, target);

@@ -9,6 +9,7 @@ mapping *action = ({
         "parry": 25,
         "damage": 15,
         "lvl": 0,
+        "skill_name": "黄云万里动风色，白波九道流雪山",
         "damage_type": "割伤"
     ]),
     ([ "action": "$N一式「银河倒挂三石梁，香炉瀑布遥相望」，抢占「坎」位，手中$w化做片片刀光, 似\n"
@@ -19,6 +20,7 @@ mapping *action = ({
         "parry": 38,
         "damage": 18,
         "lvl": 20,
+        "skill_name": "银河倒挂三石梁，香炉瀑布遥相望",
         "damage_type": "割伤"
     ]),
     ([ "action": "$N一式「登高壮观天地间，大江茫茫去不黄」，闪向「震」位，手中$w化为漫天刀影，夹\n"
@@ -29,6 +31,7 @@ mapping *action = ({
         "parry": 43,
         "damage": 22,
         "lvl": 40,
+        "skill_name": "登高壮观天地间，大江茫茫去不黄",
         "damage_type": "割伤"
     ]),
     ([ "action": "$N一式「山川萧条极边土，胡骑凭陵杂风雨」，神情寂寥寡欢，在「艮」位突发一刀，以力压\n"
@@ -39,6 +42,7 @@ mapping *action = ({
         "parry": 45,
         "damage": 26,
         "lvl": 60,
+        "skill_name": "山川萧条极边土，胡骑凭陵杂风雨",
         "damage_type": "割伤"
     ]),
     ([ "action": "$N一式「轮台九月风夜吼，一川碎石大如斗」，身体急速旋转，在「离」位如一团旋风，手中\n"
@@ -49,6 +53,7 @@ mapping *action = ({
         "parry": 55,
         "damage": 32,
         "lvl": 80,
+        "skill_name": "轮台九月风夜吼，一川碎石大如斗",
         "damage_type": "割伤"
     ]),
     ([ "action": "$N一式「杀气三时作阵云，寒声一夜传刁斗」，占住「兑」位，手中$w带着满天杀气劈向\n"
@@ -59,6 +64,7 @@ mapping *action = ({
         "parry": 55,
         "damage": 40,
         "lvl": 100,
+        "skill_name": "杀气三时作阵云，寒声一夜传刁斗",
         "damage_type": "割伤"
     ]),
 });

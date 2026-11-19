@@ -91,7 +91,7 @@ LONG);
         (: command("perform strike.wang and unarmed.you") :),
         (: exert_function, "recover" :),
         (: exert_function, "powerup" :),
-        (: perform_action, "whip.feng twice" :),
+        (: command("perform whip.feng twice") :),
     }));
 
     setup();
@@ -215,7 +215,7 @@ int accept_ask(object me, string topic) {
         case "双剑合壁":
             return MASTER_D->teach_pfm(me, this_object(),
                 ([ "perform": "can_perform/suxin-jian/he",
-                    "name": "双剑合壁",
+                    "name": "双剑合璧",
                     "sk1": "suxin-jian",
                     "lv1": 130,
                     "force": 120,

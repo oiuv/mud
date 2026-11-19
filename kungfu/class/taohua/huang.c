@@ -563,7 +563,7 @@ mixed ask_skill6() {
         "海浩淼，万里无波，远处潮水缓缓推近，渐近渐快，其后洪涛汹涌"
         "，白浪连山，而潮水中鱼跃鲸浮，海面上风啸鸥飞，再加上水妖海"
         "怪，群魔弄潮，忽而冰山飘至，忽而热海如沸，极尽变幻之能事。"
-        "时至最后，却听那箫声愈来愈细，几乎难以听闻，便尤如大海潮退"
+        "时至最后，却听那箫声愈来愈细，几乎难以听闻，便犹如大海潮退"
         "后水平如镜一般，但海底却又是暗流湍急，汹涌澎湃。直待$n" HIY
         "这首碧海潮生曲奏完，却发现$N" HIY "早已陶醉在这箫声之中，完"
         "全无法自拔。\n\n" NOR, me, this_object());
@@ -619,7 +619,7 @@ mixed ask_skill7() {
 
     message_sort(HIY "\n$n" HIY "转过头看了$N" HIY "一眼，更不答话，只是轻"
         "轻伸出两指，合指轻弹，顿时只听“飕”的一声，一缕若有若无"
-        "的罡气已至$n" HIY "指尖射出，朝$N" HIY "电射而去。$N" HIY
+        "的罡气已自$n" HIY "指尖射出，朝$N" HIY "电射而去。$N" HIY
         "顿觉胁下一麻，已被$n" HIY "的指气射中，全身酸软无力，呆立"
         "当场。\n\n" NOR, me, this_object());
 
@@ -985,10 +985,10 @@ mixed ask_yuxiao() {
         return "等你成了老夫的弟子再说。";
 
     if (me->query_skill("yuxiao-jian", 1) < 150)
-        return "你还是先将你的玉萧剑法练练高再说。";
+        return "你还是先将你的玉箫剑法练练高再说。";
 
     if (me->query_skill("chuixiao-jifa", 1) < 150)
-        return "哼！你连箫都吹不好，拿玉萧又有何用？";
+        return "哼！你连箫都吹不好，拿玉箫又有何用？";
 
     ob = find_object(YUXIAO);
     if (!ob) ob = load_object(YUXIAO);
@@ -1000,7 +1000,7 @@ mixed ask_yuxiao() {
     }
 
     if (owner == me)
-        return "老夫不是把玉萧交给你了吗？还罗嗦什么！";
+        return "老夫不是把玉箫交给你了吗？还罗嗦什么！";
 
     if (objectp(owner) && owner != this_object()) {
         if (!owner->is_character())

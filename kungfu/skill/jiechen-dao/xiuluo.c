@@ -4,7 +4,7 @@
 inherit F_SSERVER;
 
 int perform(object me, object target) {
-    int i, jiali, count;
+    int i, jiali, count, cost;
     // string msg;
     object weapon;
 
@@ -42,10 +42,12 @@ int perform(object me, object target) {
     if (me->query("neili") < 1000)
         return notify_fail("以你目前的内力来看，这「修罗焰」绝技不用也罢。\n");
 
-    me->add("neili", -300);
+    // Pay both fixed parts before ordinary attack hooks use the remaining energy.
+    cost = me->query_temp("xiuluo") ? 300 : 600;
+    me->add("neili", -cost);
 
     message_vision(HIR "\n突然$N将手中武器从右手交到左手，运出十二分真力，脸色顿时通红，\n"
-        "宛如修罗降世。刀刃在内力的催动下立刻攻势大胜，\n"
+        "宛如修罗降世。刀刃在内力的催动下立刻攻势大盛，\n"
         "向着$n直劈而下！\n" NOR, me, target);
 
     i = me->query_skill("force") / 2 * (3 + random(4));
@@ -63,8 +65,7 @@ int perform(object me, object target) {
 
     me->add_temp("apply/attack", -jiali / 2);
     me->set("jiali", jiali);
-    if (!me->query_temp("xiuluo")) me->add("neili", -300);
-    else me->delete_temp("xiuluo");
+    if (me->query_temp("xiuluo")) me->delete_temp("xiuluo");
 
     me->start_busy(1 + random(3));
     return 1;

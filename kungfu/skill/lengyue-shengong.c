@@ -12,7 +12,7 @@ int query_neili_improve(object me) {
 }
 
 int valid_learn(object me) {
-    int lvl = (int)me->query_skill("lenyue-shengong", 1);
+    int lvl = (int)me->query_skill("lengyue-shengong", 1);
 
     if (me->query("gender") == "无性" && lvl > 49)
         return notify_fail("你无根无性，阴阳不调，难以领会高深的冷月神功。\n");

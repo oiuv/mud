@@ -87,7 +87,7 @@ int valid_learn(object me) {
 
     if ((int)me->query_skill("buddhism", 1) < (int)me->query_skill("dacidabei-shou", 1) &&
         (int)me->query_skill("buddhism", 1) < 300)
-        return notify_fail("你受禅宗心法知识的知识所限，难以进一步领悟大慈大悲手。\n");
+        return notify_fail("你受禅宗心法知识所限，难以进一步领悟大慈大悲手。\n");
 
     if ((int)me->query_skill("hand", 1) < (int)me->query_skill("dacidabei-shou", 1))
         return notify_fail("你的基本手法水平有限，无法领会更高深的大慈大悲手。\n");

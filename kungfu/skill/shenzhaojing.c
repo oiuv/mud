@@ -129,10 +129,6 @@ int difficult_level() {
     return 400;
 }
 
-string perform_action_file(string action) {
-    return __DIR__ "shenzhaojing/perform/" + action;
-}
-
 string exert_function_file(string action) {
     return __DIR__ "shenzhaojing/exert/" + action;
 }

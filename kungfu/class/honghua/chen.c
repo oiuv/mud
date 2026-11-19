@@ -21,7 +21,7 @@ void create() {
     object ob;
     set_name("陈家洛", ({ "chen jialuo", "chen", "jialuo" }));
     set("title", "红花会少总舵主");
-    set("long", "他一副模样直是个富贵人家的纨裤子弟，丰\n"
+    set("long", "他一副模样直是个富贵人家的纨绔子弟，丰\n"
         "姿如玉，目朗似星，轻袍缓带，手中摇着一\n"
         "柄折扇，神采飞扬，气度闲雅，吐属斯文。\n"
         "服饰俨然是个贵介公子。\n");
@@ -210,7 +210,7 @@ int try_to_learn_quan() {
         return -1;
     }
 
-    command("say 你自己下去练习吧，且记行走江湖，一切以侠义为重！");
+    command("say 你自己下去练习吧，切记行走江湖，一切以侠义为重！");
     notify_fail("你自己下去好好练习吧。\n");
     return -1;
 }

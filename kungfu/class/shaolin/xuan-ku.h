@@ -104,18 +104,18 @@ string ask_me() {
     return "好！大家都出来了。\n";
 }
 
-int waiting(object me) {
+varargs int waiting(object me, int wait_time) {
     object fighter;
-    int wait_time;
 
-    if (wait_time == 300) {
+    if (wait_time >= 300) {
         say("玄苦说道：看来他不会来了，我们回去罢！\n\n");
         call_out("do_back", 0, me);
+        return 1;
     }
 
     if (!objectp(fighter = present(me->query("assigned_fighter"), environment(me)))) {
         wait_time++;
-        call_out("waiting", 1, me);
+        call_out("waiting", 1, me, wait_time);
     } else if (!present("xuannan dashi", environment(me)) ||
         !fighter->query_temp("xuannan-asked")) {
         if (random(10) == 0)
@@ -123,7 +123,7 @@ int waiting(object me) {
                 "去请了玄难大师没有？ 照理他现在该到了罢？\n");
 
         wait_time++;
-        call_out("waiting", 1, me);
+        call_out("waiting", 1, me, wait_time);
     } else call_out("preparing", 1, me, fighter);
 
     return 1;

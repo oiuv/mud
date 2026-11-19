@@ -31,7 +31,7 @@ int exert(object me, object target) {
         if (skill / 2 + random(skill / 2) < (int)ob[i]->query_con() * 2)
             continue;
 
-        if (userp(ob[i]) && !ob[i]->die_protect(me))
+        if (userp(ob[i]) && ob[i]->query_condition("die_guard"))
             continue;
 
         me->want_kill(ob[i]);

@@ -60,7 +60,7 @@ int perform(object me) {
         if (ap / 2 + random(ap) > dp && !target->is_busy())
             target->start_busy(ap / 50 + 1);
     } else {
-        msg += CYN "可是$p" CYN "的看破了$P" CYN
+        msg += CYN "可是$p" CYN "看破了$P" CYN
             "的企图，巧妙的拆招，没露半点破绽"
             "。\n" NOR;
         me->add("neili", -10);

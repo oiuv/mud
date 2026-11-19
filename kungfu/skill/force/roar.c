@@ -48,7 +48,7 @@ int exert(object me, object target) {
             break;
 
         case "huntian-qigong":
-            msg = HIY "$N" HIY "深深吸入一囗气，运足内力发出一阵"
+            msg = HIY "$N" HIY "深深吸入一口气，运足内力发出一阵"
                 "长啸，音传百里，慑人心神。\n" NOR;
             break;
 
@@ -69,12 +69,12 @@ int exert(object me, object target) {
 
         case "yijinjing":
         case "hunyuan-gong":
-            msg = HIY "$N" HIY "深深吸入一囗气，运起金刚禅狮子吼"
+            msg = HIY "$N" HIY "深深吸入一口气，运起金刚禅狮子吼"
                 "，发出惊天动地的一声巨吼。\n" NOR;
             break;
 
         default:
-            msg = HIY "$N" HIY "深深吸入一囗气，体内" + to_chinese(f) + HIY "真气急剧迸发，陡然一声巨啸。\n" NOR;
+            msg = HIY "$N" HIY "深深吸入一口气，体内" + to_chinese(f) + HIY "真气急剧迸发，陡然一声巨啸。\n" NOR;
             break;
     }
     msg += "\n";

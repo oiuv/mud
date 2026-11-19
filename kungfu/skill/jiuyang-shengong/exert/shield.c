@@ -29,7 +29,7 @@ int exert(object me, object target) {
         "强由他强，清风拂山冈。他横任他横，"
         "明月照大江……\n刹那间只见$N"
         HIR "全身顿时浮现出一层刚猛的劲气，将$P"
-        HIR "全全笼罩。\n" NOR, me);
+        HIR "完全笼罩。\n" NOR, me);
 
     me->add_temp("apply/armor", skill / 2);
     me->set_temp("shield", 1);

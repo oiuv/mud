@@ -66,7 +66,7 @@ LONG);
     map_skill("strike", "tianchan-zhang");
     map_skill("claw", "wusheng-zhao");
     map_skill("parry", "jinwu-goufa");
-    map_skill("sword", "jinwu-goufan");
+    map_skill("sword", "jinwu-goufa");
     map_skill("poison", "wudu-qishu");
 
     prepare_skill("strike", "tianchan-zhang");

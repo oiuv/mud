@@ -10,7 +10,7 @@ int valid_learn(object me) {
     if (me->query_skill("throwing", 1) < 20)
         return notify_fail("你的暗器技能不够娴熟，怎能在激战中上箭开弓射敌？\n");
 
-    if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xuanyuan-arror", 1))
+    if ((int)me->query_skill("throwing", 1) < (int)me->query_skill("xuanyuan-arrow", 1))
         return notify_fail("你的基本暗器水平有限，难以领会更精妙的射箭之术。\n");
 
     return 1;

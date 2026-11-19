@@ -218,7 +218,8 @@ mixed ask_riyue() {
 
     command("say 恩，那好吧，我就教你石鼓打穴笔法。");
 
-    me->set_skill("shigu-bifa", 10);
+    if (me->query_skill("shigu-bifa", 1) < 10)
+        me->set_skill("shigu-bifa", 10);
     me->set("can_learn/meizhuang", 1);
 
     if (me->query("gongxian") > 10000 &&

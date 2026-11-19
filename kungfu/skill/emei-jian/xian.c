@@ -59,6 +59,6 @@ int perform(object me, object target) {
 }
 
 string final(object me, object target, int damage) {
-    return HIR "顿时只听“嗤”的一声，$n" HIR "稍个不慎，"
+    return HIR "顿时只听“嗤”的一声，$n" HIR "稍有不慎，"
         "被这一剑划得鲜血淋漓。\n" NOR;
 }

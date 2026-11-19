@@ -57,7 +57,7 @@ int perform(object me, object target) {
             HIR "$p" HIR "奋力抵挡，却哪里招架得住，被$P"
             HIR "这一剑劈下，登时鲜血迸流！\n" NOR);
     } else {
-        msg += CYN "$p" CYN "嘿的一声，硬声声将$P"
+        msg += CYN "$p" CYN "嘿的一声，硬生生将$P"
             CYN "这一剑架开，丝毫无损。\n" NOR;
     }
 
@@ -81,7 +81,7 @@ int perform(object me, object target) {
     if (ap / 2 + random(ap) > dp) {
         msg += COMBAT_D->do_damage(me, target, WEAPON_ATTACK, damage, 15,
             HIR "$p" HIR "运气抵挡，只觉得一股透体凉意"
-            "袭了上来，一个激凌，丹田立刻变得空空荡荡！\n" NOR);
+            "袭了上来，一个激灵，丹田立刻变得空空荡荡！\n" NOR);
     } else {
         msg += CYN "$p" CYN "一口气自丹田运了上来，$P"
             CYN "附体剑芒虽然厉害，却未能伤$p" CYN "分毫。\n" NOR;
@@ -97,7 +97,7 @@ int perform(object me, object target) {
             HIR "这一剑刺了个正中，鲜血四处飞射！\n" NOR);
     } else {
         msg += CYN "$p" CYN "身法却是更快，只是一退，让$P"
-            CYN "这一招堪勘不能奏效。\n" NOR;
+            CYN "这一招未能奏效。\n" NOR;
     }
 
     // 第五招

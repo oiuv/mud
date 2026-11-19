@@ -46,7 +46,7 @@ void create() {
     ]));
 
     map_skill("force", "huagong-dafa");
-    map_skill("dodge", "zhaixinggong");
+    map_skill("dodge", "zhaixing-gong");
     map_skill("claw", "sanyin-wugongzhao");
     map_skill("strike", "chousui-zhang");
     map_skill("parry", "tianshan-zhang");

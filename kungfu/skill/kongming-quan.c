@@ -9,6 +9,7 @@ mapping *action = ({
         "parry": 60,
         "damage": 10,
         "lvl": 0,
+        "skill_name": "空屋住人",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N左掌一平，右掌一伸，一招「空碗盛饭」直拍$n的$l",
@@ -18,6 +19,7 @@ mapping *action = ({
         "parry": 80,
         "damage": 15,
         "lvl": 30,
+        "skill_name": "空碗盛饭",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N身形绕$n一转，双手上撩,一招「空钵装水」击向$n$l",
@@ -27,6 +29,7 @@ mapping *action = ({
         "parry": 100,
         "damage": 20,
         "lvl": 60,
+        "skill_name": "空钵装水",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N左掌一按，右掌一挥,一招「虚怀若谷」拍向$n的$l",
@@ -36,6 +39,7 @@ mapping *action = ({
         "parry": 100,
         "damage": 25,
         "lvl": 90,
+        "skill_name": "虚怀若谷",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N使一招「空山鸟语」，$n的$l已围在$N的重重掌影之下",
@@ -45,6 +49,7 @@ mapping *action = ({
         "parry": 120,
         "damage": 30,
         "lvl": 120,
+        "skill_name": "空山鸟语",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N神色一敛，使出「我心空明」，围绕$n的$l接连出掌",
@@ -54,6 +59,7 @@ mapping *action = ({
         "parry": 130,
         "damage": 40,
         "lvl": 150,
+        "skill_name": "我心空明",
         "damage_type": "瘀伤"
     ]),
     ([ "action": "$N凝神静气，使出极招" RED " 空明拳之极意 " NOR "",
@@ -94,8 +100,8 @@ int valid_learn(object me) {
 string query_skill_name(int level) {
     int i;
     for (i = sizeof(action) - 1; i >= 0; i--)
-        if (level >= action[i - 1]["lvl"])
-            return action[i - 1]["skill_name"];
+        if (level >= action[i]["lvl"])
+            return action[i]["skill_name"];
 }
 
 mapping query_action(object me, object weapon) {

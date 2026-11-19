@@ -38,7 +38,7 @@ mapping *action = ({
         "skill_name": "千斤坠地",
         "damage_type": "瘀伤"
     ]),
-    ([ "action": "$N一臂前伸，一臂后指，一式「傍花拂柳」，身行急闪直$n身前，攻向$n的$l",
+    ([ "action": "$N一臂前伸，一臂后指，一式「傍花拂柳」，身形急闪至$n身前，攻向$n的$l",
         "force": 320,
         "dodge": 10,
         "parry": 5,
@@ -65,7 +65,7 @@ mapping *action = ({
         "skill_name": "封闭手",
         "damage_type": "瘀伤"
     ]),
-    ([ "action": "$N调整内息，紧握双拳，一式「粉石碎玉」，全身发出暴豆般的响声，用尽全身力量击向$n的$l",
+    ([ "action": "$N调整内息，紧握双拳，一式「粉石碎玉」，全身发出爆豆般的响声，用尽全身力量击向$n的$l",
         "force": 480,
         "dodge": 20,
         "parry": 10,

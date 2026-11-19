@@ -14,7 +14,7 @@ int valid_learn(object me) {
         return notify_fail("你的吹萧和弹琴的技法水平都太差，还是先练好再说吧！\n");
 
     if (me->query_skill("tanqin-jifa", 1) < me->query_skill("qingxin-pushan", 1) &&
-        me->query_skill("cuhixiao-jifa", 1) < me->query_skill("qingxin-pushan", 1))
+        me->query_skill("chuixiao-jifa", 1) < me->query_skill("qingxin-pushan", 1))
         return notify_fail("在掌握更娴熟的吹萧技法或弹琴技法之前，你无法领会更精妙的笑傲江湖曲。\n");
 
     return 1;
@@ -59,7 +59,7 @@ void do_effect(object me) {
         other = "xajh/qin";
     } else if (previous_object() == find_object(SKILL_D("tanqin-jifa"))) {
         type = "xajh/qin";
-        other = "xajh/qin";
+        other = "xajh/xiao";
     } else
         return;
 
@@ -77,7 +77,7 @@ void do_effect(object me) {
             ob->set_temp(type, time());
             ob->set_temp("xajh/player", me->query("id"));
             ob->set_temp("xajh/player_name", me->name());
-            message("visoin", HIG "你听了" + me->name() +
+            message("vision", HIG "你听了" + me->name() +
                 HIG "的曲子，觉得非常的慷慨豪迈。\n" NOR, ob);
         } else {
             // 双人合奏

@@ -1,0 +1,181 @@
+// The existing boundary observer forwards these calls to the full original combat daemon.
+private object arena;
+
+void check(int ok, string label) { master()->check(ok, "combat_cost " + label); }
+void rolls(int *draws) { "/tests/control"->reset(1, draws); }
+
+void trace_case(string label, object a, object b, mixed result) {
+    debug_message(sprintf("COST_TRACE %s result=%O neili=%O first=%O attacks=%O qi=%O eff_qi=%O con=%O force=%O jiali=%O apply=%O refusal=%O draws=%O\n",
+        label, result, a->query("neili"), a->query_temp("test/first_neili"),
+        a->query_temp("test/attacks"), b->query("qi"), b->query("eff_qi"),
+        b->query_con(), b->query_skill("force"), a->query("jiali"),
+        a->query_temp("apply"), a->query_temp("notify_fail"), "/tests/control"->query_limits()));
+}
+
+object attacker(int energy) {
+    object a;
+
+    a = arena->actor();
+    a->set("neili", energy);
+    a->set_skill("force", 200);
+    a->set_skill("hunyuan-yiqi", 200);
+    a->map_skill("force", "hunyuan-yiqi");
+    a->set_temp("test/real_combat", 1);
+    return a;
+}
+
+object victim(object a) {
+    object b;
+
+    b = arena->actor();
+    b->set("max_qi", 10000000); b->set("eff_qi", 10000000); b->set("qi", 10000000);
+    b->set("neili", 0); b->set("max_neili", 0);
+    b->set_skill("dodge", 0); b->set_skill("parry", 0);
+    arena->fight(a, b);
+    return b;
+}
+
+object arm(object a, string type) {
+    object w;
+
+    w = new("/tests/sword");
+    w->set("skill_type", type);
+    w->move(a);
+    check(w->wield(), "real weapon wield succeeds");
+    return w;
+}
+
+void check_rulai() {
+    object a, b;
+    int energy, extra, jiali, remaining, i, paid_extra;
+    mixed result;
+
+    foreach (energy in ({ 600, 6000 })) {
+        foreach (extra in ({ 0, 1 })) {
+            foreach (jiali in ({ 0, 350 })) {
+                a = attacker(energy); b = victim(a);
+                b->set_skill("force", extra ? 0 : 1000);
+                a->set_skill("rulai-zhang", 200); a->set_skill("buddhism", 300);
+                a->map_skill("strike", "rulai-zhang"); a->prepare_skill("strike", "rulai-zhang");
+                a->set_temp("action_flag", 1); a->set("jiali", jiali); rolls(({}));
+                result = "/kungfu/skill/rulai-zhang"->hit_ob(a, b, 600);
+                trace_case(
+                    sprintf("rulai energy=%d extra=%d jiali=%d", energy, extra, jiali),
+                    a,
+                    b,
+                    result
+                );
+                check(result &&
+                    a->query_temp("test/attacks") == 4 && b->query("qi") < 10000000,
+                    "MA-089 four palms traverse real combat and damage the opponent");
+                remaining = energy - 200;
+                for (i = 0; i < 4; i++)
+                    if (jiali > 0 && remaining > jiali) remaining -= jiali;
+                paid_extra = extra && remaining >= 80;
+                check(a->query_temp("test/first_neili") == energy - 200 &&
+                    a->query("neili") == remaining - (paid_extra ? 80 : 0) &&
+                    stringp(result) == paid_extra,
+                    "MA-089 original four-palm force costs remain; optional wound is paid only when affordable");
+                destruct(a); destruct(b);
+            }
+        }
+    }
+    // Real ordinary force hits leave exactly 79 (three times 107) or
+    // 80 (four times 80) from 600-200; no combat or balance setter is stubbed.
+    foreach (jiali in ({ 107, 80 })) {
+        a = attacker(600); b = victim(a); b->set_skill("force", 0);
+        a->set_skill("rulai-zhang", 200); a->set_skill("buddhism", 300);
+        a->map_skill("strike", "rulai-zhang"); a->prepare_skill("strike", "rulai-zhang");
+        a->set_temp("action_flag", 1); a->set("jiali", jiali); rolls(({}));
+        result = "/kungfu/skill/rulai-zhang"->hit_ob(a, b, 600);
+        trace_case(sprintf("rulai optional80 boundary jiali=%d", jiali), a, b, result);
+        check(a->query_temp("test/attacks") == 4 && b->query("qi") < 10000000 &&
+            a->query_temp("test/first_neili") == 400,
+            "MA-089 optional-cost boundary retains four original real attacks");
+        check(a->query("neili") == (jiali == 107 ? 79 : 0) &&
+            stringp(result) == (jiali == 80),
+            "MA-089 remaining79 omits unpaid extra wound; remaining80 pays exactly80");
+        destruct(a); destruct(b);
+    }
+}
+
+void check_xiuluo() {
+    object a, b;
+    int energy, exempt, expected;
+    int result;
+
+    foreach (energy in ({ 1000, 6000 })) {
+        foreach (exempt in ({ 0, 1 })) {
+            a = attacker(energy); b = victim(a);
+            a->set("con", 34); a->set("jiali", 20);
+            a->set_skill("blade", 200); a->set_skill("jiechen-dao", 200);
+            a->map_skill("blade", "jiechen-dao"); arm(a, "blade");
+            if (exempt) a->set_temp("xiuluo", 1);
+            // Keep original i=450 and seven attacks, then force actual hits.
+            rolls(({ 0, 3 }));
+            result = "/kungfu/skill/jiechen-dao/xiuluo"->perform(a, b);
+            trace_case(sprintf("xiuluo energy=%d exempt=%d", energy, exempt), a, b, result);
+            check(result &&
+                a->query_temp("test/attacks") == 7 && b->query("qi") < 10000000,
+                "MA-085 xiuluo keeps seven real attacks and their damage");
+            expected = energy == 6000 ? energy - (exempt ? 300 : 600) - 7 * 450 : (exempt ? 250 : 400);
+            check(a->query("neili") == expected && a->query("jiali") == 20 &&
+                !a->query_temp("apply/attack") && !a->query_temp("xiuluo"),
+                "MA-085 xiuluo preserves fixed costs, optional exemption and affordable force costs");
+            destruct(a); destruct(b);
+        }
+    }
+}
+
+void check_duan() {
+    object a, b;
+    int energy;
+
+    foreach (energy in ({ 479, 480, 5000 })) {
+        a = attacker(energy); b = victim(a);
+        a->set_skill("force", 800); a->set_skill("whip", 800); a->set_skill("qingyun-bian", 800);
+        a->map_skill("whip", "qingyun-bian"); arm(a, "whip");
+        a->set("jiali", 100); rolls(({}));
+        if (energy < 480)
+            check(!"/kungfu/skill/qingyun-bian/duan"->perform(a, b) &&
+                a->query("neili") == energy && !a->query_temp("test/attacks"),
+                "MA-085 full invocation cost minus one refuses before real attacks");
+        else {
+            check("/kungfu/skill/qingyun-bian/duan"->perform(a, b) &&
+                a->query_temp("test/attacks") == 7 && b->query("qi") < 10000000,
+                "MA-085 duan keeps all seven real attacks when fully funded");
+            check(a->query("neili") == (energy == 480 ? 0 : 3820) &&
+                !a->query_temp("apply/attack") && !b->query_temp("apply/armor"),
+                "MA-085 duan pays fixed cost and only affordable public force hits");
+        }
+        destruct(a); destruct(b);
+    }
+}
+
+void check_wudu() {
+    object a, b;
+    int jiali;
+    int result;
+
+    foreach (jiali in ({ 89, 90, 100, 119, 120, 121, 200 })) {
+        a = attacker(120); b = victim(a);
+        a->set_skill("wudu-shenzhang", 200);
+        a->map_skill("strike", "wudu-shenzhang"); a->prepare_skill("strike", "wudu-shenzhang");
+        a->set("jiali", jiali); b->set("gender", "男性"); b->set("shen", 0); rolls(({}));
+        result = "/kungfu/skill/wudu-shenzhang/shi"->perform(a, b);
+        trace_case(sprintf("wudu energy=120 jiali=%d", jiali), a, b, result);
+        check(result && b->query("qi") < 10000000,
+            "MA-085 wudu still uses the full real direct damage path");
+        check(a->query("neili") == (jiali <= 90 ? 90 - jiali : 90),
+            "MA-085 wudu real direct damage reserves thirty before optional jiali");
+        destruct(a); destruct(b);
+    }
+}
+
+void run(object room) {
+    arena = room;
+    check_rulai();
+    check_xiuluo();
+    check_duan();
+    check_wudu();
+}

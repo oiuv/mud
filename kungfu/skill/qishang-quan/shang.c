@@ -60,7 +60,7 @@ int perform(object me, object target) {
             me->receive_heal("qi", random(lvl / 3));
             msg += COMBAT_D->do_damage(me, target, UNARMED_ATTACK, damage, 70 + random(lvl) / 5,
                 HIR "只见$P" HIR "这一拳把$p" HIR
-                "飞了出去，重重的摔在地上，吐血不止！\n" NOR);
+                "打飞了出去，重重的摔在地上，吐血不止！\n" NOR);
         }
         me->start_busy(2);
     } else {

@@ -1293,7 +1293,7 @@ void auto_fight(object me, object obj, string type) {
         return;
 
     if (me->query_temp("owner") == obj ||
-        obj->quety_temp("owner") == me)
+        obj->query_temp("owner") == me)
         return;
 
     // Because most of the cases that we cannot start a fight cannot be checked

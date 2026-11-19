@@ -46,7 +46,7 @@ int perform(object me, object target) {
 
     me->add("neili", -50);
     if (random(level) > (int)target->query_skill("parry", 1) / 2) {
-        msg += HIR "结果$p" HIR "瘁不及防，连连倒退"
+        msg += HIR "结果$p" HIR "猝不及防，连连倒退"
             "几步，一时间无法回手！\n" NOR;
         target->start_busy(level / 22 + 2);
     } else {

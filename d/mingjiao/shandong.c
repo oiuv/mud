@@ -38,7 +38,7 @@ int do_break(string arg) {
 
     me->add("neili", -2000);
     if (me->query_skill("force", 1) < 300) {
-        message_vision(CYN "$N" CYN "呀呀嘿嘿废了半天力气，结果"
+        message_vision(CYN "$N" CYN "呀呀嘿嘿费了半天力气，结果"
             "没什么动静。\n", me);
         tell_object(me, "看来是自己的内功火候还不够。\n");
         return 1;

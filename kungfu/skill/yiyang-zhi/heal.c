@@ -87,7 +87,7 @@ int perform(object me, object target) {
         target->revive();
 
     if (!target->is_busy())
-        target->stary_busy(2);
+        target->start_busy(2);
 
     message_vision("\n$N闭目冥坐，开始运功调息。\n", me);
     me->start_busy(10);

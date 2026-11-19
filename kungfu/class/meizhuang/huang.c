@@ -166,7 +166,7 @@ void attempt_apprentice(object me) {
 
     if (me->query("move_party/日月神教--梅庄")) {
         me->delete("move_party/日月神教--梅庄", 1);
-        command("say 现在你成为我梅庄中人，望你专心练武，别再去过问教中事物。");
+        command("say 现在你成为我梅庄中人，望你专心练武，别再去过问教中事务。");
     }
 }
 
@@ -417,7 +417,8 @@ mixed ask_riyue() {
 
     command("say 恩，那好吧，我就教你七弦无形剑。");
 
-    me->set_skill("qixian-wuxingjian", 10);
+    if (me->query_skill("qixian-wuxingjian", 1) < 10)
+        me->set_skill("qixian-wuxingjian", 10);
     me->set("can_learn/meizhuang", 1);
 
     if (me->query("gongxian") > 10000 &&

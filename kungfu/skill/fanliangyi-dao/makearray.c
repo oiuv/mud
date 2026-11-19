@@ -76,6 +76,8 @@ int perform(object leader, object target) {
     n /= max - min + 1;
     for (i = 0; i < j; i++) {
         ob = member[i];
+        ob->set_temp("array/no_quit_before", ob->query_temp("no_quit"));
+        ob->set_temp("array/members", member + ({}));
         ob->set_temp("no_quit", 1);
 
         ob->set_temp("array/name", "fanliangyi-dao");
@@ -92,21 +94,35 @@ int perform(object leader, object target) {
 }
 
 int dismiss_array(object person) {
-    int i, j, n;
+    int n;
     object *member, ob;
+    mixed no_quit_before;
 
-    member = person->query_team();
-    j = sizeof(member);
-    n = person->query_temp("array/level");
-    for (i = 0; i < j; i++) {
-        ob = member[i];
+    if (!objectp(person) || person->query_temp("array/name") != "fanliangyi-dao")
+        return 0;
+    member = person->query_temp("array/members");
+    if (!arrayp(member))
+        return 0;
+    foreach (ob in member) {
+        if (!objectp(ob) || ob->query_temp("array/name") != "fanliangyi-dao" ||
+            member_array(person, ob->query_temp("array/members") || ({})) == -1)
+            continue;
+        n = ob->query_temp("array/level");
+        no_quit_before = ob->query_temp("array/no_quit_before");
         ob->delete_temp("array");
+        if (ob->query_temp("no_quit") == 1) {
+            if (no_quit_before)
+                ob->set_temp("no_quit", no_quit_before);
+            else
+                ob->delete_temp("no_quit");
+        }
         ob->add_temp("apply/attack", -n);
         ob->add_temp("apply/damage", -n);
         ob->add_temp("apply/defense", -n);
         ob->add_temp("apply/armor", -n);
-        tell_object(ob, "刀阵解散了\n");
+        tell_object(ob, "反两仪刀阵已散，刀势各自收回。\n");
     }
+    return 1;
 }
 
 //if the leader kills enemy, then all members in the array kill enemy
