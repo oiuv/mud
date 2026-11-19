@@ -26,6 +26,9 @@ int main(object me, string arg) {
     if (obj == me)
         return notify_fail("用 suicide 指令会比较快:)。\n");
 
+    if (playerp(obj) && obj->is_net_dead())
+        return notify_fail("此人暂离江湖，你不能痛下杀手。\n");
+
     if (arrayp(me->query_team()) &&
         member_array(obj, me->query_team()) != -1)
         return notify_fail("连你自己队伍中的人也要杀吗？太不人道了吧！\n");
@@ -85,8 +88,8 @@ int help(object me) {
 
 这个指令让你主动开始攻击一个人物，并且试图杀死对方，kill 和 fight 最大的
 不同在於双方将会真刀实枪地打斗，也就是说，会真的受伤。由於 kill 只需单方
-面一厢情愿就可以成立，因此你对任何人使用 kill 指令都会开始战斗，通常如果
-对方是 NPC 的话，他们也会同样对你使用 kill。
+面一厢情愿就可以成立，不必等对方同意，但不能对断线的玩家下杀手。对方若是
+NPC，通常也会同样对你使用 kill。
 
 当有人对你使用 kill 指令时会出现红色的字样警告你，对於一个玩家而言，如果
 你没有对一名敌人使用过 kill 指令，就不会将对方真的打伤或杀死。

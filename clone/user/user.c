@@ -263,20 +263,6 @@ void setup() {
 void user_dump(int type) {
     object me = this_object();
     switch (type) {
-        case DUMP_NET_DEAD:
-            if (environment()) {
-                tell_room(
-                    environment(),
-                    query("name") + "断线超过 " + NET_DEAD_TIMEOUT / 60 + " 分钟，自动退出这个世界。\n"
-                );
-            }
-            catch(command("quit"));
-            if (me && !query("doing")) {
-                // command quit failed.
-                QUIT_CMD->force_quit(me);
-            }
-            break;
-
         case DUMP_IDLE:
             if (query_temp("learned_idle_force")) {
                 message_vision(HIM "$N" HIM "狂笑三声，叫道：我终于明白了。\n" NOR, me);
@@ -330,10 +316,10 @@ private void net_dead() {
 
     net_dead = 1;
     if (userp(this_object()) && !query("doing")) {
-        call_out("user_dump", NET_DEAD_TIMEOUT, DUMP_NET_DEAD);
         tell_room(environment(), query("name") + "断线了。\n", this_object());
         CHANNEL_D->do_channel(this_object(), "sys", "断线了。");
         remove_all_enemy(1);
+        save();
     } else {
         if (environment())
             message("vision", name() + "离线了。\n", environment(), ({ this_object() }));
@@ -344,7 +330,6 @@ private void net_dead() {
 void reconnect() {
     set_heart_beat(1);
     net_dead = 0;
-    remove_call_out("user_dump");
     tell_object(this_object(), "重新连线完毕。\n");
 }
 

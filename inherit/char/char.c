@@ -322,7 +322,7 @@ varargs string short(int raw) {
                 break;
 
             default:
-                str += HIG " <断线中>" NOR;
+                str += HIG " <发呆中>" NOR;
         }
     }
 

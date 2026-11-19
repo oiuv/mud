@@ -121,12 +121,15 @@ private void get_id(string arg, object ob) {
         return;
     }
 
-    // 检查最大连接人数
+    // 离线发呆不占连接名额，原有离线修行仍计入。
     if (intp(MAX_USERS) && MAX_USERS > 0) {
         if ((string)SECURITY_D->get_status(arg) == "(player)" &&
-            sizeof(users()) >= MAX_USERS) {
+            sizeof(filter_array(
+                users(),
+                (: interactive($1) || $1->query("doing") :)
+            )) >= MAX_USERS) {
             ppl = find_body(arg);
-            // Only allow reconnect an interactive player when MAX_USERS exceeded.
+            // 已在场的角色仍可重连。
             if (!ppl) {
                 write("对不起，" + LOCAL_MUD_NAME() +
                     "的使用者已经太多了，请待会再来。\n");

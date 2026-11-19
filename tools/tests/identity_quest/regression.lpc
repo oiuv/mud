@@ -1,3 +1,4 @@
+#include <ansi.h>
 #include <command.h>
 inherit ROOM;
 
@@ -5,6 +6,7 @@ private object *players;
 private object *deliveries = ({});
 private object npc;
 private int choice, reconnect_exp, sleep_exp, quit_exp;
+private void prayer_guard(object me);
 
 void check(int ok, string label) { master()->check(ok, label); }
 int next_random(int n) { return n > 0 ? choice % n : 0; }
@@ -317,6 +319,7 @@ int dispatch(string arg) {
         case "smith": smith(me); break;
         case "mirror": mirror(me); break;
         case "delivery": delivery_tests(me); break;
+        case "pray": prayer_guard(me); break;
         case "quit":
             me->set("combat_exp", 10000);
             deliver(me, 1, 1);
@@ -335,6 +338,35 @@ int dispatch(string arg) {
     return 1;
 }
 
+private void prayer_guard(object me) {
+    object temple;
+    int *entry;
+    string field, date_key;
+
+    temple = load_object("/d/city/wumiao2");
+    field = "skybook/guard/death";
+    date_key = "festival/2026/11";
+    me->set(field, 0);
+    me->suspend_busy();
+    choice = 99;
+    check(
+        temple->do_pray(0) && me->query(field) == 1,
+        "pray keeps the guarantee when the bonus misses"
+    );
+    me->suspend_busy();
+    choice = 98;
+    check(!temple->do_pray(0) && me->query(field) == 1, "pray grants at most once per day");
+    foreach (entry in ({ ({ 98, 1, 2 }), ({ 0, 8, 9 }), ({ 0, 9, 9 }), ({ 0, 10, 10 }) })) {
+        me->delete(date_key);
+        me->set(field, entry[1]);
+        choice = entry[0];
+        check(temple->do_pray(0) && me->query(field) == entry[2],
+            sprintf("pray roll %d, guard %d -> %d", entry[0], entry[1], entry[2]));
+        me->suspend_busy();
+    }
+    me->set_heart_beat(0);
+}
+
 void finish_checks() {
     object quest;
     check(players[3]->query("combat_exp") == sleep_exp && sleep_exp == 10050,
@@ -343,13 +375,79 @@ void finish_checks() {
     foreach (quest in deliveries) check(!objectp(quest), "final delivery quest cleanup completed");
     master()->finish();
 }
+
+void check_disconnected() {
+    object player, attacker;
+    int qi, eff_qi;
+
+    player = players[1];
+    if (objectp(player) && interactive(player)) {
+        call_out("check_disconnected", 0.1);
+        return;
+    }
+
+    check(
+        objectp(player) && environment(player) == this_object(),
+        "disconnected player stays in the room"
+    );
+    if (objectp(player)) {
+        attacker = players[0];
+        check(
+            player->is_net_dead() && !query_heart_beat(player),
+            "offline player is distinct and does not run heartbeats"
+        );
+        check(!player->has_dump_timer(), "offline player has no quit timer");
+        check(
+            strsrch(player->short(), HIG " <发呆中>" NOR) >= 0,
+            "offline idle keeps the green status color"
+        );
+        check(file_size(player->query_save_file() + ".o") > 0, "disconnect saves the player");
+        check(
+            !"/cmds/std/kill"->main(attacker, player->query("id")),
+            "kill rejects a disconnected player"
+        );
+        qi = player->query("qi");
+        eff_qi = player->query("eff_qi");
+        check(
+            !"/cmds/std/touxi"->main(attacker, player->query("id")),
+            "touxi rejects a disconnected player"
+        );
+        check(
+            player->query("qi") == qi && player->query("eff_qi") == eff_qi && !attacker->is_busy(),
+            "rejected touxi causes no damage, wound or busy time"
+        );
+        check(!attacker->is_killing(player) && !attacker->is_want_kill(player->query("id")) &&
+            !attacker->is_fighting(player) && !player->is_fighting(attacker),
+            "rejected kill and touxi leave no combat or hostility");
+    }
+    debug_message("IDENTITY_QUEST RESUME");
+}
+
 void after_reconnect() {
+    object attacker, player;
+
+    players[1]->reconnect();
+    check(!players[1]->is_net_dead() && query_heart_beat(players[1]) &&
+        environment(players[1]) == this_object(), "reconnect resumes the retained player");
+    check(
+        strsrch(players[1]->short(), HIG " <发呆中>" NOR) < 0,
+        "reconnected player no longer shows offline idle"
+    );
     check(
         interactive(players[1]) && !wizardp(players[1]),
         "relogin keeps downgraded player unprivileged"
     );
     check(players[1]->query("combat_exp") == reconnect_exp && reconnect_exp == 10050,
         "WL-03 disconnect/reconnect retains settled reward");
+    attacker = players[0];
+    player = players[1];
+    check("/cmds/std/kill"->main(attacker, player->query("id")) &&
+        attacker->is_killing(player) && attacker->is_fighting(player),
+        "kill can still initiate combat with a reconnected player");
+    attacker->remove_killer(player);
+    player->remove_enemy(attacker);
+    attacker->set_heart_beat(0);
+    player->set_heart_beat(0);
     call_out("finish_checks", 5);
 }
 void run() {
@@ -362,7 +460,7 @@ void run() {
     npc->move(this_object());
     npc->set_heart_beat(0);
     foreach (me in players) me->move(this_object());
-    foreach (test in ({ "permissions", "smith", "mirror", "delivery" })) {
+    foreach (test in ({ "permissions", "smith", "mirror", "delivery", "pray" })) {
         err = catch(players[0]->execute_test("audit " + test));
         check(!err, "case completed: " + test + (err ? ": " + err : ""));
     }
@@ -376,5 +474,10 @@ void run() {
     sleep_exp = players[3]->query("combat_exp");
     players[3]->disable_player("<昏迷不醒>");
     check(!living(players[3]), "unconscious fixture really disables commands");
+    // Do not let the periodic autosave satisfy the disconnect save check.
+    players[1]->set("last_save", time());
+    check(file_size(players[1]->query_save_file() + ".o") == -1, "no save before disconnect");
+    players[1]->set_heart_beat(1);
+    call_out("check_disconnected", 0.1);
     debug_message("IDENTITY_QUEST RECONNECT");
 }

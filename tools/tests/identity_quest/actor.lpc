@@ -24,6 +24,7 @@ void create() {
 string query_save_file() { return "/data/test_" + getuid(); }
 int execute_test(string text) { return command(text); }
 string *query_path() { return path; }
+int has_dump_timer() { return find_call_out("user_dump") >= 0; }
 // Exercise real move() rejection after the mirror capacity precheck.
 int valid_illusion_entry(object ob) { return !query("test_refuse_entry"); }
 int logon() {

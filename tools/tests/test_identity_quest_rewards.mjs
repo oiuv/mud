@@ -27,8 +27,9 @@ for (const file of files) {
     mkdirSync(dirname(join(sandbox, file)), { recursive: true });
     cpSync(join(root, file), join(sandbox, file));
 }
-for (const directory of ['tests', 'log', 'data']) mkdirSync(join(sandbox, directory), { recursive: true });
+for (const directory of ['tests', 'log', 'data', 'help']) mkdirSync(join(sandbox, directory), { recursive: true });
 cpSync(join(root, 'data/e2c_dict.o'), join(sandbox, 'data/e2c_dict.o'));
+cpSync(join(root, 'help/notice'), join(sandbox, 'help/notice'));
 put('adm/etc/wizlist', '# Isolated regression: no administrators.\n');
 const targets = ['feature/command.c', 'cmds/usr/quest2.c', 'adm/daemons/quest/_0_smith.c',
     'adm/daemons/task/set_task.c', 'clone/quest/deliver.c'];
@@ -46,6 +47,10 @@ put('tests/npc.lpc', readFileSync(join(root, 'tools/tests/weapon_classification/
 for (const file of ['adm/daemons/task/set_task.c', 'clone/quest/deliver.c']) {
     put(file, '#define random(n) "/tests/regression"->next_random(n)\n' + readFileSync(join(sandbox, file), 'utf8'));
 }
+const temple = 'd/city/wumiao2.c';
+const prayerTime = Date.parse('2026-11-18T12:00:00Z') / 1000;
+put(temple, '#define random(n) "/tests/regression"->next_random(n)\n'
+    + `#define time() ${prayerTime}\n` + readFileSync(join(sandbox, temple), 'utf8'));
 const listener = createServer();
 await new Promise((done, reject) => { listener.once('error', reject); listener.listen(0, '127.0.0.1', done); });
 const port = listener.address().port;
@@ -58,7 +63,7 @@ put('driver.cfg', ['name : Identity Quest Regression', 'mud ip : 127.0.0.1', 'po
 const result = await new Promise((done, reject) => {
     const child = spawn(driver, ['driver.cfg'], { cwd: sandbox, windowsHide: true });
     const sockets = [];
-    let output = '', connected = false, reconnecting = false;
+    let output = '', connected = false, disconnected = false, reconnecting = false;
     const timer = setTimeout(() => child.kill(), 60000);
     const collect = data => {
         output += data;
@@ -73,17 +78,18 @@ const result = await new Promise((done, reject) => {
                 sockets.push(socket);
             }
         }
-        if (!reconnecting && output.includes('IDENTITY_QUEST RECONNECT')) {
-            reconnecting = true;
+        if (!disconnected && output.includes('IDENTITY_QUEST RECONNECT')) {
+            disconnected = true;
             sockets[1].destroy();
-            setTimeout(() => {
-                const socket = createConnection({ host: '127.0.0.1', port });
-                socket.on('data', () => {});
-                socket.on('error', error => {
-                    if (error.code !== 'ECONNRESET') output += '\nRECONNECT ERROR: ' + error.message;
-                });
-                sockets.push(socket);
-            }, 300);
+        }
+        if (!reconnecting && output.includes('IDENTITY_QUEST RESUME')) {
+            reconnecting = true;
+            const socket = createConnection({ host: '127.0.0.1', port });
+            socket.on('data', () => {});
+            socket.on('error', error => {
+                if (error.code !== 'ECONNRESET') output += '\nRECONNECT ERROR: ' + error.message;
+            });
+            sockets.push(socket);
         }
     };
     child.stdout.on('data', collect);

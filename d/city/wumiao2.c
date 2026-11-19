@@ -5,6 +5,8 @@ inherit ROOM;
 
 #define TIME "/cmds/usr/time"
 #define GIFT "/clone/fam/max/naobaijin"
+#define PRAY_GUARD_CHANCE 99
+#define PRAY_GUARD_LIMIT 9
 // 农历节日
 nosave mapping *lunar_day = ({
     ([ "month": 1, "day": 1, "name": RED "春节" NOR ]),
@@ -29,8 +31,8 @@ void create() {
     set("short", "武庙二楼");
     set("long", @LONG
 这里是岳王庙的二楼，这里供的是岳飞的长子岳云和义子
-张宪，两尊塑像金盔银铠，英气勃勃。听说在炎黄子孙的传统
-节假日来这里祈祷(指令：pray)会得到祝福。
+张宪，两尊塑像金盔银铠，英气勃勃。每日可在神像前祈福
+(指令：pray)，得潜能、积分与死亡保护。
 LONG);
     set("no_fight", 1);
     set("no_steal", 1);
@@ -80,6 +82,7 @@ int do_pray(string arg) {
     } else {
         int i = 1;
         int lunar_m, lunar_d;
+        int guard, old_guard;
         // 取得农历日期
         sscanf(TIME->to_lunar(year + " " + month + " " + day), "%*d-%d-%d", lunar_m, lunar_d);
         // 绑定手机奖励加倍
@@ -143,8 +146,13 @@ int do_pray(string arg) {
             pot = 50000;
 
         pot = me->improve_potential(pot);
-        if (me->query("skybook/guard/death") < i)
-            me->set("skybook/guard/death", i);
+        old_guard = me->query("skybook/guard/death");
+        guard = old_guard < i ? i : old_guard;
+        if (guard < PRAY_GUARD_LIMIT && random(100) < PRAY_GUARD_CHANCE)
+            guard++;
+        if (guard > old_guard)
+            me->set("skybook/guard/death", guard);
+        tell_object(me, HIG "神明护佑，你尚有" + chinese_number(guard) + "次死亡保护。\n" NOR);
         me->set(festival, day);
         message_vision(
             HIW "$N获得了" + chinese_number(pot) + "点潜能奖励和" + chinese_number(i) + "点积分。\n" NOR,

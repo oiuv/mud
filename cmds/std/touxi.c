@@ -24,6 +24,9 @@ int main(object me, string arg) {
     if (!obj->is_character())
         return notify_fail("看清楚一点，那并不是生物。\n");
 
+    if (playerp(obj) && obj->is_net_dead())
+        return notify_fail("此人暂离江湖，你不能出手偷袭。\n");
+
     if (obj->is_fighting(me))
         return notify_fail("你已经在战斗中了，还想偷袭？\n");
 
@@ -88,7 +91,7 @@ int help(object me) {
 指令格式 : touxi <人物>
 
 这个指令用来向敌人偷袭。偷袭不成时，则会招至反击。特别适合于
-经验低的玩家向经验高的玩家拚命。
+经验低的玩家向经验高的玩家拚命。不能偷袭断线的玩家。
 
 其他相关指令: fight, kill, hit
 HELP);
