@@ -7,6 +7,7 @@ private object *deliveries = ({});
 private object npc;
 private int choice, reconnect_exp, sleep_exp, quit_exp;
 private void prayer_guard(object me);
+private void incense_stack(object me);
 
 void check(int ok, string label) { master()->check(ok, label); }
 int next_random(int n) { return n > 0 ? choice % n : 0; }
@@ -320,6 +321,7 @@ int dispatch(string arg) {
         case "mirror": mirror(me); break;
         case "delivery": delivery_tests(me); break;
         case "pray": prayer_guard(me); break;
+        case "incense": incense_stack(me); break;
         case "quit":
             me->set("combat_exp", 10000);
             deliver(me, 1, 1);
@@ -365,6 +367,138 @@ private void prayer_guard(object me) {
         me->suspend_busy();
     }
     me->set_heart_beat(0);
+}
+
+private void incense_stack(object me) {
+    object room, stack, target;
+    mixed old_quest;
+    string id;
+    int n;
+
+    id = "yinzong xiang";
+    choice = 0;
+    room = new("/inherit/room/illusion_base");
+    room->set("short", "试炼幻境");
+    room->initialize_illusion_inventory(0, 0, 0);
+    stack = present(id, room);
+    check(
+        stack->query_amount() == 10 && sizeof(all_inventory(room)) == 1,
+        "illusion drops one ten-stick stack"
+    );
+    me->move(room);
+    check("/cmds/std/get"->main(me, "4 " + id), "get can take part of an incense stack");
+    room->reset();
+    check(
+        stack->query_amount() == 6 && present(id, me)->query_amount() == 4,
+        "partial pickup survives room reset without duplication"
+    );
+    check("/cmds/std/get"->main(me, "6 " + id), "get can take the rest of an incense stack");
+    stack = present(id, me);
+    check(stack->query_amount() == 10 && stack->query("value") == 100000 &&
+        quantity(
+            me,
+            "/clone/misc/yinzongxiang"
+        ) == 1, "pickups merge and preserve per-stick value");
+    room->reset();
+    check(
+        !present(id, room),
+        "room does not replace a stack that still exists in a player's inventory"
+    );
+
+    old_quest = me->query("quest");
+    me->delete("quest");
+    check(!stack->find_room() && stack->query_amount() == 10, "no quest does not consume incense");
+    me->set("quest/id", "missing incense target");
+    check(
+        !stack->find_room() && stack->query_amount() == 10,
+        "missing quest target does not consume incense"
+    );
+    target = new("/tests/npc");
+    target->set_name("追踪目标", ({ "incense target" }));
+    target->enable_player();
+    target->move(this_object());
+    target->set_heart_beat(0);
+    me->set("quest/id", "incense target");
+    for (n = 10; n > 0; n--)
+        check(stack->find_room() == this_object() && stack->query_amount() == n - 1,
+            "successful tracking consumes one stick, starting with " + n);
+    check(!stack->find_room(), "empty stack cannot be used before cleanup");
+
+    destruct(stack);
+    destruct(target);
+    room->reset();
+    check(present(id, room)->query_amount() == 10 && sizeof(all_inventory(room)) == 2,
+        "after the old stack is gone, room reset restores exactly the original stock");
+    me->move(this_object());
+    destruct(room);
+    if (old_quest)
+        me->set("quest", old_quest);
+    else
+        me->delete("quest");
+}
+
+private void reborn_family() {
+    object actor, teacher;
+    string *entry;
+    mapping teachers;
+
+    teachers = ([]);
+    foreach (entry in ({
+        ({ "西域人氏", "欧阳世家", "/kungfu/class/ouyang/ouyangke" }),
+        ({ "关外人氏", "关外胡家", "/kungfu/class/hu/hufei" }),
+        ({ "中原人氏", "中原苗家", "/kungfu/class/miao/miao" }),
+        ({ "大理人氏", "段氏皇族", "/kungfu/class/duan/ba" }),
+        ({ "江南人氏", "慕容世家", "/kungfu/class/murong/murongfu" }),
+    })) {
+        actor = new("/tests/player4");
+        actor->set("born", entry[0]);
+        actor->set("reborn/count", 1);
+        check(actor->save(), "save legacy reborn without family origin");
+        destruct(actor);
+
+        actor = new("/tests/player4");
+        check(actor->restore() && !actor->query("born_family"), "restore legacy save fixture");
+        UPDATE_D->check_user(actor);
+        check(actor->query("born_family") == entry[1] && !actor->query("family"),
+            "restore birth origin without granting apprenticeship: " + entry[1]);
+        teacher = new(entry[2]);
+        teacher->move(this_object());
+        teacher->set_heart_beat(0);
+        teachers[entry[1]] = teacher;
+        check(teacher->permit_recruit(actor), "birth origin passes original gate: " + entry[1]);
+        actor->set("family/family_name", "少林派");
+        check(!teacher->permit_recruit(actor), "another current school still blocks recruitment");
+        destruct(actor);
+    }
+
+    actor = new("/tests/player4");
+    actor->set("reborn/count", 1);
+    actor->set("born", "扬州人氏");
+    actor->set("surname", "胡");
+    UPDATE_D->check_user(actor);
+    check(!actor->query("born_family"), "reborn commoner does not gain a family by surname");
+    actor->set("born", "关外人氏");
+    actor->set("born_family", "没有");
+    UPDATE_D->check_user(actor);
+    check(actor->query("born_family") == "没有", "existing birth identity is never overwritten");
+    actor->delete("reborn");
+    actor->delete("born_family");
+    UPDATE_D->check_user(actor);
+    check(!actor->query("born_family"), "legacy recovery does not run in the first life");
+
+    actor->set("born_family", "关外胡家");
+    actor->set("purename", "试客");
+    actor->set("family", ([ "family_name": "关外胡家", "generation": 8, "master_id": "hu fei" ]));
+    UPDATE_D->zhuan_player(actor);
+    check(actor->query("reborn/count") == 1 && actor->query("born_family") == "关外胡家" &&
+        !actor->query("family"), "rebirth preserves family origin but clears apprenticeship");
+    check(teachers["关外胡家"]->permit_recruit(actor), "new reborn can return to own family");
+    check(
+        !teachers["中原苗家"]->permit_recruit(actor),
+        "new reborn still cannot join another family"
+    );
+    foreach (teacher in values(teachers)) destruct(teacher);
+    destruct(actor);
 }
 
 void finish_checks() {
@@ -460,10 +594,11 @@ void run() {
     npc->move(this_object());
     npc->set_heart_beat(0);
     foreach (me in players) me->move(this_object());
-    foreach (test in ({ "permissions", "smith", "mirror", "delivery", "pray" })) {
+    foreach (test in ({ "permissions", "smith", "mirror", "delivery", "pray", "incense" })) {
         err = catch(players[0]->execute_test("audit " + test));
         check(!err, "case completed: " + test + (err ? ": " + err : ""));
     }
+    reborn_family();
     err = catch(players[2]->execute_test("audit quit"));
     check(!err, "case completed: quit" + (err ? ": " + err : ""));
     players[1]->set("combat_exp", 10000);

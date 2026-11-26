@@ -41,10 +41,10 @@ if (baseline) {
 for (const name of ['master', 'actor', 'regression', 'quests', 'quest_info', 'item', 'goods']) {
     put('tests/' + name + '.lpc', readFileSync(join(root, 'tools/tests/identity_quest', name + '.lpc'), 'utf8'));
 }
-for (let i = 0; i < 4; i++) put('tests/player' + i + '.lpc', 'inherit "/tests/actor";\n');
+for (let i = 0; i < 5; i++) put('tests/player' + i + '.lpc', 'inherit "/tests/actor";\n');
 put('tests/npc.lpc', readFileSync(join(root, 'tools/tests/weapon_classification/startup_actor.lpc'), 'utf8'));
 // Replace only the random input in isolated copies; reward/move implementations remain real.
-for (const file of ['adm/daemons/task/set_task.c', 'clone/quest/deliver.c']) {
+for (const file of ['adm/daemons/task/set_task.c', 'clone/quest/deliver.c', 'inherit/room/illusion_base.lpc']) {
     put(file, '#define random(n) "/tests/regression"->next_random(n)\n' + readFileSync(join(sandbox, file), 'utf8'));
 }
 const temple = 'd/city/wumiao2.c';

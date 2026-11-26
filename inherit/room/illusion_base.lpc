@@ -2,30 +2,49 @@
 
 inherit ROOM;
 
-void initialize_illusion_inventory(int x, int y, int z) {
-    mapping inv = ([]);
+#define INCENSE "/clone/misc/yinzongxiang"
 
+private nosave int incense_amount;
+
+object make_inventory(string file) {
+    object ob;
+
+    if (file != INCENSE || incense_amount < 1)
+        return ::make_inventory(file);
+
+    ob = new(file);
+    ob->set_amount(incense_amount);
+    if (ob->move(this_object(), 1))
+        return ob;
+
+    destruct(ob);
+    return 0;
+}
+
+void initialize_illusion_inventory(int x, int y, int z) {
+    incense_amount = 0;
     if (!random(10)) {
-        inv["/clone/misc/yinzongxiang"] = 1;
+        incense_amount = 1;
     }
 
     if (!random(20)) {
-        inv["/clone/misc/yinzongxiang"] = 2;
+        incense_amount = 2;
     }
 
     if (!random(30)) {
-        inv["/clone/misc/yinzongxiang"] = 3;
+        incense_amount = 3;
     }
 
     if (!random(50)) {
-        inv["/clone/misc/yinzongxiang"] = 5;
+        incense_amount = 5;
     }
 
     if (!random(100)) {
-        inv["/clone/misc/yinzongxiang"] = 10;
+        incense_amount = 10;
     }
 
-    set("objects", inv);
+    // 登记一堆，避免被合并销毁的克隆在刷新时反复补货。
+    set("objects", incense_amount ? ([ INCENSE: 1 ]) : ([]));
     setup();
 }
 

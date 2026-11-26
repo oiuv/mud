@@ -34,6 +34,24 @@ void create() {
 #define LUBAN "/adm/npc/luban"
 #define RING_DIR "/data/item/ring/"
 
+private void restore_legacy_born_family(object ob) {
+    string family;
+
+    if (ob->query("born_family") || ob->query("reborn/count") < 1)
+        return;
+
+    // 旧转世只删了世家字段。只按历史投胎选项留下的唯一出生地恢复。
+    family = ([
+        "西域人氏": "欧阳世家",
+        "关外人氏": "关外胡家",
+        "中原人氏": "中原苗家",
+        "大理人氏": "段氏皇族",
+        "江南人氏": "慕容世家",
+    ])[ob->query("born")];
+    if (family)
+        ob->set("born_family", family);
+}
+
 // check the user's data when login
 void check_user(object ob) {
     mapping my;
@@ -45,6 +63,7 @@ void check_user(object ob) {
     mapping party;
 
     my = ob->query_entire_dbase();
+    restore_legacy_born_family(ob);
 
     if (ob->query("family/generation") == 0 || ob->query("family/family_name") == "无门无派")
         ob->delete("family");
@@ -441,8 +460,8 @@ void zhuan_player(object me) {
     me->delete("detach");   // 脱离记录
     me->delete("betrayer");  // 叛师记录
     me->delete("long");     // 个人描述
-    //新增转世清除世家
-    me->delete("born_family");
+    // 转世清除师承，不清除世家出身。
+    restore_legacy_born_family(me);
 
     me->delete("combat");    // PK  记录
     me->delete("animaout");  // 元婴出世
